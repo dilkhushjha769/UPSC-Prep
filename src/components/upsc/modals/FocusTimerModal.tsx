@@ -119,8 +119,12 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
   };
 
   const handleStopAndSave = async () => {
-    await stopAndSaveFocusTimer(notesInput.trim());
-    setNotesInput('');
+    try {
+      await stopAndSaveFocusTimer(notesInput.trim());
+      setNotesInput('');
+    } catch (e) {
+      console.warn('Error saving focus session:', e);
+    }
   };
 
   const handleDiscard = () => {

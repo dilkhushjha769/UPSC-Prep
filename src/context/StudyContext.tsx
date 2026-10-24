@@ -492,10 +492,8 @@ export function StudyProvider({ children }: { children: React.ReactNode }) {
       };
 
       const durations = calculateFocusDurations(closedSession, now);
-      // Validated duration in minutes (minimum 1 min if focused >= 30s)
-      const durationMins = durations.focusedSeconds >= 30
-        ? Math.max(1, Math.round(durations.focusedSeconds / 60))
-        : Math.round(durations.focusedSeconds / 60);
+      // Validated duration in minutes (minimum 1 minute when user chooses to save session)
+      const durationMins = Math.max(1, Math.round(durations.focusedSeconds / 60));
 
       const effectiveDate = todayStr;
       const newStudySession: Omit<StudySession, 'id'> = {

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   useWindowDimensions,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useStudy } from '@/context/StudyContext';
 import { BW_THEME } from '@/constants/bwTheme';
 import {

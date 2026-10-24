@@ -5,8 +5,8 @@ import {
   Text,
   Pressable,
   StyleSheet,
-  SafeAreaView,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import {
   PRELIMS_SUBJECTS,

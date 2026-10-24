@@ -206,10 +206,9 @@ export class StudyStorageService {
    */
   static async saveSession(session: Omit<StudySession, 'id'>): Promise<StudySession[]> {
     const todayStr = getLocalDateString();
-    // Validate session duration
-    if (session.durationMinutes <= 0) {
-      throw new Error('Session duration must be greater than zero.');
-    }
+    // Validate and sanitize session duration (at least 1 minute)
+    const validDurationMinutes = Math.max(1, Math.round(session.durationMinutes || 1));
+
     // Prevent future dates
     if (session.date > todayStr) {
       throw new Error('Cannot log study sessions for future dates.');
@@ -218,6 +217,7 @@ export class StudyStorageService {
     const currentSessions = await this.getSessions();
     const newSession: StudySession = {
       ...session,
+      durationMinutes: validDurationMinutes,
       id: `session_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
       completed: true,
     };

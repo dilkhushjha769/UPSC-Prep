@@ -86,7 +86,7 @@ export function CleanStreakDashboard({ isDark, onOpenPrelims }: CleanStreakDashb
     <ScrollView
       contentContainerStyle={[
         styles.scrollContainer,
-        { paddingBottom: isDesktop ? 60 : 100 },
+        { paddingBottom: isDesktop ? 60 : 24 },
       ]}
       showsVerticalScrollIndicator={false}>
       {/* Top Greeting & Action Header */}

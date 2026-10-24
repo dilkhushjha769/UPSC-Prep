@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   BookOpen,
   Flame,
@@ -218,6 +218,8 @@ export function MobileBottomNav({
   isDark: boolean;
 }) {
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
+  // Real bottom inset (gesture bar / 3-button nav / home indicator)
+  const insets = useSafeAreaInsets();
 
   const items = [
     { id: 'home' as NavTab, label: 'Home', icon: Home },
@@ -234,6 +236,7 @@ export function MobileBottomNav({
         {
           backgroundColor: theme.sidebarBg,
           borderTopColor: theme.cardBorder,
+          paddingBottom: insets.bottom + 6,
         },
       ]}>
       {items.map((item) => {
@@ -371,17 +374,14 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '500',
   },
+  // In-flow footer (flexShrink: 0): content above it can never be covered.
   mobileBottomBar: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
+    flexShrink: 0,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     borderTopWidth: 1,
-    paddingVertical: 10,
-    paddingBottom: Platform.OS === 'ios' ? 24 : 10,
+    paddingTop: 10,
   },
   mobileNavBtn: {
     alignItems: 'center',

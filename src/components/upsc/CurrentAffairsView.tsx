@@ -115,7 +115,7 @@ export function CurrentAffairsView({ isDark }: CurrentAffairsViewProps) {
     <ScrollView
       contentContainerStyle={[
         styles.container,
-        { paddingBottom: isDesktop ? 60 : 100 },
+        { paddingBottom: isDesktop ? 60 : 24 },
       ]}
       showsVerticalScrollIndicator={false}>
       {/* Header */}

@@ -6,9 +6,10 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Edge, SafeAreaView } from 'react-native-safe-area-context';
 import { useStudy } from '@/context/StudyContext';
 import { BW_THEME } from '@/constants/bwTheme';
+import { PrelimsTheme } from '@/constants/prelimsTheme';
 import {
   AddTaskModal,
   CleanStreakDashboard,
@@ -38,6 +39,16 @@ export default function AppScreen() {
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const isDesktop = width >= 768;
 
+  // Prelims screen uses its own light canvas; match the area behind the status bar.
+  const isPrelimsTab = activeTab === 'prelims';
+  const shellBg = isPrelimsTab ? PrelimsTheme.colors.bgCanvas : theme.bg;
+  const useLightIcons = isPrelimsTab ? false : isDark;
+
+  // Bottom inset is applied by MobileBottomNav on mobile (so it's not applied twice).
+  const shellEdges: Edge[] = isDesktop
+    ? ['top', 'bottom', 'left', 'right']
+    : ['top', 'left', 'right'];
+
   const toggleTheme = () => {
     setThemeMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
@@ -53,8 +64,10 @@ export default function AppScreen() {
   }
 
   return (
-    <SafeAreaView style={[styles.rootContainer, { backgroundColor: theme.bg }]}>
-      <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
+    <SafeAreaView
+      edges={shellEdges}
+      style={[styles.rootContainer, { backgroundColor: shellBg }]}>
+      <StatusBar barStyle={useLightIcons ? 'light-content' : 'dark-content'} />
 
       <View style={styles.layoutRow}>
         {/* Left Sidebar on Desktop */}

@@ -6,8 +6,6 @@ import {
   Pressable,
   StyleSheet,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
 import {
   PRELIMS_SUBJECTS,
   PRELIMS_GS1_SUBJECTS,
@@ -115,8 +113,7 @@ export function PrelimsScreen({ onBack }: { onBack?: () => void } = {}) {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar style="dark" />
+    <View style={styles.safeArea}>
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
@@ -307,7 +304,7 @@ export function PrelimsScreen({ onBack }: { onBack?: () => void } = {}) {
         onClose={() => setGeneratorModalVisible(false)}
         onGenerateQuiz={handleLaunchGeneratedQuiz}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 

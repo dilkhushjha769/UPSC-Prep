@@ -1,0 +1,1032 @@
+import {
+  ArrowLeft,
+  BookOpen,
+  ChevronDown,
+  ChevronUp,
+  FileText,
+  Sparkles,
+  Timer,
+  TrendingUp,
+  X,
+} from '@/components/common/LucideIcons';
+import { PrelimsTheme } from '@/constants/prelimsTheme';
+import { getChapterShortNotes } from '@/data/prelimsData';
+import { Chapter, Subject } from '@/types/prelims';
+import { useState } from 'react';
+import {
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+
+interface ChapterDetailViewProps {
+  chapter: Chapter;
+  subject: Subject;
+  serialNumber?: number;
+  onBack: () => void;
+  onStartPractice: (chapter: Chapter) => void;
+  onStartQuiz: (chapter: Chapter, questionCount?: number, durationMinutes?: number) => void;
+}
+
+export function ChapterDetailView({
+  chapter,
+  subject,
+  serialNumber,
+  onBack,
+  onStartPractice,
+  onStartQuiz,
+}: ChapterDetailViewProps) {
+  const [isQuickRevisionOpen, setIsQuickRevisionOpen] = useState(false);
+  const [isQuizConfigOpen, setIsQuizConfigOpen] = useState(false);
+
+  const totalQs = chapter.totalQuestions10Yrs || 10;
+  const initialQCount = Math.min(10, totalQs);
+  const [quizQuestionCount, setQuizQuestionCount] = useState<number>(initialQCount);
+  const [quizDurationMinutes, setQuizDurationMinutes] = useState<number>(
+    Math.max(5, Math.round(initialQCount * 1.5))
+  );
+
+  // Custom typed input states
+  const [customQuestionText, setCustomQuestionText] = useState<string>('');
+  const [customDurationText, setCustomDurationText] = useState<string>('');
+
+  const serialLabel = serialNumber
+    ? String(serialNumber).padStart(2, '0')
+    : chapter.code;
+
+  const maxCount = Math.max(...chapter.yearTrends.map((t) => t.count), 5);
+  const avgPerYear = (chapter.totalQuestions10Yrs / 10).toFixed(1);
+  const shortNotes = getChapterShortNotes(chapter);
+
+  // Compute question count pills dynamically based on total questions available
+  const questionCountOptions: { label: string; count: number }[] = [];
+  if (totalQs > 5) questionCountOptions.push({ label: '5 Qs', count: 5 });
+  if (totalQs > 10) questionCountOptions.push({ label: '10 Qs', count: 10 });
+  if (totalQs > 15) questionCountOptions.push({ label: '15 Qs', count: 15 });
+  questionCountOptions.push({ label: `All (${totalQs})`, count: totalQs });
+
+  // Duration options in minutes
+  const durationOptions = [5, 10, 15, 20, 30];
+
+  const handleCustomQuestionTextChange = (text: string) => {
+    const clean = text.replace(/[^0-9]/g, '');
+    setCustomQuestionText(clean);
+    const parsed = parseInt(clean, 10);
+    if (!isNaN(parsed) && parsed > 0) {
+      const clamped = Math.min(parsed, totalQs);
+      setQuizQuestionCount(clamped);
+      if (!customDurationText) {
+        setQuizDurationMinutes(Math.max(5, Math.round(clamped * 1.5)));
+      }
+    }
+  };
+
+  const handleCustomDurationTextChange = (text: string) => {
+    const clean = text.replace(/[^0-9]/g, '');
+    setCustomDurationText(clean);
+    const parsed = parseInt(clean, 10);
+    if (!isNaN(parsed) && parsed > 0) {
+      const clamped = Math.min(parsed, 180);
+      setQuizDurationMinutes(clamped);
+    }
+  };
+
+  const handleSelectQuestionPill = (count: number) => {
+    setQuizQuestionCount(count);
+    setCustomQuestionText('');
+    if (!customDurationText) {
+      setQuizDurationMinutes(Math.max(5, Math.round(count * 1.5)));
+    }
+  };
+
+  const handleSelectDurationPill = (mins: number) => {
+    setQuizDurationMinutes(mins);
+    setCustomDurationText('');
+  };
+
+  const handleLaunchQuiz = () => {
+    let finalCount = quizQuestionCount;
+    if (customQuestionText) {
+      const parsed = parseInt(customQuestionText, 10);
+      if (!isNaN(parsed) && parsed > 0) {
+        finalCount = Math.min(Math.max(1, parsed), totalQs);
+      }
+    }
+    let finalDuration = quizDurationMinutes;
+    if (customDurationText) {
+      const parsed = parseInt(customDurationText, 10);
+      if (!isNaN(parsed) && parsed > 0) {
+        finalDuration = Math.min(Math.max(1, parsed), 180);
+      }
+    }
+    setIsQuizConfigOpen(false);
+    onStartQuiz(chapter, finalCount, finalDuration);
+  };
+
+  return (
+    <View style={styles.container}>
+      {/* Top Navigation Bar */}
+      <View style={styles.navBar}>
+        <Pressable
+          style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
+          onPress={onBack}
+        >
+          <ArrowLeft size={16} color="#000000" strokeWidth={2.2} />
+          <Text style={styles.backButtonText}>{subject.shortTitle} Chapters</Text>
+        </Pressable>
+
+        <View style={styles.serialBadge}>
+          <Text style={styles.serialBadgeText}>{serialLabel}</Text>
+        </View>
+      </View>
+
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Chapter Header */}
+        <View style={styles.headerBlock}>
+          <Text style={styles.chapterTitle}>{chapter.title}</Text>
+          <Text style={styles.subjectContext}>
+            {subject.title} · {chapter.totalQuestions10Yrs} Questions (2015–2024)
+          </Text>
+        </View>
+
+        {/* Overall Weightage & Core Metrics Bar */}
+        <View style={styles.metricsCard}>
+          <View style={styles.metricCol}>
+            <Text style={styles.metricValue}>{chapter.weightagePercent}%</Text>
+            <Text style={styles.metricLabel}>Weightage</Text>
+          </View>
+
+          <View style={styles.metricDivider} />
+
+          <View style={styles.metricCol}>
+            <Text style={styles.metricValue}>{chapter.totalQuestions10Yrs}</Text>
+            <Text style={styles.metricLabel}>10-Yr PYQs</Text>
+          </View>
+
+          <View style={styles.metricDivider} />
+
+          <View style={styles.metricCol}>
+            <Text style={styles.metricValue}>~{avgPerYear}</Text>
+            <Text style={styles.metricLabel}>Avg / Year</Text>
+          </View>
+        </View>
+
+        {/* Practice & Quiz in Compact Button Format */}
+        <View style={styles.buttonsRow}>
+          <Pressable
+            style={({ pressed }) => [styles.btnPractice, pressed && styles.btnPressed]}
+            onPress={() => onStartPractice(chapter)}
+          >
+            <BookOpen size={16} color="#000000" strokeWidth={2.2} />
+            <Text style={styles.btnPracticeText}>Practice Mode</Text>
+          </Pressable>
+
+          <Pressable
+            style={({ pressed }) => [styles.btnQuiz, pressed && styles.btnPressed]}
+            onPress={() => setIsQuizConfigOpen(true)}
+          >
+            <Timer size={16} color="#FFFFFF" strokeWidth={2.2} />
+            <Text style={styles.btnQuizText}>Take Quiz</Text>
+          </Pressable>
+        </View>
+
+        {/* QUICK REVISION CARD (Placed Above Trends, Expandable on Click) */}
+        <View style={styles.section}>
+          <Pressable
+            style={({ pressed }) => [
+              styles.quickRevisionCard,
+              isQuickRevisionOpen && styles.quickRevisionCardActive,
+              pressed && styles.pressed,
+            ]}
+            onPress={() => setIsQuickRevisionOpen(!isQuickRevisionOpen)}
+          >
+            <View style={styles.quickRevisionLeft}>
+              <View style={styles.quickRevisionIconBadge}>
+                <FileText size={17} color="#000000" strokeWidth={2.2} />
+              </View>
+              <View style={styles.quickRevisionTextCol}>
+                <View style={styles.quickRevisionTitleRow}>
+                  <Text style={styles.quickRevisionTitle}>Quick Revision</Text>
+
+                </View>
+                <Text style={styles.quickRevisionSubtitle}>
+                  {shortNotes.length} Core Concept Summaries & Key Pointers
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.quickRevisionRight}>
+              {isQuickRevisionOpen ? (
+                <ChevronUp size={18} color="#000000" strokeWidth={2.2} />
+              ) : (
+                <ChevronDown size={18} color="#71717A" strokeWidth={2.2} />
+              )}
+            </View>
+          </Pressable>
+
+          {/* Expanded Short Notes / Quick Revision Content */}
+          {isQuickRevisionOpen && (
+            <View style={styles.quickRevisionExpandedContainer}>
+              {shortNotes.map((section, idx) => (
+                <View key={idx} style={styles.noteCard}>
+                  <Text style={styles.noteHeading}>{section.heading}</Text>
+                  <View style={styles.notePointsList}>
+                    {section.points.map((pt, pIdx) => (
+                      <View key={pIdx} style={styles.notePointRow}>
+                        <View style={styles.bulletDot} />
+                        <Text style={styles.notePointText}>{pt}</Text>
+                      </View>
+                    ))}
+                  </View>
+                </View>
+              ))}
+            </View>
+          )}
+        </View>
+
+        {/* 10-YEAR TREND ANALYSIS */}
+        <View style={styles.section}>
+          <View style={styles.sectionHeaderRow}>
+            <View style={styles.sectionTitleWithIcon}>
+              <TrendingUp size={15} color="#000000" strokeWidth={2.2} />
+              <Text style={styles.sectionTitle}>10-Year Trend</Text>
+            </View>
+            <Text style={styles.sectionSubtitleTag}>2015 – 2024</Text>
+          </View>
+
+          <View style={styles.chartCard}>
+            <View style={styles.chartArea}>
+              {chapter.yearTrends.map((item, idx) => {
+                const barHeight = Math.max((item.count / maxCount) * 96, 6);
+                const isRecent = item.year >= 2022;
+
+                return (
+                  <View key={idx} style={styles.chartCol}>
+                    <Text style={[styles.barCount, item.count > 0 && styles.barCountActive]}>
+                      {item.count}
+                    </Text>
+                    <View
+                      style={[
+                        styles.barTrack,
+                        { height: barHeight },
+                        item.count > 0 && styles.barActive,
+                        isRecent && styles.barRecent,
+                      ]}
+                    />
+                    <Text style={[styles.yearText, isRecent && styles.yearTextRecent]}>
+                      {"'" + String(item.year).slice(2)}
+                    </Text>
+                  </View>
+                );
+              })}
+            </View>
+          </View>
+        </View>
+
+        {/* EXAMINER PATTERN INSIGHT */}
+        {chapter.trendSummary ? (
+          <View style={styles.section}>
+            <View style={styles.sectionHeaderRow}>
+              <View style={styles.sectionTitleWithIcon}>
+                <Sparkles size={15} color="#000000" strokeWidth={2.2} />
+                <Text style={styles.sectionTitle}>Examiner Pattern Insight</Text>
+              </View>
+            </View>
+            <View style={styles.insightCard}>
+              <Text style={styles.insightText}>{chapter.trendSummary}</Text>
+            </View>
+          </View>
+        ) : null}
+
+        <View style={{ height: 40 }} />
+      </ScrollView>
+
+      {/* QUIZ CONFIGURATION DIALOG (2 QUESTIONS: COUNT & DURATION + CUSTOM INPUT) */}
+      <Modal visible={isQuizConfigOpen} animationType="fade" transparent>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          style={styles.configModalOverlay}
+        >
+          <View style={styles.configDialog}>
+            {/* Dialog Header */}
+            <View style={styles.configDialogHeader}>
+              <View style={{ flex: 1, paddingRight: 10 }}>
+                <Text style={styles.configDialogTitle}>Configure Chapter Quiz</Text>
+                <Text style={styles.configDialogSubtitle} numberOfLines={1}>
+                  {chapter.title}
+                </Text>
+              </View>
+              <Pressable
+                style={styles.configCloseBtn}
+                onPress={() => setIsQuizConfigOpen(false)}
+              >
+                <X size={18} color="#000000" strokeWidth={2} />
+              </Pressable>
+            </View>
+
+            {/* Question 1: Select or Type Number of Questions */}
+            <View style={styles.configSection}>
+              <View style={styles.configSectionHeaderRow}>
+                <Text style={styles.configSectionLabel}>
+                  1. Select Number of Questions
+                </Text>
+                <Text style={styles.configSectionSubLabel}>
+                  {quizQuestionCount} Questions
+                </Text>
+              </View>
+
+              {/* Preset Pills */}
+              <View style={styles.pillsRow}>
+                {questionCountOptions.map((opt) => {
+                  const isSelected =
+                    !customQuestionText && quizQuestionCount === opt.count;
+                  return (
+                    <Pressable
+                      key={opt.count}
+                      style={[
+                        styles.configPill,
+                        isSelected && styles.configPillActive,
+                      ]}
+                      onPress={() => handleSelectQuestionPill(opt.count)}
+                    >
+                      <Text
+                        style={[
+                          styles.configPillText,
+                          isSelected && styles.configPillTextActive,
+                        ]}
+                      >
+                        {opt.label}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+
+              {/* Custom Typed Question Input */}
+              <View style={styles.customInputRow}>
+                <Text style={styles.customInputPrefix}>
+                  Custom:
+                </Text>
+                <View
+                  style={[
+                    styles.customInputBox,
+                    Boolean(customQuestionText) && styles.customInputBoxActive,
+                  ]}
+                >
+                  <TextInput
+                    style={styles.customInput}
+                    keyboardType="number-pad"
+                    placeholder={`1 - ${totalQs}`}
+                    placeholderTextColor="#A1A1AA"
+                    value={customQuestionText}
+                    onChangeText={handleCustomQuestionTextChange}
+                    maxLength={3}
+                  />
+                  <Text style={styles.customInputUnit}>Qs</Text>
+                </View>
+              </View>
+            </View>
+
+            {/* Question 2: Select or Type Duration */}
+            <View style={styles.configSection}>
+              <View style={styles.configSectionHeaderRow}>
+                <Text style={styles.configSectionLabel}>2. Select Duration</Text>
+                <Text style={styles.configSectionSubLabel}>
+                  {quizDurationMinutes} Minutes
+                </Text>
+              </View>
+
+              {/* Preset Duration Pills */}
+              <View style={styles.pillsRow}>
+                {durationOptions.map((mins) => {
+                  const isSelected =
+                    !customDurationText && quizDurationMinutes === mins;
+                  return (
+                    <Pressable
+                      key={mins}
+                      style={[
+                        styles.configPill,
+                        isSelected && styles.configPillActive,
+                      ]}
+                      onPress={() => handleSelectDurationPill(mins)}
+                    >
+                      <Text
+                        style={[
+                          styles.configPillText,
+                          isSelected && styles.configPillTextActive,
+                        ]}
+                      >
+                        {mins}m
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+
+              {/* Custom Typed Duration Input */}
+              <View style={styles.customInputRow}>
+                <Text style={styles.customInputPrefix}>
+                  Custom:
+                </Text>
+                <View
+                  style={[
+                    styles.customInputBox,
+                    Boolean(customDurationText) && styles.customInputBoxActive,
+                  ]}
+                >
+                  <TextInput
+                    style={styles.customInput}
+                    keyboardType="number-pad"
+                    placeholder="e.g. 25"
+                    placeholderTextColor="#A1A1AA"
+                    value={customDurationText}
+                    onChangeText={handleCustomDurationTextChange}
+                    maxLength={3}
+                  />
+                  <Text style={styles.customInputUnit}>Mins</Text>
+                </View>
+              </View>
+            </View>
+
+            {/* UPSC Scheme Notice */}
+            <View style={styles.configNoticeBox}>
+              <Text style={styles.configNoticeText}>
+                UPSC Scheme: +2.0 Marks for Correct · -0.66 Penalty for Wrong
+              </Text>
+            </View>
+
+            {/* Start Quiz Action */}
+            <Pressable
+              style={({ pressed }) => [
+                styles.configStartBtn,
+                pressed && styles.pressed,
+              ]}
+              onPress={handleLaunchQuiz}
+            >
+              <Timer size={16} color="#FFFFFF" strokeWidth={2.2} />
+              <Text style={styles.configStartBtnText}>
+                Start Quiz ({quizQuestionCount} Qs · {quizDurationMinutes} Mins)
+              </Text>
+            </Pressable>
+          </View>
+        </KeyboardAvoidingView>
+      </Modal>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: PrelimsTheme.colors.bgCanvas,
+  },
+  navBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop: 12,
+    paddingBottom: 12,
+  },
+  backButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#E4E4E7',
+    gap: 6,
+    ...PrelimsTheme.shadows.card,
+  },
+  backButtonText: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#000000',
+  },
+  serialBadge: {
+    width: 32,
+    height: 32,
+    borderRadius: 8,
+    backgroundColor: '#F4F4F5',
+    borderWidth: 1,
+    borderColor: '#E4E4E7',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  serialBadgeText: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: '#000000',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingHorizontal: 20,
+    paddingTop: 4,
+  },
+  headerBlock: {
+    marginBottom: 16,
+  },
+  chapterTitle: {
+    fontFamily: Platform.select({
+      ios: 'System',
+      android: 'sans-serif-medium',
+      web: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      default: 'System',
+    }),
+    fontSize: 23,
+    fontWeight: '800',
+    color: '#09090B',
+    letterSpacing: -0.6,
+    lineHeight: 30,
+    marginBottom: 4,
+  },
+  subjectContext: {
+    fontSize: 12,
+    color: '#71717A',
+    fontWeight: '500',
+  },
+  metricsCard: {
+    flexDirection: 'row',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: '#E4E4E7',
+    marginBottom: 14,
+    alignItems: 'center',
+    ...PrelimsTheme.shadows.card,
+  },
+  metricCol: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  metricValue: {
+    fontSize: 19,
+    fontWeight: '800',
+    color: '#09090B',
+    letterSpacing: -0.3,
+  },
+  metricLabel: {
+    fontSize: 10,
+    fontWeight: '600',
+    color: '#71717A',
+    marginTop: 2,
+    textTransform: 'uppercase',
+    letterSpacing: 0.4,
+  },
+  metricDivider: {
+    width: 1,
+    height: 26,
+    backgroundColor: '#E4E4E7',
+  },
+  buttonsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 16,
+  },
+  btnPractice: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    paddingVertical: 13,
+    paddingHorizontal: 14,
+    borderWidth: 1.5,
+    borderColor: '#000000',
+    gap: 8,
+    ...PrelimsTheme.shadows.card,
+  },
+  btnPracticeText: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#000000',
+    letterSpacing: -0.1,
+  },
+  btnQuiz: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#000000',
+    borderRadius: 10,
+    paddingVertical: 13,
+    paddingHorizontal: 14,
+    borderWidth: 1.5,
+    borderColor: '#000000',
+    gap: 8,
+    ...PrelimsTheme.shadows.card,
+  },
+  btnQuizText: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    letterSpacing: -0.1,
+  },
+  btnPressed: {
+    opacity: 0.85,
+    transform: [{ scale: 0.985 }],
+  },
+  section: {
+    marginBottom: 16,
+  },
+  sectionHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+  },
+  sectionTitleWithIcon: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  sectionTitle: {
+    fontFamily: Platform.select({
+      ios: 'System',
+      android: 'sans-serif-medium',
+      web: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      default: 'System',
+    }),
+    fontSize: 13.5,
+    fontWeight: '700',
+    color: '#09090B',
+    letterSpacing: -0.15,
+  },
+  sectionSubtitleTag: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: '#71717A',
+  },
+  quickRevisionCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: '#E4E4E7',
+    ...PrelimsTheme.shadows.card,
+  },
+  quickRevisionCardActive: {
+    borderColor: '#000000',
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+  },
+  quickRevisionLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    flex: 1,
+  },
+  quickRevisionIconBadge: {
+    width: 36,
+    height: 36,
+    borderRadius: 8,
+    backgroundColor: '#F4F4F5',
+    borderWidth: 1,
+    borderColor: '#E4E4E7',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  quickRevisionTextCol: {
+    flex: 1,
+  },
+  quickRevisionTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 2,
+  },
+  quickRevisionTitle: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: '#09090B',
+    letterSpacing: -0.2,
+  },
+  highYieldTag: {
+    backgroundColor: '#000000',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+  },
+  highYieldTagText: {
+    fontSize: 9,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    letterSpacing: 0.3,
+    textTransform: 'uppercase',
+  },
+  quickRevisionSubtitle: {
+    fontSize: 11.5,
+    color: '#71717A',
+    fontWeight: '500',
+  },
+  quickRevisionRight: {
+    marginLeft: 10,
+  },
+  quickRevisionExpandedContainer: {
+    backgroundColor: '#FAFAFA',
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    borderWidth: 1,
+    borderTopWidth: 0,
+    borderColor: '#000000',
+    padding: 14,
+    gap: 10,
+  },
+  noteCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: '#E4E4E7',
+  },
+  noteHeading: {
+    fontSize: 13,
+    fontWeight: '800',
+    color: '#09090B',
+    marginBottom: 8,
+    letterSpacing: -0.1,
+  },
+  notePointsList: {
+    gap: 7,
+  },
+  notePointRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
+  },
+  bulletDot: {
+    width: 4.5,
+    height: 4.5,
+    borderRadius: 2.25,
+    backgroundColor: '#000000',
+    marginTop: 6.5,
+  },
+  notePointText: {
+    fontSize: 12.5,
+    color: '#3F3F46',
+    lineHeight: 18.5,
+    flex: 1,
+    fontWeight: '400',
+  },
+  chartCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#E4E4E7',
+    ...PrelimsTheme.shadows.card,
+  },
+  chartArea: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    height: 120,
+    paddingTop: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E4E4E7',
+    paddingBottom: 4,
+  },
+  chartCol: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  barCount: {
+    fontSize: 10,
+    fontWeight: '600',
+    color: '#D4D4D8',
+    marginBottom: 3,
+  },
+  barCountActive: {
+    color: '#09090B',
+    fontWeight: '800',
+  },
+  barTrack: {
+    width: 14,
+    backgroundColor: '#F4F4F5',
+    borderRadius: 3,
+  },
+  barActive: {
+    backgroundColor: '#71717A',
+  },
+  barRecent: {
+    backgroundColor: '#000000',
+  },
+  yearText: {
+    fontSize: 10,
+    color: '#A1A1AA',
+    marginTop: 5,
+    fontWeight: '500',
+  },
+  yearTextRecent: {
+    color: '#09090B',
+    fontWeight: '700',
+  },
+  insightCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#E4E4E7',
+    borderLeftWidth: 3.5,
+    borderLeftColor: '#000000',
+    ...PrelimsTheme.shadows.card,
+  },
+  insightText: {
+    fontSize: 13,
+    color: '#27272A',
+    lineHeight: 20,
+    fontWeight: '500',
+  },
+  // Quiz Configuration Modal Styles
+  configModalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  configDialog: {
+    width: '100%',
+    maxWidth: 420,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    padding: 22,
+    borderWidth: 1,
+    borderColor: '#E4E4E7',
+    ...PrelimsTheme.shadows.card,
+  },
+  configDialogHeader: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    marginBottom: 18,
+  },
+  configDialogTitle: {
+    fontSize: 17,
+    fontWeight: '800',
+    color: '#09090B',
+    letterSpacing: -0.3,
+    marginBottom: 3,
+  },
+  configDialogSubtitle: {
+    fontSize: 12,
+    color: '#71717A',
+    fontWeight: '500',
+  },
+  configCloseBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 8,
+    backgroundColor: '#F4F4F5',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  configSection: {
+    marginBottom: 16,
+  },
+  configSectionLabel: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#09090B',
+    marginBottom: 8,
+    letterSpacing: -0.1,
+  },
+  configSectionHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+  },
+  configSectionSubLabel: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#71717A',
+  },
+  pillsRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  configPill: {
+    paddingVertical: 9,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    backgroundColor: '#F4F4F5',
+    borderWidth: 1.5,
+    borderColor: '#E4E4E7',
+  },
+  configPillActive: {
+    backgroundColor: '#000000',
+    borderColor: '#000000',
+  },
+  configPillText: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#3F3F46',
+  },
+  configPillTextActive: {
+    color: '#FFFFFF',
+  },
+  customInputRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    backgroundColor: '#FAFAFA',
+    paddingVertical: 7,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#E4E4E7',
+  },
+  customInputPrefix: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#52525B',
+  },
+  customInputBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1.5,
+    borderColor: '#E4E4E7',
+    borderRadius: 6,
+    paddingHorizontal: 8,
+    height: 32,
+    minWidth: 88,
+  },
+  customInputBoxActive: {
+    borderColor: '#000000',
+    backgroundColor: '#FFFFFF',
+  },
+  customInput: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#09090B',
+    paddingVertical: 0,
+    paddingHorizontal: 0,
+    minWidth: 42,
+    textAlign: 'center',
+  },
+  customInputUnit: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#71717A',
+    marginLeft: 4,
+  },
+  configNoticeBox: {
+    backgroundColor: '#F4F4F5',
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 18,
+    borderWidth: 1,
+    borderColor: '#E4E4E7',
+  },
+  configNoticeText: {
+    fontSize: 11,
+    color: '#52525B',
+    fontWeight: '600',
+    textAlign: 'center',
+    lineHeight: 16,
+  },
+  configStartBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#000000',
+    borderRadius: 12,
+    paddingVertical: 14,
+    gap: 8,
+  },
+  configStartBtnText: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#FFFFFF',
+  },
+  pressed: {
+    opacity: 0.85,
+    transform: [{ scale: 0.995 }],
+  },
+});

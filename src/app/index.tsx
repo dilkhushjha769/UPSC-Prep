@@ -1,98 +1,149 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useState } from 'react';
+import {
+  ActivityIndicator,
+  StatusBar,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+import { Edge, SafeAreaView } from 'react-native-safe-area-context';
+import { useStudy } from '@/context/StudyContext';
+import { BW_THEME } from '@/constants/bwTheme';
+import { PrelimsTheme } from '@/constants/prelimsTheme';
+import {
+  AddTaskModal,
+  CleanStreakDashboard,
+  ConfigModal,
+  CurrentAffairsView,
+  FocusSummaryModal,
+  FocusTimerModal,
+  LeaderboardView,
+  LogSessionModal,
+  MainsAnswerModal,
+  MCQPracticeModal,
+  MobileBottomNav,
+  NavTab,
+  ProfileView,
+  SidebarNav,
+  StreakInfoModal,
+} from '@/components/upsc';
+import { PrelimsScreen } from '@/components/prelims/PrelimsScreen';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+export default function AppScreen() {
+  const [activeTab, setActiveTab] = useState<NavTab>('home');
+  const [themeMode, setThemeMode] = useState<'dark' | 'light'>('dark');
+  const { isLoading } = useStudy();
+  const { width } = useWindowDimensions();
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
+  const isDark = themeMode === 'dark';
+  const theme = isDark ? BW_THEME.dark : BW_THEME.light;
+  const isDesktop = width >= 768;
+
+  // Prelims screen uses its own light canvas; match the area behind the status bar.
+  const isPrelimsTab = activeTab === 'prelims';
+  const shellBg = isPrelimsTab ? PrelimsTheme.colors.bgCanvas : theme.bg;
+  const useLightIcons = isPrelimsTab ? false : isDark;
+
+  // Bottom inset is applied by MobileBottomNav on mobile (so it's not applied twice).
+  const shellEdges: Edge[] = isDesktop
+    ? ['top', 'bottom', 'left', 'right']
+    : ['top', 'left', 'right'];
+
+  const toggleTheme = () => {
+    setThemeMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  if (isLoading) {
     return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
+      <SafeAreaView
+        style={[styles.loadingContainer, { backgroundColor: theme.bg }]}>
+        <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
+        <ActivityIndicator size="small" color={theme.textPrimary} />
+      </SafeAreaView>
     );
   }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <SafeAreaView
+      edges={shellEdges}
+      style={[styles.rootContainer, { backgroundColor: shellBg }]}>
+      <StatusBar barStyle={useLightIcons ? 'light-content' : 'dark-content'} />
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
+      <View style={styles.layoutRow}>
+        {/* Left Sidebar on Desktop */}
+        {isDesktop && (
+          <SidebarNav
+            activeTab={activeTab}
+            onSelectTab={setActiveTab}
+            isDark={isDark}
+            onToggleTheme={toggleTheme}
           />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+        )}
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+        {/* Main Content Area */}
+        <View style={styles.mainContent}>
+          {activeTab === 'home' && (
+            <CleanStreakDashboard
+              isDark={isDark}
+              onOpenPrelims={() => setActiveTab('prelims')}
+            />
+          )}
+
+          {activeTab === 'prelims' && (
+            <PrelimsScreen onBack={() => setActiveTab('home')} />
+          )}
+
+          {activeTab === 'current-affairs' && (
+            <CurrentAffairsView isDark={isDark} />
+          )}
+
+          {activeTab === 'leaderboard' && (
+            <LeaderboardView isDark={isDark} />
+          )}
+
+          {activeTab === 'profile' && (
+            <ProfileView isDark={isDark} />
+          )}
+        </View>
+      </View>
+
+      {/* Mobile Bottom Navigation Bar */}
+      {!isDesktop && (
+        <MobileBottomNav
+          activeTab={activeTab}
+          onSelectTab={setActiveTab}
+          isDark={isDark}
+        />
+      )}
+
+      {/* Modals for Quick Interaction */}
+      <FocusTimerModal isDark={isDark} />
+      <FocusSummaryModal isDark={isDark} />
+      <LogSessionModal isDark={isDark} />
+      <AddTaskModal isDark={isDark} />
+      <StreakInfoModal isDark={isDark} />
+      <ConfigModal isDark={isDark} />
+      <MCQPracticeModal isDark={isDark} />
+      <MainsAnswerModal isDark={isDark} />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  rootContainer: {
     flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
+  },
+  layoutRow: {
+    flex: 1,
     flexDirection: 'row',
   },
-  safeArea: {
+  mainContent: {
     flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+    overflow: 'hidden',
   },
 });

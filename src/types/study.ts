@@ -54,6 +54,16 @@ export interface StreakData {
   qualifyingMinutesThreshold: number; // e.g., 60 mins
 }
 
+export type PreparationStage =
+  | 'Foundation'
+  | 'Prelims Intensive'
+  | 'Mains Focus'
+  | 'Interview / Personality Test';
+
+export type ExamMedium = 'English' | 'Hindi';
+
+export type SocialCategory = 'General' | 'EWS' | 'OBC' | 'SC' | 'ST';
+
 export interface UserStudyConfig {
   aspirantName: string;
   targetExamYear: number;
@@ -64,6 +74,26 @@ export interface UserStudyConfig {
   gsTargetMinutes: number; // e.g. 210 (3.5 hours)
   caTargetMinutes: number; // e.g. 90 (1.5 hours)
   answerTargetMinutes: number; // e.g. 60 (1 hour)
+
+  // Aspirant Profile & Personal Details
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  mobile?: string;
+  gender?: string;
+  residentialStatus?: string;
+  profession?: string;
+  organisationName?: string;
+  fatherName?: string;
+  place?: string;
+  optionalSubject?: string;
+  medium?: ExamMedium;
+  dateOfBirth?: string; // YYYY-MM-DD
+  category?: SocialCategory;
+  preparationStage?: PreparationStage;
+  syllabusCompletionPercent?: number; // 0 - 100
+  mockTestsAttempted?: number;
+  mockAverageScore?: number;
 }
 
 export interface DayStudySummary {

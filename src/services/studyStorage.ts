@@ -20,7 +20,16 @@ const STORAGE_KEYS = {
 };
 
 export const DEFAULT_CONFIG: UserStudyConfig = {
-  aspirantName: 'Aspirant',
+  aspirantName: 'Dipanker Biswas',
+  firstName: 'Dipanker',
+  lastName: 'Biswas',
+  email: 'dipanker.biswas@gmail.com',
+  mobile: '+91-9123456780',
+  gender: 'Male',
+  residentialStatus: 'Indian',
+  profession: 'Self Employeed',
+  organisationName: 'Zendot',
+  fatherName: 'Dipanker',
   targetExamYear: 2027,
   targetExamDate: '2027-05-23', // Target UPSC Prelims 2027
   examPhase: 'UPSC CSE 2027 • Prelims & Mains',
@@ -29,6 +38,15 @@ export const DEFAULT_CONFIG: UserStudyConfig = {
   gsTargetMinutes: 210, // 3.5 hours
   caTargetMinutes: 90, // 1.5 hours
   answerTargetMinutes: 60, // 1 hour
+  place: 'New Delhi, India',
+  optionalSubject: 'Geography',
+  medium: 'English',
+  dateOfBirth: '1990-01-01',
+  category: 'General',
+  preparationStage: 'Prelims Intensive',
+  syllabusCompletionPercent: 68,
+  mockTestsAttempted: 18,
+  mockAverageScore: 108.5,
 };
 
 export const DEFAULT_METRICS: UPSCPreparationMetrics = {

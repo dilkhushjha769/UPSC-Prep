@@ -102,7 +102,10 @@ export default function AppScreen() {
           )}
 
           {activeTab === 'profile' && (
-            <ProfileView isDark={isDark} />
+            <ProfileView
+              isDark={isDark}
+              onNavigateToTab={setActiveTab}
+            />
           )}
         </View>
       </View>

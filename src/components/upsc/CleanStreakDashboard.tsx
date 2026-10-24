@@ -25,9 +25,10 @@ import { StreakCalendarModal } from './modals/StreakCalendarModal';
 
 interface CleanStreakDashboardProps {
   isDark: boolean;
+  onOpenPrelims?: () => void;
 }
 
-export function CleanStreakDashboard({ isDark }: CleanStreakDashboardProps) {
+export function CleanStreakDashboard({ isDark, onOpenPrelims }: CleanStreakDashboardProps) {
   const {
     streak,
     weekDays,
@@ -139,7 +140,7 @@ export function CleanStreakDashboard({ isDark }: CleanStreakDashboardProps) {
       {/* ========================================================= */}
       {/* UPSC PRELIMS COUNTDOWN TIMER (Compact Top Banner)         */}
       {/* ========================================================= */}
-      <PrelimsCountdownCard isDark={isDark} />
+      <PrelimsCountdownCard isDark={isDark} onOpenPrelims={onOpenPrelims} />
 
       {/* ========================================================= */}
       {/* HERO STREAK CARD (The Core Focus of the Dashboard)        */}
@@ -515,7 +516,7 @@ export function CleanStreakDashboard({ isDark }: CleanStreakDashboardProps) {
       {/* ========================================================= */}
       {/* EXAM READINESS & ALL INDIA RANK SECTION                   */}
       {/* ========================================================= */}
-      <ExamReadinessCard isDark={isDark} />
+      <ExamReadinessCard isDark={isDark} onOpenPrelims={onOpenPrelims} />
 
       {/* Monthly Streak History Calendar Modal */}
       <StreakCalendarModal

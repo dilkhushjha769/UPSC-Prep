@@ -3,6 +3,7 @@ import {
   Platform,
   StyleSheet,
   Text,
+  TouchableOpacity,
   useWindowDimensions,
   View,
 } from 'react-native';
@@ -13,6 +14,7 @@ import { useStudy } from '@/context/StudyContext';
 
 interface PrelimsCountdownCardProps {
   isDark: boolean;
+  onOpenPrelims?: () => void;
 }
 
 interface TimeRemaining {
@@ -88,7 +90,7 @@ function StopwatchTimerIcon({ isDark }: { isDark: boolean }) {
 // MAIN COMPONENT
 // =============================================================================
 
-export function PrelimsCountdownCard({ isDark }: PrelimsCountdownCardProps) {
+export function PrelimsCountdownCard({ isDark, onOpenPrelims }: PrelimsCountdownCardProps) {
   const { config } = useStudy();
   const { width } = useWindowDimensions();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
@@ -131,7 +133,11 @@ export function PrelimsCountdownCard({ isDark }: PrelimsCountdownCardProps) {
       ]}>
       {/* Top Header Row (Mobile: Space Between Left & Right; Desktop: Inline Left Group) */}
       <View style={[styles.headerRow, isDesktop && styles.headerRowDesktop]}>
-        <View style={styles.titleGroup}>
+        <TouchableOpacity
+          activeOpacity={onOpenPrelims ? 0.75 : 1}
+          onPress={onOpenPrelims}
+          disabled={!onOpenPrelims}
+          style={styles.titleGroup}>
           <View
             style={[
               styles.iconCircle,
@@ -145,7 +151,10 @@ export function PrelimsCountdownCard({ isDark }: PrelimsCountdownCardProps) {
           <Text style={[styles.mainTitle, { color: theme.textPrimary }]}>
             UPSC Prelims {config.targetExamYear || 2027}
           </Text>
-        </View>
+          {Boolean(onOpenPrelims) && (
+            <Text style={{ fontSize: 10, color: theme.textMuted, fontWeight: '700' }}>→</Text>
+          )}
+        </TouchableOpacity>
 
         <View
           style={[

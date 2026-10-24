@@ -13,6 +13,7 @@ import { useStudy } from '@/context/StudyContext';
 
 interface ExamReadinessCardProps {
   isDark: boolean;
+  onOpenPrelims?: () => void;
 }
 
 // =============================================================================
@@ -221,7 +222,7 @@ function MockTestIllustration({ isDark }: { isDark: boolean }) {
 // MAIN COMPONENT
 // =============================================================================
 
-export function ExamReadinessCard({ isDark }: ExamReadinessCardProps) {
+export function ExamReadinessCard({ isDark, onOpenPrelims }: ExamReadinessCardProps) {
   const { setIsMCQModalOpen, setIsMainsModalOpen } = useStudy();
   const { width } = useWindowDimensions();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
@@ -239,7 +240,7 @@ export function ExamReadinessCard({ isDark }: ExamReadinessCardProps) {
       badgeBorder: isDark ? 'rgba(56, 189, 248, 0.25)' : '#BAE6FD',
       borderHover: isDark ? '#38BDF8' : '#0284C7',
       glow: 'rgba(56, 189, 248, 0.16)',
-      onPress: () => setIsMCQModalOpen(true),
+      onPress: () => (onOpenPrelims ? onOpenPrelims() : setIsMCQModalOpen(true)),
     },
     {
       id: 'mains',

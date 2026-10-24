@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import {
+  BookOpen,
   Flame,
   Home,
   Moon,
@@ -18,7 +19,7 @@ import {
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
 
-export type NavTab = 'home' | 'current-affairs' | 'leaderboard' | 'profile';
+export type NavTab = 'home' | 'prelims' | 'current-affairs' | 'leaderboard' | 'profile';
 
 interface SidebarNavProps {
   activeTab: NavTab;
@@ -41,6 +42,11 @@ export function SidebarNav({
       id: 'home' as NavTab,
       label: 'Home',
       icon: Home,
+    },
+    {
+      id: 'prelims' as NavTab,
+      label: 'Prelims',
+      icon: BookOpen,
     },
     {
       id: 'current-affairs' as NavTab,
@@ -215,6 +221,7 @@ export function MobileBottomNav({
 
   const items = [
     { id: 'home' as NavTab, label: 'Home', icon: Home },
+    { id: 'prelims' as NavTab, label: 'Prelims', icon: BookOpen },
     { id: 'current-affairs' as NavTab, label: 'Affairs', icon: Newspaper },
     { id: 'leaderboard' as NavTab, label: 'Board', icon: Trophy },
     { id: 'profile' as NavTab, label: 'Profile', icon: User },

@@ -26,6 +26,7 @@ import {
   SidebarNav,
   StreakInfoModal,
 } from '@/components/upsc';
+import { PrelimsScreen } from '@/components/prelims/PrelimsScreen';
 
 export default function AppScreen() {
   const [activeTab, setActiveTab] = useState<NavTab>('home');
@@ -69,7 +70,14 @@ export default function AppScreen() {
         {/* Main Content Area */}
         <View style={styles.mainContent}>
           {activeTab === 'home' && (
-            <CleanStreakDashboard isDark={isDark} />
+            <CleanStreakDashboard
+              isDark={isDark}
+              onOpenPrelims={() => setActiveTab('prelims')}
+            />
+          )}
+
+          {activeTab === 'prelims' && (
+            <PrelimsScreen onBack={() => setActiveTab('home')} />
           )}
 
           {activeTab === 'current-affairs' && (

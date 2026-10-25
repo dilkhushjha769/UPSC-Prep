@@ -16,7 +16,6 @@ import {
   CurrentAffairsView,
   FocusSummaryModal,
   FocusTimerModal,
-  LeaderboardView,
   LogSessionModal,
   MainsAnswerModal,
   MCQPracticeModal,
@@ -92,10 +91,6 @@ export default function AppScreen() {
 
           {activeTab === 'current-affairs' && (
             <CurrentAffairsView isDark={isDark} />
-          )}
-
-          {activeTab === 'leaderboard' && (
-            <LeaderboardView isDark={isDark} />
           )}
 
           {activeTab === 'profile' && (

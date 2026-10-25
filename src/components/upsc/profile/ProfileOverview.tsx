@@ -15,14 +15,13 @@ import {
   Globe,
   MapPin,
   Target,
-  Trophy,
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
 
 interface ProfileOverviewProps {
   isDark: boolean;
-  onNavigateToTab?: (tabKey: 'analytics' | 'settings' | 'leaderboard') => void;
+  onNavigateToTab?: (tabKey: 'analytics' | 'settings') => void;
 }
 
 export function ProfileOverview({ isDark, onNavigateToTab }: ProfileOverviewProps) {
@@ -315,39 +314,38 @@ export function ProfileOverview({ isDark, onNavigateToTab }: ProfileOverviewProp
         </View>
       </View>
 
-      {/* 5. Exam Performance & Leaderboard Snapshot */}
-      <View style={[styles.twoColumnGrid, isMobile && { flexDirection: 'column' }]}>
-        {/* Exam Performance Card */}
-        <View
-          style={[
-            styles.cardHalf,
-            {
-              backgroundColor: theme.cardBg,
-              borderColor: theme.cardBorder,
-            },
-          ]}>
-          <View style={styles.cardHeader}>
-            <View style={styles.cardHeaderTitleRow}>
-              <Target size={16} color={theme.textPrimary} />
-              <Text style={[styles.cardTitleSmall, { color: theme.textPrimary }]}>
-                Exam Performance
-              </Text>
-            </View>
-            <View
-              style={[
-                styles.liveBadge,
-                {
-                  backgroundColor: isDark ? '#1C2029' : '#F1F5F9',
-                  borderColor: theme.cardBorder,
-                },
-              ]}>
-              <Text style={[styles.liveBadgeText, { color: theme.textPrimary }]}>
-                Live
-              </Text>
-            </View>
+      {/* 5. Exam Performance */}
+      <View
+        style={[
+          styles.card,
+          {
+            backgroundColor: theme.cardBg,
+            borderColor: theme.cardBorder,
+          },
+        ]}>
+        <View style={styles.cardHeader}>
+          <View style={styles.cardHeaderTitleRow}>
+            <Target size={16} color={theme.textPrimary} />
+            <Text style={[styles.cardTitleSmall, { color: theme.textPrimary }]}>
+              Exam Performance
+            </Text>
           </View>
+          <View
+            style={[
+              styles.liveBadge,
+              {
+                backgroundColor: isDark ? '#1C2029' : '#F1F5F9',
+                borderColor: theme.cardBorder,
+              },
+            ]}>
+            <Text style={[styles.liveBadgeText, { color: theme.textPrimary }]}>
+              Live
+            </Text>
+          </View>
+        </View>
 
-          <View style={styles.perfItem}>
+        <View style={[styles.twoColumnGrid, isMobile && { flexDirection: 'column' }]}>
+          <View style={[styles.perfItem, { flex: 1 }]}>
             <Text style={[styles.perfLabel, { color: theme.textMuted }]}>MOCK AVERAGE</Text>
             <Text style={[styles.perfVal, { color: theme.textPrimary }]}>
               {config.mockAverageScore || 108.5} <Text style={styles.perfUnit}>/ 200</Text>
@@ -357,9 +355,7 @@ export function ProfileOverview({ isDark, onNavigateToTab }: ProfileOverviewProp
             </Text>
           </View>
 
-          <View style={[styles.hDivider, { backgroundColor: theme.divider }]} />
-
-          <View style={styles.perfItem}>
+          <View style={[styles.perfItem, { flex: 1 }]}>
             <Text style={[styles.perfLabel, { color: theme.textMuted }]}>MCQs SOLVED</Text>
             <Text style={[styles.perfVal, { color: theme.textPrimary }]}>
               {attemptedCount} <Text style={styles.perfUnit}>MCQs ({correctCount} correct)</Text>
@@ -368,52 +364,6 @@ export function ProfileOverview({ isDark, onNavigateToTab }: ProfileOverviewProp
               Accuracy: {liveAccuracy}% • Mains: {metrics.mainsAnswersWritten || 2}
             </Text>
           </View>
-        </View>
-
-        {/* Leaderboard Standing Card */}
-        <View
-          style={[
-            styles.cardHalf,
-            {
-              backgroundColor: theme.cardBg,
-              borderColor: theme.cardBorder,
-            },
-          ]}>
-          <View style={styles.cardHeader}>
-            <View style={styles.cardHeaderTitleRow}>
-              <Trophy size={16} color={theme.textPrimary} />
-              <Text style={[styles.cardTitleSmall, { color: theme.textPrimary }]}>
-                Leaderboard
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.perfItem}>
-            <Text style={[styles.perfLabel, { color: theme.textMuted }]}>Standing</Text>
-            <Text style={[styles.perfVal, { color: theme.textPrimary }]}>
-              Rank #5 <Text style={styles.perfUnit}>/ 1,280</Text>
-            </Text>
-            <Text style={[styles.perfSub, { color: theme.textSecondary }]}>
-              Top 2% consistency
-            </Text>
-          </View>
-
-          <View style={[styles.hDivider, { backgroundColor: theme.divider }]} />
-
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => onNavigateToTab?.('leaderboard')}
-            style={[
-              styles.leaderboardBtn,
-              {
-                backgroundColor: isDark ? '#20242E' : '#F1F5F9',
-                borderColor: theme.cardBorder,
-              },
-            ]}>
-            <Text style={[styles.leaderboardBtnText, { color: theme.textPrimary }]}>
-              View Leaderboard →
-            </Text>
-          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -724,17 +674,5 @@ const styles = StyleSheet.create({
   perfSub: {
     fontSize: 10,
     fontWeight: '500',
-  },
-  leaderboardBtn: {
-    paddingVertical: 9,
-    borderRadius: 8,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 4,
-  },
-  leaderboardBtnText: {
-    fontSize: 11,
-    fontWeight: '700',
   },
 });

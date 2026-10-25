@@ -2,7 +2,6 @@ export * from './MinimalGauge';
 export * from './SidebarNav';
 export * from './CleanStreakDashboard';
 export * from './ExamReadinessCard';
-export * from './LeaderboardView';
 export * from './ProfileView';
 export * from './CurrentAffairsView';
 

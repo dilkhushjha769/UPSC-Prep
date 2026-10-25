@@ -13,13 +13,12 @@ import {
   Moon,
   Newspaper,
   Sun,
-  Trophy,
   User,
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
 
-export type NavTab = 'home' | 'prelims' | 'current-affairs' | 'leaderboard' | 'profile';
+export type NavTab = 'home' | 'prelims' | 'current-affairs' | 'profile';
 
 interface SidebarNavProps {
   activeTab: NavTab;
@@ -52,11 +51,6 @@ export function SidebarNav({
       id: 'current-affairs' as NavTab,
       label: 'Current Affairs',
       icon: Newspaper,
-    },
-    {
-      id: 'leaderboard' as NavTab,
-      label: 'Leaderboard',
-      icon: Trophy,
     },
     {
       id: 'profile' as NavTab,
@@ -225,7 +219,6 @@ export function MobileBottomNav({
     { id: 'home' as NavTab, label: 'Home', icon: Home },
     { id: 'prelims' as NavTab, label: 'Prelims', icon: BookOpen },
     { id: 'current-affairs' as NavTab, label: 'Affairs', icon: Newspaper },
-    { id: 'leaderboard' as NavTab, label: 'Board', icon: Trophy },
     { id: 'profile' as NavTab, label: 'Profile', icon: User },
   ];
 

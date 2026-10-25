@@ -34,12 +34,8 @@ export function ProfileView({ isDark, onNavigateToTab }: ProfileViewProps) {
     setActiveSubTab(tab);
   };
 
-  const handleNavigate = (tabKey: 'overview' | 'analytics' | 'settings' | 'leaderboard') => {
-    if (tabKey === 'leaderboard') {
-      onNavigateToTab?.('leaderboard');
-    } else {
-      setActiveSubTab(tabKey);
-    }
+  const handleNavigate = (tabKey: 'overview' | 'analytics' | 'settings') => {
+    setActiveSubTab(tabKey);
   };
 
   return (

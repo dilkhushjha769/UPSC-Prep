@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { View, Text, StyleSheet, Modal, ScrollView, Pressable, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 import {
   X,
   Timer,
@@ -14,6 +15,7 @@ import {
   ChevronUp,
 } from '@/components/common/LucideIcons';
 import { PYQQuestion, QuizResult } from '@/types/prelims';
+import { usePrelimsTheme, PrelimsThemeType } from '@/constants/prelimsTheme';
 
 interface QuizModalProps {
   visible: boolean;
@@ -30,10 +32,14 @@ export function QuizModal({
   durationMinutes = 15,
   onClose,
 }: QuizModalProps) {
+  const theme = usePrelimsTheme();
+  const styles = useMemo(() => getStyles(theme), [theme]);
+
   if (!visible || questions.length === 0) return null;
 
   return (
     <Modal visible={visible} animationType="slide" transparent={false}>
+      <StatusBar style={theme.isDark ? 'light' : 'dark'} />
       <SafeAreaView style={styles.fullScreenSafeArea}>
         <View style={styles.fullScreenContainer}>
           <QuizModalContent
@@ -59,6 +65,9 @@ function QuizModalContent({
   durationMinutes: number;
   onClose: () => void;
 }) {
+  const theme = usePrelimsTheme();
+  const styles = useMemo(() => getStyles(theme), [theme]);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, 'A' | 'B' | 'C' | 'D'>>({});
   const [markedForReview, setMarkedForReview] = useState<Record<number, boolean>>({});
@@ -172,7 +181,7 @@ function QuizModalContent({
           {/* Header Bar */}
           <View style={styles.topBar}>
             <Pressable style={styles.closeBtn} onPress={onClose}>
-              <X size={18} color="#000000" strokeWidth={2} />
+              <X size={18} color={theme.colors.textPrimary} strokeWidth={2} />
             </Pressable>
 
             <View style={styles.titleCol}>
@@ -190,7 +199,7 @@ function QuizModalContent({
               <View style={[styles.timerBadge, timeLeftSeconds < 120 && styles.timerDanger]}>
                 <Timer
                   size={14}
-                  color={timeLeftSeconds < 120 ? '#FFFFFF' : '#000000'}
+                  color={timeLeftSeconds < 120 ? '#EF4444' : theme.colors.textPrimary}
                   strokeWidth={2}
                 />
                 <Text
@@ -216,22 +225,22 @@ function QuizModalContent({
                     const isMarked = markedForReview[idx];
                     const isCur = idx === currentIndex;
 
-                    let bg = '#F4F4F5';
-                    let borderColor = '#E4E4E7';
-                    let textColor = '#71717A';
+                    let bg = theme.colors.bgSurfaceMuted;
+                    let borderColor = theme.colors.borderCard;
+                    let textColor = theme.colors.textMuted;
 
                     if (isCur) {
-                      bg = '#000000';
-                      borderColor = '#000000';
-                      textColor = '#FFFFFF';
+                      bg = theme.colors.darkButton;
+                      borderColor = theme.colors.darkButton;
+                      textColor = theme.colors.darkButtonText;
                     } else if (isMarked) {
-                      bg = '#F4F4F5';
-                      borderColor = '#000000';
-                      textColor = '#000000';
+                      bg = theme.colors.bgSurfaceMuted;
+                      borderColor = theme.colors.textPrimary;
+                      textColor = theme.colors.textPrimary;
                     } else if (isAnswered) {
-                      bg = '#27272A';
-                      borderColor = '#27272A';
-                      textColor = '#FFFFFF';
+                      bg = '#334155';
+                      borderColor = '#475569';
+                      textColor = theme.colors.textPrimary;
                     }
 
                     return (
@@ -264,8 +273,8 @@ function QuizModalContent({
                   >
                     <Flag
                       size={14}
-                      color={markedForReview[currentIndex] ? '#000000' : '#71717A'}
-                      fill={markedForReview[currentIndex] ? '#000000' : 'none'}
+                      color={markedForReview[currentIndex] ? theme.colors.textPrimary : theme.colors.textMuted}
+                      fill={markedForReview[currentIndex] ? theme.colors.textPrimary : 'none'}
                       strokeWidth={2}
                     />
                     <Text
@@ -332,7 +341,7 @@ function QuizModalContent({
                   onPress={() => currentIndex > 0 && setCurrentIndex(currentIndex - 1)}
                   disabled={currentIndex === 0}
                 >
-                  <ArrowLeft size={16} color="#000000" strokeWidth={2} />
+                  <ArrowLeft size={16} color={theme.colors.textPrimary} strokeWidth={2} />
                   <Text style={styles.navPrevText}>Prev</Text>
                 </Pressable>
 
@@ -342,14 +351,14 @@ function QuizModalContent({
                     onPress={() => setCurrentIndex(currentIndex + 1)}
                   >
                     <Text style={styles.navNextText}>Next Question</Text>
-                    <ArrowRight size={16} color="#FFFFFF" strokeWidth={2} />
+                    <ArrowRight size={16} color={theme.colors.darkButtonText} strokeWidth={2} />
                   </Pressable>
                 ) : (
                   <Pressable
                     style={({ pressed }) => [styles.submitBtn, pressed && styles.pressed]}
                     onPress={handleConfirmSubmit}
                   >
-                    <CheckCheck size={16} color="#FFFFFF" strokeWidth={2} />
+                    <CheckCheck size={16} color={theme.colors.darkButtonText} strokeWidth={2} />
                     <Text style={styles.submitBtnText}>Submit Quiz</Text>
                   </Pressable>
                 )}
@@ -362,7 +371,7 @@ function QuizModalContent({
             <ScrollView style={styles.scrollBody} showsVerticalScrollIndicator={false}>
               <View style={styles.resultHeroCard}>
                 <View style={styles.trophyCircle}>
-                  <Award size={26} color="#FFFFFF" strokeWidth={2} />
+                  <Award size={26} color={theme.colors.darkButtonText} strokeWidth={2} />
                 </View>
                 <Text style={styles.resultTitle}>Quiz Completed</Text>
                 <Text style={styles.resultScoreBig}>
@@ -372,21 +381,21 @@ function QuizModalContent({
 
                 <View style={styles.statPillsRow}>
                   <View style={[styles.statPill, styles.statPillBorder]}>
-                    <Text style={[styles.statPillNum, { color: '#000000' }]}>
+                    <Text style={[styles.statPillNum, { color: '#34D399' }]}>
                       {result.correct}
                     </Text>
                     <Text style={styles.statPillLabel}>Correct (+{result.correct * 2})</Text>
                   </View>
 
                   <View style={[styles.statPill, styles.statPillBorder]}>
-                    <Text style={[styles.statPillNum, { color: '#52525B' }]}>
+                    <Text style={[styles.statPillNum, { color: '#F87171' }]}>
                       {result.incorrect}
                     </Text>
                     <Text style={styles.statPillLabel}>Wrong (-{(result.incorrect * 0.66).toFixed(2)})</Text>
                   </View>
 
                   <View style={[styles.statPill, styles.statPillBorder]}>
-                    <Text style={[styles.statPillNum, { color: '#71717A' }]}>
+                    <Text style={[styles.statPillNum, { color: theme.colors.textMuted }]}>
                       {result.unattempted}
                     </Text>
                     <Text style={styles.statPillLabel}>Skipped</Text>
@@ -412,14 +421,14 @@ function QuizModalContent({
                 style={({ pressed }) => [styles.reviewToggleBtn, pressed && styles.pressed]}
                 onPress={() => setShowReviewList(!showReviewList)}
               >
-                <ListFilter size={16} color="#000000" strokeWidth={2} />
+                <ListFilter size={16} color={theme.colors.textPrimary} strokeWidth={2} />
                 <Text style={styles.reviewToggleText}>
                   {showReviewList ? 'Hide Detailed Solutions' : 'Review Questions & Official Solutions'}
                 </Text>
                 {showReviewList ? (
-                  <ChevronUp size={16} color="#000000" strokeWidth={2} style={{ marginLeft: 'auto' }} />
+                  <ChevronUp size={16} color={theme.colors.textPrimary} strokeWidth={2} style={{ marginLeft: 'auto' }} />
                 ) : (
-                  <ChevronDown size={16} color="#000000" strokeWidth={2} style={{ marginLeft: 'auto' }} />
+                  <ChevronDown size={16} color={theme.colors.textPrimary} strokeWidth={2} style={{ marginLeft: 'auto' }} />
                 )}
               </Pressable>
 
@@ -467,7 +476,7 @@ function QuizModalContent({
                           <Text
                             style={[
                               styles.reviewUserPick,
-                              isRight ? { color: '#059669' } : { color: '#DC2626' },
+                              isRight ? { color: '#34D399' } : { color: '#F87171' },
                             ]}
                           >
                             {userPick ? `Option (${userPick})` : 'Not Attempted'}
@@ -508,18 +517,18 @@ function QuizModalContent({
   );
 }
 
-const styles = StyleSheet.create({
+const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
   fullScreenSafeArea: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgCanvas,
   },
   fullScreenContainer: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgCanvas,
   },
   sheetContainer: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgCanvas,
   },
   topBar: {
     flexDirection: 'row',
@@ -528,7 +537,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 14,
     borderBottomWidth: 1,
-    borderBottomColor: '#E4E4E7',
+    borderBottomColor: theme.colors.borderCard,
   },
   titleCol: {
     flex: 1,
@@ -538,12 +547,12 @@ const styles = StyleSheet.create({
   topTitle: {
     fontSize: 14,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   markingPill: {
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 6,
@@ -552,44 +561,44 @@ const styles = StyleSheet.create({
   markingText: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#52525B',
+    color: theme.colors.textSecondary,
   },
   closeBtn: {
     width: 32,
     height: 32,
     borderRadius: 8,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     alignItems: 'center',
     justifyContent: 'center',
   },
   timerBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 8,
     gap: 4,
   },
   timerDanger: {
-    backgroundColor: '#000000',
-    borderColor: '#000000',
+    backgroundColor: '#7F1D1D',
+    borderColor: '#EF4444',
   },
   timerText: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   timerTextDanger: {
-    color: '#FFFFFF',
+    color: '#FCA5A5',
   },
   paletteStrip: {
     borderBottomWidth: 1,
-    borderBottomColor: '#E4E4E7',
+    borderBottomColor: theme.colors.borderCard,
     paddingVertical: 8,
   },
   paletteScroll: {
@@ -620,40 +629,40 @@ const styles = StyleSheet.create({
   qIndexLabel: {
     fontSize: 13,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   markBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
   },
   markBtnText: {
     fontSize: 11,
-    color: '#71717A',
+    color: theme.colors.textMuted,
     fontWeight: '600',
   },
   markBtnTextActive: {
-    color: '#000000',
+    color: theme.colors.textPrimary,
     fontWeight: '700',
   },
   questionCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 14,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     marginBottom: 16,
   },
   questionText: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#000000',
+    color: theme.colors.textPrimary,
     lineHeight: 23,
   },
   optionsContainer: {
@@ -666,39 +675,39 @@ const styles = StyleSheet.create({
     padding: 14,
     borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: '#E4E4E7',
-    backgroundColor: '#FFFFFF',
+    borderColor: theme.colors.borderCard,
+    backgroundColor: theme.colors.bgSurface,
     gap: 12,
   },
   optionItemSelected: {
-    backgroundColor: '#F4F4F5',
-    borderColor: '#000000',
+    backgroundColor: '#1E293B',
+    borderColor: theme.colors.textPrimary,
   },
   keyCircle: {
     width: 28,
     height: 28,
     borderRadius: 6,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     alignItems: 'center',
     justifyContent: 'center',
   },
   keyCircleSelected: {
-    backgroundColor: '#000000',
-    borderColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
+    borderColor: theme.colors.darkButton,
   },
   keyText: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   keyTextSelected: {
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   optionContentText: {
     fontSize: 14,
-    color: '#000000',
+    color: theme.colors.textPrimary,
     flex: 1,
     lineHeight: 20,
   },
@@ -708,16 +717,17 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     gap: 12,
     borderTopWidth: 1,
-    borderTopColor: '#E4E4E7',
+    borderTopColor: theme.colors.borderCard,
+    backgroundColor: theme.colors.bgCanvas,
   },
   navPrevBtn: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     paddingVertical: 13,
     borderRadius: 8,
     gap: 6,
@@ -725,14 +735,14 @@ const styles = StyleSheet.create({
   navPrevText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   navNextBtn: {
     flex: 1.5,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
     paddingVertical: 13,
     borderRadius: 8,
     gap: 6,
@@ -740,14 +750,14 @@ const styles = StyleSheet.create({
   navNextText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   submitBtn: {
     flex: 1.5,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
     paddingVertical: 13,
     borderRadius: 8,
     gap: 6,
@@ -755,26 +765,26 @@ const styles = StyleSheet.create({
   submitBtnText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   btnDisabled: {
     opacity: 0.4,
   },
   // Results view styles
   resultHeroCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 14,
     padding: 24,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     marginBottom: 16,
   },
   trophyCircle: {
     width: 52,
     height: 52,
     borderRadius: 10,
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 10,
@@ -782,23 +792,23 @@ const styles = StyleSheet.create({
   resultTitle: {
     fontSize: 18,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   resultScoreBig: {
     fontSize: 34,
     fontWeight: '900',
-    color: '#000000',
+    color: theme.colors.textPrimary,
     marginTop: 6,
     letterSpacing: -0.5,
   },
   resultMaxScore: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#71717A',
+    color: theme.colors.textMuted,
   },
   resultScoreSub: {
     fontSize: 12,
-    color: '#52525B',
+    color: theme.colors.textSecondary,
     marginBottom: 16,
   },
   statPillsRow: {
@@ -813,9 +823,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   statPillBorder: {
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
   },
   statPillNum: {
     fontSize: 16,
@@ -824,16 +834,16 @@ const styles = StyleSheet.create({
   statPillLabel: {
     fontSize: 10,
     fontWeight: '600',
-    color: '#71717A',
+    color: theme.colors.textMuted,
     marginTop: 2,
   },
   accuracyCard: {
     flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 14,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     marginBottom: 16,
   },
   accuracyItem: {
@@ -843,26 +853,26 @@ const styles = StyleSheet.create({
   accuracyNum: {
     fontSize: 20,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   accuracyLabel: {
     fontSize: 11,
     fontWeight: '600',
-    color: '#71717A',
+    color: theme.colors.textMuted,
     marginTop: 2,
   },
   accuracyDivider: {
     width: 1,
     height: 30,
-    backgroundColor: '#E4E4E7',
+    backgroundColor: theme.colors.borderCard,
     alignSelf: 'center',
   },
   reviewToggleBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     paddingVertical: 13,
     paddingHorizontal: 16,
     borderRadius: 8,
@@ -872,18 +882,18 @@ const styles = StyleSheet.create({
   reviewToggleText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   reviewList: {
     gap: 14,
     marginBottom: 16,
   },
   reviewCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 14,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
   },
   reviewCardHeader: {
     flexDirection: 'row',
@@ -894,54 +904,57 @@ const styles = StyleSheet.create({
   reviewCardIndex: {
     fontSize: 13,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   statusBadge: {
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
   },
   statusBadgeCorrect: {
-    backgroundColor: '#F4F4F5',
+    backgroundColor: 'rgba(16, 185, 129, 0.15)',
+    borderColor: 'rgba(16, 185, 129, 0.3)',
   },
   statusBadgeWrong: {
-    backgroundColor: '#FAFAFA',
+    backgroundColor: 'rgba(239, 68, 68, 0.15)',
+    borderColor: 'rgba(239, 68, 68, 0.3)',
   },
   statusBadgeSkipped: {
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
+    borderColor: theme.colors.borderCard,
   },
   statusBadgeText: {
     fontSize: 10,
     fontWeight: '800',
   },
   statusTextCorrect: {
-    color: '#000000',
+    color: '#34D399',
   },
   statusTextWrong: {
-    color: '#52525B',
+    color: '#F87171',
   },
   statusTextSkipped: {
-    color: '#71717A',
+    color: theme.colors.textMuted,
   },
   reviewQuestionText: {
     fontSize: 13,
-    color: '#000000',
+    color: theme.colors.textPrimary,
     lineHeight: 19,
     marginBottom: 10,
   },
   reviewAnswerRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     padding: 8,
     borderRadius: 6,
     marginBottom: 10,
   },
   reviewLabel: {
     fontSize: 11,
-    color: '#71717A',
+    color: theme.colors.textMuted,
   },
   reviewUserPick: {
     fontSize: 11,
@@ -950,12 +963,12 @@ const styles = StyleSheet.create({
   reviewOfficialKey: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   solutionBox: {
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     padding: 10,
     borderRadius: 8,
     gap: 4,
@@ -963,21 +976,21 @@ const styles = StyleSheet.create({
   solutionTitle: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   solutionText: {
     fontSize: 12,
-    color: '#52525B',
+    color: theme.colors.textSecondary,
     lineHeight: 17,
   },
   solutionTrick: {
     fontSize: 11,
-    color: '#3F3F46',
+    color: '#CBD5E1',
     fontWeight: '600',
     marginTop: 2,
   },
   exitBtn: {
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: 'center',
@@ -985,7 +998,7 @@ const styles = StyleSheet.create({
   exitBtnText: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   pressed: {
     opacity: 0.75,

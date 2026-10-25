@@ -1,67 +1,103 @@
-export const PrelimsTheme = {
-  colors: {
-    bgCanvas: '#FAFAFA',
-    bgGradientTop: '#FFFFFF',
-    bgSurface: '#FFFFFF',
-    bgSurfaceMuted: '#F4F4F5',
-    borderSubtle: '#E4E4E7',
-    borderCard: '#E4E4E7',
+import React, { createContext, useContext, useMemo } from 'react';
+import { BW_THEME } from './bwTheme';
 
-    // Primary Accents (Black & White Monochromatic)
-    primary: '#000000',
-    primaryLight: '#27272A',
-    primarySoft: '#F4F4F5',
-    primarySoftBorder: '#E4E4E7',
+export const getPrelimsTheme = (isDark: boolean = true) => {
+  const bw = isDark ? BW_THEME.dark : BW_THEME.light;
 
-    // Buttons
-    darkButton: '#000000',
-    darkButtonText: '#FFFFFF',
+  return {
+    isDark,
+    colors: {
+      bgCanvas: bw.bg,
+      bgGradientTop: bw.bg,
+      bgSurface: bw.cardBg,
+      bgSurfaceMuted: isDark ? '#232733' : '#F1F5F9',
+      borderSubtle: isDark ? '#2B2F3A' : '#E2E8F0',
+      borderCard: isDark ? '#2B2F3A' : '#E2E8F0',
 
-    // Neutral Monochromatic Pills
-    badgeBg: '#F4F4F5',
-    badgeText: '#000000',
-    badgeBorder: '#E4E4E7',
+      // Primary Accents (High Contrast Monochromatic)
+      primary: bw.textPrimary,
+      primaryLight: isDark ? '#E2E8F0' : '#334155',
+      primarySoft: isDark ? '#20242E' : '#F1F5F9',
+      primarySoftBorder: isDark ? '#313746' : '#CBD5E1',
 
-    // Text
-    textPrimary: '#000000',
-    textSecondary: '#52525B',
-    textMuted: '#A1A1AA',
-    textWhite: '#FFFFFF',
+      // Buttons (Inverted: Bright white CTA on dark background; Slate/Black on light background)
+      darkButton: bw.buttonPrimaryBg,
+      darkButtonText: bw.buttonPrimaryText,
 
-    // Status
-    correct: '#18181B',
-    incorrect: '#71717A',
-    warning: '#52525B',
-  },
-  shadows: {
-    card: {
-      shadowColor: '#000000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.04,
-      shadowRadius: 8,
-      elevation: 1,
+      // Neutral Monochromatic Pills
+      badgeBg: isDark ? '#20242E' : '#F1F5F9',
+      badgeText: bw.textPrimary,
+      badgeBorder: isDark ? '#313746' : '#E2E8F0',
+
+      // Text
+      textPrimary: bw.textPrimary,
+      textSecondary: bw.textSecondary,
+      textMuted: bw.textMuted,
+      textWhite: '#FFFFFF',
+
+      // Status
+      correct: isDark ? '#34D399' : '#059669',
+      incorrect: isDark ? '#F87171' : '#DC2626',
+      warning: '#F59E0B',
     },
-    cardHover: {
-      shadowColor: '#000000',
-      shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: 0.08,
-      shadowRadius: 12,
-      elevation: 2,
+    shadows: {
+      card: isDark ? {
+        shadowColor: '#000000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 8,
+        elevation: 2,
+      } : {
+        shadowColor: '#000000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.06,
+        shadowRadius: 6,
+        elevation: 1,
+      },
+      cardHover: {
+        shadowColor: '#000000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: isDark ? 0.35 : 0.08,
+        shadowRadius: 12,
+        elevation: 4,
+      },
+      floating: {
+        shadowColor: '#000000',
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: isDark ? 0.45 : 0.12,
+        shadowRadius: 16,
+        elevation: 6,
+      },
     },
-    floating: {
-      shadowColor: '#000000',
-      shadowOffset: { width: 0, height: 6 },
-      shadowOpacity: 0.12,
-      shadowRadius: 16,
-      elevation: 4,
+    radius: {
+      small: 6,
+      medium: 10,
+      large: 14,
+      card: 14,
+      sheet: 24,
+      pill: 9999,
     },
-  },
-  radius: {
-    small: 6,
-    medium: 10,
-    large: 14,
-    card: 14,
-    sheet: 24,
-    pill: 9999,
-  },
+  };
 };
+
+export type PrelimsThemeType = ReturnType<typeof getPrelimsTheme>;
+
+// Default dark theme instance for backward compatibility
+export const PrelimsTheme = getPrelimsTheme(true);
+
+const PrelimsThemeContext = createContext<PrelimsThemeType>(PrelimsTheme);
+
+export function PrelimsThemeProvider({
+  isDark = true,
+  children,
+}: {
+  isDark?: boolean;
+  children: React.ReactNode;
+}) {
+  const theme = useMemo(() => getPrelimsTheme(isDark), [isDark]);
+  return React.createElement(PrelimsThemeContext.Provider, { value: theme }, children);
+}
+
+export function usePrelimsTheme(): PrelimsThemeType {
+  return useContext(PrelimsThemeContext);
+}

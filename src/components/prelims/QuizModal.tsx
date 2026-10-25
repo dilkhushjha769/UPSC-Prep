@@ -320,17 +320,13 @@ function QuizModalContent({
         </Pressable>
 
         <View style={styles.titleCol}>
-          <Text style={styles.topTitle} numberOfLines={1}>
-            {title}
+          <Text style={styles.topTitle}>
+            Question {currentIndex + 1} of {questions.length}
           </Text>
-          {!isSubmitted && (
-            <View style={styles.topSubRow}>
-              <Text style={styles.topSubText}>+2.0 / -0.66</Text>
-              <Text style={styles.topSubDot}>·</Text>
-              <Text style={styles.topSubText}>
-                Q {currentIndex + 1} of {questions.length}
-              </Text>
-            </View>
+          {!isMobile && Boolean(title) && (
+            <Text style={styles.topSubtitle} numberOfLines={1}>
+              {title}
+            </Text>
           )}
         </View>
 
@@ -365,6 +361,16 @@ function QuizModalContent({
             </Pressable>
           )}
         </View>
+
+        {/* Thin progress track along top bar bottom */}
+        <View style={styles.topProgressBarTrack}>
+          <View
+            style={[
+              styles.topProgressBarFill,
+              { width: `${((currentIndex + 1) / questions.length) * 100}%` },
+            ]}
+          />
+        </View>
       </View>
 
       {/* 2. ACTIVE QUIZ SCREEN (Desktop Two-Column / Mobile Single Column) */}
@@ -378,23 +384,16 @@ function QuizModalContent({
                 contentContainerStyle={styles.questionScrollContent}
                 showsVerticalScrollIndicator={true}
               >
-                {/* Question Header Row */}
-                <View style={styles.qHeaderRow}>
-                  <View style={styles.qIndexCol}>
-                    <Text style={styles.qIndexLabel}>
-                      Question {currentIndex + 1} of {questions.length}
-                    </Text>
-                    <View style={styles.qMetaTagsRow}>
-                      {Boolean(currentQ.year) && (
-                        <View style={styles.metaYearTag}>
-                          <Text style={styles.metaYearText}>UPSC {currentQ.year}</Text>
-                        </View>
-                      )}
-                      {Boolean(currentQ.chapterName) && (
-                        <Text style={styles.metaChapterText} numberOfLines={1}>
-                          {currentQ.chapterName}
-                        </Text>
-                      )}
+                {/* Clean Meta Row (Year, Marking Scheme & Review Flag) */}
+                <View style={styles.qMetaRow}>
+                  <View style={styles.qMetaLeft}>
+                    {Boolean(currentQ.year) && (
+                      <View style={styles.metaYearTag}>
+                        <Text style={styles.metaYearText}>UPSC {currentQ.year}</Text>
+                      </View>
+                    )}
+                    <View style={styles.metaMarkingTag}>
+                      <Text style={styles.metaMarkingText}>+2.0 / -0.66</Text>
                     </View>
                   </View>
 
@@ -412,7 +411,7 @@ function QuizModalContent({
                     }
                   >
                     <Flag
-                      size={13}
+                      size={12}
                       color={markedForReview[currentIndex] ? '#8B5CF6' : theme.colors.textMuted}
                       fill={markedForReview[currentIndex] ? '#8B5CF6' : 'none'}
                       strokeWidth={2}
@@ -804,11 +803,12 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       backgroundColor: theme.colors.bgCanvas,
     },
     topBar: {
+      position: 'relative',
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingHorizontal: isMobile ? 12 : 20,
-      paddingVertical: isMobile ? 10 : 12,
+      paddingHorizontal: isMobile ? 14 : 20,
+      paddingVertical: isMobile ? 11 : 13,
       borderBottomWidth: 1,
       borderBottomColor: theme.colors.borderCard,
       backgroundColor: theme.colors.bgSurface,
@@ -817,28 +817,31 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'flex-start',
-      marginHorizontal: isMobile ? 10 : 14,
+      marginHorizontal: isMobile ? 12 : 16,
     },
     topTitle: {
-      fontSize: isMobile ? 13.5 : 14,
-      fontWeight: '700',
+      fontSize: isMobile ? 14.5 : 15,
+      fontWeight: '800',
       color: theme.colors.textPrimary,
       letterSpacing: -0.2,
     },
-    topSubRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
+    topSubtitle: {
+      fontSize: 11.5,
+      fontWeight: '500',
+      color: theme.colors.textMuted,
       marginTop: 2,
-      gap: 5,
     },
-    topSubText: {
-      fontSize: 11,
-      fontWeight: '600',
-      color: theme.colors.textMuted,
+    topProgressBarTrack: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      height: 2.5,
+      backgroundColor: isDark ? '#1C202B' : '#E2E8F0',
     },
-    topSubDot: {
-      fontSize: 11,
-      color: theme.colors.textMuted,
+    topProgressBarFill: {
+      height: '100%',
+      backgroundColor: '#3B82F6',
     },
     closeBtn: {
       width: 34,
@@ -924,54 +927,49 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       paddingTop: isMobile ? 14 : 18,
       paddingBottom: 24,
     },
-    qHeaderRow: {
+    qMetaRow: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      alignItems: 'flex-start',
-      marginBottom: 16,
-      gap: 10,
-      flexWrap: 'wrap',
+      alignItems: 'center',
+      marginBottom: 12,
     },
-    qIndexCol: {
-      gap: 4,
-      flex: 1,
-    },
-    qIndexLabel: {
-      fontSize: 15,
-      fontWeight: '800',
-      color: theme.colors.textPrimary,
-      letterSpacing: -0.2,
-    },
-    qMetaTagsRow: {
+    qMetaLeft: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 8,
     },
     metaYearTag: {
       backgroundColor: isDark ? '#222838' : '#EDE9FE',
-      paddingHorizontal: 6,
-      paddingVertical: 1.5,
-      borderRadius: 4,
+      paddingHorizontal: 7,
+      paddingVertical: 2.5,
+      borderRadius: 5,
     },
     metaYearText: {
-      fontSize: 10,
+      fontSize: 10.5,
       fontWeight: '700',
       color: isDark ? '#C4B5FD' : '#6D28D9',
     },
-    metaChapterText: {
-      fontSize: 11,
-      color: theme.colors.textMuted,
-      fontWeight: '500',
-      flex: 1,
+    metaMarkingTag: {
+      backgroundColor: isDark ? '#191C25' : '#F1F5F9',
+      paddingHorizontal: 7,
+      paddingVertical: 2.5,
+      borderRadius: 5,
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
+    },
+    metaMarkingText: {
+      fontSize: 10.5,
+      fontWeight: '700',
+      color: theme.colors.textSecondary,
     },
     markBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 6,
+      gap: 5,
       backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
-      paddingHorizontal: 10,
-      paddingVertical: 6,
-      borderRadius: 8,
+      paddingHorizontal: 9,
+      paddingVertical: 5,
+      borderRadius: 7,
       borderWidth: 1,
       borderColor: theme.colors.borderSubtle,
     },

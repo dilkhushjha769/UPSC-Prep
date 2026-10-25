@@ -1,32 +1,52 @@
-import React, { useState } from 'react';
+import {
+  PrelimsThemeProvider,
+  PrelimsThemeType,
+  usePrelimsTheme,
+} from '@/constants/prelimsTheme';
+import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import {
+  PRELIMS_CSAT_SUBJECTS,
+  PRELIMS_GS1_SUBJECTS,
+  PRELIMS_SUBJECTS,
+  getAllQuestionsForSubject,
+  getChapterQuestions,
+} from '@/data/prelimsData';
+import { Chapter, PYQQuestion, QuizConfig, Subject } from '@/types/prelims';
+import { StatusBar } from 'expo-status-bar';
+import { useMemo, useState } from 'react';
 import {
   ScrollView,
-  View,
-  Text,
-  Pressable,
   StyleSheet,
+  Text,
+  View,
 } from 'react-native';
-import {
-  PRELIMS_SUBJECTS,
-  PRELIMS_GS1_SUBJECTS,
-  PRELIMS_CSAT_SUBJECTS,
-  getChapterQuestions,
-  getAllQuestionsForSubject,
-} from '@/data/prelimsData';
-import { Subject, Chapter, PYQQuestion, QuizConfig } from '@/types/prelims';
-import { PrelimsTheme } from '@/constants/prelimsTheme';
-import { MaxContentWidth, BottomTabInset, Spacing } from '@/constants/theme';
 
-import { PrelimsHeader } from '@/components/prelims/PrelimsHeader';
-import { QuizGeneratorCard } from '@/components/prelims/QuizGeneratorCard';
-import { SubjectCard } from '@/components/prelims/SubjectCard';
-import { SubjectChaptersView } from '@/components/prelims/SubjectChaptersView';
 import { ChapterDetailView } from '@/components/prelims/ChapterDetailView';
 import { PracticeModal } from '@/components/prelims/PracticeModal';
-import { QuizModal } from '@/components/prelims/QuizModal';
+import { PrelimsHeader } from '@/components/prelims/PrelimsHeader';
+import { QuizGeneratorCard } from '@/components/prelims/QuizGeneratorCard';
 import { QuizGeneratorModal } from '@/components/prelims/QuizGeneratorModal';
+import { QuizModal } from '@/components/prelims/QuizModal';
+import { SubjectCard } from '@/components/prelims/SubjectCard';
+import { SubjectChaptersView } from '@/components/prelims/SubjectChaptersView';
 
-export function PrelimsScreen({ onBack }: { onBack?: () => void } = {}) {
+export function PrelimsScreen({
+  isDark = true,
+  onBack,
+}: {
+  isDark?: boolean;
+  onBack?: () => void;
+}) {
+  return (
+    <PrelimsThemeProvider isDark={isDark}>
+      <PrelimsScreenContent onBack={onBack} />
+    </PrelimsThemeProvider>
+  );
+}
+
+function PrelimsScreenContent({ onBack }: { onBack?: () => void } = {}) {
+  const theme = usePrelimsTheme();
+  const styles = useMemo(() => getStyles(theme), [theme]);
   // Navigation states:
   // selectedSubject: null = Subjects List; Subject = viewing that subject
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
@@ -36,7 +56,7 @@ export function PrelimsScreen({ onBack }: { onBack?: () => void } = {}) {
   const [selectedChapterSerial, setSelectedChapterSerial] = useState<number | undefined>(undefined);
 
   // Paper filter tab: 'all' | 'gs1' | 'gs2'
-  const [selectedPaperTab, setSelectedPaperTab] = useState<'all' | 'gs1' | 'gs2'>('all');
+  const [selectedPaperTab, setSelectedPaperTab] = useState<'all' | 'gs1' | 'gs2'>('gs1');
 
   // Practice modal state
   const [practiceModalVisible, setPracticeModalVisible] = useState(false);
@@ -114,6 +134,7 @@ export function PrelimsScreen({ onBack }: { onBack?: () => void } = {}) {
 
   return (
     <View style={styles.safeArea}>
+      <StatusBar style={theme.isDark ? 'light' : 'dark'} />
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
@@ -126,62 +147,12 @@ export function PrelimsScreen({ onBack }: { onBack?: () => void } = {}) {
               {/* Clean Header */}
               <PrelimsHeader onBack={onBack} />
 
-              {/* Simple "Generate Quiz" Card at top */}
-              <QuizGeneratorCard onOpenGenerator={() => setGeneratorModalVisible(true)} />
-
-              {/* Subject Paper Filter Pills */}
-              <View style={styles.filterTabsContainer}>
-                <Pressable
-                  style={[
-                    styles.filterTab,
-                    selectedPaperTab === 'all' && styles.filterTabActive,
-                  ]}
-                  onPress={() => setSelectedPaperTab('all')}
-                >
-                  <Text
-                    style={[
-                      styles.filterTabText,
-                      selectedPaperTab === 'all' && styles.filterTabTextActive,
-                    ]}
-                  >
-                    All ({PRELIMS_SUBJECTS.length})
-                  </Text>
-                </Pressable>
-
-                <Pressable
-                  style={[
-                    styles.filterTab,
-                    selectedPaperTab === 'gs1' && styles.filterTabActive,
-                  ]}
-                  onPress={() => setSelectedPaperTab('gs1')}
-                >
-                  <Text
-                    style={[
-                      styles.filterTabText,
-                      selectedPaperTab === 'gs1' && styles.filterTabTextActive,
-                    ]}
-                  >
-                    GS1 ({PRELIMS_GS1_SUBJECTS.length})
-                  </Text>
-                </Pressable>
-
-                <Pressable
-                  style={[
-                    styles.filterTab,
-                    selectedPaperTab === 'gs2' && styles.filterTabActive,
-                  ]}
-                  onPress={() => setSelectedPaperTab('gs2')}
-                >
-                  <Text
-                    style={[
-                      styles.filterTabText,
-                      selectedPaperTab === 'gs2' && styles.filterTabTextActive,
-                    ]}
-                  >
-                    GS-2 (CSAT) ({PRELIMS_CSAT_SUBJECTS.length})
-                  </Text>
-                </Pressable>
-              </View>
+              {/* Unified Quiz & Subject Change Option (Eraser layout) */}
+              <QuizGeneratorCard
+                selectedPaperTab={selectedPaperTab}
+                onSelectPaperTab={(tab) => setSelectedPaperTab(tab)}
+                onOpenGenerator={() => setGeneratorModalVisible(true)}
+              />
 
               {/* Vertical List of Subjects organized under GS1 and GS-2 (CSAT) */}
               <View style={styles.subjectsList}>
@@ -190,12 +161,7 @@ export function PrelimsScreen({ onBack }: { onBack?: () => void } = {}) {
                   <View style={styles.paperSection}>
                     <View style={styles.paperHeader}>
                       <View style={styles.paperTitleRow}>
-                        <View style={styles.paperBadge}>
-                          <Text style={styles.paperBadgeText}>PAPER I</Text>
-                        </View>
-                        <Text style={styles.paperTitle}>GS1</Text>
-                        <Text style={styles.paperDivider}>·</Text>
-                        <Text style={styles.paperSubtitle}>General Studies</Text>
+                        <Text style={styles.paperTitle}>General Studies-1</Text>
                       </View>
                       <Text style={styles.paperMetaText}>
                         {PRELIMS_GS1_SUBJECTS.length} Subjects · 100 Questions
@@ -226,12 +192,7 @@ export function PrelimsScreen({ onBack }: { onBack?: () => void } = {}) {
                   >
                     <View style={styles.paperHeader}>
                       <View style={styles.paperTitleRow}>
-                        <View style={styles.paperBadge}>
-                          <Text style={styles.paperBadgeText}>PAPER II</Text>
-                        </View>
-                        <Text style={styles.paperTitle}>GS-2 (CSAT)</Text>
-                        <Text style={styles.paperDivider}>·</Text>
-                        <Text style={styles.paperSubtitle}>Aptitude Test</Text>
+                        <Text style={styles.paperTitle}>General Studies-2 (CSAT)</Text>
                       </View>
                       <Text style={styles.paperMetaText}>
                         {PRELIMS_CSAT_SUBJECTS.length} Subjects · 80 Questions · Qualifying (33%)
@@ -308,110 +269,56 @@ export function PrelimsScreen({ onBack }: { onBack?: () => void } = {}) {
   );
 }
 
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: PrelimsTheme.colors.bgCanvas,
-  },
-  scrollView: {
-    flex: 1,
-    backgroundColor: PrelimsTheme.colors.bgCanvas,
-  },
-  scrollContent: {
-    alignItems: 'center',
-    paddingBottom: 32,
-  },
-  contentWrapper: {
-    width: '100%',
-    maxWidth: MaxContentWidth,
-  },
-  filterTabsContainer: {
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-    marginTop: 4,
-    marginBottom: 12,
-    gap: 8,
-  },
-  filterTab: {
-    paddingVertical: 7,
-    paddingHorizontal: 14,
-    borderRadius: 20,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#E4E4E7',
-  },
-  filterTabActive: {
-    backgroundColor: '#000000',
-    borderColor: '#000000',
-  },
-  filterTabText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#52525B',
-  },
-  filterTabTextActive: {
-    color: '#FFFFFF',
-    fontWeight: '700',
-  },
-  subjectsList: {
-    paddingTop: 0,
-  },
-  paperSection: {
-    marginBottom: 6,
-  },
-  paperSectionSpacing: {
-    marginTop: 18,
-  },
-  paperHeader: {
-    paddingHorizontal: 20,
-    paddingTop: 10,
-    paddingBottom: 8,
-  },
-  paperTitleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  paperBadge: {
-    backgroundColor: '#000000',
-    paddingHorizontal: 7,
-    paddingVertical: 3,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  paperBadgeText: {
-    fontSize: 10,
-    fontWeight: '800',
-    color: '#FFFFFF',
-    letterSpacing: 0.6,
-    includeFontPadding: false,
-  },
-  paperTitle: {
-    fontSize: 16,
-    fontWeight: '800',
-    color: '#000000',
-    letterSpacing: -0.3,
-    includeFontPadding: false,
-  },
-  paperDivider: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: '#A1A1AA',
-    includeFontPadding: false,
-  },
-  paperSubtitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#71717A',
-    includeFontPadding: false,
-  },
-  paperMetaText: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#71717A',
-    marginTop: 2,
-    includeFontPadding: false,
-  },
-});
+const getStyles = (theme: PrelimsThemeType) =>
+  StyleSheet.create({
+    safeArea: {
+      flex: 1,
+      backgroundColor: theme.colors.bgCanvas,
+    },
+    scrollView: {
+      flex: 1,
+      backgroundColor: theme.colors.bgCanvas,
+    },
+    scrollContent: {
+      alignItems: 'center',
+      paddingBottom: 32,
+    },
+    contentWrapper: {
+      width: '100%',
+      maxWidth: MaxContentWidth,
+    },
+    subjectsList: {
+      paddingTop: 0,
+    },
+    paperSection: {
+      marginBottom: 6,
+    },
+    paperSectionSpacing: {
+      marginTop: 18,
+    },
+    paperHeader: {
+      paddingHorizontal: 20,
+      paddingTop: 10,
+      paddingBottom: 8,
+    },
+    paperTitleRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    paperTitle: {
+      fontSize: 16,
+      fontWeight: '800',
+      color: theme.colors.textPrimary,
+      letterSpacing: -0.3,
+      includeFontPadding: false,
+    },
+    paperMetaText: {
+      fontSize: 12,
+      fontWeight: '500',
+      color: theme.colors.textMuted,
+      marginTop: 2,
+      includeFontPadding: false,
+    },
+  });
 

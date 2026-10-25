@@ -9,10 +9,10 @@ import {
   TrendingUp,
   X,
 } from '@/components/common/LucideIcons';
-import { PrelimsTheme } from '@/constants/prelimsTheme';
+import { usePrelimsTheme, PrelimsThemeType } from '@/constants/prelimsTheme';
 import { getChapterShortNotes } from '@/data/prelimsData';
 import { Chapter, Subject } from '@/types/prelims';
-import { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   KeyboardAvoidingView,
   Modal,
@@ -42,6 +42,9 @@ export function ChapterDetailView({
   onStartPractice,
   onStartQuiz,
 }: ChapterDetailViewProps) {
+  const theme = usePrelimsTheme();
+  const styles = useMemo(() => getStyles(theme), [theme]);
+
   const [isQuickRevisionOpen, setIsQuickRevisionOpen] = useState(false);
   const [isQuizConfigOpen, setIsQuizConfigOpen] = useState(false);
 
@@ -137,7 +140,7 @@ export function ChapterDetailView({
           style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
           onPress={onBack}
         >
-          <ArrowLeft size={16} color="#000000" strokeWidth={2.2} />
+          <ArrowLeft size={16} color={theme.colors.textPrimary} strokeWidth={2.2} />
           <Text style={styles.backButtonText}>{subject.shortTitle} Chapters</Text>
         </Pressable>
 
@@ -187,7 +190,7 @@ export function ChapterDetailView({
             style={({ pressed }) => [styles.btnPractice, pressed && styles.btnPressed]}
             onPress={() => onStartPractice(chapter)}
           >
-            <BookOpen size={16} color="#000000" strokeWidth={2.2} />
+            <BookOpen size={16} color={theme.colors.textPrimary} strokeWidth={2.2} />
             <Text style={styles.btnPracticeText}>Practice Mode</Text>
           </Pressable>
 
@@ -195,7 +198,7 @@ export function ChapterDetailView({
             style={({ pressed }) => [styles.btnQuiz, pressed && styles.btnPressed]}
             onPress={() => setIsQuizConfigOpen(true)}
           >
-            <Timer size={16} color="#FFFFFF" strokeWidth={2.2} />
+            <Timer size={16} color={theme.colors.darkButtonText} strokeWidth={2.2} />
             <Text style={styles.btnQuizText}>Take Quiz</Text>
           </Pressable>
         </View>
@@ -212,12 +215,11 @@ export function ChapterDetailView({
           >
             <View style={styles.quickRevisionLeft}>
               <View style={styles.quickRevisionIconBadge}>
-                <FileText size={17} color="#000000" strokeWidth={2.2} />
+                <FileText size={17} color={theme.colors.textPrimary} strokeWidth={2.2} />
               </View>
               <View style={styles.quickRevisionTextCol}>
                 <View style={styles.quickRevisionTitleRow}>
                   <Text style={styles.quickRevisionTitle}>Quick Revision</Text>
-
                 </View>
                 <Text style={styles.quickRevisionSubtitle}>
                   {shortNotes.length} Core Concept Summaries & Key Pointers
@@ -227,9 +229,9 @@ export function ChapterDetailView({
 
             <View style={styles.quickRevisionRight}>
               {isQuickRevisionOpen ? (
-                <ChevronUp size={18} color="#000000" strokeWidth={2.2} />
+                <ChevronUp size={18} color={theme.colors.textPrimary} strokeWidth={2.2} />
               ) : (
-                <ChevronDown size={18} color="#71717A" strokeWidth={2.2} />
+                <ChevronDown size={18} color={theme.colors.textSecondary} strokeWidth={2.2} />
               )}
             </View>
           </Pressable>
@@ -258,7 +260,7 @@ export function ChapterDetailView({
         <View style={styles.section}>
           <View style={styles.sectionHeaderRow}>
             <View style={styles.sectionTitleWithIcon}>
-              <TrendingUp size={15} color="#000000" strokeWidth={2.2} />
+              <TrendingUp size={15} color={theme.colors.textPrimary} strokeWidth={2.2} />
               <Text style={styles.sectionTitle}>10-Year Trend</Text>
             </View>
             <Text style={styles.sectionSubtitleTag}>2015 – 2024</Text>
@@ -298,7 +300,7 @@ export function ChapterDetailView({
           <View style={styles.section}>
             <View style={styles.sectionHeaderRow}>
               <View style={styles.sectionTitleWithIcon}>
-                <Sparkles size={15} color="#000000" strokeWidth={2.2} />
+                <Sparkles size={15} color={theme.colors.textPrimary} strokeWidth={2.2} />
                 <Text style={styles.sectionTitle}>Examiner Pattern Insight</Text>
               </View>
             </View>
@@ -330,7 +332,7 @@ export function ChapterDetailView({
                 style={styles.configCloseBtn}
                 onPress={() => setIsQuizConfigOpen(false)}
               >
-                <X size={18} color="#000000" strokeWidth={2} />
+                <X size={18} color={theme.colors.textPrimary} strokeWidth={2} />
               </Pressable>
             </View>
 
@@ -387,7 +389,7 @@ export function ChapterDetailView({
                     style={styles.customInput}
                     keyboardType="number-pad"
                     placeholder={`1 - ${totalQs}`}
-                    placeholderTextColor="#A1A1AA"
+                    placeholderTextColor={theme.colors.textMuted}
                     value={customQuestionText}
                     onChangeText={handleCustomQuestionTextChange}
                     maxLength={3}
@@ -448,7 +450,7 @@ export function ChapterDetailView({
                     style={styles.customInput}
                     keyboardType="number-pad"
                     placeholder="e.g. 25"
-                    placeholderTextColor="#A1A1AA"
+                    placeholderTextColor={theme.colors.textMuted}
                     value={customDurationText}
                     onChangeText={handleCustomDurationTextChange}
                     maxLength={3}
@@ -473,7 +475,7 @@ export function ChapterDetailView({
               ]}
               onPress={handleLaunchQuiz}
             >
-              <Timer size={16} color="#FFFFFF" strokeWidth={2.2} />
+              <Timer size={16} color={theme.colors.darkButtonText} strokeWidth={2.2} />
               <Text style={styles.configStartBtnText}>
                 Start Quiz ({quizQuestionCount} Qs · {quizDurationMinutes} Mins)
               </Text>
@@ -485,10 +487,11 @@ export function ChapterDetailView({
   );
 }
 
-const styles = StyleSheet.create({
+const getStyles = (theme: PrelimsThemeType) =>
+  StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: PrelimsTheme.colors.bgCanvas,
+    backgroundColor: theme.colors.bgCanvas,
   },
   navBar: {
     flexDirection: 'row',
@@ -501,34 +504,34 @@ const styles = StyleSheet.create({
   backButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     gap: 6,
-    ...PrelimsTheme.shadows.card,
+    ...theme.shadows.card,
   },
   backButtonText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   serialBadge: {
     width: 32,
     height: 32,
     borderRadius: 8,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
     alignItems: 'center',
     justifyContent: 'center',
   },
   serialBadgeText: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   scrollView: {
     flex: 1,
@@ -549,27 +552,27 @@ const styles = StyleSheet.create({
     }),
     fontSize: 23,
     fontWeight: '800',
-    color: '#09090B',
+    color: theme.colors.textPrimary,
     letterSpacing: -0.6,
     lineHeight: 30,
     marginBottom: 4,
   },
   subjectContext: {
     fontSize: 12,
-    color: '#71717A',
+    color: theme.colors.textSecondary,
     fontWeight: '500',
   },
   metricsCard: {
     flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 12,
     paddingVertical: 14,
     paddingHorizontal: 16,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     marginBottom: 14,
     alignItems: 'center',
-    ...PrelimsTheme.shadows.card,
+    ...theme.shadows.card,
   },
   metricCol: {
     flex: 1,
@@ -578,13 +581,13 @@ const styles = StyleSheet.create({
   metricValue: {
     fontSize: 19,
     fontWeight: '800',
-    color: '#09090B',
+    color: theme.colors.textPrimary,
     letterSpacing: -0.3,
   },
   metricLabel: {
     fontSize: 10,
     fontWeight: '600',
-    color: '#71717A',
+    color: theme.colors.textSecondary,
     marginTop: 2,
     textTransform: 'uppercase',
     letterSpacing: 0.4,
@@ -592,7 +595,7 @@ const styles = StyleSheet.create({
   metricDivider: {
     width: 1,
     height: 26,
-    backgroundColor: '#E4E4E7',
+    backgroundColor: theme.colors.borderSubtle,
   },
   buttonsRow: {
     flexDirection: 'row',
@@ -605,19 +608,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 10,
     paddingVertical: 13,
     paddingHorizontal: 14,
     borderWidth: 1.5,
-    borderColor: '#000000',
+    borderColor: theme.colors.borderCard,
     gap: 8,
-    ...PrelimsTheme.shadows.card,
+    ...theme.shadows.card,
   },
   btnPracticeText: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
     letterSpacing: -0.1,
   },
   btnQuiz: {
@@ -625,19 +628,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
     borderRadius: 10,
     paddingVertical: 13,
     paddingHorizontal: 14,
     borderWidth: 1.5,
-    borderColor: '#000000',
+    borderColor: theme.colors.darkButton,
     gap: 8,
-    ...PrelimsTheme.shadows.card,
+    ...theme.shadows.card,
   },
   btnQuizText: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
     letterSpacing: -0.1,
   },
   btnPressed: {
@@ -667,28 +670,28 @@ const styles = StyleSheet.create({
     }),
     fontSize: 13.5,
     fontWeight: '700',
-    color: '#09090B',
+    color: theme.colors.textPrimary,
     letterSpacing: -0.15,
   },
   sectionSubtitleTag: {
     fontSize: 11,
     fontWeight: '600',
-    color: '#71717A',
+    color: theme.colors.textMuted,
   },
   quickRevisionCard: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 12,
     paddingVertical: 14,
     paddingHorizontal: 16,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
-    ...PrelimsTheme.shadows.card,
+    borderColor: theme.colors.borderCard,
+    ...theme.shadows.card,
   },
   quickRevisionCardActive: {
-    borderColor: '#000000',
+    borderColor: theme.colors.textPrimary,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
   },
@@ -702,9 +705,9 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 8,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -720,11 +723,11 @@ const styles = StyleSheet.create({
   quickRevisionTitle: {
     fontSize: 15,
     fontWeight: '800',
-    color: '#09090B',
+    color: theme.colors.textPrimary,
     letterSpacing: -0.2,
   },
   highYieldTag: {
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 4,
@@ -732,39 +735,39 @@ const styles = StyleSheet.create({
   highYieldTagText: {
     fontSize: 9,
     fontWeight: '800',
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
     letterSpacing: 0.3,
     textTransform: 'uppercase',
   },
   quickRevisionSubtitle: {
     fontSize: 11.5,
-    color: '#71717A',
+    color: theme.colors.textSecondary,
     fontWeight: '500',
   },
   quickRevisionRight: {
     marginLeft: 10,
   },
   quickRevisionExpandedContainer: {
-    backgroundColor: '#FAFAFA',
+    backgroundColor: theme.colors.bgCanvas,
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
     borderWidth: 1,
     borderTopWidth: 0,
-    borderColor: '#000000',
+    borderColor: theme.colors.borderCard,
     padding: 14,
     gap: 10,
   },
   noteCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 10,
     padding: 14,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
   },
   noteHeading: {
     fontSize: 13,
     fontWeight: '800',
-    color: '#09090B',
+    color: theme.colors.textPrimary,
     marginBottom: 8,
     letterSpacing: -0.1,
   },
@@ -780,23 +783,23 @@ const styles = StyleSheet.create({
     width: 4.5,
     height: 4.5,
     borderRadius: 2.25,
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.primary,
     marginTop: 6.5,
   },
   notePointText: {
     fontSize: 12.5,
-    color: '#3F3F46',
+    color: theme.colors.textSecondary,
     lineHeight: 18.5,
     flex: 1,
     fontWeight: '400',
   },
   chartCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 12,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
-    ...PrelimsTheme.shadows.card,
+    borderColor: theme.colors.borderCard,
+    ...theme.shadows.card,
   },
   chartArea: {
     flexDirection: 'row',
@@ -805,7 +808,7 @@ const styles = StyleSheet.create({
     height: 120,
     paddingTop: 6,
     borderBottomWidth: 1,
-    borderBottomColor: '#E4E4E7',
+    borderBottomColor: theme.colors.borderSubtle,
     paddingBottom: 4,
   },
   chartCol: {
@@ -815,54 +818,54 @@ const styles = StyleSheet.create({
   barCount: {
     fontSize: 10,
     fontWeight: '600',
-    color: '#D4D4D8',
+    color: theme.colors.textMuted,
     marginBottom: 3,
   },
   barCountActive: {
-    color: '#09090B',
+    color: theme.colors.textPrimary,
     fontWeight: '800',
   },
   barTrack: {
     width: 14,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderRadius: 3,
   },
   barActive: {
-    backgroundColor: '#71717A',
+    backgroundColor: theme.isDark ? '#64748B' : '#94A3B8',
   },
   barRecent: {
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.textPrimary,
   },
   yearText: {
     fontSize: 10,
-    color: '#A1A1AA',
+    color: theme.colors.textMuted,
     marginTop: 5,
     fontWeight: '500',
   },
   yearTextRecent: {
-    color: '#09090B',
+    color: theme.colors.textPrimary,
     fontWeight: '700',
   },
   insightCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 12,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     borderLeftWidth: 3.5,
-    borderLeftColor: '#000000',
-    ...PrelimsTheme.shadows.card,
+    borderLeftColor: theme.colors.textPrimary,
+    ...theme.shadows.card,
   },
   insightText: {
     fontSize: 13,
-    color: '#27272A',
+    color: theme.colors.textSecondary,
     lineHeight: 20,
     fontWeight: '500',
   },
   // Quiz Configuration Modal Styles
   configModalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
@@ -870,12 +873,12 @@ const styles = StyleSheet.create({
   configDialog: {
     width: '100%',
     maxWidth: 420,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 16,
     padding: 22,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
-    ...PrelimsTheme.shadows.card,
+    borderColor: theme.colors.borderCard,
+    ...theme.shadows.card,
   },
   configDialogHeader: {
     flexDirection: 'row',
@@ -886,20 +889,20 @@ const styles = StyleSheet.create({
   configDialogTitle: {
     fontSize: 17,
     fontWeight: '800',
-    color: '#09090B',
+    color: theme.colors.textPrimary,
     letterSpacing: -0.3,
     marginBottom: 3,
   },
   configDialogSubtitle: {
     fontSize: 12,
-    color: '#71717A',
+    color: theme.colors.textSecondary,
     fontWeight: '500',
   },
   configCloseBtn: {
     width: 32,
     height: 32,
     borderRadius: 8,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -909,7 +912,7 @@ const styles = StyleSheet.create({
   configSectionLabel: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#09090B',
+    color: theme.colors.textPrimary,
     marginBottom: 8,
     letterSpacing: -0.1,
   },
@@ -922,7 +925,7 @@ const styles = StyleSheet.create({
   configSectionSubLabel: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#71717A',
+    color: theme.colors.textSecondary,
   },
   pillsRow: {
     flexDirection: 'row',
@@ -933,58 +936,58 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     paddingHorizontal: 14,
     borderRadius: 8,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1.5,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
   },
   configPillActive: {
-    backgroundColor: '#000000',
-    borderColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
+    borderColor: theme.colors.darkButton,
   },
   configPillText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#3F3F46',
+    color: theme.colors.textSecondary,
   },
   configPillTextActive: {
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   customInputRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginTop: 10,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     paddingVertical: 7,
     paddingHorizontal: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
   },
   customInputPrefix: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#52525B',
+    color: theme.colors.textSecondary,
   },
   customInputBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderWidth: 1.5,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
     borderRadius: 6,
     paddingHorizontal: 8,
     height: 32,
     minWidth: 88,
   },
   customInputBoxActive: {
-    borderColor: '#000000',
-    backgroundColor: '#FFFFFF',
+    borderColor: theme.colors.textPrimary,
+    backgroundColor: theme.colors.bgSurface,
   },
   customInput: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#09090B',
+    color: theme.colors.textPrimary,
     paddingVertical: 0,
     paddingHorizontal: 0,
     minWidth: 42,
@@ -993,20 +996,20 @@ const styles = StyleSheet.create({
   customInputUnit: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#71717A',
+    color: theme.colors.textMuted,
     marginLeft: 4,
   },
   configNoticeBox: {
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     padding: 10,
     borderRadius: 8,
     marginBottom: 18,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
   },
   configNoticeText: {
     fontSize: 11,
-    color: '#52525B',
+    color: theme.colors.textSecondary,
     fontWeight: '600',
     textAlign: 'center',
     lineHeight: 16,
@@ -1015,7 +1018,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
     borderRadius: 12,
     paddingVertical: 14,
     gap: 8,
@@ -1023,7 +1026,7 @@ const styles = StyleSheet.create({
   configStartBtnText: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   pressed: {
     opacity: 0.85,

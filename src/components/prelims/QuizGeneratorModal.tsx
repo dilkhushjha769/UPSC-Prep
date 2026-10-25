@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { View, Text, StyleSheet, Modal, ScrollView, Pressable } from 'react-native';
 import { X, CheckCircle2, Circle, CheckSquare, Square } from '@/components/common/LucideIcons';
 import { Subject, QuizConfig } from '@/types/prelims';
+import { usePrelimsTheme, PrelimsThemeType } from '@/constants/prelimsTheme';
 
 interface QuizGeneratorModalProps {
   visible: boolean;
@@ -16,6 +17,8 @@ export function QuizGeneratorModal({
   onClose,
   onGenerateQuiz,
 }: QuizGeneratorModalProps) {
+  const theme = usePrelimsTheme();
+  const styles = useMemo(() => getStyles(theme), [theme]);
   const [selectedSubjectId, setSelectedSubjectId] = useState<string>('all');
   const [questionCount, setQuestionCount] = useState<number>(15);
   const [durationMinutes, setDurationMinutes] = useState<number>(20);
@@ -54,7 +57,7 @@ export function QuizGeneratorModal({
               <Text style={styles.headerSubtitle}>Configure Custom Mock Test</Text>
             </View>
             <Pressable style={styles.closeBtn} onPress={onClose}>
-              <X size={18} color="#000000" strokeWidth={2.2} />
+              <X size={18} color={theme.colors.textPrimary} strokeWidth={2.2} />
             </Pressable>
           </View>
 
@@ -173,9 +176,9 @@ export function QuizGeneratorModal({
                 >
                   <View style={styles.optionCardHeader}>
                     {yearRange === 'recent5' ? (
-                      <CheckCircle2 size={16} color="#000000" strokeWidth={2.2} />
+                      <CheckCircle2 size={16} color={theme.colors.textPrimary} strokeWidth={2.2} />
                     ) : (
-                      <Circle size={16} color="#A1A1AA" strokeWidth={1.8} />
+                      <Circle size={16} color={theme.colors.textMuted} strokeWidth={1.8} />
                     )}
                     <Text style={styles.optionCardTitle}>2020 - 2024</Text>
                   </View>
@@ -193,9 +196,9 @@ export function QuizGeneratorModal({
                 >
                   <View style={styles.optionCardHeader}>
                     {yearRange === 'all' ? (
-                      <CheckCircle2 size={16} color="#000000" strokeWidth={2.2} />
+                      <CheckCircle2 size={16} color={theme.colors.textPrimary} strokeWidth={2.2} />
                     ) : (
-                      <Circle size={16} color="#A1A1AA" strokeWidth={1.8} />
+                      <Circle size={16} color={theme.colors.textMuted} strokeWidth={1.8} />
                     )}
                     <Text style={styles.optionCardTitle}>2014 - 2024</Text>
                   </View>
@@ -219,9 +222,9 @@ export function QuizGeneratorModal({
                 >
                   <View style={styles.optionCardHeader}>
                     {difficulty === 'all' ? (
-                      <CheckCircle2 size={16} color="#000000" strokeWidth={2.2} />
+                      <CheckCircle2 size={16} color={theme.colors.textPrimary} strokeWidth={2.2} />
                     ) : (
-                      <Circle size={16} color="#A1A1AA" strokeWidth={1.8} />
+                      <Circle size={16} color={theme.colors.textMuted} strokeWidth={1.8} />
                     )}
                     <Text style={styles.optionCardTitle}>Standard UPSC</Text>
                   </View>
@@ -239,9 +242,9 @@ export function QuizGeneratorModal({
                 >
                   <View style={styles.optionCardHeader}>
                     {difficulty === 'medium-hard' ? (
-                      <CheckCircle2 size={16} color="#000000" strokeWidth={2.2} />
+                      <CheckCircle2 size={16} color={theme.colors.textPrimary} strokeWidth={2.2} />
                     ) : (
-                      <Circle size={16} color="#A1A1AA" strokeWidth={1.8} />
+                      <Circle size={16} color={theme.colors.textMuted} strokeWidth={1.8} />
                     )}
                     <Text style={styles.optionCardTitle}>Hard / Elimination</Text>
                   </View>
@@ -259,9 +262,9 @@ export function QuizGeneratorModal({
             >
               <View style={styles.schemeIconBox}>
                 {negativeMarking ? (
-                  <CheckSquare size={18} color="#000000" strokeWidth={2.2} />
+                  <CheckSquare size={18} color={theme.colors.textPrimary} strokeWidth={2.2} />
                 ) : (
-                  <Square size={18} color="#71717A" strokeWidth={1.8} />
+                  <Square size={18} color={theme.colors.textMuted} strokeWidth={1.8} />
                 )}
               </View>
               <View style={styles.schemeTextBox}>
@@ -294,16 +297,18 @@ export function QuizGeneratorModal({
   );
 }
 
-const styles = StyleSheet.create({
+const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: 'rgba(0, 0, 0, 0.65)',
     justifyContent: 'flex-end',
   },
   sheetContainer: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    borderTopWidth: 1,
+    borderTopColor: theme.colors.borderCard,
     height: '85%',
     paddingBottom: 20,
   },
@@ -314,24 +319,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#E4E4E7',
+    borderBottomColor: theme.colors.borderCard,
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
     letterSpacing: -0.2,
   },
   headerSubtitle: {
     fontSize: 12,
-    color: '#71717A',
+    color: theme.colors.textSecondary,
     marginTop: 2,
   },
   closeBtn: {
     width: 32,
     height: 32,
-    borderRadius: 16,
-    backgroundColor: '#F4F4F5',
+    borderRadius: 8,
+    backgroundColor: theme.colors.bgSurfaceMuted,
+    borderWidth: 1,
+    borderColor: theme.colors.borderCard,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -345,7 +352,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 13,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
     marginBottom: 10,
     letterSpacing: -0.2,
   },
@@ -357,7 +364,7 @@ const styles = StyleSheet.create({
   timeTag: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   chipsRow: {
     gap: 8,
@@ -367,21 +374,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 8,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
   },
   chipActive: {
-    backgroundColor: '#000000',
-    borderColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
+    borderColor: theme.colors.darkButton,
   },
   chipText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#000000',
+    color: theme.colors.textSecondary,
   },
   chipTextActive: {
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
     fontWeight: '700',
   },
   segmentedRow: {
@@ -392,22 +399,22 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 10,
     borderRadius: 8,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
   },
   segmentPillActive: {
-    backgroundColor: '#000000',
-    borderColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
+    borderColor: theme.colors.darkButton,
   },
   segmentText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textSecondary,
   },
   segmentTextActive: {
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   optionCardsRow: {
     flexDirection: 'row',
@@ -415,16 +422,16 @@ const styles = StyleSheet.create({
   },
   optionCard: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     borderRadius: 10,
     padding: 12,
     gap: 4,
   },
   optionCardActive: {
-    borderColor: '#000000',
-    backgroundColor: '#F4F4F5',
+    borderColor: theme.colors.textPrimary,
+    backgroundColor: '#1E293B',
   },
   optionCardHeader: {
     flexDirection: 'row',
@@ -434,18 +441,18 @@ const styles = StyleSheet.create({
   optionCardTitle: {
     fontSize: 13,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   optionCardDesc: {
     fontSize: 11,
-    color: '#71717A',
+    color: theme.colors.textMuted,
     lineHeight: 15,
   },
   schemeCard: {
     flexDirection: 'row',
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     borderRadius: 10,
     padding: 14,
     gap: 10,
@@ -461,21 +468,22 @@ const styles = StyleSheet.create({
   schemeTitle: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   schemeDesc: {
     fontSize: 11,
-    color: '#52525B',
+    color: theme.colors.textSecondary,
     lineHeight: 16,
   },
   bottomDock: {
     paddingHorizontal: 20,
     paddingTop: 12,
     borderTopWidth: 1,
-    borderTopColor: '#E4E4E7',
+    borderTopColor: theme.colors.borderCard,
+    backgroundColor: theme.colors.bgSurface,
   },
   generateBtn: {
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 14,
@@ -484,7 +492,7 @@ const styles = StyleSheet.create({
   generateBtnText: {
     fontSize: 14,
     fontWeight: '800',
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   pressed: {
     opacity: 0.75,

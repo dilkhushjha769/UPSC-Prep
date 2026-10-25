@@ -1,34 +1,35 @@
-import React, { useState, useMemo } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Modal,
-  ScrollView,
-  Pressable,
-  Platform,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   ArrowLeft,
   ArrowRight,
-  ChevronRight,
-  ChevronDown,
   Bookmark,
   Calendar,
   CheckCircle2,
-  XCircle,
-  ShieldCheck,
+  ChevronDown,
+  ChevronRight,
+  Eye,
+  Filter,
+  HelpCircle,
   Lightbulb,
   ListFilter,
-  Eye,
-  HelpCircle,
-  Filter,
+  ShieldCheck,
   X,
+  XCircle,
 } from '@/components/common/LucideIcons';
 import { PYQQuestion, Chapter } from '@/types/prelims';
-import { PrelimsTheme } from '@/constants/prelimsTheme';
+import { PrelimsThemeType, usePrelimsTheme } from '@/constants/prelimsTheme';
 import { useStudy } from '@/context/StudyContext';
+import { StatusBar } from 'expo-status-bar';
+import { useMemo, useState } from 'react';
+import {
+  Modal,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type QuestionStatusFilter = 'all' | 'solved' | 'incorrect' | 'unsolved' | 'unattempted';
 type YearFilter = 'all' | number;
@@ -48,6 +49,8 @@ export function PracticeModal({
   onClose,
 }: PracticeModalProps) {
   const { recordMCQSession } = useStudy();
+  const theme = usePrelimsTheme();
+  const styles = useMemo(() => getStyles(theme), [theme]);
   // viewMode: 'list' shows all questions in a vertical list
   // 'attempt' opens the selected question to attempt with options
   const [viewMode, setViewMode] = useState<'list' | 'attempt'>('list');
@@ -220,6 +223,7 @@ export function PracticeModal({
 
   return (
     <Modal visible={visible} animationType="slide" transparent={false}>
+      <StatusBar style={theme.isDark ? 'light' : 'dark'} />
       <SafeAreaView style={styles.fullScreenSafeArea}>
         {viewMode === 'list' ? (
           /* ========================================================= */
@@ -254,13 +258,6 @@ export function PracticeModal({
               </View>
             </View>
 
-            {/* List Header Block */}
-            <View style={styles.listHeaderBlock}>
-              <Text style={styles.listTitle}>{chapter.title}</Text>
-              <Text style={styles.listSubtitle}>
-                Previous Years Questions · Filter by status, year, or difficulty
-              </Text>
-            </View>
 
             {/* STATUS FILTER BAR (With Year & Difficulty Dropdowns in the same line) */}
             <View style={styles.filterBarContainer}>
@@ -298,7 +295,7 @@ export function PracticeModal({
                   >
                     <CheckCircle2
                       size={13}
-                      color={statusFilter === 'solved' ? '#FFFFFF' : '#000000'}
+                      color={statusFilter === 'solved' ? theme.colors.darkButtonText : theme.colors.textPrimary}
                       strokeWidth={2.2}
                     />
                     <Text
@@ -343,7 +340,7 @@ export function PracticeModal({
                   >
                     <HelpCircle
                       size={13}
-                      color={statusFilter === 'unsolved' ? '#FFFFFF' : '#000000'}
+                      color={statusFilter === 'unsolved' ? theme.colors.darkButtonText : theme.colors.textPrimary}
                       strokeWidth={2}
                     />
                     <Text
@@ -388,7 +385,7 @@ export function PracticeModal({
                       style={({ pressed }) => [
                         styles.dropdownTriggerBtn,
                         (selectedYear !== 'all' || showYearPicker) &&
-                          styles.dropdownTriggerBtnActive,
+                        styles.dropdownTriggerBtnActive,
                         pressed && styles.pressed,
                       ]}
                       onPress={() => {
@@ -399,7 +396,7 @@ export function PracticeModal({
                       <Calendar
                         size={12}
                         color={
-                          selectedYear !== 'all' || showYearPicker ? '#FFFFFF' : '#000000'
+                          selectedYear !== 'all' || showYearPicker ? theme.colors.darkButtonText : theme.colors.textPrimary
                         }
                         strokeWidth={2}
                       />
@@ -407,7 +404,7 @@ export function PracticeModal({
                         style={[
                           styles.dropdownTriggerText,
                           (selectedYear !== 'all' || showYearPicker) &&
-                            styles.dropdownTriggerTextActive,
+                          styles.dropdownTriggerTextActive,
                         ]}
                         numberOfLines={1}
                       >
@@ -428,7 +425,7 @@ export function PracticeModal({
                         {/* Calendar Header */}
                         <View style={styles.calendarHeaderRow}>
                           <View style={styles.calendarHeaderTitleRow}>
-                            <Calendar size={13} color="#000000" strokeWidth={2.2} />
+                            <Calendar size={13} color={theme.colors.textPrimary} strokeWidth={2.2} />
                             <Text style={styles.calendarHeaderTitle}>Year Calendar</Text>
                           </View>
                           {selectedYear !== 'all' && (
@@ -527,7 +524,7 @@ export function PracticeModal({
                       style={({ pressed }) => [
                         styles.dropdownTriggerBtn,
                         (selectedDifficulty !== 'all' || showDiffPicker) &&
-                          styles.dropdownTriggerBtnActive,
+                        styles.dropdownTriggerBtnActive,
                         pressed && styles.pressed,
                       ]}
                       onPress={() => {
@@ -548,7 +545,7 @@ export function PracticeModal({
                         style={[
                           styles.dropdownTriggerText,
                           (selectedDifficulty !== 'all' || showDiffPicker) &&
-                            styles.dropdownTriggerTextActive,
+                          styles.dropdownTriggerTextActive,
                         ]}
                         numberOfLines={1}
                       >
@@ -589,9 +586,9 @@ export function PracticeModal({
                               diff === 'all'
                                 ? questions.length
                                 : questions.filter(
-                                    (q) =>
-                                      q.difficulty.toLowerCase() === diff.toLowerCase()
-                                  ).length;
+                                  (q) =>
+                                    q.difficulty.toLowerCase() === diff.toLowerCase()
+                                ).length;
 
                             return (
                               <Pressable
@@ -650,7 +647,7 @@ export function PracticeModal({
                       <Text style={styles.activeFilterChipText}>
                         {statusFilter.charAt(0).toUpperCase() + statusFilter.slice(1)}
                       </Text>
-                      <X size={10} color="#000000" strokeWidth={2.5} />
+                      <X size={10} color={theme.colors.textPrimary} strokeWidth={2.5} />
                     </Pressable>
                   )}
                   {selectedYear !== 'all' && (
@@ -659,7 +656,7 @@ export function PracticeModal({
                       onPress={() => setSelectedYear('all')}
                     >
                       <Text style={styles.activeFilterChipText}>Year: {selectedYear}</Text>
-                      <X size={10} color="#000000" strokeWidth={2.5} />
+                      <X size={10} color={theme.colors.textPrimary} strokeWidth={2.5} />
                     </Pressable>
                   )}
                   {selectedDifficulty !== 'all' && (
@@ -670,7 +667,7 @@ export function PracticeModal({
                       <Text style={styles.activeFilterChipText}>
                         Level: {selectedDifficulty}
                       </Text>
-                      <X size={10} color="#000000" strokeWidth={2.5} />
+                      <X size={10} color={theme.colors.textPrimary} strokeWidth={2.5} />
                     </Pressable>
                   )}
                   <Pressable
@@ -692,38 +689,38 @@ export function PracticeModal({
               <View style={styles.emptyFilterCard}>
                 <View style={styles.emptyFilterIconBadge}>
                   {statusFilter === 'incorrect' ? (
-                    <CheckCircle2 size={24} color="#000000" strokeWidth={2} />
+                    <CheckCircle2 size={24} color={theme.colors.textPrimary} strokeWidth={2} />
                   ) : statusFilter === 'solved' ? (
-                    <Lightbulb size={24} color="#000000" strokeWidth={2} />
+                    <Lightbulb size={24} color={theme.colors.textPrimary} strokeWidth={2} />
                   ) : statusFilter === 'unsolved' ? (
-                    <HelpCircle size={24} color="#000000" strokeWidth={2} />
+                    <HelpCircle size={24} color={theme.colors.textPrimary} strokeWidth={2} />
                   ) : statusFilter === 'unattempted' ? (
-                    <Eye size={24} color="#000000" strokeWidth={2} />
+                    <Eye size={24} color={theme.colors.textPrimary} strokeWidth={2} />
                   ) : (
-                    <Filter size={24} color="#000000" strokeWidth={2} />
+                    <Filter size={24} color={theme.colors.textPrimary} strokeWidth={2} />
                   )}
                 </View>
                 <Text style={styles.emptyFilterTitle}>
                   {statusFilter === 'incorrect'
                     ? 'No Incorrect Questions'
                     : statusFilter === 'solved'
-                    ? 'No Solved Questions Yet'
-                    : statusFilter === 'unsolved'
-                    ? 'No Unsolved Questions'
-                    : statusFilter === 'unattempted'
-                    ? 'No Unattempted Questions'
-                    : 'No Matching Questions'}
+                      ? 'No Solved Questions Yet'
+                      : statusFilter === 'unsolved'
+                        ? 'No Unsolved Questions'
+                        : statusFilter === 'unattempted'
+                          ? 'No Unattempted Questions'
+                          : 'No Matching Questions'}
                 </Text>
                 <Text style={styles.emptyFilterSubtitle}>
                   {statusFilter === 'incorrect'
                     ? "Great accuracy! You haven't made any mistakes under this selection."
                     : statusFilter === 'solved'
-                    ? 'Select questions to start practicing and see your solved answers here.'
-                    : statusFilter === 'unsolved'
-                    ? 'You have not skipped any viewed questions without answering.'
-                    : statusFilter === 'unattempted'
-                    ? 'You have opened and viewed all questions under this selection!'
-                    : 'No questions match the active status, year, and difficulty filters.'}
+                      ? 'Select questions to start practicing and see your solved answers here.'
+                      : statusFilter === 'unsolved'
+                        ? 'You have not skipped any viewed questions without answering.'
+                        : statusFilter === 'unattempted'
+                          ? 'You have opened and viewed all questions under this selection!'
+                          : 'No questions match the active status, year, and difficulty filters.'}
                 </Text>
                 <Pressable
                   style={({ pressed }) => [
@@ -769,7 +766,7 @@ export function PracticeModal({
                             <Text style={styles.qNumBadgeText}>Q{originalIndex + 1}</Text>
                           </View>
                           <View style={styles.yearTag}>
-                            <Calendar size={12} color="#000000" strokeWidth={2} />
+                            <Calendar size={12} color={theme.colors.textPrimary} strokeWidth={2} />
                             <Text style={styles.yearTagText}>{q.year}</Text>
                           </View>
                           <View style={styles.diffTag}>
@@ -782,7 +779,7 @@ export function PracticeModal({
                           {isAttempted ? (
                             isCorrect ? (
                               <View style={styles.statusCorrectPill}>
-                                <CheckCircle2 size={12} color="#000000" strokeWidth={2.2} />
+                                <CheckCircle2 size={12} color={theme.colors.textPrimary} strokeWidth={2.2} />
                                 <Text style={styles.statusCorrectText}>Solved</Text>
                               </View>
                             ) : (
@@ -793,7 +790,7 @@ export function PracticeModal({
                             )
                           ) : isSeen ? (
                             <View style={styles.statusUnsolvedPill}>
-                              <HelpCircle size={12} color="#000000" strokeWidth={2} />
+                              <HelpCircle size={12} color={theme.colors.textPrimary} strokeWidth={2} />
                               <Text style={styles.statusUnsolvedText}>Unsolved</Text>
                             </View>
                           ) : (
@@ -875,7 +872,7 @@ export function PracticeModal({
               {/* Year & Difficulty Meta Tags */}
               <View style={styles.metaTagsRow}>
                 <View style={styles.yearBadgeLarge}>
-                  <Calendar size={13} color="#000000" strokeWidth={2} />
+                  <Calendar size={13} color={theme.colors.textPrimary} strokeWidth={2} />
                   <Text style={styles.yearBadgeLargeText}>UPSC Prelims {currentQ.year}</Text>
                 </View>
                 <View style={styles.difficultyBadge}>
@@ -936,7 +933,7 @@ export function PracticeModal({
                       </View>
                       <Text style={styles.optionContentText}>{opt.text}</Text>
                       {hasAnswered && isCorrect && (
-                        <CheckCircle2 size={18} color="#000000" strokeWidth={2.2} />
+                        <CheckCircle2 size={18} color={theme.colors.textPrimary} strokeWidth={2.2} />
                       )}
                       {hasAnswered && isSelected && !isCorrect && (
                         <XCircle size={18} color="#71717A" strokeWidth={2.2} />
@@ -951,7 +948,7 @@ export function PracticeModal({
                 <View style={styles.solutionContainer}>
                   <View style={styles.solutionHeader}>
                     <View style={styles.solutionBadge}>
-                      <ShieldCheck size={14} color="#000000" strokeWidth={2.2} />
+                      <ShieldCheck size={14} color={theme.colors.textPrimary} strokeWidth={2.2} />
                       <Text style={styles.solutionBadgeText}>Official UPSC Key</Text>
                     </View>
                     <Text style={styles.officialKeyText}>
@@ -963,7 +960,7 @@ export function PracticeModal({
                   {currentQ.explanation?.coreConcept ? (
                     <View style={styles.solutionBlock}>
                       <View style={styles.solutionBlockTitleRow}>
-                        <Lightbulb size={14} color="#000000" strokeWidth={2.2} />
+                        <Lightbulb size={14} color={theme.colors.textPrimary} strokeWidth={2.2} />
                         <Text style={styles.solutionBlockTitle}>Core Concept</Text>
                       </View>
                       <Text style={styles.solutionBlockText}>
@@ -1014,7 +1011,7 @@ export function PracticeModal({
               >
                 <ArrowLeft
                   size={16}
-                  color={!hasPrev ? '#A1A1AA' : '#000000'}
+                  color={!hasPrev ? '#A1A1AA' : theme.colors.textPrimary}
                   strokeWidth={2.2}
                 />
                 <Text
@@ -1028,7 +1025,7 @@ export function PracticeModal({
                 style={({ pressed }) => [styles.navBtnListToggle, pressed && styles.pressed]}
                 onPress={() => setViewMode('list')}
               >
-                <ListFilter size={15} color="#000000" strokeWidth={2.2} />
+                <ListFilter size={15} color={theme.colors.textPrimary} strokeWidth={2.2} />
                 <Text style={styles.navBtnListToggleText}>
                   {!isFilteringActive
                     ? 'All Questions'
@@ -1067,14 +1064,14 @@ export function PracticeModal({
   );
 }
 
-const styles = StyleSheet.create({
+const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
   fullScreenSafeArea: {
     flex: 1,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: theme.colors.bgCanvas,
   },
   viewContainer: {
     flex: 1,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: theme.colors.bgCanvas,
   },
   topNavBar: {
     flexDirection: 'row',
@@ -1082,46 +1079,46 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingVertical: 12,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgCanvas,
     borderBottomWidth: 1,
-    borderBottomColor: '#E4E4E7',
+    borderBottomColor: theme.colors.borderCard,
   },
   backBtnPill: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
     gap: 6,
   },
   backBtnText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   progressPill: {
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
   },
   progressPillText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   qCounterPill: {
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
@@ -1129,22 +1126,22 @@ const styles = StyleSheet.create({
   qCounterText: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
     letterSpacing: -0.2,
   },
   qCounterFilterSub: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#71717A',
+    color: theme.colors.textMuted,
     textTransform: 'capitalize',
   },
   bookmarkIconBtn: {
     width: 36,
     height: 36,
     borderRadius: 8,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -1152,7 +1149,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 16,
     paddingBottom: 12,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgCanvas,
   },
   listTitle: {
     fontFamily: Platform.select({
@@ -1163,21 +1160,21 @@ const styles = StyleSheet.create({
     }),
     fontSize: 20,
     fontWeight: '800',
-    color: '#09090B',
+    color: theme.colors.textPrimary,
     letterSpacing: -0.4,
     marginBottom: 4,
   },
   listSubtitle: {
     fontSize: 12,
-    color: '#71717A',
+    color: theme.colors.textSecondary,
     fontWeight: '500',
   },
   filterBarContainer: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgCanvas,
     paddingVertical: 10,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     zIndex: 100,
     elevation: 10,
   },
@@ -1202,21 +1199,21 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
     paddingHorizontal: 12,
     borderRadius: 20,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
   },
   filterPillActive: {
-    backgroundColor: '#000000',
-    borderColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
+    borderColor: theme.colors.darkButton,
   },
   filterPillText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#52525B',
+    color: theme.colors.textSecondary,
   },
   filterPillTextActive: {
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   rightDropdownsGroup: {
     flexDirection: 'row',
@@ -1225,7 +1222,7 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     paddingLeft: 10,
     borderLeftWidth: 1,
-    borderLeftColor: '#E4E4E7',
+    borderLeftColor: theme.colors.borderSubtle,
   },
   dropdownTriggerBtn: {
     flexDirection: 'row',
@@ -1234,21 +1231,21 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
     paddingHorizontal: 10,
     borderRadius: 20,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
   },
   dropdownTriggerBtnActive: {
-    backgroundColor: '#000000',
-    borderColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
+    borderColor: theme.colors.darkButton,
   },
   dropdownTriggerText: {
     fontSize: 11.5,
     fontWeight: '700',
-    color: '#18181B',
+    color: theme.colors.textPrimary,
   },
   dropdownTriggerTextActive: {
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   activeFiltersRow: {
     flexDirection: 'row',
@@ -1259,12 +1256,12 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     marginTop: 6,
     borderTopWidth: 1,
-    borderTopColor: '#F4F4F5',
+    borderTopColor: theme.colors.borderSubtle,
   },
   activeFiltersLabel: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#71717A',
+    color: theme.colors.textMuted,
     textTransform: 'uppercase',
     letterSpacing: 0.3,
   },
@@ -1272,17 +1269,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
   },
   activeFilterChipText: {
     fontSize: 11,
     fontWeight: '600',
-    color: '#09090B',
+    color: theme.colors.textPrimary,
   },
   resetAllChip: {
     paddingVertical: 4,
@@ -1291,25 +1288,25 @@ const styles = StyleSheet.create({
   resetAllChipText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
     textDecorationLine: 'underline',
   },
   emptyFilterCard: {
     margin: 20,
     padding: 30,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     alignItems: 'center',
     justifyContent: 'center',
-    ...PrelimsTheme.shadows.card,
+    ...theme.shadows.card,
   },
   emptyFilterIconBadge: {
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 12,
@@ -1317,18 +1314,18 @@ const styles = StyleSheet.create({
   emptyFilterTitle: {
     fontSize: 16,
     fontWeight: '800',
-    color: '#09090B',
+    color: theme.colors.textPrimary,
     marginBottom: 6,
   },
   emptyFilterSubtitle: {
     fontSize: 12.5,
-    color: '#71717A',
+    color: theme.colors.textSecondary,
     textAlign: 'center',
     lineHeight: 18,
     marginBottom: 16,
   },
   resetFilterBtn: {
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 8,
@@ -1336,7 +1333,7 @@ const styles = StyleSheet.create({
   resetFilterBtnText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   scrollList: {
     flex: 1,
@@ -1347,15 +1344,15 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   questionCardItem: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 12,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
-    ...PrelimsTheme.shadows.card,
+    borderColor: theme.colors.borderCard,
+    ...theme.shadows.card,
   },
   questionCardAttempted: {
-    borderColor: '#D4D4D8',
+    borderColor: theme.colors.borderSubtle,
   },
   cardTopRow: {
     flexDirection: 'row',
@@ -1369,7 +1366,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   qNumBadge: {
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
@@ -1377,26 +1374,26 @@ const styles = StyleSheet.create({
   qNumBadgeText: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   yearTag: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
   },
   yearTagText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   diffTag: {
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     paddingHorizontal: 7,
     paddingVertical: 3,
     borderRadius: 6,
@@ -1404,7 +1401,7 @@ const styles = StyleSheet.create({
   diffTagText: {
     fontSize: 10,
     fontWeight: '600',
-    color: '#71717A',
+    color: theme.colors.textMuted,
     textTransform: 'capitalize',
   },
   statusCol: {
@@ -1416,36 +1413,36 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
   },
   statusCorrectText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   statusWrongPill: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
   },
   statusWrongText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#71717A',
+    color: theme.colors.textMuted,
   },
   statusUnattemptedPill: {
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
@@ -1453,11 +1450,11 @@ const styles = StyleSheet.create({
   statusUnattemptedText: {
     fontSize: 10,
     fontWeight: '600',
-    color: '#71717A',
+    color: theme.colors.textMuted,
   },
   questionSnippet: {
     fontSize: 13.5,
-    color: '#18181B',
+    color: theme.colors.textPrimary,
     lineHeight: 20,
     fontWeight: '500',
     marginBottom: 8,
@@ -1468,16 +1465,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 8,
     borderTopWidth: 1,
-    borderTopColor: '#F4F4F5',
+    borderTopColor: theme.colors.borderSubtle,
   },
   topicSnippetText: {
     fontSize: 11,
-    color: '#71717A',
+    color: theme.colors.textMuted,
     fontWeight: '600',
   },
   optionsCountSnippet: {
     fontSize: 11,
-    color: '#A1A1AA',
+    color: theme.colors.textMuted,
     fontWeight: '500',
   },
   scrollBody: {
@@ -1497,9 +1494,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 6,
@@ -1507,10 +1504,10 @@ const styles = StyleSheet.create({
   yearBadgeLargeText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   difficultyBadge: {
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     paddingHorizontal: 9,
     paddingVertical: 5,
     borderRadius: 6,
@@ -1518,11 +1515,11 @@ const styles = StyleSheet.create({
   difficultyBadgeText: {
     fontSize: 11,
     fontWeight: '600',
-    color: '#52525B',
+    color: theme.colors.textSecondary,
     textTransform: 'capitalize',
   },
   topicBadge: {
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     paddingHorizontal: 9,
     paddingVertical: 5,
     borderRadius: 6,
@@ -1530,21 +1527,21 @@ const styles = StyleSheet.create({
   topicBadgeText: {
     fontSize: 11,
     fontWeight: '600',
-    color: '#71717A',
+    color: theme.colors.textMuted,
   },
   fullQuestionCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 14,
     padding: 18,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     marginBottom: 18,
-    ...PrelimsTheme.shadows.card,
+    ...theme.shadows.card,
   },
   fullQuestionText: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#09090B',
+    color: theme.colors.textPrimary,
     lineHeight: 24,
     letterSpacing: -0.1,
   },
@@ -1555,7 +1552,7 @@ const styles = StyleSheet.create({
   optionsSectionHeading: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#71717A',
+    color: theme.colors.textMuted,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 4,
@@ -1570,20 +1567,20 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   optionItemDefault: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#E4E4E7',
+    backgroundColor: theme.colors.bgSurface,
+    borderColor: theme.colors.borderCard,
   },
   optionItemSelected: {
-    backgroundColor: '#F4F4F5',
-    borderColor: '#000000',
+    backgroundColor: theme.colors.bgSurfaceMuted,
+    borderColor: '#F8FAFC',
   },
   optionItemCorrect: {
-    backgroundColor: '#F4F4F5',
-    borderColor: '#000000',
+    backgroundColor: theme.colors.bgSurfaceMuted,
+    borderColor: '#F8FAFC',
   },
   optionItemIncorrect: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#A1A1AA',
+    backgroundColor: theme.colors.bgSurface,
+    borderColor: '#64748B',
   },
   keyBoxBase: {
     width: 28,
@@ -1593,59 +1590,59 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   keyBoxDefault: {
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
   },
   keyBoxSelected: {
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: theme.colors.darkButton,
   },
   keyBoxCorrect: {
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: theme.colors.darkButton,
   },
   keyBoxIncorrect: {
-    backgroundColor: '#71717A',
+    backgroundColor: '#64748B',
     borderWidth: 1,
-    borderColor: '#71717A',
+    borderColor: '#64748B',
   },
   keyTextBase: {
     fontSize: 12,
     fontWeight: '800',
   },
   keyTextDefault: {
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   keyTextSelected: {
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   keyTextCorrect: {
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   keyTextIncorrect: {
     color: '#FFFFFF',
   },
   optionContentText: {
     fontSize: 14,
-    color: '#18181B',
+    color: theme.colors.textPrimary,
     lineHeight: 20,
     flex: 1,
     fontWeight: '500',
   },
   solutionContainer: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 14,
     padding: 18,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderCard,
     borderLeftWidth: 3.5,
-    borderLeftColor: '#000000',
+    borderLeftColor: '#F8FAFC',
     gap: 14,
     marginBottom: 20,
-    ...PrelimsTheme.shadows.card,
+    ...theme.shadows.card,
   },
   solutionHeader: {
     flexDirection: 'row',
@@ -1653,7 +1650,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingBottom: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#F4F4F5',
+    borderBottomColor: theme.colors.borderSubtle,
   },
   solutionBadge: {
     flexDirection: 'row',
@@ -1663,14 +1660,14 @@ const styles = StyleSheet.create({
   solutionBadgeText: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
     textTransform: 'uppercase',
     letterSpacing: 0.4,
   },
   officialKeyText: {
     fontSize: 13,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   solutionBlock: {
     gap: 4,
@@ -1683,17 +1680,17 @@ const styles = StyleSheet.create({
   solutionBlockTitle: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#09090B',
+    color: theme.colors.textPrimary,
     letterSpacing: -0.1,
   },
   solutionBlockText: {
     fontSize: 13,
-    color: '#3F3F46',
+    color: theme.colors.textSecondary,
     lineHeight: 20,
     fontWeight: '400',
   },
   eliminationBlock: {
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     padding: 12,
     borderRadius: 8,
     gap: 4,
@@ -1701,11 +1698,11 @@ const styles = StyleSheet.create({
   eliminationTitle: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   eliminationText: {
     fontSize: 12.5,
-    color: '#27272A',
+    color: theme.colors.textSecondary,
     lineHeight: 18.5,
   },
   bottomNavDock: {
@@ -1713,24 +1710,24 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderTopWidth: 1,
-    borderTopColor: '#E4E4E7',
+    borderTopColor: theme.colors.borderCard,
     paddingHorizontal: 20,
     paddingVertical: 12,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
-    ...PrelimsTheme.shadows.card,
+    ...theme.shadows.card,
   },
   navBtnPrev: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderWidth: 1.5,
-    borderColor: '#000000',
+    borderColor: theme.colors.borderCard,
     borderRadius: 10,
     paddingVertical: 12,
     gap: 6,
@@ -1738,14 +1735,14 @@ const styles = StyleSheet.create({
   navBtnPrevText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   navBtnListToggle: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
     borderRadius: 10,
     paddingVertical: 12,
     paddingHorizontal: 12,
@@ -1754,16 +1751,16 @@ const styles = StyleSheet.create({
   navBtnListToggleText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   navBtnNext: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
     borderWidth: 1.5,
-    borderColor: '#000000',
+    borderColor: theme.colors.darkButton,
     borderRadius: 10,
     paddingVertical: 12,
     gap: 6,
@@ -1771,37 +1768,37 @@ const styles = StyleSheet.create({
   navBtnNextText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   navBtnDisabled: {
-    borderColor: '#E4E4E7',
-    backgroundColor: '#FAFAFA',
+    borderColor: theme.colors.borderSubtle,
+    backgroundColor: theme.colors.bgSurfaceMuted,
   },
   navBtnDisabledText: {
-    color: '#A1A1AA',
+    color: theme.colors.textMuted,
   },
   navBtnDisabledDark: {
-    backgroundColor: '#52525B',
-    borderColor: '#52525B',
+    backgroundColor: theme.colors.bgSurfaceMuted,
+    borderColor: theme.colors.borderSubtle,
   },
   navBtnDisabledDarkText: {
-    color: '#A1A1AA',
+    color: theme.colors.textMuted,
   },
   statusUnsolvedPill: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
     borderWidth: 1.2,
-    borderColor: '#000000',
+    borderColor: '#F8FAFC',
   },
   statusUnsolvedText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
   },
   popoverBackdrop: {
     position: 'absolute',
@@ -1810,7 +1807,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     zIndex: 40,
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
   },
   dropdownAnchorContainer: {
     position: 'relative',
@@ -1821,14 +1818,14 @@ const styles = StyleSheet.create({
     top: 36,
     right: -60,
     width: 248,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 14,
     borderWidth: 1.5,
-    borderColor: '#000000',
+    borderColor: '#F8FAFC',
     padding: 10,
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.16,
+    shadowOpacity: 0.4,
     shadowRadius: 14,
     elevation: 20,
     zIndex: 200,
@@ -1841,7 +1838,7 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     marginBottom: 8,
     borderBottomWidth: 1,
-    borderBottomColor: '#F4F4F5',
+    borderBottomColor: theme.colors.borderSubtle,
   },
   calendarHeaderTitleRow: {
     flexDirection: 'row',
@@ -1851,14 +1848,14 @@ const styles = StyleSheet.create({
   calendarHeaderTitle: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#09090B',
+    color: theme.colors.textPrimary,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
   calendarResetText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
     textDecorationLine: 'underline',
   },
   calendarAllYearsBtn: {
@@ -1868,30 +1865,30 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 10,
     borderRadius: 8,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
     marginBottom: 8,
   },
   calendarAllYearsBtnActive: {
-    backgroundColor: '#000000',
-    borderColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
+    borderColor: theme.colors.darkButton,
   },
   calendarAllYearsText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#18181B',
+    color: theme.colors.textPrimary,
   },
   calendarAllYearsTextActive: {
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   calendarAllYearsSub: {
     fontSize: 10.5,
     fontWeight: '600',
-    color: '#71717A',
+    color: theme.colors.textMuted,
   },
   calendarAllYearsSubActive: {
-    color: '#D4D4D8',
+    color: '#475569',
   },
   calendarScroll: {
     maxHeight: 210,
@@ -1909,45 +1906,45 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     paddingHorizontal: 4,
     borderRadius: 8,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: theme.colors.borderSubtle,
   },
   calendarYearTileActive: {
-    backgroundColor: '#000000',
-    borderColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
+    borderColor: theme.colors.darkButton,
   },
   calendarYearTileYear: {
     fontSize: 13.5,
     fontWeight: '800',
-    color: '#18181B',
+    color: theme.colors.textPrimary,
     letterSpacing: -0.2,
   },
   calendarYearTileYearActive: {
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
   },
   calendarYearTileCount: {
     fontSize: 9.5,
     fontWeight: '600',
-    color: '#71717A',
+    color: theme.colors.textMuted,
     marginTop: 2,
   },
   calendarYearTileCountActive: {
-    color: '#D4D4D8',
+    color: '#475569',
   },
   diffDropdownPopover: {
     position: 'absolute',
     top: 36,
     right: 0,
     width: 155,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.bgSurface,
     borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: '#000000',
+    borderColor: '#F8FAFC',
     padding: 8,
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.15,
+    shadowOpacity: 0.4,
     shadowRadius: 10,
     elevation: 20,
     zIndex: 200,
@@ -1960,19 +1957,19 @@ const styles = StyleSheet.create({
     paddingBottom: 6,
     marginBottom: 4,
     borderBottomWidth: 1,
-    borderBottomColor: '#F4F4F5',
+    borderBottomColor: theme.colors.borderSubtle,
   },
   popoverHeaderTitle: {
     fontSize: 10.5,
     fontWeight: '800',
-    color: '#71717A',
+    color: theme.colors.textMuted,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
   popoverResetText: {
     fontSize: 10.5,
     fontWeight: '700',
-    color: '#000000',
+    color: theme.colors.textPrimary,
     textDecorationLine: 'underline',
   },
   popoverScroll: {
@@ -1990,33 +1987,33 @@ const styles = StyleSheet.create({
     borderRadius: 7,
   },
   popoverItemActive: {
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.darkButton,
   },
   popoverItemLabel: {
     fontSize: 12.5,
     fontWeight: '600',
-    color: '#18181B',
+    color: theme.colors.textPrimary,
   },
   popoverItemLabelActive: {
-    color: '#FFFFFF',
+    color: theme.colors.darkButtonText,
     fontWeight: '700',
   },
   popoverBadge: {
-    backgroundColor: '#F4F4F5',
+    backgroundColor: theme.colors.bgSurfaceMuted,
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 5,
   },
   popoverBadgeActive: {
-    backgroundColor: '#27272A',
+    backgroundColor: theme.colors.bgSurface,
   },
   popoverBadgeText: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#71717A',
+    color: theme.colors.textMuted,
   },
   popoverBadgeTextActive: {
-    color: '#E4E4E7',
+    color: theme.colors.textPrimary,
   },
   pressed: {
     opacity: 0.85,

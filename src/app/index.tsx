@@ -9,7 +9,6 @@ import {
 import { Edge, SafeAreaView } from 'react-native-safe-area-context';
 import { useStudy } from '@/context/StudyContext';
 import { BW_THEME } from '@/constants/bwTheme';
-import { PrelimsTheme } from '@/constants/prelimsTheme';
 import {
   AddTaskModal,
   CleanStreakDashboard,
@@ -39,10 +38,8 @@ export default function AppScreen() {
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const isDesktop = width >= 768;
 
-  // Prelims screen uses its own light canvas; match the area behind the status bar.
-  const isPrelimsTab = activeTab === 'prelims';
-  const shellBg = isPrelimsTab ? PrelimsTheme.colors.bgCanvas : theme.bg;
-  const useLightIcons = isPrelimsTab ? false : isDark;
+  const shellBg = theme.bg;
+  const useLightIcons = isDark;
 
   // Bottom inset is applied by MobileBottomNav on mobile (so it's not applied twice).
   const shellEdges: Edge[] = isDesktop
@@ -90,7 +87,7 @@ export default function AppScreen() {
           )}
 
           {activeTab === 'prelims' && (
-            <PrelimsScreen onBack={() => setActiveTab('home')} />
+            <PrelimsScreen isDark={isDark} onBack={() => setActiveTab('home')} />
           )}
 
           {activeTab === 'current-affairs' && (

@@ -13,10 +13,8 @@ import {
   ArrowRight,
   BarChart2,
   BookOpen,
-  Calendar,
   Info,
   RotateCcw,
-  Sparkles,
   TrendingDown,
   TrendingUp,
 } from '@/components/common/LucideIcons';
@@ -138,7 +136,8 @@ export function YearWiseTrendGraph({
     if (activeIndex <= 0) {
       return {
         type: 'baseline' as const,
-        text: 'Baseline year in range',
+        pct: null,
+        text: 'Baseline year',
       };
     }
     const prevItem = displayedTrends[activeIndex - 1];
@@ -150,13 +149,13 @@ export function YearWiseTrendGraph({
         return {
           type: 'increase' as const,
           pct: null,
-          text: `+${curCount} from 0 in ${prevItem.year}`,
+          text: `+${curCount} vs '${String(prevItem.year).slice(2)}`,
         };
       }
       return {
         type: 'neutral' as const,
         pct: 0,
-        text: `0% vs ${prevItem.year} (0 questions)`,
+        text: `0 vs '${String(prevItem.year).slice(2)}`,
       };
     }
 
@@ -165,20 +164,20 @@ export function YearWiseTrendGraph({
       return {
         type: 'increase' as const,
         pct: pctChange,
-        text: `+${pctChange}% vs ${prevItem.year}`,
+        text: `+${pctChange}% vs '${String(prevItem.year).slice(2)}`,
       };
     }
     if (pctChange < 0) {
       return {
         type: 'decrease' as const,
         pct: pctChange,
-        text: `${pctChange}% vs ${prevItem.year}`,
+        text: `${pctChange}% vs '${String(prevItem.year).slice(2)}`,
       };
     }
     return {
       type: 'neutral' as const,
       pct: 0,
-      text: `Same as ${prevItem.year} (${curCount} Qs)`,
+      text: `Same as '${String(prevItem.year).slice(2)}`,
     };
   }, [activeYearItem, displayedTrends]);
 
@@ -188,44 +187,15 @@ export function YearWiseTrendGraph({
     return questions.filter((q) => q.year === activeYearItem.year);
   }, [questions, activeYearItem]);
 
-  // Real insights derived strictly from displayed data
-  const realInsights = useMemo(() => {
-    if (displayedTrends.length === 0) return [];
-    const insights: string[] = [];
-
-    // 1. Peak frequency
-    if (peakYearItem && peakYearItem.count > 0) {
-      insights.push(
-        `Highest frequency: ${peakYearItem.year} (${peakYearItem.count} question${peakYearItem.count > 1 ? 's' : ''})`
-      );
-    } else {
-      insights.push(`No questions appeared from this topic in the selected range`);
+  // Real concise summary stats (e.g. peak year and frequency)
+  const headerSubtitle = useMemo(() => {
+    if (displayedTrends.length === 0) return 'Year-wise questions asked in UPSC';
+    const activeYears = displayedTrends.filter((t) => t.count > 0).length;
+    const totalYears = displayedTrends.length;
+    if (peakYearItem) {
+      return `Peak: ${peakYearItem.year} (${peakYearItem.count} Qs) • Appeared in ${activeYears}/${totalYears} yrs`;
     }
-
-    // 2. Frequency consistency
-    const yearsWithQs = displayedTrends.filter((t) => t.count > 0).length;
-    const totalYrs = displayedTrends.length;
-    if (totalYrs > 1) {
-      insights.push(`Questions appeared in ${yearsWithQs} of the ${totalYrs} years`);
-    }
-
-    // 3. Zero question years
-    const zeroYears = displayedTrends.filter((t) => t.count === 0).map((t) => t.year);
-    if (zeroYears.length === 1) {
-      insights.push(`No questions recorded in ${zeroYears[0]}`);
-    } else if (zeroYears.length > 1 && zeroYears.length <= 3) {
-      insights.push(`No questions recorded in ${zeroYears.join(', ')}`);
-    }
-
-    // 4. Recent 2-year momentum
-    if (displayedTrends.length >= 2) {
-      const last2 = displayedTrends.slice(-2);
-      const last2Count = last2.reduce((sum, item) => sum + item.count, 0);
-      const yearsLabel = `${last2[0].year}–${last2[1].year}`;
-      insights.push(`${last2Count} question${last2Count !== 1 ? 's' : ''} asked in the last 2 years (${yearsLabel})`);
-    }
-
-    return insights;
+    return `Appeared in ${activeYears}/${totalYears} years`;
   }, [displayedTrends, peakYearItem]);
 
   // Handlers
@@ -246,18 +216,15 @@ export function YearWiseTrendGraph({
     return (
       <View style={styles.cardContainer}>
         <View style={styles.headerRow}>
-          <View style={styles.headerTitleRow}>
-            <View style={[styles.skeletonCircle, { backgroundColor: theme.colors.bgSurfaceMuted }]} />
-            <View style={{ gap: 6 }}>
-              <View style={[styles.skeletonBar, { width: 140, height: 16 }]} />
-              <View style={[styles.skeletonBar, { width: 180, height: 11 }]} />
-            </View>
+          <View style={{ gap: 6 }}>
+            <View style={[styles.skeletonBar, { width: 120, height: 16 }]} />
+            <View style={[styles.skeletonBar, { width: 160, height: 11 }]} />
           </View>
         </View>
-        <View style={[styles.chartWrapper, { height: 140, justifyContent: 'flex-end' }]}>
+        <View style={[styles.chartWrapper, { height: 110, justifyContent: 'flex-end' }]}>
           <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', width: '100%' }}>
-            {[40, 70, 30, 90, 60, 110, 80, 50, 95, 65].map((h, i) => (
-              <View key={i} style={[styles.skeletonBar, { width: 22, height: h, opacity: 0.4 + (i % 3) * 0.2 }]} />
+            {[30, 60, 25, 80, 50, 100, 70, 40, 85, 55].map((h, i) => (
+              <View key={i} style={[styles.skeletonBar, { width: 20, height: h, opacity: 0.3 + (i % 3) * 0.2 }]} />
             ))}
           </View>
         </View>
@@ -272,14 +239,11 @@ export function YearWiseTrendGraph({
     return (
       <View style={styles.cardContainer}>
         <View style={styles.emptyStateContainer}>
-          <Info size={24} color={theme.colors.incorrect} />
+          <Info size={20} color={theme.colors.incorrect} />
           <Text style={styles.emptyStateTitle}>Failed to load trend data</Text>
-          <Text style={styles.emptyStateSubtitle}>
-            Unable to fetch historical question trends for this topic.
-          </Text>
           {onRetry && (
             <TouchableOpacity style={styles.retryBtn} onPress={onRetry} activeOpacity={0.7}>
-              <RotateCcw size={14} color={theme.colors.textWhite} />
+              <RotateCcw size={13} color={theme.colors.textWhite} />
               <Text style={styles.retryBtnText}>Retry</Text>
             </TouchableOpacity>
           )}
@@ -295,40 +259,33 @@ export function YearWiseTrendGraph({
     return (
       <View style={styles.cardContainer}>
         <View style={styles.emptyStateContainer}>
-          <BarChart2 size={24} color={theme.colors.textMuted} />
-          <Text style={styles.emptyStateTitle}>No year-wise question data available yet.</Text>
-          <Text style={styles.emptyStateSubtitle}>
-            Historical question frequency for this topic will appear as PYQs are cataloged.
-          </Text>
+          <BarChart2 size={20} color={theme.colors.textMuted} />
+          <Text style={styles.emptyStateTitle}>No year-wise question data available yet</Text>
         </View>
       </View>
     );
   }
 
   // -------------------------------------------------------------
-  // RENDER: Main Interactive Graph Card
+  // RENDER: Clean & Modern Interactive Graph Card
   // -------------------------------------------------------------
-  const chartHeight = 110;
+  const chartHeight = 90;
 
   return (
     <View style={styles.cardContainer} accessibilityLabel="Year-Wise Question Trend Graph">
-      {/* 1. Header with Title, Range Badge & Range Toggle Buttons */}
+      {/* 1. Sleek Minimal Header */}
       <View style={styles.headerRow}>
-        <View style={styles.headerTitleRow}>
-          <View style={styles.trendIconBubble}>
-            <TrendingUp size={16} color={theme.colors.primary} strokeWidth={2.4} />
-          </View>
-          <View>
-            <View style={styles.titleBadgeRow}>
-              <Text style={styles.cardTitle}>{rangeLabel} Question Trend</Text>
-              <View style={styles.rangeBadge}>
-                <Text style={styles.rangeBadgeText}>
-                  {startYear}–{endYear}
-                </Text>
-              </View>
+        <View style={styles.titleCol}>
+          <View style={styles.titleBadgeRow}>
+            <TrendingUp size={15} color={theme.colors.primary} strokeWidth={2.4} />
+            <Text style={styles.cardTitle}>{rangeLabel} Trend</Text>
+            <View style={styles.rangeBadge}>
+              <Text style={styles.rangeBadgeText}>
+                {startYear}–{endYear}
+              </Text>
             </View>
-            <Text style={styles.cardSubtitle}>Year-wise questions asked in UPSC</Text>
           </View>
+          <Text style={styles.cardSubtitle}>{headerSubtitle}</Text>
         </View>
 
         {/* Range Selector Controls: 5Y | 10Y | All */}
@@ -386,7 +343,6 @@ export function YearWiseTrendGraph({
               <Pressable
                 key={item.year}
                 onPress={() => handleSelectBar(item.year)}
-                // Web hover support
                 {...(Platform.OS === 'web'
                   ? {
                       onMouseEnter: () => setHoveredYear(item.year),
@@ -398,21 +354,19 @@ export function YearWiseTrendGraph({
                   isSelected && styles.barColumnSelected,
                 ]}
                 accessibilityRole="button"
-                accessibilityLabel={`Year ${item.year}: ${item.count} question${item.count !== 1 ? 's' : ''}${isPeak ? ', Peak frequency' : ''}${isSelected ? ', selected' : ''}`}
+                accessibilityLabel={`Year ${item.year}: ${item.count} questions${isPeak ? ', Peak frequency' : ''}${isSelected ? ', selected' : ''}`}
               >
-                {/* Peak Badge or Count Header */}
-                <View style={styles.countBadgeWrapper}>
+                {/* Count Header */}
+                <View style={styles.countWrapper}>
                   {isPeak && (
-                    <View style={styles.peakBadge}>
-                      <Text style={styles.peakBadgeText}>PEAK</Text>
-                    </View>
+                    <View style={styles.peakDot} />
                   )}
                   <Text
                     style={[
                       styles.barCountText,
                       isZero && styles.barCountTextZero,
                       isSelected && styles.barCountTextSelected,
-                      isPeak && styles.barCountTextPeak,
+                      isPeak && !isSelected && styles.barCountTextPeak,
                     ]}
                   >
                     {item.count}
@@ -446,7 +400,7 @@ export function YearWiseTrendGraph({
                   style={[
                     styles.yearLabelText,
                     isSelected && styles.yearLabelTextSelected,
-                    isPeak && styles.yearLabelTextPeak,
+                    isPeak && !isSelected && styles.yearLabelTextPeak,
                   ]}
                 >
                   {"'" + String(item.year).slice(2)}
@@ -457,68 +411,51 @@ export function YearWiseTrendGraph({
         </ScrollView>
       </View>
 
-      {/* 3. Explanatory Note below the chart */}
-      <View style={styles.explanationRow}>
-        <Info size={13} color={theme.colors.textMuted} />
-        <Text style={styles.explanationText}>
-          Each bar shows the number of questions asked from this topic in that year.
-        </Text>
-      </View>
-
-      {/* 4. Compact Selected Year Detail Panel */}
+      {/* 3. Sleek Single-Row Action Strip (Clean & Zero Clutter) */}
       {activeYearItem && (
-        <View style={styles.detailPanel}>
-          <View style={styles.detailHeaderRow}>
-            <View style={styles.detailYearInfo}>
-              <View style={styles.calendarIconBubble}>
-                <Calendar size={14} color={theme.colors.primary} />
-              </View>
-              <Text style={styles.detailYearTitle}>
-                UPSC CSE {activeYearItem.year}
-              </Text>
-              <View
+        <View style={styles.actionStrip}>
+          <View style={styles.actionStripLeft}>
+            <Text style={styles.activeYearTitle}>{activeYearItem.year}</Text>
+            <View
+              style={[
+                styles.countBadge,
+                activeYearItem.count === 0 && styles.countBadgeZero,
+              ]}
+            >
+              <Text
                 style={[
-                  styles.detailCountPill,
-                  activeYearItem.count === 0 && styles.detailCountPillZero,
+                  styles.countBadgeText,
+                  activeYearItem.count === 0 && styles.countBadgeTextZero,
                 ]}
               >
-                <Text
-                  style={[
-                    styles.detailCountPillText,
-                    activeYearItem.count === 0 && styles.detailCountPillTextZero,
-                  ]}
-                >
-                  {activeYearItem.count === 0
-                    ? '0 Questions Asked'
-                    : `${activeYearItem.count} Question${activeYearItem.count > 1 ? 's' : ''}`}
-                </Text>
-              </View>
+                {activeYearItem.count === 0
+                  ? '0 Questions'
+                  : `${activeYearItem.count} Question${activeYearItem.count > 1 ? 's' : ''}`}
+              </Text>
             </View>
 
-            {/* YoY Trend Comparison Tag */}
-            {previousYearComparison && (
+            {/* YoY Trend comparison badge */}
+            {previousYearComparison && previousYearComparison.type !== 'baseline' && (
               <View
                 style={[
-                  styles.yoyTag,
-                  previousYearComparison.type === 'increase' && styles.yoyTagIncrease,
-                  previousYearComparison.type === 'decrease' && styles.yoyTagDecrease,
-                  previousYearComparison.type === 'neutral' && styles.yoyTagNeutral,
-                  previousYearComparison.type === 'baseline' && styles.yoyTagBaseline,
+                  styles.yoyBadge,
+                  previousYearComparison.type === 'increase' && styles.yoyBadgeIncrease,
+                  previousYearComparison.type === 'decrease' && styles.yoyBadgeDecrease,
+                  previousYearComparison.type === 'neutral' && styles.yoyBadgeNeutral,
                 ]}
               >
                 {previousYearComparison.type === 'increase' && (
-                  <TrendingUp size={11} color="#059669" strokeWidth={2.4} />
+                  <TrendingUp size={10} color="#059669" strokeWidth={2.4} />
                 )}
                 {previousYearComparison.type === 'decrease' && (
-                  <TrendingDown size={11} color="#DC2626" strokeWidth={2.4} />
+                  <TrendingDown size={10} color="#DC2626" strokeWidth={2.4} />
                 )}
                 <Text
                   style={[
-                    styles.yoyTagText,
-                    previousYearComparison.type === 'increase' && styles.yoyTagTextIncrease,
-                    previousYearComparison.type === 'decrease' && styles.yoyTagTextDecrease,
-                    previousYearComparison.type === 'neutral' && styles.yoyTagTextNeutral,
-                    previousYearComparison.type === 'baseline' && styles.yoyTagTextBaseline,
+                    styles.yoyBadgeText,
+                    previousYearComparison.type === 'increase' && styles.yoyBadgeTextIncrease,
+                    previousYearComparison.type === 'decrease' && styles.yoyBadgeTextDecrease,
+                    previousYearComparison.type === 'neutral' && styles.yoyBadgeTextNeutral,
                   ]}
                 >
                   {previousYearComparison.text}
@@ -527,117 +464,44 @@ export function YearWiseTrendGraph({
             )}
           </View>
 
-          {/* Related Questions Preview */}
-          <View style={styles.previewSection}>
-            {matchingQuestionsForActiveYear.length > 0 ? (
-              <View style={styles.questionsList}>
-                <Text style={styles.previewSectionHeading}>
-                  Questions Asked in {activeYearItem.year} ({matchingQuestionsForActiveYear.length})
-                </Text>
-                {matchingQuestionsForActiveYear.map((q, qIndex) => (
-                  <View key={q.id || qIndex} style={styles.questionCard}>
-                    <View style={styles.questionMetaRow}>
-                      <View style={styles.qIndexBadge}>
-                        <Text style={styles.qIndexText}>Q{qIndex + 1}</Text>
-                      </View>
-                      <View
-                        style={[
-                          styles.difficultyBadge,
-                          q.difficulty === 'Easy' && styles.diffEasy,
-                          q.difficulty === 'Medium' && styles.diffMedium,
-                          q.difficulty === 'Hard' && styles.diffHard,
-                        ]}
-                      >
-                        <Text
-                          style={[
-                            styles.difficultyText,
-                            q.difficulty === 'Easy' && styles.diffTextEasy,
-                            q.difficulty === 'Medium' && styles.diffTextMedium,
-                            q.difficulty === 'Hard' && styles.diffTextHard,
-                          ]}
-                        >
-                          {q.difficulty}
-                        </Text>
-                      </View>
-                      <Text style={styles.qOfficialBadge}>Official UPSC Prelims</Text>
-                    </View>
-                    <Text style={styles.questionSnippet} numberOfLines={2}>
-                      {q.questionText.replace(/\n+/g, ' ')}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            ) : activeYearItem.count > 0 ? (
-              <View style={styles.topicNoteBox}>
-                <Text style={styles.topicNoteText}>
-                  {activeYearItem.count} question{activeYearItem.count > 1 ? 's appeared' : ' appeared'} in UPSC CSE {activeYearItem.year}. Practice chapter PYQs to master these core concepts.
-                </Text>
-              </View>
-            ) : (
-              <View style={styles.zeroNoteBox}>
-                <Text style={styles.zeroNoteText}>
-                  No questions were recorded from this topic in UPSC CSE {activeYearItem.year}.
-                </Text>
-              </View>
-            )}
-
-            {/* Clear Primary CTA Action */}
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={handlePracticeClick}
+          {/* Compact Action Button */}
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={handlePracticeClick}
+            style={[
+              styles.practiceBtnCompact,
+              activeYearItem.count === 0 && styles.practiceBtnCompactZero,
+            ]}
+            accessibilityRole="button"
+            accessibilityLabel={`Practice questions for year ${activeYearItem.year}`}
+          >
+            <BookOpen
+              size={12}
+              color={
+                activeYearItem.count === 0
+                  ? theme.colors.textPrimary
+                  : theme.colors.darkButtonText
+              }
+            />
+            <Text
               style={[
-                styles.practiceActionBtn,
-                activeYearItem.count === 0 && styles.practiceActionBtnMuted,
+                styles.practiceBtnText,
+                activeYearItem.count === 0 && styles.practiceBtnTextZero,
               ]}
-              accessibilityRole="button"
-              accessibilityLabel={`Practice questions for year ${activeYearItem.year}`}
             >
-              <BookOpen
-                size={14}
-                color={
-                  activeYearItem.count === 0
-                    ? theme.colors.textPrimary
-                    : theme.colors.darkButtonText
-                }
-              />
-              <Text
-                style={[
-                  styles.practiceActionBtnText,
-                  activeYearItem.count === 0 && styles.practiceActionBtnTextMuted,
-                ]}
-              >
-                {activeYearItem.count > 0
-                  ? `Practice ${activeYearItem.year} Questions (${matchingQuestionsForActiveYear.length || activeYearItem.count})`
-                  : `Practice Chapter Questions (${chapter.pyqs?.length || chapter.totalQuestions10Yrs})`}
-              </Text>
-              <ArrowRight
-                size={14}
-                color={
-                  activeYearItem.count === 0
-                    ? theme.colors.textPrimary
-                    : theme.colors.darkButtonText
-                }
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
-
-      {/* 5. Real Examiner Pattern Insights (Derived strictly from real data) */}
-      {realInsights.length > 0 && (
-        <View style={styles.insightsCard}>
-          <View style={styles.insightsHeaderRow}>
-            <Sparkles size={14} color={theme.colors.primary} strokeWidth={2.2} />
-            <Text style={styles.insightsTitle}>Historical Frequency Insights</Text>
-          </View>
-          <View style={styles.insightsList}>
-            {realInsights.map((insight, idx) => (
-              <View key={idx} style={styles.insightBulletRow}>
-                <View style={styles.insightBulletDot} />
-                <Text style={styles.insightBulletText}>{insight}</Text>
-              </View>
-            ))}
-          </View>
+              {activeYearItem.count > 0
+                ? `Practice (${matchingQuestionsForActiveYear.length || activeYearItem.count})`
+                : 'Practice Chapter'}
+            </Text>
+            <ArrowRight
+              size={12}
+              color={
+                activeYearItem.count === 0
+                  ? theme.colors.textPrimary
+                  : theme.colors.darkButtonText
+              }
+            />
+          </TouchableOpacity>
         </View>
       )}
     </View>
@@ -653,53 +517,41 @@ function getStyles(theme: PrelimsThemeType) {
       borderColor: theme.colors.borderCard,
       borderWidth: 1,
       borderRadius: theme.radius.card,
-      padding: 18,
-      gap: 16,
+      padding: 16,
+      gap: 12,
       ...theme.shadows.card,
     },
     headerRow: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      alignItems: 'flex-start',
-      flexWrap: 'wrap',
-      gap: 12,
-    },
-    headerTitleRow: {
-      flexDirection: 'row',
       alignItems: 'center',
+      flexWrap: 'wrap',
       gap: 10,
     },
-    trendIconBubble: {
-      width: 34,
-      height: 34,
-      borderRadius: 9,
-      backgroundColor: theme.colors.primarySoft,
-      borderColor: theme.colors.primarySoftBorder,
-      borderWidth: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
+    titleCol: {
+      gap: 3,
     },
     titleBadgeRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 8,
+      gap: 6,
     },
     cardTitle: {
-      fontSize: 15,
+      fontSize: 14,
       fontWeight: '800',
       color: theme.colors.textPrimary,
       letterSpacing: -0.2,
     },
     rangeBadge: {
-      paddingHorizontal: 7,
-      paddingVertical: 2,
-      borderRadius: 6,
+      paddingHorizontal: 6,
+      paddingVertical: 1.5,
+      borderRadius: 5,
       backgroundColor: isDark ? '#262A36' : '#F1F5F9',
       borderColor: theme.colors.borderSubtle,
       borderWidth: 1,
     },
     rangeBadgeText: {
-      fontSize: 10,
+      fontSize: 9.5,
       fontWeight: '700',
       color: theme.colors.textSecondary,
     },
@@ -707,21 +559,20 @@ function getStyles(theme: PrelimsThemeType) {
       fontSize: 11,
       fontWeight: '500',
       color: theme.colors.textMuted,
-      marginTop: 2,
     },
     rangeSelectorPills: {
       flexDirection: 'row',
       backgroundColor: isDark ? '#1C2029' : '#F1F5F9',
       borderColor: theme.colors.borderSubtle,
       borderWidth: 1,
-      borderRadius: 8,
-      padding: 3,
+      borderRadius: 7,
+      padding: 2.5,
       gap: 2,
     },
     rangePillBtn: {
-      paddingHorizontal: 9,
-      paddingVertical: 4,
-      borderRadius: 6,
+      paddingHorizontal: 8,
+      paddingVertical: 3.5,
+      borderRadius: 5,
     },
     rangePillBtnActive: {
       backgroundColor: isDark ? '#323746' : '#FFFFFF',
@@ -732,7 +583,7 @@ function getStyles(theme: PrelimsThemeType) {
       elevation: 1,
     },
     rangePillBtnText: {
-      fontSize: 11,
+      fontSize: 10.5,
       fontWeight: '600',
       color: theme.colors.textMuted,
     },
@@ -741,54 +592,48 @@ function getStyles(theme: PrelimsThemeType) {
       fontWeight: '800',
     },
     chartWrapper: {
-      paddingTop: 6,
+      paddingTop: 4,
     },
     chartScrollContent: {
       flexDirection: 'row',
       alignItems: 'flex-end',
-      paddingVertical: 4,
+      paddingVertical: 2,
       minWidth: '100%',
-      gap: 6,
+      gap: 4,
     },
     barColumn: {
       alignItems: 'center',
-      paddingHorizontal: 4,
-      paddingVertical: 4,
-      borderRadius: 8,
-      minWidth: 34,
+      paddingHorizontal: 3,
+      paddingVertical: 2,
+      borderRadius: 6,
+      minWidth: 32,
       flex: 1,
     },
     barColumnSelected: {
       backgroundColor: isDark ? 'rgba(124, 58, 237, 0.08)' : 'rgba(124, 58, 237, 0.06)',
     },
-    countBadgeWrapper: {
+    countWrapper: {
       alignItems: 'center',
-      minHeight: 28,
+      minHeight: 18,
       justifyContent: 'flex-end',
-      marginBottom: 6,
+      marginBottom: 4,
     },
-    peakBadge: {
+    peakDot: {
+      width: 4,
+      height: 4,
+      borderRadius: 2,
       backgroundColor: isDark ? '#F59E0B' : '#D97706',
-      borderRadius: 4,
-      paddingHorizontal: 4,
-      paddingVertical: 1,
       marginBottom: 2,
     },
-    peakBadgeText: {
-      fontSize: 8,
-      fontWeight: '900',
-      color: '#FFFFFF',
-      letterSpacing: 0.5,
-    },
     barCountText: {
-      fontSize: 11,
+      fontSize: 10.5,
       fontWeight: '700',
       color: theme.colors.textSecondary,
     },
     barCountTextZero: {
       color: theme.colors.textMuted,
-      opacity: 0.7,
-      fontSize: 10,
+      opacity: 0.6,
+      fontSize: 9.5,
     },
     barCountTextSelected: {
       color: theme.colors.primary,
@@ -796,7 +641,7 @@ function getStyles(theme: PrelimsThemeType) {
     },
     barCountTextPeak: {
       color: isDark ? '#FBBF24' : '#D97706',
-      fontWeight: '900',
+      fontWeight: '800',
     },
     barCanvas: {
       width: '100%',
@@ -804,10 +649,10 @@ function getStyles(theme: PrelimsThemeType) {
       alignItems: 'center',
     },
     barPill: {
-      width: 14,
+      width: 13,
       backgroundColor: isDark ? '#3A4050' : '#CBD5E1',
-      borderTopLeftRadius: 5,
-      borderTopRightRadius: 5,
+      borderTopLeftRadius: 4,
+      borderTopRightRadius: 4,
       borderBottomLeftRadius: 2,
       borderBottomRightRadius: 2,
     },
@@ -819,17 +664,17 @@ function getStyles(theme: PrelimsThemeType) {
     },
     barPillSelected: {
       backgroundColor: theme.colors.primary,
-      width: 16,
+      width: 15,
       shadowColor: theme.colors.primary,
       shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.4,
-      shadowRadius: 4,
-      elevation: 3,
+      shadowOpacity: 0.35,
+      shadowRadius: 3,
+      elevation: 2,
     },
     barPillPeak: {
       backgroundColor: isDark ? '#D97706' : '#B45309',
-      borderTopLeftRadius: 6,
-      borderTopRightRadius: 6,
+      borderTopLeftRadius: 4,
+      borderTopRightRadius: 4,
     },
     barPillHovered: {
       backgroundColor: isDark ? '#4B5563' : '#94A3B8',
@@ -838,14 +683,14 @@ function getStyles(theme: PrelimsThemeType) {
       width: '100%',
       height: 1.5,
       backgroundColor: isDark ? '#2E3342' : '#E2E8F0',
-      marginVertical: 4,
+      marginVertical: 3,
     },
     baselineSegmentActive: {
       backgroundColor: theme.colors.primary,
       height: 2,
     },
     yearLabelText: {
-      fontSize: 10,
+      fontSize: 9.5,
       fontWeight: '600',
       color: theme.colors.textMuted,
     },
@@ -857,302 +702,126 @@ function getStyles(theme: PrelimsThemeType) {
       color: isDark ? '#FBBF24' : '#B45309',
       fontWeight: '800',
     },
-    explanationRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 6,
-      paddingTop: 2,
-    },
-    explanationText: {
-      fontSize: 11,
-      color: theme.colors.textMuted,
-      flex: 1,
-      lineHeight: 15,
-    },
-    detailPanel: {
-      backgroundColor: isDark ? '#1C202B' : '#F8FAFC',
-      borderColor: isDark ? '#2C3140' : '#E2E8F0',
-      borderWidth: 1,
-      borderRadius: 12,
-      padding: 14,
-      gap: 12,
-    },
-    detailHeaderRow: {
+    actionStrip: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
+      backgroundColor: isDark ? '#1C202B' : '#F8FAFC',
+      borderColor: isDark ? '#2C3140' : '#E2E8F0',
+      borderWidth: 1,
+      borderRadius: 10,
+      paddingVertical: 8,
+      paddingHorizontal: 12,
+      gap: 10,
       flexWrap: 'wrap',
-      gap: 8,
     },
-    detailYearInfo: {
+    actionStripLeft: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 8,
+      gap: 7,
+      flexWrap: 'wrap',
     },
-    calendarIconBubble: {
-      width: 26,
-      height: 26,
-      borderRadius: 7,
-      backgroundColor: theme.colors.primarySoft,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    detailYearTitle: {
-      fontSize: 14,
+    activeYearTitle: {
+      fontSize: 13,
       fontWeight: '800',
       color: theme.colors.textPrimary,
     },
-    detailCountPill: {
+    countBadge: {
       backgroundColor: isDark ? '#262C3A' : '#EDE9FE',
-      paddingHorizontal: 8,
-      paddingVertical: 3,
-      borderRadius: 6,
+      paddingHorizontal: 7,
+      paddingVertical: 2,
+      borderRadius: 5,
     },
-    detailCountPillZero: {
+    countBadgeZero: {
       backgroundColor: isDark ? '#232733' : '#F1F5F9',
     },
-    detailCountPillText: {
-      fontSize: 11,
+    countBadgeText: {
+      fontSize: 10.5,
       fontWeight: '700',
       color: isDark ? '#C4B5FD' : '#6D28D9',
     },
-    detailCountPillTextZero: {
+    countBadgeTextZero: {
       color: theme.colors.textMuted,
     },
-    yoyTag: {
+    yoyBadge: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 4,
-      paddingHorizontal: 8,
-      paddingVertical: 3,
-      borderRadius: 6,
-    },
-    yoyTagIncrease: {
-      backgroundColor: isDark ? 'rgba(5, 150, 105, 0.15)' : '#DCFCE7',
-    },
-    yoyTagDecrease: {
-      backgroundColor: isDark ? 'rgba(220, 38, 38, 0.15)' : '#FEE2E2',
-    },
-    yoyTagNeutral: {
-      backgroundColor: isDark ? '#232733' : '#F1F5F9',
-    },
-    yoyTagBaseline: {
-      backgroundColor: isDark ? '#232733' : '#F1F5F9',
-    },
-    yoyTagText: {
-      fontSize: 10,
-      fontWeight: '700',
-    },
-    yoyTagTextIncrease: {
-      color: isDark ? '#34D399' : '#059669',
-    },
-    yoyTagTextDecrease: {
-      color: isDark ? '#F87171' : '#DC2626',
-    },
-    yoyTagTextNeutral: {
-      color: theme.colors.textMuted,
-    },
-    yoyTagTextBaseline: {
-      color: theme.colors.textMuted,
-    },
-    previewSection: {
-      gap: 10,
-    },
-    questionsList: {
-      gap: 8,
-    },
-    previewSectionHeading: {
-      fontSize: 11,
-      fontWeight: '700',
-      color: theme.colors.textSecondary,
-      letterSpacing: 0.2,
-      textTransform: 'uppercase',
-    },
-    questionCard: {
-      backgroundColor: isDark ? '#232733' : '#FFFFFF',
-      borderColor: isDark ? '#313746' : '#E2E8F0',
-      borderWidth: 1,
-      borderRadius: 8,
-      padding: 10,
-      gap: 6,
-    },
-    questionMetaRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 6,
-    },
-    qIndexBadge: {
-      backgroundColor: theme.colors.primarySoft,
+      gap: 3,
       paddingHorizontal: 6,
       paddingVertical: 2,
-      borderRadius: 4,
+      borderRadius: 5,
     },
-    qIndexText: {
-      fontSize: 9,
-      fontWeight: '800',
-      color: theme.colors.primary,
-    },
-    difficultyBadge: {
-      paddingHorizontal: 6,
-      paddingVertical: 2,
-      borderRadius: 4,
-    },
-    diffEasy: {
+    yoyBadgeIncrease: {
       backgroundColor: isDark ? 'rgba(5, 150, 105, 0.15)' : '#DCFCE7',
     },
-    diffMedium: {
-      backgroundColor: isDark ? 'rgba(217, 119, 6, 0.15)' : '#FEF3C7',
-    },
-    diffHard: {
+    yoyBadgeDecrease: {
       backgroundColor: isDark ? 'rgba(220, 38, 38, 0.15)' : '#FEE2E2',
     },
-    difficultyText: {
-      fontSize: 9,
+    yoyBadgeNeutral: {
+      backgroundColor: isDark ? '#232733' : '#F1F5F9',
+    },
+    yoyBadgeText: {
+      fontSize: 9.5,
       fontWeight: '700',
     },
-    diffTextEasy: {
+    yoyBadgeTextIncrease: {
       color: isDark ? '#34D399' : '#059669',
     },
-    diffTextMedium: {
-      color: isDark ? '#FBBF24' : '#D97706',
-    },
-    diffTextHard: {
+    yoyBadgeTextDecrease: {
       color: isDark ? '#F87171' : '#DC2626',
     },
-    qOfficialBadge: {
-      fontSize: 9,
-      fontWeight: '500',
+    yoyBadgeTextNeutral: {
       color: theme.colors.textMuted,
     },
-    questionSnippet: {
-      fontSize: 12,
-      lineHeight: 17,
-      color: theme.colors.textPrimary,
-      fontWeight: '500',
-    },
-    topicNoteBox: {
-      backgroundColor: isDark ? '#232733' : '#F1F5F9',
-      padding: 10,
-      borderRadius: 8,
-    },
-    topicNoteText: {
-      fontSize: 11,
-      color: theme.colors.textSecondary,
-      lineHeight: 16,
-    },
-    zeroNoteBox: {
-      backgroundColor: isDark ? '#232733' : '#F1F5F9',
-      padding: 10,
-      borderRadius: 8,
-    },
-    zeroNoteText: {
-      fontSize: 11,
-      color: theme.colors.textMuted,
-      lineHeight: 16,
-    },
-    practiceActionBtn: {
+    practiceBtnCompact: {
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'center',
       backgroundColor: theme.colors.darkButton,
-      paddingVertical: 10,
-      paddingHorizontal: 14,
-      borderRadius: 8,
-      gap: 8,
-      marginTop: 2,
+      paddingVertical: 6,
+      paddingHorizontal: 11,
+      borderRadius: 6,
+      gap: 6,
     },
-    practiceActionBtnMuted: {
+    practiceBtnCompactZero: {
       backgroundColor: isDark ? '#262A36' : '#F1F5F9',
       borderColor: isDark ? '#313746' : '#CBD5E1',
       borderWidth: 1,
     },
-    practiceActionBtnText: {
-      fontSize: 12,
+    practiceBtnText: {
+      fontSize: 11,
       fontWeight: '700',
       color: theme.colors.darkButtonText,
     },
-    practiceActionBtnTextMuted: {
+    practiceBtnTextZero: {
       color: theme.colors.textPrimary,
-    },
-    insightsCard: {
-      backgroundColor: isDark ? '#1C2029' : '#F8FAFC',
-      borderColor: isDark ? '#282C38' : '#E2E8F0',
-      borderWidth: 1,
-      borderRadius: 10,
-      padding: 12,
-      gap: 8,
-    },
-    insightsHeaderRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 6,
-    },
-    insightsTitle: {
-      fontSize: 11,
-      fontWeight: '700',
-      color: theme.colors.textSecondary,
-      textTransform: 'uppercase',
-      letterSpacing: 0.3,
-    },
-    insightsList: {
-      gap: 5,
-    },
-    insightBulletRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 8,
-    },
-    insightBulletDot: {
-      width: 4,
-      height: 4,
-      borderRadius: 2,
-      backgroundColor: theme.colors.primary,
-    },
-    insightBulletText: {
-      fontSize: 11,
-      color: theme.colors.textSecondary,
-      lineHeight: 16,
-      flex: 1,
     },
     emptyStateContainer: {
       alignItems: 'center',
       justifyContent: 'center',
-      paddingVertical: 28,
-      paddingHorizontal: 16,
-      gap: 8,
+      paddingVertical: 18,
+      paddingHorizontal: 12,
+      gap: 6,
     },
     emptyStateTitle: {
-      fontSize: 13,
-      fontWeight: '700',
-      color: theme.colors.textPrimary,
-      textAlign: 'center',
-    },
-    emptyStateSubtitle: {
-      fontSize: 11,
+      fontSize: 12,
+      fontWeight: '600',
       color: theme.colors.textMuted,
       textAlign: 'center',
-      maxWidth: 280,
-      lineHeight: 16,
     },
     retryBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 6,
+      gap: 5,
       backgroundColor: theme.colors.darkButton,
-      paddingHorizontal: 14,
-      paddingVertical: 7,
+      paddingHorizontal: 12,
+      paddingVertical: 6,
       borderRadius: 6,
-      marginTop: 4,
+      marginTop: 2,
     },
     retryBtnText: {
       fontSize: 11,
       fontWeight: '700',
       color: theme.colors.darkButtonText,
-    },
-    skeletonCircle: {
-      width: 32,
-      height: 32,
-      borderRadius: 16,
     },
     skeletonBar: {
       backgroundColor: isDark ? '#262A36' : '#E2E8F0',

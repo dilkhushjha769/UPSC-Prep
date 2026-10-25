@@ -28,6 +28,7 @@ import {
 } from '@/components/common/LucideIcons';
 import { PYQQuestion, Chapter } from '@/types/prelims';
 import { PrelimsTheme } from '@/constants/prelimsTheme';
+import { useStudy } from '@/context/StudyContext';
 
 type QuestionStatusFilter = 'all' | 'solved' | 'incorrect' | 'unsolved' | 'unattempted';
 type YearFilter = 'all' | number;
@@ -46,6 +47,7 @@ export function PracticeModal({
   questions,
   onClose,
 }: PracticeModalProps) {
+  const { recordMCQSession } = useStudy();
   // viewMode: 'list' shows all questions in a vertical list
   // 'attempt' opens the selected question to attempt with options
   const [viewMode, setViewMode] = useState<'list' | 'attempt'>('list');
@@ -165,6 +167,8 @@ export function PracticeModal({
       ...prev,
       [currentIndex]: key,
     }));
+    const isCorrect = key === currentQ.correctAnswer;
+    void recordMCQSession(1, isCorrect ? 1 : 0);
   };
 
   const handleToggleBookmark = () => {

@@ -45,7 +45,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "test": "tsx scripts/test-streak.ts && tsx scripts/test-focus-timer.ts"
+    "test": "tsx scripts/test-streak.ts && tsx scripts/test-focus-timer.ts && tsx scripts/test-eligibility.ts"
   },
   "private": true
 }

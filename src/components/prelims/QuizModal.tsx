@@ -14,6 +14,7 @@ import {
   ChevronUp,
 } from '@/components/common/LucideIcons';
 import { PYQQuestion, QuizResult } from '@/types/prelims';
+import { useStudy } from '@/context/StudyContext';
 
 interface QuizModalProps {
   visible: boolean;
@@ -59,6 +60,7 @@ function QuizModalContent({
   durationMinutes: number;
   onClose: () => void;
 }) {
+  const { recordMCQSession, updateConfig, config } = useStudy();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, 'A' | 'B' | 'C' | 'D'>>({});
   const [markedForReview, setMarkedForReview] = useState<Record<number, boolean>>({});
@@ -104,11 +106,22 @@ function QuizModalContent({
     };
   }, [questions, selectedAnswers, durationMinutes, timeLeftSeconds]);
 
-  const handleSubmitQuiz = React.useCallback(() => {
+  const handleSubmitQuiz = React.useCallback(async () => {
     const res = calculateResult();
     setResult(res);
     setIsSubmitted(true);
-  }, [calculateResult]);
+    if (res.attempted > 0) {
+      await recordMCQSession(res.attempted, res.correct);
+      const scaledScore = Math.max(
+        0,
+        Math.min(200, Number(((res.score / res.maxScore) * 200).toFixed(1)))
+      );
+      await updateConfig({
+        mockAverageScore: scaledScore,
+        mockTestsAttempted: (config.mockTestsAttempted || 18) + 1,
+      });
+    }
+  }, [calculateResult, recordMCQSession, updateConfig, config.mockTestsAttempted]);
 
   // Timer countdown
   useEffect(() => {

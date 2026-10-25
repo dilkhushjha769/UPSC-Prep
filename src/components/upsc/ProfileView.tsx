@@ -1,260 +1,237 @@
-import { BW_THEME } from '@/constants/bwTheme';
-import { useStudy } from '@/context/StudyContext';
-import {
-  RotateCcw,
-  Save,
-  ShieldCheck,
-} from 'lucide-react-native';
-import { useState } from 'react';
+// @ts-ignore
+import React, { useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
+import {
+  BarChart2,
+  Compass,
+  Settings,
+  User,
+} from 'lucide-react-native';
+import { BW_THEME } from '@/constants/bwTheme';
+import { ProfilePersonalDetails } from './profile/ProfilePersonalDetails';
+import { ProfileOverview } from './profile/ProfileOverview';
+import { ProfileAnalytics } from './profile/ProfileAnalytics';
+import { ProfileSettings } from './profile/ProfileSettings';
+
+export type ProfileSubTab = 'profile' | 'overview' | 'analytics' | 'settings';
 
 interface ProfileViewProps {
   isDark: boolean;
+  onNavigateToTab?: (tabKey: any) => void;
 }
 
-export function ProfileView({ isDark }: ProfileViewProps) {
-  const { config, updateConfig, streak, resetToDefaults } = useStudy();
+export function ProfileView({ isDark, onNavigateToTab }: ProfileViewProps) {
+  const [activeSubTab, setActiveSubTab] = useState<ProfileSubTab>('profile');
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
 
-  const [aspirantName, setAspirantName] = useState(config.aspirantName);
-  const [examPhase, setExamPhase] = useState(config.examPhase);
-  const [targetExamDate, setTargetExamDate] = useState(config.targetExamDate);
-  const [dailyGoalHours, setDailyGoalHours] = useState(
-    (config.dailyGoalMinutes / 60).toString()
-  );
-  const [savedNotice, setSavedNotice] = useState(false);
+  const handleSubTabChange = (tab: ProfileSubTab) => {
+    setActiveSubTab(tab);
+  };
 
-  const handleSave = async () => {
-    const hours = parseFloat(dailyGoalHours) || 6;
-    await updateConfig({
-      aspirantName: aspirantName.trim() || 'Aspirant',
-      examPhase: examPhase.trim() || 'UPSC CSE 2027 • Prelims & Mains',
-      targetExamDate: targetExamDate.trim() || '2027-05-23',
-      dailyGoalMinutes: Math.round(hours * 60),
-    });
-    setSavedNotice(true);
-    setTimeout(() => setSavedNotice(false), 2000);
+  const handleNavigate = (tabKey: 'overview' | 'analytics' | 'settings' | 'leaderboard') => {
+    if (tabKey === 'leaderboard') {
+      onNavigateToTab?.('leaderboard');
+    } else {
+      setActiveSubTab(tabKey);
+    }
   };
 
   return (
     <ScrollView
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}>
-      {/* Header */}
+      {/* Top Header */}
       <View style={styles.header}>
-        <Text style={[styles.subTitle, { color: theme.textSecondary }]}>
-          ASPIRANT PROFILE
-        </Text>
         <Text style={[styles.title, { color: theme.textPrimary }]}>
-          Preparation Settings
+          Profile
         </Text>
       </View>
 
-      {/* User Info Card */}
+      {/* Segmented Black & White Tab Switcher (4 Tabs) */}
       <View
         style={[
-          styles.profileCard,
+          styles.tabBar,
           {
-            backgroundColor: theme.cardBg,
+            backgroundColor: isDark ? '#141416' : '#F1F5F9',
             borderColor: theme.cardBorder,
           },
         ]}>
-        <View style={styles.avatarRow}>
-          <View
-            style={[
-              styles.avatarBig,
-              { backgroundColor: theme.buttonPrimaryBg },
-            ]}>
-            <Text
-              style={[
-                styles.avatarBigText,
-                { color: theme.buttonPrimaryText },
-              ]}>
-              {config.aspirantName ? config.aspirantName.charAt(0) : 'A'}
-            </Text>
-          </View>
-
-          <View style={styles.nameBlock}>
-            <Text style={[styles.nameText, { color: theme.textPrimary }]}>
-              {config.aspirantName}
-            </Text>
-            <Text style={[styles.phaseText, { color: theme.textSecondary }]}>
-              {config.examPhase}
-            </Text>
-          </View>
-        </View>
-
-        {/* 3 Streak Stats */}
-        <View
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => handleSubTabChange('profile')}
           style={[
-            styles.statsRow,
-            {
-              backgroundColor: isDark ? '#080808' : '#FAFAFA',
-              borderColor: theme.cardBorder,
-            },
+            styles.tabItem,
+            activeSubTab === 'profile' && [
+              styles.tabItemActive,
+              {
+                backgroundColor: theme.buttonPrimaryBg,
+                borderColor: theme.cardBorderActive,
+              },
+            ],
           ]}>
-          <View style={styles.statItem}>
-            <Text style={[styles.statNum, { color: theme.textPrimary }]}>
-              {streak.currentStreak}d
-            </Text>
-          </View>
-
-          <View style={[styles.vDivider, { backgroundColor: theme.cardBorder }]} />
-
-          <View style={styles.statItem}>
-            <Text style={[styles.statNum, { color: theme.textPrimary }]}>
-              {streak.longestStreak}d
-            </Text>
-            <Text style={[styles.statLbl, { color: theme.textMuted }]}>
-              Longest Streak
-            </Text>
-          </View>
-
-          <View style={[styles.vDivider, { backgroundColor: theme.cardBorder }]} />
-
-          <View style={styles.statItem}>
-            <Text style={[styles.statNum, { color: theme.textPrimary }]}>
-              {streak.totalStudyDays}d
-            </Text>
-            <Text style={[styles.statLbl, { color: theme.textMuted }]}>
-              Total Study Days
-            </Text>
-          </View>
-        </View>
-      </View>
-
-      {/* Settings Form Card */}
-      <View
-        style={[
-          styles.formCard,
-          {
-            backgroundColor: theme.cardBg,
-            borderColor: theme.cardBorder,
-          },
-        ]}>
-        <Text style={[styles.sectionHeading, { color: theme.textPrimary }]}>
-          Goal & Target Configuration
-        </Text>
-
-        {savedNotice && (
-          <View
+          <User
+            size={13}
+            color={
+              activeSubTab === 'profile'
+                ? theme.buttonPrimaryText
+                : theme.textSecondary
+            }
+          />
+          <Text
             style={[
-              styles.savedNoticeBox,
-              { backgroundColor: isDark ? '#1C1C1C' : '#EFEFEF' },
+              styles.tabText,
+              {
+                color:
+                  activeSubTab === 'profile'
+                    ? theme.buttonPrimaryText
+                    : theme.textSecondary,
+                fontWeight: activeSubTab === 'profile' ? '800' : '600',
+              },
             ]}>
-            <ShieldCheck size={16} color={theme.textPrimary} />
-            <Text style={[styles.savedNoticeText, { color: theme.textPrimary }]}>
-              Preferences updated successfully.
-            </Text>
-          </View>
-        )}
-
-        <View style={styles.formGroup}>
-          <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>
-            Aspirant Name
+            Profile
           </Text>
-          <TextInput
-            value={aspirantName}
-            onChangeText={setAspirantName}
-            style={[
-              styles.textInput,
-              {
-                backgroundColor: isDark ? '#141414' : '#F7F7F7',
-                borderColor: theme.cardBorder,
-                color: theme.textPrimary,
-              },
-            ]}
-          />
-        </View>
-
-        <View style={styles.formGroup}>
-          <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>
-            Examination Phase / Cycle
-          </Text>
-          <TextInput
-            value={examPhase}
-            onChangeText={setExamPhase}
-            style={[
-              styles.textInput,
-              {
-                backgroundColor: isDark ? '#141414' : '#F7F7F7',
-                borderColor: theme.cardBorder,
-                color: theme.textPrimary,
-              },
-            ]}
-          />
-        </View>
-
-        <View style={styles.formGroup}>
-          <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>
-            Target Exam Date (YYYY-MM-DD)
-          </Text>
-          <TextInput
-            value={targetExamDate}
-            onChangeText={setTargetExamDate}
-            style={[
-              styles.textInput,
-              {
-                backgroundColor: isDark ? '#141414' : '#F7F7F7',
-                borderColor: theme.cardBorder,
-                color: theme.textPrimary,
-              },
-            ]}
-          />
-        </View>
-
-        <View style={styles.formGroup}>
-          <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>
-            Daily Study Goal (Hours)
-          </Text>
-          <TextInput
-            value={dailyGoalHours}
-            onChangeText={setDailyGoalHours}
-            keyboardType="numeric"
-            style={[
-              styles.textInput,
-              {
-                backgroundColor: isDark ? '#141414' : '#F7F7F7',
-                borderColor: theme.cardBorder,
-                color: theme.textPrimary,
-              },
-            ]}
-          />
-        </View>
+        </TouchableOpacity>
 
         <TouchableOpacity
-          activeOpacity={0.85}
-          onPress={handleSave}
+          activeOpacity={0.8}
+          onPress={() => handleSubTabChange('overview')}
           style={[
-            styles.saveBtn,
-            { backgroundColor: theme.buttonPrimaryBg },
+            styles.tabItem,
+            activeSubTab === 'overview' && [
+              styles.tabItemActive,
+              {
+                backgroundColor: theme.buttonPrimaryBg,
+                borderColor: theme.cardBorderActive,
+              },
+            ],
           ]}>
-          <Save size={16} color={theme.buttonPrimaryText} />
-          <Text style={[styles.saveBtnText, { color: theme.buttonPrimaryText }]}>
-            Save Target Settings
+          <Compass
+            size={13}
+            color={
+              activeSubTab === 'overview'
+                ? theme.buttonPrimaryText
+                : theme.textSecondary
+            }
+          />
+          <Text
+            style={[
+              styles.tabText,
+              {
+                color:
+                  activeSubTab === 'overview'
+                    ? theme.buttonPrimaryText
+                    : theme.textSecondary,
+                fontWeight: activeSubTab === 'overview' ? '800' : '600',
+              },
+            ]}>
+            Overview
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => handleSubTabChange('analytics')}
+          style={[
+            styles.tabItem,
+            activeSubTab === 'analytics' && [
+              styles.tabItemActive,
+              {
+                backgroundColor: theme.buttonPrimaryBg,
+                borderColor: theme.cardBorderActive,
+              },
+            ],
+          ]}>
+          <BarChart2
+            size={13}
+            color={
+              activeSubTab === 'analytics'
+                ? theme.buttonPrimaryText
+                : theme.textSecondary
+            }
+          />
+          <Text
+            style={[
+              styles.tabText,
+              {
+                color:
+                  activeSubTab === 'analytics'
+                    ? theme.buttonPrimaryText
+                    : theme.textSecondary,
+                fontWeight: activeSubTab === 'analytics' ? '800' : '600',
+              },
+            ]}>
+            Analytics
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => handleSubTabChange('settings')}
+          style={[
+            styles.tabItem,
+            activeSubTab === 'settings' && [
+              styles.tabItemActive,
+              {
+                backgroundColor: theme.buttonPrimaryBg,
+                borderColor: theme.cardBorderActive,
+              },
+            ],
+          ]}>
+          <Settings
+            size={13}
+            color={
+              activeSubTab === 'settings'
+                ? theme.buttonPrimaryText
+                : theme.textSecondary
+            }
+          />
+          <Text
+            style={[
+              styles.tabText,
+              {
+                color:
+                  activeSubTab === 'settings'
+                    ? theme.buttonPrimaryText
+                    : theme.textSecondary,
+                fontWeight: activeSubTab === 'settings' ? '800' : '600',
+              },
+            ]}>
+            Settings
           </Text>
         </TouchableOpacity>
       </View>
 
-      {/* Reset Data Helper */}
-      <View style={styles.resetRow}>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={resetToDefaults}
-          style={[styles.resetBtn, { borderColor: theme.cardBorder }]}>
-          <RotateCcw size={14} color={theme.textMuted} />
-          <Text style={[styles.resetBtnText, { color: theme.textMuted }]}>
-            Reset to Sample Study Logs
-          </Text>
-        </TouchableOpacity>
-      </View>
+      {/* Render Active Sub Tab View */}
+      {activeSubTab === 'profile' && (
+        <ProfilePersonalDetails
+          isDark={isDark}
+          onNavigateToTab={handleNavigate}
+        />
+      )}
+
+      {activeSubTab === 'overview' && (
+        <ProfileOverview
+          isDark={isDark}
+          onNavigateToTab={handleNavigate}
+        />
+      )}
+
+      {activeSubTab === 'analytics' && (
+        <ProfileAnalytics isDark={isDark} />
+      )}
+
+      {activeSubTab === 'settings' && (
+        <ProfileSettings
+          isDark={isDark}
+          onSaved={() => handleSubTabChange('profile')}
+        />
+      )}
     </ScrollView>
   );
 }
@@ -262,149 +239,47 @@ export function ProfileView({ isDark }: ProfileViewProps) {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    paddingTop: 24,
-    paddingBottom: 80,
+    paddingTop: 20,
+    paddingBottom: 90,
     maxWidth: 820,
     width: '100%',
     alignSelf: 'center',
     gap: 16,
   },
   header: {
-    marginBottom: 8,
-  },
-  subTitle: {
-    fontSize: 11,
-    fontWeight: '700',
-    letterSpacing: 1,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '900',
-    letterSpacing: -0.5,
-    marginTop: 2,
-  },
-  profileCard: {
-    padding: 20,
-    borderRadius: 14,
-    borderWidth: 1,
-    gap: 16,
-  },
-  avatarRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 14,
-  },
-  avatarBig: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatarBigText: {
-    fontSize: 20,
-    fontWeight: '900',
-  },
-  nameBlock: {
-    flex: 1,
-  },
-  nameText: {
-    fontSize: 18,
-    fontWeight: '800',
-  },
-  phaseText: {
-    fontSize: 13,
-    fontWeight: '500',
-    marginTop: 2,
-  },
-  statsRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingVertical: 14,
-    borderRadius: 10,
-    borderWidth: 1,
-  },
-  statItem: {
-    alignItems: 'center',
-  },
-  statNum: {
-    fontSize: 18,
-    fontWeight: '900',
-  },
-  statLbl: {
-    fontSize: 11,
-    fontWeight: '500',
-    marginTop: 2,
-  },
-  vDivider: {
-    width: 1,
-    height: 24,
-  },
-  formCard: {
-    padding: 20,
-    borderRadius: 14,
-    borderWidth: 1,
-    gap: 14,
-  },
-  sectionHeading: {
-    fontSize: 15,
-    fontWeight: '800',
     marginBottom: 4,
   },
-  savedNoticeBox: {
+  subTitle: {
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 1.2,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: '900',
+    letterSpacing: -0.5,
+    marginTop: 3,
+  },
+  tabBar: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    padding: 10,
-    borderRadius: 8,
-  },
-  savedNoticeText: {
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  formGroup: {
-    gap: 6,
-  },
-  inputLabel: {
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  textInput: {
+    padding: 4,
+    borderRadius: 12,
     borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    fontSize: 14,
+    gap: 4,
   },
-  saveBtn: {
+  tabItem: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
-    paddingVertical: 12,
-    borderRadius: 10,
-    marginTop: 8,
-  },
-  saveBtnText: {
-    fontSize: 13,
-    fontWeight: '800',
-  },
-  resetRow: {
-    alignItems: 'center',
-    marginTop: 8,
-  },
-  resetBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
     gap: 6,
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 8,
+    paddingVertical: 10,
+    borderRadius: 9,
+  },
+  tabItemActive: {
     borderWidth: 1,
   },
-  resetBtnText: {
+  tabText: {
     fontSize: 12,
-    fontWeight: '600',
   },
 });

@@ -27,9 +27,11 @@ import {
 } from '@/components/upsc';
 import { PrelimsScreen } from '@/components/prelims/PrelimsScreen';
 import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
+import { MockTestDashboard, ActiveMockTestScreen } from '@/components/mockTest';
 
 export default function AppScreen() {
   const [activeTab, setActiveTab] = useState<NavTab>('home');
+  const [activeMockTestId, setActiveMockTestId] = useState<string | null>(null);
   const [themeMode, setThemeMode] = useState<'dark' | 'light'>('dark');
   const { isLoading } = useStudy();
   const { width } = useWindowDimensions();
@@ -60,6 +62,21 @@ export default function AppScreen() {
     );
   }
 
+  // Active Mock Test Screen (takes over view when a test is launched)
+  if (activeMockTestId) {
+    return (
+      <View style={[styles.rootContainer, { backgroundColor: shellBg }]}>
+        <BlueTextureBackground isDark={isDark} />
+        <StatusBar barStyle={useLightIcons ? 'light-content' : 'dark-content'} />
+        <ActiveMockTestScreen
+          testId={activeMockTestId}
+          onClose={() => setActiveMockTestId(null)}
+          isDark={isDark}
+        />
+      </View>
+    );
+  }
+
   return (
     <SafeAreaView
       edges={shellEdges}
@@ -84,11 +101,19 @@ export default function AppScreen() {
             <CleanStreakDashboard
               isDark={isDark}
               onOpenPrelims={() => setActiveTab('prelims')}
+              onOpenMockTests={() => setActiveTab('mock-test')}
             />
           )}
 
           {activeTab === 'prelims' && (
             <PrelimsScreen isDark={isDark} onBack={() => setActiveTab('home')} />
+          )}
+
+          {activeTab === 'mock-test' && (
+            <MockTestDashboard
+              onStartTest={(testId) => setActiveMockTestId(testId)}
+              isDark={isDark}
+            />
           )}
 
           {activeTab === 'current-affairs' && (

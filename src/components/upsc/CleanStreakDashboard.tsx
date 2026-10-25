@@ -15,6 +15,7 @@ import {
   Play,
   Plus,
   X,
+  Award,
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
@@ -26,9 +27,10 @@ import { StreakCalendarModal } from './modals/StreakCalendarModal';
 interface CleanStreakDashboardProps {
   isDark: boolean;
   onOpenPrelims?: () => void;
+  onOpenMockTests?: () => void;
 }
 
-export function CleanStreakDashboard({ isDark, onOpenPrelims }: CleanStreakDashboardProps) {
+export function CleanStreakDashboard({ isDark, onOpenPrelims, onOpenMockTests }: CleanStreakDashboardProps) {
   const {
     streak,
     weekDays,
@@ -134,6 +136,24 @@ export function CleanStreakDashboard({ isDark, onOpenPrelims }: CleanStreakDashb
               Notes
             </Text>
           </TouchableOpacity>
+
+          {Boolean(onOpenMockTests) && (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={onOpenMockTests}
+              style={[
+                styles.actionPillSecondary,
+                {
+                  backgroundColor: theme.buttonSecondaryBg,
+                  borderColor: theme.buttonSecondaryBorder,
+                },
+              ]}>
+              <Award size={13} color={theme.textPrimary} />
+              <Text style={[styles.actionPillSecondaryText, { color: theme.textPrimary }]}>
+                Mock Tests
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
 

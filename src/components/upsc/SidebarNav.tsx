@@ -14,11 +14,12 @@ import {
   Newspaper,
   Sun,
   User,
+  Award,
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
 
-export type NavTab = 'home' | 'prelims' | 'current-affairs' | 'profile';
+export type NavTab = 'home' | 'prelims' | 'mock-test' | 'current-affairs' | 'profile';
 
 interface SidebarNavProps {
   activeTab: NavTab;
@@ -46,6 +47,11 @@ export function SidebarNav({
       id: 'prelims' as NavTab,
       label: 'Prelims',
       icon: BookOpen,
+    },
+    {
+      id: 'mock-test' as NavTab,
+      label: 'Mock Tests',
+      icon: Award,
     },
     {
       id: 'current-affairs' as NavTab,
@@ -218,6 +224,7 @@ export function MobileBottomNav({
   const items = [
     { id: 'home' as NavTab, label: 'Home', icon: Home },
     { id: 'prelims' as NavTab, label: 'Prelims', icon: BookOpen },
+    { id: 'mock-test' as NavTab, label: 'Mocks', icon: Award },
     { id: 'current-affairs' as NavTab, label: 'Affairs', icon: Newspaper },
     { id: 'profile' as NavTab, label: 'Profile', icon: User },
   ];

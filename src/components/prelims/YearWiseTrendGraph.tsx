@@ -12,7 +12,6 @@ import {
 import {
   ArrowRight,
   BarChart2,
-  BookOpen,
   Info,
   RotateCcw,
   TrendingDown,
@@ -475,14 +474,6 @@ export function YearWiseTrendGraph({
             accessibilityRole="button"
             accessibilityLabel={`Practice questions for year ${activeYearItem.year}`}
           >
-            <BookOpen
-              size={12}
-              color={
-                activeYearItem.count === 0
-                  ? theme.colors.textPrimary
-                  : theme.colors.darkButtonText
-              }
-            />
             <Text
               style={[
                 styles.practiceBtnText,

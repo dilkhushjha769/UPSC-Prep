@@ -4,7 +4,6 @@ import {
   ChevronDown,
   ChevronUp,
   FileText,
-  Sparkles,
   Timer,
   X,
 } from '@/components/common/LucideIcons';
@@ -265,14 +264,11 @@ export function ChapterDetailView({
           }}
         />
 
-        {/* EXAMINER PATTERN INSIGHT */}
+        {/* KEY FOCUS & EXAM PATTERN */}
         {chapter.trendSummary ? (
           <View style={styles.section}>
             <View style={styles.sectionHeaderRow}>
-              <View style={styles.sectionTitleWithIcon}>
-                <Sparkles size={15} color={theme.colors.textPrimary} strokeWidth={2.2} />
-                <Text style={styles.sectionTitle}>Examiner Pattern Insight</Text>
-              </View>
+              <Text style={styles.sectionTitle}>Key Focus Areas</Text>
             </View>
             <View style={styles.insightCard}>
               <Text style={styles.insightText}>{chapter.trendSummary}</Text>
@@ -765,19 +761,17 @@ const getStyles = (theme: PrelimsThemeType) =>
   },
   insightCard: {
     backgroundColor: theme.colors.bgSurface,
-    borderRadius: 12,
-    padding: 16,
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
     borderWidth: 1,
     borderColor: theme.colors.borderCard,
-    borderLeftWidth: 3.5,
-    borderLeftColor: theme.colors.textPrimary,
-    ...theme.shadows.card,
   },
   insightText: {
     fontSize: 13,
     color: theme.colors.textSecondary,
     lineHeight: 20,
-    fontWeight: '500',
+    fontWeight: '400',
   },
   // Quiz Configuration Modal Styles
   configModalOverlay: {

@@ -80,7 +80,7 @@ export function TrendAnalysisModal({
             <View style={styles.analysisCard}>
               <View style={styles.analysisHeader}>
                 <Ionicons name="bulb-outline" size={18} color="#7C3AED" />
-                <Text style={styles.analysisCardTitle}>Examiner Pattern Insights</Text>
+                <Text style={styles.analysisCardTitle}>Key Focus Areas</Text>
               </View>
               <Text style={styles.trendSummaryText}>{chapter.trendSummary}</Text>
             </View>

@@ -39,6 +39,7 @@ interface PracticeModalProps {
   visible: boolean;
   chapter: Chapter | null;
   questions: PYQQuestion[];
+  initialYearFilter?: YearFilter;
   onClose: () => void;
 }
 
@@ -46,6 +47,7 @@ export function PracticeModal({
   visible,
   chapter,
   questions,
+  initialYearFilter,
   onClose,
 }: PracticeModalProps) {
   const { recordMCQSession } = useStudy();
@@ -60,8 +62,14 @@ export function PracticeModal({
 
   // Filter States
   const [statusFilter, setStatusFilter] = useState<QuestionStatusFilter>('all');
-  const [selectedYear, setSelectedYear] = useState<YearFilter>('all');
+  const [selectedYear, setSelectedYear] = useState<YearFilter>(initialYearFilter || 'all');
   const [selectedDifficulty, setSelectedDifficulty] = useState<DifficultyFilter>('all');
+
+  const [prevInitialYear, setPrevInitialYear] = useState<YearFilter | undefined>(initialYearFilter);
+  if (initialYearFilter !== prevInitialYear) {
+    setPrevInitialYear(initialYearFilter);
+    setSelectedYear(initialYearFilter || 'all');
+  }
 
   // Track viewed questions:
   // - unattempted: user has NOT opened/seen yet (!seenIndices[idx] && selectedAnswers[idx] === undefined)

@@ -3,13 +3,14 @@ import { View, Text, StyleSheet, Modal, ScrollView, Pressable } from 'react-nati
 import { Ionicons } from '@expo/vector-icons';
 import { Chapter } from '@/types/prelims';
 import { PrelimsTheme } from '@/constants/prelimsTheme';
+import { YearWiseTrendGraph } from './YearWiseTrendGraph';
 
 interface ChapterDetailModalProps {
   visible: boolean;
   chapter: Chapter | null;
   serialNumber?: number;
   onClose: () => void;
-  onStartPractice: (chapter: Chapter) => void;
+  onStartPractice: (chapter: Chapter, initialYearFilter?: number) => void;
   onStartQuiz: (chapter: Chapter) => void;
 }
 
@@ -27,7 +28,6 @@ export function ChapterDetailModal({
     ? String(serialNumber).padStart(2, '0')
     : chapter.code;
 
-  const maxCount = Math.max(...chapter.yearTrends.map((t) => t.count), 5);
   const avgQuestions = (chapter.totalQuestions10Yrs / 10).toFixed(1);
 
   return (
@@ -128,43 +128,15 @@ export function ChapterDetailModal({
             {/* 10-Year Trend Analysis (2015 - 2024) */}
             <Text style={styles.sectionHeading}>10-YEAR TREND ANALYSIS (2015–2024)</Text>
 
-            {/* Frequency Bar Chart */}
-            <View style={styles.chartCard}>
-              <View style={styles.chartHeader}>
-                <View>
-                  <Text style={styles.chartTitle}>Yearly Question Distribution</Text>
-                  <Text style={styles.chartSubtitle}>Questions asked per year in UPSC Prelims</Text>
-                </View>
-                <View style={styles.chartBadge}>
-                  <Text style={styles.chartBadgeText}>{chapter.totalQuestions10Yrs} Total</Text>
-                </View>
-              </View>
-
-              <View style={styles.chartArea}>
-                {chapter.yearTrends.map((item, idx) => {
-                  const barHeight = Math.max((item.count / maxCount) * 105, 6);
-                  const isLatest = item.year >= 2023;
-                  return (
-                    <View key={idx} style={styles.colWrapper}>
-                      <Text style={[styles.barCountLabel, item.count > 0 && styles.barCountLabelActive]}>
-                        {item.count}
-                      </Text>
-                      <View
-                        style={[
-                          styles.chartBar,
-                          { height: barHeight },
-                          item.count > 0 && styles.chartBarActive,
-                          isLatest && styles.chartBarLatest,
-                        ]}
-                      />
-                      <Text style={[styles.yearLabel, isLatest && styles.yearLabelLatest]}>
-                        {"'" + String(item.year).slice(2)}
-                      </Text>
-                    </View>
-                  );
-                })}
-              </View>
-            </View>
+            {/* Interactive Year-Wise Trend Graph */}
+            <YearWiseTrendGraph
+              chapter={chapter}
+              questions={chapter.pyqs}
+              onPracticeQuestions={(year) => {
+                onClose();
+                onStartPractice(chapter, year);
+              }}
+            />
 
             {/* Pattern Insights */}
             <View style={styles.insightCard}>

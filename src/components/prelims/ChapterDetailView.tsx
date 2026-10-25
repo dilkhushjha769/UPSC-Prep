@@ -6,12 +6,12 @@ import {
   FileText,
   Sparkles,
   Timer,
-  TrendingUp,
   X,
 } from '@/components/common/LucideIcons';
 import { usePrelimsTheme, PrelimsThemeType } from '@/constants/prelimsTheme';
-import { getChapterShortNotes } from '@/data/prelimsData';
+import { getChapterShortNotes, getChapterQuestions } from '@/data/prelimsData';
 import { Chapter, Subject } from '@/types/prelims';
+import { YearWiseTrendGraph } from './YearWiseTrendGraph';
 import React, { useState, useMemo } from 'react';
 import {
   KeyboardAvoidingView,
@@ -30,7 +30,7 @@ interface ChapterDetailViewProps {
   subject: Subject;
   serialNumber?: number;
   onBack: () => void;
-  onStartPractice: (chapter: Chapter) => void;
+  onStartPractice: (chapter: Chapter, initialYearFilter?: number) => void;
   onStartQuiz: (chapter: Chapter, questionCount?: number, durationMinutes?: number) => void;
 }
 
@@ -63,9 +63,9 @@ export function ChapterDetailView({
     ? String(serialNumber).padStart(2, '0')
     : chapter.code;
 
-  const maxCount = Math.max(...chapter.yearTrends.map((t) => t.count), 5);
   const avgPerYear = (chapter.totalQuestions10Yrs / 10).toFixed(1);
   const shortNotes = getChapterShortNotes(chapter);
+  const chapterQuestions = useMemo(() => getChapterQuestions(chapter), [chapter]);
 
   // Compute question count pills dynamically based on total questions available
   const questionCountOptions: { label: string; count: number }[] = [];
@@ -256,44 +256,14 @@ export function ChapterDetailView({
           )}
         </View>
 
-        {/* 10-YEAR TREND ANALYSIS */}
-        <View style={styles.section}>
-          <View style={styles.sectionHeaderRow}>
-            <View style={styles.sectionTitleWithIcon}>
-              <TrendingUp size={15} color={theme.colors.textPrimary} strokeWidth={2.2} />
-              <Text style={styles.sectionTitle}>10-Year Trend</Text>
-            </View>
-            <Text style={styles.sectionSubtitleTag}>2015 – 2024</Text>
-          </View>
-
-          <View style={styles.chartCard}>
-            <View style={styles.chartArea}>
-              {chapter.yearTrends.map((item, idx) => {
-                const barHeight = Math.max((item.count / maxCount) * 96, 6);
-                const isRecent = item.year >= 2022;
-
-                return (
-                  <View key={idx} style={styles.chartCol}>
-                    <Text style={[styles.barCount, item.count > 0 && styles.barCountActive]}>
-                      {item.count}
-                    </Text>
-                    <View
-                      style={[
-                        styles.barTrack,
-                        { height: barHeight },
-                        item.count > 0 && styles.barActive,
-                        isRecent && styles.barRecent,
-                      ]}
-                    />
-                    <Text style={[styles.yearText, isRecent && styles.yearTextRecent]}>
-                      {"'" + String(item.year).slice(2)}
-                    </Text>
-                  </View>
-                );
-              })}
-            </View>
-          </View>
-        </View>
+        {/* 10-YEAR INTERACTIVE TREND GRAPH */}
+        <YearWiseTrendGraph
+          chapter={chapter}
+          questions={chapterQuestions}
+          onPracticeQuestions={(year) => {
+            onStartPractice(chapter, year);
+          }}
+        />
 
         {/* EXAMINER PATTERN INSIGHT */}
         {chapter.trendSummary ? (
@@ -792,59 +762,6 @@ const getStyles = (theme: PrelimsThemeType) =>
     lineHeight: 18.5,
     flex: 1,
     fontWeight: '400',
-  },
-  chartCard: {
-    backgroundColor: theme.colors.bgSurface,
-    borderRadius: 12,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-    ...theme.shadows.card,
-  },
-  chartArea: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    height: 120,
-    paddingTop: 6,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.borderSubtle,
-    paddingBottom: 4,
-  },
-  chartCol: {
-    alignItems: 'center',
-    flex: 1,
-  },
-  barCount: {
-    fontSize: 10,
-    fontWeight: '600',
-    color: theme.colors.textMuted,
-    marginBottom: 3,
-  },
-  barCountActive: {
-    color: theme.colors.textPrimary,
-    fontWeight: '800',
-  },
-  barTrack: {
-    width: 14,
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    borderRadius: 3,
-  },
-  barActive: {
-    backgroundColor: theme.isDark ? '#64748B' : '#94A3B8',
-  },
-  barRecent: {
-    backgroundColor: theme.colors.textPrimary,
-  },
-  yearText: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-    marginTop: 5,
-    fontWeight: '500',
-  },
-  yearTextRecent: {
-    color: theme.colors.textPrimary,
-    fontWeight: '700',
   },
   insightCard: {
     backgroundColor: theme.colors.bgSurface,

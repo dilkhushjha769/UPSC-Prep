@@ -62,6 +62,7 @@ function PrelimsScreenContent({ onBack }: { onBack?: () => void } = {}) {
   const [practiceModalVisible, setPracticeModalVisible] = useState(false);
   const [practiceChapter, setPracticeChapter] = useState<Chapter | null>(null);
   const [practiceQuestions, setPracticeQuestions] = useState<PYQQuestion[]>([]);
+  const [practiceInitialYear, setPracticeInitialYear] = useState<number | 'all'>('all');
 
   // Quiz modal state
   const [quizModalVisible, setQuizModalVisible] = useState(false);
@@ -79,10 +80,11 @@ function PrelimsScreenContent({ onBack }: { onBack?: () => void } = {}) {
   };
 
   // Chapter Action Handlers
-  const handlePracticeChapter = (chapter: Chapter) => {
+  const handlePracticeChapter = (chapter: Chapter, initialYear?: number) => {
     const qs = getChapterQuestions(chapter);
     setPracticeChapter(chapter);
     setPracticeQuestions(qs);
+    setPracticeInitialYear(initialYear || 'all');
     setPracticeModalVisible(true);
   };
 
@@ -248,6 +250,7 @@ function PrelimsScreenContent({ onBack }: { onBack?: () => void } = {}) {
         visible={practiceModalVisible}
         chapter={practiceChapter}
         questions={practiceQuestions}
+        initialYearFilter={practiceInitialYear}
         onClose={() => setPracticeModalVisible(false)}
       />
 

@@ -262,3 +262,43 @@ export function Filter({ size = defaultProps.size, color = defaultProps.color, s
   );
 }
 
+export function TrendingDown({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Polyline points="22 17 13.5 8.5 8.5 13.5 2 7" />
+      <Polyline points="16 17 22 17 22 11" />
+    </Svg>
+  );
+}
+
+export function BarChart2({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Line x1="18" y1="20" x2="18" y2="10" />
+      <Line x1="12" y1="20" x2="12" y2="4" />
+      <Line x1="6" y1="20" x2="6" y2="14" />
+    </Svg>
+  );
+}
+
+export function Info({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <SvgCircle cx="12" cy="12" r="10" />
+      <Line x1="12" y1="16" x2="12" y2="12" />
+      <Line x1="12" y1="8" x2="12.01" y2="8" />
+    </Svg>
+  );
+}
+
+export function RotateCcw({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+      <Path d="M3 3v5h5" />
+    </Svg>
+  );
+}
+
+
+

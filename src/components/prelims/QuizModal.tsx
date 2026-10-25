@@ -80,12 +80,11 @@ function QuizModalContent({
   onClose: () => void;
 }) {
   const theme = usePrelimsTheme();
-  const styles = useMemo(() => getStyles(theme), [theme]);
-  const { recordMCQSession, updateConfig, config } = useStudy();
-
   const { width: windowWidth } = useWindowDimensions();
   const isDesktop = windowWidth >= 1024;
   const isMobile = windowWidth < 768;
+  const styles = useMemo(() => getStyles(theme, isMobile), [theme, isMobile]);
+  const { recordMCQSession, updateConfig, config } = useStudy();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, 'A' | 'B' | 'C' | 'D'>>({});
@@ -325,8 +324,12 @@ function QuizModalContent({
             {title}
           </Text>
           {!isSubmitted && (
-            <View style={styles.markingPill}>
-              <Text style={styles.markingText}>+2.0 Correct / -0.66 Wrong</Text>
+            <View style={styles.topSubRow}>
+              <Text style={styles.topSubText}>+2.0 / -0.66</Text>
+              <Text style={styles.topSubDot}>·</Text>
+              <Text style={styles.topSubText}>
+                Q {currentIndex + 1} of {questions.length}
+              </Text>
             </View>
           )}
         </View>
@@ -335,7 +338,7 @@ function QuizModalContent({
           {!isSubmitted && (
             <View style={[styles.timerBadge, timeLeftSeconds < 120 && styles.timerDanger]}>
               <Timer
-                size={14}
+                size={13}
                 color={timeLeftSeconds < 120 ? '#EF4444' : theme.colors.textPrimary}
                 strokeWidth={2}
               />
@@ -358,10 +361,7 @@ function QuizModalContent({
               accessibilityRole="button"
               accessibilityLabel="Open question palette"
             >
-              <LayoutGrid size={14} color={theme.colors.darkButtonText} strokeWidth={2.2} />
-              <Text style={styles.mobilePaletteBtnText}>
-                Q {currentIndex + 1}/{questions.length}
-              </Text>
+              <LayoutGrid size={15} color={theme.colors.darkButtonText} strokeWidth={2.2} />
             </Pressable>
           )}
         </View>
@@ -787,7 +787,7 @@ function QuizModalContent({
   );
 }
 
-const getStyles = (theme: PrelimsThemeType) => {
+const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
   const isDark = theme.isDark;
 
   return StyleSheet.create({
@@ -807,36 +807,38 @@ const getStyles = (theme: PrelimsThemeType) => {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingHorizontal: 20,
-      paddingVertical: 12,
+      paddingHorizontal: isMobile ? 12 : 20,
+      paddingVertical: isMobile ? 10 : 12,
       borderBottomWidth: 1,
       borderBottomColor: theme.colors.borderCard,
       backgroundColor: theme.colors.bgSurface,
     },
     titleCol: {
       flex: 1,
-      alignItems: 'center',
-      marginHorizontal: 10,
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+      marginHorizontal: isMobile ? 10 : 14,
     },
     topTitle: {
-      fontSize: 14,
-      fontWeight: '800',
+      fontSize: isMobile ? 13.5 : 14,
+      fontWeight: '700',
       color: theme.colors.textPrimary,
       letterSpacing: -0.2,
     },
-    markingPill: {
-      backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
-      borderWidth: 1,
-      borderColor: theme.colors.borderSubtle,
-      paddingHorizontal: 8,
-      paddingVertical: 2,
-      borderRadius: 6,
+    topSubRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
       marginTop: 2,
+      gap: 5,
     },
-    markingText: {
-      fontSize: 10,
-      fontWeight: '700',
-      color: theme.colors.textSecondary,
+    topSubText: {
+      fontSize: 11,
+      fontWeight: '600',
+      color: theme.colors.textMuted,
+    },
+    topSubDot: {
+      fontSize: 11,
+      color: theme.colors.textMuted,
     },
     closeBtn: {
       width: 34,
@@ -859,10 +861,11 @@ const getStyles = (theme: PrelimsThemeType) => {
       backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
       borderWidth: 1,
       borderColor: theme.colors.borderCard,
-      paddingHorizontal: 10,
+      paddingHorizontal: isMobile ? 8 : 10,
       paddingVertical: 6,
       borderRadius: 8,
-      gap: 6,
+      height: 34,
+      gap: 5,
     },
     timerDanger: {
       backgroundColor: isDark ? '#2D1215' : '#FEF2F2',
@@ -877,13 +880,12 @@ const getStyles = (theme: PrelimsThemeType) => {
       color: '#EF4444',
     },
     mobilePaletteBtn: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      backgroundColor: theme.colors.darkButton,
-      paddingHorizontal: 10,
-      paddingVertical: 6,
+      width: 34,
+      height: 34,
       borderRadius: 8,
-      gap: 6,
+      backgroundColor: theme.colors.darkButton,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     mobilePaletteBtnText: {
       fontSize: 11,
@@ -896,16 +898,16 @@ const getStyles = (theme: PrelimsThemeType) => {
     splitRow: {
       flex: 1,
       flexDirection: 'row',
-      paddingHorizontal: 16,
-      paddingTop: 14,
-      paddingBottom: 14,
+      paddingHorizontal: isMobile ? 0 : 16,
+      paddingTop: isMobile ? 0 : 14,
+      paddingBottom: isMobile ? 0 : 14,
       gap: 16,
     },
     questionPanel: {
       flex: 1,
       backgroundColor: theme.colors.bgSurface,
-      borderRadius: 14,
-      borderWidth: 1,
+      borderRadius: isMobile ? 0 : 14,
+      borderWidth: isMobile ? 0 : 1,
       borderColor: theme.colors.borderCard,
       display: 'flex',
       flexDirection: 'column',
@@ -918,8 +920,8 @@ const getStyles = (theme: PrelimsThemeType) => {
       flex: 1,
     },
     questionScrollContent: {
-      paddingHorizontal: 20,
-      paddingTop: 18,
+      paddingHorizontal: isMobile ? 16 : 20,
+      paddingTop: isMobile ? 14 : 18,
       paddingBottom: 24,
     },
     qHeaderRow: {
@@ -1053,23 +1055,23 @@ const getStyles = (theme: PrelimsThemeType) => {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingHorizontal: 16,
-      paddingVertical: 12,
+      paddingHorizontal: isMobile ? 12 : 16,
+      paddingVertical: isMobile ? 10 : 12,
       borderTopWidth: 1,
       borderTopColor: theme.colors.borderCard,
       backgroundColor: isDark ? '#181B24' : '#F8FAFC',
-      gap: 10,
+      gap: isMobile ? 8 : 10,
     },
     navPrevBtn: {
       flexDirection: 'row',
       alignItems: 'center',
       backgroundColor: isDark ? '#222838' : '#F1F5F9',
       paddingVertical: 8,
-      paddingHorizontal: 14,
+      paddingHorizontal: isMobile ? 10 : 14,
       borderRadius: 8,
       borderWidth: 1,
       borderColor: theme.colors.borderSubtle,
-      gap: 6,
+      gap: 5,
     },
     navPrevText: {
       fontSize: 12.5,
@@ -1109,9 +1111,9 @@ const getStyles = (theme: PrelimsThemeType) => {
       alignItems: 'center',
       backgroundColor: theme.colors.darkButton,
       paddingVertical: 8,
-      paddingHorizontal: 14,
+      paddingHorizontal: isMobile ? 12 : 14,
       borderRadius: 8,
-      gap: 6,
+      gap: 5,
     },
     navNextText: {
       fontSize: 12.5,
@@ -1123,9 +1125,9 @@ const getStyles = (theme: PrelimsThemeType) => {
       alignItems: 'center',
       backgroundColor: '#10B981',
       paddingVertical: 8,
-      paddingHorizontal: 14,
+      paddingHorizontal: isMobile ? 12 : 14,
       borderRadius: 8,
-      gap: 6,
+      gap: 5,
     },
     submitBtnText: {
       fontSize: 12.5,

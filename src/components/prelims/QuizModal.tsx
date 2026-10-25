@@ -25,10 +25,12 @@ import {
   LayoutGrid,
   RotateCcw,
   AlertTriangle,
+  Bookmark,
 } from '@/components/common/LucideIcons';
 import { PYQQuestion, QuizResult } from '@/types/prelims';
 import { useStudy } from '@/context/StudyContext';
 import { usePrelimsTheme, PrelimsThemeType } from '@/constants/prelimsTheme';
+import { BookmarkStorageService } from '@/services/bookmarkStorage';
 import { QuizQuestionPalette } from './QuizQuestionPalette';
 import { QuizSubmitModal } from './QuizSubmitModal';
 
@@ -90,7 +92,18 @@ function QuizModalContent({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, 'A' | 'B' | 'C' | 'D'>>({});
   const [markedForReview, setMarkedForReview] = useState<Record<number, boolean>>({});
+  const [bookmarkedMap, setBookmarkedMap] = useState<Record<string, boolean>>({});
   const [visitedIndices, setVisitedIndices] = useState<Record<number, boolean>>({ 0: true });
+
+  useEffect(() => {
+    BookmarkStorageService.getBookmarkedIds().then((ids) => {
+      const map: Record<string, boolean> = {};
+      ids.forEach((id) => {
+        map[id] = true;
+      });
+      setBookmarkedMap(map);
+    });
+  }, []);
 
   const [timeLeftSeconds, setTimeLeftSeconds] = useState(durationMinutes * 60);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -212,6 +225,15 @@ function QuizModalContent({
       [currentIndex]: !prev[currentIndex],
     }));
   }, [isSubmitted, currentIndex]);
+
+  const handleToggleBookmark = useCallback(async () => {
+    if (!currentQ) return;
+    const isSaved = await BookmarkStorageService.toggleBookmark(currentQ);
+    setBookmarkedMap((prev) => ({
+      ...prev,
+      [currentQ.id]: isSaved,
+    }));
+  }, [currentQ]);
 
   const stats = useMemo(() => {
     let answered = 0;
@@ -419,34 +441,64 @@ function QuizModalContent({
                     </View>
                   </View>
 
-                  {/* Mark for review action button */}
-                  <Pressable
-                    style={({ pressed }) => [
-                      styles.markBtn,
-                      markedForReview[currentIndex] && styles.markBtnActive,
-                      pressed && styles.pressed,
-                    ]}
-                    onPress={handleToggleMarkReview}
-                    accessibilityRole="button"
-                    accessibilityLabel={
-                      markedForReview[currentIndex] ? 'Marked for Review' : 'Mark for Review'
-                    }
-                  >
-                    <Flag
-                      size={12}
-                      color={markedForReview[currentIndex] ? '#8B5CF6' : theme.colors.textMuted}
-                      fill={markedForReview[currentIndex] ? '#8B5CF6' : 'none'}
-                      strokeWidth={2}
-                    />
-                    <Text
-                      style={[
-                        styles.markBtnText,
-                        markedForReview[currentIndex] && styles.markBtnTextActive,
+                  {/* Actions: Bookmark & Mark for review */}
+                  <View style={styles.qMetaRight}>
+                    <Pressable
+                      style={({ pressed }) => [
+                        styles.bookmarkBtn,
+                        bookmarkedMap[currentQ.id] && styles.bookmarkBtnActive,
+                        pressed && styles.pressed,
                       ]}
+                      onPress={handleToggleBookmark}
+                      accessibilityRole="button"
+                      accessibilityLabel={
+                        bookmarkedMap[currentQ.id] ? 'Saved to bookmarks' : 'Bookmark question'
+                      }
                     >
-                      {markedForReview[currentIndex] ? 'Marked' : 'Mark for Review'}
-                    </Text>
-                  </Pressable>
+                      <Bookmark
+                        size={12}
+                        color={bookmarkedMap[currentQ.id] ? '#F59E0B' : theme.colors.textMuted}
+                        fill={bookmarkedMap[currentQ.id] ? '#F59E0B' : 'none'}
+                        strokeWidth={2}
+                      />
+                      <Text
+                        style={[
+                          styles.bookmarkBtnText,
+                          bookmarkedMap[currentQ.id] && styles.bookmarkBtnTextActive,
+                        ]}
+                      >
+                        {bookmarkedMap[currentQ.id] ? 'Saved' : 'Bookmark'}
+                      </Text>
+                    </Pressable>
+
+                    <Pressable
+                      style={({ pressed }) => [
+                        styles.markBtn,
+                        markedForReview[currentIndex] && styles.markBtnActive,
+                        pressed && styles.pressed,
+                      ]}
+                      onPress={handleToggleMarkReview}
+                      accessibilityRole="button"
+                      accessibilityLabel={
+                        markedForReview[currentIndex] ? 'Marked for Review' : 'Mark for Review'
+                      }
+                    >
+                      <Flag
+                        size={12}
+                        color={markedForReview[currentIndex] ? '#8B5CF6' : theme.colors.textMuted}
+                        fill={markedForReview[currentIndex] ? '#8B5CF6' : 'none'}
+                        strokeWidth={2}
+                      />
+                      <Text
+                        style={[
+                          styles.markBtnText,
+                          markedForReview[currentIndex] && styles.markBtnTextActive,
+                        ]}
+                      >
+                        {markedForReview[currentIndex] ? 'Marked' : 'Mark for Review'}
+                      </Text>
+                    </Pressable>
+                  </View>
                 </View>
 
                 {/* Question Card */}
@@ -1049,6 +1101,35 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       fontSize: 10.5,
       fontWeight: '700',
       color: theme.colors.textSecondary,
+    },
+    qMetaRight: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 7,
+    },
+    bookmarkBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 5,
+      backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+      paddingHorizontal: 9,
+      paddingVertical: 5,
+      borderRadius: 7,
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
+    },
+    bookmarkBtnActive: {
+      backgroundColor: isDark ? '#362312' : '#FEF3C7',
+      borderColor: '#F59E0B',
+    },
+    bookmarkBtnText: {
+      fontSize: 11,
+      color: theme.colors.textSecondary,
+      fontWeight: '600',
+    },
+    bookmarkBtnTextActive: {
+      color: isDark ? '#FCD34D' : '#D97706',
+      fontWeight: '800',
     },
     markBtn: {
       flexDirection: 'row',

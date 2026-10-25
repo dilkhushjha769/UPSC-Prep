@@ -14,12 +14,14 @@ import {
   ShieldCheck,
   X,
   XCircle,
+  RotateCcw,
 } from '@/components/common/LucideIcons';
 import { PYQQuestion, Chapter } from '@/types/prelims';
 import { PrelimsThemeType, usePrelimsTheme } from '@/constants/prelimsTheme';
 import { useStudy } from '@/context/StudyContext';
+import { BookmarkStorageService } from '@/services/bookmarkStorage';
 import { StatusBar } from 'expo-status-bar';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import {
   Modal,
   Platform,
@@ -31,7 +33,13 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-type QuestionStatusFilter = 'all' | 'solved' | 'incorrect' | 'unsolved' | 'unattempted';
+type QuestionStatusFilter =
+  | 'all'
+  | 'solved'
+  | 'incorrect'
+  | 'unsolved'
+  | 'unattempted'
+  | 'bookmarked';
 type YearFilter = 'all' | number;
 type DifficultyFilter = 'all' | 'Easy' | 'Medium' | 'Hard';
 
@@ -60,6 +68,16 @@ export function PracticeModal({
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
   const [bookmarkedIds, setBookmarkedIds] = useState<Record<string, boolean>>({});
 
+  useEffect(() => {
+    BookmarkStorageService.getBookmarkedIds().then((ids) => {
+      const map: Record<string, boolean> = {};
+      ids.forEach((id) => {
+        map[id] = true;
+      });
+      setBookmarkedIds(map);
+    });
+  }, []);
+
   // Filter States
   const [statusFilter, setStatusFilter] = useState<QuestionStatusFilter>('all');
   const [selectedYear, setSelectedYear] = useState<YearFilter>(initialYearFilter || 'all');
@@ -87,6 +105,10 @@ export function PracticeModal({
     const years = Array.from(new Set(questions.map((q) => q.year).filter(Boolean)));
     return years.sort((a, b) => b - a);
   }, [questions]);
+
+  const bookmarkedCount = useMemo(() => {
+    return questions.filter((q) => !!bookmarkedIds[q.id]).length;
+  }, [questions, bookmarkedIds]);
 
   const availableDifficulties = ['all', 'Easy', 'Medium', 'Hard'] as const;
 
@@ -141,6 +163,7 @@ export function PracticeModal({
       if (statusFilter === 'incorrect' && !incorrectIndices.has(originalIndex)) return false;
       if (statusFilter === 'unsolved' && !unsolvedIndices.has(originalIndex)) return false;
       if (statusFilter === 'unattempted' && !unattemptedIndices.has(originalIndex)) return false;
+      if (statusFilter === 'bookmarked' && !bookmarkedIds[q.id]) return false;
 
       // 2. Year Filter
       if (selectedYear !== 'all' && q.year !== selectedYear) return false;
@@ -182,11 +205,21 @@ export function PracticeModal({
     void recordMCQSession(1, isCorrect ? 1 : 0);
   };
 
-  const handleToggleBookmark = () => {
+  const handleToggleBookmark = async () => {
+    if (!currentQ) return;
+    const isSaved = await BookmarkStorageService.toggleBookmark(currentQ);
     setBookmarkedIds((prev) => ({
       ...prev,
-      [currentQ.id]: !prev[currentQ.id],
+      [currentQ.id]: isSaved,
     }));
+  };
+
+  const handleResetCurrentQuestion = () => {
+    setSelectedAnswers((prev) => {
+      const copy = { ...prev };
+      delete copy[currentIndex];
+      return copy;
+    });
   };
 
   const handleNext = () => {
@@ -255,7 +288,7 @@ export function PracticeModal({
                 style={({ pressed }) => [styles.backBtnPill, pressed && styles.pressed]}
                 onPress={onClose}
               >
-                <ArrowLeft size={16} color="#000000" strokeWidth={2.2} />
+                <ArrowLeft size={16} color={theme.colors.textPrimary} strokeWidth={2.2} />
                 <Text style={styles.backBtnText}>Exit Practice</Text>
               </Pressable>
 
@@ -381,6 +414,38 @@ export function PracticeModal({
                       ]}
                     >
                       Unattempted ({unattemptedCount})
+                    </Text>
+                  </Pressable>
+
+                  {/* Bookmarked / Saved questions */}
+                  <Pressable
+                    style={[
+                      styles.filterPill,
+                      statusFilter === 'bookmarked' && styles.filterPillActive,
+                    ]}
+                    onPress={() => setStatusFilter('bookmarked')}
+                  >
+                    <Bookmark
+                      size={12}
+                      color={
+                        statusFilter === 'bookmarked'
+                          ? theme.colors.darkButtonText
+                          : '#F59E0B'
+                      }
+                      fill={
+                        statusFilter === 'bookmarked'
+                          ? theme.colors.darkButtonText
+                          : '#F59E0B'
+                      }
+                      strokeWidth={2}
+                    />
+                    <Text
+                      style={[
+                        styles.filterPillText,
+                        statusFilter === 'bookmarked' && styles.filterPillTextActive,
+                      ]}
+                    >
+                      Saved ({bookmarkedCount})
                     </Text>
                   </Pressable>
                 </ScrollView>
@@ -544,8 +609,8 @@ export function PracticeModal({
                         size={11}
                         color={
                           selectedDifficulty !== 'all' || showDiffPicker
-                            ? '#FFFFFF'
-                            : '#000000'
+                            ? theme.colors.darkButtonText
+                            : theme.colors.textPrimary
                         }
                         strokeWidth={2}
                       />
@@ -653,7 +718,9 @@ export function PracticeModal({
                       onPress={() => setStatusFilter('all')}
                     >
                       <Text style={styles.activeFilterChipText}>
-                        {statusFilter.charAt(0).toUpperCase() + statusFilter.slice(1)}
+                        {statusFilter === 'bookmarked'
+                          ? 'Saved Questions'
+                          : statusFilter.charAt(0).toUpperCase() + statusFilter.slice(1)}
                       </Text>
                       <X size={10} color={theme.colors.textPrimary} strokeWidth={2.5} />
                     </Pressable>
@@ -696,7 +763,9 @@ export function PracticeModal({
             {filteredQuestions.length === 0 ? (
               <View style={styles.emptyFilterCard}>
                 <View style={styles.emptyFilterIconBadge}>
-                  {statusFilter === 'incorrect' ? (
+                  {statusFilter === 'bookmarked' ? (
+                    <Bookmark size={24} color="#F59E0B" fill="#F59E0B" strokeWidth={2} />
+                  ) : statusFilter === 'incorrect' ? (
                     <CheckCircle2 size={24} color={theme.colors.textPrimary} strokeWidth={2} />
                   ) : statusFilter === 'solved' ? (
                     <Lightbulb size={24} color={theme.colors.textPrimary} strokeWidth={2} />
@@ -709,26 +778,30 @@ export function PracticeModal({
                   )}
                 </View>
                 <Text style={styles.emptyFilterTitle}>
-                  {statusFilter === 'incorrect'
+                  {statusFilter === 'bookmarked'
+                    ? 'No Saved Questions'
+                    : statusFilter === 'incorrect'
                     ? 'No Incorrect Questions'
                     : statusFilter === 'solved'
-                      ? 'No Solved Questions Yet'
-                      : statusFilter === 'unsolved'
-                        ? 'No Unsolved Questions'
-                        : statusFilter === 'unattempted'
-                          ? 'No Unattempted Questions'
-                          : 'No Matching Questions'}
+                    ? 'No Solved Questions Yet'
+                    : statusFilter === 'unsolved'
+                    ? 'No Unsolved Questions'
+                    : statusFilter === 'unattempted'
+                    ? 'No Unattempted Questions'
+                    : 'No Matching Questions'}
                 </Text>
                 <Text style={styles.emptyFilterSubtitle}>
-                  {statusFilter === 'incorrect'
+                  {statusFilter === 'bookmarked'
+                    ? 'Tap the bookmark button on any question to save it here for easy revision.'
+                    : statusFilter === 'incorrect'
                     ? "Great accuracy! You haven't made any mistakes under this selection."
                     : statusFilter === 'solved'
-                      ? 'Select questions to start practicing and see your solved answers here.'
-                      : statusFilter === 'unsolved'
-                        ? 'You have not skipped any viewed questions without answering.'
-                        : statusFilter === 'unattempted'
-                          ? 'You have opened and viewed all questions under this selection!'
-                          : 'No questions match the active status, year, and difficulty filters.'}
+                    ? 'Select questions to start practicing and see your solved answers here.'
+                    : statusFilter === 'unsolved'
+                    ? 'You have not skipped any viewed questions without answering.'
+                    : statusFilter === 'unattempted'
+                    ? 'You have opened and viewed all questions under this selection!'
+                    : 'No questions match the active status, year, and difficulty filters.'}
                 </Text>
                 <Pressable
                   style={({ pressed }) => [
@@ -780,6 +853,11 @@ export function PracticeModal({
                           <View style={styles.diffTag}>
                             <Text style={styles.diffTagText}>{q.difficulty}</Text>
                           </View>
+                          {bookmarkedIds[q.id] && (
+                            <View style={styles.bookmarkedListTag}>
+                              <Bookmark size={11} color="#F59E0B" fill="#F59E0B" strokeWidth={2} />
+                            </View>
+                          )}
                         </View>
 
                         {/* Status indicator */}
@@ -834,41 +912,80 @@ export function PracticeModal({
           </View>
         ) : (
           /* ========================================================= */
-          /* MODE 2: SINGLE QUESTION ATTEMPT VIEW (WITH BACK & NEXT)   */
+          /* MODE 2: SINGLE QUESTION ATTEMPT VIEW (MATCHED TO MAIN QUIZ)*/
           /* ========================================================= */
           <View style={styles.viewContainer}>
             {/* Top Bar for Attempt View */}
-            <View style={styles.topNavBar}>
+            <View style={styles.attemptTopBar}>
               <Pressable
-                style={({ pressed }) => [styles.backBtnPill, pressed && styles.pressed]}
+                style={({ pressed }) => [styles.attemptBackBtn, pressed && styles.pressed]}
                 onPress={() => setViewMode('list')}
+                accessibilityRole="button"
+                accessibilityLabel="Back to questions list"
               >
-                <ArrowLeft size={16} color="#000000" strokeWidth={2.2} />
-                <Text style={styles.backBtnText}>Questions List</Text>
+                <ArrowLeft size={16} color={theme.colors.textPrimary} strokeWidth={2.2} />
               </Pressable>
 
-              <View style={styles.qCounterPill}>
-                <Text style={styles.qCounterText}>
-                  Q{currentIndex + 1}
+              <View style={styles.attemptTitleCol}>
+                <Text style={styles.attemptTopTitle}>
+                  Question {currentIndex + 1} of {questions.length}
                 </Text>
-                <Text style={styles.qCounterFilterSub}>
+                <Text style={styles.attemptTopSubtitle} numberOfLines={1}>
                   {isFilteringActive && currentFilteredPos >= 0
-                    ? `(${currentFilteredPos + 1} of ${filteredQuestions.length})`
-                    : `of ${questions.length}`}
+                    ? `Filtered #${currentFilteredPos + 1} of ${filteredQuestions.length}`
+                    : chapter.title}
                 </Text>
               </View>
 
-              <Pressable
-                style={({ pressed }) => [styles.bookmarkIconBtn, pressed && styles.pressed]}
-                onPress={handleToggleBookmark}
-              >
-                <Bookmark
-                  size={18}
-                  color="#000000"
-                  fill={isBookmarked ? '#000000' : 'none'}
-                  strokeWidth={2}
+              <View style={styles.attemptTopRight}>
+                {/* Quick List Toggle */}
+                <Pressable
+                  style={({ pressed }) => [styles.attemptListBtn, pressed && styles.pressed]}
+                  onPress={() => setViewMode('list')}
+                  accessibilityRole="button"
+                  accessibilityLabel="View All Questions"
+                >
+                  <ListFilter size={14} color={theme.colors.textPrimary} strokeWidth={2.2} />
+                  <Text style={styles.attemptListBtnText}>List</Text>
+                </Pressable>
+
+                {/* Bookmark Icon/Pill */}
+                <Pressable
+                  style={({ pressed }) => [
+                    styles.attemptBookmarkBtn,
+                    isBookmarked && styles.attemptBookmarkBtnActive,
+                    pressed && styles.pressed,
+                  ]}
+                  onPress={handleToggleBookmark}
+                  accessibilityRole="button"
+                  accessibilityLabel={isBookmarked ? 'Remove Bookmark' : 'Bookmark Question'}
+                >
+                  <Bookmark
+                    size={13}
+                    color={isBookmarked ? '#F59E0B' : theme.colors.textSecondary}
+                    fill={isBookmarked ? '#F59E0B' : 'none'}
+                    strokeWidth={2}
+                  />
+                  <Text
+                    style={[
+                      styles.attemptBookmarkBtnText,
+                      isBookmarked && styles.attemptBookmarkBtnTextActive,
+                    ]}
+                  >
+                    {isBookmarked ? 'Saved' : 'Save'}
+                  </Text>
+                </Pressable>
+              </View>
+
+              {/* Thin progress track along top bar bottom */}
+              <View style={styles.topProgressBarTrack}>
+                <View
+                  style={[
+                    styles.topProgressBarFill,
+                    { width: `${((currentIndex + 1) / questions.length) * 100}%` },
+                  ]}
                 />
-              </Pressable>
+              </View>
             </View>
 
             {/* Question & Options Scroll Body */}
@@ -877,20 +994,35 @@ export function PracticeModal({
               contentContainerStyle={styles.scrollBodyContent}
               showsVerticalScrollIndicator={false}
             >
-              {/* Year & Difficulty Meta Tags */}
-              <View style={styles.metaTagsRow}>
-                <View style={styles.yearBadgeLarge}>
-                  <Calendar size={13} color={theme.colors.textPrimary} strokeWidth={2} />
-                  <Text style={styles.yearBadgeLargeText}>UPSC Prelims {currentQ.year}</Text>
-                </View>
-                <View style={styles.difficultyBadge}>
-                  <Text style={styles.difficultyBadgeText}>{currentQ.difficulty}</Text>
-                </View>
-                {currentQ.tags && currentQ.tags[0] ? (
-                  <View style={styles.topicBadge}>
-                    <Text style={styles.topicBadgeText}>{currentQ.tags[0]}</Text>
+              {/* Clean Meta Row (Year, Difficulty, Topic & Quick Retry) */}
+              <View style={styles.qMetaRow}>
+                <View style={styles.qMetaLeft}>
+                  {Boolean(currentQ.year) && (
+                    <View style={styles.metaYearTag}>
+                      <Text style={styles.metaYearText}>UPSC {currentQ.year}</Text>
+                    </View>
+                  )}
+                  <View style={styles.metaDifficultyTag}>
+                    <Text style={styles.metaDifficultyText}>{currentQ.difficulty}</Text>
                   </View>
-                ) : null}
+                  {currentQ.tags && currentQ.tags[0] ? (
+                    <View style={styles.metaTopicTag}>
+                      <Text style={styles.metaTopicText}>#{currentQ.tags[0]}</Text>
+                    </View>
+                  ) : null}
+                </View>
+
+                {hasAnswered && (
+                  <Pressable
+                    style={({ pressed }) => [styles.resetAttemptBtn, pressed && styles.pressed]}
+                    onPress={handleResetCurrentQuestion}
+                    accessibilityRole="button"
+                    accessibilityLabel="Retry question"
+                  >
+                    <RotateCcw size={12} color={theme.colors.textSecondary} strokeWidth={2} />
+                    <Text style={styles.resetAttemptBtnText}>Retry</Text>
+                  </Pressable>
+                )}
               </View>
 
               {/* Full Question Text */}
@@ -905,9 +1037,9 @@ export function PracticeModal({
                   const isSelected = selectedOpt === opt.key;
                   const isCorrect = opt.key === currentQ.correctAnswer;
 
-                  let optCardStyle = styles.optionItemDefault;
-                  let keyBoxStyle = styles.keyBoxDefault;
-                  let keyTextStyle = styles.keyTextDefault;
+                  let optCardStyle: any = styles.optionItemDefault;
+                  let keyBoxStyle: any = styles.keyBoxDefault;
+                  let keyTextStyle: any = styles.keyTextDefault;
 
                   if (hasAnswered) {
                     if (isCorrect) {
@@ -941,10 +1073,10 @@ export function PracticeModal({
                       </View>
                       <Text style={styles.optionContentText}>{opt.text}</Text>
                       {hasAnswered && isCorrect && (
-                        <CheckCircle2 size={18} color={theme.colors.textPrimary} strokeWidth={2.2} />
+                        <CheckCircle2 size={18} color="#10B981" strokeWidth={2.2} />
                       )}
                       {hasAnswered && isSelected && !isCorrect && (
-                        <XCircle size={18} color="#71717A" strokeWidth={2.2} />
+                        <XCircle size={18} color="#EF4444" strokeWidth={2.2} />
                       )}
                     </Pressable>
                   );
@@ -956,7 +1088,7 @@ export function PracticeModal({
                 <View style={styles.solutionContainer}>
                   <View style={styles.solutionHeader}>
                     <View style={styles.solutionBadge}>
-                      <ShieldCheck size={14} color={theme.colors.textPrimary} strokeWidth={2.2} />
+                      <ShieldCheck size={14} color={theme.isDark ? '#60A5FA' : '#2563EB'} strokeWidth={2.2} />
                       <Text style={styles.solutionBadgeText}>Official UPSC Key</Text>
                     </View>
                     <Text style={styles.officialKeyText}>
@@ -968,7 +1100,7 @@ export function PracticeModal({
                   {currentQ.explanation?.coreConcept ? (
                     <View style={styles.solutionBlock}>
                       <View style={styles.solutionBlockTitleRow}>
-                        <Lightbulb size={14} color={theme.colors.textPrimary} strokeWidth={2.2} />
+                        <Lightbulb size={14} color="#F59E0B" strokeWidth={2.2} />
                         <Text style={styles.solutionBlockTitle}>Core Concept</Text>
                       </View>
                       <Text style={styles.solutionBlockText}>
@@ -1016,27 +1148,31 @@ export function PracticeModal({
                 ]}
                 onPress={handlePrev}
                 disabled={!hasPrev}
+                accessibilityRole="button"
+                accessibilityLabel="Previous question"
               >
                 <ArrowLeft
-                  size={16}
-                  color={!hasPrev ? '#A1A1AA' : theme.colors.textPrimary}
+                  size={15}
+                  color={!hasPrev ? theme.colors.textMuted : theme.colors.textPrimary}
                   strokeWidth={2.2}
                 />
                 <Text
                   style={[styles.navBtnPrevText, !hasPrev && styles.navBtnDisabledText]}
                 >
-                  Previous
+                  Prev
                 </Text>
               </Pressable>
 
               <Pressable
                 style={({ pressed }) => [styles.navBtnListToggle, pressed && styles.pressed]}
                 onPress={() => setViewMode('list')}
+                accessibilityRole="button"
+                accessibilityLabel="View question list"
               >
-                <ListFilter size={15} color={theme.colors.textPrimary} strokeWidth={2.2} />
+                <ListFilter size={14} color={theme.colors.textSecondary} strokeWidth={2.2} />
                 <Text style={styles.navBtnListToggleText}>
                   {!isFilteringActive
-                    ? 'All Questions'
+                    ? 'Questions List'
                     : `Filtered (${filteredQuestions.length})`}
                 </Text>
               </Pressable>
@@ -1049,6 +1185,8 @@ export function PracticeModal({
                 ]}
                 onPress={handleNext}
                 disabled={!hasNext}
+                accessibilityRole="button"
+                accessibilityLabel="Next question"
               >
                 <Text
                   style={[
@@ -1056,11 +1194,11 @@ export function PracticeModal({
                     !hasNext && styles.navBtnDisabledDarkText,
                   ]}
                 >
-                  {!hasNext ? 'End' : 'Next'}
+                  {!hasNext ? 'End of List' : 'Next'}
                 </Text>
                 <ArrowRight
-                  size={16}
-                  color={!hasNext ? '#71717A' : '#FFFFFF'}
+                  size={15}
+                  color={!hasNext ? theme.colors.textMuted : theme.colors.darkButtonText}
                   strokeWidth={2.2}
                 />
               </Pressable>
@@ -1072,7 +1210,9 @@ export function PracticeModal({
   );
 }
 
-const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
+const getStyles = (theme: PrelimsThemeType) => {
+  const isDark = theme.isDark;
+  return StyleSheet.create({
   fullScreenSafeArea: {
     flex: 1,
     backgroundColor: theme.colors.bgCanvas,
@@ -1120,38 +1260,170 @@ const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
     fontWeight: '700',
     color: theme.colors.textPrimary,
   },
-  qCounterPill: {
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: theme.colors.borderSubtle,
+  attemptTopBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: theme.colors.bgCanvas,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.borderSubtle,
+    position: 'relative',
   },
-  qCounterText: {
-    fontSize: 12,
-    fontWeight: '800',
-    color: theme.colors.textPrimary,
-    letterSpacing: -0.2,
-  },
-  qCounterFilterSub: {
-    fontSize: 10,
-    fontWeight: '700',
-    color: theme.colors.textMuted,
-    textTransform: 'capitalize',
-  },
-  bookmarkIconBtn: {
-    width: 36,
-    height: 36,
+  attemptBackBtn: {
+    width: 34,
+    height: 34,
     borderRadius: 8,
-    backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,
     borderColor: theme.colors.borderSubtle,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+  },
+  attemptTitleCol: {
+    flex: 1,
+    marginHorizontal: 12,
+  },
+  attemptTopTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: theme.colors.textPrimary,
+    letterSpacing: -0.2,
+  },
+  attemptTopSubtitle: {
+    fontSize: 11,
+    color: theme.colors.textMuted,
+    marginTop: 1,
+  },
+  attemptTopRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  attemptListBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+    paddingHorizontal: 9,
+    paddingVertical: 6,
+    borderRadius: 7,
+    borderWidth: 1,
+    borderColor: theme.colors.borderSubtle,
+  },
+  attemptListBtnText: {
+    fontSize: 11.5,
+    fontWeight: '600',
+    color: theme.colors.textPrimary,
+  },
+  attemptBookmarkBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+    paddingHorizontal: 9,
+    paddingVertical: 6,
+    borderRadius: 7,
+    borderWidth: 1,
+    borderColor: theme.colors.borderSubtle,
+  },
+  attemptBookmarkBtnActive: {
+    backgroundColor: isDark ? '#362312' : '#FEF3C7',
+    borderColor: '#F59E0B',
+  },
+  attemptBookmarkBtnText: {
+    fontSize: 11.5,
+    fontWeight: '600',
+    color: theme.colors.textSecondary,
+  },
+  attemptBookmarkBtnTextActive: {
+    color: isDark ? '#FCD34D' : '#D97706',
+    fontWeight: '800',
+  },
+  topProgressBarTrack: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 2.5,
+    backgroundColor: isDark ? '#232836' : '#E2E8F0',
+  },
+  topProgressBarFill: {
+    height: '100%',
+    backgroundColor: isDark ? '#60A5FA' : '#2563EB',
+  },
+  qMetaRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  qMetaLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  metaYearTag: {
+    backgroundColor: isDark ? '#222838' : '#EDE9FE',
+    paddingHorizontal: 7,
+    paddingVertical: 2.5,
+    borderRadius: 5,
+  },
+  metaYearText: {
+    fontSize: 10.5,
+    fontWeight: '700',
+    color: isDark ? '#C4B5FD' : '#6D28D9',
+  },
+  metaDifficultyTag: {
+    backgroundColor: isDark ? '#191C25' : '#F1F5F9',
+    paddingHorizontal: 7,
+    paddingVertical: 2.5,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: theme.colors.borderSubtle,
+  },
+  metaDifficultyText: {
+    fontSize: 10.5,
+    fontWeight: '700',
+    color: theme.colors.textSecondary,
+    textTransform: 'capitalize',
+  },
+  metaTopicTag: {
+    backgroundColor: isDark ? '#191C25' : '#F1F5F9',
+    paddingHorizontal: 7,
+    paddingVertical: 2.5,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: theme.colors.borderSubtle,
+  },
+  metaTopicText: {
+    fontSize: 10.5,
+    fontWeight: '600',
+    color: theme.colors.textMuted,
+  },
+  resetAttemptBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+    paddingHorizontal: 9,
+    paddingVertical: 4.5,
+    borderRadius: 7,
+    borderWidth: 1,
+    borderColor: theme.colors.borderSubtle,
+  },
+  resetAttemptBtnText: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: theme.colors.textSecondary,
+  },
+  bookmarkedListTag: {
+    backgroundColor: isDark ? '#362312' : '#FEF3C7',
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#F59E0B40',
   },
   listHeaderBlock: {
     paddingHorizontal: 20,
@@ -1538,20 +1810,18 @@ const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
     color: theme.colors.textMuted,
   },
   fullQuestionCard: {
-    backgroundColor: theme.colors.bgSurface,
-    borderRadius: 14,
-    padding: 18,
+    backgroundColor: isDark ? '#161922' : '#F8FAFC',
+    borderRadius: 12,
+    padding: 16,
     borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-    marginBottom: 18,
-    ...theme.shadows.card,
+    borderColor: theme.colors.borderSubtle,
+    marginBottom: 16,
   },
   fullQuestionText: {
     fontSize: 15,
-    fontWeight: '600',
+    fontWeight: '500',
     color: theme.colors.textPrimary,
-    lineHeight: 24,
-    letterSpacing: -0.1,
+    lineHeight: 23,
   },
   optionsSection: {
     marginBottom: 20,
@@ -1568,54 +1838,53 @@ const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
   optionItemBase: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 14,
-    paddingHorizontal: 16,
+    padding: 14,
     borderRadius: 12,
     borderWidth: 1.5,
     gap: 12,
   },
   optionItemDefault: {
-    backgroundColor: theme.colors.bgSurface,
+    backgroundColor: isDark ? '#191C25' : '#FFFFFF',
     borderColor: theme.colors.borderCard,
   },
   optionItemSelected: {
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    borderColor: '#F8FAFC',
+    backgroundColor: isDark ? '#1E293B' : '#EFF6FF',
+    borderColor: isDark ? '#60A5FA' : '#2563EB',
   },
   optionItemCorrect: {
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    borderColor: '#F8FAFC',
+    backgroundColor: isDark ? '#064E3B28' : '#ECFDF5',
+    borderColor: '#10B981',
   },
   optionItemIncorrect: {
-    backgroundColor: theme.colors.bgSurface,
-    borderColor: '#64748B',
+    backgroundColor: isDark ? '#450A0A28' : '#FEF2F2',
+    borderColor: '#EF4444',
   },
   keyBoxBase: {
     width: 28,
     height: 28,
-    borderRadius: 6,
+    borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
   },
   keyBoxDefault: {
-    backgroundColor: theme.colors.bgSurfaceMuted,
+    backgroundColor: isDark ? '#232836' : '#F1F5F9',
     borderWidth: 1,
     borderColor: theme.colors.borderSubtle,
   },
   keyBoxSelected: {
-    backgroundColor: theme.colors.darkButton,
+    backgroundColor: isDark ? '#60A5FA' : '#2563EB',
     borderWidth: 1,
-    borderColor: theme.colors.darkButton,
+    borderColor: isDark ? '#60A5FA' : '#2563EB',
   },
   keyBoxCorrect: {
-    backgroundColor: theme.colors.darkButton,
+    backgroundColor: '#10B981',
     borderWidth: 1,
-    borderColor: theme.colors.darkButton,
+    borderColor: '#10B981',
   },
   keyBoxIncorrect: {
-    backgroundColor: '#64748B',
+    backgroundColor: '#EF4444',
     borderWidth: 1,
-    borderColor: '#64748B',
+    borderColor: '#EF4444',
   },
   keyTextBase: {
     fontSize: 12,
@@ -1625,10 +1894,10 @@ const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
     color: theme.colors.textPrimary,
   },
   keyTextSelected: {
-    color: theme.colors.darkButtonText,
+    color: '#FFFFFF',
   },
   keyTextCorrect: {
-    color: theme.colors.darkButtonText,
+    color: '#FFFFFF',
   },
   keyTextIncorrect: {
     color: '#FFFFFF',
@@ -1641,16 +1910,15 @@ const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
     fontWeight: '500',
   },
   solutionContainer: {
-    backgroundColor: theme.colors.bgSurface,
-    borderRadius: 14,
-    padding: 18,
+    backgroundColor: isDark ? '#161922' : '#F8FAFC',
+    borderRadius: 12,
+    padding: 16,
     borderWidth: 1,
-    borderColor: theme.colors.borderCard,
+    borderColor: theme.colors.borderSubtle,
     borderLeftWidth: 3.5,
-    borderLeftColor: '#F8FAFC',
+    borderLeftColor: isDark ? '#60A5FA' : '#2563EB',
     gap: 14,
     marginBottom: 20,
-    ...theme.shadows.card,
   },
   solutionHeader: {
     flexDirection: 'row',
@@ -1666,19 +1934,19 @@ const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
     gap: 6,
   },
   solutionBadgeText: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '800',
-    color: theme.colors.textPrimary,
+    color: isDark ? '#60A5FA' : '#2563EB',
     textTransform: 'uppercase',
-    letterSpacing: 0.4,
+    letterSpacing: 0.5,
   },
   officialKeyText: {
     fontSize: 13,
     fontWeight: '800',
-    color: theme.colors.textPrimary,
+    color: '#10B981',
   },
   solutionBlock: {
-    gap: 4,
+    gap: 6,
   },
   solutionBlockTitleRow: {
     flexDirection: 'row',
@@ -1692,13 +1960,15 @@ const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
     letterSpacing: -0.1,
   },
   solutionBlockText: {
-    fontSize: 13,
+    fontSize: 13.5,
     color: theme.colors.textSecondary,
-    lineHeight: 20,
+    lineHeight: 21,
     fontWeight: '400',
   },
   eliminationBlock: {
-    backgroundColor: theme.colors.bgSurfaceMuted,
+    backgroundColor: isDark ? '#261C3D' : '#F5F3FF',
+    borderWidth: 1,
+    borderColor: isDark ? '#4C1D95' : '#DDD6FE',
     padding: 12,
     borderRadius: 8,
     gap: 4,
@@ -1706,11 +1976,11 @@ const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
   eliminationTitle: {
     fontSize: 11,
     fontWeight: '800',
-    color: theme.colors.textPrimary,
+    color: isDark ? '#C4B5FD' : '#6D28D9',
   },
   eliminationText: {
     fontSize: 12.5,
-    color: theme.colors.textSecondary,
+    color: isDark ? '#E9D5FF' : '#4C1D95',
     lineHeight: 18.5,
   },
   bottomNavDock: {
@@ -1718,76 +1988,70 @@ const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: theme.colors.bgSurface,
+    backgroundColor: isDark ? '#13151C' : '#FFFFFF',
     borderTopWidth: 1,
-    borderTopColor: theme.colors.borderCard,
-    paddingHorizontal: 20,
-    paddingVertical: 12,
+    borderTopColor: theme.colors.borderSubtle,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     gap: 10,
-    ...theme.shadows.card,
   },
   navBtnPrev: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.bgSurface,
-    borderWidth: 1.5,
-    borderColor: theme.colors.borderCard,
-    borderRadius: 10,
-    paddingVertical: 12,
+    backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+    paddingVertical: 9,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: theme.colors.borderSubtle,
     gap: 6,
   },
   navBtnPrevText: {
-    fontSize: 13,
+    fontSize: 12.5,
     fontWeight: '700',
     color: theme.colors.textPrimary,
   },
   navBtnListToggle: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.colors.bgSurfaceMuted,
+    backgroundColor: isDark ? '#191C25' : '#F8FAFC',
     borderWidth: 1,
     borderColor: theme.colors.borderSubtle,
-    borderRadius: 10,
-    paddingVertical: 12,
+    borderRadius: 8,
+    paddingVertical: 9,
     paddingHorizontal: 12,
     gap: 6,
   },
   navBtnListToggleText: {
     fontSize: 12,
-    fontWeight: '700',
-    color: theme.colors.textPrimary,
+    fontWeight: '600',
+    color: theme.colors.textSecondary,
   },
   navBtnNext: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: theme.colors.darkButton,
-    borderWidth: 1.5,
-    borderColor: theme.colors.darkButton,
-    borderRadius: 10,
-    paddingVertical: 12,
+    borderRadius: 8,
+    paddingVertical: 9,
+    paddingHorizontal: 16,
     gap: 6,
   },
   navBtnNextText: {
-    fontSize: 13,
+    fontSize: 12.5,
     fontWeight: '700',
     color: theme.colors.darkButtonText,
   },
   navBtnDisabled: {
-    borderColor: theme.colors.borderSubtle,
-    backgroundColor: theme.colors.bgSurfaceMuted,
+    opacity: 0.45,
   },
   navBtnDisabledText: {
     color: theme.colors.textMuted,
   },
   navBtnDisabledDark: {
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    borderColor: theme.colors.borderSubtle,
+    opacity: 0.45,
   },
   navBtnDisabledDarkText: {
     color: theme.colors.textMuted,
@@ -2028,3 +2292,4 @@ const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
     transform: [{ scale: 0.985 }],
   },
 });
+};

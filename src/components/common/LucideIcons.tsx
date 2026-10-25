@@ -150,10 +150,10 @@ export function Square({ size = defaultProps.size, color = defaultProps.color, s
   );
 }
 
-export function Bookmark({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+export function Bookmark({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, fill = 'none', ...props }: LucideIconProps & { fill?: string }) {
   return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <Path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill={fill} stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" fill={fill} />
     </Svg>
   );
 }

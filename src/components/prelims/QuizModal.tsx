@@ -24,6 +24,7 @@ import {
   ChevronUp,
   LayoutGrid,
   RotateCcw,
+  AlertTriangle,
 } from '@/components/common/LucideIcons';
 import { PYQQuestion, QuizResult } from '@/types/prelims';
 import { useStudy } from '@/context/StudyContext';
@@ -98,6 +99,7 @@ function QuizModalContent({
 
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [showMobilePalette, setShowMobilePalette] = useState(false);
+  const [showExitModal, setShowExitModal] = useState(false);
 
   const handleSelectQuestion = useCallback((idx: number) => {
     if (idx < 0 || idx >= questions.length) return;
@@ -253,6 +255,14 @@ function QuizModalContent({
     handleSubmitQuiz();
   };
 
+  const handleRequestClose = useCallback(() => {
+    if (isSubmitted) {
+      onClose();
+      return;
+    }
+    setShowExitModal(true);
+  }, [isSubmitted, onClose]);
+
   // Keyboard navigation on Web
   useEffect(() => {
     if (Platform.OS !== 'web' || isSubmitted) return;
@@ -284,10 +294,14 @@ function QuizModalContent({
       } else if (e.key === 'Backspace' || e.key === 'Delete') {
         handleClearResponse();
       } else if (e.key === 'Escape') {
-        if (showSubmitModal) {
+        if (showExitModal) {
+          setShowExitModal(false);
+        } else if (showSubmitModal) {
           setShowSubmitModal(false);
         } else if (showMobilePalette) {
           setShowMobilePalette(false);
+        } else {
+          handleRequestClose();
         }
       }
     };
@@ -298,12 +312,14 @@ function QuizModalContent({
     currentIndex,
     isSubmitted,
     questions.length,
+    showExitModal,
     showSubmitModal,
     showMobilePalette,
     handleSelectQuestion,
     handleSelectOption,
     handleToggleMarkReview,
     handleClearResponse,
+    handleRequestClose,
   ]);
 
   return (
@@ -312,7 +328,7 @@ function QuizModalContent({
       <View style={styles.topBar}>
         <Pressable
           style={styles.closeBtn}
-          onPress={onClose}
+          onPress={handleRequestClose}
           accessibilityRole="button"
           accessibilityLabel="Close quiz"
         >
@@ -334,9 +350,15 @@ function QuizModalContent({
           {!isSubmitted && (
             <View style={[styles.timerBadge, timeLeftSeconds < 120 && styles.timerDanger]}>
               <Timer
-                size={13}
-                color={timeLeftSeconds < 120 ? '#EF4444' : theme.colors.textPrimary}
-                strokeWidth={2}
+                size={14}
+                color={
+                  timeLeftSeconds < 120
+                    ? '#EF4444'
+                    : theme.isDark
+                    ? '#FBBF24'
+                    : '#D97706'
+                }
+                strokeWidth={2.4}
               />
               <Text
                 style={[
@@ -622,6 +644,71 @@ function QuizModalContent({
             onCancel={() => setShowSubmitModal(false)}
             onConfirmSubmit={handleConfirmSubmit}
           />
+
+          {/* Exit / Leave Quiz Confirmation Dialog */}
+          <Modal
+            visible={showExitModal}
+            transparent={true}
+            animationType="fade"
+            onRequestClose={() => setShowExitModal(false)}
+          >
+            <View style={styles.confirmModalOverlay}>
+              <View style={styles.confirmModalCard}>
+                <View style={styles.confirmIconCircle}>
+                  <AlertTriangle size={26} color="#F59E0B" strokeWidth={2.2} />
+                </View>
+
+                <Text style={styles.confirmModalTitle}>Leave Quiz?</Text>
+                <Text style={styles.confirmModalDesc}>
+                  Are you sure you want to quit? Your current test progress and answers will not be saved.
+                </Text>
+
+                <View style={styles.confirmStatsRow}>
+                  <View style={styles.confirmStatItem}>
+                    <Text style={styles.confirmStatNum}>{stats.answered}</Text>
+                    <Text style={styles.confirmStatLabel}>Answered</Text>
+                  </View>
+                  <View style={styles.confirmStatDivider} />
+                  <View style={styles.confirmStatItem}>
+                    <Text style={styles.confirmStatNum}>
+                      {stats.unanswered + stats.notVisited}
+                    </Text>
+                    <Text style={styles.confirmStatLabel}>Remaining</Text>
+                  </View>
+                  <View style={styles.confirmStatDivider} />
+                  <View style={styles.confirmStatItem}>
+                    <Text style={[styles.confirmStatNum, { color: '#F59E0B' }]}>
+                      {formatTime(timeLeftSeconds)}
+                    </Text>
+                    <Text style={styles.confirmStatLabel}>Time Left</Text>
+                  </View>
+                </View>
+
+                <View style={styles.confirmBtnRow}>
+                  <Pressable
+                    style={({ pressed }) => [styles.confirmResumeBtn, pressed && styles.pressed]}
+                    onPress={() => setShowExitModal(false)}
+                    accessibilityRole="button"
+                    accessibilityLabel="Resume Quiz"
+                  >
+                    <Text style={styles.confirmResumeBtnText}>Resume Quiz</Text>
+                  </Pressable>
+
+                  <Pressable
+                    style={({ pressed }) => [styles.confirmExitBtn, pressed && styles.pressed]}
+                    onPress={() => {
+                      setShowExitModal(false);
+                      onClose();
+                    }}
+                    accessibilityRole="button"
+                    accessibilityLabel="Exit Quiz"
+                  >
+                    <Text style={styles.confirmExitBtnText}>Exit Quiz</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </View>
+          </Modal>
         </View>
       )}
 
@@ -861,26 +948,34 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     timerBadge: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
-      borderWidth: 1,
-      borderColor: theme.colors.borderCard,
-      paddingHorizontal: isMobile ? 8 : 10,
-      paddingVertical: 6,
-      borderRadius: 8,
+      backgroundColor: isDark ? '#2B1C04' : '#FEF3C7',
+      borderWidth: 1.5,
+      borderColor: isDark ? '#D97706' : '#F59E0B',
+      paddingHorizontal: isMobile ? 10 : 12,
+      paddingVertical: 5,
+      borderRadius: 20,
       height: 34,
-      gap: 5,
+      gap: 6,
+      shadowColor: isDark ? '#F59E0B' : '#D97706',
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: isDark ? 0.3 : 0.15,
+      shadowRadius: 3,
+      elevation: 2,
     },
     timerDanger: {
-      backgroundColor: isDark ? '#2D1215' : '#FEF2F2',
+      backgroundColor: isDark ? '#3E1013' : '#FEE2E2',
       borderColor: '#EF4444',
+      shadowColor: '#EF4444',
+      shadowOpacity: 0.35,
     },
     timerText: {
-      fontSize: 12,
-      fontWeight: '800',
-      color: theme.colors.textPrimary,
+      fontSize: 13,
+      fontWeight: '900',
+      color: isDark ? '#FDE68A' : '#92400E',
+      letterSpacing: 0.4,
     },
     timerTextDanger: {
-      color: '#EF4444',
+      color: isDark ? '#FCA5A5' : '#DC2626',
     },
     mobilePaletteBtn: {
       width: 34,
@@ -1408,6 +1503,115 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     pressed: {
       opacity: 0.85,
       transform: [{ scale: 0.985 }],
+    },
+    confirmModalOverlay: {
+      flex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.72)',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 20,
+    },
+    confirmModalCard: {
+      width: '100%',
+      maxWidth: 400,
+      backgroundColor: theme.colors.bgSurface,
+      borderRadius: 16,
+      padding: 22,
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: theme.colors.borderCard,
+      ...theme.shadows.card,
+    },
+    confirmIconCircle: {
+      width: 52,
+      height: 52,
+      borderRadius: 26,
+      backgroundColor: isDark ? '#2E1E05' : '#FEF3C7',
+      borderWidth: 1,
+      borderColor: isDark ? '#78350F' : '#FDE68A',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 14,
+    },
+    confirmModalTitle: {
+      fontSize: 18,
+      fontWeight: '800',
+      color: theme.colors.textPrimary,
+      marginBottom: 6,
+      textAlign: 'center',
+    },
+    confirmModalDesc: {
+      fontSize: 13,
+      color: theme.colors.textSecondary,
+      textAlign: 'center',
+      lineHeight: 19,
+      marginBottom: 16,
+    },
+    confirmStatsRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      width: '100%',
+      backgroundColor: isDark ? '#1C202B' : '#F8FAFC',
+      borderRadius: 10,
+      paddingVertical: 10,
+      paddingHorizontal: 12,
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
+      marginBottom: 18,
+    },
+    confirmStatItem: {
+      alignItems: 'center',
+      flex: 1,
+    },
+    confirmStatNum: {
+      fontSize: 16,
+      fontWeight: '800',
+      color: theme.colors.textPrimary,
+    },
+    confirmStatLabel: {
+      fontSize: 10,
+      fontWeight: '600',
+      color: theme.colors.textMuted,
+      marginTop: 2,
+    },
+    confirmStatDivider: {
+      width: 1,
+      height: 24,
+      backgroundColor: theme.colors.borderSubtle,
+    },
+    confirmBtnRow: {
+      flexDirection: 'row',
+      gap: 10,
+      width: '100%',
+    },
+    confirmResumeBtn: {
+      flex: 1,
+      backgroundColor: theme.colors.darkButton,
+      paddingVertical: 12,
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    confirmResumeBtnText: {
+      fontSize: 13,
+      fontWeight: '700',
+      color: theme.colors.darkButtonText,
+    },
+    confirmExitBtn: {
+      flex: 1,
+      backgroundColor: isDark ? '#2A1517' : '#FEF2F2',
+      borderWidth: 1,
+      borderColor: isDark ? '#7F1D1D' : '#FECACA',
+      paddingVertical: 12,
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    confirmExitBtnText: {
+      fontSize: 13,
+      fontWeight: '700',
+      color: '#EF4444',
     },
   });
 };

@@ -8,6 +8,8 @@ export * from './PrelimsScreen';
 export * from './QuizGeneratorCard';
 export * from './QuizGeneratorModal';
 export * from './QuizModal';
+export * from './QuizQuestionPalette';
+export * from './QuizSubmitModal';
 export * from './SubjectAccordionCard';
 export * from './SubjectCard';
 export * from './SubjectChaptersView';

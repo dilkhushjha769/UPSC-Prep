@@ -1,5 +1,14 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { View, Text, StyleSheet, Modal, ScrollView, Pressable, Alert } from 'react-native';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Modal,
+  ScrollView,
+  Pressable,
+  useWindowDimensions,
+  Platform,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import {
@@ -13,10 +22,14 @@ import {
   ListFilter,
   ChevronDown,
   ChevronUp,
+  LayoutGrid,
+  RotateCcw,
 } from '@/components/common/LucideIcons';
 import { PYQQuestion, QuizResult } from '@/types/prelims';
 import { useStudy } from '@/context/StudyContext';
 import { usePrelimsTheme, PrelimsThemeType } from '@/constants/prelimsTheme';
+import { QuizQuestionPalette } from './QuizQuestionPalette';
+import { QuizSubmitModal } from './QuizSubmitModal';
 
 interface QuizModalProps {
   visible: boolean;
@@ -69,15 +82,34 @@ function QuizModalContent({
   const theme = usePrelimsTheme();
   const styles = useMemo(() => getStyles(theme), [theme]);
   const { recordMCQSession, updateConfig, config } = useStudy();
+
+  const { width: windowWidth } = useWindowDimensions();
+  const isDesktop = windowWidth >= 1024;
+  const isMobile = windowWidth < 768;
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, 'A' | 'B' | 'C' | 'D'>>({});
   const [markedForReview, setMarkedForReview] = useState<Record<number, boolean>>({});
+  const [visitedIndices, setVisitedIndices] = useState<Record<number, boolean>>({ 0: true });
+
   const [timeLeftSeconds, setTimeLeftSeconds] = useState(durationMinutes * 60);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [result, setResult] = useState<QuizResult | null>(null);
   const [showReviewList, setShowReviewList] = useState(false);
 
-  const calculateResult = React.useCallback((): QuizResult => {
+  const [showSubmitModal, setShowSubmitModal] = useState(false);
+  const [showMobilePalette, setShowMobilePalette] = useState(false);
+
+  const handleSelectQuestion = useCallback((idx: number) => {
+    if (idx < 0 || idx >= questions.length) return;
+    setCurrentIndex(idx);
+    setVisitedIndices((prev) => ({
+      ...prev,
+      [idx]: true,
+    }));
+  }, [questions.length]);
+
+  const calculateResult = useCallback((): QuizResult => {
     let correct = 0;
     let incorrect = 0;
     let unattempted = 0;
@@ -114,7 +146,7 @@ function QuizModalContent({
     };
   }, [questions, selectedAnswers, durationMinutes, timeLeftSeconds]);
 
-  const handleSubmitQuiz = React.useCallback(async () => {
+  const handleSubmitQuiz = useCallback(async () => {
     const res = calculateResult();
     setResult(res);
     setIsSubmitted(true);
@@ -155,138 +187,234 @@ function QuizModalContent({
     return `${m}:${s < 10 ? '0' : ''}${s}`;
   };
 
-  const handleSelectOption = (key: 'A' | 'B' | 'C' | 'D') => {
+  const handleSelectOption = useCallback((key: 'A' | 'B' | 'C' | 'D') => {
     if (isSubmitted) return;
     setSelectedAnswers((prev) => ({
       ...prev,
       [currentIndex]: key,
     }));
-  };
+  }, [isSubmitted, currentIndex]);
 
-  const handleToggleMarkReview = () => {
+  const handleClearResponse = useCallback(() => {
+    if (isSubmitted) return;
+    setSelectedAnswers((prev) => {
+      const copy = { ...prev };
+      delete copy[currentIndex];
+      return copy;
+    });
+  }, [isSubmitted, currentIndex]);
+
+  const handleToggleMarkReview = useCallback(() => {
+    if (isSubmitted) return;
     setMarkedForReview((prev) => ({
       ...prev,
       [currentIndex]: !prev[currentIndex],
     }));
+  }, [isSubmitted, currentIndex]);
+
+  const stats = useMemo(() => {
+    let answered = 0;
+    let unanswered = 0;
+    let marked = 0;
+    let notVisited = 0;
+
+    questions.forEach((_, idx) => {
+      const isAnswered = selectedAnswers[idx] !== undefined;
+      const isMarked = !!markedForReview[idx];
+      const isVisited = !!visitedIndices[idx] || idx === currentIndex;
+
+      if (isAnswered) {
+        answered++;
+      } else if (isVisited) {
+        unanswered++;
+      } else {
+        notVisited++;
+      }
+
+      if (isMarked) {
+        marked++;
+      }
+    });
+
+    return {
+      total: questions.length,
+      answered,
+      unanswered,
+      marked,
+      notVisited,
+    };
+  }, [questions, selectedAnswers, markedForReview, visitedIndices, currentIndex]);
+
+  const handleOpenSubmitDialog = () => {
+    setShowSubmitModal(true);
   };
 
   const handleConfirmSubmit = () => {
-    const answeredCount = Object.keys(selectedAnswers).length;
-    const unattemptedCount = questions.length - answeredCount;
-
-    Alert.alert(
-      'Submit UPSC Mock Quiz?',
-      `You have answered ${answeredCount} of ${questions.length} questions. (${unattemptedCount} left unattempted).\n\nNegative marking of -0.66 per wrong answer will be applied.`,
-      [
-        { text: 'Continue Quiz', style: 'cancel' },
-        {
-          text: 'Submit Now',
-          style: 'destructive',
-          onPress: handleSubmitQuiz,
-        },
-      ]
-    );
+    setShowSubmitModal(false);
+    handleSubmitQuiz();
   };
+
+  // Keyboard navigation on Web
+  useEffect(() => {
+    if (Platform.OS !== 'web' || isSubmitted) return;
+
+    const handleKeyDown = (e: any) => {
+      const target = e.target;
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
+        return;
+      }
+
+      if (e.key === 'ArrowLeft') {
+        if (currentIndex > 0) {
+          handleSelectQuestion(currentIndex - 1);
+        }
+      } else if (e.key === 'ArrowRight') {
+        if (currentIndex < questions.length - 1) {
+          handleSelectQuestion(currentIndex + 1);
+        }
+      } else if (e.key === '1' || e.key === 'a' || e.key === 'A') {
+        handleSelectOption('A');
+      } else if (e.key === '2' || e.key === 'b' || e.key === 'B') {
+        handleSelectOption('B');
+      } else if (e.key === '3' || e.key === 'c' || e.key === 'C') {
+        handleSelectOption('C');
+      } else if (e.key === '4' || e.key === 'd' || e.key === 'D') {
+        handleSelectOption('D');
+      } else if (e.key === 'm' || e.key === 'M' || e.key === 'r' || e.key === 'R') {
+        handleToggleMarkReview();
+      } else if (e.key === 'Backspace' || e.key === 'Delete') {
+        handleClearResponse();
+      } else if (e.key === 'Escape') {
+        if (showSubmitModal) {
+          setShowSubmitModal(false);
+        } else if (showMobilePalette) {
+          setShowMobilePalette(false);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [
+    currentIndex,
+    isSubmitted,
+    questions.length,
+    showSubmitModal,
+    showMobilePalette,
+    handleSelectQuestion,
+    handleSelectOption,
+    handleToggleMarkReview,
+    handleClearResponse,
+  ]);
 
   return (
     <View style={styles.sheetContainer}>
-          {/* Header Bar */}
-          <View style={styles.topBar}>
-            <Pressable style={styles.closeBtn} onPress={onClose}>
-              <X size={18} color={theme.colors.textPrimary} strokeWidth={2} />
-            </Pressable>
+      {/* 1. Top Bar */}
+      <View style={styles.topBar}>
+        <Pressable
+          style={styles.closeBtn}
+          onPress={onClose}
+          accessibilityRole="button"
+          accessibilityLabel="Close quiz"
+        >
+          <X size={18} color={theme.colors.textPrimary} strokeWidth={2} />
+        </Pressable>
 
-            <View style={styles.titleCol}>
-              <Text style={styles.topTitle} numberOfLines={1}>
-                {title}
-              </Text>
-              {!isSubmitted && (
-                <View style={styles.markingPill}>
-                  <Text style={styles.markingText}>+2.0 Correct / -0.66 Wrong</Text>
-                </View>
-              )}
-            </View>
-
-            {!isSubmitted && (
-              <View style={[styles.timerBadge, timeLeftSeconds < 120 && styles.timerDanger]}>
-                <Timer
-                  size={14}
-                  color={timeLeftSeconds < 120 ? '#EF4444' : theme.colors.textPrimary}
-                  strokeWidth={2}
-                />
-                <Text
-                  style={[
-                    styles.timerText,
-                    timeLeftSeconds < 120 && styles.timerTextDanger,
-                  ]}
-                >
-                  {formatTime(timeLeftSeconds)}
-                </Text>
-              </View>
-            )}
-          </View>
-
-          {/* ACTIVE QUIZ SCREEN */}
+        <View style={styles.titleCol}>
+          <Text style={styles.topTitle} numberOfLines={1}>
+            {title}
+          </Text>
           {!isSubmitted && (
-            <>
-              {/* Question Navigation Palette Strip */}
-              <View style={styles.paletteStrip}>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.paletteScroll}>
-                  {questions.map((_, idx) => {
-                    const isAnswered = selectedAnswers[idx] !== undefined;
-                    const isMarked = markedForReview[idx];
-                    const isCur = idx === currentIndex;
+            <View style={styles.markingPill}>
+              <Text style={styles.markingText}>+2.0 Correct / -0.66 Wrong</Text>
+            </View>
+          )}
+        </View>
 
-                    let bg = theme.colors.bgSurfaceMuted;
-                    let borderColor = theme.colors.borderCard;
-                    let textColor = theme.colors.textMuted;
+        <View style={styles.topBarRightCol}>
+          {!isSubmitted && (
+            <View style={[styles.timerBadge, timeLeftSeconds < 120 && styles.timerDanger]}>
+              <Timer
+                size={14}
+                color={timeLeftSeconds < 120 ? '#EF4444' : theme.colors.textPrimary}
+                strokeWidth={2}
+              />
+              <Text
+                style={[
+                  styles.timerText,
+                  timeLeftSeconds < 120 && styles.timerTextDanger,
+                ]}
+              >
+                {formatTime(timeLeftSeconds)}
+              </Text>
+            </View>
+          )}
 
-                    if (isCur) {
-                      bg = theme.colors.darkButton;
-                      borderColor = theme.colors.darkButton;
-                      textColor = theme.colors.darkButtonText;
-                    } else if (isMarked) {
-                      bg = theme.colors.bgSurfaceMuted;
-                      borderColor = theme.colors.textPrimary;
-                      textColor = theme.colors.textPrimary;
-                    } else if (isAnswered) {
-                      bg = '#334155';
-                      borderColor = '#475569';
-                      textColor = theme.colors.textPrimary;
-                    }
+          {/* Mobile Palette Button */}
+          {!isSubmitted && isMobile && (
+            <Pressable
+              style={styles.mobilePaletteBtn}
+              onPress={() => setShowMobilePalette(true)}
+              accessibilityRole="button"
+              accessibilityLabel="Open question palette"
+            >
+              <LayoutGrid size={14} color={theme.colors.darkButtonText} strokeWidth={2.2} />
+              <Text style={styles.mobilePaletteBtnText}>
+                Q {currentIndex + 1}/{questions.length}
+              </Text>
+            </Pressable>
+          )}
+        </View>
+      </View>
 
-                    return (
-                      <Pressable
-                        key={idx}
-                        style={[
-                          styles.paletteBubble,
-                          { backgroundColor: bg, borderColor, borderWidth: 1 },
-                        ]}
-                        onPress={() => setCurrentIndex(idx)}
-                      >
-                        <Text style={[styles.paletteText, { color: textColor }]}>
-                          {idx + 1}
-                        </Text>
-                      </Pressable>
-                    );
-                  })}
-                </ScrollView>
-              </View>
-
-              {/* Question Scroll Body */}
-              <ScrollView style={styles.scrollBody} showsVerticalScrollIndicator={false}>
+      {/* 2. ACTIVE QUIZ SCREEN (Desktop Two-Column / Mobile Single Column) */}
+      {!isSubmitted && (
+        <View style={styles.examMainContainer}>
+          <View style={styles.splitRow}>
+            {/* LEFT PANEL: Main Question Area */}
+            <View style={styles.questionPanel}>
+              <ScrollView
+                style={styles.questionScrollView}
+                contentContainerStyle={styles.questionScrollContent}
+                showsVerticalScrollIndicator={true}
+              >
+                {/* Question Header Row */}
                 <View style={styles.qHeaderRow}>
-                  <Text style={styles.qIndexLabel}>
-                    Question {currentIndex + 1} of {questions.length}
-                  </Text>
+                  <View style={styles.qIndexCol}>
+                    <Text style={styles.qIndexLabel}>
+                      Question {currentIndex + 1} of {questions.length}
+                    </Text>
+                    <View style={styles.qMetaTagsRow}>
+                      {Boolean(currentQ.year) && (
+                        <View style={styles.metaYearTag}>
+                          <Text style={styles.metaYearText}>UPSC {currentQ.year}</Text>
+                        </View>
+                      )}
+                      {Boolean(currentQ.chapterName) && (
+                        <Text style={styles.metaChapterText} numberOfLines={1}>
+                          {currentQ.chapterName}
+                        </Text>
+                      )}
+                    </View>
+                  </View>
+
+                  {/* Mark for review action button */}
                   <Pressable
-                    style={({ pressed }) => [styles.markBtn, pressed && styles.pressed]}
+                    style={({ pressed }) => [
+                      styles.markBtn,
+                      markedForReview[currentIndex] && styles.markBtnActive,
+                      pressed && styles.pressed,
+                    ]}
                     onPress={handleToggleMarkReview}
+                    accessibilityRole="button"
+                    accessibilityLabel={
+                      markedForReview[currentIndex] ? 'Marked for Review' : 'Mark for Review'
+                    }
                   >
                     <Flag
-                      size={14}
-                      color={markedForReview[currentIndex] ? theme.colors.textPrimary : theme.colors.textMuted}
-                      fill={markedForReview[currentIndex] ? theme.colors.textPrimary : 'none'}
+                      size={13}
+                      color={markedForReview[currentIndex] ? '#8B5CF6' : theme.colors.textMuted}
+                      fill={markedForReview[currentIndex] ? '#8B5CF6' : 'none'}
                       strokeWidth={2}
                     />
                     <Text
@@ -300,7 +428,7 @@ function QuizModalContent({
                   </Pressable>
                 </View>
 
-                {/* Question Text Box */}
+                {/* Question Card */}
                 <View style={styles.questionCard}>
                   <Text style={styles.questionText}>{currentQ.questionText}</Text>
                 </View>
@@ -312,11 +440,15 @@ function QuizModalContent({
                     return (
                       <Pressable
                         key={opt.key}
-                        style={[
+                        style={({ pressed }) => [
                           styles.optionItem,
                           isSelected && styles.optionItemSelected,
+                          pressed && styles.pressed,
                         ]}
                         onPress={() => handleSelectOption(opt.key)}
+                        accessibilityRole="radio"
+                        accessibilityState={{ selected: isSelected }}
+                        accessibilityLabel={`Option ${opt.key}: ${opt.text}`}
                       >
                         <View
                           style={[
@@ -333,686 +465,949 @@ function QuizModalContent({
                             {opt.key}
                           </Text>
                         </View>
-                        <Text style={styles.optionContentText}>{opt.text}</Text>
+                        <Text
+                          style={[
+                            styles.optionContentText,
+                            isSelected && styles.optionContentTextSelected,
+                          ]}
+                        >
+                          {opt.text}
+                        </Text>
                       </Pressable>
                     );
                   })}
                 </View>
 
-                <View style={{ height: 30 }} />
+                <View style={{ height: 24 }} />
               </ScrollView>
 
-              {/* Bottom Actions Bar */}
+              {/* Fixed Bottom Action Bar */}
               <View style={styles.bottomBar}>
+                {/* Prev Button */}
                 <Pressable
                   style={({ pressed }) => [
                     styles.navPrevBtn,
                     currentIndex === 0 && styles.btnDisabled,
                     pressed && styles.pressed,
                   ]}
-                  onPress={() => currentIndex > 0 && setCurrentIndex(currentIndex - 1)}
+                  onPress={() => currentIndex > 0 && handleSelectQuestion(currentIndex - 1)}
                   disabled={currentIndex === 0}
+                  accessibilityRole="button"
+                  accessibilityLabel="Previous Question"
                 >
-                  <ArrowLeft size={16} color={theme.colors.textPrimary} strokeWidth={2} />
-                  <Text style={styles.navPrevText}>Prev</Text>
+                  <ArrowLeft
+                    size={15}
+                    color={currentIndex === 0 ? theme.colors.textMuted : theme.colors.textPrimary}
+                    strokeWidth={2.2}
+                  />
+                  <Text
+                    style={[
+                      styles.navPrevText,
+                      currentIndex === 0 && styles.navPrevTextDisabled,
+                    ]}
+                  >
+                    Prev
+                  </Text>
                 </Pressable>
 
-                {currentIndex < questions.length - 1 ? (
-                  <Pressable
-                    style={({ pressed }) => [styles.navNextBtn, pressed && styles.pressed]}
-                    onPress={() => setCurrentIndex(currentIndex + 1)}
-                  >
-                    <Text style={styles.navNextText}>Next Question</Text>
-                    <ArrowRight size={16} color={theme.colors.darkButtonText} strokeWidth={2} />
-                  </Pressable>
-                ) : (
-                  <Pressable
-                    style={({ pressed }) => [styles.submitBtn, pressed && styles.pressed]}
-                    onPress={handleConfirmSubmit}
-                  >
-                    <CheckCheck size={16} color={theme.colors.darkButtonText} strokeWidth={2} />
-                    <Text style={styles.submitBtnText}>Submit Quiz</Text>
-                  </Pressable>
-                )}
+                {/* Center Option Clear button */}
+                <View style={styles.bottomCenterCol}>
+                  {selectedAnswers[currentIndex] !== undefined && (
+                    <Pressable
+                      style={({ pressed }) => [styles.clearBtn, pressed && styles.pressed]}
+                      onPress={handleClearResponse}
+                      accessibilityRole="button"
+                      accessibilityLabel="Clear Selected Response"
+                    >
+                      <RotateCcw size={12} color={theme.colors.textSecondary} strokeWidth={2} />
+                      <Text style={styles.clearBtnText}>Clear</Text>
+                    </Pressable>
+                  )}
+                </View>
+
+                {/* Next Question / Submit Button */}
+                <View style={styles.bottomRightCol}>
+                  {currentIndex < questions.length - 1 ? (
+                    <Pressable
+                      style={({ pressed }) => [styles.navNextBtn, pressed && styles.pressed]}
+                      onPress={() => handleSelectQuestion(currentIndex + 1)}
+                      accessibilityRole="button"
+                      accessibilityLabel="Next Question"
+                    >
+                      <Text style={styles.navNextText}>Save & Next</Text>
+                      <ArrowRight size={15} color={theme.colors.darkButtonText} strokeWidth={2.4} />
+                    </Pressable>
+                  ) : (
+                    <Pressable
+                      style={({ pressed }) => [styles.submitBtn, pressed && styles.pressed]}
+                      onPress={handleOpenSubmitDialog}
+                      accessibilityRole="button"
+                      accessibilityLabel="Submit Quiz"
+                    >
+                      <CheckCheck size={16} color={theme.colors.darkButtonText} strokeWidth={2.2} />
+                      <Text style={styles.submitBtnText}>Submit Quiz</Text>
+                    </Pressable>
+                  )}
+                </View>
               </View>
-            </>
+            </View>
+
+            {/* RIGHT PANEL: Question Navigator Sidebar (Desktop & Tablet) */}
+            {!isMobile && (
+              <View style={[styles.paletteSidebar, { width: isDesktop ? 320 : 280 }]}>
+                <QuizQuestionPalette
+                  questions={questions}
+                  currentIndex={currentIndex}
+                  selectedAnswers={selectedAnswers}
+                  markedForReview={markedForReview}
+                  visitedIndices={visitedIndices}
+                  onSelectQuestion={handleSelectQuestion}
+                  onSubmitQuiz={handleOpenSubmitDialog}
+                />
+              </View>
+            )}
+          </View>
+
+          {/* Mobile Question Palette Bottom Sheet / Modal Drawer */}
+          {isMobile && (
+            <Modal
+              visible={showMobilePalette}
+              animationType="slide"
+              transparent={true}
+              onRequestClose={() => setShowMobilePalette(false)}
+            >
+              <View style={styles.mobilePaletteModalOverlay}>
+                <View style={styles.mobilePaletteSheet}>
+                  <View style={styles.mobilePaletteSheetHeader}>
+                    <Text style={styles.mobilePaletteSheetTitle}>Question Navigator</Text>
+                    <Pressable
+                      style={styles.mobilePaletteCloseBtn}
+                      onPress={() => setShowMobilePalette(false)}
+                      accessibilityRole="button"
+                      accessibilityLabel="Close Question Palette"
+                    >
+                      <X size={18} color={theme.colors.textPrimary} strokeWidth={2} />
+                    </Pressable>
+                  </View>
+
+                  <View style={{ flex: 1 }}>
+                    <QuizQuestionPalette
+                      questions={questions}
+                      currentIndex={currentIndex}
+                      selectedAnswers={selectedAnswers}
+                      markedForReview={markedForReview}
+                      visitedIndices={visitedIndices}
+                      onSelectQuestion={handleSelectQuestion}
+                      onSubmitQuiz={() => {
+                        setShowMobilePalette(false);
+                        handleOpenSubmitDialog();
+                      }}
+                      onCloseMobileDrawer={() => setShowMobilePalette(false)}
+                      isMobile={true}
+                    />
+                  </View>
+                </View>
+              </View>
+            </Modal>
           )}
 
-          {/* QUIZ SCORECARD RESULT VIEW */}
-          {isSubmitted && result && (
-            <ScrollView style={styles.scrollBody} showsVerticalScrollIndicator={false}>
-              <View style={styles.resultHeroCard}>
-                <View style={styles.trophyCircle}>
-                  <Award size={26} color={theme.colors.darkButtonText} strokeWidth={2} />
-                </View>
-                <Text style={styles.resultTitle}>Quiz Completed</Text>
-                <Text style={styles.resultScoreBig}>
-                  {result.score} <Text style={styles.resultMaxScore}>/ {result.maxScore}</Text>
-                </Text>
-                <Text style={styles.resultScoreSub}>Estimated UPSC Prelims Score</Text>
-
-                <View style={styles.statPillsRow}>
-                  <View style={[styles.statPill, styles.statPillBorder]}>
-                    <Text style={[styles.statPillNum, { color: '#34D399' }]}>
-                      {result.correct}
-                    </Text>
-                    <Text style={styles.statPillLabel}>Correct (+{result.correct * 2})</Text>
-                  </View>
-
-                  <View style={[styles.statPill, styles.statPillBorder]}>
-                    <Text style={[styles.statPillNum, { color: '#F87171' }]}>
-                      {result.incorrect}
-                    </Text>
-                    <Text style={styles.statPillLabel}>Wrong (-{(result.incorrect * 0.66).toFixed(2)})</Text>
-                  </View>
-
-                  <View style={[styles.statPill, styles.statPillBorder]}>
-                    <Text style={[styles.statPillNum, { color: theme.colors.textMuted }]}>
-                      {result.unattempted}
-                    </Text>
-                    <Text style={styles.statPillLabel}>Skipped</Text>
-                  </View>
-                </View>
-              </View>
-
-              {/* Performance Metrics */}
-              <View style={styles.accuracyCard}>
-                <View style={styles.accuracyItem}>
-                  <Text style={styles.accuracyNum}>{result.accuracy}%</Text>
-                  <Text style={styles.accuracyLabel}>Accuracy Rate</Text>
-                </View>
-                <View style={styles.accuracyDivider} />
-                <View style={styles.accuracyItem}>
-                  <Text style={styles.accuracyNum}>{formatTime(result.timeTakenSeconds)}</Text>
-                  <Text style={styles.accuracyLabel}>Time Taken</Text>
-                </View>
-              </View>
-
-              {/* Review Question-by-Question Solution Toggle */}
-              <Pressable
-                style={({ pressed }) => [styles.reviewToggleBtn, pressed && styles.pressed]}
-                onPress={() => setShowReviewList(!showReviewList)}
-              >
-                <ListFilter size={16} color={theme.colors.textPrimary} strokeWidth={2} />
-                <Text style={styles.reviewToggleText}>
-                  {showReviewList ? 'Hide Detailed Solutions' : 'Review Questions & Official Solutions'}
-                </Text>
-                {showReviewList ? (
-                  <ChevronUp size={16} color={theme.colors.textPrimary} strokeWidth={2} style={{ marginLeft: 'auto' }} />
-                ) : (
-                  <ChevronDown size={16} color={theme.colors.textPrimary} strokeWidth={2} style={{ marginLeft: 'auto' }} />
-                )}
-              </Pressable>
-
-              {/* Detailed Question Review List */}
-              {showReviewList && (
-                <View style={styles.reviewList}>
-                  {questions.map((q, idx) => {
-                    const userPick = selectedAnswers[idx];
-                    const isRight = userPick === q.correctAnswer;
-                    const isSkipped = !userPick;
-
-                    return (
-                      <View key={q.id} style={styles.reviewCard}>
-                        <View style={styles.reviewCardHeader}>
-                          <Text style={styles.reviewCardIndex}>Q{idx + 1}.</Text>
-                          <View
-                            style={[
-                              styles.statusBadge,
-                              isRight
-                                ? styles.statusBadgeCorrect
-                                : isSkipped
-                                ? styles.statusBadgeSkipped
-                                : styles.statusBadgeWrong,
-                            ]}
-                          >
-                            <Text
-                              style={[
-                                styles.statusBadgeText,
-                                isRight
-                                  ? styles.statusTextCorrect
-                                  : isSkipped
-                                  ? styles.statusTextSkipped
-                                  : styles.statusTextWrong,
-                              ]}
-                            >
-                              {isRight ? 'CORRECT (+2)' : isSkipped ? 'SKIPPED' : 'INCORRECT (-0.66)'}
-                            </Text>
-                          </View>
-                        </View>
-
-                        <Text style={styles.reviewQuestionText}>{q.questionText}</Text>
-
-                        <View style={styles.reviewAnswerRow}>
-                          <Text style={styles.reviewLabel}>Your Pick: </Text>
-                          <Text
-                            style={[
-                              styles.reviewUserPick,
-                              isRight ? { color: '#34D399' } : { color: '#F87171' },
-                            ]}
-                          >
-                            {userPick ? `Option (${userPick})` : 'Not Attempted'}
-                          </Text>
-                          <Text style={styles.reviewLabel}> | Official Key: </Text>
-                          <Text style={styles.reviewOfficialKey}>Option ({q.correctAnswer})</Text>
-                        </View>
-
-                        <View style={styles.solutionBox}>
-                          <Text style={styles.solutionTitle}>Explanation:</Text>
-                          <Text style={styles.solutionText}>{q.explanation.coreConcept}</Text>
-                          {q.explanation.eliminationTechnique && (
-                            <Text style={styles.solutionTrick}>
-                              Elimination Strategy: {q.explanation.eliminationTechnique}
-                            </Text>
-                          )}
-                        </View>
-                      </View>
-                    );
-                  })}
-                </View>
-              )}
-
-              <View style={{ height: 20 }} />
-
-              {/* Exit Button */}
-              <Pressable
-                style={({ pressed }) => [styles.exitBtn, pressed && styles.pressed]}
-                onPress={onClose}
-              >
-                <Text style={styles.exitBtnText}>Return to Prelims Hub</Text>
-              </Pressable>
-
-              <View style={{ height: 40 }} />
-            </ScrollView>
-          )}
+          {/* Submit Confirmation Dialog */}
+          <QuizSubmitModal
+            visible={showSubmitModal}
+            totalQuestions={questions.length}
+            answeredCount={stats.answered}
+            unansweredCount={stats.unanswered}
+            markedCount={stats.marked}
+            notVisitedCount={stats.notVisited}
+            timeLeftFormatted={formatTime(timeLeftSeconds)}
+            onCancel={() => setShowSubmitModal(false)}
+            onConfirmSubmit={handleConfirmSubmit}
+          />
         </View>
+      )}
+
+      {/* 3. QUIZ SCORECARD RESULT VIEW (Post-submission) */}
+      {isSubmitted && result && (
+        <ScrollView style={styles.resultScrollBody} showsVerticalScrollIndicator={false}>
+          <View style={styles.resultHeroCard}>
+            <View style={styles.trophyCircle}>
+              <Award size={26} color={theme.colors.darkButtonText} strokeWidth={2} />
+            </View>
+            <Text style={styles.resultTitle}>Quiz Completed</Text>
+            <Text style={styles.resultScoreBig}>
+              {result.score} <Text style={styles.resultMaxScore}>/ {result.maxScore}</Text>
+            </Text>
+            <Text style={styles.resultScoreSub}>Estimated UPSC Prelims Score</Text>
+
+            <View style={styles.statPillsRow}>
+              <View style={[styles.statPill, styles.statPillBorder]}>
+                <Text style={[styles.statPillNum, { color: '#34D399' }]}>
+                  {result.correct}
+                </Text>
+                <Text style={styles.statPillLabel}>Correct (+{result.correct * 2})</Text>
+              </View>
+
+              <View style={[styles.statPill, styles.statPillBorder]}>
+                <Text style={[styles.statPillNum, { color: '#F87171' }]}>
+                  {result.incorrect}
+                </Text>
+                <Text style={styles.statPillLabel}>Wrong (-{(result.incorrect * 0.66).toFixed(2)})</Text>
+              </View>
+
+              <View style={[styles.statPill, styles.statPillBorder]}>
+                <Text style={[styles.statPillNum, { color: theme.colors.textMuted }]}>
+                  {result.unattempted}
+                </Text>
+                <Text style={styles.statPillLabel}>Skipped</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* Performance Metrics */}
+          <View style={styles.accuracyCard}>
+            <View style={styles.accuracyItem}>
+              <Text style={styles.accuracyNum}>{result.accuracy}%</Text>
+              <Text style={styles.accuracyLabel}>Accuracy Rate</Text>
+            </View>
+            <View style={styles.accuracyDivider} />
+            <View style={styles.accuracyItem}>
+              <Text style={styles.accuracyNum}>{formatTime(result.timeTakenSeconds)}</Text>
+              <Text style={styles.accuracyLabel}>Time Taken</Text>
+            </View>
+          </View>
+
+          {/* Review Question-by-Question Solution Toggle */}
+          <Pressable
+            style={({ pressed }) => [styles.reviewToggleBtn, pressed && styles.pressed]}
+            onPress={() => setShowReviewList(!showReviewList)}
+          >
+            <ListFilter size={16} color={theme.colors.textPrimary} strokeWidth={2} />
+            <Text style={styles.reviewToggleText}>
+              {showReviewList ? 'Hide Detailed Solutions' : 'Review Questions & Official Solutions'}
+            </Text>
+            {showReviewList ? (
+              <ChevronUp
+                size={16}
+                color={theme.colors.textPrimary}
+                strokeWidth={2}
+                style={{ marginLeft: 'auto' }}
+              />
+            ) : (
+              <ChevronDown
+                size={16}
+                color={theme.colors.textPrimary}
+                strokeWidth={2}
+                style={{ marginLeft: 'auto' }}
+              />
+            )}
+          </Pressable>
+
+          {/* Detailed Question Review List */}
+          {showReviewList && (
+            <View style={styles.reviewList}>
+              {questions.map((q, idx) => {
+                const userPick = selectedAnswers[idx];
+                const isRight = userPick === q.correctAnswer;
+                const isSkipped = !userPick;
+
+                return (
+                  <View key={q.id} style={styles.reviewCard}>
+                    <View style={styles.reviewCardHeader}>
+                      <Text style={styles.reviewCardIndex}>Q{idx + 1}.</Text>
+                      <View
+                        style={[
+                          styles.statusBadge,
+                          isRight
+                            ? styles.statusBadgeCorrect
+                            : isSkipped
+                            ? styles.statusBadgeSkipped
+                            : styles.statusBadgeWrong,
+                        ]}
+                      >
+                        <Text
+                          style={[
+                            styles.statusBadgeText,
+                            isRight
+                              ? styles.statusTextCorrect
+                              : isSkipped
+                              ? styles.statusTextSkipped
+                              : styles.statusTextWrong,
+                          ]}
+                        >
+                          {isRight ? 'CORRECT (+2)' : isSkipped ? 'SKIPPED' : 'INCORRECT (-0.66)'}
+                        </Text>
+                      </View>
+                    </View>
+
+                    <Text style={styles.reviewQuestionText}>{q.questionText}</Text>
+
+                    <View style={styles.reviewAnswerRow}>
+                      <Text style={styles.reviewLabel}>Your Pick: </Text>
+                      <Text
+                        style={[
+                          styles.reviewUserPick,
+                          isRight ? { color: '#34D399' } : { color: '#F87171' },
+                        ]}
+                      >
+                        {userPick ? `Option (${userPick})` : 'Not Attempted'}
+                      </Text>
+                      <Text style={styles.reviewLabel}> | Official Key: </Text>
+                      <Text style={styles.reviewOfficialKey}>Option ({q.correctAnswer})</Text>
+                    </View>
+
+                    <View style={styles.solutionBox}>
+                      <Text style={styles.solutionTitle}>Explanation:</Text>
+                      <Text style={styles.solutionText}>{q.explanation.coreConcept}</Text>
+                      {q.explanation.eliminationTechnique && (
+                        <Text style={styles.solutionTrick}>
+                          Elimination Strategy: {q.explanation.eliminationTechnique}
+                        </Text>
+                      )}
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
+          )}
+
+          <View style={{ height: 20 }} />
+
+          {/* Exit Button */}
+          <Pressable
+            style={({ pressed }) => [styles.exitBtn, pressed && styles.pressed]}
+            onPress={onClose}
+          >
+            <Text style={styles.exitBtnText}>Back to Chapter / Prelims</Text>
+          </Pressable>
+
+          <View style={{ height: 40 }} />
+        </ScrollView>
+      )}
+    </View>
   );
 }
 
-const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
-  fullScreenSafeArea: {
-    flex: 1,
-    backgroundColor: theme.colors.bgCanvas,
-  },
-  fullScreenContainer: {
-    flex: 1,
-    backgroundColor: theme.colors.bgCanvas,
-  },
-  sheetContainer: {
-    flex: 1,
-    backgroundColor: theme.colors.bgCanvas,
-  },
-  topBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 14,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.borderCard,
-  },
-  titleCol: {
-    flex: 1,
-    alignItems: 'center',
-    marginHorizontal: 10,
-  },
-  topTitle: {
-    fontSize: 14,
-    fontWeight: '800',
-    color: theme.colors.textPrimary,
-  },
-  markingPill: {
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 6,
-    marginTop: 2,
-  },
-  markingText: {
-    fontSize: 10,
-    fontWeight: '700',
-    color: theme.colors.textSecondary,
-  },
-  closeBtn: {
-    width: 32,
-    height: 32,
-    borderRadius: 8,
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  timerBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 8,
-    gap: 4,
-  },
-  timerDanger: {
-    backgroundColor: '#7F1D1D',
-    borderColor: '#EF4444',
-  },
-  timerText: {
-    fontSize: 12,
-    fontWeight: '800',
-    color: theme.colors.textPrimary,
-  },
-  timerTextDanger: {
-    color: '#FCA5A5',
-  },
-  paletteStrip: {
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.borderCard,
-    paddingVertical: 8,
-  },
-  paletteScroll: {
-    paddingHorizontal: 16,
-    gap: 8,
-  },
-  paletteBubble: {
-    width: 32,
-    height: 32,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paletteText: {
-    fontSize: 12,
-    fontWeight: '700',
-  },
-  scrollBody: {
-    paddingHorizontal: 20,
-    paddingTop: 16,
-  },
-  qHeaderRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  qIndexLabel: {
-    fontSize: 13,
-    fontWeight: '800',
-    color: theme.colors.textPrimary,
-  },
-  markBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-  },
-  markBtnText: {
-    fontSize: 11,
-    color: theme.colors.textMuted,
-    fontWeight: '600',
-  },
-  markBtnTextActive: {
-    color: theme.colors.textPrimary,
-    fontWeight: '700',
-  },
-  questionCard: {
-    backgroundColor: theme.colors.bgSurface,
-    borderRadius: 14,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-    marginBottom: 16,
-  },
-  questionText: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: theme.colors.textPrimary,
-    lineHeight: 23,
-  },
-  optionsContainer: {
-    gap: 10,
-    marginBottom: 20,
-  },
-  optionItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 14,
-    borderRadius: 12,
-    borderWidth: 1.5,
-    borderColor: theme.colors.borderCard,
-    backgroundColor: theme.colors.bgSurface,
-    gap: 12,
-  },
-  optionItemSelected: {
-    backgroundColor: '#1E293B',
-    borderColor: theme.colors.textPrimary,
-  },
-  keyCircle: {
-    width: 28,
-    height: 28,
-    borderRadius: 6,
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  keyCircleSelected: {
-    backgroundColor: theme.colors.darkButton,
-    borderColor: theme.colors.darkButton,
-  },
-  keyText: {
-    fontSize: 12,
-    fontWeight: '800',
-    color: theme.colors.textPrimary,
-  },
-  keyTextSelected: {
-    color: theme.colors.darkButtonText,
-  },
-  optionContentText: {
-    fontSize: 14,
-    color: theme.colors.textPrimary,
-    flex: 1,
-    lineHeight: 20,
-  },
-  bottomBar: {
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-    paddingTop: 12,
-    gap: 12,
-    borderTopWidth: 1,
-    borderTopColor: theme.colors.borderCard,
-    backgroundColor: theme.colors.bgCanvas,
-  },
-  navPrevBtn: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-    paddingVertical: 13,
-    borderRadius: 8,
-    gap: 6,
-  },
-  navPrevText: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: theme.colors.textPrimary,
-  },
-  navNextBtn: {
-    flex: 1.5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.darkButton,
-    paddingVertical: 13,
-    borderRadius: 8,
-    gap: 6,
-  },
-  navNextText: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: theme.colors.darkButtonText,
-  },
-  submitBtn: {
-    flex: 1.5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.darkButton,
-    paddingVertical: 13,
-    borderRadius: 8,
-    gap: 6,
-  },
-  submitBtnText: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: theme.colors.darkButtonText,
-  },
-  btnDisabled: {
-    opacity: 0.4,
-  },
-  // Results view styles
-  resultHeroCard: {
-    backgroundColor: theme.colors.bgSurface,
-    borderRadius: 14,
-    padding: 24,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-    marginBottom: 16,
-  },
-  trophyCircle: {
-    width: 52,
-    height: 52,
-    borderRadius: 10,
-    backgroundColor: theme.colors.darkButton,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
-  },
-  resultTitle: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: theme.colors.textPrimary,
-  },
-  resultScoreBig: {
-    fontSize: 34,
-    fontWeight: '900',
-    color: theme.colors.textPrimary,
-    marginTop: 6,
-    letterSpacing: -0.5,
-  },
-  resultMaxScore: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: theme.colors.textMuted,
-  },
-  resultScoreSub: {
-    fontSize: 12,
-    color: theme.colors.textSecondary,
-    marginBottom: 16,
-  },
-  statPillsRow: {
-    flexDirection: 'row',
-    gap: 8,
-    width: '100%',
-  },
-  statPill: {
-    flex: 1,
-    paddingVertical: 10,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  statPillBorder: {
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-  },
-  statPillNum: {
-    fontSize: 16,
-    fontWeight: '800',
-  },
-  statPillLabel: {
-    fontSize: 10,
-    fontWeight: '600',
-    color: theme.colors.textMuted,
-    marginTop: 2,
-  },
-  accuracyCard: {
-    flexDirection: 'row',
-    backgroundColor: theme.colors.bgSurface,
-    borderRadius: 14,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-    marginBottom: 16,
-  },
-  accuracyItem: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  accuracyNum: {
-    fontSize: 20,
-    fontWeight: '800',
-    color: theme.colors.textPrimary,
-  },
-  accuracyLabel: {
-    fontSize: 11,
-    fontWeight: '600',
-    color: theme.colors.textMuted,
-    marginTop: 2,
-  },
-  accuracyDivider: {
-    width: 1,
-    height: 30,
-    backgroundColor: theme.colors.borderCard,
-    alignSelf: 'center',
-  },
-  reviewToggleBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-    paddingVertical: 13,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    gap: 8,
-    marginBottom: 16,
-  },
-  reviewToggleText: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: theme.colors.textPrimary,
-  },
-  reviewList: {
-    gap: 14,
-    marginBottom: 16,
-  },
-  reviewCard: {
-    backgroundColor: theme.colors.bgSurface,
-    borderRadius: 14,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-  },
-  reviewCardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  reviewCardIndex: {
-    fontSize: 13,
-    fontWeight: '800',
-    color: theme.colors.textPrimary,
-  },
-  statusBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-  },
-  statusBadgeCorrect: {
-    backgroundColor: 'rgba(16, 185, 129, 0.15)',
-    borderColor: 'rgba(16, 185, 129, 0.3)',
-  },
-  statusBadgeWrong: {
-    backgroundColor: 'rgba(239, 68, 68, 0.15)',
-    borderColor: 'rgba(239, 68, 68, 0.3)',
-  },
-  statusBadgeSkipped: {
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    borderColor: theme.colors.borderCard,
-  },
-  statusBadgeText: {
-    fontSize: 10,
-    fontWeight: '800',
-  },
-  statusTextCorrect: {
-    color: '#34D399',
-  },
-  statusTextWrong: {
-    color: '#F87171',
-  },
-  statusTextSkipped: {
-    color: theme.colors.textMuted,
-  },
-  reviewQuestionText: {
-    fontSize: 13,
-    color: theme.colors.textPrimary,
-    lineHeight: 19,
-    marginBottom: 10,
-  },
-  reviewAnswerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    padding: 8,
-    borderRadius: 6,
-    marginBottom: 10,
-  },
-  reviewLabel: {
-    fontSize: 11,
-    color: theme.colors.textMuted,
-  },
-  reviewUserPick: {
-    fontSize: 11,
-    fontWeight: '700',
-  },
-  reviewOfficialKey: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: theme.colors.textPrimary,
-  },
-  solutionBox: {
-    backgroundColor: theme.colors.bgSurfaceMuted,
-    borderWidth: 1,
-    borderColor: theme.colors.borderCard,
-    padding: 10,
-    borderRadius: 8,
-    gap: 4,
-  },
-  solutionTitle: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: theme.colors.textPrimary,
-  },
-  solutionText: {
-    fontSize: 12,
-    color: theme.colors.textSecondary,
-    lineHeight: 17,
-  },
-  solutionTrick: {
-    fontSize: 11,
-    color: '#CBD5E1',
-    fontWeight: '600',
-    marginTop: 2,
-  },
-  exitBtn: {
-    backgroundColor: theme.colors.darkButton,
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  exitBtnText: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: theme.colors.darkButtonText,
-  },
-  pressed: {
-    opacity: 0.75,
-  },
-});
+const getStyles = (theme: PrelimsThemeType) => {
+  const isDark = theme.isDark;
+
+  return StyleSheet.create({
+    fullScreenSafeArea: {
+      flex: 1,
+      backgroundColor: theme.colors.bgCanvas,
+    },
+    fullScreenContainer: {
+      flex: 1,
+      backgroundColor: theme.colors.bgCanvas,
+    },
+    sheetContainer: {
+      flex: 1,
+      backgroundColor: theme.colors.bgCanvas,
+    },
+    topBar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 20,
+      paddingVertical: 12,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.borderCard,
+      backgroundColor: theme.colors.bgSurface,
+    },
+    titleCol: {
+      flex: 1,
+      alignItems: 'center',
+      marginHorizontal: 10,
+    },
+    topTitle: {
+      fontSize: 14,
+      fontWeight: '800',
+      color: theme.colors.textPrimary,
+      letterSpacing: -0.2,
+    },
+    markingPill: {
+      backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
+      paddingHorizontal: 8,
+      paddingVertical: 2,
+      borderRadius: 6,
+      marginTop: 2,
+    },
+    markingText: {
+      fontSize: 10,
+      fontWeight: '700',
+      color: theme.colors.textSecondary,
+    },
+    closeBtn: {
+      width: 34,
+      height: 34,
+      borderRadius: 8,
+      backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+      borderWidth: 1,
+      borderColor: theme.colors.borderCard,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    topBarRightCol: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    timerBadge: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+      borderWidth: 1,
+      borderColor: theme.colors.borderCard,
+      paddingHorizontal: 10,
+      paddingVertical: 6,
+      borderRadius: 8,
+      gap: 6,
+    },
+    timerDanger: {
+      backgroundColor: isDark ? '#2D1215' : '#FEF2F2',
+      borderColor: '#EF4444',
+    },
+    timerText: {
+      fontSize: 12,
+      fontWeight: '800',
+      color: theme.colors.textPrimary,
+    },
+    timerTextDanger: {
+      color: '#EF4444',
+    },
+    mobilePaletteBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: theme.colors.darkButton,
+      paddingHorizontal: 10,
+      paddingVertical: 6,
+      borderRadius: 8,
+      gap: 6,
+    },
+    mobilePaletteBtnText: {
+      fontSize: 11,
+      fontWeight: '700',
+      color: theme.colors.darkButtonText,
+    },
+    examMainContainer: {
+      flex: 1,
+    },
+    splitRow: {
+      flex: 1,
+      flexDirection: 'row',
+      paddingHorizontal: 16,
+      paddingTop: 14,
+      paddingBottom: 14,
+      gap: 16,
+    },
+    questionPanel: {
+      flex: 1,
+      backgroundColor: theme.colors.bgSurface,
+      borderRadius: 14,
+      borderWidth: 1,
+      borderColor: theme.colors.borderCard,
+      display: 'flex',
+      flexDirection: 'column',
+      overflow: 'hidden',
+    },
+    paletteSidebar: {
+      height: '100%',
+    },
+    questionScrollView: {
+      flex: 1,
+    },
+    questionScrollContent: {
+      paddingHorizontal: 20,
+      paddingTop: 18,
+      paddingBottom: 24,
+    },
+    qHeaderRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      marginBottom: 16,
+      gap: 10,
+      flexWrap: 'wrap',
+    },
+    qIndexCol: {
+      gap: 4,
+      flex: 1,
+    },
+    qIndexLabel: {
+      fontSize: 15,
+      fontWeight: '800',
+      color: theme.colors.textPrimary,
+      letterSpacing: -0.2,
+    },
+    qMetaTagsRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    metaYearTag: {
+      backgroundColor: isDark ? '#222838' : '#EDE9FE',
+      paddingHorizontal: 6,
+      paddingVertical: 1.5,
+      borderRadius: 4,
+    },
+    metaYearText: {
+      fontSize: 10,
+      fontWeight: '700',
+      color: isDark ? '#C4B5FD' : '#6D28D9',
+    },
+    metaChapterText: {
+      fontSize: 11,
+      color: theme.colors.textMuted,
+      fontWeight: '500',
+      flex: 1,
+    },
+    markBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
+      backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+      paddingHorizontal: 10,
+      paddingVertical: 6,
+      borderRadius: 8,
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
+    },
+    markBtnActive: {
+      backgroundColor: isDark ? '#261C3D' : '#F3E8FF',
+      borderColor: '#8B5CF6',
+    },
+    markBtnText: {
+      fontSize: 11,
+      color: theme.colors.textSecondary,
+      fontWeight: '600',
+    },
+    markBtnTextActive: {
+      color: isDark ? '#C4B5FD' : '#7C3AED',
+      fontWeight: '800',
+    },
+    questionCard: {
+      backgroundColor: isDark ? '#161922' : '#F8FAFC',
+      borderRadius: 12,
+      padding: 16,
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
+      marginBottom: 18,
+    },
+    questionText: {
+      fontSize: 15,
+      fontWeight: '500',
+      color: theme.colors.textPrimary,
+      lineHeight: 23,
+    },
+    optionsContainer: {
+      gap: 10,
+    },
+    optionItem: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      padding: 14,
+      borderRadius: 12,
+      borderWidth: 1.5,
+      borderColor: theme.colors.borderCard,
+      backgroundColor: isDark ? '#161922' : '#FFFFFF',
+      gap: 12,
+    },
+    optionItemSelected: {
+      backgroundColor: isDark ? '#1E2536' : '#EFF6FF',
+      borderColor: isDark ? '#60A5FA' : '#2563EB',
+    },
+    keyCircle: {
+      width: 28,
+      height: 28,
+      borderRadius: 14,
+      backgroundColor: isDark ? '#232838' : '#F1F5F9',
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    keyCircleSelected: {
+      backgroundColor: isDark ? '#2563EB' : '#1D4ED8',
+      borderColor: isDark ? '#60A5FA' : '#1D4ED8',
+    },
+    keyText: {
+      fontSize: 12,
+      fontWeight: '800',
+      color: theme.colors.textPrimary,
+    },
+    keyTextSelected: {
+      color: '#FFFFFF',
+    },
+    optionContentText: {
+      fontSize: 14,
+      color: theme.colors.textPrimary,
+      lineHeight: 20,
+      flex: 1,
+      fontWeight: '500',
+    },
+    optionContentTextSelected: {
+      fontWeight: '600',
+    },
+    bottomBar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+      borderTopWidth: 1,
+      borderTopColor: theme.colors.borderCard,
+      backgroundColor: isDark ? '#181B24' : '#F8FAFC',
+      gap: 10,
+    },
+    navPrevBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: isDark ? '#222838' : '#F1F5F9',
+      paddingVertical: 8,
+      paddingHorizontal: 14,
+      borderRadius: 8,
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
+      gap: 6,
+    },
+    navPrevText: {
+      fontSize: 12.5,
+      fontWeight: '700',
+      color: theme.colors.textPrimary,
+    },
+    navPrevTextDisabled: {
+      color: theme.colors.textMuted,
+    },
+    bottomCenterCol: {
+      flex: 1,
+      alignItems: 'center',
+    },
+    clearBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: isDark ? '#222838' : '#F1F5F9',
+      paddingVertical: 6,
+      paddingHorizontal: 10,
+      borderRadius: 6,
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
+      gap: 5,
+    },
+    clearBtnText: {
+      fontSize: 11,
+      fontWeight: '600',
+      color: theme.colors.textSecondary,
+    },
+    bottomRightCol: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    navNextBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: theme.colors.darkButton,
+      paddingVertical: 8,
+      paddingHorizontal: 14,
+      borderRadius: 8,
+      gap: 6,
+    },
+    navNextText: {
+      fontSize: 12.5,
+      fontWeight: '700',
+      color: theme.colors.darkButtonText,
+    },
+    submitBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: '#10B981',
+      paddingVertical: 8,
+      paddingHorizontal: 14,
+      borderRadius: 8,
+      gap: 6,
+    },
+    submitBtnText: {
+      fontSize: 12.5,
+      fontWeight: '800',
+      color: '#FFFFFF',
+    },
+    btnDisabled: {
+      opacity: 0.45,
+    },
+    mobilePaletteModalOverlay: {
+      flex: 1,
+      backgroundColor: 'rgba(0,0,0,0.65)',
+      justifyContent: 'flex-end',
+    },
+    mobilePaletteSheet: {
+      backgroundColor: theme.colors.bgSurface,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      maxHeight: '85%',
+      height: 520,
+      paddingBottom: 20,
+      borderTopWidth: 1,
+      borderTopColor: theme.colors.borderCard,
+      overflow: 'hidden',
+    },
+    mobilePaletteSheetHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 18,
+      paddingVertical: 14,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.borderSubtle,
+    },
+    mobilePaletteSheetTitle: {
+      fontSize: 15,
+      fontWeight: '800',
+      color: theme.colors.textPrimary,
+    },
+    mobilePaletteCloseBtn: {
+      padding: 4,
+    },
+    resultScrollBody: {
+      paddingHorizontal: 20,
+      paddingTop: 20,
+    },
+    resultHeroCard: {
+      backgroundColor: theme.colors.bgSurface,
+      borderRadius: 16,
+      padding: 24,
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: theme.colors.borderCard,
+      marginBottom: 16,
+      ...theme.shadows.card,
+    },
+    trophyCircle: {
+      width: 56,
+      height: 56,
+      borderRadius: 28,
+      backgroundColor: theme.colors.darkButton,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 12,
+    },
+    resultTitle: {
+      fontSize: 18,
+      fontWeight: '800',
+      color: theme.colors.textPrimary,
+      marginBottom: 4,
+    },
+    resultScoreBig: {
+      fontSize: 34,
+      fontWeight: '900',
+      color: theme.colors.textPrimary,
+      letterSpacing: -1,
+    },
+    resultMaxScore: {
+      fontSize: 18,
+      fontWeight: '600',
+      color: theme.colors.textMuted,
+    },
+    resultScoreSub: {
+      fontSize: 12,
+      fontWeight: '600',
+      color: theme.colors.textSecondary,
+      marginTop: 2,
+      marginBottom: 16,
+    },
+    statPillsRow: {
+      flexDirection: 'row',
+      gap: 10,
+      width: '100%',
+    },
+    statPill: {
+      flex: 1,
+      backgroundColor: isDark ? '#1C202B' : '#F8FAFC',
+      paddingVertical: 10,
+      borderRadius: 10,
+      alignItems: 'center',
+    },
+    statPillBorder: {
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
+    },
+    statPillNum: {
+      fontSize: 16,
+      fontWeight: '800',
+    },
+    statPillLabel: {
+      fontSize: 10,
+      fontWeight: '600',
+      color: theme.colors.textMuted,
+      marginTop: 2,
+    },
+    accuracyCard: {
+      flexDirection: 'row',
+      backgroundColor: theme.colors.bgSurface,
+      borderRadius: 12,
+      padding: 16,
+      borderWidth: 1,
+      borderColor: theme.colors.borderCard,
+      marginBottom: 16,
+      alignItems: 'center',
+    },
+    accuracyItem: {
+      flex: 1,
+      alignItems: 'center',
+    },
+    accuracyNum: {
+      fontSize: 18,
+      fontWeight: '800',
+      color: theme.colors.textPrimary,
+    },
+    accuracyLabel: {
+      fontSize: 11,
+      fontWeight: '600',
+      color: theme.colors.textSecondary,
+      marginTop: 2,
+    },
+    accuracyDivider: {
+      width: 1,
+      height: 30,
+      backgroundColor: theme.colors.borderSubtle,
+    },
+    reviewToggleBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: theme.colors.bgSurface,
+      borderRadius: 10,
+      padding: 14,
+      borderWidth: 1,
+      borderColor: theme.colors.borderCard,
+      gap: 8,
+      marginBottom: 14,
+    },
+    reviewToggleText: {
+      fontSize: 13,
+      fontWeight: '700',
+      color: theme.colors.textPrimary,
+    },
+    reviewList: {
+      gap: 12,
+    },
+    reviewCard: {
+      backgroundColor: theme.colors.bgSurface,
+      borderRadius: 12,
+      padding: 16,
+      borderWidth: 1,
+      borderColor: theme.colors.borderCard,
+      gap: 10,
+    },
+    reviewCardHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    reviewCardIndex: {
+      fontSize: 13,
+      fontWeight: '800',
+      color: theme.colors.textPrimary,
+    },
+    statusBadge: {
+      paddingHorizontal: 8,
+      paddingVertical: 3,
+      borderRadius: 5,
+    },
+    statusBadgeCorrect: {
+      backgroundColor: isDark ? '#064E3B' : '#ECFDF5',
+    },
+    statusBadgeWrong: {
+      backgroundColor: isDark ? '#7F1D1D' : '#FEF2F2',
+    },
+    statusBadgeSkipped: {
+      backgroundColor: isDark ? '#2D3342' : '#F1F5F9',
+    },
+    statusBadgeText: {
+      fontSize: 10,
+      fontWeight: '800',
+      letterSpacing: 0.4,
+    },
+    statusTextCorrect: {
+      color: '#34D399',
+    },
+    statusTextWrong: {
+      color: '#F87171',
+    },
+    statusTextSkipped: {
+      color: theme.colors.textMuted,
+    },
+    reviewQuestionText: {
+      fontSize: 14,
+      fontWeight: '500',
+      color: theme.colors.textPrimary,
+      lineHeight: 21,
+    },
+    reviewAnswerRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+      backgroundColor: isDark ? '#1A1E29' : '#F8FAFC',
+      padding: 10,
+      borderRadius: 8,
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
+    },
+    reviewLabel: {
+      fontSize: 12,
+      color: theme.colors.textMuted,
+      fontWeight: '500',
+    },
+    reviewUserPick: {
+      fontSize: 12,
+      fontWeight: '700',
+    },
+    reviewOfficialKey: {
+      fontSize: 12,
+      fontWeight: '700',
+      color: '#34D399',
+    },
+    solutionBox: {
+      backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+      padding: 12,
+      borderRadius: 8,
+      borderLeftWidth: 3,
+      borderLeftColor: theme.colors.textPrimary,
+      gap: 4,
+    },
+    solutionTitle: {
+      fontSize: 11,
+      fontWeight: '800',
+      color: theme.colors.textPrimary,
+      textTransform: 'uppercase',
+      letterSpacing: 0.5,
+    },
+    solutionText: {
+      fontSize: 12.5,
+      color: theme.colors.textSecondary,
+      lineHeight: 18,
+    },
+    solutionTrick: {
+      fontSize: 12,
+      color: isDark ? '#C4B5FD' : '#6D28D9',
+      fontWeight: '600',
+      marginTop: 4,
+      lineHeight: 17,
+    },
+    exitBtn: {
+      backgroundColor: theme.colors.darkButton,
+      paddingVertical: 14,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    exitBtnText: {
+      fontSize: 14,
+      fontWeight: '700',
+      color: theme.colors.darkButtonText,
+    },
+    pressed: {
+      opacity: 0.85,
+      transform: [{ scale: 0.985 }],
+    },
+  });
+};

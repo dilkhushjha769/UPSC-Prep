@@ -300,5 +300,24 @@ export function RotateCcw({ size = defaultProps.size, color = defaultProps.color
   );
 }
 
+export function Check({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Polyline points="20 6 9 17 4 12" />
+    </Svg>
+  );
+}
+
+export function LayoutGrid({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Rect width="7" height="7" x="3" y="3" rx="1" />
+      <Rect width="7" height="7" x="14" y="3" rx="1" />
+      <Rect width="7" height="7" x="14" y="14" rx="1" />
+      <Rect width="7" height="7" x="3" y="14" rx="1" />
+    </Svg>
+  );
+}
+
 
 

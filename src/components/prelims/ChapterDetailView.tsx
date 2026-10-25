@@ -156,9 +156,10 @@ export function ChapterDetailView({
         <Pressable
           style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
           onPress={onBack}
+          accessibilityRole="button"
+          accessibilityLabel={`Back to ${subject.title}`}
         >
-          <ArrowLeft size={16} color={theme.colors.textPrimary} strokeWidth={2.2} />
-          <Text style={styles.backButtonText}>{subject.shortTitle} Chapters</Text>
+          <ArrowLeft size={18} color={theme.colors.textPrimary} strokeWidth={2.4} />
         </Pressable>
 
         <View style={styles.serialBadge}>
@@ -591,25 +592,19 @@ const getStyles = (theme: PrelimsThemeType) => {
     paddingBottom: 12,
   },
   backButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: theme.colors.bgSurface,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
+    width: 34,
+    height: 34,
     borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.colors.bgSurface,
     borderWidth: 1,
     borderColor: theme.colors.borderCard,
-    gap: 6,
     ...theme.shadows.card,
   },
-  backButtonText: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: theme.colors.textPrimary,
-  },
   serialBadge: {
-    width: 32,
-    height: 32,
+    width: 34,
+    height: 34,
     borderRadius: 8,
     backgroundColor: theme.colors.bgSurfaceMuted,
     borderWidth: 1,

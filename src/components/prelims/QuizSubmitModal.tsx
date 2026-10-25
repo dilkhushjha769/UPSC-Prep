@@ -91,7 +91,7 @@ export function QuizSubmitModal({
             </View>
 
             <View style={[styles.summaryStatItem, styles.statBorderNotVisited]}>
-              <Text style={[styles.summaryStatNum, { color: theme.colors.textMuted }]}>
+              <Text style={[styles.summaryStatNum, { color: theme.isDark ? '#E2E8F0' : '#475569' }]}>
                 {notVisitedCount}
               </Text>
               <Text style={styles.summaryStatLabel}>Not Visited</Text>
@@ -219,7 +219,8 @@ const getStyles = (theme: PrelimsThemeType) => {
       borderColor: isDark ? '#5B21B6' : '#DDD6FE',
     },
     statBorderNotVisited: {
-      borderColor: theme.colors.borderSubtle,
+      borderColor: isDark ? '#475569' : '#CBD5E1',
+      backgroundColor: isDark ? '#1F2937' : '#F1F5F9',
     },
     summaryStatNum: {
       fontSize: 18,

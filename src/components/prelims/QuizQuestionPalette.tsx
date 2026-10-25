@@ -141,7 +141,7 @@ export function QuizQuestionPalette({
           </View>
 
           <View style={[styles.statBox, styles.statBoxNotVisited]}>
-            <Text style={[styles.statBoxNum, { color: theme.colors.textMuted }]}>
+            <Text style={[styles.statBoxNum, { color: theme.isDark ? '#E2E8F0' : '#475569' }]}>
               {stats.notVisited}
             </Text>
             <Text style={styles.statBoxLabel}>Not Visited</Text>
@@ -342,8 +342,8 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       backgroundColor: isDark ? '#23153C' : '#F5F3FF',
     },
     statBoxNotVisited: {
-      borderColor: theme.colors.borderSubtle,
-      backgroundColor: isDark ? '#1C202A' : '#F1F5F9',
+      borderColor: isDark ? '#475569' : '#CBD5E1',
+      backgroundColor: isDark ? '#1F2937' : '#F1F5F9',
     },
     statBoxNum: {
       fontSize: 14,
@@ -381,6 +381,8 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       borderRadius: 5,
       alignItems: 'center',
       justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: 'transparent',
     },
     legendText: {
       fontSize: 11,
@@ -438,8 +440,8 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       borderColor: '#7C3AED',
     },
     bubbleNotVisited: {
-      backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
-      borderColor: isDark ? '#2E3547' : '#CBD5E1',
+      backgroundColor: isDark ? '#334155' : '#FFFFFF',
+      borderColor: isDark ? '#64748B' : '#94A3B8',
     },
     bubbleCurrent: {
       borderWidth: 2.5,
@@ -465,7 +467,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       color: '#FFFFFF',
     },
     textNotVisited: {
-      color: theme.colors.textSecondary,
+      color: isDark ? '#F1F5F9' : '#334155',
     },
     textCurrent: {
       fontWeight: '900',

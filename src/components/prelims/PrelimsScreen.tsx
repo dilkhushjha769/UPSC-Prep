@@ -29,6 +29,7 @@ import { QuizGeneratorModal } from '@/components/prelims/QuizGeneratorModal';
 import { QuizModal } from '@/components/prelims/QuizModal';
 import { SubjectCard } from '@/components/prelims/SubjectCard';
 import { SubjectChaptersView } from '@/components/prelims/SubjectChaptersView';
+import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
 
 export function PrelimsScreen({
   isDark = true,
@@ -136,6 +137,7 @@ function PrelimsScreenContent({ onBack }: { onBack?: () => void } = {}) {
 
   return (
     <View style={styles.safeArea}>
+      <BlueTextureBackground isDark={theme.isDark} />
       <StatusBar style={theme.isDark ? 'light' : 'dark'} />
       <ScrollView
         style={styles.scrollView}
@@ -276,11 +278,11 @@ const getStyles = (theme: PrelimsThemeType) =>
   StyleSheet.create({
     safeArea: {
       flex: 1,
-      backgroundColor: theme.colors.bgCanvas,
+      backgroundColor: 'transparent',
     },
     scrollView: {
       flex: 1,
-      backgroundColor: theme.colors.bgCanvas,
+      backgroundColor: 'transparent',
     },
     scrollContent: {
       alignItems: 'center',

@@ -26,6 +26,7 @@ import {
   StreakInfoModal,
 } from '@/components/upsc';
 import { PrelimsScreen } from '@/components/prelims/PrelimsScreen';
+import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
 
 export default function AppScreen() {
   const [activeTab, setActiveTab] = useState<NavTab>('home');
@@ -63,6 +64,7 @@ export default function AppScreen() {
     <SafeAreaView
       edges={shellEdges}
       style={[styles.rootContainer, { backgroundColor: shellBg }]}>
+      <BlueTextureBackground isDark={isDark} />
       <StatusBar barStyle={useLightIcons ? 'light-content' : 'dark-content'} />
 
       <View style={styles.layoutRow}>

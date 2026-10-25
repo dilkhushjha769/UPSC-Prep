@@ -31,6 +31,7 @@ import { PYQQuestion, QuizResult } from '@/types/prelims';
 import { useStudy } from '@/context/StudyContext';
 import { usePrelimsTheme, PrelimsThemeType } from '@/constants/prelimsTheme';
 import { BookmarkStorageService } from '@/services/bookmarkStorage';
+import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
 import { QuizQuestionPalette } from './QuizQuestionPalette';
 import { QuizSubmitModal } from './QuizSubmitModal';
 
@@ -346,6 +347,9 @@ function QuizModalContent({
 
   return (
     <View style={styles.sheetContainer}>
+      {/* Subtle Blue Texture Background as shown in image */}
+      <BlueTextureBackground isDark={theme.isDark} />
+
       {/* 1. Top Bar */}
       <View style={styles.topBar}>
         <Pressable
@@ -377,8 +381,8 @@ function QuizModalContent({
                   timeLeftSeconds < 120
                     ? '#EF4444'
                     : theme.isDark
-                    ? '#60A5FA'
-                    : '#2563EB'
+                    ? '#A78BFA'
+                    : '#7C3AED'
                 }
                 strokeWidth={2.2}
               />
@@ -501,8 +505,8 @@ function QuizModalContent({
                   </View>
                 </View>
 
-                {/* Question Card */}
-                <View style={styles.questionCard}>
+                {/* Question Text (No Container) */}
+                <View style={styles.questionContainer}>
                   <Text style={styles.questionText}>{currentQ.questionText}</Text>
                 </View>
 
@@ -931,15 +935,15 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
   return StyleSheet.create({
     fullScreenSafeArea: {
       flex: 1,
-      backgroundColor: theme.colors.bgCanvas,
+      backgroundColor: isDark ? '#0D0F17' : '#EAF1FD',
     },
     fullScreenContainer: {
       flex: 1,
-      backgroundColor: theme.colors.bgCanvas,
+      backgroundColor: isDark ? '#0D0F17' : '#EAF1FD',
     },
     sheetContainer: {
       flex: 1,
-      backgroundColor: theme.colors.bgCanvas,
+      backgroundColor: isDark ? '#0D0F17' : '#EAF1FD',
     },
     topBar: {
       position: 'relative',
@@ -949,8 +953,8 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       paddingHorizontal: isMobile ? 14 : 20,
       paddingVertical: isMobile ? 11 : 13,
       borderBottomWidth: 1,
-      borderBottomColor: theme.colors.borderCard,
-      backgroundColor: theme.colors.bgSurface,
+      borderBottomColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(199, 210, 254, 0.5)',
+      backgroundColor: isDark ? 'rgba(17, 21, 36, 0.85)' : 'rgba(234, 241, 253, 0.85)',
     },
     titleCol: {
       flex: 1,
@@ -976,11 +980,11 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       left: 0,
       right: 0,
       height: 2.5,
-      backgroundColor: isDark ? '#1C202B' : '#E2E8F0',
+      backgroundColor: isDark ? 'rgba(139, 92, 246, 0.22)' : '#EDE9FE',
     },
     topProgressBarFill: {
       height: '100%',
-      backgroundColor: '#3B82F6',
+      backgroundColor: '#7C3AED',
     },
     closeBtn: {
       width: 34,
@@ -1000,9 +1004,9 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     timerBadge: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: isDark ? '#1C2230' : '#F1F5F9',
+      backgroundColor: isDark ? 'rgba(99, 102, 241, 0.16)' : '#EEF2FF',
       borderWidth: 1,
-      borderColor: isDark ? '#333D52' : '#CBD5E1',
+      borderColor: isDark ? 'rgba(129, 140, 248, 0.35)' : '#DDD6FE',
       paddingHorizontal: isMobile ? 10 : 12,
       paddingVertical: 5,
       borderRadius: 18,
@@ -1048,10 +1052,10 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     },
     questionPanel: {
       flex: 1,
-      backgroundColor: theme.colors.bgSurface,
+      backgroundColor: isMobile ? 'transparent' : (isDark ? 'rgba(22, 26, 38, 0.7)' : 'rgba(255, 255, 255, 0.75)'),
       borderRadius: isMobile ? 0 : 14,
       borderWidth: isMobile ? 0 : 1,
-      borderColor: theme.colors.borderCard,
+      borderColor: isDark ? '#232A3B' : 'rgba(199, 210, 254, 0.6)',
       display: 'flex',
       flexDirection: 'column',
       overflow: 'hidden',
@@ -1155,19 +1159,17 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       color: isDark ? '#C4B5FD' : '#7C3AED',
       fontWeight: '800',
     },
-    questionCard: {
-      backgroundColor: isDark ? '#161922' : '#F8FAFC',
-      borderRadius: 12,
-      padding: 16,
-      borderWidth: 1,
-      borderColor: theme.colors.borderSubtle,
-      marginBottom: 18,
+    questionContainer: {
+      marginBottom: 20,
+      paddingTop: 4,
+      paddingHorizontal: 2,
     },
     questionText: {
-      fontSize: 15,
-      fontWeight: '500',
+      fontSize: 16,
+      fontWeight: '600',
       color: theme.colors.textPrimary,
-      lineHeight: 23,
+      lineHeight: 25,
+      letterSpacing: -0.1,
     },
     optionsContainer: {
       gap: 10,

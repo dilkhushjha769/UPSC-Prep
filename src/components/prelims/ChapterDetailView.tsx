@@ -14,6 +14,7 @@ import { usePrelimsTheme, PrelimsThemeType } from '@/constants/prelimsTheme';
 import { getChapterShortNotes, getChapterQuestions } from '@/data/prelimsData';
 import { Chapter, Subject } from '@/types/prelims';
 import { YearWiseTrendGraph } from './YearWiseTrendGraph';
+import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
 import React, { useState, useMemo } from 'react';
 import {
   KeyboardAvoidingView,
@@ -151,6 +152,7 @@ export function ChapterDetailView({
 
   return (
     <View style={styles.container}>
+      <BlueTextureBackground isDark={theme.isDark} />
       {/* Top Navigation Bar */}
       <View style={styles.navBar}>
         <Pressable
@@ -581,7 +583,7 @@ const getStyles = (theme: PrelimsThemeType) => {
   return StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.bgCanvas,
+    backgroundColor: 'transparent',
   },
   navBar: {
     flexDirection: 'row',

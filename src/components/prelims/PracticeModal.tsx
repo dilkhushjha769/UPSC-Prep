@@ -22,6 +22,7 @@ import { useStudy } from '@/context/StudyContext';
 import { BookmarkStorageService } from '@/services/bookmarkStorage';
 import { StatusBar } from 'expo-status-bar';
 import { useMemo, useState, useEffect } from 'react';
+import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
 import {
   Modal,
   Platform,
@@ -266,6 +267,8 @@ export function PracticeModal({
     <Modal visible={visible} animationType="slide" transparent={false}>
       <StatusBar style={theme.isDark ? 'light' : 'dark'} />
       <SafeAreaView style={styles.fullScreenSafeArea}>
+        {/* Subtle Blue Texture Background as shown in image */}
+        <BlueTextureBackground isDark={theme.isDark} />
         {viewMode === 'list' ? (
           /* ========================================================= */
           /* MODE 1: ALL QUESTIONS LIST VIEW (WITH FILTER BAR)         */
@@ -1025,8 +1028,8 @@ export function PracticeModal({
                 )}
               </View>
 
-              {/* Full Question Text */}
-              <View style={styles.fullQuestionCard}>
+              {/* Full Question Text (No Container) */}
+              <View style={styles.fullQuestionContainer}>
                 <Text style={styles.fullQuestionText}>{currentQ.questionText}</Text>
               </View>
 
@@ -1215,11 +1218,11 @@ const getStyles = (theme: PrelimsThemeType) => {
   return StyleSheet.create({
   fullScreenSafeArea: {
     flex: 1,
-    backgroundColor: theme.colors.bgCanvas,
+    backgroundColor: isDark ? '#0D0F17' : '#EAF1FD',
   },
   viewContainer: {
     flex: 1,
-    backgroundColor: theme.colors.bgCanvas,
+    backgroundColor: 'transparent',
   },
   topNavBar: {
     flexDirection: 'row',
@@ -1265,9 +1268,9 @@ const getStyles = (theme: PrelimsThemeType) => {
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: theme.colors.bgCanvas,
+    backgroundColor: isDark ? 'rgba(17, 21, 36, 0.85)' : 'rgba(234, 241, 253, 0.85)',
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.borderSubtle,
+    borderBottomColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(199, 210, 254, 0.5)',
     position: 'relative',
   },
   attemptBackBtn: {
@@ -1346,11 +1349,11 @@ const getStyles = (theme: PrelimsThemeType) => {
     left: 0,
     right: 0,
     height: 2.5,
-    backgroundColor: isDark ? '#232836' : '#E2E8F0',
+    backgroundColor: isDark ? 'rgba(139, 92, 246, 0.22)' : '#EDE9FE',
   },
   topProgressBarFill: {
     height: '100%',
-    backgroundColor: isDark ? '#60A5FA' : '#2563EB',
+    backgroundColor: '#7C3AED',
   },
   qMetaRow: {
     flexDirection: 'row',
@@ -1809,19 +1812,17 @@ const getStyles = (theme: PrelimsThemeType) => {
     fontWeight: '600',
     color: theme.colors.textMuted,
   },
-  fullQuestionCard: {
-    backgroundColor: isDark ? '#161922' : '#F8FAFC',
-    borderRadius: 12,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: theme.colors.borderSubtle,
-    marginBottom: 16,
+  fullQuestionContainer: {
+    marginBottom: 18,
+    paddingTop: 4,
+    paddingHorizontal: 2,
   },
   fullQuestionText: {
-    fontSize: 15,
-    fontWeight: '500',
+    fontSize: 16,
+    fontWeight: '600',
     color: theme.colors.textPrimary,
-    lineHeight: 23,
+    lineHeight: 25,
+    letterSpacing: -0.1,
   },
   optionsSection: {
     marginBottom: 20,

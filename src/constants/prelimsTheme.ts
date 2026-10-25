@@ -10,24 +10,24 @@ export const getPrelimsTheme = (isDark: boolean = true) => {
       bgCanvas: bw.bg,
       bgGradientTop: bw.bg,
       bgSurface: bw.cardBg,
-      bgSurfaceMuted: isDark ? '#232733' : '#F1F5F9',
-      borderSubtle: isDark ? '#2B2F3A' : '#E2E8F0',
-      borderCard: isDark ? '#2B2F3A' : '#E2E8F0',
+      bgSurfaceMuted: isDark ? '#1C2337' : '#EEF3FD',
+      borderSubtle: isDark ? '#232D44' : 'rgba(215, 226, 248, 0.9)',
+      borderCard: isDark ? '#232D44' : 'rgba(215, 226, 248, 0.9)',
 
       // Primary Accents (High Contrast Monochromatic)
       primary: bw.textPrimary,
       primaryLight: isDark ? '#E2E8F0' : '#334155',
-      primarySoft: isDark ? '#20242E' : '#F1F5F9',
-      primarySoftBorder: isDark ? '#313746' : '#CBD5E1',
+      primarySoft: isDark ? '#1C2337' : '#EEF3FD',
+      primarySoftBorder: isDark ? '#2C3854' : '#CFDCF5',
 
       // Buttons (Inverted: Bright white CTA on dark background; Slate/Black on light background)
       darkButton: bw.buttonPrimaryBg,
       darkButtonText: bw.buttonPrimaryText,
 
       // Neutral Monochromatic Pills
-      badgeBg: isDark ? '#20242E' : '#F1F5F9',
+      badgeBg: isDark ? '#1C2337' : '#EEF3FD',
       badgeText: bw.textPrimary,
-      badgeBorder: isDark ? '#313746' : '#E2E8F0',
+      badgeBorder: isDark ? '#2C3854' : '#CFDCF5',
 
       // Text
       textPrimary: bw.textPrimary,

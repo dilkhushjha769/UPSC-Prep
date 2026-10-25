@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Modal, ScrollView, Pressable } from 'react-nati
 import { X, CheckCircle2, Circle, CheckSquare, Square } from '@/components/common/LucideIcons';
 import { Subject, QuizConfig } from '@/types/prelims';
 import { usePrelimsTheme, PrelimsThemeType } from '@/constants/prelimsTheme';
+import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
 
 interface QuizGeneratorModalProps {
   visible: boolean;
@@ -50,6 +51,7 @@ export function QuizGeneratorModal({
     <Modal visible={visible} animationType="slide" transparent>
       <View style={styles.modalOverlay}>
         <View style={styles.sheetContainer}>
+          <BlueTextureBackground isDark={theme.isDark} />
           {/* Header */}
           <View style={styles.topBar}>
             <View>
@@ -311,6 +313,7 @@ const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
     borderTopColor: theme.colors.borderCard,
     height: '85%',
     paddingBottom: 20,
+    overflow: 'hidden',
   },
   topBar: {
     flexDirection: 'row',

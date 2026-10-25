@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "upsc-prep",
-    "slug": "upsc-prep",
+    "slug": "upsc",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -38,6 +38,17 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "bf281d1b-e304-47a8-820e-b86f5fe81f3e"
+      }
+    },
+    "owner": "dilkhushjha7696"
   }
 }

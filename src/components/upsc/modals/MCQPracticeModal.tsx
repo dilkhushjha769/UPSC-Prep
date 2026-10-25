@@ -14,6 +14,7 @@ import {
 } from 'lucide-react-native';
 import { useStudy } from '@/context/StudyContext';
 import { UPSC_THEME } from '@/constants/themeColors';
+import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
 
 interface Question {
   id: number;
@@ -154,6 +155,7 @@ export function MCQPracticeModal({ isDark }: MCQPracticeModalProps) {
               borderColor: colors.cardBorder,
             },
           ]}>
+          <BlueTextureBackground isDark={isDark} />
           <View style={styles.header}>
             <View style={styles.headerTitleRow}>
               <FileQuestion size={18} color={colors.primary} />

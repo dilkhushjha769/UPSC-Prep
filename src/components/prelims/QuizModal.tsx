@@ -350,15 +350,15 @@ function QuizModalContent({
           {!isSubmitted && (
             <View style={[styles.timerBadge, timeLeftSeconds < 120 && styles.timerDanger]}>
               <Timer
-                size={14}
+                size={13.5}
                 color={
                   timeLeftSeconds < 120
                     ? '#EF4444'
                     : theme.isDark
-                    ? '#FBBF24'
-                    : '#D97706'
+                    ? '#60A5FA'
+                    : '#2563EB'
                 }
-                strokeWidth={2.4}
+                strokeWidth={2.2}
               />
               <Text
                 style={[
@@ -677,7 +677,7 @@ function QuizModalContent({
                   </View>
                   <View style={styles.confirmStatDivider} />
                   <View style={styles.confirmStatItem}>
-                    <Text style={[styles.confirmStatNum, { color: '#F59E0B' }]}>
+                    <Text style={[styles.confirmStatNum, { color: theme.isDark ? '#60A5FA' : '#2563EB' }]}>
                       {formatTime(timeLeftSeconds)}
                     </Text>
                     <Text style={styles.confirmStatLabel}>Time Left</Text>
@@ -948,34 +948,27 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     timerBadge: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: isDark ? '#2B1C04' : '#FEF3C7',
-      borderWidth: 1.5,
-      borderColor: isDark ? '#D97706' : '#F59E0B',
+      backgroundColor: isDark ? '#1C2230' : '#F1F5F9',
+      borderWidth: 1,
+      borderColor: isDark ? '#333D52' : '#CBD5E1',
       paddingHorizontal: isMobile ? 10 : 12,
       paddingVertical: 5,
-      borderRadius: 20,
+      borderRadius: 18,
       height: 34,
       gap: 6,
-      shadowColor: isDark ? '#F59E0B' : '#D97706',
-      shadowOffset: { width: 0, height: 1 },
-      shadowOpacity: isDark ? 0.3 : 0.15,
-      shadowRadius: 3,
-      elevation: 2,
     },
     timerDanger: {
-      backgroundColor: isDark ? '#3E1013' : '#FEE2E2',
-      borderColor: '#EF4444',
-      shadowColor: '#EF4444',
-      shadowOpacity: 0.35,
+      backgroundColor: isDark ? 'rgba(239, 68, 68, 0.12)' : '#FEF2F2',
+      borderColor: isDark ? '#DC2626' : '#EF4444',
     },
     timerText: {
       fontSize: 13,
-      fontWeight: '900',
-      color: isDark ? '#FDE68A' : '#92400E',
-      letterSpacing: 0.4,
+      fontWeight: '800',
+      color: theme.colors.textPrimary,
+      letterSpacing: 0.5,
     },
     timerTextDanger: {
-      color: isDark ? '#FCA5A5' : '#DC2626',
+      color: '#EF4444',
     },
     mobilePaletteBtn: {
       width: 34,

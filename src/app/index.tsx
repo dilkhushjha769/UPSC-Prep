@@ -91,7 +91,7 @@ export default function AppScreen() {
           )}
 
           {activeTab === 'current-affairs' && (
-            <CurrentAffairsView isDark={isDark} />
+            <CurrentAffairsView isDark={isDark} onToggleTheme={toggleTheme} />
           )}
 
           {activeTab === 'leaderboard' && (

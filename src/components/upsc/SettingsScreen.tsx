@@ -135,8 +135,8 @@ export function SettingsScreen({
             <Switch
               value={isDark}
               onValueChange={() => onToggleTheme?.()}
-              trackColor={{ false: '#CBD5E1', true: isDark ? '#475569' : '#0F172A' }}
-              thumbColor="#FFFFFF"
+              trackColor={{ false: isDark ? '#272F45' : '#E2E8F0', true: isDark ? '#FFFFFF' : '#000000' }}
+              thumbColor={Platform.OS === 'android' ? (isDark ? '#000000' : '#FFFFFF') : '#FFFFFF'}
             />
           </View>
         </View>
@@ -175,8 +175,8 @@ export function SettingsScreen({
             <Switch
               value={offlineSync}
               onValueChange={setOfflineSync}
-              trackColor={{ false: '#CBD5E1', true: isDark ? '#475569' : '#0F172A' }}
-              thumbColor="#FFFFFF"
+              trackColor={{ false: isDark ? '#272F45' : '#E2E8F0', true: isDark ? '#FFFFFF' : '#000000' }}
+              thumbColor={Platform.OS === 'android' ? (isDark ? '#000000' : '#FFFFFF') : '#FFFFFF'}
             />
           </View>
         </View>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Platform,
   ScrollView,
   StyleSheet,
   Switch,
@@ -63,6 +64,18 @@ export function NotificationSettingsScreen({
   const cardBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)';
   const dividerColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.05)';
 
+  // Switch styling: pure black on light theme, clean crisp white on dark theme
+  const switchTrackColor = {
+    false: isDark ? '#272F45' : '#E2E8F0',
+    true: isDark ? '#FFFFFF' : '#000000',
+  };
+  const switchThumbColor = (val: boolean) => {
+    if (Platform.OS === 'android') {
+      return val ? (isDark ? '#000000' : '#FFFFFF') : (isDark ? '#94A3B8' : '#FFFFFF');
+    }
+    return val ? (isDark ? '#09090B' : '#FFFFFF') : '#FFFFFF';
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: isDark ? '#0C0F17' : '#F8FAFC' }]}>
       {/* Header matching design reference: Back arrow on left, Centered Title, Blue 'Save' link on right */}
@@ -119,8 +132,8 @@ export function NotificationSettingsScreen({
               <Switch
                 value={prefs.currentAffairsDigest}
                 onValueChange={() => handleToggle('currentAffairsDigest')}
-                trackColor={{ false: '#E2E8F0', true: '#0F172A' }}
-                thumbColor="#FFFFFF"
+                trackColor={switchTrackColor}
+                thumbColor={switchThumbColor(prefs.currentAffairsDigest)}
               />
             </View>
 
@@ -131,8 +144,8 @@ export function NotificationSettingsScreen({
               <Switch
                 value={prefs.studyReminders}
                 onValueChange={() => handleToggle('studyReminders')}
-                trackColor={{ false: '#E2E8F0', true: '#0F172A' }}
-                thumbColor="#FFFFFF"
+                trackColor={switchTrackColor}
+                thumbColor={switchThumbColor(prefs.studyReminders)}
               />
             </View>
 
@@ -143,8 +156,8 @@ export function NotificationSettingsScreen({
               <Switch
                 value={prefs.mockTestAnnouncements}
                 onValueChange={() => handleToggle('mockTestAnnouncements')}
-                trackColor={{ false: '#E2E8F0', true: '#0F172A' }}
-                thumbColor="#FFFFFF"
+                trackColor={switchTrackColor}
+                thumbColor={switchThumbColor(prefs.mockTestAnnouncements)}
               />
             </View>
           </View>
@@ -167,8 +180,8 @@ export function NotificationSettingsScreen({
               <Switch
                 value={prefs.soundEnabled}
                 onValueChange={() => handleToggle('soundEnabled')}
-                trackColor={{ false: '#E2E8F0', true: '#0F172A' }}
-                thumbColor="#FFFFFF"
+                trackColor={switchTrackColor}
+                thumbColor={switchThumbColor(prefs.soundEnabled)}
               />
             </View>
 
@@ -179,8 +192,8 @@ export function NotificationSettingsScreen({
               <Switch
                 value={prefs.streakAlerts}
                 onValueChange={() => handleToggle('streakAlerts')}
-                trackColor={{ false: '#E2E8F0', true: '#0F172A' }}
-                thumbColor="#FFFFFF"
+                trackColor={switchTrackColor}
+                thumbColor={switchThumbColor(prefs.streakAlerts)}
               />
             </View>
           </View>
@@ -203,8 +216,8 @@ export function NotificationSettingsScreen({
               <Switch
                 value={!prefs.quietHoursEnabled}
                 onValueChange={() => handleToggle('quietHoursEnabled')}
-                trackColor={{ false: '#E2E8F0', true: '#0F172A' }}
-                thumbColor="#FFFFFF"
+                trackColor={switchTrackColor}
+                thumbColor={switchThumbColor(!prefs.quietHoursEnabled)}
               />
             </View>
           </View>

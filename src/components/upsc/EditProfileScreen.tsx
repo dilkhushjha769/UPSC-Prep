@@ -16,11 +16,7 @@ import {
   Camera,
   Check,
   ChevronLeft,
-  Crop,
-  RotateCcw,
   Upload,
-  ZoomIn,
-  ZoomOut,
 } from 'lucide-react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { BW_THEME } from '@/constants/bwTheme';
@@ -171,21 +167,12 @@ export function EditProfileScreen({
     setIsCropModalOpen(true);
   };
 
-  const handleZoomIn = () => {
-    setAvatarScale((prev) => Math.min(2.5, +(prev + 0.15).toFixed(2)));
-  };
-
-  const handleZoomOut = () => {
-    setAvatarScale((prev) => Math.max(0.7, +(prev - 0.15).toFixed(2)));
-  };
-
-  const handleResetZoom = () => {
-    setAvatarScale(1);
-  };
-
   const handleRemovePhoto = () => {
     setAvatarUri(undefined);
     setAvatarScale(1);
+    setAvatarOffsetX(0);
+    setAvatarOffsetY(0);
+    setAvatarRotation(0);
   };
 
   // Save to AsyncStorage + Supabase Cloud Database
@@ -395,24 +382,6 @@ export function EditProfileScreen({
             {Boolean(avatarUri) && (
               <TouchableOpacity
                 activeOpacity={0.75}
-                onPress={() => setIsCropModalOpen(true)}
-                style={[
-                  styles.actionPillBtn,
-                  {
-                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
-                    borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
-                  },
-                ]}>
-                <Crop size={14} color={theme.textPrimary} strokeWidth={2.2} />
-                <Text style={[styles.actionPillText, { color: theme.textPrimary }]}>
-                  Crop & Frame
-                </Text>
-              </TouchableOpacity>
-            )}
-
-            {Boolean(avatarUri) && (
-              <TouchableOpacity
-                activeOpacity={0.75}
                 onPress={handleRemovePhoto}
                 style={[
                   styles.actionPillBtn,
@@ -427,64 +396,6 @@ export function EditProfileScreen({
               </TouchableOpacity>
             )}
           </View>
-
-          {/* Scale / Zoom Control (Only when picture is selected) */}
-          {Boolean(avatarUri) && (
-            <View
-              style={[
-                styles.zoomControlBox,
-                {
-                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.02)',
-                  borderColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)',
-                },
-              ]}>
-              <Text style={[styles.zoomLabel, { color: theme.textMuted }]}>
-                IMAGE SCALE: {Math.round(avatarScale * 100)}%
-              </Text>
-
-              <View style={styles.zoomButtonsRow}>
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={handleZoomOut}
-                  disabled={avatarScale <= 0.7}
-                  style={[
-                    styles.zoomStepBtn,
-                    {
-                      borderColor: isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)',
-                      opacity: avatarScale <= 0.7 ? 0.4 : 1,
-                    },
-                  ]}>
-                  <ZoomOut size={15} color={theme.textPrimary} />
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={handleResetZoom}
-                  style={[
-                    styles.zoomStepBtn,
-                    {
-                      borderColor: isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)',
-                    },
-                  ]}>
-                  <RotateCcw size={14} color={theme.textSecondary} />
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={handleZoomIn}
-                  disabled={avatarScale >= 2.5}
-                  style={[
-                    styles.zoomStepBtn,
-                    {
-                      borderColor: isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)',
-                      opacity: avatarScale >= 2.5 ? 0.4 : 1,
-                    },
-                  ]}>
-                  <ZoomIn size={15} color={theme.textPrimary} />
-                </TouchableOpacity>
-              </View>
-            </View>
-          )}
         </View>
 
         {/* Input Fields Form */}

@@ -16,6 +16,7 @@ import {
   Camera,
   Check,
   ChevronLeft,
+  Crop,
   RotateCcw,
   Upload,
   ZoomIn,
@@ -26,6 +27,7 @@ import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
 import { ExamMedium } from '@/types/study';
 import { supabase } from '@/services/supabase';
+import { PhotoCropModal } from './PhotoCropModal';
 
 interface EditProfileScreenProps {
   isDark: boolean;
@@ -70,6 +72,10 @@ export function EditProfileScreen({
   // Photo & Scaling State
   const [avatarUri, setAvatarUri] = useState<string | undefined>(config.avatarUri);
   const [avatarScale, setAvatarScale] = useState<number>(config.avatarScale || 1);
+  const [avatarOffsetX, setAvatarOffsetX] = useState<number>(config.avatarOffsetX || 0);
+  const [avatarOffsetY, setAvatarOffsetY] = useState<number>(config.avatarOffsetY || 0);
+  const [avatarRotation, setAvatarRotation] = useState<number>(config.avatarRotation || 0);
+  const [isCropModalOpen, setIsCropModalOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
@@ -98,15 +104,13 @@ export function EditProfileScreen({
 
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ['images'],
-        allowsEditing: true,
-        aspect: [1, 1], // 1:1 square crop
-        quality: 0.85,
+        allowsEditing: false, // Handled by our dedicated full-control PhotoCropModal
+        quality: 0.9,
         base64: true,
       });
 
       if (!result.canceled && result.assets && result.assets.length > 0) {
         const asset = result.assets[0];
-        // If web or base64 available, use persistent data uri for guaranteed local & db persistence
         if (asset.base64) {
           const mime = asset.mimeType || 'image/jpeg';
           const base64Uri = `data:${mime};base64,${asset.base64}`;
@@ -114,7 +118,7 @@ export function EditProfileScreen({
         } else {
           setAvatarUri(asset.uri);
         }
-        setAvatarScale(1);
+        setScaleAndOpenCrop();
       }
     } catch (e) {
       console.warn('Failed to pick profile image:', e);
@@ -137,9 +141,8 @@ export function EditProfileScreen({
 
       const result = await ImagePicker.launchCameraAsync({
         mediaTypes: ['images'],
-        allowsEditing: true,
-        aspect: [1, 1],
-        quality: 0.85,
+        allowsEditing: false,
+        quality: 0.9,
         base64: true,
       });
 
@@ -152,12 +155,20 @@ export function EditProfileScreen({
         } else {
           setAvatarUri(asset.uri);
         }
-        setAvatarScale(1);
+        setScaleAndOpenCrop();
       }
     } catch (e) {
       console.warn('Failed to capture photo:', e);
       Alert.alert('Camera', 'Could not access camera.');
     }
+  };
+
+  const setScaleAndOpenCrop = () => {
+    setAvatarScale(1);
+    setAvatarOffsetX(0);
+    setAvatarOffsetY(0);
+    setAvatarRotation(0);
+    setIsCropModalOpen(true);
   };
 
   const handleZoomIn = () => {
@@ -196,6 +207,9 @@ export function EditProfileScreen({
         medium,
         avatarUri,
         avatarScale,
+        avatarOffsetX,
+        avatarOffsetY,
+        avatarRotation,
       };
 
       // 1. Update local storage via StudyContext
@@ -326,7 +340,12 @@ export function EditProfileScreen({
                   style={[
                     styles.avatarImage,
                     {
-                      transform: [{ scale: avatarScale }],
+                      transform: [
+                        { scale: avatarScale },
+                        { translateX: avatarOffsetX },
+                        { translateY: avatarOffsetY },
+                        { rotate: `${avatarRotation}deg` },
+                      ],
                     },
                   ]}
                   resizeMode="cover"
@@ -372,6 +391,24 @@ export function EditProfileScreen({
                 Take Photo
               </Text>
             </TouchableOpacity>
+
+            {Boolean(avatarUri) && (
+              <TouchableOpacity
+                activeOpacity={0.75}
+                onPress={() => setIsCropModalOpen(true)}
+                style={[
+                  styles.actionPillBtn,
+                  {
+                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
+                    borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
+                  },
+                ]}>
+                <Crop size={14} color={theme.textPrimary} strokeWidth={2.2} />
+                <Text style={[styles.actionPillText, { color: theme.textPrimary }]}>
+                  Crop & Frame
+                </Text>
+              </TouchableOpacity>
+            )}
 
             {Boolean(avatarUri) && (
               <TouchableOpacity
@@ -775,6 +812,23 @@ export function EditProfileScreen({
 
         <View style={{ height: 48 }} />
       </ScrollView>
+
+      {/* Professional Crop & Adjustment Studio Modal */}
+      {Boolean(avatarUri) && (
+        <PhotoCropModal
+          visible={isCropModalOpen}
+          imageUri={avatarUri!}
+          isDark={isDark}
+          onCancel={() => setIsCropModalOpen(false)}
+          onApply={({ scale, offsetX, offsetY, rotation }) => {
+            setAvatarScale(scale);
+            setAvatarOffsetX(offsetX);
+            setAvatarOffsetY(offsetY);
+            setAvatarRotation(rotation);
+            setIsCropModalOpen(false);
+          }}
+        />
+      )}
     </View>
   );
 }

@@ -5,6 +5,8 @@ export * from './ExamReadinessCard';
 export * from './ProfileView';
 export * from './EditProfileScreen';
 export * from './SettingsScreen';
+export * from './NotificationSettingsScreen';
+export * from './PhotoCropModal';
 export * from './LegalScreen';
 export * from './CurrentAffairsView';
 export * from './NotificationsScreen';

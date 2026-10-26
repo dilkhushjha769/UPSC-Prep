@@ -22,6 +22,7 @@ import { useStudy } from '@/context/StudyContext';
 import { EditProfileScreen } from './EditProfileScreen';
 import { SettingsScreen } from './SettingsScreen';
 import { LegalScreen } from './LegalScreen';
+import { NotificationSettingsScreen } from './NotificationSettingsScreen';
 
 interface ProfileViewProps {
   isDark: boolean;
@@ -30,7 +31,13 @@ interface ProfileViewProps {
   onBack?: () => void;
 }
 
-type SubScreen = 'main' | 'edit-profile' | 'settings' | 'privacy' | 'terms';
+type SubScreen =
+  | 'main'
+  | 'edit-profile'
+  | 'settings'
+  | 'notification-settings'
+  | 'privacy'
+  | 'terms';
 
 export function ProfileView({
   isDark,
@@ -88,7 +95,18 @@ export function ProfileView({
         onToggleTheme={onToggleTheme}
         onOpenPrivacy={() => setCurrentScreen('privacy')}
         onOpenTerms={() => setCurrentScreen('terms')}
+        onOpenNotificationSettings={() => setCurrentScreen('notification-settings')}
         onNavigateToNotifications={() => onNavigateToTab?.('notifications')}
+      />
+    );
+  }
+
+  // SUB-SCREEN 2.5: Notification Settings Screen
+  if (currentScreen === 'notification-settings') {
+    return (
+      <NotificationSettingsScreen
+        isDark={isDark}
+        onBack={() => setCurrentScreen('settings')}
       />
     );
   }
@@ -216,7 +234,12 @@ export function ProfileView({
                   style={[
                     styles.avatarImage,
                     {
-                      transform: [{ scale: config.avatarScale || 1 }],
+                      transform: [
+                        { scale: config.avatarScale || 1 },
+                        { translateX: config.avatarOffsetX || 0 },
+                        { translateY: config.avatarOffsetY || 0 },
+                        { rotate: `${config.avatarRotation || 0}deg` },
+                      ],
                     },
                   ]}
                   resizeMode="cover"

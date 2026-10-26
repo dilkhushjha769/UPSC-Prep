@@ -64,6 +64,16 @@ export type ExamMedium = 'English' | 'Hindi';
 
 export type SocialCategory = 'General' | 'EWS' | 'OBC' | 'SC' | 'ST';
 
+export interface NotificationPreferences {
+  studyReminders: boolean; // Daily study targets & class alerts
+  streakAlerts: boolean; // Streak protection warnings
+  currentAffairsDigest: boolean; // Daily editorial & news highlights
+  mockTestAnnouncements: boolean; // Weekly mock test & leaderboard results
+  soundEnabled: boolean; // Notification alert sounds
+  vibrationEnabled: boolean; // Haptic feedback
+  quietHoursEnabled: boolean; // Mute notifications from 11 PM to 6 AM
+}
+
 export interface UserStudyConfig {
   aspirantName: string;
   targetExamYear: number;
@@ -85,6 +95,7 @@ export interface UserStudyConfig {
   avatarScale?: number;
   avatarOffsetX?: number;
   avatarOffsetY?: number;
+  avatarRotation?: number;
   residentialStatus?: string;
   profession?: string;
   organisationName?: string;
@@ -98,6 +109,7 @@ export interface UserStudyConfig {
   syllabusCompletionPercent?: number; // 0 - 100
   mockTestsAttempted?: number;
   mockAverageScore?: number;
+  notificationPreferences?: NotificationPreferences;
 }
 
 export interface DayStudySummary {

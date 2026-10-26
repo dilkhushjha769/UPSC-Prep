@@ -33,6 +33,7 @@ interface SettingsScreenProps {
   onToggleTheme?: () => void;
   onOpenPrivacy: () => void;
   onOpenTerms: () => void;
+  onOpenNotificationSettings?: () => void;
   onNavigateToNotifications?: () => void;
 }
 
@@ -42,6 +43,7 @@ export function SettingsScreen({
   onToggleTheme,
   onOpenPrivacy,
   onOpenTerms,
+  onOpenNotificationSettings,
   onNavigateToNotifications,
 }: SettingsScreenProps) {
   const { resetToDefaults } = useStudy();
@@ -147,7 +149,7 @@ export function SettingsScreen({
 
           <TouchableOpacity
             activeOpacity={0.7}
-            onPress={onNavigateToNotifications}
+            onPress={onOpenNotificationSettings || onNavigateToNotifications}
             style={[styles.listRow, dividerStyle]}>
             <View style={styles.rowLeftGroup}>
               <Bell size={16} color={theme.textSecondary} strokeWidth={2} />
@@ -157,7 +159,7 @@ export function SettingsScreen({
             </View>
             <View style={styles.rowRightGroup}>
               <Text style={[styles.rowValue, { color: theme.textSecondary }]}>
-                Daily Alerts
+                Custom Alert Rules
               </Text>
               <ChevronRight size={15} color={theme.textMuted} />
             </View>

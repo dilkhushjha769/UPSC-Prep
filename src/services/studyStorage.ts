@@ -47,6 +47,15 @@ export const DEFAULT_CONFIG: UserStudyConfig = {
   syllabusCompletionPercent: 68,
   mockTestsAttempted: 18,
   mockAverageScore: 108.5,
+  notificationPreferences: {
+    studyReminders: true,
+    streakAlerts: true,
+    currentAffairsDigest: true,
+    mockTestAnnouncements: true,
+    soundEnabled: true,
+    vibrationEnabled: true,
+    quietHoursEnabled: false,
+  },
 };
 
 export const DEFAULT_METRICS: UPSCPreparationMetrics = {

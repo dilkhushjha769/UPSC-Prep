@@ -22,16 +22,19 @@ import {
   ChevronLeft,
   Moon,
   MoreVertical,
+  Settings,
   Sun,
   Trash2,
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
+import { NotificationSettingsScreen } from './NotificationSettingsScreen';
 
 interface NotificationsScreenProps {
   isDark: boolean;
   onBack: () => void;
   onToggleTheme?: () => void;
+  onOpenSettings?: () => void;
 }
 
 type FilterPeriod = 'All' | 'Today' | 'Yesterday' | 'Earlier';
@@ -305,12 +308,14 @@ export function NotificationsScreen({
   isDark,
   onBack,
   onToggleTheme,
+  onOpenSettings,
 }: NotificationsScreenProps) {
   const { streak } = useStudy();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const { width } = useWindowDimensions();
   const isDesktop = width >= 768;
 
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState<FilterPeriod>('All');
   const [activeMenuId, setActiveMenuId] = useState<string | null>(null);
   const [isConfirmDeleteAllOpen, setIsConfirmDeleteAllOpen] = useState(false);
@@ -423,6 +428,15 @@ export function NotificationsScreen({
     return item.period === selectedFilter;
   });
 
+  if (isSettingsOpen) {
+    return (
+      <NotificationSettingsScreen
+        isDark={isDark}
+        onBack={() => setIsSettingsOpen(false)}
+      />
+    );
+  }
+
   return (
     <View style={[styles.screenContainer, { backgroundColor: theme.bg }]}>
       {/* Top Navigation Bar with Circular Back Button */}
@@ -522,6 +536,27 @@ export function NotificationsScreen({
               <CheckCheck size={16} color={theme.textSecondary} strokeWidth={2.2} />
             </TouchableOpacity>
           )}
+
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => {
+              if (onOpenSettings) {
+                onOpenSettings();
+              } else {
+                setIsSettingsOpen(true);
+              }
+            }}
+            accessibilityLabel="Notification Preferences"
+            style={[
+              styles.headerActionBtn,
+              Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
+              {
+                backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#FBEFE5',
+                borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
+              },
+            ]}>
+            <Settings size={16} color={theme.textPrimary} strokeWidth={2.2} />
+          </TouchableOpacity>
         </View>
       </View>
 

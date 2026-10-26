@@ -16,13 +16,11 @@ import {
   Check,
   Circle,
   FlipHorizontal,
-  FlipVertical,
   Grid,
   Maximize2,
-  RotateCcw,
   RotateCw,
-  Square,
   Smartphone,
+  Square,
   Tv,
   X,
   ZoomIn,
@@ -38,6 +36,13 @@ export interface PhotoCropResult {
 
 export type AspectRatioMode = 'circle' | 'square' | 'portrait' | 'landscape';
 
+const ASPECT_MODES: { mode: AspectRatioMode; label: string; icon: any }[] = [
+  { mode: 'circle', label: 'Circle', icon: Circle },
+  { mode: 'square', label: '1:1', icon: Square },
+  { mode: 'portrait', label: '4:5', icon: Smartphone },
+  { mode: 'landscape', label: '16:9', icon: Tv },
+];
+
 interface PhotoCropModalProps {
   visible: boolean;
   imageUri: string;
@@ -52,10 +57,10 @@ export function PhotoCropModal({
   onCancel,
   onApplyCroppedImage,
 }: PhotoCropModalProps) {
-  const { width: windowWidth } = useWindowDimensions();
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
 
-  // Crop Viewport base sizing
-  const BASE_SIZE = Math.min(320, Math.floor(windowWidth * 0.82));
+  // Crop Viewport base sizing responsive to screen
+  const BASE_SIZE = Math.min(300, Math.floor(windowWidth * 0.78), Math.floor(windowHeight * 0.42));
 
   // State: Aspect Ratio
   const [aspectMode, setAspectMode] = useState<AspectRatioMode>('circle');
@@ -73,9 +78,8 @@ export function PhotoCropModal({
   const [panY, setPanY] = useState<number>(0);
   const [rotationDegrees, setRotationDegrees] = useState<number>(0); // 0, 90, 180, 270
   const [isFlippedH, setIsFlippedH] = useState<boolean>(false);
-  const [isFlippedV, setIsFlippedV] = useState<boolean>(false);
 
-  // Dynamic Viewport Dimensions
+  // Dynamic Viewport Dimensions based on selected Aspect Ratio
   const { viewportW, viewportH, isCircle } = useMemo(() => {
     if (aspectMode === 'portrait') {
       return {
@@ -98,7 +102,7 @@ export function PhotoCropModal({
         isCircle: false,
       };
     }
-    // 'circle'
+    // 'circle' (default for profile avatars)
     return {
       viewportW: BASE_SIZE,
       viewportH: BASE_SIZE,
@@ -106,14 +110,16 @@ export function PhotoCropModal({
     };
   }, [aspectMode, BASE_SIZE]);
 
-  // References to keep gesture callbacks responsive and prevent stale closures
-  const stateRef = useRef({
-    panX,
-    panY,
-    scaleFactor,
-    maxPanX: 0,
-    maxPanY: 0,
-  });
+  // Cycle through aspect ratio modes when user taps the Frame button
+  const handleCycleAspect = () => {
+    const currentIndex = ASPECT_MODES.findIndex((m) => m.mode === aspectMode);
+    const nextMode = ASPECT_MODES[(currentIndex + 1) % ASPECT_MODES.length].mode;
+    setAspectMode(nextMode);
+  };
+
+  const currentAspect =
+    ASPECT_MODES.find((m) => m.mode === aspectMode) || ASPECT_MODES[0];
+  const CurrentAspectIcon = currentAspect.icon;
 
   // Track image change and adjust state during rendering per React guidelines
   const [prevUri, setPrevUri] = useState(imageUri);
@@ -124,7 +130,6 @@ export function PhotoCropModal({
     setPanY(0);
     setRotationDegrees(0);
     setIsFlippedH(false);
-    setIsFlippedV(false);
     setAspectMode('circle');
     setIsLoadingMeta(true);
   }
@@ -189,7 +194,7 @@ export function PhotoCropModal({
 
   // Exact Layout Dimensions for <Image>:
   // When rotated 90/270 deg, React Native rotates around center, swapping visual width and height.
-  // By setting layout dimensions inversely when sideways, the natural aspect ratio is preserved 100%
+  // Inverting layout dimensions when sideways guarantees the natural aspect ratio is preserved 100%
   // without any squishing, distortion, or black bars.
   const imageLayoutWidth = isSideways ? currentRenderHeight : currentRenderWidth;
   const imageLayoutHeight = isSideways ? currentRenderWidth : currentRenderHeight;
@@ -201,6 +206,15 @@ export function PhotoCropModal({
   // Clamped Pan guarantees offsets are mathematically bounded at all times without extra renders
   const clampedPanX = Math.max(-maxPanX, Math.min(maxPanX, panX));
   const clampedPanY = Math.max(-maxPanY, Math.min(maxPanY, panY));
+
+  // References to keep gesture callbacks responsive and prevent stale closures
+  const stateRef = useRef({
+    panX: clampedPanX,
+    panY: clampedPanY,
+    scaleFactor,
+    maxPanX,
+    maxPanY,
+  });
 
   // Sync stateRef for gestures
   useEffect(() => {
@@ -294,18 +308,8 @@ export function PhotoCropModal({
     setPanY(0);
   };
 
-  const handleRotateLeft = () => {
-    setRotationDegrees((prev) => (prev + 270) % 360);
-    setPanX(0);
-    setPanY(0);
-  };
-
   const handleFlipHorizontal = () => {
     setIsFlippedH((prev) => !prev);
-  };
-
-  const handleFlipVertical = () => {
-    setIsFlippedV((prev) => !prev);
   };
 
   const handleReset = () => {
@@ -314,7 +318,7 @@ export function PhotoCropModal({
     setPanY(0);
     setRotationDegrees(0);
     setIsFlippedH(false);
-    setIsFlippedV(false);
+    setAspectMode('circle');
   };
 
   // 4. Mathematical Coordinate Mapping & Real Image Crop Execution
@@ -330,9 +334,6 @@ export function PhotoCropModal({
       }
       if (isFlippedH) {
         preActions.push({ flip: ImageManipulator.FlipType.Horizontal });
-      }
-      if (isFlippedV) {
-        preActions.push({ flip: ImageManipulator.FlipType.Vertical });
       }
 
       // Step B: Calculate the source image pixel crop rectangle
@@ -406,7 +407,7 @@ export function PhotoCropModal({
   return (
     <Modal visible={visible} animationType="fade" transparent statusBarTranslucent>
       <View style={styles.modalBackdrop}>
-        {/* Top Header Bar */}
+        {/* Top Header Bar - Clean and Uncluttered */}
         <View style={styles.topHeader}>
           <TouchableOpacity
             activeOpacity={0.7}
@@ -414,12 +415,12 @@ export function PhotoCropModal({
             disabled={isProcessing}
             accessibilityLabel="Cancel Crop"
             style={styles.headerIconBtn}>
-            <X size={20} color="#FFFFFF" strokeWidth={2.4} />
+            <X size={18} color="#FFFFFF" strokeWidth={2.4} />
           </TouchableOpacity>
 
           <View style={styles.headerCenter}>
-            <Text style={styles.headerTitle}>Crop Profile Photo</Text>
-            <Text style={styles.headerSubtitle}>Drag & pinch to frame</Text>
+            <Text style={styles.headerTitle}>Move and Scale</Text>
+            <Text style={styles.headerSubtitle}>Drag or pinch to frame</Text>
           </View>
 
           <TouchableOpacity
@@ -435,81 +436,10 @@ export function PhotoCropModal({
               <ActivityIndicator size="small" color="#09090B" />
             ) : (
               <>
-                <Check size={16} color="#09090B" strokeWidth={2.6} />
+                <Check size={14} color="#09090B" strokeWidth={2.8} />
                 <Text style={styles.doneBtnText}>Done</Text>
               </>
             )}
-          </TouchableOpacity>
-        </View>
-
-        {/* Aspect Ratio Selector Row */}
-        <View style={styles.aspectRatioRow}>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => setAspectMode('circle')}
-            style={[
-              styles.aspectPill,
-              aspectMode === 'circle' && styles.aspectPillActive,
-            ]}>
-            <Circle size={12} color={aspectMode === 'circle' ? '#09090B' : '#FFFFFF'} />
-            <Text
-              style={[
-                styles.aspectPillText,
-                aspectMode === 'circle' && styles.aspectPillTextActive,
-              ]}>
-              Circle
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => setAspectMode('square')}
-            style={[
-              styles.aspectPill,
-              aspectMode === 'square' && styles.aspectPillActive,
-            ]}>
-            <Square size={12} color={aspectMode === 'square' ? '#09090B' : '#FFFFFF'} />
-            <Text
-              style={[
-                styles.aspectPillText,
-                aspectMode === 'square' && styles.aspectPillTextActive,
-              ]}>
-              1:1
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => setAspectMode('portrait')}
-            style={[
-              styles.aspectPill,
-              aspectMode === 'portrait' && styles.aspectPillActive,
-            ]}>
-            <Smartphone size={12} color={aspectMode === 'portrait' ? '#09090B' : '#FFFFFF'} />
-            <Text
-              style={[
-                styles.aspectPillText,
-                aspectMode === 'portrait' && styles.aspectPillTextActive,
-              ]}>
-              4:5
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => setAspectMode('landscape')}
-            style={[
-              styles.aspectPill,
-              aspectMode === 'landscape' && styles.aspectPillActive,
-            ]}>
-            <Tv size={12} color={aspectMode === 'landscape' ? '#09090B' : '#FFFFFF'} />
-            <Text
-              style={[
-                styles.aspectPillText,
-                aspectMode === 'landscape' && styles.aspectPillTextActive,
-              ]}>
-              16:9
-            </Text>
           </TouchableOpacity>
         </View>
 
@@ -524,7 +454,7 @@ export function PhotoCropModal({
                 {
                   width: viewportW,
                   height: viewportH,
-                  borderRadius: isCircle ? viewportW / 2 : 12,
+                  borderRadius: isCircle ? viewportW / 2 : 14,
                 },
               ]}
               {...panResponder.panHandlers}>
@@ -550,7 +480,6 @@ export function PhotoCropModal({
                     transform: [
                       { rotate: `${rotationDegrees}deg` },
                       { scaleX: isFlippedH ? -1 : 1 },
-                      { scaleY: isFlippedV ? -1 : 1 },
                     ],
                   }}
                   resizeMode="cover"
@@ -566,7 +495,7 @@ export function PhotoCropModal({
                     {
                       width: viewportW,
                       height: viewportH,
-                      borderRadius: isCircle ? viewportW / 2 : 12,
+                      borderRadius: isCircle ? viewportW / 2 : 14,
                     },
                   ]}>
                   {/* Horizontal Grid lines */}
@@ -582,13 +511,13 @@ export function PhotoCropModal({
 
           {/* Guide hint */}
           <Text style={styles.tipText}>
-            Pinch to zoom · Drag image to position inside the frame
+            Pinch to zoom · Drag image to position
           </Text>
         </View>
 
         {/* Professional Bottom Toolbar */}
         <View style={styles.bottomBar}>
-          {/* Zoom Slider / Controls */}
+          {/* Zoom Controls */}
           <View style={styles.zoomControlsRow}>
             <TouchableOpacity
               activeOpacity={0.7}
@@ -615,24 +544,24 @@ export function PhotoCropModal({
             </TouchableOpacity>
           </View>
 
-          {/* Secondary Action Toolbar: Rotate, Flip, Grid, Reset */}
+          {/* Action Toolbar: Frame, Rotate, Flip, Grid, Reset */}
           <View style={styles.actionToolsRow}>
             <TouchableOpacity
               activeOpacity={0.7}
-              onPress={handleRotateLeft}
-              accessibilityLabel="Rotate Left 90 Degrees"
-              style={styles.toolBtn}>
-              <RotateCcw size={16} color="#FFFFFF" strokeWidth={2} />
-              <Text style={styles.toolBtnLabel}>-90°</Text>
+              onPress={handleCycleAspect}
+              accessibilityLabel={`Frame shape: currently ${currentAspect.label}`}
+              style={[styles.toolBtn, aspectMode !== 'circle' && styles.toolBtnActive]}>
+              <CurrentAspectIcon size={16} color="#FFFFFF" strokeWidth={2} />
+              <Text style={styles.toolBtnLabel}>{currentAspect.label}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={handleRotateRight}
-              accessibilityLabel="Rotate Right 90 Degrees"
+              accessibilityLabel="Rotate 90 Degrees Clockwise"
               style={styles.toolBtn}>
               <RotateCw size={16} color="#FFFFFF" strokeWidth={2} />
-              <Text style={styles.toolBtnLabel}>+90°</Text>
+              <Text style={styles.toolBtnLabel}>Rotate</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -641,16 +570,7 @@ export function PhotoCropModal({
               accessibilityLabel="Flip Horizontal"
               style={[styles.toolBtn, isFlippedH && styles.toolBtnActive]}>
               <FlipHorizontal size={16} color="#FFFFFF" strokeWidth={2} />
-              <Text style={styles.toolBtnLabel}>Flip H</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={handleFlipVertical}
-              accessibilityLabel="Flip Vertical"
-              style={[styles.toolBtn, isFlippedV && styles.toolBtnActive]}>
-              <FlipVertical size={16} color="#FFFFFF" strokeWidth={2} />
-              <Text style={styles.toolBtnLabel}>Flip V</Text>
+              <Text style={styles.toolBtnLabel}>Flip</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -680,24 +600,24 @@ export function PhotoCropModal({
 const styles = StyleSheet.create({
   modalBackdrop: {
     flex: 1,
-    backgroundColor: '#080A10',
+    backgroundColor: '#000000',
     justifyContent: 'space-between',
-    paddingTop: Platform.OS === 'ios' ? 48 : 24,
-    paddingBottom: Platform.OS === 'ios' ? 36 : 20,
+    paddingTop: Platform.OS === 'ios' ? 52 : (Platform.OS === 'android' ? 36 : 24),
+    paddingBottom: Platform.OS === 'ios' ? 40 : 24,
   },
   topHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 12,
     zIndex: 10,
   },
   headerIconBtn: {
     width: 38,
     height: 38,
     borderRadius: 19,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'rgba(255, 255, 255, 0.12)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -711,52 +631,23 @@ const styles = StyleSheet.create({
     letterSpacing: -0.2,
   },
   headerSubtitle: {
-    fontSize: 11,
-    color: 'rgba(255, 255, 255, 0.5)',
-    marginTop: 1,
+    fontSize: 11.5,
+    color: 'rgba(255, 255, 255, 0.55)',
+    marginTop: 2,
+    fontWeight: '500',
   },
   donePillBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
     backgroundColor: '#FFFFFF',
-    paddingHorizontal: 15,
+    paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
   },
   doneBtnText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#09090B',
-  },
-  aspectRatioRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 8,
-    paddingHorizontal: 16,
-    marginVertical: 4,
-  },
-  aspectPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    paddingHorizontal: 11,
-    paddingVertical: 6,
-    borderRadius: 16,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.12)',
-  },
-  aspectPillActive: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#FFFFFF',
-  },
-  aspectPillText: {
-    fontSize: 11,
-    fontWeight: '600',
-    color: '#FFFFFF',
-  },
-  aspectPillTextActive: {
     color: '#09090B',
   },
   workspace: {
@@ -811,7 +702,7 @@ const styles = StyleSheet.create({
   tipText: {
     color: 'rgba(255, 255, 255, 0.45)',
     fontSize: 11.5,
-    marginTop: 22,
+    marginTop: 20,
     textAlign: 'center',
     paddingHorizontal: 24,
   },
@@ -853,20 +744,19 @@ const styles = StyleSheet.create({
   actionToolsRow: {
     flexDirection: 'row',
     justifyContent: 'center',
-    gap: 6,
-    flexWrap: 'wrap',
+    gap: 8,
   },
   toolBtn: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 7,
-    borderRadius: 12,
+    paddingVertical: 9,
+    borderRadius: 14,
     backgroundColor: 'rgba(255, 255, 255, 0.07)',
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.08)',
-    minWidth: 50,
-    gap: 3,
+    maxWidth: 72,
+    gap: 4,
   },
   toolBtnActive: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
@@ -874,7 +764,7 @@ const styles = StyleSheet.create({
   },
   toolBtnLabel: {
     color: '#FFFFFF',
-    fontSize: 9.5,
+    fontSize: 10,
     fontWeight: '600',
   },
 });

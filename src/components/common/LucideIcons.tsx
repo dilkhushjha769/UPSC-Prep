@@ -271,12 +271,33 @@ export function TrendingDown({ size = defaultProps.size, color = defaultProps.co
   );
 }
 
+export function Plus({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Line x1="12" y1="5" x2="12" y2="19" />
+      <Line x1="5" y1="12" x2="19" y2="12" />
+    </Svg>
+  );
+}
+
 export function BarChart2({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
       <Line x1="18" y1="20" x2="18" y2="10" />
       <Line x1="12" y1="20" x2="12" y2="4" />
       <Line x1="6" y1="20" x2="6" y2="14" />
+    </Svg>
+  );
+}
+
+export function Trash2({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Path d="M3 6h18" />
+      <Path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+      <Path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+      <Line x1="10" y1="11" x2="10" y2="17" />
+      <Line x1="14" y1="11" x2="14" y2="17" />
     </Svg>
   );
 }
@@ -291,11 +312,138 @@ export function Info({ size = defaultProps.size, color = defaultProps.color, str
   );
 }
 
+export function ChevronLeft({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Path d="m15 18-6-6 6-6" />
+    </Svg>
+  );
+}
+
 export function RotateCcw({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
       <Path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
       <Path d="M3 3v5h5" />
+    </Svg>
+  );
+}
+
+export function Newspaper({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" />
+      <Path d="M18 14h-8" />
+      <Path d="M15 18h-5" />
+      <Path d="M10 6h8v4h-8V6Z" />
+    </Svg>
+  );
+}
+
+export function Layers({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
+      <Path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
+      <Path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
+    </Svg>
+  );
+}
+
+export function Scale({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+      <Path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+      <Path d="M7 21h10" />
+      <Path d="M12 3v18" />
+      <Path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" />
+    </Svg>
+  );
+}
+
+export function Landmark({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Line x1="2" x2="22" y1="22" y2="22" />
+      <Path d="m2 7 10-5 10 5v2H2Z" />
+      <Path d="M4 11v9" />
+      <Path d="M8 11v9" />
+      <Path d="M12 11v9" />
+      <Path d="M16 11v9" />
+      <Path d="M20 11v9" />
+    </Svg>
+  );
+}
+
+export function MessagesSquare({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z" />
+      <Path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1" />
+    </Svg>
+  );
+}
+
+export function ListChecks({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Path d="m3 17 2 2 4-4" />
+      <Path d="m3 7 2 2 4-4" />
+      <Path d="M13 6h8" />
+      <Path d="M13 12h8" />
+      <Path d="M13 18h8" />
+    </Svg>
+  );
+}
+
+export function CalendarDays({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Path d="M8 2v4" />
+      <Path d="M16 2v4" />
+      <Rect width="18" height="18" x="3" y="4" rx="2" />
+      <Path d="M3 10h18" />
+      <Path d="M8 14h.01" />
+      <Path d="M12 14h.01" />
+      <Path d="M16 14h.01" />
+      <Path d="M8 18h.01" />
+      <Path d="M12 18h.01" />
+      <Path d="M16 18h.01" />
+    </Svg>
+  );
+}
+
+export function ExternalLink({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <Polyline points="15 3 21 3 21 9" />
+      <Line x1="10" y1="14" x2="21" y2="3" />
+    </Svg>
+  );
+}
+
+export function Sun({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <SvgCircle cx="12" cy="12" r="4" />
+      <Path d="M12 2v2" />
+      <Path d="M12 20v2" />
+      <Path d="m4.93 4.93 1.41 1.41" />
+      <Path d="m17.66 17.66 1.41 1.41" />
+      <Path d="M2 12h2" />
+      <Path d="M20 12h2" />
+      <Path d="m6.34 17.66-1.41 1.41" />
+      <Path d="m19.07 4.93-1.41 1.41" />
+    </Svg>
+  );
+}
+
+export function Moon({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth, ...props }: LucideIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <Path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
     </Svg>
   );
 }
@@ -328,6 +476,4 @@ export function AlertTriangle({ size = defaultProps.size, color = defaultProps.c
     </Svg>
   );
 }
-
-
 

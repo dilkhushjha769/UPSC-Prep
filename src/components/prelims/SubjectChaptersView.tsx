@@ -67,6 +67,7 @@ export function SubjectChaptersView({
             key={chapter.id}
             chapter={chapter}
             serialNumber={idx + 1}
+            isLast={idx === subject.chapters.length - 1}
             onPress={(chap) => onSelectChapter(chap, idx + 1)}
           />
         ))}

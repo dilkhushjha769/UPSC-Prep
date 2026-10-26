@@ -381,8 +381,8 @@ function QuizModalContent({
                   timeLeftSeconds < 120
                     ? '#EF4444'
                     : theme.isDark
-                    ? '#A78BFA'
-                    : '#7C3AED'
+                    ? '#FFAA70'
+                    : '#FF5500'
                 }
                 strokeWidth={2.2}
               />
@@ -489,8 +489,8 @@ function QuizModalContent({
                     >
                       <Flag
                         size={12}
-                        color={markedForReview[currentIndex] ? '#8B5CF6' : theme.colors.textMuted}
-                        fill={markedForReview[currentIndex] ? '#8B5CF6' : 'none'}
+                        color={markedForReview[currentIndex] ? '#FF8A3D' : theme.colors.textMuted}
+                        fill={markedForReview[currentIndex] ? '#FF8A3D' : 'none'}
                         strokeWidth={2}
                       />
                       <Text
@@ -733,7 +733,7 @@ function QuizModalContent({
                   </View>
                   <View style={styles.confirmStatDivider} />
                   <View style={styles.confirmStatItem}>
-                    <Text style={[styles.confirmStatNum, { color: theme.isDark ? '#60A5FA' : '#2563EB' }]}>
+                    <Text style={[styles.confirmStatNum, { color: theme.isDark ? '#FF8A3D' : '#FF5500' }]}>
                       {formatTime(timeLeftSeconds)}
                     </Text>
                     <Text style={styles.confirmStatLabel}>Time Left</Text>
@@ -935,15 +935,15 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
   return StyleSheet.create({
     fullScreenSafeArea: {
       flex: 1,
-      backgroundColor: isDark ? '#0D0F17' : '#EAF1FD',
+      backgroundColor: isDark ? '#080A0E' : '#F8FAFC',
     },
     fullScreenContainer: {
       flex: 1,
-      backgroundColor: isDark ? '#0D0F17' : '#EAF1FD',
+      backgroundColor: isDark ? '#080A0E' : '#F8FAFC',
     },
     sheetContainer: {
       flex: 1,
-      backgroundColor: isDark ? '#0D0F17' : '#EAF1FD',
+      backgroundColor: isDark ? '#080A0E' : '#F8FAFC',
     },
     topBar: {
       position: 'relative',
@@ -980,11 +980,11 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       left: 0,
       right: 0,
       height: 2.5,
-      backgroundColor: isDark ? 'rgba(139, 92, 246, 0.22)' : '#EDE9FE',
+      backgroundColor: isDark ? 'rgba(255, 138, 61, 0.22)' : '#FFEDE0',
     },
     topProgressBarFill: {
       height: '100%',
-      backgroundColor: '#7C3AED',
+      backgroundColor: '#FF5500',
     },
     closeBtn: {
       width: 34,
@@ -1004,9 +1004,9 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     timerBadge: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: isDark ? 'rgba(99, 102, 241, 0.16)' : '#EEF2FF',
+      backgroundColor: isDark ? 'rgba(255, 106, 19, 0.16)' : '#EEF2FF',
       borderWidth: 1,
-      borderColor: isDark ? 'rgba(129, 140, 248, 0.35)' : '#DDD6FE',
+      borderColor: isDark ? 'rgba(255, 138, 61, 0.35)' : '#FFD9BD',
       paddingHorizontal: isMobile ? 10 : 12,
       paddingVertical: 5,
       borderRadius: 18,
@@ -1083,7 +1083,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       gap: 8,
     },
     metaYearTag: {
-      backgroundColor: isDark ? '#222838' : '#EDE9FE',
+      backgroundColor: isDark ? '#222838' : '#FFEDE0',
       paddingHorizontal: 7,
       paddingVertical: 2.5,
       borderRadius: 5,
@@ -1091,7 +1091,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     metaYearText: {
       fontSize: 10.5,
       fontWeight: '700',
-      color: isDark ? '#C4B5FD' : '#6D28D9',
+      color: isDark ? '#FFC9A3' : '#EA4E00',
     },
     metaMarkingTag: {
       backgroundColor: isDark ? '#191C25' : '#F1F5F9',
@@ -1147,8 +1147,8 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       borderColor: theme.colors.borderSubtle,
     },
     markBtnActive: {
-      backgroundColor: isDark ? '#261C3D' : '#F3E8FF',
-      borderColor: '#8B5CF6',
+      backgroundColor: isDark ? '#261C3D' : '#FFEDE0',
+      borderColor: '#FF8A3D',
     },
     markBtnText: {
       fontSize: 11,
@@ -1156,7 +1156,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       fontWeight: '600',
     },
     markBtnTextActive: {
-      color: isDark ? '#C4B5FD' : '#7C3AED',
+      color: isDark ? '#FFC9A3' : '#FF5500',
       fontWeight: '800',
     },
     questionContainer: {
@@ -1185,8 +1185,8 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       gap: 12,
     },
     optionItemSelected: {
-      backgroundColor: isDark ? '#1E2536' : '#EFF6FF',
-      borderColor: isDark ? '#60A5FA' : '#2563EB',
+      backgroundColor: isDark ? '#1E2536' : '#FFF5EE',
+      borderColor: isDark ? '#FF8A3D' : '#FF5500',
     },
     keyCircle: {
       width: 28,
@@ -1199,8 +1199,8 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       justifyContent: 'center',
     },
     keyCircleSelected: {
-      backgroundColor: isDark ? '#2563EB' : '#1D4ED8',
-      borderColor: isDark ? '#60A5FA' : '#1D4ED8',
+      backgroundColor: isDark ? '#FF5500' : '#EA4E00',
+      borderColor: isDark ? '#FF8A3D' : '#EA4E00',
     },
     keyText: {
       fontSize: 12,
@@ -1559,7 +1559,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     },
     solutionTrick: {
       fontSize: 12,
-      color: isDark ? '#C4B5FD' : '#6D28D9',
+      color: isDark ? '#FFC9A3' : '#EA4E00',
       fontWeight: '600',
       marginTop: 4,
       lineHeight: 17,

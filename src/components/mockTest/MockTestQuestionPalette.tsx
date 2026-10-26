@@ -97,7 +97,7 @@ export function MockTestQuestionPalette({
       </View>
 
       {/* Legend & Stats Summary */}
-      <View style={[styles.legendContainer, { backgroundColor: isDark ? '#111524' : '#F1F5FD' }]}>
+      <View style={[styles.legendContainer, { backgroundColor: isDark ? '#0C0F17' : '#F8FAFC' }]}>
         <View style={styles.legendItem}>
           <View style={[styles.legendDot, { backgroundColor: '#10B981' }]} />
           <Text style={[styles.legendText, { color: theme.textSecondary }]}>Answered ({stats.answered})</Text>
@@ -107,7 +107,7 @@ export function MockTestQuestionPalette({
           <Text style={[styles.legendText, { color: theme.textSecondary }]}>Marked ({stats.marked})</Text>
         </View>
         <View style={styles.legendItem}>
-          <View style={[styles.legendDot, { backgroundColor: '#8B5CF6' }]} />
+          <View style={[styles.legendDot, { backgroundColor: '#FF8A3D' }]} />
           <Text style={[styles.legendText, { color: theme.textSecondary }]}>Both ({stats.answeredAndMarked})</Text>
         </View>
         <View style={styles.legendItem}>
@@ -158,7 +158,7 @@ export function MockTestQuestionPalette({
               textColor = '#FDE68A';
             } else if (status === 'answered_marked') {
               bgColor = '#4C1D95';
-              textColor = '#DDD6FE';
+              textColor = '#FFD9BD';
             }
 
             if (isCurrent) {

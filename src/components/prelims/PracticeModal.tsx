@@ -1091,7 +1091,7 @@ export function PracticeModal({
                 <View style={styles.solutionContainer}>
                   <View style={styles.solutionHeader}>
                     <View style={styles.solutionBadge}>
-                      <ShieldCheck size={14} color={theme.isDark ? '#60A5FA' : '#2563EB'} strokeWidth={2.2} />
+                      <ShieldCheck size={14} color={theme.isDark ? '#FF8A3D' : '#FF5500'} strokeWidth={2.2} />
                       <Text style={styles.solutionBadgeText}>Official UPSC Key</Text>
                     </View>
                     <Text style={styles.officialKeyText}>
@@ -1218,7 +1218,7 @@ const getStyles = (theme: PrelimsThemeType) => {
   return StyleSheet.create({
   fullScreenSafeArea: {
     flex: 1,
-    backgroundColor: isDark ? '#0D0F17' : '#EAF1FD',
+    backgroundColor: isDark ? '#080A0E' : '#F8FAFC',
   },
   viewContainer: {
     flex: 1,
@@ -1349,11 +1349,11 @@ const getStyles = (theme: PrelimsThemeType) => {
     left: 0,
     right: 0,
     height: 2.5,
-    backgroundColor: isDark ? 'rgba(139, 92, 246, 0.22)' : '#EDE9FE',
+    backgroundColor: isDark ? 'rgba(255, 138, 61, 0.22)' : '#FFEDE0',
   },
   topProgressBarFill: {
     height: '100%',
-    backgroundColor: '#7C3AED',
+    backgroundColor: '#FF5500',
   },
   qMetaRow: {
     flexDirection: 'row',
@@ -1367,7 +1367,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     gap: 8,
   },
   metaYearTag: {
-    backgroundColor: isDark ? '#222838' : '#EDE9FE',
+    backgroundColor: isDark ? '#222838' : '#FFEDE0',
     paddingHorizontal: 7,
     paddingVertical: 2.5,
     borderRadius: 5,
@@ -1375,7 +1375,7 @@ const getStyles = (theme: PrelimsThemeType) => {
   metaYearText: {
     fontSize: 10.5,
     fontWeight: '700',
-    color: isDark ? '#C4B5FD' : '#6D28D9',
+    color: isDark ? '#FFC9A3' : '#EA4E00',
   },
   metaDifficultyTag: {
     backgroundColor: isDark ? '#191C25' : '#F1F5F9',
@@ -1849,8 +1849,8 @@ const getStyles = (theme: PrelimsThemeType) => {
     borderColor: theme.colors.borderCard,
   },
   optionItemSelected: {
-    backgroundColor: isDark ? '#1E293B' : '#EFF6FF',
-    borderColor: isDark ? '#60A5FA' : '#2563EB',
+    backgroundColor: isDark ? '#1E293B' : '#FFF5EE',
+    borderColor: isDark ? '#FF8A3D' : '#FF5500',
   },
   optionItemCorrect: {
     backgroundColor: isDark ? '#064E3B28' : '#ECFDF5',
@@ -1873,9 +1873,9 @@ const getStyles = (theme: PrelimsThemeType) => {
     borderColor: theme.colors.borderSubtle,
   },
   keyBoxSelected: {
-    backgroundColor: isDark ? '#60A5FA' : '#2563EB',
+    backgroundColor: isDark ? '#FF8A3D' : '#FF5500',
     borderWidth: 1,
-    borderColor: isDark ? '#60A5FA' : '#2563EB',
+    borderColor: isDark ? '#FF8A3D' : '#FF5500',
   },
   keyBoxCorrect: {
     backgroundColor: '#10B981',
@@ -1917,7 +1917,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     borderWidth: 1,
     borderColor: theme.colors.borderSubtle,
     borderLeftWidth: 3.5,
-    borderLeftColor: isDark ? '#60A5FA' : '#2563EB',
+    borderLeftColor: isDark ? '#FF8A3D' : '#FF5500',
     gap: 14,
     marginBottom: 20,
   },
@@ -1937,7 +1937,7 @@ const getStyles = (theme: PrelimsThemeType) => {
   solutionBadgeText: {
     fontSize: 11,
     fontWeight: '800',
-    color: isDark ? '#60A5FA' : '#2563EB',
+    color: isDark ? '#FF8A3D' : '#FF5500',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
@@ -1967,9 +1967,9 @@ const getStyles = (theme: PrelimsThemeType) => {
     fontWeight: '400',
   },
   eliminationBlock: {
-    backgroundColor: isDark ? '#261C3D' : '#F5F3FF',
+    backgroundColor: isDark ? '#261C3D' : '#FFF3EA',
     borderWidth: 1,
-    borderColor: isDark ? '#4C1D95' : '#DDD6FE',
+    borderColor: isDark ? '#4C1D95' : '#FFD9BD',
     padding: 12,
     borderRadius: 8,
     gap: 4,
@@ -1977,7 +1977,7 @@ const getStyles = (theme: PrelimsThemeType) => {
   eliminationTitle: {
     fontSize: 11,
     fontWeight: '800',
-    color: isDark ? '#C4B5FD' : '#6D28D9',
+    color: isDark ? '#FFC9A3' : '#EA4E00',
   },
   eliminationText: {
     fontSize: 12.5,

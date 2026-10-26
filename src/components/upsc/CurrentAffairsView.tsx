@@ -303,7 +303,7 @@ export function CurrentAffairsView({ isDark }: CurrentAffairsViewProps) {
                     styles.markReadBtn,
                     {
                       backgroundColor: isRead
-                        ? isDark ? '#1F2937' : '#E5E7EB'
+                        ? isDark ? '#1F2937' : '#E2E8F0'
                         : isDark ? '#1C202B' : '#F4F4F5',
                       borderColor: isDark ? '#2E3547' : '#E2E8F0',
                     },

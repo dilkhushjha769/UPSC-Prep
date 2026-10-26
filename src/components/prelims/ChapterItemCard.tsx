@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Platform } from 'react-native';
 import { ChevronRight } from '@/components/common/LucideIcons';
 import { Chapter } from '@/types/prelims';
 import { usePrelimsTheme, PrelimsThemeType } from '@/constants/prelimsTheme';
@@ -8,12 +8,14 @@ interface ChapterItemCardProps {
   chapter: Chapter;
   serialNumber?: number;
   onPress: (chapter: Chapter) => void;
+  isLast?: boolean;
 }
 
 export function ChapterItemCard({
   chapter,
   serialNumber,
   onPress,
+  isLast,
 }: ChapterItemCardProps) {
   const theme = usePrelimsTheme();
   const styles = useMemo(() => getStyles(theme), [theme]);
@@ -23,7 +25,12 @@ export function ChapterItemCard({
 
   return (
     <Pressable
-      style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
+      style={({ pressed }) => [
+        styles.row,
+        !isLast && styles.rowDivider,
+        pressed && styles.rowPressed,
+        Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
+      ]}
       onPress={() => onPress(chapter)}
     >
       <View style={styles.leftRow}>
@@ -60,23 +67,23 @@ export function ChapterItemCard({
 
 const getStyles = (theme: PrelimsThemeType) =>
   StyleSheet.create({
-    card: {
-      backgroundColor: theme.colors.bgSurface,
-      borderRadius: 14,
-      paddingVertical: 14,
-      paddingHorizontal: 16,
-      marginBottom: 8,
-      borderWidth: 1,
-      borderColor: theme.colors.borderCard,
+    row: {
+      backgroundColor: 'transparent',
+      paddingVertical: 13,
+      paddingHorizontal: 4,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      ...theme.shadows.card,
+      borderRadius: 8,
     },
-    cardPressed: {
-      backgroundColor: theme.colors.bgSurfaceMuted,
-      borderColor: theme.colors.textPrimary,
-      transform: [{ scale: 0.995 }],
+    rowDivider: {
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: theme.colors.borderSubtle,
+    },
+    rowPressed: {
+      backgroundColor: theme.isDark
+        ? 'rgba(255, 255, 255, 0.05)'
+        : 'rgba(0, 0, 0, 0.035)',
     },
     leftRow: {
       flexDirection: 'row',
@@ -152,3 +159,4 @@ const getStyles = (theme: PrelimsThemeType) =>
       justifyContent: 'center',
     },
   });
+

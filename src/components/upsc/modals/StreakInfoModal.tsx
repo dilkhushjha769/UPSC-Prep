@@ -107,7 +107,7 @@ export function StreakInfoModal({ isDark }: StreakInfoModalProps) {
                     <View
                       style={[
                         styles.iconCircle,
-                        { backgroundColor: isDark ? '#262238' : '#EDE9FE' },
+                        { backgroundColor: isDark ? '#262238' : '#FFEDE0' },
                       ]}>
                       <Icon size={16} color={rule.color} />
                     </View>
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(124, 58, 237, 0.08)',
+    borderBottomColor: 'rgba(255, 106, 19, 0.08)',
   },
   headerTitleRow: {
     flexDirection: 'row',

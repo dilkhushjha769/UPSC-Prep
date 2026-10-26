@@ -164,7 +164,7 @@ export function PrelimsCountdownCard({ isDark, onOpenPrelims }: PrelimsCountdown
               borderColor: isDark ? '#313849' : '#E4E4E7',
             },
           ]}>
-          <Calendar size={10} color={isDark ? '#E2E8F0' : '#71717A'} />
+          <Calendar size={10} color={isDark ? '#F0E2D5' : '#71717A'} />
           <Text style={[styles.dateText, { color: theme.textSecondary }]}>
             {timeLeft.targetFormatted}
           </Text>
@@ -228,10 +228,10 @@ export function PrelimsCountdownCard({ isDark, onOpenPrelims }: PrelimsCountdown
                         backgroundColor: isDark
                           ? index === 0
                             ? '#FFFFFF'
-                            : '#475569'
+                            : '#4F4036'
                           : index === 0
                           ? '#09090B'
-                          : '#CBD5E1',
+                          : '#D9C7B8',
                       },
                     ]}
                   />
@@ -242,10 +242,10 @@ export function PrelimsCountdownCard({ isDark, onOpenPrelims }: PrelimsCountdown
                         backgroundColor: isDark
                           ? index === 0
                             ? '#FFFFFF'
-                            : '#475569'
+                            : '#4F4036'
                           : index === 0
                           ? '#09090B'
-                          : '#CBD5E1',
+                          : '#D9C7B8',
                       },
                     ]}
                   />

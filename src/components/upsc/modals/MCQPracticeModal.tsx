@@ -383,7 +383,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(124, 58, 237, 0.08)',
+    borderBottomColor: 'rgba(255, 106, 19, 0.08)',
   },
   headerTitleRow: {
     flexDirection: 'row',

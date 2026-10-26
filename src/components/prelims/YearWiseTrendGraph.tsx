@@ -601,7 +601,7 @@ function getStyles(theme: PrelimsThemeType) {
       flex: 1,
     },
     barColumnSelected: {
-      backgroundColor: isDark ? 'rgba(124, 58, 237, 0.08)' : 'rgba(124, 58, 237, 0.06)',
+      backgroundColor: isDark ? 'rgba(255, 106, 19, 0.08)' : 'rgba(255, 106, 19, 0.06)',
     },
     countWrapper: {
       alignItems: 'center',
@@ -718,7 +718,7 @@ function getStyles(theme: PrelimsThemeType) {
       color: theme.colors.textPrimary,
     },
     countBadge: {
-      backgroundColor: isDark ? '#262C3A' : '#EDE9FE',
+      backgroundColor: isDark ? '#262C3A' : '#FFEDE0',
       paddingHorizontal: 7,
       paddingVertical: 2,
       borderRadius: 5,
@@ -729,7 +729,7 @@ function getStyles(theme: PrelimsThemeType) {
     countBadgeText: {
       fontSize: 10.5,
       fontWeight: '700',
-      color: isDark ? '#C4B5FD' : '#6D28D9',
+      color: isDark ? '#FFC9A3' : '#EA4E00',
     },
     countBadgeTextZero: {
       color: theme.colors.textMuted,

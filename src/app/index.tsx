@@ -89,16 +89,16 @@ export default function AppScreen() {
               {
                 backgroundColor: isDark
                   ? 'rgba(251, 191, 36, 0.14)'
-                  : 'rgba(99, 102, 241, 0.1)',
+                  : 'rgba(255, 106, 19, 0.1)',
                 borderColor: isDark
                   ? 'rgba(251, 191, 36, 0.32)'
-                  : 'rgba(99, 102, 241, 0.25)',
+                  : 'rgba(255, 106, 19, 0.25)',
               },
             ]}>
             {isDark ? (
               <Sun size={19} color="#FBBF24" strokeWidth={2.3} />
             ) : (
-              <Moon size={19} color="#4F46E5" strokeWidth={2.3} />
+              <Moon size={19} color="#FF5500" strokeWidth={2.3} />
             )}
           </TouchableOpacity>
         )}
@@ -181,16 +181,16 @@ export default function AppScreen() {
             {
               backgroundColor: isDark
                 ? 'rgba(251, 191, 36, 0.14)'
-                : 'rgba(99, 102, 241, 0.1)',
+                : 'rgba(255, 106, 19, 0.1)',
               borderColor: isDark
                 ? 'rgba(251, 191, 36, 0.32)'
-                : 'rgba(99, 102, 241, 0.25)',
+                : 'rgba(255, 106, 19, 0.25)',
             },
           ]}>
           {isDark ? (
             <Sun size={19} color="#FBBF24" strokeWidth={2.3} />
           ) : (
-            <Moon size={19} color="#4F46E5" strokeWidth={2.3} />
+            <Moon size={19} color="#FF5500" strokeWidth={2.3} />
           )}
         </TouchableOpacity>
       )}

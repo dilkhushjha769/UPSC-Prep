@@ -84,7 +84,7 @@ export function QuizSubmitModal({
             </View>
 
             <View style={[styles.summaryStatItem, styles.statBorderMarked]}>
-              <Text style={[styles.summaryStatNum, { color: '#8B5CF6' }]}>
+              <Text style={[styles.summaryStatNum, { color: '#FF8A3D' }]}>
                 {markedCount}
               </Text>
               <Text style={styles.summaryStatLabel}>Marked Review</Text>
@@ -216,7 +216,7 @@ const getStyles = (theme: PrelimsThemeType) => {
       borderColor: isDark ? '#7F1D1D' : '#FECACA',
     },
     statBorderMarked: {
-      borderColor: isDark ? '#5B21B6' : '#DDD6FE',
+      borderColor: isDark ? '#A63D05' : '#FFD9BD',
     },
     statBorderNotVisited: {
       borderColor: isDark ? '#475569' : '#CBD5E1',

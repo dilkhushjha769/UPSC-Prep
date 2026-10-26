@@ -177,6 +177,7 @@ function PrelimsScreenContent({ onBack }: { onBack?: () => void } = {}) {
                         key={subject.id}
                         subject={subject}
                         serialNumber={index + 1}
+                        isLast={index === PRELIMS_GS1_SUBJECTS.length - 1}
                         onPress={(sub) => {
                           setSelectedSubject(sub);
                           setSelectedChapterForDetail(null);
@@ -208,6 +209,7 @@ function PrelimsScreenContent({ onBack }: { onBack?: () => void } = {}) {
                         key={subject.id}
                         subject={subject}
                         serialNumber={index + 1}
+                        isLast={index === PRELIMS_CSAT_SUBJECTS.length - 1}
                         onPress={(sub) => {
                           setSelectedSubject(sub);
                           setSelectedChapterForDetail(null);

@@ -423,7 +423,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
 
           {/* Reading Comprehension Passage (for CSAT or passage-linked questions) */}
           {snap.passage_text && (
-            <View style={[styles.passageCard, { backgroundColor: isDark ? '#111524' : '#F1F5FD', borderColor: theme.cardBorder }]}>
+            <View style={[styles.passageCard, { backgroundColor: isDark ? '#0C0F17' : '#F8FAFC', borderColor: theme.cardBorder }]}>
               <View style={styles.passageHeader}>
                 <BookOpen size={16} color={theme.textPrimary} />
                 <Text style={[styles.passageTitle, { color: theme.textPrimary }]}>
@@ -440,7 +440,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
 
             {/* Statements List if present */}
             {snap.statements && snap.statements.length > 0 && (
-              <View style={[styles.statementsContainer, { backgroundColor: isDark ? '#0E121F' : '#F8FAFC', borderColor: theme.divider }]}>
+              <View style={[styles.statementsContainer, { backgroundColor: isDark ? '#0A0D14' : '#F8FAFC', borderColor: theme.divider }]}>
                 {snap.statements.map((stmt, sIdx) => (
                   <Text key={sIdx} style={[styles.statementItemText, { color: theme.textSecondary }]}>
                     {stmt}
@@ -461,7 +461,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
                     style={[
                       styles.optionCard,
                       {
-                        backgroundColor: isSelected ? (isDark ? '#1E293B' : '#EFF6FF') : isDark ? '#0E121F' : '#FFFFFF',
+                        backgroundColor: isSelected ? (isDark ? '#1E293B' : '#FFF5EE') : isDark ? '#0A0D14' : '#FFFFFF',
                         borderColor: isSelected ? theme.buttonPrimaryBg : theme.divider,
                         borderWidth: isSelected ? 2 : 1,
                       },
@@ -492,7 +492,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
 
             {/* Practice Mode immediate solution review */}
             {isPracticeMode && currentResponse?.selected_answer && snap.explanation_en && (
-              <View style={[styles.practiceExplanationBox, { backgroundColor: isDark ? '#1C263D' : '#EFF6FF', borderColor: theme.divider }]}>
+              <View style={[styles.practiceExplanationBox, { backgroundColor: isDark ? '#1C263D' : '#FFF5EE', borderColor: theme.divider }]}>
                 <View style={styles.practiceHeader}>
                   <CheckCircle2 size={16} color="#10B981" />
                   <Text style={[styles.practiceSolutionTitle, { color: theme.textPrimary }]}>
@@ -618,7 +618,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
                 <Text style={styles.confirmStatNumber}>{submitStats.marked}</Text>
                 <Text style={styles.confirmStatLabel}>Marked</Text>
               </View>
-              <View style={[styles.confirmStatPill, { backgroundColor: isDark ? '#1E263D' : '#CBD5E1' }]}>
+              <View style={[styles.confirmStatPill, { backgroundColor: isDark ? '#181E2C' : '#CBD5E1' }]}>
                 <Text style={[styles.confirmStatNumber, { color: theme.textPrimary }]}>{submitStats.unattempted}</Text>
                 <Text style={[styles.confirmStatLabel, { color: theme.textSecondary }]}>Unattempted</Text>
               </View>

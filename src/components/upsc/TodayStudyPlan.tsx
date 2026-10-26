@@ -106,7 +106,7 @@ export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
             const subjectStyle =
               SUBJECT_COLORS[task.subject] || SUBJECT_COLORS.Polity;
 
-            let priorityBg = isDark ? '#232236' : '#F1F5F9';
+            let priorityBg = isDark ? '#1A2130' : '#F1F5F9';
             let priorityText = colors.textSecondary;
             if (task.priority === 'High') {
               priorityBg = isDark ? '#3D1E24' : '#FEE2E2';
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 20,
     marginBottom: 24,
-    shadowColor: '#7C3AED',
+    shadowColor: '#FF5500',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
     shadowRadius: 12,
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 13,
     paddingVertical: 7,
     borderRadius: 14,
-    shadowColor: '#7C3AED',
+    shadowColor: '#FF5500',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,

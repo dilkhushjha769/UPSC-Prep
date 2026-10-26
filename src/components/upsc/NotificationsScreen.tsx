@@ -124,8 +124,8 @@ function PremiumBookAssignmentIcon({ size = 22 }: { size?: number }) {
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="bookGrad" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#334155" />
-          <Stop offset="1" stopColor="#1E293B" />
+          <Stop offset="0" stopColor="#3A2D25" />
+          <Stop offset="1" stopColor="#2B2019" />
         </LinearGradient>
       </Defs>
       {/* Left Page (Curved 3D appearance) */}
@@ -139,7 +139,7 @@ function PremiumBookAssignmentIcon({ size = 22 }: { size?: number }) {
         fill="url(#bookGrad)"
       />
       {/* Spine Gap & Highlights */}
-      <Path d="M12 6.5V18.5" stroke="#475569" strokeWidth={1.2} />
+      <Path d="M12 6.5V18.5" stroke="#4F4036" strokeWidth={1.2} />
       {/* White Page Ridge Accents */}
       <Path
         d="M7 9C8.5 8.7 10 9 11 9.6M7 12C8.5 11.7 10 12 11 12.6"
@@ -198,14 +198,14 @@ function PremiumRoyalBellIcon({ size = 22 }: { size?: number }) {
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="bellGrad" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#60A5FA" />
-          <Stop offset="1" stopColor="#3B82F6" />
+          <Stop offset="0" stopColor="#FF8A3D" />
+          <Stop offset="1" stopColor="#FF6A13" />
         </LinearGradient>
       </Defs>
       {/* Top Suspension Loop */}
       <Path
         d="M12 3.5C11.2 3.5 10.5 4.1 10.5 5H13.5C13.5 4.1 12.8 3.5 12 3.5Z"
-        fill="#2563EB"
+        fill="#E85A0C"
       />
       {/* Main Flared Bell Body */}
       <Path
@@ -215,7 +215,7 @@ function PremiumRoyalBellIcon({ size = 22 }: { size?: number }) {
       {/* Bottom Clapper */}
       <Path
         d="M10.2 17.5C10.5 18.8 11.2 19.5 12 19.5C12.8 19.5 13.5 18.8 13.8 17.5H10.2Z"
-        fill="#1D4ED8"
+        fill="#C94A06"
       />
     </Svg>
   );
@@ -255,8 +255,8 @@ function PremiumTrophyAwardIcon({ size = 22 }: { size?: number }) {
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="trophyGrad" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#A78BFA" />
-          <Stop offset="1" stopColor="#7C3AED" />
+          <Stop offset="0" stopColor="#FFAA70" />
+          <Stop offset="1" stopColor="#FF6A13" />
         </LinearGradient>
       </Defs>
       {/* Trophy Goblet Cup */}
@@ -267,20 +267,20 @@ function PremiumTrophyAwardIcon({ size = 22 }: { size?: number }) {
       {/* Left Handle */}
       <Path
         d="M7 5.5H5C4.2 5.5 3.5 6.2 3.5 7C3.5 8.8 5 10 7 10"
-        stroke="#6D28D9"
+        stroke="#C94A06"
         strokeWidth={1.8}
         strokeLinecap="round"
       />
       {/* Right Handle */}
       <Path
         d="M17 5.5H19C19.8 5.5 20.5 6.2 20.5 7C20.5 8.8 19 10 17 10"
-        stroke="#6D28D9"
+        stroke="#C94A06"
         strokeWidth={1.8}
         strokeLinecap="round"
       />
       {/* Stem & Solid Weighted Pedestal Base */}
-      <Path d="M12 15V18" stroke="#6D28D9" strokeWidth={2.4} strokeLinecap="round" />
-      <Path d="M8 18.5H16V20.5H8V18.5Z" fill="#5B21B6" />
+      <Path d="M12 15V18" stroke="#C94A06" strokeWidth={2.4} strokeLinecap="round" />
+      <Path d="M8 18.5H16V20.5H8V18.5Z" fill="#A63D05" />
     </Svg>
   );
 }
@@ -346,8 +346,8 @@ export function NotificationsScreen({
       time: '2:15 PM',
       period: 'Today',
       iconRenderer: (size) => <PremiumBookAssignmentIcon size={size} />,
-      iconBgLight: '#E2E8F0',
-      iconBgDark: 'rgba(148, 163, 184, 0.16)',
+      iconBgLight: '#F0E2D5',
+      iconBgDark: 'rgba(163, 148, 136, 0.16)',
       isRead: false,
     },
     {
@@ -368,8 +368,8 @@ export function NotificationsScreen({
       time: 'Yesterday, 8:10 PM',
       period: 'Yesterday',
       iconRenderer: (size) => <PremiumRoyalBellIcon size={size} />,
-      iconBgLight: '#DBEAFE',
-      iconBgDark: 'rgba(59, 130, 246, 0.16)',
+      iconBgLight: '#FFEBDB',
+      iconBgDark: 'rgba(255, 106, 19, 0.16)',
       isRead: true,
     },
     {
@@ -390,8 +390,8 @@ export function NotificationsScreen({
       time: '2 days ago',
       period: 'Earlier',
       iconRenderer: (size) => <PremiumTrophyAwardIcon size={size} />,
-      iconBgLight: '#EDE9FE',
-      iconBgDark: 'rgba(139, 92, 246, 0.16)',
+      iconBgLight: '#FFEDE0',
+      iconBgDark: 'rgba(255, 138, 61, 0.16)',
       isRead: true,
     },
   ]);
@@ -443,7 +443,7 @@ export function NotificationsScreen({
             styles.backButton,
             Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
             {
-              backgroundColor: isDark ? 'rgba(255,255,255,0.08)' : '#F1F3F6',
+              backgroundColor: isDark ? 'rgba(255,255,255,0.08)' : '#FBEFE5',
               borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.05)',
             },
           ]}>
@@ -475,16 +475,16 @@ export function NotificationsScreen({
                 {
                   backgroundColor: isDark
                     ? 'rgba(251, 191, 36, 0.12)'
-                    : 'rgba(99, 102, 241, 0.08)',
+                    : 'rgba(255, 106, 19, 0.08)',
                   borderColor: isDark
                     ? 'rgba(251, 191, 36, 0.28)'
-                    : 'rgba(99, 102, 241, 0.22)',
+                    : 'rgba(255, 106, 19, 0.22)',
                 },
               ]}>
               {isDark ? (
                 <Sun size={17} color="#FBBF24" strokeWidth={2.3} />
               ) : (
-                <Moon size={17} color="#4F46E5" strokeWidth={2.3} />
+                <Moon size={17} color="#E85A0C" strokeWidth={2.3} />
               )}
             </TouchableOpacity>
           )}
@@ -498,7 +498,7 @@ export function NotificationsScreen({
                 styles.headerActionBtn,
                 Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
-                  backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#F1F3F6',
+                  backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#FBEFE5',
                   borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
                 },
               ]}>
@@ -515,7 +515,7 @@ export function NotificationsScreen({
                 styles.headerActionBtn,
                 Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
-                  backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#F1F3F6',
+                  backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#FBEFE5',
                   borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
                 },
               ]}>
@@ -551,15 +551,15 @@ export function NotificationsScreen({
                     ? [
                         styles.filterPillActive,
                         {
-                          backgroundColor: isDark ? '#F8FAFC' : '#0F172A',
-                          borderColor: isDark ? '#F8FAFC' : '#0F172A',
+                          backgroundColor: isDark ? '#FFF8F2' : '#1F1612',
+                          borderColor: isDark ? '#FFF8F2' : '#1F1612',
                         },
                       ]
                     : [
                         styles.filterPillInactive,
                         {
-                          backgroundColor: isDark ? '#161B29' : '#F1F3F7',
-                          borderColor: isDark ? '#232D44' : '#E5E7EB',
+                          backgroundColor: isDark ? '#241A12' : '#FBEFE5',
+                          borderColor: isDark ? '#33261C' : '#F0E2D5',
                         },
                       ],
                 ]}>
@@ -569,7 +569,7 @@ export function NotificationsScreen({
                     {
                       color: isActive
                         ? isDark
-                          ? '#0F172A'
+                          ? '#1F1612'
                           : '#FFFFFF'
                         : theme.textSecondary,
                       fontWeight: isActive ? '700' : '500',
@@ -600,7 +600,7 @@ export function NotificationsScreen({
                       Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                       !item.isRead && {
                         backgroundColor: isDark
-                          ? 'rgba(99, 102, 241, 0.08)'
+                          ? 'rgba(255, 106, 19, 0.08)'
                           : 'rgba(239, 246, 255, 0.75)',
                       },
                       !isLast && [
@@ -642,7 +642,7 @@ export function NotificationsScreen({
                           <View
                             style={[
                               styles.unreadDot,
-                              { backgroundColor: '#3B82F6' },
+                              { backgroundColor: '#FF6A13' },
                             ]}
                           />
                         )}
@@ -688,7 +688,7 @@ export function NotificationsScreen({
                       style={[
                         styles.inlineMenuPopup,
                         {
-                          backgroundColor: isDark ? '#1C2234' : '#FFFFFF',
+                          backgroundColor: isDark ? '#2A1E15' : '#FFFFFF',
                           borderColor: theme.cardBorder,
                         },
                       ]}>
@@ -729,14 +729,14 @@ export function NotificationsScreen({
                   {
                     backgroundColor: isDark
                       ? 'rgba(255, 255, 255, 0.04)'
-                      : '#EDF2F7',
+                      : '#FBEFE5',
                   },
                 ]}>
                 <View
                   style={[
                     styles.emptySpeechBubble,
                     {
-                      backgroundColor: isDark ? '#263048' : '#CBD5E1',
+                      backgroundColor: isDark ? '#263048' : '#D9C7B8',
                     },
                   ]}>
                   <View style={styles.emptyBubbleDots}>
@@ -825,7 +825,7 @@ export function NotificationsScreen({
                   {
                     backgroundColor: isDark
                       ? 'rgba(255, 255, 255, 0.08)'
-                      : '#F1F3F6',
+                      : '#FBEFE5',
                     borderColor: theme.cardBorder,
                   },
                 ]}>

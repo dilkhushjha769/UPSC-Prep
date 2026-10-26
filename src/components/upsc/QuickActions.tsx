@@ -47,7 +47,7 @@ export function QuickActions({ isDark }: QuickActionsProps) {
       title: 'Add Study Task',
       subtitle: 'Schedule target',
       icon: PlusCircle,
-      color: '#4F46E5',
+      color: '#FF5500',
       bgColor: isDark ? '#1C203A' : '#EEF2FF',
       onPress: () => setIsAddTaskModalOpen(true),
     },

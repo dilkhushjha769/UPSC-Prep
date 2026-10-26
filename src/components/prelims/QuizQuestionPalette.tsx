@@ -134,7 +134,7 @@ export function QuizQuestionPalette({
           </View>
 
           <View style={[styles.statBox, styles.statBoxMarked]}>
-            <Text style={[styles.statBoxNum, { color: '#8B5CF6' }]}>
+            <Text style={[styles.statBoxNum, { color: '#FF8A3D' }]}>
               {stats.totalMarked}
             </Text>
             <Text style={styles.statBoxLabel}>Review</Text>
@@ -304,7 +304,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       letterSpacing: -0.2,
     },
     progressCounterBadge: {
-      backgroundColor: isDark ? '#262D3D' : '#EDE9FE',
+      backgroundColor: isDark ? '#262D3D' : '#FFEDE0',
       paddingHorizontal: 8,
       paddingVertical: 3,
       borderRadius: 6,
@@ -312,7 +312,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
     progressCounterText: {
       fontSize: 11,
       fontWeight: '700',
-      color: isDark ? '#C4B5FD' : '#6D28D9',
+      color: isDark ? '#FFC9A3' : '#EA4E00',
     },
     statsGrid: {
       flexDirection: 'row',
@@ -338,8 +338,8 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       backgroundColor: isDark ? '#2A1215' : '#FEF2F2',
     },
     statBoxMarked: {
-      borderColor: isDark ? '#5B21B6' : '#DDD6FE',
-      backgroundColor: isDark ? '#23153C' : '#F5F3FF',
+      borderColor: isDark ? '#A63D05' : '#FFD9BD',
+      backgroundColor: isDark ? '#23153C' : '#FFF3EA',
     },
     statBoxNotVisited: {
       borderColor: isDark ? '#475569' : '#CBD5E1',
@@ -432,12 +432,12 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       borderColor: '#DC2626',
     },
     bubbleMarked: {
-      backgroundColor: '#8B5CF6',
-      borderColor: '#7C3AED',
+      backgroundColor: '#FF8A3D',
+      borderColor: '#FF5500',
     },
     bubbleAnsweredMarked: {
-      backgroundColor: '#8B5CF6',
-      borderColor: '#7C3AED',
+      backgroundColor: '#FF8A3D',
+      borderColor: '#FF5500',
     },
     bubbleNotVisited: {
       backgroundColor: isDark ? '#334155' : '#FFFFFF',

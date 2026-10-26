@@ -126,12 +126,12 @@ const styles = StyleSheet.create({
   weightageNumber: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#7C3AED',
+    color: '#FF5500',
   },
   weightageSub: {
     fontSize: 8,
     fontWeight: '600',
-    color: '#9333EA',
+    color: '#FF5500',
   },
   chaptersContainer: {
     marginTop: 12,

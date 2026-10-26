@@ -31,7 +31,7 @@ export function PrelimsReadinessCard({ onTrendInsightsPress }: PrelimsReadinessC
           style={({ pressed }) => [styles.infoPill, pressed && styles.pressed]}
           onPress={onTrendInsightsPress}
         >
-          <Ionicons name="analytics-outline" size={14} color="#7C3AED" />
+          <Ionicons name="analytics-outline" size={14} color="#FF5500" />
           <Text style={styles.infoPillText}>Decade Trend</Text>
         </Pressable>
       </View>
@@ -42,7 +42,7 @@ export function PrelimsReadinessCard({ onTrendInsightsPress }: PrelimsReadinessC
           <Defs>
             <LinearGradient id="purpleGrad" x1="0" y1="0" x2="1" y2="1">
               <Stop offset="0%" stopColor="#8C65F7" />
-              <Stop offset="100%" stopColor="#6D28D9" />
+              <Stop offset="100%" stopColor="#EA4E00" />
             </LinearGradient>
           </Defs>
           {/* Background Track Circle */}
@@ -95,9 +95,9 @@ export function PrelimsReadinessCard({ onTrendInsightsPress }: PrelimsReadinessC
         </View>
 
         {/* Economy Pill */}
-        <View style={[styles.macroPill, { backgroundColor: '#F3E8FF', borderColor: '#E9D5FF' }]}>
+        <View style={[styles.macroPill, { backgroundColor: '#FFEDE0', borderColor: '#E9D5FF' }]}>
           <View style={styles.macroPillHeader}>
-            <View style={[styles.miniDot, { backgroundColor: '#7C3AED' }]} />
+            <View style={[styles.miniDot, { backgroundColor: '#FF5500' }]} />
             <Text style={styles.macroPillValue}>72%</Text>
           </View>
           <Text style={styles.macroPillLabel}>Economy</Text>
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: '#F3E8FF',
+    backgroundColor: '#FFEDE0',
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 16,
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   infoPillText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#7C3AED',
+    color: '#FF5500',
   },
   gaugeContainer: {
     alignItems: 'center',

@@ -569,7 +569,7 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                     Discard Session?
                   </Text>
                 </View>
-                <Text style={[styles.confirmDescription, { color: isDark ? '#E5E7EB' : '#4B5563' }]}>
+                <Text style={[styles.confirmDescription, { color: isDark ? '#E2E8F0' : '#4B5563' }]}>
                   Studied for {formatHumanDuration(timerSeconds)}. This time will not be saved.
                 </Text>
                 <View style={styles.confirmActions}>

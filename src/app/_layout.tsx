@@ -11,7 +11,7 @@ const customLightTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: '#EAF1FD',
+    background: '#F8FAFC',
     card: '#FFFFFF',
     border: 'rgba(215, 226, 248, 0.9)',
   },
@@ -21,9 +21,9 @@ const customDarkTheme = {
   ...DarkTheme,
   colors: {
     ...DarkTheme.colors,
-    background: '#0E121F',
-    card: '#151A2B',
-    border: '#232D44',
+    background: '#0A0D14',
+    card: '#121622',
+    border: '#1E2536',
   },
 };
 

@@ -128,16 +128,16 @@ export function CleanStreakDashboard({
                 {
                   backgroundColor: isDark
                     ? 'rgba(251, 191, 36, 0.12)'
-                    : 'rgba(99, 102, 241, 0.08)',
+                    : 'rgba(255, 106, 19, 0.08)',
                   borderColor: isDark
                     ? 'rgba(251, 191, 36, 0.28)'
-                    : 'rgba(99, 102, 241, 0.22)',
+                    : 'rgba(255, 106, 19, 0.22)',
                 },
               ]}>
               {isDark ? (
                 <Sun size={19} color="#FBBF24" strokeWidth={2.3} />
               ) : (
-                <Moon size={19} color="#4F46E5" strokeWidth={2.3} />
+                <Moon size={19} color="#E85A0C" strokeWidth={2.3} />
               )}
             </TouchableOpacity>
           )}
@@ -194,16 +194,16 @@ export function CleanStreakDashboard({
                 Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
                   backgroundColor: isDark
-                    ? 'rgba(99, 102, 241, 0.14)'
-                    : 'rgba(99, 102, 241, 0.1)',
+                    ? 'rgba(255, 106, 19, 0.14)'
+                    : 'rgba(255, 106, 19, 0.1)',
                   borderColor: isDark
-                    ? 'rgba(99, 102, 241, 0.35)'
-                    : 'rgba(99, 102, 241, 0.25)',
+                    ? 'rgba(255, 106, 19, 0.35)'
+                    : 'rgba(255, 106, 19, 0.25)',
                 },
               ]}>
               <User
                 size={19}
-                color={isDark ? '#A5B4FC' : '#4F46E5'}
+                color={isDark ? '#FFB98A' : '#E85A0C'}
                 strokeWidth={2.3}
               />
               <View
@@ -310,13 +310,13 @@ export function CleanStreakDashboard({
                       backgroundColor: isSelected
                         ? isDark
                           ? '#232938'
-                          : '#EFF6FF'
+                          : '#FFF3E8'
                         : isToday
                         ? theme.activeBg
                         : isDone
                         ? isDark
                           ? '#1C202B'
-                          : '#F8FAFC'
+                          : '#FFF8F2'
                         : 'transparent',
                       borderColor: isSelected
                         ? theme.cardBorderActive
@@ -407,8 +407,8 @@ export function CleanStreakDashboard({
                           ? isSelected
                             ? theme.textPrimary
                             : isDark
-                            ? '#E2E8F0'
-                            : '#0F172A'
+                            ? '#F0E2D5'
+                            : '#1F1612'
                           : theme.textMuted,
                         fontWeight: isDone ? '700' : '500',
                       },
@@ -442,7 +442,7 @@ export function CleanStreakDashboard({
                   <View
                     style={[
                       styles.cleanTodayBadge,
-                      { backgroundColor: isDark ? '#232938' : '#E2E8F0' },
+                      { backgroundColor: isDark ? '#232938' : '#F0E2D5' },
                     ]}>
                     <Text style={[styles.cleanTodayBadgeText, { color: theme.textPrimary }]}>
                       TODAY
@@ -537,7 +537,7 @@ export function CleanStreakDashboard({
             styles.statsStrip,
             {
               borderTopColor: theme.cardBorder,
-              backgroundColor: isDark ? '#141720' : '#F8FAFC',
+              backgroundColor: isDark ? '#141720' : '#FFF8F2',
             },
           ]}>
           <TouchableOpacity

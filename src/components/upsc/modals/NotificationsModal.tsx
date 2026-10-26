@@ -88,8 +88,8 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
       time: '2h ago',
       section: 'Today',
       icon: Award,
-      accentColor: '#3B82F6',
-      bgTint: isDark ? 'rgba(59, 130, 246, 0.15)' : 'rgba(59, 130, 246, 0.1)',
+      accentColor: '#FF5500',
+      bgTint: isDark ? 'rgba(255, 106, 19, 0.15)' : 'rgba(255, 106, 19, 0.1)',
       isRead: false,
       actionLabel: 'View Test Paper',
       actionType: 'mock',
@@ -104,8 +104,8 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
       time: '5h ago',
       section: 'Today',
       icon: Sparkles,
-      accentColor: '#8B5CF6',
-      bgTint: isDark ? 'rgba(139, 92, 246, 0.15)' : 'rgba(139, 92, 246, 0.1)',
+      accentColor: '#FF8A3D',
+      bgTint: isDark ? 'rgba(255, 138, 61, 0.15)' : 'rgba(255, 138, 61, 0.1)',
       isRead: true,
     },
     {
@@ -360,12 +360,12 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
                                   ? '#192033'
                                   : '#F8FAFF'
                                 : isDark
-                                ? '#141824'
+                                ? '#121622'
                                 : '#FFFFFF',
                               borderColor: !item.isRead
                                 ? isDark
-                                  ? 'rgba(59, 130, 246, 0.3)'
-                                  : 'rgba(59, 130, 246, 0.25)'
+                                  ? 'rgba(255, 106, 19, 0.3)'
+                                  : 'rgba(255, 106, 19, 0.25)'
                                 : theme.cardBorder,
                             },
                           ]}>

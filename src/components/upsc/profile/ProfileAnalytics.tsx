@@ -491,7 +491,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
               {/* Filled Syllabus Mastery Data Polygon */}
               <Polygon
                 points={dataPolygonPoints}
-                fill={isDark ? 'rgba(255, 255, 255, 0.16)' : 'rgba(15, 23, 42, 0.12)'}
+                fill={isDark ? 'rgba(255, 255, 255, 0.16)' : 'rgba(31, 22, 18, 0.12)'}
                 stroke={theme.textPrimary}
                 strokeWidth={2}
               />
@@ -708,7 +708,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
                       cx={pt.x}
                       cy={pt.y}
                       r={8}
-                      fill={isDark ? 'rgba(255,255,255,0.2)' : 'rgba(15,23,42,0.15)'}
+                      fill={isDark ? 'rgba(255,255,255,0.2)' : 'rgba(31, 22, 18,0.15)'}
                     />
                   )}
                   <Circle

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Platform } from 'react-native';
 import { ChevronRight } from '@/components/common/LucideIcons';
 import { Subject } from '@/types/prelims';
 import { usePrelimsTheme, PrelimsThemeType } from '@/constants/prelimsTheme';
@@ -8,16 +8,22 @@ interface SubjectCardProps {
   subject: Subject;
   serialNumber: number;
   onPress: (subject: Subject) => void;
+  isLast?: boolean;
 }
 
-export function SubjectCard({ subject, serialNumber, onPress }: SubjectCardProps) {
+export function SubjectCard({ subject, serialNumber, onPress, isLast }: SubjectCardProps) {
   const theme = usePrelimsTheme();
   const styles = useMemo(() => getStyles(theme), [theme]);
   const formattedSerial = String(serialNumber).padStart(2, '0');
 
   return (
     <Pressable
-      style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
+      style={({ pressed }) => [
+        styles.row,
+        !isLast && styles.rowDivider,
+        pressed && styles.rowPressed,
+        Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
+      ]}
       onPress={() => onPress(subject)}
     >
       <View style={styles.leftContent}>
@@ -43,24 +49,24 @@ export function SubjectCard({ subject, serialNumber, onPress }: SubjectCardProps
 
 const getStyles = (theme: PrelimsThemeType) =>
   StyleSheet.create({
-    card: {
-      backgroundColor: theme.colors.bgSurface,
-      borderRadius: 14,
+    row: {
+      backgroundColor: 'transparent',
       marginHorizontal: 20,
-      marginBottom: 10,
-      paddingVertical: 16,
-      paddingHorizontal: 16,
-      borderWidth: 1,
-      borderColor: theme.colors.borderCard,
+      paddingVertical: 14,
+      paddingHorizontal: 6,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      ...theme.shadows.card,
+      borderRadius: 10,
     },
-    cardPressed: {
-      backgroundColor: theme.colors.bgSurfaceMuted,
-      borderColor: theme.colors.textPrimary,
-      transform: [{ scale: 0.995 }],
+    rowDivider: {
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: theme.colors.borderSubtle,
+    },
+    rowPressed: {
+      backgroundColor: theme.isDark
+        ? 'rgba(255, 255, 255, 0.05)'
+        : 'rgba(0, 0, 0, 0.035)',
     },
     leftContent: {
       flexDirection: 'row',
@@ -107,3 +113,4 @@ const getStyles = (theme: PrelimsThemeType) =>
       justifyContent: 'center',
     },
   });
+

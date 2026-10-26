@@ -110,7 +110,7 @@ export function MockTestResultsView({
             <Text style={[styles.heroSubTitle, { color: theme.textMuted }]}>TEST COMPLETED</Text>
             <Text style={[styles.heroTitle, { color: theme.textPrimary }]}>{test.test_title}</Text>
           </View>
-          <View style={[styles.scoreBadge, { backgroundColor: isDark ? '#1C263D' : '#E2ECFC' }]}>
+          <View style={[styles.scoreBadge, { backgroundColor: isDark ? '#1C263D' : '#FFE8D6' }]}>
             <Award size={22} color={theme.textPrimary} />
           </View>
         </View>
@@ -237,7 +237,7 @@ export function MockTestResultsView({
                 style={[
                   styles.questionCard,
                   {
-                    backgroundColor: isDark ? '#111524' : '#F8FAFC',
+                    backgroundColor: isDark ? '#0C0F17' : '#F8FAFC',
                     borderColor: isCorrect ? '#059669' : userAns ? '#DC2626' : theme.divider,
                   },
                 ]}>
@@ -261,7 +261,7 @@ export function MockTestResultsView({
                         <Text style={styles.badgeIncorrectText}>Incorrect (-{test.negative_marks})</Text>
                       </View>
                     ) : (
-                      <View style={[styles.badgeUnattempted, { backgroundColor: isDark ? '#1E263D' : '#E2E8F0' }]}>
+                      <View style={[styles.badgeUnattempted, { backgroundColor: isDark ? '#181E2C' : '#E2E8F0' }]}>
                         <HelpCircle size={13} color={theme.textMuted} />
                         <Text style={[styles.badgeUnattemptedText, { color: theme.textMuted }]}>Unattempted (0)</Text>
                       </View>
@@ -274,7 +274,7 @@ export function MockTestResultsView({
 
                 {/* Statements if present */}
                 {snap.statements && snap.statements.length > 0 && (
-                  <View style={[styles.statementsBox, { backgroundColor: isDark ? '#151A2B' : '#FFFFFF', borderColor: theme.divider }]}>
+                  <View style={[styles.statementsBox, { backgroundColor: isDark ? '#121622' : '#FFFFFF', borderColor: theme.divider }]}>
                     {snap.statements.map((stmt: string, sIdx: number) => (
                       <Text key={sIdx} style={[styles.statementText, { color: theme.textSecondary }]}>
                         {stmt}
@@ -289,7 +289,7 @@ export function MockTestResultsView({
                     const isUserPick = userAns === opt.id.toUpperCase();
                     const isOfficialCorrect = correctAns === opt.id.toUpperCase();
 
-                    let optBg = isDark ? '#151A2B' : '#FFFFFF';
+                    let optBg = isDark ? '#121622' : '#FFFFFF';
                     let optBorder = theme.divider;
                     let optTextColor = theme.textPrimary;
 
@@ -348,7 +348,7 @@ export function MockTestResultsView({
                     </Pressable>
 
                     {isExpanded && (
-                      <View style={[styles.explanationContent, { backgroundColor: isDark ? '#151A2B' : '#FFFFFF', borderColor: theme.divider }]}>
+                      <View style={[styles.explanationContent, { backgroundColor: isDark ? '#121622' : '#FFFFFF', borderColor: theme.divider }]}>
                         <Text style={[styles.explanationBody, { color: theme.textSecondary }]}>
                           {snap.explanation_en}
                         </Text>

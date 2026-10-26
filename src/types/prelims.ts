@@ -54,7 +54,7 @@ export interface Subject {
   shortTitle: string;
   iconName: string; // Ionicons name
   accentColor: string; // e.g. '#8C65F7'
-  lightBg: string; // e.g. '#F3E8FF'
+  lightBg: string; // e.g. '#FFEDE0'
   weightageInGS1: number; // e.g. 15.5%
   totalQuestions10Yrs: number; // e.g. 152
   masteredPercent: number; // e.g. 74%

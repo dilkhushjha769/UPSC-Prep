@@ -104,7 +104,7 @@ export function StudyStreakCalendar({ isDark }: StudyStreakCalendarProps) {
               itemBg = isDark ? '#1E293B' : '#F8FAFC';
               itemBorder = isDark ? '#334155' : '#E2E8F0';
             } else if (day.isPast && !day.isCompleted) {
-              itemBg = isDark ? '#181724' : '#FAFAFA';
+              itemBg = isDark ? '#121622' : '#FAFAFA';
               itemBorder = colors.cardBorderSubtle;
               dayColor = colors.textMuted;
               numColor = colors.textMuted;
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 18,
     marginBottom: 20,
-    shadowColor: '#7C3AED',
+    shadowColor: '#FF5500',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
     shadowRadius: 12,

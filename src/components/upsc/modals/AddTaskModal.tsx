@@ -110,7 +110,7 @@ export function AddTaskModal({ isDark }: AddTaskModalProps) {
                           ? colors.primary
                           : isDark
                           ? '#232036'
-                          : '#F1F3F9',
+                          : '#F1F5F9',
                       },
                     ]}>
                     <Text
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(124, 58, 237, 0.08)',
+    borderBottomColor: 'rgba(255, 106, 19, 0.08)',
   },
   headerTitle: {
     fontSize: 17,

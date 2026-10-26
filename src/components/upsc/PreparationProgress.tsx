@@ -46,7 +46,7 @@ export function PreparationProgress({ isDark }: PreparationProgressProps) {
       subtitle: 'Quant, Reasoning & Comprehension',
       progress: 74,
       completedLabel: '74% prepared',
-      color: '#4F46E5',
+      color: '#FF5500',
       icon: Layers,
     },
     {
@@ -182,7 +182,7 @@ export function PreparationProgress({ isDark }: PreparationProgressProps) {
               <View
                 style={[
                   styles.progressBarTrack,
-                  { backgroundColor: isDark ? '#232136' : '#EDE9FE' },
+                  { backgroundColor: isDark ? '#232136' : '#FFEDE0' },
                 ]}>
                 <View
                   style={[
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 20,
     marginBottom: 24,
-    shadowColor: '#7C3AED',
+    shadowColor: '#FF5500',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
     shadowRadius: 12,

@@ -79,7 +79,7 @@ export function TrendAnalysisModal({
             {/* Qualitative Trend Analysis Card */}
             <View style={styles.analysisCard}>
               <View style={styles.analysisHeader}>
-                <Ionicons name="bulb-outline" size={18} color="#7C3AED" />
+                <Ionicons name="bulb-outline" size={18} color="#FF5500" />
                 <Text style={styles.analysisCardTitle}>Key Focus Areas</Text>
               </View>
               <Text style={styles.trendSummaryText}>{chapter.trendSummary}</Text>
@@ -110,7 +110,7 @@ export function TrendAnalysisModal({
                 onStartPractice(chapter);
               }}
             >
-              <Ionicons name="book-outline" size={16} color="#7C3AED" />
+              <Ionicons name="book-outline" size={16} color="#FF5500" />
               <Text style={styles.dockPracticeText}>Practice (Study Mode)</Text>
             </Pressable>
 
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   codeBadge: {
-    backgroundColor: '#F3E8FF',
+    backgroundColor: '#FFEDE0',
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 8,
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   codeText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#7C3AED',
+    color: '#FF5500',
   },
   headerTitle: {
     fontSize: 16,
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
   metricDivider: {
     width: 1,
     height: 30,
-    backgroundColor: '#E5E7EB',
+    backgroundColor: '#E2E8F0',
   },
   chartCard: {
     backgroundColor: '#FFFFFF',
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
   barCountLabel: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#7C3AED',
+    color: '#FF5500',
     marginBottom: 4,
   },
   chartBar: {
@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   chartBarHighlight: {
-    backgroundColor: '#7C3AED',
+    backgroundColor: '#FF5500',
   },
   yearLabel: {
     fontSize: 10,
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   yearLabelHighlight: {
-    color: '#7C3AED',
+    color: '#FF5500',
     fontWeight: '700',
   },
   analysisCard: {
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
   analysisCardTitle: {
     fontSize: 13,
     fontWeight: '800',
-    color: '#7C3AED',
+    color: '#FF5500',
   },
   trendSummaryText: {
     fontSize: 13,
@@ -357,7 +357,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: '#F3E8FF',
+    backgroundColor: '#FFEDE0',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 1,
@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
   topicIndex: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#7C3AED',
+    color: '#FF5500',
   },
   topicText: {
     fontSize: 13,
@@ -388,7 +388,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FFFFFF',
     borderWidth: 1.5,
-    borderColor: '#7C3AED',
+    borderColor: '#FF5500',
     paddingVertical: 13,
     borderRadius: PrelimsTheme.radius.pill,
     gap: 6,
@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
   dockPracticeText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#7C3AED',
+    color: '#FF5500',
   },
   dockQuizBtn: {
     flex: 1,

@@ -642,8 +642,8 @@ export function MockTestDashboard({ onStartTest, isDark = true }: MockTestDashbo
           style={[
             styles.matchingBanner,
             {
-              backgroundColor: matchingCount > 0 ? (isDark ? '#111A2E' : '#EFF6FF') : isDark ? '#2D1515' : '#FEF2F2',
-              borderColor: matchingCount > 0 ? (isDark ? '#1E293B' : '#BFDBFE') : '#EF4444',
+              backgroundColor: matchingCount > 0 ? (isDark ? '#111A2E' : '#FFF5EE') : isDark ? '#2D1515' : '#FEF2F2',
+              borderColor: matchingCount > 0 ? (isDark ? '#1E293B' : '#FFD9BD') : '#EF4444',
             },
           ]}>
           <View style={styles.matchingTextRow}>

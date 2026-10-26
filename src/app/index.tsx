@@ -156,6 +156,8 @@ export default function AppScreen() {
             <ProfileView
               isDark={isDark}
               onNavigateToTab={setActiveTab}
+              onToggleTheme={toggleTheme}
+              onBack={() => setActiveTab('home')}
             />
           )}
 
@@ -169,8 +171,8 @@ export default function AppScreen() {
         </View>
       </View>
 
-      {/* Floating Theme Changer across non-home screens on mobile (excluding notifications which has its own header theme button) */}
-      {!isDesktop && activeTab !== 'home' && activeTab !== 'notifications' && (
+      {/* Floating Theme Changer across non-home screens on mobile (excluding notifications and profile which have their own header theme button) */}
+      {!isDesktop && activeTab !== 'home' && activeTab !== 'notifications' && activeTab !== 'profile' && (
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={toggleTheme}

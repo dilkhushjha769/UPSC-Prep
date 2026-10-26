@@ -4,6 +4,7 @@ export * from './CleanStreakDashboard';
 export * from './ExamReadinessCard';
 export * from './ProfileView';
 export * from './CurrentAffairsView';
+export * from './NotificationsScreen';
 
 export * from './modals/AddTaskModal';
 export * from './modals/ConfigModal';

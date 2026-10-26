@@ -9,13 +9,15 @@ import {
   View,
 } from 'react-native';
 import {
+  Bell,
   Calendar,
   Check,
   Flame,
+  Moon,
   Play,
-  Plus,
+  Sun,
+  User,
   X,
-  Award,
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
@@ -28,22 +30,33 @@ interface CleanStreakDashboardProps {
   isDark: boolean;
   onOpenPrelims?: () => void;
   onOpenMockTests?: () => void;
+  onOpenProfile?: () => void;
+  onOpenNotifications?: () => void;
+  onToggleTheme?: () => void;
 }
 
-export function CleanStreakDashboard({ isDark, onOpenPrelims, onOpenMockTests }: CleanStreakDashboardProps) {
+export function CleanStreakDashboard({
+  isDark,
+  onOpenPrelims,
+  onOpenMockTests,
+  onOpenProfile,
+  onOpenNotifications,
+  onToggleTheme,
+}: CleanStreakDashboardProps) {
   const {
     streak,
     weekDays,
     sessions,
     setIsFocusModalOpen,
-    setIsLogModalOpen,
     setIsStreakInfoModalOpen,
+    setIsNotificationsModalOpen,
+    setIsConfigModalOpen,
     config,
   } = useStudy();
 
   const { width } = useWindowDimensions();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
-  const isDesktop = width >= 860;
+  const isDesktop = width >= 768;
 
   // Today's date string
   const todayDateStr = new Date().toLocaleDateString('en-US', {
@@ -102,56 +115,106 @@ export function CleanStreakDashboard({ isDark, onOpenPrelims, onOpenMockTests }:
           </Text>
         </View>
 
-        <View style={styles.headerActions}>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => setIsFocusModalOpen(true)}
-            style={[styles.actionPillPrimary, { backgroundColor: theme.buttonPrimaryBg }]}>
-            <Play
-              size={12}
-              color={theme.buttonPrimaryText}
-              fill={theme.buttonPrimaryText}
-            />
-            <Text
-              style={[
-                styles.actionPillPrimaryText,
-                { color: theme.buttonPrimaryText },
-              ]}>
-              Focus
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => setIsLogModalOpen(true)}
-            style={[
-              styles.actionPillSecondary,
-              {
-                backgroundColor: theme.buttonSecondaryBg,
-                borderColor: theme.buttonSecondaryBorder,
-              },
-            ]}>
-            <Plus size={13} color={theme.textPrimary} />
-            <Text style={[styles.actionPillSecondaryText, { color: theme.textPrimary }]}>
-              Notes
-            </Text>
-          </TouchableOpacity>
-
-          {Boolean(onOpenMockTests) && (
+        <View style={styles.headerIconsCluster}>
+          {/* 1. Theme Changer Icon (Mobile only: hidden in web view) */}
+          {!isDesktop && (
             <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={onOpenMockTests}
+              activeOpacity={0.7}
+              onPress={onToggleTheme}
+              accessibilityLabel="Toggle Theme"
               style={[
-                styles.actionPillSecondary,
+                styles.headerIconButton,
+                Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
-                  backgroundColor: theme.buttonSecondaryBg,
-                  borderColor: theme.buttonSecondaryBorder,
+                  backgroundColor: isDark
+                    ? 'rgba(251, 191, 36, 0.12)'
+                    : 'rgba(99, 102, 241, 0.08)',
+                  borderColor: isDark
+                    ? 'rgba(251, 191, 36, 0.28)'
+                    : 'rgba(99, 102, 241, 0.22)',
                 },
               ]}>
-              <Award size={13} color={theme.textPrimary} />
-              <Text style={[styles.actionPillSecondaryText, { color: theme.textPrimary }]}>
-                Mock Tests
-              </Text>
+              {isDark ? (
+                <Sun size={19} color="#FBBF24" strokeWidth={2.3} />
+              ) : (
+                <Moon size={19} color="#4F46E5" strokeWidth={2.3} />
+              )}
+            </TouchableOpacity>
+          )}
+
+          {/* 2. Notification Icon (Middle) */}
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => {
+              if (onOpenNotifications) {
+                onOpenNotifications();
+              } else {
+                setIsNotificationsModalOpen(true);
+              }
+            }}
+            accessibilityLabel="Notifications"
+            style={[
+              styles.headerIconButton,
+              Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
+              {
+                backgroundColor: isDark
+                  ? 'rgba(255, 255, 255, 0.06)'
+                  : 'rgba(0, 0, 0, 0.04)',
+                borderColor: isDark
+                  ? 'rgba(255, 255, 255, 0.12)'
+                  : 'rgba(0, 0, 0, 0.08)',
+              },
+            ]}>
+            <Bell size={19} color={theme.textPrimary} strokeWidth={2.2} />
+            <View
+              style={[
+                styles.notificationBadgeDot,
+                {
+                  backgroundColor: '#EF4444',
+                  borderColor: isDark ? '#141720' : '#FFFFFF',
+                },
+              ]}
+            />
+          </TouchableOpacity>
+
+          {/* 3. Profile Icon (Mobile only: hidden in web view) */}
+          {!isDesktop && (
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => {
+                if (onOpenProfile) {
+                  onOpenProfile();
+                } else {
+                  setIsConfigModalOpen(true);
+                }
+              }}
+              accessibilityLabel="Profile"
+              style={[
+                styles.headerIconButton,
+                Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
+                {
+                  backgroundColor: isDark
+                    ? 'rgba(99, 102, 241, 0.14)'
+                    : 'rgba(99, 102, 241, 0.1)',
+                  borderColor: isDark
+                    ? 'rgba(99, 102, 241, 0.35)'
+                    : 'rgba(99, 102, 241, 0.25)',
+                },
+              ]}>
+              <User
+                size={19}
+                color={isDark ? '#A5B4FC' : '#4F46E5'}
+                strokeWidth={2.3}
+              />
+              <View
+                style={[
+                  styles.profileStatusDot,
+                  {
+                    backgroundColor: '#10B981',
+                    borderColor: isDark ? '#141720' : '#FFFFFF',
+                  },
+                ]}
+              />
             </TouchableOpacity>
           )}
         </View>
@@ -581,35 +644,42 @@ const styles = StyleSheet.create({
     letterSpacing: -0.5,
     marginTop: 2,
   },
-  headerActions: {
+  headerIconsCluster: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 9,
   },
-  actionPillPrimary: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 14,
-    paddingVertical: 7,
-    borderRadius: 8,
-  },
-  actionPillPrimaryText: {
-    fontSize: 12,
-    fontWeight: '800',
-  },
-  actionPillSecondary: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    paddingHorizontal: 12,
-    paddingVertical: 7,
-    borderRadius: 8,
+  headerIconButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
   },
-  actionPillSecondaryText: {
-    fontSize: 12,
-    fontWeight: '700',
+  notificationBadgeDot: {
+    position: 'absolute',
+    top: 6,
+    right: 7,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    borderWidth: 1.5,
+  },
+  profileStatusDot: {
+    position: 'absolute',
+    bottom: 2,
+    right: 2,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    borderWidth: 1.5,
   },
   streakHeroCard: {
     borderRadius: 16,

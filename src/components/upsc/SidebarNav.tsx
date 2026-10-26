@@ -19,7 +19,7 @@ import {
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
 
-export type NavTab = 'home' | 'prelims' | 'mock-test' | 'current-affairs' | 'profile';
+export type NavTab = 'home' | 'prelims' | 'mock-test' | 'current-affairs' | 'profile' | 'notifications';
 
 interface SidebarNavProps {
   activeTab: NavTab;

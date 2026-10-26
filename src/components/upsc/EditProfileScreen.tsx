@@ -17,6 +17,7 @@ import {
   Check,
   ChevronLeft,
   Crop,
+  Trash2,
   Upload,
 } from 'lucide-react-native';
 import * as ImagePicker from 'expo-image-picker';
@@ -345,46 +346,24 @@ export function EditProfileScreen({
                 </Text>
               )}
             </View>
+            <View
+              style={[
+                styles.avatarEditBadge,
+                {
+                  backgroundColor: isDark ? '#FFFFFF' : '#0F172A',
+                  borderColor: isDark ? '#09090B' : '#FFFFFF',
+                },
+              ]}>
+              <Camera size={12} color={isDark ? '#09090B' : '#FFFFFF'} strokeWidth={2.4} />
+            </View>
           </TouchableOpacity>
 
-          {/* Photo Action Buttons */}
-          <View style={styles.photoActionsRow}>
-            <TouchableOpacity
-              activeOpacity={0.75}
-              onPress={handlePickImage}
-              style={[
-                styles.actionPillBtn,
-                {
-                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
-                  borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
-                },
-              ]}>
-              <Upload size={14} color={theme.textPrimary} strokeWidth={2.2} />
-              <Text style={[styles.actionPillText, { color: theme.textPrimary }]}>
-                Choose Photo
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              activeOpacity={0.75}
-              onPress={handleTakeNewPhoto}
-              style={[
-                styles.actionPillBtn,
-                {
-                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
-                  borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
-                },
-              ]}>
-              <Camera size={14} color={theme.textPrimary} strokeWidth={2.2} />
-              <Text style={[styles.actionPillText, { color: theme.textPrimary }]}>
-                Take Photo
-              </Text>
-            </TouchableOpacity>
-
-            {Boolean(avatarUri) && (
+          {/* Balanced 2-Column Action Grid (No Stranded Buttons on Mobile) */}
+          <View style={styles.photoActionsContainer}>
+            <View style={styles.photoActionsRow}>
               <TouchableOpacity
                 activeOpacity={0.75}
-                onPress={handleOpenCropCurrent}
+                onPress={handlePickImage}
                 style={[
                   styles.actionPillBtn,
                   {
@@ -392,28 +371,63 @@ export function EditProfileScreen({
                     borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
                   },
                 ]}>
-                <Crop size={14} color={theme.textPrimary} strokeWidth={2.2} />
+                <Upload size={14} color={theme.textPrimary} strokeWidth={2.2} />
                 <Text style={[styles.actionPillText, { color: theme.textPrimary }]}>
-                  Crop & Frame
+                  Choose Photo
                 </Text>
               </TouchableOpacity>
-            )}
 
-            {Boolean(avatarUri) && (
               <TouchableOpacity
                 activeOpacity={0.75}
-                onPress={handleRemovePhoto}
+                onPress={handleTakeNewPhoto}
                 style={[
                   styles.actionPillBtn,
                   {
-                    backgroundColor: isDark ? 'rgba(239, 68, 68, 0.12)' : 'rgba(239, 68, 68, 0.08)',
-                    borderColor: isDark ? 'rgba(239, 68, 68, 0.25)' : 'rgba(239, 68, 68, 0.15)',
+                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
+                    borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
                   },
                 ]}>
-                <Text style={[styles.actionPillText, { color: '#EF4444' }]}>
-                  Remove
+                <Camera size={14} color={theme.textPrimary} strokeWidth={2.2} />
+                <Text style={[styles.actionPillText, { color: theme.textPrimary }]}>
+                  Take Photo
                 </Text>
               </TouchableOpacity>
+            </View>
+
+            {Boolean(avatarUri) && (
+              <View style={styles.photoActionsRow}>
+                <TouchableOpacity
+                  activeOpacity={0.75}
+                  onPress={handleOpenCropCurrent}
+                  style={[
+                    styles.actionPillBtn,
+                    {
+                      backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
+                      borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
+                    },
+                  ]}>
+                  <Crop size={14} color={theme.textPrimary} strokeWidth={2.2} />
+                  <Text style={[styles.actionPillText, { color: theme.textPrimary }]}>
+                    Crop & Frame
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  activeOpacity={0.75}
+                  onPress={handleRemovePhoto}
+                  style={[
+                    styles.actionPillBtn,
+                    {
+                      backgroundColor: isDark ? 'rgba(239, 68, 68, 0.12)' : 'rgba(239, 68, 68, 0.08)',
+                      borderColor: isDark ? 'rgba(239, 68, 68, 0.25)' : 'rgba(239, 68, 68, 0.15)',
+                    },
+                  ]}>
+                  <Trash2 size={13} color="#EF4444" strokeWidth={2.2} />
+                  <Text style={[styles.actionPillText, { color: '#EF4444' }]}>
+                    Remove Photo
+                  </Text>
+                </TouchableOpacity>
+              </View>
             )}
           </View>
         </View>
@@ -827,7 +841,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   avatarPreviewOuter: {
-    marginBottom: 14,
+    position: 'relative',
+    marginBottom: 16,
   },
   avatarCircleFrame: {
     width: 96,
@@ -838,6 +853,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  avatarEditBadge: {
+    position: 'absolute',
+    bottom: -2,
+    right: -2,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    borderWidth: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
   avatarImage: {
     width: '100%',
     height: '100%',
@@ -847,21 +878,30 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     letterSpacing: -0.5,
   },
+  photoActionsContainer: {
+    width: '100%',
+    maxWidth: 340,
+    gap: 8,
+    alignItems: 'center',
+  },
   photoActionsRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    flexWrap: 'wrap',
+    width: '100%',
     justifyContent: 'center',
   },
   actionPillBtn: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: 6,
     paddingHorizontal: 12,
-    paddingVertical: 7,
-    borderRadius: 18,
+    paddingVertical: 9,
+    borderRadius: 20,
     borderWidth: 1,
+    minHeight: 38,
   },
   actionPillText: {
     fontSize: 12,

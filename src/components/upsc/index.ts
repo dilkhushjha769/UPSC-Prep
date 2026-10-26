@@ -3,6 +3,9 @@ export * from './SidebarNav';
 export * from './CleanStreakDashboard';
 export * from './ExamReadinessCard';
 export * from './ProfileView';
+export * from './EditProfileScreen';
+export * from './SettingsScreen';
+export * from './LegalScreen';
 export * from './CurrentAffairsView';
 export * from './NotificationsScreen';
 

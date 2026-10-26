@@ -81,6 +81,10 @@ export interface UserStudyConfig {
   email?: string;
   mobile?: string;
   gender?: string;
+  avatarUri?: string;
+  avatarScale?: number;
+  avatarOffsetX?: number;
+  avatarOffsetY?: number;
   residentialStatus?: string;
   profession?: string;
   organisationName?: string;

@@ -16,6 +16,7 @@ import {
   Camera,
   Check,
   ChevronLeft,
+  Crop,
   Upload,
 } from 'lucide-react-native';
 import * as ImagePicker from 'expo-image-picker';
@@ -71,6 +72,7 @@ export function EditProfileScreen({
   const [avatarOffsetX, setAvatarOffsetX] = useState<number>(config.avatarOffsetX || 0);
   const [avatarOffsetY, setAvatarOffsetY] = useState<number>(config.avatarOffsetY || 0);
   const [avatarRotation, setAvatarRotation] = useState<number>(config.avatarRotation || 0);
+  const [pendingCropUri, setPendingCropUri] = useState<string | null>(null);
   const [isCropModalOpen, setIsCropModalOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
@@ -107,14 +109,11 @@ export function EditProfileScreen({
 
       if (!result.canceled && result.assets && result.assets.length > 0) {
         const asset = result.assets[0];
-        if (asset.base64) {
-          const mime = asset.mimeType || 'image/jpeg';
-          const base64Uri = `data:${mime};base64,${asset.base64}`;
-          setAvatarUri(base64Uri);
-        } else {
-          setAvatarUri(asset.uri);
-        }
-        setScaleAndOpenCrop();
+        const selectedUri = asset.base64
+          ? `data:${asset.mimeType || 'image/jpeg'};base64,${asset.base64}`
+          : asset.uri;
+        setPendingCropUri(selectedUri);
+        setIsCropModalOpen(true);
       }
     } catch (e) {
       console.warn('Failed to pick profile image:', e);
@@ -144,14 +143,11 @@ export function EditProfileScreen({
 
       if (!result.canceled && result.assets && result.assets.length > 0) {
         const asset = result.assets[0];
-        if (asset.base64) {
-          const mime = asset.mimeType || 'image/jpeg';
-          const base64Uri = `data:${mime};base64,${asset.base64}`;
-          setAvatarUri(base64Uri);
-        } else {
-          setAvatarUri(asset.uri);
-        }
-        setScaleAndOpenCrop();
+        const capturedUri = asset.base64
+          ? `data:${asset.mimeType || 'image/jpeg'};base64,${asset.base64}`
+          : asset.uri;
+        setPendingCropUri(capturedUri);
+        setIsCropModalOpen(true);
       }
     } catch (e) {
       console.warn('Failed to capture photo:', e);
@@ -159,16 +155,18 @@ export function EditProfileScreen({
     }
   };
 
-  const setScaleAndOpenCrop = () => {
-    setAvatarScale(1);
-    setAvatarOffsetX(0);
-    setAvatarOffsetY(0);
-    setAvatarRotation(0);
-    setIsCropModalOpen(true);
+  const handleOpenCropCurrent = () => {
+    if (avatarUri) {
+      setPendingCropUri(avatarUri);
+      setIsCropModalOpen(true);
+    } else {
+      handlePickImage();
+    }
   };
 
   const handleRemovePhoto = () => {
     setAvatarUri(undefined);
+    setPendingCropUri(null);
     setAvatarScale(1);
     setAvatarOffsetX(0);
     setAvatarOffsetY(0);
@@ -312,7 +310,11 @@ export function EditProfileScreen({
         showsVerticalScrollIndicator={false}>
         {/* Profile Picture & Scaling Section */}
         <View style={styles.photoSection}>
-          <View style={styles.avatarPreviewOuter}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={handleOpenCropCurrent}
+            accessibilityLabel="Adjust Photo"
+            style={styles.avatarPreviewOuter}>
             <View
               style={[
                 styles.avatarCircleFrame,
@@ -343,7 +345,7 @@ export function EditProfileScreen({
                 </Text>
               )}
             </View>
-          </View>
+          </TouchableOpacity>
 
           {/* Photo Action Buttons */}
           <View style={styles.photoActionsRow}>
@@ -378,6 +380,24 @@ export function EditProfileScreen({
                 Take Photo
               </Text>
             </TouchableOpacity>
+
+            {Boolean(avatarUri) && (
+              <TouchableOpacity
+                activeOpacity={0.75}
+                onPress={handleOpenCropCurrent}
+                style={[
+                  styles.actionPillBtn,
+                  {
+                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
+                    borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
+                  },
+                ]}>
+                <Crop size={14} color={theme.textPrimary} strokeWidth={2.2} />
+                <Text style={[styles.actionPillText, { color: theme.textPrimary }]}>
+                  Crop & Frame
+                </Text>
+              </TouchableOpacity>
+            )}
 
             {Boolean(avatarUri) && (
               <TouchableOpacity
@@ -725,18 +745,23 @@ export function EditProfileScreen({
       </ScrollView>
 
       {/* Professional Crop & Adjustment Studio Modal */}
-      {Boolean(avatarUri) && (
+      {Boolean(isCropModalOpen && pendingCropUri) && (
         <PhotoCropModal
           visible={isCropModalOpen}
-          imageUri={avatarUri!}
+          imageUri={pendingCropUri!}
           isDark={isDark}
-          onCancel={() => setIsCropModalOpen(false)}
-          onApply={({ scale, offsetX, offsetY, rotation }) => {
-            setAvatarScale(scale);
-            setAvatarOffsetX(offsetX);
-            setAvatarOffsetY(offsetY);
-            setAvatarRotation(rotation);
+          onCancel={() => {
             setIsCropModalOpen(false);
+            setPendingCropUri(null);
+          }}
+          onApplyCroppedImage={(result) => {
+            setAvatarUri(result.uri);
+            setAvatarScale(1);
+            setAvatarOffsetX(0);
+            setAvatarOffsetY(0);
+            setAvatarRotation(0);
+            setIsCropModalOpen(false);
+            setPendingCropUri(null);
           }}
         />
       )}

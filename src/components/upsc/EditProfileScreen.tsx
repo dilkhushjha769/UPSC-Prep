@@ -17,6 +17,7 @@ import {
   Check,
   ChevronLeft,
   Crop,
+  Maximize2,
   Trash2,
   Upload,
 } from 'lucide-react-native';
@@ -26,6 +27,7 @@ import { useStudy } from '@/context/StudyContext';
 import { ExamMedium } from '@/types/study';
 import { supabase } from '@/services/supabase';
 import { PhotoCropModal } from './PhotoCropModal';
+import { PhotoViewerModal } from './PhotoViewerModal';
 
 interface EditProfileScreenProps {
   isDark: boolean;
@@ -75,6 +77,7 @@ export function EditProfileScreen({
   const [avatarRotation, setAvatarRotation] = useState<number>(config.avatarRotation || 0);
   const [pendingCropUri, setPendingCropUri] = useState<string | null>(null);
   const [isCropModalOpen, setIsCropModalOpen] = useState(false);
+  const [isEnlargeModalOpen, setIsEnlargeModalOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
@@ -313,8 +316,14 @@ export function EditProfileScreen({
         <View style={styles.photoSection}>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={handleOpenCropCurrent}
-            accessibilityLabel="Adjust Photo"
+            onPress={() => {
+              if (avatarUri) {
+                setIsEnlargeModalOpen(true);
+              } else {
+                handlePickImage();
+              }
+            }}
+            accessibilityLabel={avatarUri ? 'Enlarge Profile Photo' : 'Choose Profile Photo'}
             style={styles.avatarPreviewOuter}>
             <View
               style={[
@@ -354,80 +363,90 @@ export function EditProfileScreen({
                   borderColor: isDark ? '#09090B' : '#FFFFFF',
                 },
               ]}>
-              <Camera size={12} color={isDark ? '#09090B' : '#FFFFFF'} strokeWidth={2.4} />
+              {avatarUri ? (
+                <Maximize2 size={11} color={isDark ? '#09090B' : '#FFFFFF'} strokeWidth={2.6} />
+              ) : (
+                <Camera size={12} color={isDark ? '#09090B' : '#FFFFFF'} strokeWidth={2.4} />
+              )}
             </View>
           </TouchableOpacity>
 
-          {/* Balanced 2-Column Action Grid (No Stranded Buttons on Mobile) */}
-          <View style={styles.photoActionsContainer}>
-            <View style={styles.photoActionsRow}>
-              <TouchableOpacity
-                activeOpacity={0.75}
-                onPress={handlePickImage}
-                style={[
-                  styles.actionPillBtn,
-                  {
-                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
-                    borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
-                  },
-                ]}>
-                <Upload size={14} color={theme.textPrimary} strokeWidth={2.2} />
-                <Text style={[styles.actionPillText, { color: theme.textPrimary }]}>
-                  Choose Photo
-                </Text>
-              </TouchableOpacity>
+          {/* Minimalist Icon-Only Action Row */}
+          <View style={styles.iconActionsRow}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={handlePickImage}
+              accessibilityLabel="Choose from Library"
+              style={[
+                styles.iconCircleBtn,
+                {
+                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
+                  borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
+                },
+              ]}>
+              <Upload size={18} color={theme.textPrimary} strokeWidth={2.2} />
+            </TouchableOpacity>
 
-              <TouchableOpacity
-                activeOpacity={0.75}
-                onPress={handleTakeNewPhoto}
-                style={[
-                  styles.actionPillBtn,
-                  {
-                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
-                    borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
-                  },
-                ]}>
-                <Camera size={14} color={theme.textPrimary} strokeWidth={2.2} />
-                <Text style={[styles.actionPillText, { color: theme.textPrimary }]}>
-                  Take Photo
-                </Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={handleTakeNewPhoto}
+              accessibilityLabel="Take Photo with Camera"
+              style={[
+                styles.iconCircleBtn,
+                {
+                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
+                  borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
+                },
+              ]}>
+              <Camera size={18} color={theme.textPrimary} strokeWidth={2.2} />
+            </TouchableOpacity>
 
             {Boolean(avatarUri) && (
-              <View style={styles.photoActionsRow}>
-                <TouchableOpacity
-                  activeOpacity={0.75}
-                  onPress={handleOpenCropCurrent}
-                  style={[
-                    styles.actionPillBtn,
-                    {
-                      backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
-                      borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
-                    },
-                  ]}>
-                  <Crop size={14} color={theme.textPrimary} strokeWidth={2.2} />
-                  <Text style={[styles.actionPillText, { color: theme.textPrimary }]}>
-                    Crop & Frame
-                  </Text>
-                </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => setIsEnlargeModalOpen(true)}
+                accessibilityLabel="Enlarge Profile Photo"
+                style={[
+                  styles.iconCircleBtn,
+                  {
+                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
+                    borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
+                  },
+                ]}>
+                <Maximize2 size={17} color={theme.textPrimary} strokeWidth={2.2} />
+              </TouchableOpacity>
+            )}
 
-                <TouchableOpacity
-                  activeOpacity={0.75}
-                  onPress={handleRemovePhoto}
-                  style={[
-                    styles.actionPillBtn,
-                    {
-                      backgroundColor: isDark ? 'rgba(239, 68, 68, 0.12)' : 'rgba(239, 68, 68, 0.08)',
-                      borderColor: isDark ? 'rgba(239, 68, 68, 0.25)' : 'rgba(239, 68, 68, 0.15)',
-                    },
-                  ]}>
-                  <Trash2 size={13} color="#EF4444" strokeWidth={2.2} />
-                  <Text style={[styles.actionPillText, { color: '#EF4444' }]}>
-                    Remove Photo
-                  </Text>
-                </TouchableOpacity>
-              </View>
+            {Boolean(avatarUri) && (
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={handleOpenCropCurrent}
+                accessibilityLabel="Crop and Frame Photo"
+                style={[
+                  styles.iconCircleBtn,
+                  {
+                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
+                    borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
+                  },
+                ]}>
+                <Crop size={17} color={theme.textPrimary} strokeWidth={2.2} />
+              </TouchableOpacity>
+            )}
+
+            {Boolean(avatarUri) && (
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={handleRemovePhoto}
+                accessibilityLabel="Remove Photo"
+                style={[
+                  styles.iconCircleBtn,
+                  {
+                    backgroundColor: isDark ? 'rgba(239, 68, 68, 0.12)' : 'rgba(239, 68, 68, 0.08)',
+                    borderColor: isDark ? 'rgba(239, 68, 68, 0.25)' : 'rgba(239, 68, 68, 0.15)',
+                  },
+                ]}>
+                <Trash2 size={17} color="#EF4444" strokeWidth={2.2} />
+              </TouchableOpacity>
             )}
           </View>
         </View>
@@ -779,6 +798,18 @@ export function EditProfileScreen({
           }}
         />
       )}
+
+      {/* Full-Resolution Profile Photo Enlarge Modal */}
+      {Boolean(avatarUri && isEnlargeModalOpen) && (
+        <PhotoViewerModal
+          visible={isEnlargeModalOpen}
+          imageUri={avatarUri!}
+          title={name || 'Profile Photo'}
+          subtitle="Full-resolution view"
+          onClose={() => setIsEnlargeModalOpen(false)}
+          onEdit={handleOpenCropCurrent}
+        />
+      )}
     </View>
   );
 }
@@ -878,34 +909,19 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     letterSpacing: -0.5,
   },
-  photoActionsContainer: {
-    width: '100%',
-    maxWidth: 340,
-    gap: 8,
-    alignItems: 'center',
-  },
-  photoActionsRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    width: '100%',
-    justifyContent: 'center',
-  },
-  actionPillBtn: {
-    flex: 1,
+  iconActionsRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 6,
-    paddingHorizontal: 12,
-    paddingVertical: 9,
-    borderRadius: 20,
+    gap: 12,
+  },
+  iconCircleBtn: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     borderWidth: 1,
-    minHeight: 38,
-  },
-  actionPillText: {
-    fontSize: 12,
-    fontWeight: '600',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   zoomControlBox: {
     marginTop: 14,

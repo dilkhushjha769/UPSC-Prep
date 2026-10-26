@@ -23,6 +23,7 @@ import { EditProfileScreen } from './EditProfileScreen';
 import { SettingsScreen } from './SettingsScreen';
 import { LegalScreen } from './LegalScreen';
 import { NotificationSettingsScreen } from './NotificationSettingsScreen';
+import { PhotoViewerModal } from './PhotoViewerModal';
 
 interface ProfileViewProps {
   isDark: boolean;
@@ -52,6 +53,7 @@ export function ProfileView({
 
   // Active full-screen flow state
   const [currentScreen, setCurrentScreen] = useState<SubScreen>('main');
+  const [isEnlargePhotoOpen, setIsEnlargePhotoOpen] = useState(false);
 
   // Display values
   const displayName = config.aspirantName || config.firstName || 'Dilkhush Jha';
@@ -218,7 +220,14 @@ export function ProfileView({
         <View style={styles.heroSection}>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => setCurrentScreen('edit-profile')}
+            onPress={() => {
+              if (config.avatarUri) {
+                setIsEnlargePhotoOpen(true);
+              } else {
+                setCurrentScreen('edit-profile');
+              }
+            }}
+            accessibilityLabel={config.avatarUri ? 'Enlarge profile photo' : 'Edit profile'}
             style={styles.avatarTouchWrap}>
             <View
               style={[
@@ -401,6 +410,21 @@ export function ProfileView({
 
         <View style={{ height: 48 }} />
       </ScrollView>
+
+      {/* Full-Resolution Profile Photo Enlarge Modal */}
+      {Boolean(config.avatarUri && isEnlargePhotoOpen) && (
+        <PhotoViewerModal
+          visible={isEnlargePhotoOpen}
+          imageUri={config.avatarUri!}
+          title={displayName || 'Profile Photo'}
+          subtitle="Full-resolution view"
+          onClose={() => setIsEnlargePhotoOpen(false)}
+          onEdit={() => {
+            setIsEnlargePhotoOpen(false);
+            setCurrentScreen('edit-profile');
+          }}
+        />
+      )}
     </View>
   );
 }

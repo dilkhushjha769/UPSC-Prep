@@ -9,7 +9,21 @@ import {
   ActivityIndicator,
   Alert,
 } from 'react-native';
-import { Clock, Play, Layers, Award, Calendar, Sparkles, Filter } from 'lucide-react-native';
+import {
+  Clock,
+  Play,
+  Layers,
+  Award,
+  Calendar,
+  Sparkles,
+  Filter,
+  Search,
+  X,
+  Check,
+  ChevronDown,
+  ChevronUp,
+  SlidersHorizontal,
+} from 'lucide-react-native';
 import {
   BookOpen,
   CheckCircle2,
@@ -61,6 +75,12 @@ export function MockTestDashboard({ onStartTest, isDark = true }: MockTestDashbo
   const [marksPerCorrect, setMarksPerCorrect] = useState<number>(2.0);
   const [negativeMarks, setNegativeMarks] = useState<number>(0.67);
 
+  // Decluttering & search states
+  const [isMoreSubjectsOpen, setIsMoreSubjectsOpen] = useState(false);
+  const [subjectSearch, setSubjectSearch] = useState('');
+  const [isTopicFilterOpen, setIsTopicFilterOpen] = useState(false);
+  const [topicSearch, setTopicSearch] = useState('');
+
   // Live matching question count
   const [matchingCount, setMatchingCount] = useState<number>(0);
   const [isCounting, setIsCounting] = useState(false);
@@ -97,6 +117,10 @@ export function MockTestDashboard({ onStartTest, isDark = true }: MockTestDashbo
     setPaperType(pType);
     setSelectedSubjects([]);
     setSelectedTopics([]);
+    setSubjectSearch('');
+    setTopicSearch('');
+    setIsMoreSubjectsOpen(false);
+    setIsTopicFilterOpen(false);
     if (pType === 'CSAT') {
       setMarksPerCorrect(2.5);
       setNegativeMarks(0.83);
@@ -124,6 +148,33 @@ export function MockTestDashboard({ onStartTest, isDark = true }: MockTestDashbo
     });
     return Array.from(tops).sort();
   }, [selectedSubjects, filtersData.topicsBySubject]);
+
+  // Top 8 core subjects vs extended subjects for clean decluttered UI
+  const { primarySubjects, remainingSubjects, activeNonPrimarySubjects } = useMemo(() => {
+    const all = filtersData.subjects;
+    const primary = all.slice(0, 8);
+    const remaining = all.slice(8);
+    const activeNonPrimary = selectedSubjects.filter(
+      (subName) => !primary.some((p) => p.name === subName)
+    );
+    return {
+      primarySubjects: primary,
+      remainingSubjects: remaining,
+      activeNonPrimarySubjects: activeNonPrimary,
+    };
+  }, [filtersData.subjects, selectedSubjects]);
+
+  const filteredRemainingSubjects = useMemo(() => {
+    if (!subjectSearch.trim()) return remainingSubjects;
+    const q = subjectSearch.trim().toLowerCase();
+    return remainingSubjects.filter((s) => s.name.toLowerCase().includes(q));
+  }, [remainingSubjects, subjectSearch]);
+
+  const filteredTopics = useMemo(() => {
+    if (!topicSearch.trim()) return availableTopics.slice(0, 24);
+    const q = topicSearch.trim().toLowerCase();
+    return availableTopics.filter((t) => t.toLowerCase().includes(q));
+  }, [availableTopics, topicSearch]);
 
   // 3. Debounced live question count query
   useEffect(() => {
@@ -321,9 +372,14 @@ export function MockTestDashboard({ onStartTest, isDark = true }: MockTestDashbo
 
         {/* Section A: Examination Year */}
         <View style={styles.configSection}>
-          <View style={styles.sectionTitleRow}>
-            <Calendar size={15} color={theme.textPrimary} />
-            <Text style={[styles.sectionHeading, { color: theme.textPrimary }]}>Examination Year</Text>
+          <View style={styles.sectionHeaderRow}>
+            <View style={styles.sectionTitleRow}>
+              <Calendar size={15} color={theme.textPrimary} />
+              <Text style={[styles.sectionHeading, { color: theme.textPrimary }]}>Examination Year</Text>
+            </View>
+            <Text style={[styles.sectionSubtext, { color: theme.textMuted }]}>
+              {selectedYears.length === 0 ? 'All Available Years' : `${selectedYears.length} Selected`}
+            </Text>
           </View>
           <View style={styles.pillRow}>
             <Pressable
@@ -334,7 +390,10 @@ export function MockTestDashboard({ onStartTest, isDark = true }: MockTestDashbo
                   backgroundColor: theme.buttonPrimaryBg,
                   borderColor: theme.buttonPrimaryBg,
                 },
-                { borderColor: theme.cardBorder },
+                {
+                  borderColor: theme.cardBorder,
+                  backgroundColor: selectedYears.length === 0 ? theme.buttonPrimaryBg : theme.activeBg,
+                },
               ]}>
               <Text
                 style={[
@@ -357,8 +416,12 @@ export function MockTestDashboard({ onStartTest, isDark = true }: MockTestDashbo
                       backgroundColor: theme.buttonPrimaryBg,
                       borderColor: theme.buttonPrimaryBg,
                     },
-                    { borderColor: theme.cardBorder },
+                    {
+                      borderColor: theme.cardBorder,
+                      backgroundColor: isSelected ? theme.buttonPrimaryBg : theme.activeBg,
+                    },
                   ]}>
+                  {isSelected && <Check size={12} color={theme.buttonPrimaryText} style={{ marginRight: -2 }} />}
                   <Text
                     style={[
                       styles.filterPillText,
@@ -372,12 +435,57 @@ export function MockTestDashboard({ onStartTest, isDark = true }: MockTestDashbo
           </View>
         </View>
 
-        {/* Section B: Subject */}
+        {/* Section B: Subject Focus */}
         <View style={styles.configSection}>
-          <View style={styles.sectionTitleRow}>
-            <BookOpen size={15} color={theme.textPrimary} />
-            <Text style={[styles.sectionHeading, { color: theme.textPrimary }]}>Subject (Multi-Select)</Text>
+          <View style={styles.sectionHeaderRow}>
+            <View style={styles.sectionTitleRow}>
+              <BookOpen size={15} color={theme.textPrimary} />
+              <Text style={[styles.sectionHeading, { color: theme.textPrimary }]}>Subject (Multi-Select)</Text>
+              <View
+                style={[
+                  styles.countBadgePill,
+                  {
+                    backgroundColor:
+                      selectedSubjects.length === 0
+                        ? theme.activeBg
+                        : isDark
+                        ? '#1C2E4A'
+                        : '#E0EDFE',
+                  },
+                ]}>
+                <Text
+                  style={[
+                    styles.countBadgeText,
+                    {
+                      color:
+                        selectedSubjects.length === 0
+                          ? theme.textSecondary
+                          : isDark
+                          ? '#60A5FA'
+                          : '#2563EB',
+                    },
+                  ]}>
+                  {selectedSubjects.length === 0
+                    ? `All ${filtersData.subjects.length} Subjects`
+                    : `${selectedSubjects.length} Selected`}
+                </Text>
+              </View>
+            </View>
+
+            {selectedSubjects.length > 0 && (
+              <Pressable
+                onPress={() => {
+                  setSelectedSubjects([]);
+                  setSelectedTopics([]);
+                }}
+                hitSlop={8}
+                style={styles.resetBtn}>
+                <Text style={[styles.resetBtnText, { color: theme.textMuted }]}>Reset to All</Text>
+              </Pressable>
+            )}
           </View>
+
+          {/* Primary High-Yield Subject Chips */}
           <View style={styles.pillRow}>
             <Pressable
               onPress={() => {
@@ -390,7 +498,10 @@ export function MockTestDashboard({ onStartTest, isDark = true }: MockTestDashbo
                   backgroundColor: theme.buttonPrimaryBg,
                   borderColor: theme.buttonPrimaryBg,
                 },
-                { borderColor: theme.cardBorder },
+                {
+                  borderColor: theme.cardBorder,
+                  backgroundColor: selectedSubjects.length === 0 ? theme.buttonPrimaryBg : theme.activeBg,
+                },
               ]}>
               <Text
                 style={[
@@ -401,7 +512,7 @@ export function MockTestDashboard({ onStartTest, isDark = true }: MockTestDashbo
               </Text>
             </Pressable>
 
-            {filtersData.subjects.map((sub) => {
+            {primarySubjects.map((sub) => {
               const isSelected = selectedSubjects.includes(sub.name);
               return (
                 <Pressable
@@ -413,8 +524,12 @@ export function MockTestDashboard({ onStartTest, isDark = true }: MockTestDashbo
                       backgroundColor: theme.buttonPrimaryBg,
                       borderColor: theme.buttonPrimaryBg,
                     },
-                    { borderColor: theme.cardBorder },
+                    {
+                      borderColor: theme.cardBorder,
+                      backgroundColor: isSelected ? theme.buttonPrimaryBg : theme.activeBg,
+                    },
                   ]}>
+                  {isSelected && <Check size={12} color={theme.buttonPrimaryText} style={{ marginRight: -2 }} />}
                   <Text
                     style={[
                       styles.filterPillText,
@@ -422,70 +537,346 @@ export function MockTestDashboard({ onStartTest, isDark = true }: MockTestDashbo
                     ]}>
                     {sub.name}
                   </Text>
-                  <View style={[styles.subCountBadge, { backgroundColor: isSelected ? 'rgba(0,0,0,0.15)' : theme.activeBg }]}>
-                    <Text style={[styles.subCountText, { color: isSelected ? theme.buttonPrimaryText : theme.textMuted }]}>
+                  <View
+                    style={[
+                      styles.subCountBadge,
+                      {
+                        backgroundColor: isSelected
+                          ? isDark
+                            ? 'rgba(0,0,0,0.25)'
+                            : 'rgba(255,255,255,0.25)'
+                          : isDark
+                          ? '#151A2B'
+                          : '#FFFFFF',
+                      },
+                    ]}>
+                    <Text
+                      style={[
+                        styles.subCountText,
+                        { color: isSelected ? theme.buttonPrimaryText : theme.textMuted },
+                      ]}>
                       {sub.count}
                     </Text>
                   </View>
                 </Pressable>
               );
             })}
-          </View>
-        </View>
 
-        {/* Section C: Topic */}
-        {availableTopics.length > 0 && (
-          <View style={styles.configSection}>
-            <View style={styles.sectionTitleRow}>
-              <Layers size={15} color={theme.textPrimary} />
-              <Text style={[styles.sectionHeading, { color: theme.textPrimary }]}>Topic Filter</Text>
-            </View>
-            <View style={styles.pillRow}>
-              <Pressable
-                onPress={() => setSelectedTopics([])}
-                style={[
-                  styles.filterPill,
-                  selectedTopics.length === 0 && {
-                    backgroundColor: theme.buttonPrimaryBg,
-                    borderColor: theme.buttonPrimaryBg,
-                  },
-                  { borderColor: theme.cardBorder },
-                ]}>
-                <Text
+            {/* Pinned Active Non-Primary Subjects (so any niche selection remains visible & removable) */}
+            {activeNonPrimarySubjects.map((subName) => {
+              const subObj = filtersData.subjects.find((s) => s.name === subName);
+              const count = subObj ? subObj.count : 0;
+              return (
+                <Pressable
+                  key={subName}
+                  onPress={() => toggleSubject(subName)}
                   style={[
-                    styles.filterPillText,
-                    { color: selectedTopics.length === 0 ? theme.buttonPrimaryText : theme.textSecondary },
+                    styles.filterPill,
+                    {
+                      backgroundColor: theme.buttonPrimaryBg,
+                      borderColor: theme.buttonPrimaryBg,
+                    },
                   ]}>
-                  All Topics
+                  <Text
+                    style={[
+                      styles.filterPillText,
+                      { color: theme.buttonPrimaryText },
+                    ]}>
+                    {subName}
+                  </Text>
+                  <View
+                    style={[
+                      styles.subCountBadge,
+                      {
+                        backgroundColor: isDark
+                          ? 'rgba(0,0,0,0.25)'
+                          : 'rgba(255,255,255,0.25)',
+                      },
+                    ]}>
+                    <Text style={[styles.subCountText, { color: theme.buttonPrimaryText }]}>
+                      {count}
+                    </Text>
+                  </View>
+                  <X size={13} color={theme.buttonPrimaryText} style={{ marginLeft: 2 }} />
+                </Pressable>
+              );
+            })}
+          </View>
+
+          {/* Expandable More Subjects Button & Search Drawer */}
+          {remainingSubjects.length > 0 && (
+            <View style={styles.moreSubjectsContainer}>
+              <Pressable
+                onPress={() => setIsMoreSubjectsOpen(!isMoreSubjectsOpen)}
+                style={[
+                  styles.moreSubjectsToggleBtn,
+                  { borderColor: theme.cardBorder, backgroundColor: theme.activeBg },
+                ]}>
+                <SlidersHorizontal size={13} color={theme.textSecondary} />
+                <Text style={[styles.moreSubjectsToggleText, { color: theme.textSecondary }]}>
+                  {isMoreSubjectsOpen
+                    ? 'Hide Extended Subjects'
+                    : `+ Explore ${remainingSubjects.length} More Specialized Subjects`}
                 </Text>
+                {isMoreSubjectsOpen ? (
+                  <ChevronUp size={14} color={theme.textSecondary} />
+                ) : (
+                  <ChevronDown size={14} color={theme.textSecondary} />
+                )}
               </Pressable>
 
-              {availableTopics.slice(0, 16).map((top) => {
-                const isSelected = selectedTopics.includes(top);
-                return (
+              {isMoreSubjectsOpen && (
+                <View
+                  style={[
+                    styles.moreSubjectsDrawer,
+                    { backgroundColor: theme.activeBg, borderColor: theme.cardBorder },
+                  ]}>
+                  {/* Subject Search Bar */}
+                  <View
+                    style={[
+                      styles.filterSearchBar,
+                      { backgroundColor: theme.cardBg, borderColor: theme.cardBorder },
+                    ]}>
+                    <Search size={14} color={theme.textMuted} />
+                    <TextInput
+                      style={[styles.filterSearchInput, { color: theme.textPrimary }]}
+                      placeholder="Search specialized subjects (e.g. Defence, Agriculture, Trade)..."
+                      placeholderTextColor={theme.textMuted}
+                      value={subjectSearch}
+                      onChangeText={setSubjectSearch}
+                    />
+                    {subjectSearch.length > 0 && (
+                      <Pressable onPress={() => setSubjectSearch('')} hitSlop={6}>
+                        <X size={14} color={theme.textMuted} />
+                      </Pressable>
+                    )}
+                  </View>
+
+                  {/* Filtered Remaining Subject Pills */}
+                  <View style={styles.pillRow}>
+                    {filteredRemainingSubjects.length === 0 ? (
+                      <Text style={[styles.emptyFilterText, { color: theme.textMuted }]}>
+                        No subjects match &quot;{subjectSearch}&quot;
+                      </Text>
+                    ) : (
+                      filteredRemainingSubjects.map((sub) => {
+                        const isSelected = selectedSubjects.includes(sub.name);
+                        return (
+                          <Pressable
+                            key={sub.name}
+                            onPress={() => toggleSubject(sub.name)}
+                            style={[
+                              styles.filterPill,
+                              isSelected && {
+                                backgroundColor: theme.buttonPrimaryBg,
+                                borderColor: theme.buttonPrimaryBg,
+                              },
+                              {
+                                borderColor: theme.cardBorder,
+                                backgroundColor: isSelected ? theme.buttonPrimaryBg : theme.cardBg,
+                              },
+                            ]}>
+                            {isSelected && (
+                              <Check size={12} color={theme.buttonPrimaryText} style={{ marginRight: -2 }} />
+                            )}
+                            <Text
+                              style={[
+                                styles.filterPillText,
+                                { color: isSelected ? theme.buttonPrimaryText : theme.textSecondary },
+                              ]}>
+                              {sub.name}
+                            </Text>
+                            <View
+                              style={[
+                                styles.subCountBadge,
+                                {
+                                  backgroundColor: isSelected
+                                    ? isDark
+                                      ? 'rgba(0,0,0,0.25)'
+                                      : 'rgba(255,255,255,0.25)'
+                                    : isDark
+                                    ? '#151A2B'
+                                    : '#F1F5F9',
+                                },
+                              ]}>
+                              <Text
+                                style={[
+                                  styles.subCountText,
+                                  { color: isSelected ? theme.buttonPrimaryText : theme.textMuted },
+                                ]}>
+                                {sub.count}
+                              </Text>
+                            </View>
+                          </Pressable>
+                        );
+                      })
+                    )}
+                  </View>
+                </View>
+              )}
+            </View>
+          )}
+        </View>
+
+        {/* Section C: Topic Filter (Smart Accordion) */}
+        {availableTopics.length > 0 && (
+          <View style={[styles.topicAccordionCard, { borderColor: theme.cardBorder, backgroundColor: theme.activeBg }]}>
+            <Pressable
+              onPress={() => setIsTopicFilterOpen(!isTopicFilterOpen)}
+              style={styles.topicAccordionHeader}>
+              <View style={styles.topicHeaderLeft}>
+                <Layers size={15} color={theme.textPrimary} />
+                <Text style={[styles.sectionHeading, { color: theme.textPrimary }]}>
+                  Topic Drill-Down
+                </Text>
+                <View
+                  style={[
+                    styles.countBadgePill,
+                    {
+                      backgroundColor:
+                        selectedTopics.length === 0
+                          ? isDark
+                            ? '#151A2B'
+                            : '#FFFFFF'
+                          : isDark
+                          ? '#1C2E4A'
+                          : '#E0EDFE',
+                    },
+                  ]}>
+                  <Text
+                    style={[
+                      styles.countBadgeText,
+                      {
+                        color:
+                          selectedTopics.length === 0
+                            ? theme.textSecondary
+                            : isDark
+                            ? '#60A5FA'
+                            : '#2563EB',
+                      },
+                    ]}>
+                    {selectedTopics.length === 0 ? 'Optional (All Topics)' : `${selectedTopics.length} Selected`}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.topicHeaderRight}>
+                {selectedTopics.length > 0 && (
                   <Pressable
-                    key={top}
-                    onPress={() => toggleTopic(top)}
+                    onPress={(e) => {
+                      e.stopPropagation();
+                      setSelectedTopics([]);
+                    }}
+                    hitSlop={8}
+                    style={styles.resetBtn}>
+                    <Text style={[styles.resetBtnText, { color: theme.textMuted }]}>Reset</Text>
+                  </Pressable>
+                )}
+                {isTopicFilterOpen ? (
+                  <ChevronUp size={16} color={theme.textSecondary} />
+                ) : (
+                  <ChevronDown size={16} color={theme.textSecondary} />
+                )}
+              </View>
+            </Pressable>
+
+            {!isTopicFilterOpen ? (
+              <Pressable
+                onPress={() => setIsTopicFilterOpen(true)}
+                style={styles.topicCollapsedSummary}>
+                <Text style={[styles.topicSummaryText, { color: theme.textMuted }]}>
+                  {selectedTopics.length === 0
+                    ? `Currently testing across all ${availableTopics.length} available topics. Tap to isolate specific topics.`
+                    : `Active: ${selectedTopics.join(', ')}`}
+                </Text>
+              </Pressable>
+            ) : (
+              <View style={styles.topicExpandedBody}>
+                {/* Topic Search Input */}
+                <View
+                  style={[
+                    styles.filterSearchBar,
+                    { backgroundColor: theme.cardBg, borderColor: theme.cardBorder, marginBottom: 12 },
+                  ]}>
+                  <Search size={14} color={theme.textMuted} />
+                  <TextInput
+                    style={[styles.filterSearchInput, { color: theme.textPrimary }]}
+                    placeholder={`Search ${availableTopics.length} topics (e.g. Biodiversity, Inflation, Judicial)...`}
+                    placeholderTextColor={theme.textMuted}
+                    value={topicSearch}
+                    onChangeText={setTopicSearch}
+                  />
+                  {topicSearch.length > 0 && (
+                    <Pressable onPress={() => setTopicSearch('')} hitSlop={6}>
+                      <X size={14} color={theme.textMuted} />
+                    </Pressable>
+                  )}
+                </View>
+
+                {/* Topic Pills */}
+                <View style={styles.pillRow}>
+                  <Pressable
+                    onPress={() => setSelectedTopics([])}
                     style={[
                       styles.filterPill,
-                      isSelected && {
+                      selectedTopics.length === 0 && {
                         backgroundColor: theme.buttonPrimaryBg,
                         borderColor: theme.buttonPrimaryBg,
                       },
-                      { borderColor: theme.cardBorder },
+                      {
+                        borderColor: theme.cardBorder,
+                        backgroundColor: selectedTopics.length === 0 ? theme.buttonPrimaryBg : theme.cardBg,
+                      },
                     ]}>
                     <Text
                       style={[
                         styles.filterPillText,
-                        { color: isSelected ? theme.buttonPrimaryText : theme.textSecondary },
-                      ]}
-                      numberOfLines={1}>
-                      {top}
+                        { color: selectedTopics.length === 0 ? theme.buttonPrimaryText : theme.textSecondary },
+                      ]}>
+                      All Topics
                     </Text>
                   </Pressable>
-                );
-              })}
-            </View>
+
+                  {filteredTopics.length === 0 ? (
+                    <Text style={[styles.emptyFilterText, { color: theme.textMuted }]}>
+                      No topics match &quot;{topicSearch}&quot;
+                    </Text>
+                  ) : (
+                    filteredTopics.map((top) => {
+                      const isSelected = selectedTopics.includes(top);
+                      return (
+                        <Pressable
+                          key={top}
+                          onPress={() => toggleTopic(top)}
+                          style={[
+                            styles.filterPill,
+                            isSelected && {
+                              backgroundColor: theme.buttonPrimaryBg,
+                              borderColor: theme.buttonPrimaryBg,
+                            },
+                            {
+                              borderColor: theme.cardBorder,
+                              backgroundColor: isSelected ? theme.buttonPrimaryBg : theme.cardBg,
+                            },
+                          ]}>
+                          {isSelected && (
+                            <Check size={12} color={theme.buttonPrimaryText} style={{ marginRight: -2 }} />
+                          )}
+                          <Text
+                            style={[
+                              styles.filterPillText,
+                              { color: isSelected ? theme.buttonPrimaryText : theme.textSecondary },
+                            ]}
+                            numberOfLines={1}>
+                            {top}
+                          </Text>
+                        </Pressable>
+                      );
+                    })
+                  )}
+                </View>
+              </View>
+            )}
           </View>
         )}
 
@@ -827,15 +1218,127 @@ const styles = StyleSheet.create({
   configSection: {
     marginBottom: 20,
   },
+  sectionHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+    flexWrap: 'wrap',
+    gap: 8,
+  },
   sectionTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    marginBottom: 10,
+    gap: 8,
   },
   sectionHeading: {
     fontSize: 14,
     fontWeight: '700',
+  },
+  sectionSubtext: {
+    fontSize: 12,
+    fontWeight: '500',
+  },
+  countBadgePill: {
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 10,
+  },
+  countBadgeText: {
+    fontSize: 11,
+    fontWeight: '700',
+  },
+  resetBtn: {
+    paddingVertical: 2,
+    paddingHorizontal: 6,
+  },
+  resetBtnText: {
+    fontSize: 12,
+    fontWeight: '600',
+    textDecorationLine: 'underline',
+  },
+  moreSubjectsContainer: {
+    marginTop: 10,
+  },
+  moreSubjectsToggleBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    paddingVertical: 9,
+    paddingHorizontal: 14,
+    borderRadius: 10,
+    borderWidth: 1,
+  },
+  moreSubjectsToggleText: {
+    fontSize: 12.5,
+    fontWeight: '600',
+  },
+  moreSubjectsDrawer: {
+    marginTop: 8,
+    borderRadius: 12,
+    borderWidth: 1,
+    padding: 12,
+  },
+  filterSearchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    height: 38,
+    marginBottom: 10,
+  },
+  filterSearchInput: {
+    flex: 1,
+    fontSize: 12.5,
+    fontWeight: '500',
+    padding: 0,
+  },
+  emptyFilterText: {
+    fontSize: 12,
+    fontStyle: 'italic',
+    paddingVertical: 6,
+    paddingHorizontal: 4,
+  },
+  topicAccordionCard: {
+    borderRadius: 14,
+    borderWidth: 1,
+    padding: 14,
+    marginBottom: 20,
+  },
+  topicAccordionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  topicHeaderLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  topicHeaderRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  topicCollapsedSummary: {
+    marginTop: 8,
+    paddingTop: 8,
+  },
+  topicSummaryText: {
+    fontSize: 12,
+    fontWeight: '500',
+    lineHeight: 17,
+  },
+  topicExpandedBody: {
+    marginTop: 12,
+    paddingTop: 12,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: 'rgba(150,150,150,0.2)',
   },
   pillRow: {
     flexDirection: 'row',

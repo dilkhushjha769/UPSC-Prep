@@ -26,6 +26,8 @@ export interface DailyEventItem {
   source: string;
   date: string;
   summary: string;
+  summaryBullets?: string[];
+  imageUrl?: string;
   bullets: string[];
   prelimsFacts: string[];
   prelimsFactMatrix?: PrelimsFactItem[];
@@ -130,7 +132,13 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'India-China Complete Coordinated Verification of Troops at Demchok & Depsang Plains',
         source: 'The Hindu • Front Page',
         date: '25 Oct 2026',
-        summary: 'Indian and Chinese military commanders concluded ground-level verification of troop disengagement along the Line of Actual Control (LAC) in Eastern Ladakh. The agreement restores patrolling rights in Depsang and Demchok that existed prior to May 2020, defusing prolonged border tensions while laying groundwork for formal boundary talks.',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/PM_Narendra_Modi_meeting_President_of_China_Xi_Jinping_at_the_16th_BRICS_Summit_%282024%29_01.jpg',
+        summary: '- Indian and Chinese military commanders completed joint verification of troop pullback from friction points in **Demchok** and the **Depsang Plains**.\n- The disengagement restores patrolling access up to legacy **Patrolling Points (PP 10 to 13)** through coordinated, pre-scheduled timetables.\n- The move de-escalates a four-year standoff along the **Line of Actual Control (LAC)**, preparing ground to revive the **2005 Political Parameters** boundary dialogue.',
+        summaryBullets: [
+          'Indian and Chinese military commanders completed joint verification of troop pullback from friction points in **Demchok** and the **Depsang Plains**.',
+          'The disengagement restores patrolling access up to legacy **Patrolling Points (PP 10 to 13)** through coordinated, pre-scheduled timetables.',
+          'The move de-escalates a four-year standoff along the **Line of Actual Control (LAC)**, preparing ground to revive the **2005 Political Parameters** boundary dialogue.',
+        ],
         bullets: [
           'Military disengagement verified at friction zones in Demchok and Depsang bulge following phased pullback of temporary posts.',
           'Agreement establishes coordinated, pre-scheduled patrolling schedules to prevent physical face-offs and patrol overlapping.',
@@ -172,7 +180,13 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'National Green Hydrogen Mission: Ministry Releases Tranche-II Incentives for Electrolyser Manufacturing',
         source: 'Press Information Bureau (PIB Delhi)',
         date: '25 Oct 2026',
-        summary: 'The Ministry of New and Renewable Energy issued guidelines for Tranche-II under the Strategic Interventions for Green Hydrogen Transition (SIGHT) scheme. The ₹4,440-crore rollout incentivizes domestic manufacturing of 1,500 MW electrolyser capacity, mandating at least 50% local value addition for advanced stacks.',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Hydrogen_electrolyser_-_Science_Museum%2C_London.jpg',
+        summary: '- The **Ministry of New & Renewable Energy** issued operational guidelines for Tranche-II of the **₹4,440-crore SIGHT scheme**.\n- Component-I incentivizes **1,500 MW annual electrolyser manufacturing** capacity, mandating at least **50% local value addition** for advanced stacks.\n- The rollout strengthens domestic clean-tech supply chains under the **National Green Hydrogen Mission**, targeting **5 MMT annual output** by 2030.',
+        summaryBullets: [
+          'The **Ministry of New & Renewable Energy** issued operational guidelines for Tranche-II of the **₹4,440-crore SIGHT scheme**.',
+          'Component-I incentivizes **1,500 MW annual electrolyser manufacturing** capacity, mandating at least **50% local value addition** for advanced stacks.',
+          'The rollout strengthens domestic clean-tech supply chains under the **National Green Hydrogen Mission**, targeting **5 MMT annual output** by 2030.',
+        ],
         bullets: [
           'Awards 1,500 MW annual electrolyser manufacturing capacity under SIGHT Component-I with performance-linked tapering subsidies.',
           'Mandates minimum 50% domestic value addition for Proton Exchange Membrane (PEM) and Alkaline electrolyser assemblies.',
@@ -213,7 +227,13 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'Supreme Court Issues Directives for Expeditious Border Fencing & Foreigners Tribunal Audits in Assam',
         source: 'The Indian Express • Legal Bureau',
         date: '25 Oct 2026',
-        summary: 'Following its landmark judgment upholding Section 6A of the Citizenship Act, 1955, the Supreme Court directed the Union Ministry of Home Affairs to file a time-bound compliance report on modernizing integrated border checkposts, biometric profiling, and clearing backlogs in Foreigners Tribunals across border states.',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Indo_Bangladesh_Border%2C_Dakshin_Denajpur.jpg',
+        summary: '- The **Supreme Court** issued compliance directives to the **Ministry of Home Affairs** following its verdict upholding **Section 6A of the Citizenship Act, 1955**.\n- Directives mandate time-bound completion of **Indo-Bangladesh border fencing** and accelerated biometric profiling of migrants from the **1966–1971 stream**.\n- The bench ordered digitization of **Foreigners Tribunals in Assam** to ensure statutory constitutionality is matched by robust border surveillance and faster adjudication.',
+        summaryBullets: [
+          'The **Supreme Court** issued compliance directives to the **Ministry of Home Affairs** following its verdict upholding **Section 6A of the Citizenship Act, 1955**.',
+          'Directives mandate time-bound completion of **Indo-Bangladesh border fencing** and accelerated biometric profiling of migrants from the **1966–1971 stream**.',
+          'The bench ordered digitization of **Foreigners Tribunals in Assam** to ensure statutory constitutionality is matched by robust border surveillance and faster adjudication.',
+        ],
         bullets: [
           'Directs Ministry of Home Affairs to expedite biometric profiling of undocumented migrants detected under 1966–1971 stream.',
           'Mandates digitization of Foreigners Tribunals proceedings under Foreigners (Tribunals) Order 1964 to curb adjudication delays.',
@@ -254,7 +274,13 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'ISRO Completes Vacuum Hot Testing of Semi-Cryogenic Pre-Burner for LVM3 Heavy Payload Booster',
         source: 'ISRO Technical Bulletin',
         date: '25 Oct 2026',
-        summary: 'The Indian Space Research Organisation (ISRO) successfully accomplished vacuum hot-firing of the semi-cryogenic pre-burner for the SCE-200 engine at IPRC Mahendragiri. The milestone brings India closer to flying its next-generation heavy-lift rocket, expanding GTO payload capacity to 6 tonnes.',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/38/LVM3_Launch_Configuration.png',
+        summary: '- **ISRO** successfully conducted a vacuum hot-test of the semi-cryogenic pre-burner for the **SCE-200 engine** at **IPRC Mahendragiri**.\n- The engine operates on an indigenous **Isrosene (refined kerosene)** and **liquid oxygen (LOX)** propellant cycle, delivering **2,000 kN thrust**.\n- The milestone advances development of India\'s **Next Generation Launch Vehicle (NGLV)**, raising **LVM3 GTO payload capacity** from 4 to 6 tonnes.',
+        summaryBullets: [
+          '**ISRO** successfully conducted a vacuum hot-test of the semi-cryogenic pre-burner for the **SCE-200 engine** at **IPRC Mahendragiri**.',
+          'The engine operates on an indigenous **Isrosene (refined kerosene)** and **liquid oxygen (LOX)** propellant cycle, delivering **2,000 kN thrust**.',
+          'The milestone advances development of India\'s **Next Generation Launch Vehicle (NGLV)**, raising **LVM3 GTO payload capacity** from 4 to 6 tonnes.',
+        ],
         bullets: [
           'SCE-200 Semi-Cryogenic engine utilizes refined kerosene (Isrosene) and Liquid Oxygen (LOX) propellant combination.',
           'Delivers 2,000 kN sea-level thrust, boosting LVM3 geostationary payload capacity from 4,000 kg to 6,000 kg.',
@@ -304,7 +330,13 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: '16th BRICS Summit Adopts Kazan Declaration: Focus on Local Currency Settlement & NDB Expansion',
         source: 'Ministry of External Affairs (MEA)',
         date: '24 Oct 2026',
-        summary: 'Leaders of the expanded 9-member BRICS grouping adopted the 43-page Kazan Declaration in Russia. The summit emphasized alternative multilateral financial settlement channels, use of national currencies in bilateral trade, and democratic restructuring of the International Monetary Fund and World Bank.',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/PM_Narendra_Modi_meeting_President_of_China_Xi_Jinping_at_the_16th_BRICS_Summit_%282024%29_01.jpg',
+        summary: '- Leaders of the expanded nine-member **BRICS** grouping adopted the **Kazan Declaration** at the 2024 summit in Russia.\n- Members supported greater use of **local currencies in cross-border trade** and discussed alternative payment mechanisms.\n- The declaration reiterated calls for reforms to the **UN Security Council, IMF, and World Bank**, including better representation of developing countries.',
+        summaryBullets: [
+          'Leaders of the expanded nine-member **BRICS** grouping adopted the **Kazan Declaration** at the 2024 summit in Russia.',
+          'Members supported greater use of **local currencies in cross-border trade** and discussed alternative payment mechanisms.',
+          'The declaration reiterated calls for reforms to the **UN Security Council, IMF, and World Bank**, including better representation of developing countries.',
+        ],
         bullets: [
           'Inaugural summit of expanded BRICS bloc (India, Brazil, Russia, China, South Africa, Egypt, Ethiopia, Iran, UAE).',
           'Endorses BRICS Cross-Border Payment Initiative (BCBPI) to lower trade transaction costs independent of SWIFT.',
@@ -345,7 +377,13 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'RBI Releases Revised Liquidity Coverage Ratio (LCR) Norms to Mitigate Digital Bank Run Risks',
         source: 'Reserve Bank of India (RBI)',
         date: '24 Oct 2026',
-        summary: 'The Reserve Bank of India finalized revised guidelines for the Liquidity Coverage Ratio (LCR) framework. In response to instant 24/7 mobile and UPI banking, the central bank mandated an additional 5% run-off factor on digitally enabled retail deposits, compelling banks to hold larger buffers of liquid government securities.',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/RBI-Tower.jpg',
+        summary: '- The **Reserve Bank of India** finalized revised **Liquidity Coverage Ratio (LCR)** regulations to mitigate digital bank run risks in 24/7 banking environments.\n- Banks must maintain an additional **5% run-off factor** on retail deposits enabled with mobile banking and UPI, requiring higher holdings of **High-Quality Liquid Assets (HQLA)**.\n- The framework aligns domestic banking prudence with **Basel III standards** while providing a phased implementation window to prevent credit constraints.',
+        summaryBullets: [
+          'The **Reserve Bank of India** finalized revised **Liquidity Coverage Ratio (LCR)** regulations to mitigate digital bank run risks in 24/7 banking environments.',
+          'Banks must maintain an additional **5% run-off factor** on retail deposits enabled with mobile banking and UPI, requiring higher holdings of **High-Quality Liquid Assets (HQLA)**.',
+          'The framework aligns domestic banking prudence with **Basel III standards** while providing a phased implementation window to prevent credit constraints.',
+        ],
         bullets: [
           'Introduces mandatory additional 5% run-off factor for internet and mobile banking enabled retail deposits.',
           'Scheduled Commercial Banks mandated to hold higher stock of unencumbered High-Quality Liquid Assets (HQLA).',
@@ -395,7 +433,13 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'Supreme Court 7-Judge Bench Rules States Empowered to Sub-Classify SC/ST Categories for Reservation',
         source: 'The Hindu • Supreme Court Reporter',
         date: '23 Oct 2026',
-        summary: 'In a historic 6:1 verdict, a 7-judge Constitution Bench held that State legislatures possess constitutional authority under Article 16(4) to sub-classify Scheduled Castes to provide affirmative quotas for more backward sub-groups, overruling the 2004 E.V. Chinnaiah judgment.',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Supreme_Court_of_India_01.jpg',
+        summary: '- A 7-judge **Supreme Court** Constitution Bench ruled 6:1 that State legislatures possess authority under **Article 16(4)** to sub-classify Scheduled Castes for affirmative action.\n- The court held that sub-classification must be backed by **quantifiable empirical data** of backwardness without creating an exclusive 100% reservation monopoly.\n- Overruling the **2004 E.V. Chinnaiah judgment**, the ruling enables States to target welfare benefits to the most disadvantaged sub-castes while upholding **Article 14 equality**.',
+        summaryBullets: [
+          'A 7-judge **Supreme Court** Constitution Bench ruled 6:1 that State legislatures possess authority under **Article 16(4)** to sub-classify Scheduled Castes for affirmative action.',
+          'The court held that sub-classification must be backed by **quantifiable empirical data** of backwardness without creating an exclusive 100% reservation monopoly.',
+          'Overruling the **2004 E.V. Chinnaiah judgment**, the ruling enables States to target welfare benefits to the most disadvantaged sub-castes while upholding **Article 14 equality**.',
+        ],
         bullets: [
           'Overrules E.V. Chinnaiah (2004) which held Scheduled Castes represent a single, indivisible homogeneous group.',
           'Affirms that sub-classification does not tinker with the Presidential notification prepared under Article 341.',
@@ -436,7 +480,13 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'Cabinet Clears National Critical Minerals Mission with ₹34,000 Crore Capital Allocation',
         source: 'Press Information Bureau (PIB)',
         date: '23 Oct 2026',
-        summary: 'The Union Cabinet approved the National Critical Minerals Mission to secure domestic exploration, international asset acquisition, and beneficiation of 24 critical minerals essential for electric vehicles, renewable storage, and defence aerospace.',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/df/Spodumene-usa59abg.jpg',
+        summary: '- The Union Cabinet approved the **National Critical Minerals Mission** with an outlay of **₹34,000 crore** to secure India\'s strategic supply chains.\n- The mission focuses on domestic exploration and offshore asset acquisition of **24 critical minerals**, including **Lithium, Cobalt, and Rare Earth Elements**.\n- State-owned venture **KABIL** will spearhead acquisitions in South America and Australia, supporting domestic battery manufacturing and national clean-energy goals.',
+        summaryBullets: [
+          'The Union Cabinet approved the **National Critical Minerals Mission** with an outlay of **₹34,000 crore** to secure India\'s strategic supply chains.',
+          'The mission focuses on domestic exploration and offshore asset acquisition of **24 critical minerals**, including **Lithium, Cobalt, and Rare Earth Elements**.',
+          'State-owned venture **KABIL** will spearhead acquisitions in South America and Australia, supporting domestic battery manufacturing and national clean-energy goals.',
+        ],
         bullets: [
           'Establishes sovereign viability gap funding (VGF) for domestic exploration of 24 strategic critical minerals.',
           'Focuses on Lithium, Cobalt, Rare Earth Elements (REE), Nickel, and Graphite for batteries and electronics.',
@@ -486,7 +536,13 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'CBD COP16 Cali: Negotiations Open on Digital Sequence Information (DSI) Benefit Sharing',
         source: 'Down To Earth • Policy Analysis',
         date: '22 Oct 2026',
-        summary: 'At the UN Convention on Biological Diversity (CBD) COP16 in Cali, Colombia, developing nations including India pushed for a mandatory global multilateral fund to share economic proceeds generated by pharmaceutical and agricultural corporations from digital genetic sequence data.',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/75/COP16_Cali%2C_Colombia.jpg',
+        summary: '- Negotiations commenced at **CBD COP16** in Cali, Colombia, focusing on operationalizing the **Kunming-Montreal Global Biodiversity Framework (KMGBF)**.\n- India and developing nations demanded a binding multilateral fund for commercialized **Digital Sequence Information (DSI)** under the **Nagoya Protocol**.\n- The mechanism aims to prevent **biopiracy** by ensuring pharmaceutical corporations share profits equitably with **biodiversity-rich indigenous communities**.',
+        summaryBullets: [
+          'Negotiations commenced at **CBD COP16** in Cali, Colombia, focusing on operationalizing the **Kunming-Montreal Global Biodiversity Framework (KMGBF)**.',
+          'India and developing nations demanded a binding multilateral fund for commercialized **Digital Sequence Information (DSI)** under the **Nagoya Protocol**.',
+          'The mechanism aims to prevent **biopiracy** by ensuring pharmaceutical corporations share profits equitably with **biodiversity-rich indigenous communities**.',
+        ],
         bullets: [
           'Reviews progress on the Kunming-Montreal Global Biodiversity Framework (KMGBF) 30x30 conservation targets.',
           'Dispute centers on creating a binding multilateral fund from commercialization of Digital Sequence Information (DSI).',
@@ -536,7 +592,13 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'RBI Expands Offline CBDC-Retail Functionality via Sound-Wave and NFC Protocols',
         source: 'Livemint • Banking & Finance',
         date: '21 Oct 2026',
-        summary: 'The Reserve Bank of India issued operational guidelines permitting offline peer-to-peer and peer-to-merchant transactions for the Digital Rupee (e₹-R). The framework utilizes Near Field Communication (NFC) and acoustic encrypted sound waves, addressing low-connectivity financial inclusion in remote and rural areas.',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/RBI-Tower.jpg',
+        summary: '- The **Reserve Bank of India** introduced regulatory protocols enabling offline transactions for the **Digital Rupee (e₹-R)** without internet connectivity.\n- Payments rely on **Near Field Communication (NFC)** and encrypted acoustic soundwaves, capped at **₹500 per transaction** via device cryptographic wallets.\n- The framework bridges the digital divide in remote hilly and tribal districts while maintaining **sovereign currency liability** on the RBI balance sheet.',
+        summaryBullets: [
+          'The **Reserve Bank of India** introduced regulatory protocols enabling offline transactions for the **Digital Rupee (e₹-R)** without internet connectivity.',
+          'Payments rely on **Near Field Communication (NFC)** and encrypted acoustic soundwaves, capped at **₹500 per transaction** via device cryptographic wallets.',
+          'The framework bridges the digital divide in remote hilly and tribal districts while maintaining **sovereign currency liability** on the RBI balance sheet.',
+        ],
         bullets: [
           'Enables transactions in low- or zero-internet connectivity areas through dual-offline ledger balances.',
           'Transactions settle instantly between device cryptographic wallets without immediate core banking connectivity.',
@@ -577,7 +639,13 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'UNFCCC Baku COP29: G77 & India Demand $1 Trillion Annual New Collective Quantified Goal',
         source: 'The Hindu • Climate Diplomacy',
         date: '21 Oct 2026',
-        summary: 'Ahead of the UNFCCC COP29 summit in Baku, Azerbaijan, developing countries led by the G77 and China, with strong representation from India, submitted an official stance calling for a public-grant-based New Collective Quantified Goal (NCQG) on climate finance of at least $1 trillion annually starting from 2025.',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/%D0%A1%D0%B0%D0%BC%D0%BC%D0%B8%D1%82_%D0%BB%D0%B8%D0%B4%D0%B5%D1%80%D0%BE%D0%B2_COP29_12_%D0%BD%D0%BE%D1%8F%D0%B1%D1%80%D1%8F_2024.jpg',
+        summary: '- The **G77 coalition and India** called for establishing a **$1 trillion annual climate finance target** ahead of **UNFCCC COP29** in Baku.\n- The **New Collective Quantified Goal (NCQG)** will supersede the expired $100 billion Copenhagen pledge under **Article 9 of the Paris Agreement**.\n- Developing nations emphasized non-debt creating **public grants and concessional finance** over commercial loans to honor the principle of **CBDR-RC**.',
+        summaryBullets: [
+          'The **G77 coalition and India** called for establishing a **$1 trillion annual climate finance target** ahead of **UNFCCC COP29** in Baku.',
+          'The **New Collective Quantified Goal (NCQG)** will supersede the expired $100 billion Copenhagen pledge under **Article 9 of the Paris Agreement**.',
+          'Developing nations emphasized non-debt creating **public grants and concessional finance** over commercial loans to honor the principle of **CBDR-RC**.',
+        ],
         bullets: [
           'NCQG is mandated under Article 9 of the Paris Agreement to replace the inadequate $100 billion annual target.',
           'India emphasized that climate finance must comprise concessional grants and low-cost debt, not commercial loans.',
@@ -627,7 +695,13 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'DRDO Successfully Flight-Tests Long-Range Land Attack Cruise Missile (LRLACM) from Chandipur',
         source: 'Press Information Bureau (PIB)',
         date: '20 Oct 2026',
-        summary: 'The Defence Research and Development Organisation (DRDO) conducted the maiden launch of the Indigenous Long-Range Land Attack Cruise Missile (LRLACM) from the Integrated Test Range (ITR) at Chandipur, Odisha. Featuring indigenous small turbo-fan propulsion, the missile executed low-altitude sea-skimming and terrain-hugging maneuvers to hit a designated target with sub-meter accuracy.',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/6/63/Nirbhay_DRDO.jpg',
+        summary: '- The **DRDO** successfully conducted the maiden flight-test of the indigenous **Long-Range Land Attack Cruise Missile (LRLACM)** from Chandipur, Odisha.\n- Powered by the indigenous **Manik small turbofan engine**, the subsonic missile employs **NAVIC satellite guidance** and terrain-hugging flight profiles.\n- The platform bridges India\'s conventional strike gap between supersonic **BrahMos** and strategic ballistic missiles under **Atmanirbhar Bharat**.',
+        summaryBullets: [
+          'The **DRDO** successfully conducted the maiden flight-test of the indigenous **Long-Range Land Attack Cruise Missile (LRLACM)** from Chandipur, Odisha.',
+          'Powered by the indigenous **Manik small turbofan engine**, the subsonic missile employs **NAVIC satellite guidance** and terrain-hugging flight profiles.',
+          'The platform bridges India\'s conventional strike gap between supersonic **BrahMos** and strategic ballistic missiles under **Atmanirbhar Bharat**.',
+        ],
         bullets: [
           'Subsonic cruise missile system designed for launch from mobile ground launchers as well as naval frontline destroyers.',
           'Equipped with advanced indigenous inertial navigation coupled with NAVIC satellite constellation updates.',
@@ -677,7 +751,13 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'Union Cabinet Approves Implementation Plan for Simultaneous Elections (One Nation One Election)',
         source: 'The Hindu • Governance & Constitutional Law',
         date: '19 Oct 2026',
-        summary: 'The Union Cabinet accepted the recommendations of the High-Level Committee on Simultaneous Elections chaired by former President Ram Nath Kovind. The implementation roadmap proposes constitutional amendments to Article 83 (Duration of Houses of Parliament) and Article 172 (Duration of State Legislatures), alongside a single unified electoral roll framework across the three tiers of governance.',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Sansad_Bhavan%2C_Delhi%2C_BNK.jpg',
+        summary: '- The **Union Cabinet** formally approved the recommendations of the high-level panel chaired by **Ram Nath Kovind** on simultaneous elections.\n- Phase 1 synchronizes **Lok Sabha and State Assembly** polls, with local body elections scheduled within 100 days under proposed **Article 324A**.\n- Constitutional amendments to **Articles 83 and 172** require a special majority under **Article 368**, with state ratification needed for local body synchronization.',
+        summaryBullets: [
+          'The **Union Cabinet** formally approved the recommendations of the high-level panel chaired by **Ram Nath Kovind** on simultaneous elections.',
+          'Phase 1 synchronizes **Lok Sabha and State Assembly** polls, with local body elections scheduled within 100 days under proposed **Article 324A**.',
+          'Constitutional amendments to **Articles 83 and 172** require a special majority under **Article 368**, with state ratification needed for local body synchronization.',
+        ],
         bullets: [
           'Two-step phased implementation: Simultaneous Lok Sabha and Vidhan Sabha elections in Phase 1, followed by local body elections within 100 days.',
           'Constitutional Amendment Bill requires special majority under Article 368(2), with local body provisions necessitating state ratification.',
@@ -750,7 +830,13 @@ export function getDailyEventsSummary(dateKey: string): DayEventsSummary {
         headline: `Constitutional & Governance Developments Archive for ${label}`,
         source: 'PIB & Leading Dailies • Archive Record',
         date: `${shortDay} ${monthName} ${yearStr}`,
-        summary: `Comprehensive UPSC civil services briefing covering policy resolutions, executive notifications, and constitutional jurisprudence recorded on ${label}.`,
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Sansad_Bhavan%2C_Delhi%2C_BNK.jpg',
+        summary: `- Union and State administrative authorities notified statutory resolutions and executive rules in the **Gazette of India** for ${label}.\n- Key developments centered on **inter-state council coordination**, statutory tribunal benches, and public finance review.\n- Measures strengthen institutional accountability and **cooperative federalism** under **Part V and Part VI** of the Constitution.`,
+        summaryBullets: [
+          `Union and State administrative authorities notified statutory resolutions and executive rules in the **Gazette of India** for ${label}.`,
+          'Key developments centered on **inter-state council coordination**, statutory tribunal benches, and public finance review.',
+          'Measures strengthen institutional accountability and **cooperative federalism** under **Part V and Part VI** of the Constitution.',
+        ],
         bullets: [
           `Key executive notifications and statutory rules notified in the Gazette of India for ${label}.`,
           'Inter-state water dispute tribunal developments and cooperative federalism council meetings.',
@@ -790,7 +876,13 @@ export function getDailyEventsSummary(dateKey: string): DayEventsSummary {
         headline: `Macroeconomic Indicators & Strategic Industrial Outlook for ${label}`,
         source: 'Livemint & Business Standard • Archive Record',
         date: `${shortDay} ${monthName} ${yearStr}`,
-        summary: `Analysis of macroeconomic stability parameters, monetary liquidity indicators, and sectoral industrial growth targets recorded on ${label}.`,
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/6/64/New_Delhi_government_block_03-2016_img5.jpg',
+        summary: `- Macroeconomic tracking indicates steady fiscal expenditure and liquidity management supervised by the **Reserve Bank of India**.\n- Key indicators highlighted trends across **retail CPI inflation**, capital capex allocations, and external trade balances.\n- Monetary and fiscal authorities emphasized **price stability** alongside capital investment under the **FRBM framework**.`,
+        summaryBullets: [
+          'Macroeconomic tracking indicates steady fiscal expenditure and liquidity management supervised by the **Reserve Bank of India**.',
+          'Key indicators highlighted trends across **retail CPI inflation**, capital capex allocations, and external trade balances.',
+          'Monetary and fiscal authorities emphasized **price stability** alongside capital investment under the **FRBM framework**.',
+        ],
         bullets: [
           'Review of retail CPI inflation trends and food price management measures.',
           'Capital expenditure trajectory across core infrastructure sectors including railways, highways, and energy.',

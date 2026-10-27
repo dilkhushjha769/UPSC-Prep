@@ -11,7 +11,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   X,
-  Sparkles,
+  Zap,
   Check,
   CheckCircle2,
   XCircle,
@@ -20,7 +20,7 @@ import {
   RotateCcw,
   Award,
   BookOpen,
-} from '@/components/common/LucideIcons';
+} from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
 import { DailyEventItem } from '@/data/currentAffairsData';
 import {
@@ -155,13 +155,13 @@ function DailyRecallContent({
         <View style={styles.header}>
           <View style={styles.headerLeft}>
             <View style={styles.iconCircle}>
-              <Sparkles size={16} color={isDark ? '#38BDF8' : '#0284C7'} strokeWidth={2.2} />
+              <Zap size={16} color={isDark ? '#38BDF8' : '#0284C7'} strokeWidth={2.4} fill={isDark ? '#38BDF8' : '#0284C7'} />
             </View>
             <View>
               <View style={styles.headerTitleRow}>
                 <Text style={styles.headerTitle}>Daily Active Recall</Text>
                 <View style={styles.geminiBadge}>
-                  <Text style={styles.geminiBadgeText}>Gemini AI</Text>
+                  <Text style={styles.geminiBadgeText}>10 MCQs</Text>
                 </View>
               </View>
               <Text style={styles.headerSubtitle}>

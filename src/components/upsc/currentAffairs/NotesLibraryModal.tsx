@@ -16,7 +16,7 @@ import {
   FileText,
   Plus,
   Trash2,
-} from '@/components/common/LucideIcons';
+} from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
 
 interface NoteItem {

@@ -1,51 +1,53 @@
-import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
+import { BW_THEME } from '@/constants/bwTheme';
 import {
+  CuratedArticle,
+  DAILY_EVENTS_DATA,
+  DailyEventItem,
+  DayEventsSummary,
+  FORMAT_CATEGORIES,
+  FormatCategory,
+  getDailyEventsSummary,
+  MajorEvent,
+  NEWS_AGENCIES,
+  RECENT_MAJOR_EVENTS,
+} from '@/data/currentAffairsData';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  Bookmark,
+  BookOpen,
+  Calendar,
+  CalendarDays,
+  Check,
+  ChevronDown,
+  FileText,
+  Filter,
+  Landmark,
+  Layers,
+  ListChecks,
+  MessagesSquare,
+  Newspaper,
+  Scale,
+  Zap,
+} from 'lucide-react-native';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  Animated,
+  PanResponder,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
-  Pressable,
   useWindowDimensions,
   View,
-  PanResponder,
-  Animated,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  FileText,
-  Bookmark,
-  Newspaper,
-  BookOpen,
-  Layers,
-  Scale,
-  Landmark,
-  MessagesSquare,
-  ListChecks,
-  CalendarDays,
-  Calendar,
-  Filter,
-  Check,
-} from '@/components/common/LucideIcons';
-import { BW_THEME } from '@/constants/bwTheme';
-import {
-  DAILY_EVENTS_DATA,
-  RECENT_MAJOR_EVENTS,
-  FORMAT_CATEGORIES,
-  FormatCategory,
-  CuratedArticle,
-  DailyEventItem,
-  DayEventsSummary,
-  MajorEvent,
-  NEWS_AGENCIES,
-  getDailyEventsSummary,
-} from '@/data/currentAffairsData';
-import { DailyEventCard } from './currentAffairs/DailyEventCard';
-import { CAQuizModal } from './currentAffairs/CAQuizModal';
 import { ArticleDetailModal } from './currentAffairs/ArticleDetailModal';
-import { NotesLibraryModal } from './currentAffairs/NotesLibraryModal';
-import { MonthlyRevisionModal } from './currentAffairs/MonthlyRevisionModal';
-import { FormatFeedModal } from './currentAffairs/FormatFeedModal';
 import { CalendarDropdown } from './currentAffairs/CalendarDropdown';
+import { CAQuizModal } from './currentAffairs/CAQuizModal';
+import { DailyEventCard } from './currentAffairs/DailyEventCard';
 import { DailyRecallModal } from './currentAffairs/DailyRecallModal';
+import { FormatFeedModal } from './currentAffairs/FormatFeedModal';
+import { MonthlyRevisionModal } from './currentAffairs/MonthlyRevisionModal';
+import { NotesLibraryModal } from './currentAffairs/NotesLibraryModal';
 
 type DetailItem =
   | { type: 'event'; data: DailyEventItem }
@@ -111,9 +113,9 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
 
   // Compact Calendar Dropdown state
   const [calendarDropdownVisible, setCalendarDropdownVisible] = useState<boolean>(false);
-  const [calendarDropdownPos, setCalendarDropdownPos] = useState<{ top: number; right: number }>({
+  const [calendarDropdownPos, setCalendarDropdownPos] = useState<{ top: number; left?: number; right?: number }>({
     top: 210,
-    right: 16,
+    left: 16,
   });
   const calendarBtnRef = useRef<React.ElementRef<typeof View>>(null);
 
@@ -125,9 +127,9 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
 
     if (calendarBtnRef.current) {
       calendarBtnRef.current.measureInWindow((x: number, y: number, btnWidth: number, btnHeight: number) => {
-        const top = Math.max(120, y + btnHeight + 6);
-        const right = Math.max(12, Math.min(width - 280, width - (x + btnWidth)));
-        setCalendarDropdownPos({ top, right });
+        const top = Math.max(120, y + btnHeight + 8);
+        const left = Math.max(12, Math.min(x, width - 296));
+        setCalendarDropdownPos({ top, left });
         setCalendarDropdownVisible(true);
       });
     } else {
@@ -163,41 +165,6 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
   // Safe active event item
   const currentDailyEvent: DailyEventItem | undefined =
     activeDailyEvents[activeEventIndex] || activeDailyEvents[0];
-
-  // Compute exactly 3 dates shown at the top (stuck with the calendar button on the right)
-  const displayedThreeDates = useMemo(() => {
-    const parts = selectedDateKey.split('-');
-    const current = new Date(
-      parseInt(parts[0], 10),
-      parseInt(parts[1], 10) - 1,
-      parseInt(parts[2], 10)
-    );
-
-    const latestDateKey = DAILY_EVENTS_DATA[0].dateKey;
-    const isLatest = selectedDateKey >= latestDateKey;
-    // If selected is latest, show [Day-2, Day-1, Day (Latest)]
-    // Otherwise show [Day-1, Day, Day+1]
-    const offsets = isLatest ? [-2, -1, 0] : [-1, 0, 1];
-
-    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const result = [];
-
-    for (const offset of offsets) {
-      const d = new Date(current);
-      d.setDate(current.getDate() + offset);
-      const yStr = d.getFullYear();
-      const mStr = String(d.getMonth() + 1).padStart(2, '0');
-      const dayStr = String(d.getDate()).padStart(2, '0');
-      const dateKey = `${yStr}-${mStr}-${dayStr}`;
-
-      result.push({
-        dateKey,
-        dayName: dayNames[d.getDay()],
-        shortDay: dayStr,
-      });
-    }
-    return result;
-  }, [selectedDateKey]);
 
   // Handlers for modal interactions
   const handleOpenDailyEvent = (item: DailyEventItem) => {
@@ -391,7 +358,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
           <View style={styles.titleBlock}>
             <Text style={styles.pageHeading}>Current Affairs</Text>
             <Text style={styles.pageSubtitle}>
-              UPSC Civil Services Examination · Daily Current Affairs & Editorial Intelligence
+              Decode Today. Prepare for Tomorrow.
             </Text>
           </View>
 
@@ -426,101 +393,154 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
         {/* Divider Border between Current Affairs and Summary of Daily Events */}
         <View style={styles.headerDivider} />
         {/* ======================================================== */}
-        {/* 2. SUMMARIZE THE DAY (RESPONSIVE SCREEN USAGE)           */}
+        {/* 2. THE DAILY BRIEF (RESPONSIVE SCREEN USAGE)             */}
         {/* ======================================================== */}
         <View style={styles.summarySection}>
-          {/* Header Row: Left "Summarize the Day" Heading | Right 3 Dates stuck with Calendar */}
-          <View style={styles.summaryDatesRow}>
-            {/* Left Side: "Summarize the Day" Heading + Read Checkmark Badge */}
-            <View style={styles.summaryTitleBlock}>
-              <Text style={styles.summaryContainerHeading}>Summarize the Day</Text>
-              <Pressable
-                style={({ pressed }) => [
-                  styles.summaryDateBadge,
-                  isCurrentDayRead && styles.summaryDateBadgeRead,
-                  pressed && styles.cardPressed,
-                ]}
-                onPress={handleToggleDayRead}
-                accessibilityLabel={isCurrentDayRead ? "Mark day as unread" : "Mark day as read"}
-                accessibilityRole="checkbox"
-                accessibilityState={{ checked: isCurrentDayRead }}
-                hitSlop={6}
-              >
-                <View style={[styles.readCheckCircle, isCurrentDayRead && styles.readCheckCircleActive]}>
-                  <Check
-                    size={10}
-                    color={isCurrentDayRead ? '#FFFFFF' : (isDark ? '#64748B' : '#94A3B8')}
-                    strokeWidth={3}
-                  />
+          {isDesktop ? (
+            /* Desktop Layout: Single unified horizontal row */
+            <View style={styles.summaryDatesRow}>
+              {/* Left Side: "The Daily Brief" Heading + Calendar Date Picker Button + Read Status */}
+              <View style={styles.summaryTitleBlock}>
+                <Text style={styles.summaryContainerHeading}>The Daily Brief</Text>
+
+                {/* Calendar Button with Today's / Active Date */}
+                <View ref={calendarBtnRef} collapsable={false}>
+                  <Pressable
+                    style={({ pressed, hovered }: any) => [
+                      styles.calendarDatePillBtn,
+                      hovered && styles.calendarDatePillBtnHover,
+                      pressed && styles.cardPressed,
+                    ]}
+                    onPress={handleToggleCalendar}
+                    accessibilityLabel={`Select date. Currently showing ${activeDaySummary.label}`}
+                    accessibilityRole="button"
+                  >
+                    <View style={styles.calendarIconCircle}>
+                      <Calendar size={14} color={isDark ? '#38BDF8' : '#0284C7'} strokeWidth={2.2} />
+                    </View>
+                    <Text style={styles.calendarDatePillText}>
+                      {activeDaySummary.label}
+                    </Text>
+                    <ChevronDown size={13} color={isDark ? '#94A3B8' : '#64748B'} strokeWidth={2} />
+                  </Pressable>
                 </View>
-                <Text
-                  style={[
-                    styles.summaryDateBadgeText,
-                    isCurrentDayRead && styles.summaryDateBadgeTextRead,
-                  ]}
-                >
-                  {activeDaySummary.label}
-                </Text>
-              </Pressable>
-            </View>
 
-            {/* Right Side: 3 Dates stuck seamlessly with the Calendar */}
-            <View style={styles.rightDateGroup}>
-              <View style={styles.threeDatesStrip}>
-                {displayedThreeDates.map((day, idx) => {
-                  const isActive = day.dateKey === selectedDateKey;
-                  const isDayRead = readDates.includes(day.dateKey);
-                  const isFirst = idx === 0;
-                  return (
-                    <Pressable
-                      key={day.dateKey}
-                      style={[
-                        styles.threeDateItem,
-                        isFirst && styles.threeDateItemFirst,
-                        isActive && styles.threeDateItemActive,
-                      ]}
-                      onPress={() => {
-                        setSelectedDateKey(day.dateKey);
-                        setActiveEventIndex(0);
-                      }}
-                    >
-                      <Text style={[styles.threeDateDayName, isActive && styles.threeDateTextActive]}>
-                        {day.dayName}
-                      </Text>
-                      <View style={styles.threeDateNumberRow}>
-                        <Text style={[styles.threeDateNumber, isActive && styles.threeDateTextActive]}>
-                          {day.shortDay}
-                        </Text>
-                        {isDayRead && (
-                          <Check
-                            size={8}
-                            color={isActive ? '#FFFFFF' : '#10B981'}
-                            strokeWidth={3}
-                            style={styles.threeDateCheckIcon}
-                          />
-                        )}
-                      </View>
-                      {isActive && <View style={styles.threeDateActiveIndicator} />}
-                    </Pressable>
-                  );
-                })}
-              </View>
-
-              {/* Compact Calendar Icon-Only Button stuck seamlessly with the 3 dates */}
-              <View ref={calendarBtnRef} collapsable={false}>
+                {/* Day Read Checkmark Toggle (Tick mark only) */}
                 <Pressable
                   style={({ pressed }) => [
-                    styles.attachedCalendarBtn,
+                    styles.dayReadTickBtn,
+                    isCurrentDayRead && styles.dayReadTickBtnActive,
                     pressed && styles.cardPressed,
                   ]}
-                  onPress={handleToggleCalendar}
-                  accessibilityLabel="Open calendar"
+                  onPress={handleToggleDayRead}
+                  accessibilityLabel={isCurrentDayRead ? "Mark day as unread" : "Mark day as read"}
+                  accessibilityRole="checkbox"
+                  accessibilityState={{ checked: isCurrentDayRead }}
+                  hitSlop={8}
                 >
-                  <Calendar size={16} color={isDark ? '#38BDF8' : '#1E3A8A'} strokeWidth={2} />
+                  <Check
+                    size={13}
+                    color={isCurrentDayRead ? '#FFFFFF' : (isDark ? '#64748B' : '#94A3B8')}
+                    strokeWidth={2.8}
+                  />
+                </Pressable>
+              </View>
+
+              {/* Right Corner: Prominent Daily Quiz Button */}
+              <Pressable
+                style={({ pressed, hovered }: any) => [
+                  styles.prominentDailyQuizBtn,
+                  hovered && styles.prominentDailyQuizBtnHover,
+                  pressed && styles.cardPressed,
+                ]}
+                onPress={() => setDailyRecallModalVisible(true)}
+                accessibilityLabel="Open Daily Quiz with 10 questions"
+                accessibilityRole="button"
+              >
+                <Zap size={14} color="#FFFFFF" strokeWidth={2.4} fill="#FFFFFF" />
+                <Text style={styles.prominentDailyQuizBtnText}>
+                  Daily Quiz
+                </Text>
+                <View style={styles.prominentDailyQuizBadge}>
+                  <Text style={styles.prominentDailyQuizBadgeText}>
+                    10 Qs
+                  </Text>
+                </View>
+              </Pressable>
+            </View>
+          ) : (
+            /* Mobile Layout: 2-Tier Clean Mobbin Hierarchy */
+            <View style={styles.mobileSummaryHeader}>
+              {/* Row 1: The Daily Brief Title on Left + Daily Quiz Button on Right */}
+              <View style={styles.mobileSummaryTopRow}>
+                <Text style={styles.summaryContainerHeading}>The Daily Brief</Text>
+
+                <Pressable
+                  style={({ pressed }: any) => [
+                    styles.prominentDailyQuizBtn,
+                    pressed && styles.cardPressed,
+                  ]}
+                  onPress={() => setDailyRecallModalVisible(true)}
+                  accessibilityLabel="Open Daily Quiz with 10 questions"
+                  accessibilityRole="button"
+                >
+                  <Zap size={13} color="#FFFFFF" strokeWidth={2.4} fill="#FFFFFF" />
+                  <Text style={styles.prominentDailyQuizBtnText}>
+                    Daily Quiz
+                  </Text>
+                  <View style={styles.prominentDailyQuizBadge}>
+                    <Text style={styles.prominentDailyQuizBadgeText}>
+                      10 Qs
+                    </Text>
+                  </View>
+                </Pressable>
+              </View>
+
+              {/* Row 2: Date Selector on Left + Read Status on Right */}
+              <View style={styles.mobileSummarySubRow}>
+                {/* Calendar Button with Today's / Active Date */}
+                <View ref={calendarBtnRef} collapsable={false}>
+                  <Pressable
+                    style={({ pressed }: any) => [
+                      styles.calendarDatePillBtn,
+                      pressed && styles.cardPressed,
+                    ]}
+                    onPress={handleToggleCalendar}
+                    accessibilityLabel={`Select date. Currently showing ${activeDaySummary.label}`}
+                    accessibilityRole="button"
+                  >
+                    <View style={styles.calendarIconCircle}>
+                      <Calendar size={13} color={isDark ? '#38BDF8' : '#0284C7'} strokeWidth={2.2} />
+                    </View>
+                    <Text style={styles.calendarDatePillText}>
+                      {activeDaySummary.label}
+                    </Text>
+                    <ChevronDown size={12} color={isDark ? '#94A3B8' : '#64748B'} strokeWidth={2} />
+                  </Pressable>
+                </View>
+
+                {/* Day Read Checkmark Toggle (Tick mark only) */}
+                <Pressable
+                  style={({ pressed }) => [
+                    styles.dayReadTickBtn,
+                    isCurrentDayRead && styles.dayReadTickBtnActive,
+                    pressed && styles.cardPressed,
+                  ]}
+                  onPress={handleToggleDayRead}
+                  accessibilityLabel={isCurrentDayRead ? "Mark day as unread" : "Mark day as read"}
+                  accessibilityRole="checkbox"
+                  accessibilityState={{ checked: isCurrentDayRead }}
+                  hitSlop={8}
+                >
+                  <Check
+                    size={13}
+                    color={isCurrentDayRead ? '#FFFFFF' : (isDark ? '#64748B' : '#94A3B8')}
+                    strokeWidth={2.8}
+                  />
                 </Pressable>
               </View>
             </View>
-          </View>
+          )}
 
           {/* D. Adaptive Attractive Interior Event Card with Slide/Swipe Support */}
           {currentDailyEvent ? (
@@ -741,6 +761,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
           setActiveEventIndex(0);
         }}
         topOffset={calendarDropdownPos.top}
+        leftOffset={calendarDropdownPos.left}
         rightOffset={calendarDropdownPos.right}
         isDark={isDark}
         completedDates={readDates}
@@ -881,7 +902,8 @@ const getStyles = (
       backgroundColor: isDark ? '#059669' : '#10B981',
       borderColor: isDark ? '#059669' : '#10B981',
     },
-    /* Header Row: Summarize the Day Heading on Left | 3 Dates stuck with Calendar on Right */
+
+    /* Header Row: The Daily Brief Heading on Left | Prominent Daily Quiz on Right (Desktop) */
     summaryDatesRow: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -890,83 +912,112 @@ const getStyles = (
       marginBottom: 14,
     },
 
-    /* Right Side: 3 Dates stuck with Calendar */
-    rightDateGroup: {
+    /* Mobile 2-Tier Header Layout (Uncluttered, Mobbin inspired) */
+    mobileSummaryHeader: {
+      marginBottom: 14,
+      gap: 10,
+    },
+    mobileSummaryTopRow: {
       flexDirection: 'row',
       alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 10,
     },
-    threeDatesStrip: {
+    mobileSummarySubRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      borderTopLeftRadius: 8,
-      borderBottomLeftRadius: 8,
-      borderWidth: 1,
-      borderRightWidth: 0,
-      borderColor: isDark ? '#1F2E45' : '#CBD5E1',
-      backgroundColor: isDark ? '#101623' : '#FFFFFF',
-      overflow: 'hidden',
+      justifyContent: 'space-between',
+      gap: 8,
     },
-    threeDateItem: {
-      paddingHorizontal: isDesktop ? 11 : 8,
+
+    /* Calendar Button with Today's Date */
+    calendarDatePillBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 7,
+      paddingLeft: 7,
+      paddingRight: 10,
       paddingVertical: 5.5,
+      borderRadius: 8,
+      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.08)' : '#F0F9FF',
+      borderWidth: 1,
+      borderColor: isDark ? 'rgba(56, 189, 248, 0.28)' : '#BAE6FD',
+    },
+    calendarDatePillBtnHover: {
+      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.16)' : '#E0F2FE',
+      borderColor: isDark ? '#38BDF8' : '#0284C7',
+    },
+    calendarIconCircle: {
+      width: 22,
+      height: 22,
+      borderRadius: 5,
+      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.18)' : '#E0F2FE',
       alignItems: 'center',
       justifyContent: 'center',
-      minWidth: isDesktop ? 44 : 37,
-      borderRightWidth: 1,
-      borderRightColor: isDark ? '#1F2E45' : '#E2E8F0',
-      position: 'relative',
     },
-    threeDateItemFirst: {
-      borderLeftWidth: 0,
-    },
-    threeDateItemActive: {
-      backgroundColor: isDark ? '#1B2638' : '#1E3A8A',
-    },
-    threeDateDayName: {
-      fontSize: 9,
-      fontWeight: '600',
-      color: isDark ? '#94A3B8' : '#64748B',
-      marginBottom: 1,
-      textTransform: 'uppercase',
-      letterSpacing: 0.3,
-    },
-    threeDateNumberRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 1.5,
-    },
-    threeDateNumber: {
+    calendarDatePillText: {
       fontSize: 12.5,
       fontWeight: '700',
-      color: isDark ? '#F1F5F9' : '#0F172A',
+      color: isDark ? '#F1F5F9' : '#0369A1',
+      letterSpacing: -0.15,
     },
-    threeDateTextActive: {
-      color: '#FFFFFF',
-      fontWeight: '700',
-    },
-    threeDateCheckIcon: {
-      marginLeft: 1,
-    },
-    threeDateActiveIndicator: {
-      position: 'absolute',
-      bottom: 0,
-      left: 4,
-      right: 4,
-      height: 2,
-      borderRadius: 1,
-      backgroundColor: isDark ? '#38BDF8' : '#93C5FD',
-    },
-    attachedCalendarBtn: {
-      width: 38,
-      height: 38,
-      borderTopRightRadius: 8,
-      borderBottomRightRadius: 8,
-      backgroundColor: isDark ? '#121A28' : '#F1F5F9',
-      borderWidth: 1,
-      borderColor: isDark ? '#1F2E45' : '#CBD5E1',
+
+    /* Day Read Status Tick Mark Button */
+    dayReadTickBtn: {
+      width: 32,
+      height: 32,
+      borderRadius: 7,
       alignItems: 'center',
       justifyContent: 'center',
+      backgroundColor: isDark ? '#141E2D' : '#F8FAFC',
+      borderWidth: 1,
+      borderColor: isDark ? '#23334A' : '#E2E8F0',
+    },
+    dayReadTickBtnActive: {
+      backgroundColor: isDark ? '#059669' : '#10B981',
+      borderColor: isDark ? '#10B981' : '#059669',
+    },
+
+    /* Prominent Daily Quiz Button at Right Corner */
+    prominentDailyQuizBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+      paddingLeft: isDesktop ? 14 : 11,
+      paddingRight: isDesktop ? 12 : 9,
+      paddingVertical: isDesktop ? 7.5 : 6.5,
+      borderRadius: 9,
+      backgroundColor: isDark ? '#0284C7' : '#0284C7',
+      borderWidth: 1,
+      borderColor: isDark ? '#38BDF8' : '#0369A1',
+      shadowColor: '#0284C7',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: isDark ? 0.35 : 0.2,
+      shadowRadius: 5,
+      elevation: 3,
+    },
+    prominentDailyQuizBtnHover: {
+      backgroundColor: isDark ? '#0369A1' : '#0369A1',
+      borderColor: '#38BDF8',
+      transform: [{ translateY: -1 }],
+    },
+    prominentDailyQuizBtnText: {
+      fontSize: isDesktop ? 13 : 12,
+      fontWeight: '800',
+      color: '#FFFFFF',
+      letterSpacing: -0.2,
+    },
+    prominentDailyQuizBadge: {
+      paddingHorizontal: 6,
+      paddingVertical: 2,
+      borderRadius: 5,
+      backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    },
+    prominentDailyQuizBadgeText: {
+      fontSize: 10,
+      fontWeight: '800',
+      color: '#FFFFFF',
+      letterSpacing: 0.2,
     },
 
     /* Adaptive Interior Event Card Wrapper */
@@ -976,12 +1027,12 @@ const getStyles = (
       overflow: 'hidden',
       ...(!isDark
         ? {
-            shadowColor: '#0F172A',
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.05,
-            shadowRadius: 10,
-            elevation: 2,
-          }
+          shadowColor: '#0F172A',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.05,
+          shadowRadius: 10,
+          elevation: 2,
+        }
         : {}),
     },
     emptyContainer: {

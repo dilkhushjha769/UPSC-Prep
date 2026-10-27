@@ -12,8 +12,8 @@ import { StatusBar } from 'expo-status-bar';
 import {
   X,
   CalendarDays,
-  Sparkles,
-} from '@/components/common/LucideIcons';
+  BookOpen,
+} from 'lucide-react-native';
 import { MONTHLY_OVERVIEWS, MonthlyOverview } from '@/data/currentAffairsData';
 import { BW_THEME } from '@/constants/bwTheme';
 
@@ -81,7 +81,7 @@ export function MonthlyRevisionModal({
           {/* Monthly Executive Summary Card */}
           <View style={styles.summaryCard}>
             <View style={styles.summaryHeaderRow}>
-              <Sparkles size={16} color={theme.textPrimary} strokeWidth={2} />
+              <BookOpen size={16} color={theme.textPrimary} strokeWidth={2} />
               <Text style={styles.summaryBadge}>EXECUTIVE COMPILATION</Text>
             </View>
             <Text style={styles.summaryText}>{currentOverview.summary}</Text>

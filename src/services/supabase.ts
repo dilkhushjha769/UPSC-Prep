@@ -2,10 +2,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl =
-  process.env.EXPO_PUBLIC_SUPABASE_URL || 'https://trodruvopmqnnkvghxye.supabase.co';
+  process.env.EXPO_PUBLIC_SUPABASE_URL || 'https://uvtfpfcdkfyfvygenupx.supabase.co';
 const supabaseAnonKey =
   process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY ||
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRyb2RydXZvcG1xbm5rdmdoeHllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0MzYxOTUsImV4cCI6MjEwMDAxMjE5NX0.yMWBxKEMwmVYZKVLuAfnBQ18OPwGi_SE9bw6LeVNKcg';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV2dGZwZmNka2Z5ZnZ5Z2VudXB4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI5NDI0MTgsImV4cCI6MjEwODUxODQxOH0.eZvcXEah-jLa2HT_ny_MPdIToAbjOfMnIciywcs1RzQ';
 
 const inMemoryCache = new Map<string, string>();
 

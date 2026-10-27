@@ -15,6 +15,7 @@ interface TaskCardProps {
   task: StudyTask;
   isDark?: boolean;
   colorTagOverride?: TaskColorTag;
+  showNotes?: boolean;
   onToggleComplete?: (id: string) => void;
   onPress?: (task: StudyTask) => void;
   onDelete?: (id: string) => void;
@@ -24,6 +25,7 @@ export function TaskCard({
   task,
   isDark = false,
   colorTagOverride,
+  showNotes = true,
   onToggleComplete,
   onPress,
   onDelete,
@@ -94,7 +96,7 @@ export function TaskCard({
           {taskTitle}
         </Text>
 
-        {Boolean(taskDesc) && (
+        {Boolean(taskDesc && showNotes) && (
           <Text
             style={[
               styles.descText,

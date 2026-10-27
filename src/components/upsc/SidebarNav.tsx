@@ -265,9 +265,9 @@ export function MobileBottomNav({
   const items = [
     { id: 'home' as NavTab, label: 'Home', icon: Home },
     { id: 'tasks' as NavTab, label: 'Tasks', icon: CheckSquare },
+    { id: 'current-affairs' as NavTab, label: 'Affairs', icon: Newspaper },
     { id: 'prelims' as NavTab, label: 'Prelims', icon: BookOpen },
     { id: 'mock-test' as NavTab, label: 'Mocks', icon: Award },
-    { id: 'profile' as NavTab, label: 'Profile', icon: User },
   ];
 
   return (
@@ -312,6 +312,8 @@ export function MobileBottomNav({
               />
             </View>
             <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
               style={[
                 styles.mobileNavText,
                 {

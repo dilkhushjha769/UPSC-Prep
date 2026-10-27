@@ -11,6 +11,9 @@ import {
 } from 'react-native';
 import {
   Bell,
+  ChevronDown,
+  ChevronUp,
+  FileText,
   Moon,
   Plus,
   Sun,
@@ -72,6 +75,10 @@ export function CleanStreakDashboard({
   // Currently selected date on the calendar (defaults to today)
   const [selectedDate, setSelectedDate] = useState<string>(todayKey);
   const [isStreakCalendarModalOpen, setIsStreakCalendarModalOpen] = useState(false);
+
+  // Space-saving toggles for home screen tasks & notes
+  const [isTasksSectionExpanded, setIsTasksSectionExpanded] = useState<boolean>(true);
+  const [showTaskNotes, setShowTaskNotes] = useState<boolean>(true);
 
   // User name for header matching reference "Hello, Roam"
   const userGreetingName = useMemo(() => {
@@ -246,8 +253,11 @@ export function CleanStreakDashboard({
             borderColor: isDark ? '#383A42' : '#F0F1F5',
           },
         ]}>
-        <View style={styles.cleanDetailHeader}>
-          <View style={styles.cleanDetailHeaderLeft}>
+        <View style={[styles.cleanDetailHeader, !isTasksSectionExpanded && { marginBottom: 0 }]}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => setIsTasksSectionExpanded((prev) => !prev)}
+            style={styles.cleanDetailHeaderLeft}>
             <Text style={[styles.cleanDateTitle, { color: theme.textPrimary }]}>
               My Tasks
             </Text>
@@ -266,9 +276,51 @@ export function CleanStreakDashboard({
                 {selectedDateTasks.length} {selectedDateTasks.length === 1 ? 'TASK' : 'TASKS'}
               </Text>
             </View>
-          </View>
+            <View style={styles.chevronToggleBtn}>
+              {isTasksSectionExpanded ? (
+                <ChevronUp size={16} color={theme.textSecondary} strokeWidth={2.4} />
+              ) : (
+                <ChevronDown size={16} color={theme.textSecondary} strokeWidth={2.4} />
+              )}
+            </View>
+          </TouchableOpacity>
 
           <View style={styles.headerControlsInline}>
+            {/* Notes content toggle (toggles task descriptions so it doesn't take all space) */}
+            {selectedDateTasks.length > 0 && isTasksSectionExpanded && (
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => setShowTaskNotes((prev) => !prev)}
+                style={[
+                  styles.toggleNotesBtn,
+                  {
+                    backgroundColor: showTaskNotes
+                      ? (isDark ? 'rgba(0, 111, 253, 0.16)' : '#EFF6FF')
+                      : (isDark ? '#26282E' : '#F4F5F8'),
+                    borderColor: showTaskNotes
+                      ? (isDark ? 'rgba(0, 111, 253, 0.4)' : '#BFDBFE')
+                      : (isDark ? '#3D3F47' : '#E2E4EB'),
+                  },
+                ]}
+                accessibilityLabel="Toggle task notes">
+                <FileText
+                  size={11}
+                  color={showTaskNotes ? (isDark ? '#6FBAFF' : '#006FFD') : theme.textSecondary}
+                  strokeWidth={2}
+                />
+                <Text
+                  style={[
+                    styles.toggleNotesText,
+                    {
+                      color: showTaskNotes ? (isDark ? '#6FBAFF' : '#006FFD') : theme.textSecondary,
+                      fontWeight: showTaskNotes ? '700' : '600',
+                    },
+                  ]}>
+                  {showTaskNotes ? 'Notes' : 'Compact'}
+                </Text>
+              </TouchableOpacity>
+            )}
+
             {Boolean(onOpenTasks) && (
               <Button
                 variant="tertiary"
@@ -290,34 +342,48 @@ export function CleanStreakDashboard({
         </View>
 
         {/* List of Tasks for this Date with their chosen colors */}
-        {selectedDateTasks.length > 0 ? (
-          <View style={styles.tasksListGap}>
-            {selectedDateTasks.map((task) => (
-              <TaskCard
-                key={task.id}
-                task={task}
-                isDark={isDark}
-                onToggleComplete={(id) => toggleTask(id)}
-                onDelete={(id) => deleteTask(id)}
-              />
-            ))}
-          </View>
-        ) : (
-          <View style={styles.cleanEmptyState}>
-            <Text style={[styles.cleanEmptyText, { color: theme.textMuted }]}>
-              No tasks for {formatLongDate(selectedDate) || 'this date'}.
-            </Text>
-            <View style={{ marginTop: 8 }}>
-              <Button
-                variant="primary"
-                size="sm"
-                title="Add Task"
-                isDark={isDark}
-                leftIcon={<Plus size={12} color="#FFFFFF" />}
-                onPress={() => setIsTaskModalOpen(true)}
-              />
+        {isTasksSectionExpanded ? (
+          selectedDateTasks.length > 0 ? (
+            <View style={styles.tasksListGap}>
+              {selectedDateTasks.map((task) => (
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  isDark={isDark}
+                  showNotes={showTaskNotes}
+                  onToggleComplete={(id) => toggleTask(id)}
+                  onDelete={(id) => deleteTask(id)}
+                />
+              ))}
             </View>
-          </View>
+          ) : (
+            <View style={styles.cleanEmptyState}>
+              <Text style={[styles.cleanEmptyText, { color: theme.textMuted }]}>
+                No tasks for {formatLongDate(selectedDate) || 'this date'}.
+              </Text>
+              <View style={{ marginTop: 8 }}>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  title="Add Task"
+                  isDark={isDark}
+                  leftIcon={<Plus size={12} color="#FFFFFF" />}
+                  onPress={() => setIsTaskModalOpen(true)}
+                />
+              </View>
+            </View>
+          )
+        ) : (
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => setIsTasksSectionExpanded(true)}
+            style={styles.collapsedPromptRow}>
+            <Text style={[styles.collapsedPromptText, { color: theme.textMuted }]}>
+              {selectedDateTasks.length > 0
+                ? `${selectedDateTasks.length} ${selectedDateTasks.length === 1 ? 'task' : 'tasks'} scheduled • Tap to expand`
+                : 'No tasks scheduled • Tap to expand'}
+            </Text>
+          </TouchableOpacity>
         )}
       </View>
 
@@ -507,6 +573,32 @@ const styles = StyleSheet.create({
   },
   tasksListGap: {
     gap: 8,
+  },
+  chevronToggleBtn: {
+    padding: 2,
+    marginLeft: 2,
+  },
+  toggleNotesBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 5,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
+  toggleNotesText: {
+    fontSize: 11,
+    fontFamily: Typography.fontFamily,
+  },
+  collapsedPromptRow: {
+    paddingTop: 8,
+    paddingBottom: 2,
+    alignItems: 'center',
+  },
+  collapsedPromptText: {
+    fontSize: 12,
+    fontFamily: Typography.fontFamily,
   },
 });
 

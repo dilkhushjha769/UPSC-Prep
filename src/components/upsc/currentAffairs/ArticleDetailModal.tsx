@@ -13,7 +13,10 @@ import {
   X,
   Bookmark,
   BookOpen,
-} from '@/components/common/LucideIcons';
+  ListChecks,
+  ShieldCheck,
+  Compass,
+} from 'lucide-react-native';
 import { DailyEventItem, CuratedArticle, MajorEvent } from '@/data/currentAffairsData';
 import { BW_THEME } from '@/constants/bwTheme';
 
@@ -128,34 +131,85 @@ export function ArticleDetailModal({
             </View>
           )}
 
-          {/* Key Facts in Bullets */}
+          {/* Key Takeaways Section */}
           <View style={styles.bulletsSection}>
-            <Text style={styles.sectionLabel}>Key Facts & Exam Points</Text>
+            <View style={styles.sectionHeaderRow}>
+              <ListChecks size={15} color={isDark ? '#60A5FA' : '#2563EB'} strokeWidth={2} />
+              <Text style={styles.sectionLabel}>Key Takeaways</Text>
+              <View style={styles.countBadge}>
+                <Text style={styles.countBadgeText}>{bullets.length}</Text>
+              </View>
+            </View>
             <View style={styles.bulletsList}>
               {bullets.map((b, idx) => (
-                <View key={idx} style={styles.bulletItem}>
-                  <View style={styles.bulletDot} />
+                <View key={idx} style={styles.takeawayCard}>
+                  <View style={styles.takeawayIndexBadge}>
+                    <Text style={styles.takeawayIndexText}>{idx + 1}</Text>
+                  </View>
                   <Text style={styles.bulletText}>{b}</Text>
                 </View>
               ))}
             </View>
           </View>
 
-          {/* Prelims Facts (if event) */}
-          {item.type === 'event' && item.data.prelimsFacts.length > 0 && (
+          {/* Prelims Facts & High-Yield Matrix (if event) */}
+          {item.type === 'event' && (
             <View style={styles.prelimsBox}>
-              <Text style={styles.prelimsTitle}>High-Yield Prelims Pointers:</Text>
-              {item.data.prelimsFacts.map((pf, idx) => (
-                <View key={idx} style={styles.subBulletRow}>
-                  <Text style={styles.subBulletMarker}>•</Text>
-                  <Text style={styles.prelimsFactText}>{pf}</Text>
+              <View style={styles.sectionHeaderRow}>
+                <ShieldCheck size={15} color={isDark ? '#4ADE80' : '#059669'} strokeWidth={2} />
+                <Text style={styles.prelimsTitle}>High-Yield Prelims Facts & Matrix</Text>
+              </View>
+
+              {/* Fact Matrix Grid if available */}
+              {item.data.prelimsFactMatrix && item.data.prelimsFactMatrix.length > 0 && (
+                <View style={styles.matrixGrid}>
+                  {item.data.prelimsFactMatrix.map((matrixItem, mIdx) => (
+                    <View key={mIdx} style={styles.matrixItemCard}>
+                      <Text style={styles.matrixItemLabel}>{matrixItem.label}</Text>
+                      <Text style={styles.matrixItemValue}>{matrixItem.value}</Text>
+                    </View>
+                  ))}
                 </View>
-              ))}
+              )}
+
+              {/* Bullet Pointers */}
+              {item.data.prelimsFacts && item.data.prelimsFacts.length > 0 && (
+                <View style={styles.prelimsBulletsList}>
+                  {item.data.prelimsFacts.map((pf, idx) => (
+                    <View key={idx} style={styles.subBulletRow}>
+                      <View style={styles.prelimsDot} />
+                      <Text style={styles.prelimsFactText}>{pf}</Text>
+                    </View>
+                  ))}
+                </View>
+              )}
+            </View>
+          )}
+
+          {/* Syllabus Relevance */}
+          {item.type === 'event' && item.data.syllabusRelevance && (
+            <View style={styles.syllabusBox}>
+              <View style={styles.sectionHeaderRow}>
+                <Compass size={14} color={isDark ? '#38BDF8' : '#0284C7'} strokeWidth={2} />
+                <Text style={styles.syllabusTitle}>UPSC Syllabus Integration</Text>
+              </View>
+              <View style={styles.syllabusItem}>
+                <Text style={styles.syllabusItemLabel}>Static Linkage:</Text>
+                <Text style={styles.syllabusItemValue}>{item.data.syllabusRelevance.staticConnection}</Text>
+              </View>
+              <View style={styles.syllabusItem}>
+                <Text style={styles.syllabusItemLabel}>Prelims Angle:</Text>
+                <Text style={styles.syllabusItemValue}>{item.data.syllabusRelevance.prelimsAngle}</Text>
+              </View>
+              <View style={styles.syllabusItem}>
+                <Text style={styles.syllabusItemLabel}>Mains Dimension:</Text>
+                <Text style={styles.syllabusItemValue}>{item.data.syllabusRelevance.mainsDimensions}</Text>
+              </View>
             </View>
           )}
 
           {/* Mains Relevance */}
-          {item.type === 'event' && Boolean(item.data.mainsRelevance) && (
+          {item.type === 'event' && Boolean(item.data.mainsRelevance) && !item.data.syllabusRelevance && (
             <View style={styles.mainsBox}>
               <Text style={styles.mainsTitle}>Mains Syllabus Mapping:</Text>
               <Text style={styles.mainsText}>{item.data.mainsRelevance}</Text>
@@ -323,57 +377,144 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       color: theme.textPrimary,
     },
     bulletsSection: {
-      gap: 10,
+      gap: 12,
+    },
+    sectionHeaderRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 7,
+    },
+    countBadge: {
+      paddingHorizontal: 6,
+      paddingVertical: 1.5,
+      borderRadius: 10,
+      backgroundColor: isDark ? 'rgba(96, 165, 250, 0.15)' : '#EFF6FF',
+    },
+    countBadgeText: {
+      fontSize: 10.5,
+      fontWeight: '700',
+      color: isDark ? '#93C5FD' : '#2563EB',
     },
     bulletsList: {
       gap: 10,
     },
-    bulletItem: {
+    takeawayCard: {
       flexDirection: 'row',
       alignItems: 'flex-start',
       gap: 10,
+      backgroundColor: theme.surfaceMuted,
+      padding: 12,
+      borderRadius: 8,
+      borderWidth: 1,
+      borderColor: theme.borderSubtle,
     },
-    bulletDot: {
-      width: 5,
-      height: 5,
-      borderRadius: 2.5,
-      backgroundColor: theme.textPrimary,
-      marginTop: 8,
+    takeawayIndexBadge: {
+      width: 20,
+      height: 20,
+      borderRadius: 10,
+      backgroundColor: isDark ? '#1E293B' : '#E2E8F0',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 1,
+    },
+    takeawayIndexText: {
+      fontSize: 10.5,
+      fontWeight: '800',
+      color: theme.textPrimary,
     },
     bulletText: {
       flex: 1,
-      fontSize: 13.5,
-      lineHeight: 21,
-      color: theme.textSecondary,
+      fontSize: 13,
+      lineHeight: 20,
+      color: theme.textPrimary,
     },
     prelimsBox: {
-      backgroundColor: theme.surfaceMuted,
+      backgroundColor: isDark ? 'rgba(16, 185, 129, 0.05)' : '#F0FDF4',
       padding: 14,
       borderRadius: 10,
       borderWidth: 1,
-      borderColor: theme.borderSubtle,
-      gap: 8,
+      borderColor: isDark ? 'rgba(16, 185, 129, 0.2)' : '#BBF7D0',
+      gap: 12,
     },
     prelimsTitle: {
-      fontSize: 12,
+      fontSize: 12.5,
       fontWeight: '800',
+      color: isDark ? '#4ADE80' : '#15803D',
+      letterSpacing: 0.2,
+    },
+    matrixGrid: {
+      gap: 8,
+    },
+    matrixItemCard: {
+      backgroundColor: theme.cardBg,
+      padding: 10,
+      borderRadius: 7,
+      borderWidth: 1,
+      borderColor: theme.cardBorder,
+      gap: 3,
+    },
+    matrixItemLabel: {
+      fontSize: 11,
+      fontWeight: '700',
+      color: isDark ? '#94A3B8' : '#64748B',
+      textTransform: 'uppercase',
+      letterSpacing: 0.4,
+    },
+    matrixItemValue: {
+      fontSize: 13,
+      fontWeight: '600',
       color: theme.textPrimary,
+      lineHeight: 18,
+    },
+    prelimsBulletsList: {
+      gap: 7,
     },
     subBulletRow: {
       flexDirection: 'row',
       alignItems: 'flex-start',
-      gap: 6,
+      gap: 8,
     },
-    subBulletMarker: {
-      fontSize: 14,
-      lineHeight: 18,
-      color: theme.textPrimary,
+    prelimsDot: {
+      width: 4,
+      height: 4,
+      borderRadius: 2,
+      backgroundColor: isDark ? '#4ADE80' : '#15803D',
+      marginTop: 7,
     },
     prelimsFactText: {
       flex: 1,
       fontSize: 12.5,
       lineHeight: 18,
       color: theme.textSecondary,
+    },
+    syllabusBox: {
+      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.05)' : '#F0F9FF',
+      padding: 14,
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: isDark ? 'rgba(56, 189, 248, 0.2)' : '#BAE6FD',
+      gap: 10,
+    },
+    syllabusTitle: {
+      fontSize: 12.5,
+      fontWeight: '800',
+      color: isDark ? '#38BDF8' : '#0369A1',
+      letterSpacing: 0.2,
+    },
+    syllabusItem: {
+      gap: 2,
+    },
+    syllabusItemLabel: {
+      fontSize: 10.5,
+      fontWeight: '700',
+      color: theme.textMuted,
+      textTransform: 'uppercase',
+      letterSpacing: 0.3,
+    },
+    syllabusItemValue: {
+      fontSize: 12.5,
+      color: theme.textPrimary,
+      lineHeight: 18,
     },
     mainsBox: {
       backgroundColor: theme.cardBg,

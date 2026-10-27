@@ -17,8 +17,8 @@ import {
   ArrowLeft,
   ArrowRight,
   Award,
-  HelpCircle,
-} from '@/components/common/LucideIcons';
+  CircleHelp,
+} from 'lucide-react-native';
 import { CA_QUIZ_QUESTIONS, CAQuizQuestion } from '@/data/currentAffairsData';
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
@@ -268,7 +268,7 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
                         </View>
                       ) : isSkipped ? (
                         <View style={styles.skippedBadge}>
-                          <HelpCircle size={13} color={theme.textMuted} strokeWidth={2} />
+                          <CircleHelp size={13} color={theme.textMuted} strokeWidth={2} />
                           <Text style={styles.skippedText}>Unattempted (0)</Text>
                         </View>
                       ) : (

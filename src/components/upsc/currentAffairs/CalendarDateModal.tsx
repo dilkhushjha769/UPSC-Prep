@@ -12,7 +12,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Calendar as CalendarIcon,
-} from '@/components/common/LucideIcons';
+} from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
 import { DAILY_EVENTS_DATA } from '@/data/currentAffairsData';
 

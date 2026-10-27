@@ -19,7 +19,7 @@ import {
   Scale,
   Landmark,
   MessagesSquare,
-} from '@/components/common/LucideIcons';
+} from 'lucide-react-native';
 import { FormatCategory, CuratedArticle, NEWS_AGENCIES } from '@/data/currentAffairsData';
 import { BW_THEME } from '@/constants/bwTheme';
 

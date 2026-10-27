@@ -6,26 +6,27 @@ import {
   Pressable,
   useWindowDimensions,
 } from 'react-native';
+import { Image } from 'expo-image';
 import {
-  Bookmark,
   ChevronLeft,
   ChevronRight,
-  FileText,
-  ListChecks,
-  ShieldCheck,
-  Sparkles,
+  Compass,
   RotateCcw,
   Check,
   BookOpen,
-} from '@/components/common/LucideIcons';
+} from 'lucide-react-native';
 import { DailyEventItem } from '@/data/currentAffairsData';
 import { BW_THEME } from '@/constants/bwTheme';
 import { generateEventRecallQuestions } from '@/services/eventRecallService';
+import {
+  parseExecutiveBrief,
+  renderExecutiveBriefText,
+} from '@/services/executiveBriefService';
 
 interface DailyEventCardProps {
   event: DailyEventItem;
-  isBookmarked: boolean;
-  onToggleBookmark: (id: string) => void;
+  isBookmarked?: boolean;
+  onToggleBookmark?: (id: string) => void;
   onOpenDetail: (event: DailyEventItem) => void;
   onAddNote: (event: DailyEventItem) => void;
   onPractiseQuestion?: (event: DailyEventItem) => void;
@@ -63,16 +64,18 @@ export function DailyEventCard({
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const styles = useMemo(() => getStyles(theme, isDark, isDesktop), [theme, isDark, isDesktop]);
 
-  // Horizontal Section Switcher Tab State: 'takeaways' | 'matrix' | 'recall' | null (starts closed)
-  const [activeSectionTab, setActiveSectionTab] = useState<'takeaways' | 'matrix' | 'recall' | null>(null);
+  // Active Recall Drawer Tab State: 'recall' | null (starts closed)
+  const [activeSectionTab, setActiveSectionTab] = useState<'recall' | null>(null);
 
-  const toggleSectionTab = (tab: 'takeaways' | 'matrix' | 'recall') => {
+  const toggleSectionTab = (tab: 'recall') => {
     setActiveSectionTab((prev) => (prev === tab ? null : tab));
   };
 
-  // Active Recall Questions & User Responses (Gemini AI generated)
+  // Active Recall Questions & User Responses
   const recallQuestions = useMemo(() => generateEventRecallQuestions(event), [event]);
   const [recallAnswers, setRecallAnswers] = useState<Record<string, 'A' | 'B' | 'C' | 'D'>>({});
+  const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null);
+  const imgError = Boolean(event.imageUrl && failedImageUrl === event.imageUrl);
 
   const correctCount = useMemo(() => {
     return recallQuestions.reduce((acc, q) => {
@@ -90,6 +93,11 @@ export function DailyEventCard({
       .replace('GS-I', 'GS1');
   }, [event.paper]);
 
+  // Split executive brief into 3 clean, concise bullet points with keyword bolding
+  const briefBullets = useMemo(() => {
+    return parseExecutiveBrief(event.summary, event.summaryBullets);
+  }, [event.summary, event.summaryBullets]);
+
   return (
     <View style={styles.card}>
       {/* ======================================================== */}
@@ -97,226 +105,28 @@ export function DailyEventCard({
       {/* ======================================================== */}
       <View style={styles.identificationRow}>
         <View style={styles.idMetaGroup}>
-          <View style={styles.paperBadge}>
-            <Text style={styles.paperBadgeText}>
-              {normalizedPaper ? `${normalizedPaper} · ${event.category}` : event.category}
-            </Text>
-          </View>
+          <Text style={styles.subjectCategoryText}>
+            {normalizedPaper ? `${normalizedPaper} · ${event.category}` : event.category}
+          </Text>
           <Text style={styles.dotSeparator}>·</Text>
-          <Text style={styles.sourceDateText}>{event.source} · {event.date}</Text>
+          <Text style={styles.sourceDateText}>{event.source}</Text>
         </View>
 
-        {/* Small Add Note Button and Bookmark Option at Top */}
+        {/* Top Right: Event Recall Button (replaces bookmark & top note) */}
         <View style={styles.idActionsGroup}>
           <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Recall the Event (5 Questions)"
             style={({ pressed }: any) => [
-              styles.topSmallNoteBtn,
-              pressed && styles.sectionTabBtnPressed,
-            ]}
-            onPress={() => onAddNote(event)}
-            accessibilityLabel="Add note for this event"
-            hitSlop={4}
-          >
-            <FileText size={11} color={isDark ? '#94A3B8' : '#475569'} strokeWidth={1.8} />
-            <Text style={styles.topSmallNoteBtnText}>Add Note</Text>
-          </Pressable>
-
-          <Pressable
-            style={({ pressed }: any) => [
-              styles.bookmarkAction,
-              pressed && styles.sectionTabBtnPressed,
-            ]}
-            onPress={() => onToggleBookmark(event.id)}
-            accessibilityLabel={isBookmarked ? 'Remove bookmark' : 'Bookmark this event'}
-            hitSlop={6}
-          >
-            <Bookmark
-              size={15}
-              color={isBookmarked ? (isDark ? '#38BDF8' : '#0F172A') : (isDark ? '#64748B' : theme.textMuted)}
-              fill={isBookmarked ? (isDark ? '#38BDF8' : '#0F172A') : 'none'}
-              strokeWidth={1.8}
-            />
-          </Pressable>
-        </View>
-      </View>
-
-      {/* ======================================================== */}
-      {/* ======================================================== */}
-      {/* B. HEADLINE AND OVERVIEW WITH ACCENT BACKGROUND           */}
-      {/* ======================================================== */}
-      <Text style={styles.headline}>{event.headline}</Text>
-
-      {event.summary ? (
-        <View style={styles.summaryOverviewCard}>
-          <View style={styles.summaryOverviewHeader}>
-            <View style={styles.summaryOverviewBar} />
-            <Text style={styles.summaryOverviewTag}>EXECUTIVE BRIEF</Text>
-          </View>
-          <Text style={styles.summaryOverview}>{event.summary}</Text>
-        </View>
-      ) : null}
-
-      {/* ======================================================== */}
-      {/* C. ACTION & ACTIVE RECALL BUTTONS (ROW 1 & ROW 2)        */}
-      {/* ======================================================== */}
-      <View style={styles.cardButtonBlock}>
-        {/* ROW 1: Key Takeaways, Prelims Facts, Full Analysis */}
-        <View style={styles.cardBtnRow1} accessibilityRole="tablist">
-          {/* 1. Key Takeaways */}
-          <Pressable
-            accessibilityRole="tab"
-            accessibilityLabel="Key Takeaways"
-            accessibilityState={{ selected: activeSectionTab === 'takeaways' }}
-            style={({ pressed, hovered }: any) => [
-              styles.row1Btn,
-              hovered && !activeSectionTab && styles.sectionTabBtnHover,
-              pressed && styles.sectionTabBtnPressed,
-              activeSectionTab === 'takeaways' && styles.sectionTabBtnActiveTakeaways,
-            ]}
-            onPress={() => toggleSectionTab('takeaways')}
-          >
-            <ListChecks
-              size={13}
-              color={
-                activeSectionTab === 'takeaways'
-                  ? (isDark ? '#60A5FA' : '#1D4ED8')
-                  : (isDark ? '#CBD5E1' : '#475569')
-              }
-              strokeWidth={1.8}
-            />
-            <Text
-              style={[
-                styles.sectionTabBtnText,
-                activeSectionTab === 'takeaways' && styles.sectionTabBtnTextActiveTakeaways,
-              ]}
-              numberOfLines={1}
-            >
-              {isDesktop ? 'Key Takeaways' : 'Takeaways'}
-            </Text>
-            <View
-              style={[
-                styles.tabCountBadge,
-                activeSectionTab === 'takeaways' && styles.tabCountBadgeActiveTakeaways,
-              ]}
-            >
-              <Text
-                style={[
-                  styles.tabCountBadgeText,
-                  activeSectionTab === 'takeaways' && styles.tabCountBadgeTextActiveTakeaways,
-                ]}
-              >
-                {event.bullets.length}
-              </Text>
-            </View>
-          </Pressable>
-
-          {/* 2. Prelims Facts */}
-          <Pressable
-            accessibilityRole="tab"
-            accessibilityLabel="Prelims Facts"
-            accessibilityState={{ selected: activeSectionTab === 'matrix' }}
-            style={({ pressed, hovered }: any) => [
-              styles.row1Btn,
-              hovered && !activeSectionTab && styles.sectionTabBtnHover,
-              pressed && styles.sectionTabBtnPressed,
-              activeSectionTab === 'matrix' && styles.sectionTabBtnActiveMatrix,
-            ]}
-            onPress={() => toggleSectionTab('matrix')}
-          >
-            <ShieldCheck
-              size={13}
-              color={
-                activeSectionTab === 'matrix'
-                  ? (isDark ? '#4ADE80' : '#047857')
-                  : (isDark ? '#CBD5E1' : '#475569')
-              }
-              strokeWidth={1.8}
-            />
-            <Text
-              style={[
-                styles.sectionTabBtnText,
-                activeSectionTab === 'matrix' && styles.sectionTabBtnTextActiveMatrix,
-              ]}
-              numberOfLines={1}
-            >
-              {isDesktop ? 'Prelims Facts' : 'Facts'}
-            </Text>
-            <View
-              style={[
-                styles.tabCountBadge,
-                activeSectionTab === 'matrix' && styles.tabCountBadgeActiveMatrix,
-              ]}
-            >
-              <Text
-                style={[
-                  styles.tabCountBadgeText,
-                  activeSectionTab === 'matrix' && styles.tabCountBadgeTextActiveMatrix,
-                ]}
-              >
-                {event.prelimsFactMatrix ? event.prelimsFactMatrix.length : (event.prelimsFacts?.length || 0)}
-              </Text>
-            </View>
-          </Pressable>
-
-          {/* 3. Full Analysis */}
-          <Pressable
-            style={({ pressed, hovered }: any) => [
-              styles.row1Btn,
-              hovered && styles.sectionTabBtnHover,
-              pressed && styles.sectionTabBtnPressed,
-            ]}
-            onPress={() => onOpenDetail(event)}
-            accessibilityLabel="Open Full Analysis"
-          >
-            <BookOpen
-              size={13}
-              color={isDark ? '#CBD5E1' : '#475569'}
-              strokeWidth={1.8}
-            />
-            <Text style={styles.sectionTabBtnText} numberOfLines={1}>
-              {isDesktop ? 'Full Analysis' : 'Analysis'}
-            </Text>
-          </Pressable>
-        </View>
-
-        {/* ROW 2 (next line): Daily Recall & Recall the Event (More Visible!) */}
-        <View style={styles.cardBtnRow2}>
-          {/* Daily Recall */}
-          <Pressable
-            style={({ pressed, hovered }: any) => [
-              styles.prominentRecallBtn,
-              styles.dailyRecallProminentBtn,
-              hovered && styles.prominentRecallBtnHover,
-              pressed && styles.sectionTabBtnPressed,
-            ]}
-            onPress={onOpenDailyRecall}
-            accessibilityLabel="Open Daily Active Recall (10 Questions)"
-          >
-            <Sparkles size={14} color={isDark ? '#38BDF8' : '#0284C7'} strokeWidth={2.2} />
-            <Text style={styles.dailyRecallProminentText} numberOfLines={1}>
-              Daily Recall
-            </Text>
-            <View style={styles.dailyRecallProminentBadge}>
-              <Text style={styles.dailyRecallProminentBadgeText}>10 Qs</Text>
-            </View>
-          </Pressable>
-
-          {/* Recall the Event */}
-          <Pressable
-            accessibilityRole="tab"
-            accessibilityLabel="Recall the Event"
-            accessibilityState={{ selected: activeSectionTab === 'recall' }}
-            style={({ pressed, hovered }: any) => [
-              styles.prominentRecallBtn,
-              styles.eventRecallProminentBtn,
-              activeSectionTab === 'recall' && styles.eventRecallProminentBtnActive,
-              hovered && styles.prominentRecallBtnHover,
+              styles.topEventRecallBtn,
+              activeSectionTab === 'recall' && styles.topEventRecallBtnActive,
               pressed && styles.sectionTabBtnPressed,
             ]}
             onPress={() => toggleSectionTab('recall')}
+            hitSlop={4}
           >
             <RotateCcw
-              size={13.5}
+              size={12}
               color={
                 activeSectionTab === 'recall'
                   ? '#FFFFFF'
@@ -326,23 +136,23 @@ export function DailyEventCard({
             />
             <Text
               style={[
-                styles.eventRecallProminentText,
-                activeSectionTab === 'recall' && styles.eventRecallProminentTextActive,
+                styles.topEventRecallText,
+                activeSectionTab === 'recall' && styles.topEventRecallTextActive,
               ]}
               numberOfLines={1}
             >
-              Recall the Event
+              Recall Event
             </Text>
             <View
               style={[
-                styles.eventRecallProminentBadge,
-                activeSectionTab === 'recall' && styles.eventRecallProminentBadgeActive,
+                styles.topEventRecallBadge,
+                activeSectionTab === 'recall' && styles.topEventRecallBadgeActive,
               ]}
             >
               <Text
                 style={[
-                  styles.eventRecallProminentBadgeText,
-                  activeSectionTab === 'recall' && styles.eventRecallProminentBadgeTextActive,
+                  styles.topEventRecallBadgeText,
+                  activeSectionTab === 'recall' && styles.topEventRecallBadgeTextActive,
                 ]}
               >
                 5 Qs
@@ -353,56 +163,91 @@ export function DailyEventCard({
       </View>
 
       {/* ======================================================== */}
-      {/* D. ACTIVE SECTION CONTENT AREA                           */}
       {/* ======================================================== */}
-      {activeSectionTab === 'takeaways' && (
-        <View style={styles.takeawaysSection}>
-          <View style={styles.takeawaysList}>
-            {event.bullets.map((point, idx) => (
-              <View key={idx} style={styles.takeawayItem}>
-                <View style={styles.takeawayIndexBadge}>
-                  <Text style={styles.takeawayIndexText}>{idx + 1}</Text>
-                </View>
-                <Text style={styles.takeawayText}>{point}</Text>
+      {/* B. HEADLINE AND OVERVIEW WITH ACCENT BACKGROUND           */}
+      {/* ======================================================== */}
+      <Text style={styles.headline}>{event.headline}</Text>
+
+      {briefBullets.length > 0 ? (
+        <View style={styles.summaryOverviewCard}>
+          <View style={styles.summaryOverviewHeader}>
+            <Compass size={12} color={isDark ? '#38BDF8' : '#0284C7'} strokeWidth={2.2} />
+            <Text style={styles.summaryOverviewTag}>EXECUTIVE BRIEF</Text>
+          </View>
+
+          <View style={styles.summaryContentRow}>
+            {!isDesktop && event.imageUrl && !imgError ? (
+              <View style={styles.summaryImageWrapper}>
+                <Image
+                  source={{
+                    uri: event.imageUrl,
+                    headers: {
+                      'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+                      'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+                    },
+                  }}
+                  style={styles.summarySnippetImage}
+                  contentFit="cover"
+                  transition={200}
+                  cachePolicy="memory-disk"
+                  onError={() => {
+                    if (event.imageUrl) setFailedImageUrl(event.imageUrl);
+                  }}
+                  accessibilityLabel={event.headline}
+                />
               </View>
-            ))}
+            ) : null}
+
+            <View style={styles.summarySentenceBlock}>
+              {briefBullets.map((bullet, bIdx) => (
+                <View key={bIdx} style={styles.summarySentenceItem}>
+                  <View style={styles.summarySentenceDot} />
+                  <View style={styles.summaryTextWrapper}>
+                    {renderExecutiveBriefText(
+                      bullet,
+                      styles.summaryOverviewText,
+                      styles.summaryBoldText
+                    )}
+                  </View>
+                </View>
+              ))}
+            </View>
+
+            {isDesktop && event.imageUrl && !imgError ? (
+              <View style={styles.summaryImageWrapper}>
+                <Image
+                  source={{
+                    uri: event.imageUrl,
+                    headers: {
+                      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                      'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+                    },
+                  }}
+                  style={styles.summarySnippetImage}
+                  contentFit="cover"
+                  transition={200}
+                  cachePolicy="memory-disk"
+                  onError={() => {
+                    if (event.imageUrl) setFailedImageUrl(event.imageUrl);
+                  }}
+                  accessibilityLabel={event.headline}
+                />
+              </View>
+            ) : null}
           </View>
         </View>
-      )}
+      ) : null}
 
-      {activeSectionTab === 'matrix' && (
-        <View style={styles.tabContentSection}>
-          {event.prelimsFactMatrix && event.prelimsFactMatrix.length > 0 ? (
-            <View style={styles.matrixTable}>
-              {event.prelimsFactMatrix.map((item, idx) => (
-                <View key={idx} style={styles.matrixCardItem}>
-                  <View style={styles.matrixLabelRow}>
-                    <View style={styles.matrixDotIndicator} />
-                    <Text style={styles.matrixLabel}>{item.label}</Text>
-                  </View>
-                  <Text style={styles.matrixValue}>{item.value}</Text>
-                </View>
-              ))}
-            </View>
-          ) : (
-            <View style={styles.matrixListFallback}>
-              {event.prelimsFacts?.map((fact, idx) => (
-                <Text key={idx} style={styles.matrixFallbackItem}>
-                  • {fact}
-                </Text>
-              ))}
-            </View>
-          )}
-        </View>
-      )}
-
+      {/* ======================================================== */}
+      {/* ACTIVE RECALL QUESTIONS DRAWER (TRIGGERED FROM TOP RIGHT) */}
+      {/* ======================================================== */}
       {activeSectionTab === 'recall' && (
         <View style={styles.recallSection}>
           <View style={styles.recallHeaderCard}>
             <View style={styles.recallHeaderLeft}>
-              <View style={styles.recallAiBadge}>
-                <Sparkles size={12} color="#FFFFFF" strokeWidth={2} />
-                <Text style={styles.recallAiBadgeText}>Gemini AI Active Recall</Text>
+              <View style={styles.recallHeaderBadge}>
+                <RotateCcw size={12} color="#FFFFFF" strokeWidth={2.2} />
+                <Text style={styles.recallHeaderBadgeText}>Active Recall Practice</Text>
               </View>
               <Text style={styles.recallSubheading}>
                 5 questions to train active retrieval memory & test UPSC syllabus linkage
@@ -539,20 +384,37 @@ export function DailyEventCard({
         </View>
       )}
 
-
       {/* ======================================================== */}
-      {/* H. GEMINI AI VERIFICATION & SLIDE NAV (AT THE BOTTOM)     */}
+      {/* C. BOTTOM BAR: FULL ANALYSIS (LEFT) & NAV (SAME LINE)    */}
       {/* ======================================================== */}
-      <View style={styles.geminiBottomFooter}>
-        <View style={styles.geminiBottomLeft}>
-          <ShieldCheck size={11.5} color={isDark ? '#38BDF8' : '#0284C7'} strokeWidth={2} />
-          <Text style={styles.geminiBottomFooterText}>
-            Verified by Gemini Ai({event.aiVerification?.sourcesCount || event.sources?.length || 3} sources)
-          </Text>
-        </View>
+      <View style={styles.cardBottomBar}>
+        {/* Left Side: Full Analysis Button */}
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Open Full Analysis"
+          style={({ pressed, hovered }: any) => [
+            styles.fullAnalysisBtn,
+            hovered && styles.fullAnalysisBtnHover,
+            pressed && styles.fullAnalysisBtnPressed,
+          ]}
+          onPress={() => onOpenDetail(event)}
+        >
+          <BookOpen
+            size={13}
+            color={isDark ? '#38BDF8' : '#0284C7'}
+            strokeWidth={2}
+          />
+          <Text style={styles.fullAnalysisBtnText}>Full Analysis</Text>
+          <ChevronRight
+            size={13}
+            color={isDark ? '#38BDF8' : '#0284C7'}
+            strokeWidth={2}
+          />
+        </Pressable>
 
+        {/* Right Side: Prev / Next & Slide Dots in the Same Line */}
         {typeof totalEvents === 'number' && totalEvents > 1 && (
-          <View style={styles.geminiBottomNav}>
+          <View style={styles.bottomNavGroup}>
             <Pressable
               style={[styles.geminiNavBtn, !hasPrevEvent && styles.geminiNavBtnDisabled]}
               onPress={onPrevEvent}
@@ -620,107 +482,72 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       marginBottom: 0,
     },
 
-    /* Section Switcher Block: Row 1 (Takeaways, Facts, Analysis) & Row 2 (Daily Recall, Event Recall) */
+    /* Section Action Buttons Block (Desktop 4-in-a-row, Mobile 2x2 grid) */
     cardButtonBlock: {
-      gap: 9,
+      gap: 8,
       marginBottom: 16,
     },
-    cardBtnRow1: {
+    cardBtnRowDesktop: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: isDesktop ? 10 : 6,
+      gap: 8,
     },
-    row1Btn: {
+    cardBtnGridMobile: {
+      gap: 8,
+    },
+    cardBtnRowMobile: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    actionGridBtn: {
       flex: 1,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: isDesktop ? 6 : 4,
+      gap: isDesktop ? 6 : 4.5,
       paddingVertical: isDesktop ? 8 : 7.5,
-      paddingHorizontal: isDesktop ? 10 : 5,
+      paddingHorizontal: isDesktop ? 10 : 6,
       borderRadius: 7,
       backgroundColor: isDark ? '#101B2B' : '#F8FAFC',
       borderWidth: 1,
       borderColor: isDark ? '#1E2F46' : '#E2E8F0',
     },
-    cardBtnRow2: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: isDesktop ? 10 : 8,
-    },
-    prominentRecallBtn: {
-      flex: 1,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 6,
-      paddingVertical: 9,
-      paddingHorizontal: isDesktop ? 12 : 8,
-      borderRadius: 8,
-      borderWidth: 1.5,
-      shadowOffset: { width: 0, height: 1 },
-      shadowOpacity: 0.12,
-      shadowRadius: 3,
-      elevation: 2,
-    },
     prominentRecallBtnHover: {
       opacity: 0.9,
     },
-    dailyRecallProminentBtn: {
-      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.12)' : '#EFF6FF',
-      borderColor: isDark ? '#38BDF8' : '#0284C7',
-      shadowColor: '#38BDF8',
+    eventRecallActionBtn: {
+      backgroundColor: isDark ? 'rgba(45, 212, 191, 0.08)' : '#F0FDFA',
+      borderColor: isDark ? 'rgba(45, 212, 191, 0.35)' : '#99F6E4',
     },
-    dailyRecallProminentText: {
-      fontSize: 12.5,
-      fontWeight: '700',
-      color: isDark ? '#E0F2FE' : '#0369A1',
-      letterSpacing: -0.1,
-    },
-    dailyRecallProminentBadge: {
-      paddingHorizontal: 5,
-      paddingVertical: 1.5,
-      borderRadius: 4,
-      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.25)' : '#DBEAFE',
-    },
-    dailyRecallProminentBadgeText: {
-      fontSize: 10,
-      fontWeight: '700',
-      color: isDark ? '#38BDF8' : '#0284C7',
-    },
-    eventRecallProminentBtn: {
-      backgroundColor: isDark ? 'rgba(45, 212, 191, 0.1)' : '#F0FDFA',
-      borderColor: isDark ? '#2DD4BF' : '#0D9488',
-      shadowColor: '#2DD4BF',
-    },
-    eventRecallProminentBtnActive: {
+    eventRecallActionBtnActive: {
       backgroundColor: isDark ? '#0D9488' : '#0F766E',
       borderColor: isDark ? '#5EEAD4' : '#115E59',
     },
-    eventRecallProminentText: {
-      fontSize: 12.5,
+    eventRecallActionBtnText: {
+      fontSize: 12,
       fontWeight: '700',
       color: isDark ? '#CCFBF1' : '#0F766E',
       letterSpacing: -0.1,
     },
-    eventRecallProminentTextActive: {
+    eventRecallActionBtnTextActive: {
       color: '#FFFFFF',
     },
-    eventRecallProminentBadge: {
+    eventRecallActionBadge: {
       paddingHorizontal: 5,
       paddingVertical: 1.5,
       borderRadius: 4,
-      backgroundColor: isDark ? 'rgba(45, 212, 191, 0.25)' : '#CCFBF1',
+      backgroundColor: isDark ? 'rgba(45, 212, 191, 0.2)' : '#CCFBF1',
     },
-    eventRecallProminentBadgeActive: {
+    eventRecallActionBadgeActive: {
       backgroundColor: isDark ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 255, 255, 0.3)',
     },
-    eventRecallProminentBadgeText: {
+    eventRecallActionBadgeText: {
       fontSize: 10,
       fontWeight: '700',
       color: isDark ? '#2DD4BF' : '#0D9488',
     },
-    eventRecallProminentBadgeTextActive: {
+    eventRecallActionBadgeTextActive: {
       color: '#FFFFFF',
     },
     sectionTabBtn: {
@@ -754,6 +581,10 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       backgroundColor: isDark ? '#142D25' : '#ECFDF5',
       borderColor: isDark ? '#4ADE80' : '#059669',
     },
+    sectionTabBtnActiveNotes: {
+      backgroundColor: isDark ? 'rgba(245, 158, 11, 0.12)' : '#FEF3C7',
+      borderColor: isDark ? '#F59E0B' : '#D97706',
+    },
     sectionTabBtnText: {
       fontSize: 12,
       fontWeight: '600',
@@ -771,6 +602,10 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       color: isDark ? '#4ADE80' : '#047857',
       fontWeight: '700',
     },
+    sectionTabBtnTextActiveNotes: {
+      color: isDark ? '#FCD34D' : '#B45309',
+      fontWeight: '700',
+    },
     tabCountBadge: {
       paddingHorizontal: 5,
       paddingVertical: 1.5,
@@ -786,6 +621,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     tabCountBadgeActiveMatrix: {
       backgroundColor: isDark ? 'rgba(74, 222, 128, 0.2)' : '#D1FAE5',
     },
+    tabCountBadgeActiveNotes: {
+      backgroundColor: isDark ? 'rgba(245, 158, 11, 0.25)' : '#FDE68A',
+    },
     tabCountBadgeText: {
       fontSize: 10,
       fontWeight: '700',
@@ -799,6 +637,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     },
     tabCountBadgeTextActiveMatrix: {
       color: isDark ? '#4ADE80' : '#047857',
+    },
+    tabCountBadgeTextActiveNotes: {
+      color: isDark ? '#FCD34D' : '#B45309',
     },
     tabContentSection: {
       marginBottom: 16,
@@ -826,36 +667,53 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       gap: 6,
       flexShrink: 0,
     },
-    topSmallNoteBtn: {
+    topEventRecallBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 4,
-      paddingVertical: 3.5,
-      paddingHorizontal: isDesktop ? 8 : 7,
-      borderRadius: 6,
-      backgroundColor: isDark ? '#101B2B' : '#F1F5F9',
+      gap: 5,
+      paddingVertical: 4.5,
+      paddingHorizontal: isDesktop ? 9 : 7.5,
+      borderRadius: 7,
+      backgroundColor: isDark ? 'rgba(45, 212, 191, 0.1)' : '#F0FDFA',
       borderWidth: 1,
-      borderColor: isDark ? '#1E2F46' : '#E2E8F0',
+      borderColor: isDark ? 'rgba(45, 212, 191, 0.35)' : '#99F6E4',
     },
-    topSmallNoteBtnText: {
-      fontSize: 11,
-      fontWeight: '600',
-      color: isDark ? '#CBD5E1' : '#334155',
-      letterSpacing: -0.1,
+    topEventRecallBtnActive: {
+      backgroundColor: isDark ? '#0D9488' : '#0F766E',
+      borderColor: isDark ? '#5EEAD4' : '#115E59',
     },
-    paperBadge: {
-      paddingHorizontal: 9,
-      paddingVertical: 3.5,
-      borderRadius: 6,
-      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.12)' : '#EFF6FF',
-      borderWidth: 1,
-      borderColor: isDark ? 'rgba(56, 189, 248, 0.3)' : '#BFDBFE',
-    },
-    paperBadgeText: {
+    topEventRecallText: {
       fontSize: 11.5,
       fontWeight: '700',
-      color: isDark ? '#38BDF8' : '#1D4ED8',
-      letterSpacing: 0.25,
+      color: isDark ? '#CCFBF1' : '#0F766E',
+      letterSpacing: -0.1,
+    },
+    topEventRecallTextActive: {
+      color: '#FFFFFF',
+    },
+    topEventRecallBadge: {
+      paddingHorizontal: 5,
+      paddingVertical: 1,
+      borderRadius: 4,
+      backgroundColor: isDark ? 'rgba(45, 212, 191, 0.25)' : '#CCFBF1',
+    },
+    topEventRecallBadgeActive: {
+      backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    },
+    topEventRecallBadgeText: {
+      fontSize: 9.5,
+      fontWeight: '800',
+      color: isDark ? '#2DD4BF' : '#0D9488',
+    },
+    topEventRecallBadgeTextActive: {
+      color: '#FFFFFF',
+    },
+    subjectCategoryText: {
+      fontSize: 11.5,
+      fontWeight: '700',
+      color: isDark ? '#38BDF8' : '#0284C7',
+      letterSpacing: 0.35,
+      textTransform: 'uppercase',
     },
     dotSeparator: {
       fontSize: 12,
@@ -865,11 +723,147 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       fontSize: 12,
       color: isDark ? '#94A3B8' : theme.textMuted,
     },
-    bookmarkAction: {
-      padding: 4,
-      borderRadius: 6,
-      justifyContent: 'center',
+
+    /* Notes Section Styles */
+    notesSection: {
+      marginBottom: 16,
+      borderRadius: 10,
+      backgroundColor: isDark ? '#0D1522' : '#F8FAFC',
+      borderWidth: 1,
+      borderColor: isDark ? '#1C2B3F' : '#E2E8F0',
+      padding: 14,
+      gap: 12,
+    },
+    notesHeaderCard: {
+      flexDirection: 'row',
       alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 8,
+    },
+    notesHeaderLeft: {
+      flex: 1,
+      gap: 3,
+    },
+    notesTagBadge: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 5,
+      alignSelf: 'flex-start',
+      paddingHorizontal: 8,
+      paddingVertical: 2.5,
+      borderRadius: 5,
+      backgroundColor: isDark ? '#D97706' : '#D97706',
+    },
+    notesTagBadgeText: {
+      fontSize: 10.5,
+      fontWeight: '700',
+      color: '#FFFFFF',
+      letterSpacing: 0.2,
+    },
+    notesSubheading: {
+      fontSize: 11.5,
+      color: isDark ? '#94A3B8' : '#64748B',
+      lineHeight: 16,
+    },
+    openFullNotesBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+      paddingHorizontal: 9,
+      paddingVertical: 5,
+      borderRadius: 6,
+      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.12)' : '#EFF6FF',
+      borderWidth: 1,
+      borderColor: isDark ? 'rgba(56, 189, 248, 0.3)' : '#BFDBFE',
+    },
+    openFullNotesBtnText: {
+      fontSize: 11,
+      fontWeight: '600',
+      color: isDark ? '#7DD3FC' : '#1D4ED8',
+    },
+    noteInputCard: {
+      borderRadius: 8,
+      backgroundColor: isDark ? '#131F30' : '#FFFFFF',
+      borderWidth: 1,
+      borderColor: isDark ? '#23354E' : '#E2E8F0',
+      padding: 10,
+      gap: 8,
+    },
+    noteTextInput: {
+      fontSize: 13,
+      lineHeight: 19,
+      color: isDark ? '#F1F5F9' : '#0F172A',
+      minHeight: 56,
+      textAlignVertical: 'top',
+    },
+    noteInputActions: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      borderTopWidth: 1,
+      borderTopColor: isDark ? '#1E2F46' : '#F1F5F9',
+      paddingTop: 8,
+    },
+    noteCharHint: {
+      fontSize: 11,
+      color: isDark ? '#64748B' : '#94A3B8',
+    },
+    saveNoteBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      borderRadius: 6,
+      backgroundColor: isDark ? '#0284C7' : '#0284C7',
+    },
+    saveNoteBtnDisabled: {
+      opacity: 0.45,
+    },
+    saveNoteBtnText: {
+      fontSize: 11.5,
+      fontWeight: '700',
+      color: '#FFFFFF',
+    },
+    savedNotesList: {
+      gap: 8,
+    },
+    savedNoteCard: {
+      borderRadius: 8,
+      backgroundColor: isDark ? '#142033' : '#FFFFFF',
+      borderWidth: 1,
+      borderColor: isDark ? '#22354F' : '#E2E8F0',
+      borderLeftWidth: 3.5,
+      borderLeftColor: isDark ? '#F59E0B' : '#D97706',
+      padding: 10,
+      gap: 5,
+    },
+    savedNoteHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    savedNoteDate: {
+      fontSize: 10.5,
+      fontWeight: '600',
+      color: isDark ? '#94A3B8' : '#64748B',
+    },
+    savedNoteContent: {
+      fontSize: 12.5,
+      lineHeight: 18,
+      color: isDark ? '#E2E8F0' : '#1E293B',
+    },
+    notesEmptyCard: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 14,
+      gap: 6,
+    },
+    notesEmptyText: {
+      fontSize: 11.5,
+      color: isDark ? '#64748B' : '#94A3B8',
+      textAlign: 'center',
+      maxWidth: 280,
     },
 
     /* B. Headline & Overview */
@@ -882,39 +876,78 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       marginBottom: 10,
     },
     summaryOverviewCard: {
-      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.04)' : '#F0F7FF',
+      backgroundColor: isDark ? 'rgba(6, 182, 212, 0.08)' : '#F0F9FF',
       borderRadius: 9,
       borderLeftWidth: 4,
-      borderLeftColor: isDark ? '#38BDF8' : '#2563EB',
-      borderWidth: isDark ? 0 : 1,
-      borderColor: isDark ? 'transparent' : '#E0EDFD',
+      borderLeftColor: isDark ? '#22D3EE' : '#0284C7',
       paddingHorizontal: 14,
-      paddingVertical: 11,
+      paddingVertical: 12,
       marginBottom: 16,
     },
     summaryOverviewHeader: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 6,
-      marginBottom: 6,
-    },
-    summaryOverviewBar: {
-      width: 12,
-      height: 3,
-      borderRadius: 1.5,
-      backgroundColor: isDark ? '#38BDF8' : '#2563EB',
+      marginBottom: 8,
     },
     summaryOverviewTag: {
       fontSize: 10.5,
       fontWeight: '800',
-      color: isDark ? '#38BDF8' : '#1D4ED8',
-      letterSpacing: 0.6,
+      color: isDark ? '#38BDF8' : '#0284C7',
+      letterSpacing: 0.7,
       textTransform: 'uppercase',
     },
-    summaryOverview: {
-      fontSize: 14.5,
-      lineHeight: 22.5,
+    summaryContentRow: {
+      flexDirection: isDesktop ? 'row' : 'column',
+      alignItems: isDesktop ? 'flex-start' : 'stretch',
+      gap: isDesktop ? 16 : 12,
+    },
+    summarySentenceBlock: {
+      flex: isDesktop ? 1 : undefined,
+      width: '100%',
+      gap: 9,
+    },
+    summaryImageWrapper: {
+      width: isDesktop ? 200 : '100%',
+      height: isDesktop ? 136 : 155,
+      borderRadius: isDesktop ? 10 : 8,
+      overflow: 'hidden',
+      backgroundColor: isDark ? 'rgba(15, 23, 42, 0.4)' : '#E2E8F0',
+      borderWidth: 1,
+      borderColor: isDark ? 'rgba(56, 189, 248, 0.25)' : 'rgba(37, 99, 235, 0.18)',
+      flexShrink: 0,
+      marginTop: isDesktop ? 2 : 0,
+    },
+    summarySnippetImage: {
+      width: '100%',
+      height: '100%',
+    },
+    summarySentenceItem: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      gap: 9,
+    },
+    summarySentenceDot: {
+      width: 4.5,
+      height: 4.5,
+      borderRadius: 2.25,
+      backgroundColor: isDark ? '#38BDF8' : '#0284C7',
+      marginTop: 8,
+      flexShrink: 0,
+    },
+    summaryTextWrapper: {
+      flex: 1,
+    },
+    summaryOverviewText: {
+      fontSize: 13.5,
+      lineHeight: 20.5,
+      fontWeight: '400',
       color: isDark ? '#E2E8F0' : '#1E293B',
+      letterSpacing: -0.1,
+    },
+    summaryBoldText: {
+      fontWeight: '700',
+      color: isDark ? '#FFFFFF' : '#090D16',
     },
 
     /* C. Key Takeaways */
@@ -1109,7 +1142,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       minWidth: 200,
       gap: 4,
     },
-    recallAiBadge: {
+    recallHeaderBadge: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 5,
@@ -1119,7 +1152,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingVertical: 3,
       borderRadius: 6,
     },
-    recallAiBadgeText: {
+    recallHeaderBadgeText: {
       fontSize: 10.5,
       fontWeight: '700',
       color: '#FFFFFF',
@@ -1321,33 +1354,45 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       fontStyle: 'italic',
     },
 
-    /* G. Gemini Bottom Footer & Nav */
-    geminiBottomFooter: {
+    /* Bottom Bar: Full Analysis (Left) & Nav (Right on Same Line) */
+    cardBottomBar: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      gap: 8,
-      paddingTop: 10,
-      marginTop: 10,
+      gap: 10,
+      paddingTop: 12,
+      marginTop: 12,
       borderTopWidth: 1,
       borderTopColor: isDark ? 'rgba(56, 189, 248, 0.12)' : '#F1F5F9',
     },
-    geminiBottomLeft: {
+    fullAnalysisBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 5,
-      flexShrink: 1,
+      gap: 6,
+      paddingHorizontal: 12,
+      paddingVertical: 7,
+      borderRadius: 7,
+      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.12)' : '#EFF6FF',
+      borderWidth: 1,
+      borderColor: isDark ? 'rgba(56, 189, 248, 0.3)' : '#BFDBFE',
     },
-    geminiBottomFooterText: {
-      fontSize: 10,
-      fontWeight: '600',
-      color: isDark ? '#7DD3FC' : '#0369A1',
-      letterSpacing: 0.1,
+    fullAnalysisBtnHover: {
+      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.2)' : '#DBEAFE',
     },
-    geminiBottomNav: {
+    fullAnalysisBtnPressed: {
+      transform: [{ scale: 0.98 }],
+      opacity: 0.85,
+    },
+    fullAnalysisBtnText: {
+      fontSize: 12,
+      fontWeight: '700',
+      color: isDark ? '#38BDF8' : '#0284C7',
+      letterSpacing: 0.2,
+    },
+    bottomNavGroup: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 5,
+      gap: 6,
     },
     geminiNavBtn: {
       flexDirection: 'row',

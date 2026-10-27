@@ -11,7 +11,7 @@ import {
   ChevronRight,
   Calendar as CalendarIcon,
   Check,
-} from '@/components/common/LucideIcons';
+} from 'lucide-react-native';
 import { DAILY_EVENTS_DATA } from '@/data/currentAffairsData';
 
 interface CalendarDropdownProps {
@@ -21,6 +21,7 @@ interface CalendarDropdownProps {
   onSelectDate: (dateKey: string) => void;
   topOffset?: number;
   rightOffset?: number;
+  leftOffset?: number;
   isDark?: boolean;
   completedDates?: string[];
 }
@@ -49,6 +50,7 @@ export function CalendarDropdown({
   onSelectDate,
   topOffset = 180,
   rightOffset = 16,
+  leftOffset,
   isDark = false,
   completedDates = [],
 }: CalendarDropdownProps) {
@@ -201,7 +203,7 @@ export function CalendarDropdown({
             {
               position: 'absolute',
               top: topOffset,
-              right: rightOffset,
+              ...(leftOffset !== undefined ? { left: leftOffset } : { right: rightOffset }),
             },
           ]}
         >

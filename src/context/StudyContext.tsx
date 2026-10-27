@@ -101,11 +101,12 @@ interface StudyContextType {
 
   // Task actions
   toggleTask: (id: string) => Promise<void>;
+  updateTask: (id: string, partial: Partial<StudyTask>) => Promise<void>;
   addTask: (
-    subject: UPSCSubject,
-    topic: string,
-    estimatedMinutes: number,
-    priority: 'High' | 'Medium' | 'Normal',
+    subjectOrTask: UPSCSubject | Omit<StudyTask, 'id' | 'completed'>,
+    topic?: string,
+    estimatedMinutes?: number,
+    priority?: 'High' | 'Medium' | 'Normal',
     notes?: string
   ) => Promise<void>;
   deleteTask: (id: string) => Promise<void>;
@@ -650,22 +651,35 @@ export function StudyProvider({ children }: { children: React.ReactNode }) {
     setTasks(updated);
   }, []);
 
+  const updateTask = useCallback(async (id: string, partial: Partial<StudyTask>) => {
+    const updated = await StudyStorageService.updateTask(id, partial);
+    setTasks(updated);
+  }, []);
+
   const addTask = useCallback(
     async (
-      subject: UPSCSubject,
-      topic: string,
-      estimatedMinutes: number,
-      priority: 'High' | 'Medium' | 'Normal',
+      subjectOrTask: UPSCSubject | Omit<StudyTask, 'id' | 'completed'>,
+      topic?: string,
+      estimatedMinutes?: number,
+      priority?: 'High' | 'Medium' | 'Normal',
       notes?: string
     ) => {
-      const updated = await StudyStorageService.addTask({
-        subject,
-        topic,
-        estimatedMinutes,
-        priority,
-        notes,
-        date: todayStr,
-      });
+      let taskToSave: Omit<StudyTask, 'id' | 'completed'>;
+      if (typeof subjectOrTask === 'object') {
+        taskToSave = subjectOrTask;
+      } else {
+        taskToSave = {
+          subject: subjectOrTask,
+          topic: topic || `${subjectOrTask} Study Task`,
+          estimatedMinutes: estimatedMinutes || 60,
+          priority: priority || 'Medium',
+          notes,
+          date: todayStr,
+          colorTag: 'default',
+          status: 'todo',
+        };
+      }
+      const updated = await StudyStorageService.addTask(taskToSave);
       setTasks(updated);
     },
     [todayStr]
@@ -774,6 +788,7 @@ export function StudyProvider({ children }: { children: React.ReactNode }) {
     deleteSession,
 
     toggleTask,
+    updateTask,
     addTask,
     deleteTask,
 

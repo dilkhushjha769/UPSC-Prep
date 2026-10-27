@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+// Navigation components
 import {
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -7,19 +9,22 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
+  Award,
   BookOpen,
+  CheckSquare,
+  Edit3,
   Flame,
   Home,
   Moon,
   Newspaper,
   Sun,
   User,
-  Award,
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
+import { QuickEditProfileModal } from './modals/QuickEditProfileModal';
 
-export type NavTab = 'home' | 'prelims' | 'mock-test' | 'current-affairs' | 'profile' | 'notifications';
+export type NavTab = 'home' | 'tasks' | 'prelims' | 'mock-test' | 'current-affairs' | 'profile' | 'notifications';
 
 interface SidebarNavProps {
   activeTab: NavTab;
@@ -36,12 +41,18 @@ export function SidebarNav({
 }: SidebarNavProps) {
   const { config, streak } = useStudy();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
+  const [isQuickEditOpen, setIsQuickEditOpen] = useState(false);
 
   const navItems = [
     {
       id: 'home' as NavTab,
       label: 'Home',
       icon: Home,
+    },
+    {
+      id: 'tasks' as NavTab,
+      label: 'My Tasks',
+      icon: CheckSquare,
     },
     {
       id: 'prelims' as NavTab,
@@ -173,40 +184,70 @@ export function SidebarNav({
         {/* User Mini Profile */}
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => onSelectTab('profile')}
+          onPress={() => setIsQuickEditOpen(true)}
           style={styles.profileMiniRow}>
           <View
             style={[
               styles.avatarBox,
               { backgroundColor: theme.buttonPrimaryBg },
             ]}>
-            <Text
-              style={[
-                styles.avatarText,
-                { color: theme.buttonPrimaryText },
-              ]}>
-              {config.aspirantName ? config.aspirantName.charAt(0) : 'A'}
-            </Text>
+            {config.avatarUri ? (
+              <Image
+                source={{ uri: config.avatarUri }}
+                style={styles.avatarImage}
+                resizeMode="cover"
+              />
+            ) : (
+              <Text
+                style={[
+                  styles.avatarText,
+                  { color: theme.buttonPrimaryText },
+                ]}>
+                {config.aspirantName ? config.aspirantName.charAt(0).toUpperCase() : 'A'}
+              </Text>
+            )}
           </View>
           <View style={styles.profileNameCol}>
             <Text
               style={[styles.profileNameText, { color: theme.textPrimary }]}
               numberOfLines={1}>
-              {config.aspirantName}
+              {config.aspirantName || 'Aspirant'}
             </Text>
             <Text
               style={[styles.profilePhaseText, { color: theme.textSecondary }]}>
               {streak.currentStreak}d Active
             </Text>
           </View>
+
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => setIsQuickEditOpen(true)}
+            hitSlop={8}
+            style={[
+              styles.editProfileBtn,
+              {
+                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0F1F5',
+                borderColor: isDark ? '#383A42' : '#E8E9F1',
+              },
+            ]}
+            accessibilityLabel="Edit name and profile photo">
+            <Edit3 size={13} color={theme.textPrimary} />
+          </TouchableOpacity>
         </TouchableOpacity>
+
+        {/* Quick Profile & Photo Editor Modal */}
+        <QuickEditProfileModal
+          isOpen={isQuickEditOpen}
+          onClose={() => setIsQuickEditOpen(false)}
+          isDark={isDark}
+        />
       </View>
     </View>
   );
 }
 
 /**
- * Clean Mobile Bottom Navigation Bar
+ * Clean Mobile Bottom Navigation Bar - Premium Redesign
  */
 export function MobileBottomNav({
   activeTab,
@@ -223,9 +264,9 @@ export function MobileBottomNav({
 
   const items = [
     { id: 'home' as NavTab, label: 'Home', icon: Home },
+    { id: 'tasks' as NavTab, label: 'Tasks', icon: CheckSquare },
     { id: 'prelims' as NavTab, label: 'Prelims', icon: BookOpen },
     { id: 'mock-test' as NavTab, label: 'Mocks', icon: Award },
-    { id: 'current-affairs' as NavTab, label: 'Affairs', icon: Newspaper },
     { id: 'profile' as NavTab, label: 'Profile', icon: User },
   ];
 
@@ -234,9 +275,11 @@ export function MobileBottomNav({
       style={[
         styles.mobileBottomBar,
         {
-          backgroundColor: theme.sidebarBg,
-          borderTopColor: theme.cardBorder,
-          paddingBottom: insets.bottom + 6,
+          backgroundColor: isDark
+            ? 'rgba(31, 32, 36, 0.98)'
+            : 'rgba(255, 255, 255, 0.98)',
+          borderTopColor: isDark ? '#494A50' : '#E8E9F1',
+          paddingBottom: Math.max(insets.bottom, 6) + 4,
         },
       ]}>
       {items.map((item) => {
@@ -249,20 +292,47 @@ export function MobileBottomNav({
             activeOpacity={0.7}
             onPress={() => onSelectTab(item.id)}
             style={styles.mobileNavBtn}>
-            <Icon
-              size={20}
-              color={isActive ? theme.textPrimary : theme.textMuted}
-            />
+            <View
+              style={[
+                styles.mobileIconCapsule,
+                isActive && {
+                  backgroundColor: isDark
+                    ? 'rgba(0, 111, 253, 0.18)'
+                    : '#EAF2FF',
+                },
+              ]}>
+              <Icon
+                size={19}
+                color={
+                  isActive
+                    ? '#006FFD'
+                    : theme.textMuted
+                }
+                strokeWidth={isActive ? 2.3 : 1.8}
+              />
+            </View>
             <Text
               style={[
                 styles.mobileNavText,
                 {
-                  color: isActive ? theme.textPrimary : theme.textMuted,
+                  color: isActive
+                    ? (isDark ? '#FFFFFF' : '#006FFD')
+                    : theme.textMuted,
                   fontWeight: isActive ? '700' : '500',
                 },
               ]}>
               {item.label}
             </Text>
+            {isActive && (
+              <View
+                style={[
+                  styles.activeIndicatorDot,
+                  {
+                    backgroundColor: '#006FFD',
+                  },
+                ]}
+              />
+            )}
           </TouchableOpacity>
         );
       })}
@@ -353,11 +423,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
   },
   avatarBox: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 34,
+    height: 34,
+    borderRadius: 17,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  avatarImage: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
   },
   avatarText: {
     fontSize: 13,
@@ -374,21 +450,45 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '500',
   },
+  editProfileBtn: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   // In-flow footer (flexShrink: 0): content above it can never be covered.
   mobileBottomBar: {
     flexShrink: 0,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    borderTopWidth: 1,
-    paddingTop: 10,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    paddingTop: 6,
   },
   mobileNavBtn: {
+    flex: 1,
     alignItems: 'center',
-    gap: 4,
-    paddingHorizontal: 16,
+    justifyContent: 'center',
+    paddingVertical: 2,
+  },
+  mobileIconCapsule: {
+    paddingHorizontal: 14,
+    paddingVertical: 4,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 2,
   },
   mobileNavText: {
-    fontSize: 11,
+    fontSize: 10.5,
+    letterSpacing: -0.2,
+  },
+  activeIndicatorDot: {
+    width: 3.5,
+    height: 3.5,
+    borderRadius: 2,
+    marginTop: 2,
   },
 });

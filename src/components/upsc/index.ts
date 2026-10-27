@@ -20,4 +20,4 @@ export * from './modals/MainsAnswerModal';
 export * from './modals/MCQPracticeModal';
 export * from './modals/NotificationsModal';
 export * from './modals/StreakInfoModal';
-export * from './modals/StudyHistoryModal';
+export * from './modals/QuickEditProfileModal';

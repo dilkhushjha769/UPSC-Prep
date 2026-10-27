@@ -77,9 +77,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 9,
     borderRadius: PrelimsTheme.radius.pill,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: PrelimsTheme.colors.bgSurface,
     borderWidth: 1,
-    borderColor: '#EFE7FB',
+    borderColor: PrelimsTheme.colors.borderSubtle,
     ...PrelimsTheme.shadows.card,
   },
   pillActive: {

@@ -516,7 +516,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                   onPress={handleToggleCalendar}
                   accessibilityLabel="Open calendar"
                 >
-                  <Calendar size={16} color={isDark ? '#38BDF8' : '#1E3A8A'} strokeWidth={2} />
+                  <Calendar size={16} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2} />
                 </Pressable>
               </View>
             </View>
@@ -902,8 +902,8 @@ const getStyles = (
       borderBottomLeftRadius: 8,
       borderWidth: 1,
       borderRightWidth: 0,
-      borderColor: isDark ? '#1F2E45' : '#CBD5E1',
-      backgroundColor: isDark ? '#101623' : '#FFFFFF',
+      borderColor: isDark ? '#494A50' : '#D4D6DD',
+      backgroundColor: isDark ? '#2F3036' : '#FFFFFF',
       overflow: 'hidden',
     },
     threeDateItem: {
@@ -913,19 +913,19 @@ const getStyles = (
       justifyContent: 'center',
       minWidth: isDesktop ? 44 : 37,
       borderRightWidth: 1,
-      borderRightColor: isDark ? '#1F2E45' : '#E2E8F0',
+      borderRightColor: isDark ? '#494A50' : '#E8E9F1',
       position: 'relative',
     },
     threeDateItemFirst: {
       borderLeftWidth: 0,
     },
     threeDateItemActive: {
-      backgroundColor: isDark ? '#1B2638' : '#1E3A8A',
+      backgroundColor: '#006FFD',
     },
     threeDateDayName: {
       fontSize: 9,
       fontWeight: '600',
-      color: isDark ? '#94A3B8' : '#64748B',
+      color: isDark ? '#8F9098' : '#71727A',
       marginBottom: 1,
       textTransform: 'uppercase',
       letterSpacing: 0.3,
@@ -939,7 +939,7 @@ const getStyles = (
     threeDateNumber: {
       fontSize: 12.5,
       fontWeight: '700',
-      color: isDark ? '#F1F5F9' : '#0F172A',
+      color: isDark ? '#FFFFFF' : '#1F2024',
     },
     threeDateTextActive: {
       color: '#FFFFFF',
@@ -955,16 +955,16 @@ const getStyles = (
       right: 4,
       height: 2,
       borderRadius: 1,
-      backgroundColor: isDark ? '#38BDF8' : '#93C5FD',
+      backgroundColor: '#6FBAFF',
     },
     attachedCalendarBtn: {
       width: 38,
       height: 38,
       borderTopRightRadius: 8,
       borderBottomRightRadius: 8,
-      backgroundColor: isDark ? '#121A28' : '#F1F5F9',
+      backgroundColor: isDark ? '#2F3036' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#1F2E45' : '#CBD5E1',
+      borderColor: isDark ? '#494A50' : '#D4D6DD',
       alignItems: 'center',
       justifyContent: 'center',
     },

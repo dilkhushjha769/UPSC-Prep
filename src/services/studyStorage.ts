@@ -159,50 +159,64 @@ export function generateSeedTasks(todayStr: string = getLocalDateString()): Stud
     {
       id: 'task-1',
       subject: 'Polity',
-      topic: 'Fundamental Rights & Judicial Review',
+      topic: 'Social Studies & Constitutional Framework',
       estimatedMinutes: 90,
       priority: 'High',
       completed: true,
+      status: 'completed',
+      startTime: '08:30 AM',
+      endTime: '10:00 AM',
+      subtitle: 'B3, Room 124 • Fundamental Rights & Articles 14-32',
+      mentor: 'Mrs. Goodman',
+      colorTag: 'blue',
       notes: 'Revised Articles 14 to 32 and key constitutional benchmarks.',
       date: todayStr,
     },
     {
       id: 'task-2',
       subject: 'Current Affairs',
-      topic: 'The Hindu & Indian Express Editorial Notes',
-      estimatedMinutes: 60,
+      topic: 'English Literature & Editorial Analysis',
+      estimatedMinutes: 90,
       priority: 'High',
-      completed: true,
-      notes: 'Covered national and international geopolitics.',
+      completed: false,
+      status: 'in_progress',
+      startTime: '10:30 AM',
+      endTime: '12:00 PM',
+      subtitle: 'B2, Room 158 • The Hindu & Express Editorials',
+      mentor: 'Mrs. Melton',
+      colorTag: 'green', // Exact green card from reference image!
+      notes: 'Covered national geopolitics & economic editorial review.',
       date: todayStr,
     },
     {
       id: 'task-3',
-      subject: 'Modern History',
-      topic: 'Revolt of 1857 & Early Resistance Movements',
-      estimatedMinutes: 75,
+      subject: 'Science & Technology',
+      topic: 'Computer Science & Emerging AI Technologies',
+      estimatedMinutes: 90,
       priority: 'Medium',
       completed: false,
-      notes: 'Spectrum chapters 5 & 6 with timeline flashcards.',
+      status: 'todo',
+      startTime: '12:15 PM',
+      endTime: '01:45 PM',
+      subtitle: 'B3, Room 310 • Quantum & Space Tech Module',
+      mentor: 'Mr. Hodge',
+      colorTag: 'yellow',
+      notes: 'Spectrum notes on quantum computing & AI governance.',
       date: todayStr,
     },
     {
       id: 'task-4',
-      subject: 'CSAT',
-      topic: 'Quantitative Aptitude — Ratio & Proportion Practice',
-      estimatedMinutes: 45,
-      priority: 'Medium',
-      completed: false,
-      notes: 'Practice 20 questions from previous 5 years papers.',
-      date: todayStr,
-    },
-    {
-      id: 'task-5',
       subject: 'Ethics (GS 4)',
-      topic: 'Mains Answer: 1 Case Study on Conflict of Interest',
-      estimatedMinutes: 40,
+      topic: 'Case Studies & Administrative Ethics',
+      estimatedMinutes: 60,
       priority: 'Normal',
       completed: false,
+      status: 'todo',
+      startTime: '03:00 PM',
+      endTime: '04:30 PM',
+      subtitle: 'Library Hall • 2 Case Studies on Conflict of Interest',
+      mentor: 'Self-Study Masterclass',
+      colorTag: 'purple',
       notes: 'Structure with stakeholders, ethical dilemmas, and options matrix.',
       date: todayStr,
     },
@@ -287,8 +301,28 @@ export class StudyStorageService {
    */
   static async toggleTask(taskId: string): Promise<StudyTask[]> {
     const tasks = await this.getTasks();
+    const updated = tasks.map((t) => {
+      if (t.id === taskId) {
+        const nextCompleted = !t.completed;
+        return {
+          ...t,
+          completed: nextCompleted,
+          status: (nextCompleted ? 'completed' : 'todo') as 'completed' | 'todo',
+        };
+      }
+      return t;
+    });
+    await AsyncStorage.setItem(STORAGE_KEYS.TASKS, JSON.stringify(updated));
+    return updated;
+  }
+
+  /**
+   * Updates an existing study task
+   */
+  static async updateTask(taskId: string, partial: Partial<StudyTask>): Promise<StudyTask[]> {
+    const tasks = await this.getTasks();
     const updated = tasks.map((t) =>
-      t.id === taskId ? { ...t, completed: !t.completed } : t
+      t.id === taskId ? { ...t, ...partial } : t
     );
     await AsyncStorage.setItem(STORAGE_KEYS.TASKS, JSON.stringify(updated));
     return updated;
@@ -302,7 +336,7 @@ export class StudyStorageService {
     const newTask: StudyTask = {
       ...task,
       id: `task_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
-      completed: false,
+      completed: task.status === 'completed',
     };
     const updated = [newTask, ...tasks];
     await AsyncStorage.setItem(STORAGE_KEYS.TASKS, JSON.stringify(updated));

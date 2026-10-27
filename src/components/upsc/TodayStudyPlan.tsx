@@ -104,7 +104,7 @@ export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
         <View style={styles.taskList}>
           {tasks.map((task: StudyTask) => {
             const subjectStyle =
-              SUBJECT_COLORS[task.subject] || SUBJECT_COLORS.Polity;
+              (task.subject && SUBJECT_COLORS[task.subject]) || SUBJECT_COLORS.Polity;
 
             let priorityBg = isDark ? '#1A2130' : '#F1F5F9';
             let priorityText = colors.textSecondary;

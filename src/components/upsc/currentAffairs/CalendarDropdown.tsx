@@ -40,7 +40,7 @@ const MONTH_NAMES = [
   'Dec',
 ];
 
-const WEEKDAY_INITIALS = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+const WEEKDAY_INITIALS = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
 
 export function CalendarDropdown({
   visible,
@@ -358,12 +358,12 @@ const getStyles = (isDark: boolean) =>
       ...StyleSheet.absoluteFill,
     },
     card: {
-      width: 268,
-      backgroundColor: isDark ? '#111724' : '#FFFFFF',
-      borderRadius: 12,
+      width: 278,
+      backgroundColor: isDark ? '#1F2024' : '#FFFFFF',
+      borderRadius: 16,
       borderWidth: 1,
-      borderColor: isDark ? '#1F2E45' : '#E2E8F0',
-      padding: 12,
+      borderColor: isDark ? '#494A50' : '#E8E9F1',
+      padding: 14,
       shadowColor: '#000000',
       shadowOffset: { width: 0, height: 8 },
       shadowOpacity: isDark ? 0.5 : 0.18,
@@ -374,10 +374,10 @@ const getStyles = (isDark: boolean) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: 8,
+      marginBottom: 10,
       paddingBottom: 6,
       borderBottomWidth: 1,
-      borderBottomColor: isDark ? '#1F2E45' : '#F1F5F9',
+      borderBottomColor: isDark ? '#2F3036' : '#F1F5F9',
     },
     monthTitleBox: {
       flexDirection: 'row',
@@ -385,15 +385,15 @@ const getStyles = (isDark: boolean) =>
       gap: 6,
     },
     monthTitle: {
-      fontSize: 12.5,
+      fontSize: 13,
       fontWeight: '700',
-      color: isDark ? '#F8FAFC' : '#0F172A',
+      color: isDark ? '#FFFFFF' : '#1F2024',
       letterSpacing: -0.1,
     },
     arrowBtn: {
       padding: 4,
-      borderRadius: 5,
-      backgroundColor: isDark ? '#17253B' : '#F8FAFC',
+      borderRadius: 6,
+      backgroundColor: isDark ? '#2F3036' : '#F8F9FE',
     },
     arrowDisabled: {
       opacity: 0.3,
@@ -403,7 +403,7 @@ const getStyles = (isDark: boolean) =>
     },
     weekdayRow: {
       flexDirection: 'row',
-      marginBottom: 4,
+      marginBottom: 6,
     },
     weekdayCell: {
       flex: 1,
@@ -412,8 +412,8 @@ const getStyles = (isDark: boolean) =>
     },
     weekdayText: {
       fontSize: 10,
-      fontWeight: '600',
-      color: isDark ? '#64748B' : '#94A3B8',
+      fontWeight: '700',
+      color: isDark ? '#71727A' : '#71727A',
     },
     grid: {
       flexDirection: 'row',
@@ -421,44 +421,43 @@ const getStyles = (isDark: boolean) =>
     },
     dayCellEmpty: {
       width: `${100 / 7}%`,
-      height: 28,
+      height: 30,
     },
     dayCell: {
       width: `${100 / 7}%`,
-      height: 28,
+      height: 30,
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: 6,
+      borderRadius: 15,
       position: 'relative',
       marginVertical: 1,
     },
     dayCellSelected: {
-      backgroundColor: isDark ? '#38BDF8' : '#1E3A8A',
+      backgroundColor: '#006FFD',
     },
     dayCellToday: {
-      borderWidth: 1,
-      borderColor: isDark ? '#38BDF8' : '#94A3B8',
+      backgroundColor: isDark ? '#2F3036' : '#EAF2FF',
     },
     dayCellFuture: {
       opacity: 0.2,
     },
     dayText: {
-      fontSize: 11.5,
-      fontWeight: '500',
-      color: isDark ? '#E2E8F0' : '#1E293B',
+      fontSize: 12,
+      fontWeight: '600',
+      color: isDark ? '#FFFFFF' : '#1F2024',
     },
     dayTextSelected: {
-      color: isDark ? '#041527' : '#FFFFFF',
+      color: '#FFFFFF',
       fontWeight: '700',
     },
     dayTextFuture: {
-      color: isDark ? '#475569' : '#94A3B8',
+      color: isDark ? '#494A50' : '#C5C6CC',
     },
     curatedDot: {
       width: 3.5,
       height: 3.5,
       borderRadius: 2,
-      backgroundColor: isDark ? '#34D399' : '#10B981',
+      backgroundColor: '#3AC0A0',
       position: 'absolute',
       bottom: 2,
     },
@@ -475,24 +474,24 @@ const getStyles = (isDark: boolean) =>
       marginTop: 8,
       paddingTop: 8,
       borderTopWidth: 1,
-      borderTopColor: isDark ? '#1F2E45' : '#F1F5F9',
+      borderTopColor: isDark ? '#2F3036' : '#F1F5F9',
     },
     quickPill: {
-      paddingVertical: 3,
+      paddingVertical: 4,
       paddingHorizontal: 8,
-      borderRadius: 5,
-      backgroundColor: isDark ? '#17253B' : '#F1F5F9',
+      borderRadius: 6,
+      backgroundColor: isDark ? '#2F3036' : '#F8F9FE',
     },
     quickPillActive: {
-      backgroundColor: isDark ? '#38BDF8' : '#1E3A8A',
+      backgroundColor: '#006FFD',
     },
     quickPillText: {
       fontSize: 10.5,
       fontWeight: '600',
-      color: isDark ? '#93C5FD' : '#475569',
+      color: isDark ? '#C5C6CC' : '#71727A',
     },
     quickPillTextActive: {
-      color: isDark ? '#041527' : '#FFFFFF',
+      color: '#FFFFFF',
     },
     footerIndicatorsRow: {
       flexDirection: 'row',

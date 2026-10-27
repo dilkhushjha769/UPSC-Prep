@@ -34,15 +34,32 @@ export interface StudySession {
   completed: boolean;
 }
 
+export type TaskColorTag =
+  | 'green'
+  | 'blue'
+  | 'purple'
+  | 'yellow'
+  | 'pink'
+  | 'orange'
+  | 'default';
+
 export interface StudyTask {
   id: string;
-  subject: UPSCSubject;
-  topic: string;
-  estimatedMinutes: number;
-  priority: 'High' | 'Medium' | 'Normal';
+  title?: string; // Task Title
+  description?: string; // Task Description
+  subject?: UPSCSubject;
+  topic?: string;
+  estimatedMinutes?: number;
+  priority?: 'High' | 'Medium' | 'Normal';
   completed: boolean;
   notes?: string;
   date: string; // YYYY-MM-DD
+  startTime?: string;
+  endTime?: string;
+  colorTag?: TaskColorTag; // User-selected card color
+  status?: 'todo' | 'in_progress' | 'completed';
+  subtitle?: string;
+  mentor?: string;
 }
 
 export interface StreakData {

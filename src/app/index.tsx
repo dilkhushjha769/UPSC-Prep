@@ -33,6 +33,9 @@ import {
 import { PrelimsScreen } from '@/components/prelims/PrelimsScreen';
 import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
 import { MockTestDashboard, ActiveMockTestScreen } from '@/components/mockTest';
+import { TasksScreen } from '@/components/tasks';
+
+import { SemanticColors } from '@/constants/colors';
 
 export default function AppScreen() {
   const [activeTab, setActiveTab] = useState<NavTab>('home');
@@ -45,7 +48,7 @@ export default function AppScreen() {
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const isDesktop = width >= 768;
 
-  const shellBg = theme.bg;
+  const shellBg = SemanticColors[themeMode].background;
   const useLightIcons = isDark;
 
   // Bottom inset is applied by MobileBottomNav on mobile (so it's not applied twice).
@@ -131,8 +134,18 @@ export default function AppScreen() {
               isDark={isDark}
               onOpenPrelims={() => setActiveTab('prelims')}
               onOpenMockTests={() => setActiveTab('mock-test')}
+              onOpenTasks={() => setActiveTab('tasks')}
               onOpenProfile={() => setActiveTab('profile')}
               onOpenNotifications={() => setActiveTab('notifications')}
+              onToggleTheme={toggleTheme}
+            />
+          )}
+
+          {activeTab === 'tasks' && (
+            <TasksScreen
+              isDark={isDark}
+              onOpenNotifications={() => setActiveTab('notifications')}
+              onBackToHome={() => setActiveTab('home')}
               onToggleTheme={toggleTheme}
             />
           )}
@@ -172,8 +185,8 @@ export default function AppScreen() {
         </View>
       </View>
 
-      {/* Floating Theme Changer across non-home screens on mobile (excluding notifications, profile, and mock-test which have their own header theme button) */}
-      {!isDesktop && activeTab !== 'home' && activeTab !== 'notifications' && activeTab !== 'profile' && activeTab !== 'mock-test' && (
+      {/* Floating Theme Changer across non-home screens on mobile (excluding screens that have their own header theme button) */}
+      {!isDesktop && activeTab !== 'home' && activeTab !== 'tasks' && activeTab !== 'notifications' && activeTab !== 'profile' && activeTab !== 'mock-test' && (
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={toggleTheme}

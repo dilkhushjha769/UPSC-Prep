@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
+  Image,
   Platform,
   ScrollView,
   StyleSheet,
@@ -10,26 +11,24 @@ import {
 } from 'react-native';
 import {
   Bell,
-  Calendar,
-  Check,
-  Flame,
   Moon,
-  Play,
+  Plus,
   Sun,
-  User,
-  X,
 } from 'lucide-react-native';
-import { BW_THEME } from '@/constants/bwTheme';
+import { PALETTE, SemanticColors, Typography } from '@/constants/colors';
 import { useStudy } from '@/context/StudyContext';
-import { DayStudySummary, StudySession } from '@/types/study';
 import { ExamReadinessCard } from './ExamReadinessCard';
 import { PrelimsCountdownCard } from './PrelimsCountdownCard';
 import { StreakCalendarModal } from './modals/StreakCalendarModal';
+import { QuickEditProfileModal } from './modals/QuickEditProfileModal';
+import { WeeklyCalendar, Button } from '@/components/ui';
+import { TaskCard, TaskFormModal } from '@/components/tasks';
 
 interface CleanStreakDashboardProps {
   isDark: boolean;
   onOpenPrelims?: () => void;
   onOpenMockTests?: () => void;
+  onOpenTasks?: () => void;
   onOpenProfile?: () => void;
   onOpenNotifications?: () => void;
   onToggleTheme?: () => void;
@@ -39,44 +38,68 @@ export function CleanStreakDashboard({
   isDark,
   onOpenPrelims,
   onOpenMockTests,
+  onOpenTasks,
   onOpenProfile,
   onOpenNotifications,
   onToggleTheme,
 }: CleanStreakDashboardProps) {
   const {
-    streak,
     weekDays,
     sessions,
-    setIsFocusModalOpen,
-    setIsStreakInfoModalOpen,
+    tasks,
+    toggleTask,
+    addTask,
+    deleteTask,
     setIsNotificationsModalOpen,
-    setIsConfigModalOpen,
     config,
   } = useStudy();
 
   const { width } = useWindowDimensions();
-  const theme = isDark ? BW_THEME.dark : BW_THEME.light;
+  const theme = isDark ? SemanticColors.dark : SemanticColors.light;
   const isDesktop = width >= 768;
 
-  // Today's date string
-  const todayDateStr = new Date().toLocaleDateString('en-US', {
-    weekday: 'long',
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [isQuickEditOpen, setIsQuickEditOpen] = useState(false);
 
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const todayKey = useMemo(() => {
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }, []);
+
+  // Currently selected date on the calendar (defaults to today)
+  const [selectedDate, setSelectedDate] = useState<string>(todayKey);
   const [isStreakCalendarModalOpen, setIsStreakCalendarModalOpen] = useState(false);
 
-  // Active day and its sessions (only populated when a day is selected)
-  const activeDay: DayStudySummary | undefined = selectedDate
-    ? weekDays.find((d) => d.dateStr === selectedDate)
-    : undefined;
+  // User name for header matching reference "Hello, Roam"
+  const userGreetingName = useMemo(() => {
+    if (config.firstName) return config.firstName;
+    if (config.aspirantName) return config.aspirantName.split(' ')[0];
+    return 'Roam';
+  }, [config.firstName, config.aspirantName]);
 
-  const activeDaySessions: StudySession[] = activeDay
-    ? sessions.filter((s) => s.date === activeDay.dateStr)
-    : [];
+  // Marked dates for the Calendar (session dates get a dot indicator)
+  const markedDatesMap = useMemo(() => {
+    const map: Record<string, { marked?: boolean; dotColor?: string }> = {};
+    sessions.forEach((s) => {
+      if (s.date) {
+        map[s.date] = {
+          marked: true,
+          dotColor: PALETTE.support.success.medium,
+        };
+      }
+    });
+    return map;
+  }, [sessions]);
+
+  // Tasks scheduled for the currently selected date
+  const selectedDateTasks = useMemo(() => {
+    return tasks
+      .filter((t) => t.date === selectedDate)
+      .sort((a, b) => (a.startTime || '').localeCompare(b.startTime || ''));
+  }, [tasks, selectedDate]);
 
   const formatLongDate = (dateStr?: string) => {
     if (!dateStr) return '';
@@ -89,60 +112,73 @@ export function CleanStreakDashboard({
     });
   };
 
-  const formatHoursMinutes = (minutes: number) => {
-    const h = Math.floor(minutes / 60);
-    const m = minutes % 60;
-    if (h === 0) return `${m}m`;
-    if (m === 0) return `${h}h`;
-    return `${h}h ${m}m`;
-  };
-
   return (
     <ScrollView
       contentContainerStyle={[
         styles.scrollContainer,
-        { paddingBottom: isDesktop ? 60 : 24 },
+        { paddingBottom: isDesktop ? 60 : 32 },
       ]}
       showsVerticalScrollIndicator={false}>
-      {/* Top Greeting & Action Header */}
+      {/* ========================================================= */}
+      {/* 1. TOP GREETING & ACTIONS HEADER (MATCHING FIGMA MOCKUP)  */}
+      {/* ========================================================= */}
       <View style={styles.headerRow}>
-        <View style={styles.headerTextGroup}>
-          <Text style={[styles.dateText, { color: theme.textSecondary }]}>
-            {todayDateStr}
-          </Text>
-          <Text style={[styles.greetingText, { color: theme.textPrimary }]}>
-            {config.aspirantName}
-          </Text>
-        </View>
+        {/* Left: Avatar & Greeting ("Hello, Roam" / "Level Up") */}
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => setIsQuickEditOpen(true)}
+          style={styles.headerProfileGroup}
+          accessibilityLabel="Update profile photo and name">
+          {config.avatarUri ? (
+            <Image
+              source={{ uri: config.avatarUri }}
+              style={styles.headerAvatarImage}
+            />
+          ) : (
+            <View style={styles.headerAvatarCircle}>
+              <Text style={styles.headerAvatarInitial}>
+                {userGreetingName.charAt(0).toUpperCase()}
+              </Text>
+            </View>
+          )}
 
+          <View style={styles.headerTextCol}>
+            <Text
+              style={[styles.greetingTitle, { color: theme.textPrimary }]}
+              numberOfLines={1}>
+              Hello, {userGreetingName}
+            </Text>
+            <Text style={[styles.levelSubtext, { color: theme.textSecondary }]}>
+              Level Up
+            </Text>
+          </View>
+        </TouchableOpacity>
+
+        {/* Right: Round Action Buttons (Theme Switch & Notification Bell) */}
         <View style={styles.headerIconsCluster}>
-          {/* 1. Theme Changer Icon (Mobile only: hidden in web view) */}
-          {!isDesktop && (
+          {!isDesktop && onToggleTheme && (
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={onToggleTheme}
               accessibilityLabel="Toggle Theme"
               style={[
-                styles.headerIconButton,
+                styles.headerCircleBtn,
                 Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
                   backgroundColor: isDark
-                    ? 'rgba(251, 191, 36, 0.12)'
-                    : 'rgba(255, 106, 19, 0.08)',
-                  borderColor: isDark
-                    ? 'rgba(251, 191, 36, 0.28)'
-                    : 'rgba(255, 106, 19, 0.22)',
+                    ? PALETTE.neutral.dark.surface
+                    : '#FFFFFF',
+                  borderColor: isDark ? '#383A42' : '#F0F1F5',
                 },
               ]}>
               {isDark ? (
-                <Sun size={19} color="#FBBF24" strokeWidth={2.3} />
+                <Sun size={18} color="#FBBF24" strokeWidth={2.3} />
               ) : (
-                <Moon size={19} color="#E85A0C" strokeWidth={2.3} />
+                <Moon size={18} color={PALETTE.highlight.primary} strokeWidth={2.3} />
               )}
             </TouchableOpacity>
           )}
 
-          {/* 2. Notification Icon (Middle) */}
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
@@ -154,462 +190,173 @@ export function CleanStreakDashboard({
             }}
             accessibilityLabel="Notifications"
             style={[
-              styles.headerIconButton,
+              styles.headerCircleBtn,
               Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
               {
                 backgroundColor: isDark
-                  ? 'rgba(255, 255, 255, 0.06)'
-                  : 'rgba(0, 0, 0, 0.04)',
-                borderColor: isDark
-                  ? 'rgba(255, 255, 255, 0.12)'
-                  : 'rgba(0, 0, 0, 0.08)',
+                  ? PALETTE.neutral.dark.surface
+                  : '#FFFFFF',
+                borderColor: isDark ? '#383A42' : '#F0F1F5',
               },
             ]}>
-            <Bell size={19} color={theme.textPrimary} strokeWidth={2.2} />
+            <Bell size={20} color={theme.textPrimary} strokeWidth={2.2} />
             <View
               style={[
                 styles.notificationBadgeDot,
                 {
-                  backgroundColor: '#EF4444',
-                  borderColor: isDark ? '#141720' : '#FFFFFF',
+                  backgroundColor: PALETTE.support.error.dark,
+                  borderColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
                 },
               ]}
             />
           </TouchableOpacity>
-
-          {/* 3. Profile Icon (Mobile only: hidden in web view) */}
-          {!isDesktop && (
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => {
-                if (onOpenProfile) {
-                  onOpenProfile();
-                } else {
-                  setIsConfigModalOpen(true);
-                }
-              }}
-              accessibilityLabel="Profile"
-              style={[
-                styles.headerIconButton,
-                Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
-                {
-                  backgroundColor: isDark
-                    ? 'rgba(255, 106, 19, 0.14)'
-                    : 'rgba(255, 106, 19, 0.1)',
-                  borderColor: isDark
-                    ? 'rgba(255, 106, 19, 0.35)'
-                    : 'rgba(255, 106, 19, 0.25)',
-                },
-              ]}>
-              <User
-                size={19}
-                color={isDark ? '#FFB98A' : '#E85A0C'}
-                strokeWidth={2.3}
-              />
-              <View
-                style={[
-                  styles.profileStatusDot,
-                  {
-                    backgroundColor: '#10B981',
-                    borderColor: isDark ? '#141720' : '#FFFFFF',
-                  },
-                ]}
-              />
-            </TouchableOpacity>
-          )}
         </View>
       </View>
 
       {/* ========================================================= */}
-      {/* UPSC PRELIMS COUNTDOWN TIMER (Compact Top Banner)         */}
+      {/* 2. UPSC PRELIMS COUNTDOWN TIMER BANNER                   */}
       {/* ========================================================= */}
       <PrelimsCountdownCard isDark={isDark} onOpenPrelims={onOpenPrelims} />
 
       {/* ========================================================= */}
-      {/* HERO STREAK CARD (The Core Focus of the Dashboard)        */}
+      {/* 3. 7-DAY CAPSULE STREAK CARD (EXACT AS IN FIGMA REFERENCE) */}
+      {/* ========================================================= */}
+      <WeeklyCalendar
+        days={weekDays}
+        selectedDate={selectedDate}
+        onSelectDate={(dateStr) => {
+          if (dateStr <= todayKey) {
+            setSelectedDate(dateStr);
+          }
+        }}
+        markedDates={markedDatesMap}
+        isDark={isDark}
+      />
+
+      {/* ========================================================= */}
+      {/* 4. MY TASKS FOR SELECTED DATE                             */}
       {/* ========================================================= */}
       <View
         style={[
-          styles.streakHeroCard,
+          styles.dayDetailCard,
           {
-            backgroundColor: theme.cardBg,
-            borderColor: theme.cardBorder,
+            backgroundColor: isDark
+              ? PALETTE.neutral.dark.surface
+              : '#FFFFFF',
+            borderColor: isDark ? '#383A42' : '#F0F1F5',
           },
         ]}>
-        {/* Streak Top Row with Yellow Glowing Flame */}
-        <View style={styles.streakTopRow}>
-          <View>
-            <Text style={[styles.streakSubLabel, { color: theme.textSecondary }]}>
-              CURRENT STREAK
+        <View style={styles.cleanDetailHeader}>
+          <View style={styles.cleanDetailHeaderLeft}>
+            <Text style={[styles.cleanDateTitle, { color: theme.textPrimary }]}>
+              My Tasks
             </Text>
-            <View style={styles.flameRow}>
-              {/* Premium Yellow/Amber Flame inside soft glow badge */}
-              <View
+            <View
+              style={[
+                styles.cleanTodayBadge,
+                {
+                  backgroundColor: PALETTE.highlight.primary,
+                },
+              ]}>
+              <Text
                 style={[
-                  styles.flameAura,
-                  {
-                    backgroundColor: theme.flameGlow,
-                    borderColor: theme.flameBorder,
-                  },
+                  styles.cleanTodayBadgeText,
+                  { color: '#FFFFFF' },
                 ]}>
-                <Flame size={30} color="#D97706" fill="#FBBF24" />
-              </View>
-              <Text style={[styles.streakBigNumber, { color: theme.textPrimary }]}>
-                {streak.currentStreak}
-              </Text>
-              <Text style={[styles.streakDaysUnit, { color: theme.textSecondary }]}>
-                DAYS
+                {selectedDateTasks.length} {selectedDateTasks.length === 1 ? 'TASK' : 'TASKS'}
               </Text>
             </View>
           </View>
 
-          {/* Calendar Icon Button: View Previous Streak History */}
-          <TouchableOpacity
-            activeOpacity={0.75}
-            onPress={() => setIsStreakCalendarModalOpen(true)}
-            style={[
-              styles.streakCalendarBtn,
-              {
-                backgroundColor: isDark ? '#1C202B' : '#F4F4F5',
-                borderColor: isDark ? '#2D3444' : '#E4E4E7',
-              },
-            ]}>
-            <Calendar size={14} color={isDark ? '#FFFFFF' : '#09090B'} />
-            <Text style={[styles.streakCalendarBtnText, { color: theme.textPrimary }]}>
-              Calendar
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* 7-Day Consistency Week Calendar */}
-        <View style={styles.calendarSection}>
-          <View style={styles.calendarHeaderRow}>
-            <Text style={[styles.sectionMicroHeader, { color: theme.textSecondary }]}>
-              WEEKLY CONSISTENCY
-            </Text>
-          </View>
-
-          <View style={styles.weekGrid}>
-            {weekDays.map((day: DayStudySummary) => {
-              const isToday = day.isToday;
-              const isDone = day.isCompleted;
-              const isSelected = selectedDate === day.dateStr;
-              const hours = (day.totalMinutes / 60).toFixed(1);
-
-              return (
-                <TouchableOpacity
-                  key={day.dateStr}
-                  activeOpacity={0.75}
-                  onPress={() =>
-                    setSelectedDate((prev) => (prev === day.dateStr ? null : day.dateStr))
-                  }
-                  style={[
-                    styles.dayBox,
-                    Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
-                    {
-                      backgroundColor: isSelected
-                        ? isDark
-                          ? '#232938'
-                          : '#FFF3E8'
-                        : isToday
-                        ? theme.activeBg
-                        : isDone
-                        ? isDark
-                          ? '#1C202B'
-                          : '#FFF8F2'
-                        : 'transparent',
-                      borderColor: isSelected
-                        ? theme.cardBorderActive
-                        : isToday
-                        ? theme.cardBorderHover
-                        : theme.cardBorder,
-                      borderWidth: isSelected ? 2 : 1,
-                    },
-                  ]}>
-                  {/* Selected Indicator Pill */}
-                  {isSelected && (
-                    <View
-                      style={[
-                        styles.selectedTopBar,
-                        { backgroundColor: theme.cardBorderActive },
-                      ]}
-                    />
-                  )}
-
-                  <Text
-                    style={[
-                      styles.dayLetter,
-                      {
-                        color: isSelected
-                          ? theme.textPrimary
-                          : isToday
-                          ? theme.textPrimary
-                          : theme.textSecondary,
-                        fontWeight: isSelected || isToday ? '800' : '600',
-                      },
-                    ]}>
-                    {day.dayName}
-                  </Text>
-
-                  {/* Day Indicator Circle: Green Tick for Done, Red Cross for Losing/Missed */}
-                  {(() => {
-                    const isMissed = !isDone && !isToday && !day.isFuture;
-
-                    let circleBg = 'transparent';
-                    let circleBorder = theme.cardBorder;
-                    let borderWidth = 1;
-
-                    if (isDone) {
-                      circleBg = isDark ? '#059669' : '#10B981';
-                      circleBorder = isDark ? '#10B981' : '#059669';
-                    } else if (isMissed) {
-                      circleBg = isDark ? 'rgba(239, 68, 68, 0.18)' : '#FEE2E2';
-                      circleBorder = isDark ? '#EF4444' : '#FCA5A5';
-                    } else if (isToday) {
-                      circleBorder = isDark ? '#FFFFFF' : '#09090B';
-                      borderWidth = 2;
-                    }
-
-                    return (
-                      <View
-                        style={[
-                          styles.dayCircle,
-                          {
-                            backgroundColor: circleBg,
-                            borderColor: circleBorder,
-                            borderWidth,
-                          },
-                        ]}>
-                        {isDone ? (
-                          <Check size={12} color="#FFFFFF" strokeWidth={3} />
-                        ) : isMissed ? (
-                          <X size={11} color={isDark ? '#F87171' : '#DC2626'} strokeWidth={2.8} />
-                        ) : (
-                          <Text
-                            style={[
-                              styles.dayNumText,
-                              {
-                                color: isToday ? theme.textPrimary : theme.textMuted,
-                              },
-                            ]}>
-                            {day.dayNumber}
-                          </Text>
-                        )}
-                      </View>
-                    );
-                  })()}
-
-                  <Text
-                    style={[
-                      styles.dayHoursText,
-                      {
-                        color: isDone
-                          ? isSelected
-                            ? theme.textPrimary
-                            : isDark
-                            ? '#F0E2D5'
-                            : '#1F1612'
-                          : theme.textMuted,
-                        fontWeight: isDone ? '700' : '500',
-                      },
-                    ]}>
-                    {day.totalMinutes > 0 ? `${hours}h` : '—'}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        </View>
-
-        {/* ========================================================= */}
-        {/* CLEAN, MINIMAL DAY BREAKDOWN (Visible on tap, toggled off on re-tap) */}
-        {/* ========================================================= */}
-        {Boolean(selectedDate && activeDay) && (
-          <View
-            style={[
-              styles.cleanDetailSection,
-              {
-                borderTopColor: theme.cardBorder,
-              },
-            ]}>
-            {/* Header Row */}
-            <View style={styles.cleanDetailHeader}>
-              <View style={styles.cleanDetailHeaderLeft}>
-                <Text style={[styles.cleanDateTitle, { color: theme.textPrimary }]}>
-                  {formatLongDate(activeDay?.dateStr)}
-                </Text>
-                {activeDay?.isToday && (
-                  <View
-                    style={[
-                      styles.cleanTodayBadge,
-                      { backgroundColor: isDark ? '#232938' : '#F0E2D5' },
-                    ]}>
-                    <Text style={[styles.cleanTodayBadgeText, { color: theme.textPrimary }]}>
-                      TODAY
-                    </Text>
-                  </View>
-                )}
-              </View>
-
-              <View style={styles.cleanDetailHeaderRight}>
-                <Text style={[styles.cleanTotalTime, { color: theme.textSecondary }]}>
-                  {activeDay?.totalMinutes ? formatHoursMinutes(activeDay.totalMinutes) : '0m'}
-                </Text>
-                {activeDay?.isCompleted && (
-                  <View style={styles.cleanQualifiedRow}>
-                    <Check size={12} color="#10B981" strokeWidth={3} />
-                    <Text style={styles.cleanQualifiedText}>Qualified</Text>
-                  </View>
-                )}
-              </View>
-            </View>
-
-            {/* Clean List Items (Hairline row dividers, no nested cards or cheesy quotes) */}
-            {activeDaySessions.length > 0 ? (
-              <View style={styles.cleanItemsList}>
-                {activeDaySessions.map((session, index) => {
-                  const isLast = index === activeDaySessions.length - 1;
-                  return (
-                    <View
-                      key={session.id}
-                      style={[
-                        styles.cleanItemRow,
-                        !isLast && {
-                          borderBottomColor: theme.cardBorder,
-                          borderBottomWidth: 1,
-                        },
-                      ]}>
-                      <View style={styles.cleanItemMain}>
-                        <Text style={[styles.cleanSubjectText, { color: theme.textPrimary }]}>
-                          {session.subject}
-                        </Text>
-                        <Text
-                          style={[styles.cleanTopicText, { color: theme.textSecondary }]}
-                          numberOfLines={1}>
-                          {session.topic}
-                        </Text>
-                      </View>
-
-                      <Text style={[styles.cleanDurationText, { color: theme.textSecondary }]}>
-                        {formatHoursMinutes(session.durationMinutes)}
-                      </Text>
-                    </View>
-                  );
-                })}
-              </View>
-            ) : (
-              <View style={styles.cleanEmptyState}>
-                <Text style={[styles.cleanEmptyText, { color: theme.textMuted }]}>
-                  {activeDay?.isToday
-                    ? 'No study sessions logged today.'
-                    : 'No study recorded on this day.'}
-                </Text>
-                {activeDay?.isToday && (
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => setIsFocusModalOpen(true)}
-                    style={[
-                      styles.cleanStartBtn,
-                      { backgroundColor: theme.buttonPrimaryBg },
-                    ]}>
-                    <Play
-                      size={11}
-                      color={theme.buttonPrimaryText}
-                      fill={theme.buttonPrimaryText}
-                    />
-                    <Text
-                      style={[
-                        styles.cleanStartBtnText,
-                        { color: theme.buttonPrimaryText },
-                      ]}>
-                      Start Focus
-                    </Text>
-                  </TouchableOpacity>
-                )}
-              </View>
+          <View style={styles.headerControlsInline}>
+            {Boolean(onOpenTasks) && (
+              <Button
+                variant="tertiary"
+                size="sm"
+                title="View All →"
+                isDark={isDark}
+                onPress={onOpenTasks}
+              />
             )}
+            <Button
+              variant="secondary"
+              size="sm"
+              title="Add"
+              isDark={isDark}
+              leftIcon={<Plus size={12} color={isDark ? '#6FBAFF' : PALETTE.highlight.primary} />}
+              onPress={() => setIsTaskModalOpen(true)}
+            />
+          </View>
+        </View>
+
+        {/* List of Tasks for this Date with their chosen colors */}
+        {selectedDateTasks.length > 0 ? (
+          <View style={styles.tasksListGap}>
+            {selectedDateTasks.map((task) => (
+              <TaskCard
+                key={task.id}
+                task={task}
+                isDark={isDark}
+                onToggleComplete={(id) => toggleTask(id)}
+                onDelete={(id) => deleteTask(id)}
+              />
+            ))}
+          </View>
+        ) : (
+          <View style={styles.cleanEmptyState}>
+            <Text style={[styles.cleanEmptyText, { color: theme.textMuted }]}>
+              No tasks for {formatLongDate(selectedDate) || 'this date'}.
+            </Text>
+            <View style={{ marginTop: 8 }}>
+              <Button
+                variant="primary"
+                size="sm"
+                title="Add Task"
+                isDark={isDark}
+                leftIcon={<Plus size={12} color="#FFFFFF" />}
+                onPress={() => setIsTaskModalOpen(true)}
+              />
+            </View>
           </View>
         )}
-
-        {/* 4 Metric Stats Strip */}
-        <View
-          style={[
-            styles.statsStrip,
-            {
-              borderTopColor: theme.cardBorder,
-              backgroundColor: isDark ? '#141720' : '#FFF8F2',
-            },
-          ]}>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => setIsStreakInfoModalOpen(true)}
-            style={styles.statCol}>
-            <Text style={[styles.statLabel, { color: theme.textMuted }]}>
-              Current
-            </Text>
-            <Text style={[styles.statValue, { color: theme.textPrimary }]}>
-              {streak.currentStreak}d
-            </Text>
-          </TouchableOpacity>
-
-          <View style={[styles.statDivider, { backgroundColor: theme.cardBorder }]} />
-
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => setIsStreakInfoModalOpen(true)}
-            style={styles.statCol}>
-            <Text style={[styles.statLabel, { color: theme.textMuted }]}>
-              Longest
-            </Text>
-            <Text style={[styles.statValue, { color: theme.textPrimary }]}>
-              {streak.longestStreak}d
-            </Text>
-          </TouchableOpacity>
-
-          <View style={[styles.statDivider, { backgroundColor: theme.cardBorder }]} />
-
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => setIsStreakInfoModalOpen(true)}
-            style={styles.statCol}>
-            <Text style={[styles.statLabel, { color: theme.textMuted }]}>
-              Total Days
-            </Text>
-            <Text style={[styles.statValue, { color: theme.textPrimary }]}>
-              {streak.totalStudyDays}d
-            </Text>
-          </TouchableOpacity>
-
-          <View style={[styles.statDivider, { backgroundColor: theme.cardBorder }]} />
-
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => setIsStreakInfoModalOpen(true)}
-            style={styles.statCol}>
-            <Text style={[styles.statLabel, { color: theme.textMuted }]}>
-              Consistency
-            </Text>
-            <Text style={[styles.statValue, { color: theme.textPrimary }]}>
-              {streak.weeklyConsistencyPercent}%
-            </Text>
-          </TouchableOpacity>
-        </View>
       </View>
 
       {/* ========================================================= */}
-      {/* EXAM READINESS & ALL INDIA RANK SECTION                   */}
+      {/* 6. EXAM READINESS & ALL INDIA RANK CARD                   */}
       {/* ========================================================= */}
       <ExamReadinessCard isDark={isDark} onOpenPrelims={onOpenPrelims} />
 
-      {/* Monthly Streak History Calendar Modal */}
+      {/* Monthly Streak History Modal */}
       <StreakCalendarModal
         isDark={isDark}
         isOpen={isStreakCalendarModalOpen}
         onClose={() => setIsStreakCalendarModalOpen(false)}
       />
+
+      {/* Task Creation Modal */}
+      <TaskFormModal
+        isOpen={isTaskModalOpen}
+        onClose={() => setIsTaskModalOpen(false)}
+        initialDate={selectedDate}
+        isDark={isDark}
+        onSave={async (newTask) => {
+          await addTask(newTask);
+        }}
+      />
+
+      {/* Quick Profile Editor Modal */}
+      <QuickEditProfileModal
+        isOpen={isQuickEditOpen}
+        onClose={() => setIsQuickEditOpen(false)}
+        isDark={isDark}
+      />
     </ScrollView>
   );
 }
+
+// ============================================================================
+// STYLES
+// ============================================================================
 
 const styles = StyleSheet.create({
   scrollContainer: {
@@ -624,204 +371,103 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    flexWrap: 'wrap',
+    marginBottom: 6,
+    paddingTop: 4,
+  },
+  headerProfileGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 12,
-    marginBottom: 4,
-  },
-  headerTextGroup: {
     flex: 1,
-    minWidth: 160,
   },
-  dateText: {
-    fontSize: 12,
-    fontWeight: '600',
-    letterSpacing: 0.5,
-    textTransform: 'uppercase',
+  headerAvatarCircle: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#38BDF8',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    shadowColor: '#38BDF8',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    elevation: 3,
   },
-  greetingText: {
+  headerAvatarImage: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+  },
+  headerAvatarEmoji: {
+    fontSize: 26,
+    textAlign: 'center',
+  },
+  headerAvatarInitial: {
     fontSize: 22,
-    fontWeight: '900',
-    letterSpacing: -0.5,
-    marginTop: 2,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    fontFamily: Typography.fontFamily,
+  },
+  headerTextCol: {
+    justifyContent: 'center',
+    gap: 2,
+  },
+  greetingTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    fontFamily: Typography.fontFamily,
+    letterSpacing: -0.3,
+  },
+  levelSubtext: {
+    fontSize: 13,
+    fontWeight: '500',
+    fontFamily: Typography.fontFamily,
   },
   headerIconsCluster: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
+    gap: 10,
   },
-  headerIconButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+  headerCircleBtn: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 2,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.04,
+    shadowRadius: 6,
+    elevation: 1,
   },
   notificationBadgeDot: {
     position: 'absolute',
-    top: 6,
-    right: 7,
+    top: 9,
+    right: 10,
     width: 8,
     height: 8,
     borderRadius: 4,
     borderWidth: 1.5,
   },
-  profileStatusDot: {
-    position: 'absolute',
-    bottom: 2,
-    right: 2,
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    borderWidth: 1.5,
-  },
-  streakHeroCard: {
-    borderRadius: 16,
+  dayDetailCard: {
+    borderRadius: 24,
     borderWidth: 1,
-    overflow: 'hidden',
-  },
-  streakTopRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    padding: 20,
-  },
-  streakCalendarBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    borderRadius: 8,
-    borderWidth: 1,
-  },
-  streakCalendarBtnText: {
-    fontSize: 11.5,
-    fontWeight: '700',
-  },
-  streakSubLabel: {
-    fontSize: 11,
-    fontWeight: '700',
-    letterSpacing: 0.8,
-  },
-  flameRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    marginTop: 8,
-  },
-  flameAura: {
-    padding: 6,
-    borderRadius: 12,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  streakBigNumber: {
-    fontSize: 44,
-    fontWeight: '900',
-    letterSpacing: -1,
-    lineHeight: 48,
-  },
-  streakDaysUnit: {
-    fontSize: 16,
-    fontWeight: '800',
-    marginTop: 10,
-  },
-  statusBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 8,
-    borderWidth: 1,
-  },
-  statusDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-  },
-  statusBadgeText: {
-    fontSize: 10,
-    fontWeight: '800',
-    letterSpacing: 0.5,
-  },
-  calendarSection: {
-    paddingHorizontal: 16,
-    paddingBottom: 16,
-  },
-  calendarHeaderRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-    paddingHorizontal: 2,
-  },
-  sectionMicroHeader: {
-    fontSize: 10,
-    fontWeight: '700',
-    letterSpacing: 0.6,
-  },
-  weekGrid: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 6,
-  },
-  dayBox: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 4,
-    borderRadius: 12,
-    alignItems: 'center',
-    gap: 6,
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  selectedTopBar: {
-    position: 'absolute',
-    top: 0,
-    left: 8,
-    right: 8,
-    height: 3,
-    borderBottomLeftRadius: 2,
-    borderBottomRightRadius: 2,
-  },
-  dayLetter: {
-    fontSize: 11,
-  },
-  dayCircle: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  dayNumText: {
-    fontSize: 11,
-    fontWeight: '700',
-  },
-  dayHoursText: {
-    fontSize: 10,
-  },
-
-  /* Ultra-clean minimal day breakdown */
-  cleanDetailSection: {
-    borderTopWidth: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    gap: 12,
+    padding: 18,
+    width: '100%',
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 14,
+    elevation: 2,
   },
   cleanDetailHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 14,
   },
   cleanDetailHeaderLeft: {
     flexDirection: 'row',
@@ -829,116 +475,39 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   cleanDateTitle: {
-    fontSize: 13,
+    fontSize: 15,
     fontWeight: '700',
-    letterSpacing: -0.2,
+    fontFamily: Typography.fontFamily,
   },
   cleanTodayBadge: {
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 4,
-  },
-  cleanTodayBadgeText: {
-    fontSize: 9,
-    fontWeight: '800',
-    letterSpacing: 0.5,
-  },
-  cleanDetailHeaderRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  cleanTotalTime: {
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  cleanQualifiedRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  cleanQualifiedText: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: '#10B981',
-  },
-  cleanItemsList: {
-    borderRadius: 8,
-    overflow: 'hidden',
-  },
-  cleanItemRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 10,
-    gap: 12,
-  },
-  cleanItemMain: {
-    flex: 1,
-    gap: 2,
-  },
-  cleanSubjectText: {
-    fontSize: 13,
-    fontWeight: '700',
-    letterSpacing: -0.1,
-  },
-  cleanTopicText: {
-    fontSize: 12,
-    fontWeight: '400',
-    lineHeight: 16,
-  },
-  cleanDurationText: {
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  cleanEmptyState: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 8,
-  },
-  cleanEmptyText: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  cleanStartBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingHorizontal: 7,
+    paddingVertical: 3,
     borderRadius: 6,
   },
-  cleanStartBtnText: {
-    fontSize: 11,
-    fontWeight: '700',
+  cleanTodayBadgeText: {
+    fontSize: 10,
+    fontWeight: '800',
+    fontFamily: Typography.fontFamily,
+    letterSpacing: 0.4,
   },
-
-  /* 4 Metric stats */
-  statsStrip: {
+  cleanEmptyState: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 16,
+    gap: 12,
+  },
+  cleanEmptyText: {
+    fontSize: 13,
+    fontFamily: Typography.fontFamily,
+  },
+  headerControlsInline: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    borderTopWidth: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    gap: 8,
   },
-  statCol: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  statLabel: {
-    fontSize: 10,
-    fontWeight: '600',
-    textTransform: 'uppercase',
-  },
-  statValue: {
-    fontSize: 16,
-    fontWeight: '900',
-    marginTop: 2,
-  },
-  statDivider: {
-    width: 1,
-    height: 24,
+  tasksListGap: {
+    gap: 8,
   },
 });
+
+export default CleanStreakDashboard;

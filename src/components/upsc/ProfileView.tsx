@@ -263,11 +263,11 @@ export function ProfileView({
               style={[
                 styles.editBadgeCircle,
                 {
-                  backgroundColor: isDark ? '#FFFFFF' : '#0F172A',
-                  borderColor: isDark ? '#09090B' : '#FFFFFF',
+                  backgroundColor: '#006FFD',
+                  borderColor: isDark ? '#2F3036' : '#FFFFFF',
                 },
               ]}>
-              <Edit3 size={11} color={isDark ? '#09090B' : '#FFFFFF'} strokeWidth={2.5} />
+              <Edit3 size={11} color="#FFFFFF" strokeWidth={2.5} />
             </View>
           </TouchableOpacity>
 
@@ -285,11 +285,15 @@ export function ProfileView({
             style={[
               styles.editProfilePill,
               {
-                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.05)',
-                borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
+                backgroundColor: isDark ? 'rgba(0, 111, 253, 0.16)' : '#EAF2FF',
+                borderColor: isDark ? '#385885' : '#B4DBFF',
               },
             ]}>
-            <Text style={[styles.editProfilePillText, { color: theme.textPrimary }]}>
+            <Text
+              style={[
+                styles.editProfilePillText,
+                { color: isDark ? '#6FBAFF' : '#006FFD' },
+              ]}>
               Edit Profile & Photo
             </Text>
           </TouchableOpacity>

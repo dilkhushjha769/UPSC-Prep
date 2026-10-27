@@ -38,7 +38,7 @@ export const Fonts = Platform.select({
     mono: 'ui-monospace',
   },
   default: {
-    sans: 'normal',
+    sans: 'Inter',
     serif: 'serif',
     rounded: 'normal',
     mono: 'monospace',

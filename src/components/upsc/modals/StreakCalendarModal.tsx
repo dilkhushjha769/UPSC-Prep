@@ -38,7 +38,7 @@ const MONTH_NAMES = [
   'December',
 ];
 
-const WEEKDAY_NAMES = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+const WEEKDAY_NAMES = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
 
 interface CalendarDayItem {
   dateStr: string;
@@ -165,8 +165,8 @@ export function StreakCalendarModal({
               style={[
                 styles.closeBtn,
                 {
-                  backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
-                  borderColor: isDark ? '#2D3444' : '#E2E8F0',
+                  backgroundColor: isDark ? '#1F2024' : '#F8F9FE',
+                  borderColor: isDark ? '#494A50' : '#E8E9F1',
                 },
               ]}>
               <X size={14} color={theme.textPrimary} />
@@ -180,7 +180,7 @@ export function StreakCalendarModal({
               onPress={handlePrevMonth}
               style={[
                 styles.navArrow,
-                { borderColor: isDark ? '#262D3D' : '#E2E8F0' },
+                { borderColor: isDark ? '#494A50' : '#E8E9F1' },
               ]}>
               <ChevronLeft size={15} color={theme.textPrimary} />
             </TouchableOpacity>
@@ -194,7 +194,7 @@ export function StreakCalendarModal({
               onPress={handleNextMonth}
               style={[
                 styles.navArrow,
-                { borderColor: isDark ? '#262D3D' : '#E2E8F0' },
+                { borderColor: isDark ? '#494A50' : '#E8E9F1' },
               ]}>
               <ChevronRight size={15} color={theme.textPrimary} />
             </TouchableOpacity>

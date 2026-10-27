@@ -10,24 +10,24 @@ export const getPrelimsTheme = (isDark: boolean = true) => {
       bgCanvas: bw.bg,
       bgGradientTop: bw.bg,
       bgSurface: bw.cardBg,
-      bgSurfaceMuted: isDark ? '#1C2337' : '#EEF3FD',
-      borderSubtle: isDark ? '#232D44' : 'rgba(215, 226, 248, 0.9)',
-      borderCard: isDark ? '#232D44' : 'rgba(215, 226, 248, 0.9)',
+      bgSurfaceMuted: isDark ? '#26272C' : '#F8F9FE',
+      borderSubtle: bw.borderSubtle,
+      borderCard: bw.cardBorder,
 
-      // Primary Accents (High Contrast Monochromatic)
-      primary: bw.textPrimary,
-      primaryLight: isDark ? '#E2E8F0' : '#334155',
-      primarySoft: isDark ? '#1C2337' : '#EEF3FD',
-      primarySoftBorder: isDark ? '#2C3854' : '#CFDCF5',
+      // Primary Accents (Figma Primary Blue)
+      primary: '#006FFD',
+      primaryLight: isDark ? '#6FBAFF' : '#2897FF',
+      primarySoft: isDark ? '#183661' : '#EAF2FF',
+      primarySoftBorder: isDark ? '#385885' : '#B4DBFF',
 
-      // Buttons (Inverted: Bright white CTA on dark background; Slate/Black on light background)
-      darkButton: bw.buttonPrimaryBg,
-      darkButtonText: bw.buttonPrimaryText,
+      // Buttons
+      darkButton: '#006FFD',
+      darkButtonText: '#FFFFFF',
 
-      // Neutral Monochromatic Pills
-      badgeBg: isDark ? '#1C2337' : '#EEF3FD',
-      badgeText: bw.textPrimary,
-      badgeBorder: isDark ? '#2C3854' : '#CFDCF5',
+      // Badges & Pills
+      badgeBg: isDark ? '#183661' : '#EAF2FF',
+      badgeText: isDark ? '#6FBAFF' : '#006FFD',
+      badgeBorder: isDark ? '#385885' : '#B4DBFF',
 
       // Text
       textPrimary: bw.textPrimary,
@@ -36,9 +36,9 @@ export const getPrelimsTheme = (isDark: boolean = true) => {
       textWhite: '#FFFFFF',
 
       // Status
-      correct: isDark ? '#34D399' : '#059669',
-      incorrect: isDark ? '#F87171' : '#DC2626',
-      warning: '#F59E0B',
+      correct: isDark ? '#3AC0A0' : '#298267',
+      incorrect: isDark ? '#FF616D' : '#ED3241',
+      warning: isDark ? '#FFB37C' : '#E86339',
     },
     shadows: {
       card: isDark ? {

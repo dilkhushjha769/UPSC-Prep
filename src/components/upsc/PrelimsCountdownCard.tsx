@@ -176,24 +176,16 @@ export function PrelimsCountdownCard({ isDark, onOpenPrelims }: PrelimsCountdown
         {units.map((unit, index) => {
           const isLast = index === units.length - 1;
 
-          // Hero styling: Normal White Border in dark mode, Deep Solid Black in light mode
-          let boxBg = isDark ? '#141722' : '#F4F4F5';
-          let boxBorder = isDark ? '#262D3D' : '#E4E4E7';
-          let numColor = theme.textPrimary;
-          let labelColor = theme.textMuted;
+          let boxBg = isDark ? '#1F2024' : '#F8F9FE';
+          let boxBorder = isDark ? '#494A50' : '#E8E9F1';
+          let numColor: string = theme.textPrimary;
+          let labelColor: string = theme.textMuted;
 
           if (unit.isHero) {
-            if (isDark) {
-              boxBg = '#1E2330';
-              boxBorder = '#FFFFFF';
-              numColor = '#FFFFFF';
-              labelColor = '#FFFFFF';
-            } else {
-              boxBg = '#09090B';
-              boxBorder = '#09090B';
-              numColor = '#FFFFFF';
-              labelColor = '#A1A1AA';
-            }
+            boxBg = '#006FFD';
+            boxBorder = '#006FFD';
+            numColor = '#FFFFFF';
+            labelColor = '#FFFFFF';
           }
 
           return (

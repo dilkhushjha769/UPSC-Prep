@@ -144,6 +144,7 @@ export default function AppScreen() {
           {activeTab === 'mock-test' && (
             <MockTestDashboard
               onStartTest={(testId) => setActiveMockTestId(testId)}
+              onToggleTheme={toggleTheme}
               isDark={isDark}
             />
           )}
@@ -171,8 +172,8 @@ export default function AppScreen() {
         </View>
       </View>
 
-      {/* Floating Theme Changer across non-home screens on mobile (excluding notifications and profile which have their own header theme button) */}
-      {!isDesktop && activeTab !== 'home' && activeTab !== 'notifications' && activeTab !== 'profile' && (
+      {/* Floating Theme Changer across non-home screens on mobile (excluding notifications, profile, and mock-test which have their own header theme button) */}
+      {!isDesktop && activeTab !== 'home' && activeTab !== 'notifications' && activeTab !== 'profile' && activeTab !== 'mock-test' && (
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={toggleTheme}

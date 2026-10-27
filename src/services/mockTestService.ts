@@ -97,7 +97,7 @@ export class MockTestService {
 
       if (error || !tests || tests.length === 0) {
         return {
-          availableQuestions: questionsCount || 540,
+          availableQuestions: questionsCount || 1820,
           completedTests: 0,
           averageScore: 0,
           averageAccuracy: 0,
@@ -108,7 +108,7 @@ export class MockTestService {
       const totalAccuracy = tests.reduce((acc, t) => acc + (Number(t.accuracy) || 0), 0);
 
       return {
-        availableQuestions: questionsCount || 540,
+        availableQuestions: questionsCount || 1820,
         completedTests: tests.length,
         averageScore: Number((totalScore / tests.length).toFixed(1)),
         averageAccuracy: Number((totalAccuracy / tests.length).toFixed(1)),
@@ -116,7 +116,7 @@ export class MockTestService {
     } catch (err) {
       console.error('getSummaryStats exception:', err);
       return {
-        availableQuestions: 540,
+        availableQuestions: 1820,
         completedTests: 0,
         averageScore: 0,
         averageAccuracy: 0,
@@ -127,16 +127,23 @@ export class MockTestService {
   /**
    * Fetch list of recent mock tests for the current user.
    */
-  static async getRecentMockTests(limit = 8): Promise<MockTestRecord[]> {
+  static async getRecentMockTests(limit = 12): Promise<MockTestRecord[]> {
     try {
-      const { guestId } = await getCurrentUserIdOrGuestId();
+      const { userId, guestId } = await getCurrentUserIdOrGuestId();
 
-      const { data, error } = await supabase
+      let query = supabase
         .from('mock_tests')
         .select('*')
-        .eq('guest_id', guestId)
         .order('created_at', { ascending: false })
         .limit(limit);
+
+      if (userId) {
+        query = query.or(`user_id.eq.${userId},guest_id.eq.${guestId}`);
+      } else {
+        query = query.eq('guest_id', guestId);
+      }
+
+      const { data, error } = await query;
 
       if (error || !data) {
         console.error('Error fetching recent mock tests:', error);
@@ -214,7 +221,7 @@ export class MockTestService {
 
       // Ordering
       if (filters.orderMode === 'exam_order') {
-        query = query.order('year', { ascending: true }).order('question_number', { ascending: true });
+        query = query.order('year', { ascending: false }).order('question_number', { ascending: true });
       }
 
       const { data: rawQuestions, error: fetchErr } = await query;
@@ -266,10 +273,11 @@ export class MockTestService {
         title += ` (${filters.selectedYears.join(', ')})`;
       }
 
-      // Default duration: 2 hours for 100 questions (1.2 min per Q) or custom
+      // Default duration: 120 mins for full exam (1.2 min/Q for GS 100 Qs, 1.5 min/Q for CSAT 80 Qs)
+      const multiplier = filters.paperType === 'CSAT' ? 1.5 : 1.2;
       const defaultDuration =
         filters.testMode === 'full'
-          ? Math.max(10, Math.round(finalCount * 1.2))
+          ? Math.max(10, Math.round(finalCount * multiplier))
           : null;
 
       const timeLimit = filters.timeLimitMinutes ?? defaultDuration;

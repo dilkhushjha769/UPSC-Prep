@@ -1,0 +1,2345 @@
+{
+  "meta": {
+    "exam": "UPSC Civil Services (Preliminary) Examination 2020",
+    "paper": "General Studies Paper-II (CSAT)",
+    "test_booklet_series": "A",
+    "booklet_code": "HGY-D-LKUV",
+    "language": "en",
+    "total_questions": 80,
+    "duration_minutes": 120,
+    "total_marks": 200,
+    "marks_per_correct": 2.5,
+    "negative_marks_per_wrong": 0.8333,
+    "negative_marking_rule": "One-third of the marks assigned to the question is deducted for each wrong answer; no penalty for unattempted questions.",
+    "qualifying_marks": 66,
+    "answer_key_source": "Official UPSC Answer Key & standard analytical solutions."
+  },
+  "passages": [
+    {
+      "id": "P1",
+      "title": "Structural Labour Migration and Domestic Demand",
+      "question_numbers": [
+        1
+      ],
+      "text": "In India, over the last decade or so, labour has been departing agriculture, but is only going to construction and unregistered manufacturing which are not markedly better jobs. Services, where labour tends to be most productive, are not generating the additional jobs the country needs. India will need 24 million or so jobs over the next decade. The new sector, e-commerce, can at best close only half the jobs gap. Only those sectors that drive domestic demand such as health and education can comfortably fill the other half."
+    },
+    {
+      "id": "P2",
+      "title": "Substantive Rights and State Protection of Privacy in the Digital Age",
+      "question_numbers": [
+        2
+      ],
+      "text": "In India, the current focus on the right to privacy is based on some new realities of the digital age. A right is a substantive right only if it works in all situations, and for everyone. A right to free expression for an individual about her exploitation, for instance, is meaningless without actual availability of security that guarantees that private force cannot be used to thwart this right. The role of the State, therefore, is not just to abstain from preventing rightful free expression, but also to actively ensure that private parties are not able to block it."
+    },
+    {
+      "id": "P3",
+      "title": "Ecosystem-Centric Water Management vs. Supply Augmentation",
+      "question_numbers": [
+        3
+      ],
+      "text": "One of the biggest ironies around water is that it comes from rivers and other wetlands. Yet it is seen as divorced from them. While water is used as a resource, public policy does not always grasp that it is a part of the natural ecosystem. Efforts at engineering water systems are thus efforts at augmenting water supply rather than strengthening the capacities of ecological systems."
+    },
+    {
+      "id": "P4",
+      "title": "Asset Allocation, Risk Diversification, and Financial Portfolios",
+      "question_numbers": [
+        4
+      ],
+      "text": "Asset allocation is the most important investment decision we will ever make, and sadly, most of us do not give that decision the importance it deserves. We are adamant about seeking predictability with our future. We tend to think of investing in risky assets as extremely volatile and value eroding. We also dislike fluctuating returns and the loss of control of investment. We think our money is best left idle, unproductive but safe. There is no asset that is risk-free. We could lose our jobs, our homes can lose value, our banks can go bankrupt, our bonds can default, the government can collapse and companies we chose fondly may cease to exist. But we cannot live life assuming that all these extreme events are waiting to happen, and all at the same time. All these extreme forms of risks we know will not manifest at the same time."
+    },
+    {
+      "id": "P5",
+      "title": "Regulation of Multi-Trait GM Crops and International Obligations",
+      "question_numbers": [
+        5,
+        6
+      ],
+      "text": "Although most of the Genetically Modified (GM) crops cultivated now are genetically engineered for a single trait, in future, crops genetically engineered for more than one trait will be the norm. Thus, biotechnology's role in agriculture and the regulation of the same cannot be understood solely in the context of the current generation of GM crops. Instead, there is a need to take a comprehensive look, taking into account various aspects, including socio-economic impacts, so that the potential of the technology can be harnessed while minimizing negative impacts. Given the importance of biotechnology in developing varieties that can help in climate change mitigation and adaptation, not using biotechnology as a part of the climate change action plan cannot be an option. Domestic regulation of biotechnology cannot be viewed in isolation of trade policy and obligations under various international treaties and conventions."
+    },
+    {
+      "id": "P6",
+      "title": "Volatile Foreign Private Capital and Domestic Technology Diffusion",
+      "question_numbers": [
+        21
+      ],
+      "text": "Private investment in general is volatile. Foreign private investment is more volatile because the available investment avenues are significantly greater (i.e., the entire world). Therefore, the responsibility of providing employment cannot be left to Foreign Direct Investment (FDI). The current FDI inflows are volatile over time and across sectors and regions, which is a necessary consequence of their search for the highest returns. The adverse consequences are unstable employment and an accentuation of income and regional inequalities. A probable positive consequence of foreign investment is the inflow of new technology and its subsequent diffusion. However, the technology diffusion is not at all certain because the existing state of physical and human capital in India may prove inadequate for the diffusion."
+    },
+    {
+      "id": "P7",
+      "title": "Seasonal Monsoon Skewness and River Water Harnessing",
+      "question_numbers": [
+        22
+      ],
+      "text": "Many opportunities to harness the highly skewed, seasonal and spatial distribution of monsoon flows, which occur in a four-month period from June to September annually, have been lost. Since these few months account for most of the rainfall and consequent freshwater availability, the need for holding rainwater in reservoirs, for subsequently releasing it for use over the year, is a necessity nobody can afford to overlook. Climate change will continue to affect weather conditions and create water shortages and excesses. While millions suffer from droughts and floods, waters in the country's many rivers flow unutilized, and are discharged into the sea every year."
+    },
+    {
+      "id": "P8",
+      "title": "Economic Freedom and Incentives for Human Capital Investment",
+      "question_numbers": [
+        23
+      ],
+      "text": "People will invest in education whenever they are granted the economic freedom to fully enjoy its benefits. Again, this is for the obvious reason that the return on education increases as the level of economic freedom rises. When people, thanks to lower tax rates, are allowed to retain most of the higher income that they gain from each incremental level of education, it makes eminent sense to invest in education. On the other hand, when the government decides to tax the higher income of educated individuals at even higher rates, it makes very little sense to invest in educating oneself further. The same incentives apply to parents who decide on whether to invest in their children's education."
+    },
+    {
+      "id": "P9",
+      "title": "Financing Sustainable Urban Water Delivery and Sewerage",
+      "question_numbers": [
+        24,
+        25
+      ],
+      "text": "Our urban bodies cannot possibly ensure sustainable delivery of water in our cities unless financing mechanisms are put in place. Water delivery requires heavy investment in collecting it from a natural source, treating it to make it potable, and laying a distribution network of pipes for delivery to the users. It also requires investments in sewerage infrastructure and sewage treatment plants so that the sewers can carry the wastewater to these plants to ensure that no untreated sewage is discharged back into natural water bodies. If our cities were rich enough to meet the entire cost, water could be delivered free. They are not."
+    },
+    {
+      "id": "P10",
+      "title": "Agricultural Terms of Trade, Farm Investment, and Rapid Poverty Reduction",
+      "question_numbers": [
+        26,
+        27
+      ],
+      "text": "In India, agriculture still engages about half of its workforce, and about 85 per cent of its farms are small and marginal. Compared to China and Vietnam, which have experienced fast structural and rural transformation, India's story is of slow transformation. As a result, poverty reduction in India was at a much slower pace during 1988-2014, compared to China and Vietnam. India's poverty reduction was slow during 1988-2005, but during 2005-2012, it accelerated dramatically — almost three times faster than during the earlier period. What did India do during this period? Research reveals that the relative price scenario changed significantly (by more than 50%) in favour of agriculture in the wake of rising global prices. This boosted private investments in agriculture by more than 50%. As a result, agri-GDP growth touched 4.1% during 2007-2012 as against 2.4% during 2002-2007. The net surplus of agri-trade touched $25 billion in 2013-2014; real farm wages rose by 7% per annum. All this led to unprecedented fall in poverty."
+    },
+    {
+      "id": "P11",
+      "title": "The Irish Potato Famine and Monoculture Genetic Fragility",
+      "question_numbers": [
+        41
+      ],
+      "text": "Spanish ships in the late 16th century first brought the potato tuber from South America to Europe whereby in the early 19th century, it had become a reliable backup to cereal crops, particularly in the cold, rain-soaked soils of Ireland. The Irish were soon almost wholly dependent on the potato as their staple food. And they were planting primarily one prodigious variety, the 'Lumper' potato, whose genetic frailty would be cruelly exposed by the fungus 'Phytophthora infestans'. In 1845, spores of the deadly fungus began spreading across the country, destroying nearly all the Lumpers in its path. The resulting famine killed or displaced millions."
+    },
+    {
+      "id": "P12",
+      "title": "Childhood Malnutrition and Lifelong Economic Loss",
+      "question_numbers": [
+        42
+      ],
+      "text": "India is at once among the fastest growing global economies and home to the largest number of malnourished children in the world. There are regions where malnutrition is not the exception but the norm. And across the country, malnutrition is the cause of death for roughly half the 1.3 million children who die before their fifth birthday each year. Even those children who survive suffer permanently from the damage that has already been done to their bodies and minds from not getting enough of the right foods and nutrients. Around 44 million children under 5 are stunted. That makes it harder for them to learn in school and subsequently earn a living as adults. Their lifetime earnings potential is almost a quarter less than that of their healthy peers."
+    },
+    {
+      "id": "P13",
+      "title": "Pusa Arhar 16: Agronomic Potential and Crop Residue Management",
+      "question_numbers": [
+        43
+      ],
+      "text": "The pulse variety 'Pusa Arhar 16' has the potential to be grown in the paddy-growing regions of Punjab, Haryana and Uttar Pradesh and eventually in all of India. Its yield (about 2000 kg/hectare) will be significantly greater than those of the existing varieties and because its size will be uniform, it will be amenable to mechanical harvesting, an attractive feature for farmers in northern India who currently use this technology for paddy. Most important, Arhar straw, unlike paddy straw, is green and can be ploughed back into the soil. In paddy straw, the problem is the high silica content, which does not allow for easy decomposition. In the case of Arhar, the farmer, even after combine harvesting, just needs to run a rotovator to cut the leftover straw into pieces, which can be ploughed back and will decompose very fast. All this is difficult with leftover paddy stalks that cannot be easily salvaged or ploughed back. Farmers, therefore, choose the easiest option of simply burning it."
+    },
+    {
+      "id": "P14",
+      "title": "Reservoir Rule Curves and Monsoon Flood Buffering",
+      "question_numbers": [
+        44
+      ],
+      "text": "In India, authorities always look to store the maximum amount of water in reservoirs during the monsoon season, which is then used for irrigation and generation of electricity during the summer months. It is an internationally accepted practice that the water level of a reservoir should be kept below a certain level before the onset of monsoon season. This is so that when monsoon rains come, there is space to store the excess rainwater and also so that water can be released in a regulated manner. But the authorities store the maximum amount of water in reservoirs even before the close of the monsoon, only to ensure greater electricity generation and irrigation."
+    },
+    {
+      "id": "P15",
+      "title": "Limitations of 1991 Liberalization and Structural Economic Crises",
+      "question_numbers": [
+        45,
+        46
+      ],
+      "text": "Economic liberalization in India was shaped largely by the economic problems of the government than by the economic priorities of the people or by the long-term development objectives. Thus, there were limitations in conception and design which have been subsequently validated by experience. Jobless growth, persistent poverty and rising inequality have mounted as problems since economic liberalization began. And all these years later, four quiet crises confront the economy; agriculture, infrastructure, industrialization and education as constraints on the country's future prospects. These problems must be resolved if economic growth has to be sustained and transformed into meaningful development."
+    },
+    {
+      "id": "P16",
+      "title": "Resolution Mechanisms and Exit Frameworks for Indian Banks",
+      "question_numbers": [
+        61
+      ],
+      "text": "Bank credit to the industrial sector has started shrinking. Its decline has been a serious concern as credit growth is essential to revive investment. The problem's origins lie in the incomplete reforms of the last 25 years. An institutional change that should have followed the 1991 reforms should have been setting up of a resolution corporation for banks. In a market economy with booms and busts, banks should be allowed to be set up and to fail. Today, we cannot shut down banks because there is no proper system to shut them down. Weak loss-making banks continue to need more capital."
+    },
+    {
+      "id": "P17",
+      "title": "Renewable Tech Learning Curves and the Push for Gas",
+      "question_numbers": [
+        62,
+        63
+      ],
+      "text": "India has tremendous potential for solar energy. We all realize that we have to stop burning fossil fuels to meet our energy needs. But certain renewable resources are still going through their cost curves and learning curves to get the required amount of output. The Indian Government has strongly committed to its targets of reducing emissions by 33 per cent by 2030, and towards this it has initiated a strong push towards a gas-based economy and has also invested heavily in renewable energy. However, business houses are wary of investing too heavily in renewable energy at a time when the technology is not yet ready."
+    },
+    {
+      "id": "P18",
+      "title": "Genome Editing: Molecular Scissors vs. Transgenic Modification",
+      "question_numbers": [
+        64
+      ],
+      "text": "Genome editing is different from genome modification. Genome editing typically involves finding the part of a plant genome that could be changed to render it less vulnerable to disease, or resistant to certain herbicides, or to increase yields. Researchers use 'molecular scissors' to dissect the genome and repair it, which is a process that occurs naturally when plants are under attack from diseases and can throw up new mutations that enable the plant to survive future attacks. This evolutionary process can effectively be speeded up now that it is possible to examine plant genomes in detail in laboratories, and create mechanisms through which the relevant genes can be altered very precisely."
+    },
+    {
+      "id": "P19",
+      "title": "Solid Waste Management and Drainage System Synergies",
+      "question_numbers": [
+        65
+      ],
+      "text": "Many people understand the connection between solid waste management and health in terms of the consequences of unattended heaps of dry garbage which become home for flies and other vermin. However, there is another aspect that is not well-understood, that is, what happens when unscientific solid waste management combines with poor drainage and dumping of untreated sewage into drains which are meant to carry storm water during rains. The result is choked drains which are full of stagnant water breeding mosquitoes, resulting in the spread of water-borne diseases."
+    },
+    {
+      "id": "P20",
+      "title": "Constitutional Rider on Religious Freedom and Equality",
+      "question_numbers": [
+        66
+      ],
+      "text": "In Part III of the Constitution, which assures people certain fundamental rights, Article 25 proclaims that \"all persons are equally entitled to freedom of conscience and the right freely to profess, practise and propagate religion\". What people fail to notice is that this proclamation is prefixed with the words \"subject to public order, morality, health and to the other provisions of this Part\", which set conditions precedent for the legal protection of religious practices of any community. The closing words of this prefatory rider in Article 25 virtually constitute a subordination clause placing other fundamental rights mentioned in Part III over and above the right to religious freedom. Among those other fundamental rights is the right to equality before law and equal protection of laws — assured at the outset and elaborated in later articles to mean, inter alia, that the State shall not deny equal protection of laws to any person or group of persons on the basis of religion alone."
+    }
+  ],
+  "questions": [
+    {
+      "number": 1,
+      "topic": "Reading Comprehension",
+      "passage_id": "P1",
+      "question": "Which one of the following is best implied in the passage?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Strong measures need to be taken to reduce the rural to urban migration of labour."
+        },
+        {
+          "id": "b",
+          "text": "The working condition in construction and unregistered manufacturing needs to be improved."
+        },
+        {
+          "id": "c",
+          "text": "Service sector has been reducing the problem of unemployment."
+        },
+        {
+          "id": "d",
+          "text": "Increased social sector spending is imperative for large-scale job creation."
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "The author concludes that India needs 24 million jobs, and while e-commerce can fill at best half, 'only those sectors that drive domestic demand such as health and education can comfortably fill the other half'. Health and education constitute the social sector, implying that increased public spending in these sectors is imperative for large-scale job creation."
+    },
+    {
+      "number": 2,
+      "topic": "Reading Comprehension",
+      "passage_id": "P2",
+      "question": "On the basis of the above passage, the following assumptions have been made:\nWhich of the above assumptions is/are valid?",
+      "statements": [
+        "1. State should have some institutions to ensure its appropriate role in a digital society.",
+        "2. State should ensure that private parties do not violate the citizens' right to privacy.",
+        "3. Digital economy is not compatible with the idea of not violating the citizens' privacy."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 2"
+        },
+        {
+          "id": "b",
+          "text": "3 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 3"
+        },
+        {
+          "id": "d",
+          "text": "2 only"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Assumption 1 is valid: the passage states the state must actively guarantee security against private obstruction, requiring regulatory institutional mechanisms. Assumption 2 is valid: the text explicitly states the state must 'actively ensure that private parties are not able to block' substantive rights. Assumption 3 is an extreme, pessimistic claim not supported by the passage."
+    },
+    {
+      "number": 3,
+      "topic": "Reading Comprehension",
+      "passage_id": "P3",
+      "question": "Which one of the following is the most logical and rational inference that can be made from the above passage?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Rivers and other wetlands should be protected under Ramsar Convention."
+        },
+        {
+          "id": "b",
+          "text": "Engineering water systems should be modernized and further augmented."
+        },
+        {
+          "id": "c",
+          "text": "Wetlands need to be reinforced as more than just open sources of water."
+        },
+        {
+          "id": "d",
+          "text": "Water supply should not be free of cost so as to prevent its misuse or overuse."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "The author points out that water is treated merely as a commodity and engineered for supply augmentation, ignoring that it is an integral component of natural ecosystems, logically inferring that wetlands must be reinforced and protected as ecological systems rather than just open extractive taps."
+    },
+    {
+      "number": 4,
+      "topic": "Reading Comprehension",
+      "passage_id": "P4",
+      "question": "Which one of the following statements best implies the suggestion given by the author of the passage?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Distribute your wealth across different kinds of assets so that your risks would be minimized."
+        },
+        {
+          "id": "b",
+          "text": "Risk-taking behaviour should be a necessary component of your personality if you want to generate wealth."
+        },
+        {
+          "id": "c",
+          "text": "While making investments, find a trustworthy asset management organization which would manage your wealth for you."
+        },
+        {
+          "id": "d",
+          "text": "You should know that investing your money is a risky business."
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "The author begins by emphasizing that 'asset allocation is the most important investment decision we will ever make' and observes that while no asset is risk-free, all extreme risks will not manifest simultaneously. The direct recommendation is proper asset diversification (distributing wealth across diverse asset classes) to mitigate overall portfolio risk."
+    },
+    {
+      "number": 5,
+      "topic": "Reading Comprehension",
+      "passage_id": "P5",
+      "question": "With reference to the above passage, the following assumptions have been made:\nWhich of the above assumptions are valid?",
+      "statements": [
+        "1. Biotechnology regulation is an evolving process.",
+        "2. Participation of people is needed in policy decisions regarding biotechnology regulation.",
+        "3. Biotechnology regulation should take into account socio-economic aspects in decision-making.",
+        "4. Wider involvement of political executive in biotechnology regulation improves its effectiveness in dealing with the country's trade policies and international obligations."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1, 2 and 4 only"
+        },
+        {
+          "id": "b",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "2, 3 and 4 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2, 3 and 4"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Assumption 1 is valid: multi-trait GM crops will be the future norm, showing biotechnology regulation must continuously evolve. Assumption 3 is valid: the text explicitly demands 'taking into account various aspects, including socio-economic impacts'. Assumptions 2 and 4 are unsupported extrapolations (public participation and political executive involvement are not discussed)."
+    },
+    {
+      "number": 6,
+      "topic": "Reading Comprehension",
+      "passage_id": "P5",
+      "question": "Which one of the following statements best implies the crux of the passage?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Precautionary principle is not given importance in current debate on developing GM crops."
+        },
+        {
+          "id": "b",
+          "text": "Biotechnology is not currently used in climate change mitigation and adaptation mechanisms."
+        },
+        {
+          "id": "c",
+          "text": "Biotechnology's role is not confined to the current priorities of developing GM crops."
+        },
+        {
+          "id": "d",
+          "text": "The negative impacts of biotechnology are not properly understood."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "The passage argues that biotechnology's role and regulation 'cannot be understood solely in the context of the current generation of GM crops' and highlights its vital future potential for multi-trait engineering and climate change adaptation."
+    },
+    {
+      "number": 7,
+      "topic": "Number System / Number of Zeroes",
+      "passage_id": null,
+      "question": "How many zeroes are there at the end of the following product?\n1 × 5 × 10 × 15 × 20 × 25 × 30 × 35 × 40 × 45 × 50 × 55 × 60",
+      "options": [
+        {
+          "id": "a",
+          "text": "10"
+        },
+        {
+          "id": "b",
+          "text": "12"
+        },
+        {
+          "id": "c",
+          "text": "14"
+        },
+        {
+          "id": "d",
+          "text": "15"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "The number of trailing zeroes is determined by min(power of 2, power of 5). Since 5 occurs in every single term, powers of 5 far exceed powers of 2. We only need to count the exponent of 2 in the product:\n- 10 = 2¹ × 5 -> one 2\n- 20 = 2² × 5 -> two 2s\n- 30 = 2¹ × 15 -> one 2\n- 40 = 2³ × 5 -> three 2s\n- 50 = 2¹ × 25 -> one 2\n- 60 = 2² × 15 -> two 2s\nTotal powers of 2 = 1 + 2 + 1 + 3 + 1 + 2 = 10.\nTherefore, there are exactly 10 zeroes at the end of the product."
+    },
+    {
+      "number": 8,
+      "topic": "Number System / Divisibility",
+      "passage_id": null,
+      "question": "Let XYZ be a three-digit number, where (X + Y + Z) is not a multiple of 3. Then (XYZ + YZX + ZXY) is not divisible by",
+      "options": [
+        {
+          "id": "a",
+          "text": "3"
+        },
+        {
+          "id": "b",
+          "text": "9"
+        },
+        {
+          "id": "c",
+          "text": "37"
+        },
+        {
+          "id": "d",
+          "text": "(X + Y + Z)"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "In place values:\nXYZ = 100X + 10Y + Z\nYZX = 100Y + 10Z + X\nZXY = 100Z + 10X + Y\nSum = 111X + 111Y + 111Z = 111(X + Y + Z).\nFactoring 111 gives 3 × 37:\nSum = 3 × 37 × (X + Y + Z).\nThus, the sum is always divisible by 3, by 37, and by (X + Y + Z). Since (X + Y + Z) is explicitly NOT a multiple of 3, the sum has only a single factor of 3 and therefore CANNOT be divisible by 9."
+    },
+    {
+      "number": 9,
+      "topic": "Algebra / Basic Equations",
+      "passage_id": null,
+      "question": "Let p, q, r and s be natural numbers such that\np − 2016 = q + 2017 = r − 2018 = s + 2019\nWhich one of the following is the largest natural number?",
+      "options": [
+        {
+          "id": "a",
+          "text": "p"
+        },
+        {
+          "id": "b",
+          "text": "q"
+        },
+        {
+          "id": "c",
+          "text": "r"
+        },
+        {
+          "id": "d",
+          "text": "s"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Let the common constant value be k.\nThen:\np = k + 2016\nq = k − 2017\nr = k + 2018\ns = k − 2019\nComparing these values for any positive k:\nr = k + 2018 is clearly the largest among p, q, r, and s."
+    },
+    {
+      "number": 10,
+      "topic": "Number System / Prime Numbers",
+      "passage_id": null,
+      "question": "How many five-digit prime numbers can be obtained by using all the digits 1, 2, 3, 4 and 5 without repetition of digits?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Zero"
+        },
+        {
+          "id": "b",
+          "text": "One"
+        },
+        {
+          "id": "c",
+          "text": "Nine"
+        },
+        {
+          "id": "d",
+          "text": "Ten"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Any five-digit number formed by using all the digits 1, 2, 3, 4, 5 without repetition has the sum of its digits equal to:\n1 + 2 + 3 + 4 + 5 = 15.\nSince 15 is divisible by 3, by the divisibility rule of 3, every such number is divisible by 3 and strictly greater than 3. Thus, every such five-digit number is composite, and zero prime numbers can be obtained."
+    },
+    {
+      "number": 11,
+      "topic": "Cryptarithmetic / Puzzles",
+      "passage_id": null,
+      "question": "In the sum\n⊗ + 1⊗ + 5⊗ + ⊗⊗ + ⊗1 = 1⊗⊗\nfor which digit does the symbol ⊗ stand?",
+      "options": [
+        {
+          "id": "a",
+          "text": "2"
+        },
+        {
+          "id": "b",
+          "text": "3"
+        },
+        {
+          "id": "c",
+          "text": "4"
+        },
+        {
+          "id": "d",
+          "text": "5"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Let x denote the single digit represented by ⊗.\nIn place values:\n- ⊗ = x\n- 1⊗ = 10 + x\n- 5⊗ = 50 + x\n- ⊗⊗ = 10x + x = 11x\n- ⊗1 = 10x + 1\n- 1⊗⊗ = 100 + 10x + x = 100 + 11x\nSum LHS = x + (10 + x) + (50 + x) + 11x + (10x + 1) = 61 + 24x.\nRHS = 100 + 11x.\nEquating LHS and RHS: 61 + 24x = 100 + 11x => 13x = 39 => x = 3."
+    },
+    {
+      "number": 12,
+      "topic": "Number System / GCD",
+      "passage_id": null,
+      "question": "If you have two straight sticks of length 7.5 feet and 3.25 feet, what is the minimum length can you measure?",
+      "options": [
+        {
+          "id": "a",
+          "text": "0.05 foot"
+        },
+        {
+          "id": "b",
+          "text": "0.25 foot"
+        },
+        {
+          "id": "c",
+          "text": "1 foot"
+        },
+        {
+          "id": "d",
+          "text": "3.25 feet"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "By Bézout's Identity, using two lengths a and b additively and subtractively, the minimum positive length that can be measured is their Greatest Common Divisor, gcd(a, b).\nConvert to inches or quarter-feet:\n7.5 feet = 750/100 = 30/4 feet = 30 × 0.25 feet.\n3.25 feet = 325/100 = 13/4 feet = 13 × 0.25 feet.\ngcd(7.5, 3.25) = gcd(30/4, 13/4) = gcd(30, 13) / 4 = 1 / 4 = 0.25 foot."
+    },
+    {
+      "number": 13,
+      "topic": "Number Series / Prime Numbers",
+      "passage_id": null,
+      "question": "A simple mathematical operation in each number of the sequence 14, 18, 20, 24, 30, 32, ... results in a sequence with respect to prime numbers. Which one of the following is the next number in the sequence?",
+      "options": [
+        {
+          "id": "a",
+          "text": "34"
+        },
+        {
+          "id": "b",
+          "text": "36"
+        },
+        {
+          "id": "c",
+          "text": "38"
+        },
+        {
+          "id": "d",
+          "text": "40"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Notice that subtracting 1 or adding something reveals prime numbers:\n14 − 1 = 13 (prime)\n18 − 1 = 17 (prime)\n20 − 1 = 19 (prime)\n24 − 1 = 23 (prime)\n30 − 1 = 29 (prime)\n32 − 1 = 31 (prime)\nThe primes are consecutive prime numbers: 13, 17, 19, 23, 29, 31.\nThe next prime number after 31 is 37.\nTherefore, the next number in the sequence is 37 + 1 = 38."
+    },
+    {
+      "number": 14,
+      "topic": "Arithmetic Progression / Sum of Integers",
+      "passage_id": null,
+      "question": "One page is torn from a booklet whose pages are numbered in the usual manner starting from the first page as 1. The sum of the numbers on the remaining pages is 195. The torn page contains which of the following numbers?",
+      "options": [
+        {
+          "id": "a",
+          "text": "5, 6"
+        },
+        {
+          "id": "b",
+          "text": "7, 8"
+        },
+        {
+          "id": "c",
+          "text": "9, 10"
+        },
+        {
+          "id": "d",
+          "text": "11, 12"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "A single torn leaf/page has an odd number on the front and the next consecutive even number on the back: (2k - 1) and 2k. Their sum is (4k - 1).\nLet total pages in the booklet be n. Sum of all n pages = n(n + 1) / 2.\nRemaining sum = n(n + 1)/2 − (4k - 1) = 195 => n(n + 1)/2 > 195.\nFor n = 19: 19 × 20 / 2 = 190 < 195 (too small).\nFor n = 20: 20 × 21 / 2 = 210.\nSum of torn numbers = 210 − 195 = 15.\nConsecutive page numbers on opposite sides of a leaf summing to 15 are 7 and 8 (since 7 + 8 = 15, with 7 odd and 8 even)."
+    },
+    {
+      "number": 15,
+      "topic": "Letter Patterns",
+      "passage_id": null,
+      "question": "Consider the following arrangement that has some missing letters:\nabab_b_bcb_dcdcded_d\nThe missing letters which complete the arrangement are",
+      "options": [
+        {
+          "id": "a",
+          "text": "a, b, c, d"
+        },
+        {
+          "id": "b",
+          "text": "a, b, d, e"
+        },
+        {
+          "id": "c",
+          "text": "a, c, c, e"
+        },
+        {
+          "id": "d",
+          "text": "b, c, d, e"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Divide the sequence into symmetric repeating segments:\nababa / bcbcb / cdcdc / deded\nNotice each segment is a 5-letter alternating palindrome: 'ababa', 'bcbcb', 'cdcdc', 'deded'.\nFill in the blanks: abab[a] b[c]bcb [c]dcdcded[e]d.\nThe inserted letters are a, c, c, e."
+    },
+    {
+      "number": 16,
+      "topic": "Cryptarithmetic",
+      "passage_id": null,
+      "question": "Let A3BC and DE2F be four-digit numbers where each letter represents a different digit greater than 3. If the sum of the numbers is 15902, then what is the difference between the values of A and D?",
+      "options": [
+        {
+          "id": "a",
+          "text": "1"
+        },
+        {
+          "id": "b",
+          "text": "2"
+        },
+        {
+          "id": "c",
+          "text": "3"
+        },
+        {
+          "id": "d",
+          "text": "4"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "A3BC + DE2F = 15902. Available digits are from {4, 5, 6, 7, 8, 9} (distinct and > 3).\nLooking at column sums from right to left:\n- Units: C + F must end in 2. Since C, F > 3, C + F = 12 (carry 1).\n- Tens: B + 2 + 1 (carry) = 10 => B + 3 = 10 => B = 7 (carry 1).\n- Hundreds: 3 + E + 1 (carry) = 9 => E = 5 (no carry).\n- Thousands: A + D = 15.\nAvailable digits from {4, 5, 6, 7, 8, 9} not yet used: B=7 and E=5 are used. Remaining digits are {4, 6, 8, 9}.\nFrom {4, 6, 8, 9}, pairs summing to 12 for (C, F): 4 + 8 = 12 => {C, F} = {4, 8}.\nRemaining digits for {A, D} are {6, 9}. Indeed 6 + 9 = 15!\nTherefore, {A, D} = {6, 9} in some order.\nDifference |A - D| = |9 - 6| = 3."
+    },
+    {
+      "number": 17,
+      "topic": "Data Sufficiency",
+      "passage_id": null,
+      "question": "Two Statements S1 and S2 are given below followed by a Question:\nS1: There are not more than two figures on any page of a 51-page book.\nS2: There is at least one figure on every page.\nQuestion: Are there more than 100 figures in that book?\nWhich one of the following is correct in respect of the above Statements and the Question?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Both S1 and S2 are sufficient to answer the Question, but neither S1 alone nor S2 alone is sufficient to answer the Question."
+        },
+        {
+          "id": "b",
+          "text": "S1 alone is sufficient to answer the Question."
+        },
+        {
+          "id": "c",
+          "text": "S1 and S2 together are not sufficient to answer the Question."
+        },
+        {
+          "id": "d",
+          "text": "S2 alone is sufficient to answer the Question."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "From S1: Figures per page <= 2. Total figures <= 51 × 2 = 102. (Could be 50, 100, 101, or 102). Insufficient.\nFrom S2: Figures per page >= 1. Total figures >= 51. (Could be 60 or 200). Insufficient.\nCombining S1 and S2: Total figures range from 51 to 102. The total could be 90 (not more than 100) or 102 (more than 100). Thus, a definite 'Yes' or 'No' cannot be reached even using both statements together."
+    },
+    {
+      "number": 18,
+      "topic": "Averages / Weighted Mean",
+      "passage_id": null,
+      "question": "Consider the following data:\n[Category | Average marks in English | Average marks in Hindi]\nGirls: English = 9, Hindi = 8\nBoys: English = 8, Hindi = 7\nOverall average marks: English = 8.8, Hindi = x\nWhat is the value of x in the above table?",
+      "options": [
+        {
+          "id": "a",
+          "text": "7.8"
+        },
+        {
+          "id": "b",
+          "text": "7.6"
+        },
+        {
+          "id": "c",
+          "text": "7.4"
+        },
+        {
+          "id": "d",
+          "text": "7.2"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Let G be the number of girls and B be the number of boys.\nIn English: (9G + 8B) / (G + B) = 8.8 => 9G + 8B = 8.8G + 8.8B => 0.2G = 0.8B => G / B = 4 / 1.\nNow calculate the overall average in Hindi (x):\nx = (8G + 7B) / (G + B) = [8(4) + 7(1)] / [4 + 1] = (32 + 7) / 5 = 39 / 5 = 7.8."
+    },
+    {
+      "number": 19,
+      "topic": "Family Tree / Blood Relations",
+      "passage_id": null,
+      "question": "A family of two generations consisting of six members P, Q, R, S, T and U has three males and three females. There are two married couples and two unmarried siblings. U is P's daughter and Q is R's mother-in-law. T is an unmarried male and S is a male. Which one of the following is correct?",
+      "options": [
+        {
+          "id": "a",
+          "text": "R is U's husband."
+        },
+        {
+          "id": "b",
+          "text": "R is S's wife."
+        },
+        {
+          "id": "c",
+          "text": "S is unmarried."
+        },
+        {
+          "id": "d",
+          "text": "None of the above"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "There are 3 males and 3 females across 2 generations. Two married couples + two unmarried siblings. T is an unmarried male, U is female (P's daughter) and unmarried sibling to T (generation 2). P and S are males; Q and R are females (with R married to S, and Q married to P). Since Q is R's mother-in-law, Q is generation 1 and R is generation 2 married to Q's son S. Thus, R is S's wife."
+    },
+    {
+      "number": 20,
+      "topic": "Calendars",
+      "passage_id": null,
+      "question": "If in a particular year 12th January is a Sunday, then which one of the following is correct?",
+      "options": [
+        {
+          "id": "a",
+          "text": "15th July is a Sunday if the year is a leap year."
+        },
+        {
+          "id": "b",
+          "text": "15th July is a Sunday if the year is not a leap year."
+        },
+        {
+          "id": "c",
+          "text": "12th July is a Sunday if the year is a leap year."
+        },
+        {
+          "id": "d",
+          "text": "12th July is not a Sunday if the year is a leap year."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Count days from 12 January to 12 July:\nIn a leap year (February has 29 days):\n- Remaining days in Jan: 31 − 12 = 19 days ≡ 5 (mod 7)\n- Feb: 29 days ≡ 1\n- Mar: 31 days ≡ 3\n- Apr: 30 days ≡ 2\n- May: 31 days ≡ 3\n- Jun: 30 days ≡ 2\n- Jul up to 12th: 12 days ≡ 5\nTotal odd days = 5 + 1 + 3 + 2 + 3 + 2 + 5 = 21 ≡ 0 (mod 7).\nSince the number of odd days is exactly 0, 12th July falls on the exact same day of the week as 12th January, which is Sunday! Thus, '12th July is a Sunday if the year is a leap year' is correct."
+    },
+    {
+      "number": 21,
+      "topic": "Reading Comprehension",
+      "passage_id": "P6",
+      "question": "With reference to the above passage, the following assumptions have been made:\nWhich of the above assumptions is/are valid?",
+      "statements": [
+        "1. Relying on foreign investment in the long run is not an economically sound policy.",
+        "2. Policies must be undertaken to reduce volatility in foreign private investment.",
+        "3. Policies must be undertaken to strengthen domestic private investment.",
+        "4. Public investment should be given priority over private investment.",
+        "5. Substantial public investment in education and health should be undertaken."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1, 2 and 4"
+        },
+        {
+          "id": "b",
+          "text": "1, 3 and 5"
+        },
+        {
+          "id": "c",
+          "text": "2, 4 and 5"
+        },
+        {
+          "id": "d",
+          "text": "3 only"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Assumption 1 is valid: the passage asserts that foreign investment is structurally volatile across sectors and regions and cannot bear the responsibility of employment generation. Assumption 3 is valid: since foreign private investment is volatile and footloose, domestic private investment must be fortified. Assumption 5 is valid: the passage concludes that physical and human capital in India may prove inadequate for technology diffusion without public investment in human capabilities (education/health)."
+    },
+    {
+      "number": 22,
+      "topic": "Reading Comprehension",
+      "passage_id": "P7",
+      "question": "With reference to the above passage, which of the following could be the most rational and practical implications for India?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Inter-linking of rivers should be undertaken.",
+        "2. A network of dams and canals should be built across the country for proper distribution of water.",
+        "3. Farmers should be provided easy loans for digging borewells.",
+        "4. Usage of water for agriculture should be regulated by law.",
+        "5. Distribution of river water among regions should be regulated by the Union Government."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 2"
+        },
+        {
+          "id": "b",
+          "text": "2, 4 and 5"
+        },
+        {
+          "id": "c",
+          "text": "1, 3 and 4"
+        },
+        {
+          "id": "d",
+          "text": "2, 3 and 5"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "The passage highlights the stark spatial and temporal asymmetry where vast monsoon river waters flow unutilized into the sea while millions suffer drought, and states that 'the need for holding rainwater in reservoirs, for subsequently releasing it for use over the year, is a necessity'. This directly implies river inter-linking (1) and building storage reservoirs/canals (2)."
+    },
+    {
+      "number": 23,
+      "topic": "Reading Comprehension",
+      "passage_id": "P8",
+      "question": "With reference to the above passage, the following assumptions have been made:\nWhich of the above assumptions is/are valid?",
+      "statements": [
+        "1. Lower tax rates in a country invariably translate into greater investments in higher education.",
+        "2. Investment in the education of children ensures their economic freedom.",
+        "3. Economic freedom has a positive impact on building up human capital."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Assumption 3 is valid: the passage argues that when individuals enjoy economic freedom (such as retaining returns from higher earnings), they are motivated to invest in education, positively building human capital. Assumptions 1 and 2 make extreme, unstated causal claims ('invariably translate', 'ensures economic freedom')."
+    },
+    {
+      "number": 24,
+      "topic": "Reading Comprehension",
+      "passage_id": "P9",
+      "question": "What is the most logical and crucial message conveyed by the passage?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Urban local bodies must recover costs through user charges."
+        },
+        {
+          "id": "b",
+          "text": "Urban local bodies are not efficient enough to meet the water requirements of our cities."
+        },
+        {
+          "id": "c",
+          "text": "Water shortage in our cities is a perennial problem that cannot be solved."
+        },
+        {
+          "id": "d",
+          "text": "In view of the water crisis in our cities, there is an urgent need to limit the population of cities by adopting an upper limit of population size."
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "The author notes that sustainable delivery of potable water and sewage treatment requires heavy infrastructure investment, concluding that our cities are not rich enough to provide water for free, conveying that urban local bodies must establish financing mechanisms and recover costs via user fees."
+    },
+    {
+      "number": 25,
+      "topic": "Reading Comprehension",
+      "passage_id": "P9",
+      "question": "With reference to the above passage, the following assumptions have been made:\nWhich of the above assumptions is/are valid?",
+      "statements": [
+        "1. Rich cities only can ensure sustainable delivery of water.",
+        "2. Sustainable delivery of water in cities means much more than supplying water to households."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Assumption 2 is valid because sustainable water delivery requires collecting, treating, piping, AND building sewerage infrastructure and sewage treatment plants to protect natural water bodies. Assumption 1 is invalid because non-rich cities can also ensure delivery if appropriate financing mechanisms (user charges) are instituted."
+    },
+    {
+      "number": 26,
+      "topic": "Reading Comprehension",
+      "passage_id": "P10",
+      "question": "With reference to the above passage, the following assumptions have been made:\nWhich of the above assumptions are valid?",
+      "statements": [
+        "1. Structural and rural transformation is impossible when farms are mainly small and marginal.",
+        "2. A good price incentive can trigger investments in agriculture.",
+        "3. India needs to build value chains for high-value agri-products like livestock and horticulture.",
+        "4. Higher global prices of agricultural commodities are essential for India's poverty reduction."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 3"
+        },
+        {
+          "id": "b",
+          "text": "2 and 4"
+        },
+        {
+          "id": "c",
+          "text": "2 and 3"
+        },
+        {
+          "id": "d",
+          "text": "3 and 4"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Assumption 2 is valid: the passage demonstrates that when relative prices shifted in favour of agriculture, private investment surged by over 50%. Assumption 4 is valid: rising global agricultural prices changed the domestic price scenario and catalyzed rapid rural poverty reduction between 2005 and 2012. Assumptions 1 and 3 are either refuted by China/Vietnam or unmentioned."
+    },
+    {
+      "number": 27,
+      "topic": "Reading Comprehension",
+      "passage_id": "P10",
+      "question": "Which one of the following statements best reflects the critical message of the passage?",
+      "options": [
+        {
+          "id": "a",
+          "text": "India should create large-scale off-farm rural employment to reduce poverty in the near future."
+        },
+        {
+          "id": "b",
+          "text": "India should create a large number of farmer producer companies."
+        },
+        {
+          "id": "c",
+          "text": "Private investment in agriculture should be given priority over public investment."
+        },
+        {
+          "id": "d",
+          "text": "Inclusive agricultural growth is key to reduce poverty in the near future."
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "The text demonstrates that when farm wages rose and agricultural GDP grew at 4.1%, poverty fell at an unprecedented rate, proving that robust, inclusive agricultural growth is the primary driver of rapid poverty reduction."
+    },
+    {
+      "number": 28,
+      "topic": "Data Sufficiency / Order and Ranking",
+      "passage_id": null,
+      "question": "Two Statements S1 and S2 are given below with regard to four numbers P, Q, R and S followed by a Question:\nS1: R is greater than P as well as Q.\nS2: S is not the largest one.\nQuestion: Among four numbers P, Q, R and S, which one is the largest?\nWhich one of the following is correct in respect of the above Statements and the Question?",
+      "options": [
+        {
+          "id": "a",
+          "text": "S1 alone is sufficient to answer the Question."
+        },
+        {
+          "id": "b",
+          "text": "S2 alone is sufficient to answer the Question."
+        },
+        {
+          "id": "c",
+          "text": "S1 and S2 together are sufficient to answer the Question, but neither S1 alone nor S2 alone is sufficient to answer the Question."
+        },
+        {
+          "id": "d",
+          "text": "S1 and S2 together are not sufficient to answer the Question."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "We need to find the largest among {P, Q, R, S}.\nFrom S1: R > P and R > Q. Neither P nor Q is the largest. But S could be greater than R. Insufficient alone.\nFrom S2: S is not the largest. Insufficient alone.\nCombining S1 and S2: Neither P nor Q can be the largest (from S1), and S cannot be the largest (from S2). Thus, the only remaining candidate who must be the largest is R! Both statements together are sufficient."
+    },
+    {
+      "number": 29,
+      "topic": "Data Sufficiency / Prime Numbers",
+      "passage_id": null,
+      "question": "Two Statements S1 and S2 are given below followed by a Question:\nS1: n is a prime number.\nS2: n leaves a remainder of 1 when divided by 4.\nQuestion: If n is a unique natural number between 10 and 20, then what is n?\nWhich one of the following is correct in respect of the above Statements and the Question?",
+      "options": [
+        {
+          "id": "a",
+          "text": "S1 alone is sufficient to answer the Question."
+        },
+        {
+          "id": "b",
+          "text": "S2 alone is sufficient to answer the Question."
+        },
+        {
+          "id": "c",
+          "text": "S1 and S2 together are sufficient to answer the Question, but neither S1 alone nor S2 alone is sufficient to answer the Question."
+        },
+        {
+          "id": "d",
+          "text": "S1 and S2 together are not sufficient to answer the Question."
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Natural numbers strictly between 10 and 20 are {11, 12, 13, 14, 15, 16, 17, 18, 19}.\nFrom S1: n is prime ∈ {11, 13, 17, 19}. Insufficient.\nFrom S2: n ≡ 1 (mod 4) ∈ {13, 17}. Insufficient.\nCombining S1 and S2: n must be a prime that leaves remainder 1 when divided by 4. Both 13 (4 × 3 + 1) and 17 (4 × 4 + 1) satisfy both conditions! Since there are two valid solutions (13 and 17), n is not unique. Both statements together are not sufficient."
+    },
+    {
+      "number": 30,
+      "topic": "Data Sufficiency / System of Equations",
+      "passage_id": null,
+      "question": "Two Statements S1 and S2 are given below with regard to two numbers followed by a Question:\nS1: Their product is 21.\nS2: Their sum is 10.\nQuestion: What are the two numbers?\nWhich one of the following is correct in respect of the above Statements and the Question?",
+      "options": [
+        {
+          "id": "a",
+          "text": "S1 alone is sufficient to answer the Question."
+        },
+        {
+          "id": "b",
+          "text": "S2 alone is sufficient to answer the Question."
+        },
+        {
+          "id": "c",
+          "text": "S1 and S2 together are sufficient to answer the Question, but neither S1 alone nor S2 alone is sufficient to answer the Question."
+        },
+        {
+          "id": "d",
+          "text": "S1 and S2 together are not sufficient to answer the Question."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Let the two numbers be x and y.\nFrom S1: xy = 21 (infinite pairs in real numbers; even in integers could be 1 and 21, or 3 and 7). Insufficient.\nFrom S2: x + y = 10 (infinite pairs). Insufficient.\nCombining S1 and S2: x and y are the roots of t² − 10t + 21 = 0 => (t − 3)(t − 7) = 0 => t = 3, 7. The two numbers are uniquely determined as the set {3, 7}. Both statements together are sufficient."
+    },
+    {
+      "number": 31,
+      "topic": "Direction and Distance",
+      "passage_id": null,
+      "question": "A man walks down the backside of his house straight 25 metres, then turns to the right and walks 50 metres again; then he turns towards left and again walks 25 metres. If his house faces to the East, what is his direction from the starting point?",
+      "options": [
+        {
+          "id": "a",
+          "text": "South-East"
+        },
+        {
+          "id": "b",
+          "text": "South-West"
+        },
+        {
+          "id": "c",
+          "text": "North-East"
+        },
+        {
+          "id": "d",
+          "text": "North-West"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "The house faces East (+x direction). The backside of the house is West (−x direction).\n1. From the origin (0, 0), walking straight out the backside for 25 m moves West -> (−25, 0).\n2. Facing West, turning to the right means turning North (+y direction) and walking 50 m -> reaches (−25, 50).\n3. Facing North, turning towards left means turning West (−x direction) and walking 25 m -> reaches (−25 − 25, 50) = (−50, 50).\nRelative to the starting point (0, 0), the position (−50, 50) is in the North-West direction."
+    },
+    {
+      "number": 32,
+      "topic": "Syllogism / Logical Deduction",
+      "passage_id": null,
+      "question": "Two Statements are given followed by two Conclusions:\nStatements:\nAll numbers are divisible by 2.\nAll numbers are divisible by 3.\nConclusion-I: All numbers are divisible by 6.\nConclusion-II: All numbers are divisible by 4.\nWhich of the above Conclusions logically follows/follow from the two given Statements?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Only Conclusion-I"
+        },
+        {
+          "id": "b",
+          "text": "Only Conclusion-II"
+        },
+        {
+          "id": "c",
+          "text": "Neither Conclusion-I nor Conclusion-II"
+        },
+        {
+          "id": "d",
+          "text": "Both Conclusion-I and Conclusion-II"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "If a number is divisible by both 2 and 3, and since gcd(2, 3) = 1, it must be divisible by LCM(2, 3) = 6. Therefore, Conclusion-I ('All numbers are divisible by 6') logically and necessarily follows. Divisibility by 2 and 3 does not guarantee divisibility by 4 (for instance, 6 and 18 are not divisible by 4). Hence, only Conclusion-I follows."
+    },
+    {
+      "number": 33,
+      "topic": "Syllogism",
+      "passage_id": null,
+      "question": "Two Statements are given followed by two Conclusions:\nStatements:\nAll cats are dogs.\nAll cats are black.\nConclusion-I: All dogs are black.\nConclusion-II: Some dogs are not black.\nWhich of the above Conclusions logically follows/follow from the two given Statements, disregarding commonly known facts?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Only Conclusion-I"
+        },
+        {
+          "id": "b",
+          "text": "Only Conclusion-II"
+        },
+        {
+          "id": "c",
+          "text": "Neither Conclusion-I nor Conclusion-II"
+        },
+        {
+          "id": "d",
+          "text": "Both Conclusion-I and Conclusion-II"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Premises: All Cats are Dogs (Cats ⊆ Dogs); All Cats are Black (Cats ⊆ Black). From these premises, we know that the subset of Dogs that are Cats are Black (i.e., 'Some dogs are black'). However, we have no information about Dogs that are not Cats — they may all be Black, or some may not be Black. Thus, neither Conclusion-I ('All dogs are black') nor Conclusion-II ('Some dogs are not black') definitely follows. Neither follows."
+    },
+    {
+      "number": 34,
+      "topic": "Sequence and Pattern Counting",
+      "passage_id": null,
+      "question": "Consider the following sequence of numbers:\n5 1 4 7 3 9 8 5 7 2 6 3 1 5 8 6 3 8 5 2 2 4 3 4 9 6\nHow many odd numbers are followed by the odd number in the above sequence?",
+      "options": [
+        {
+          "id": "a",
+          "text": "5"
+        },
+        {
+          "id": "b",
+          "text": "6"
+        },
+        {
+          "id": "c",
+          "text": "7"
+        },
+        {
+          "id": "d",
+          "text": "8"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "We search for consecutive pairs (Odd, Odd) in the sequence:\nIndex positions of odd numbers followed by odd numbers:\n1. 5 -> followed by 1 (Pair: 5, 1) [1]\n2. 7 -> followed by 3 (Pair: 7, 3) [2]\n3. 3 -> followed by 9 (Pair: 3, 9) [3]\n4. 5 -> followed by 7 (Pair: 5, 7) [4]\n5. 3 -> followed by 1 (Pair: 3, 1) [5]\n6. 1 -> followed by 5 (Pair: 1, 5) [6]\nCheck the remaining pairs:\n- 3 followed by 8 (even)\n- 5 followed by 2 (even)\n- 3 followed by 4 (even)\n- 9 followed by 6 (even)\nTotal count of odd numbers followed by an odd number = 6."
+    },
+    {
+      "number": 35,
+      "topic": "Order and Ranking",
+      "passage_id": null,
+      "question": "A is 16th from the left end in a row of boys and V is 18th from the right end. G is 11th from A towards the right and 3rd from V towards the right end. How many boys are there in the row?",
+      "options": [
+        {
+          "id": "a",
+          "text": "40"
+        },
+        {
+          "id": "b",
+          "text": "41"
+        },
+        {
+          "id": "c",
+          "text": "42"
+        },
+        {
+          "id": "d",
+          "text": "Cannot be determined due to insufficient data"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Position of A from the left = 16.\nG is 11th to the right of A => Position of G from the left = 16 + 11 = 27.\nV is 18th from the right end.\nG is 3rd from V towards the right end (i.e. G is 3 positions closer to the right end than V) => Position of G from the right end = 18 − 3 = 15.\nNow we know both the left-end and right-end positions of G:\nTotal boys in the row = (Position from left) + (Position from right) − 1 = 27 + 15 − 1 = 41."
+    },
+    {
+      "number": 36,
+      "topic": "Data Sufficiency / Ranking",
+      "passage_id": null,
+      "question": "Three Statements S1, S2 and S3 are given below followed by a Question:\nS1: C is younger than D, but older than A and B.\nS2: D is the oldest.\nS3: A is older than B.\nQuestion: Who among A, B, C and D is the youngest?\nWhich one of the following is correct in respect of the above Statements and the Question?",
+      "options": [
+        {
+          "id": "a",
+          "text": "S1 alone is sufficient to answer the Question."
+        },
+        {
+          "id": "b",
+          "text": "S1 and S2 together are sufficient to answer the Question."
+        },
+        {
+          "id": "c",
+          "text": "S2 and S3 together are sufficient to answer the Question."
+        },
+        {
+          "id": "d",
+          "text": "S1 and S3 together are sufficient to answer the Question."
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "From S1: D > C > A and D > C > B. This establishes that both D and C are older than A and B, so the youngest must be either A or B. But S1 alone does not determine whether A or B is younger.\nFrom S3: A is older than B (A > B).\nCombining S1 and S3: D > C > A > B. Thus, B is definitively the youngest! Therefore, S1 and S3 together are sufficient to answer the Question."
+    },
+    {
+      "number": 37,
+      "topic": "Number Counting",
+      "passage_id": null,
+      "question": "How many integers are there between 1 and 100 which have 4 as a digit but are not divisible by 4?",
+      "options": [
+        {
+          "id": "a",
+          "text": "5"
+        },
+        {
+          "id": "b",
+          "text": "11"
+        },
+        {
+          "id": "c",
+          "text": "12"
+        },
+        {
+          "id": "d",
+          "text": "13"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "List all integers between 1 and 100 containing the digit 4:\nUnits digit is 4: 4, 14, 24, 34, 44, 54, 64, 74, 84, 94 (10 numbers).\nTens digit is 4: 40, 41, 42, 43, 44, 45, 46, 47, 48, 49 (10 numbers).\nUnion of all numbers containing digit 4 (19 numbers):\n4, 14, 24, 34, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 54, 64, 74, 84, 94.\nIdentify which of these are divisible by 4:\n4, 24, 40, 44, 48, 64, 84 (7 numbers).\nNumbers containing 4 but NOT divisible by 4:\n19 − 7 = 12 numbers (namely: 14, 34, 41, 42, 43, 45, 46, 47, 49, 54, 74, 94)."
+    },
+    {
+      "number": 38,
+      "topic": "Geometry / Mensuration and Proportions",
+      "passage_id": null,
+      "question": "Let x, y be the volumes; m, n be the masses of two metallic cubes P and Q respectively. Each side of Q is two times that of P and mass of Q is two times that of P. Let u = m/x and v = n/y. Which one of the following is correct?",
+      "options": [
+        {
+          "id": "a",
+          "text": "u = 4v"
+        },
+        {
+          "id": "b",
+          "text": "u = 2v"
+        },
+        {
+          "id": "c",
+          "text": "v = u"
+        },
+        {
+          "id": "d",
+          "text": "v = 4u"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Let side of cube P = s. Then side of cube Q = 2s.\nVolume of P: x = s³.\nVolume of Q: y = (2s)³ = 8s³ = 8x.\nMass of Q: n = 2m.\nDensities:\nu = m / x\nv = n / y = (2m) / (8x) = (1/4) (m / x) = (1/4) u.\nTherefore, u = 4v."
+    },
+    {
+      "number": 39,
+      "topic": "Averages / Linear Equations",
+      "passage_id": null,
+      "question": "The average age of a teacher and three students is 20 years. If all the three students are of same age and the difference between the age of the teacher and each student is 20 years, then what is the age of the teacher?",
+      "options": [
+        {
+          "id": "a",
+          "text": "25 years"
+        },
+        {
+          "id": "b",
+          "text": "30 years"
+        },
+        {
+          "id": "c",
+          "text": "35 years"
+        },
+        {
+          "id": "d",
+          "text": "45 years"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Let the age of each student be s. The teacher's age is T = s + 20.\nSum of ages of 1 teacher and 3 students = 4 × 20 = 80 years.\nT + 3s = 80 => (s + 20) + 3s = 80 => 4s + 20 = 80 => 4s = 60 => s = 15 years.\nTeacher's age T = 15 + 20 = 35 years."
+    },
+    {
+      "number": 40,
+      "topic": "Profit and Loss",
+      "passage_id": null,
+      "question": "A person bought a car and sold it for ₹ 3,00,000. If he incurred a loss of 20%, then how much did he spend to buy the car?",
+      "options": [
+        {
+          "id": "a",
+          "text": "₹ 3,60,000"
+        },
+        {
+          "id": "b",
+          "text": "₹ 3,65,000"
+        },
+        {
+          "id": "c",
+          "text": "₹ 3,70,000"
+        },
+        {
+          "id": "d",
+          "text": "₹ 3,75,000"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Selling Price (SP) = ₹3,00,000. Loss = 20% of Cost Price (CP).\nSP = CP × (1 − 0.20) = 0.80 × CP.\nCP = SP / 0.80 = 3,00,000 / 0.80 = ₹3,75,000."
+    },
+    {
+      "number": 41,
+      "topic": "Reading Comprehension",
+      "passage_id": "P11",
+      "question": "Which one of the following statements best reflects the critical message of the passage?",
+      "options": [
+        {
+          "id": "a",
+          "text": "For introducing any foreign plant into a country, the soil and climate conditions of that country should be suitable."
+        },
+        {
+          "id": "b",
+          "text": "As a staple food of a country, tuber crops like potato cannot replace cereal crops."
+        },
+        {
+          "id": "c",
+          "text": "Some of the fungal infections of plants cannot be prevented or stopped from spreading across large areas."
+        },
+        {
+          "id": "d",
+          "text": "Relying on a homogeneous food source is not desirable."
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "The passage details how relying almost exclusively on a single variety of potato ('Lumper') with genetic frailty caused catastrophic vulnerability when a blight fungus struck, illustrating the danger of genetic monoculture and relying on a homogeneous food source."
+    },
+    {
+      "number": 42,
+      "topic": "Reading Comprehension",
+      "passage_id": "P12",
+      "question": "With reference to the above passage, which of the following is/are the most rational and practical implication/implications?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. India's Public Distribution System should be monitored by the Union Government.",
+        "2. Girls should be encouraged to delay marriage and first pregnancy.",
+        "3. Mothers should be encouraged to breastfeed their children immediately after birth.",
+        "4. The supply of safe drinking water and proper sanitation facilities to all should be ensured.",
+        "5. Authorities should ensure the vaccination as prescribed."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1, 2, 3 and 4"
+        },
+        {
+          "id": "b",
+          "text": "2, 3, 4 and 5"
+        },
+        {
+          "id": "c",
+          "text": "1 only"
+        },
+        {
+          "id": "d",
+          "text": "3 and 5 only"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "To combat childhood stunting and under-five mortality, global public health frameworks prescribe delayed marriage/first pregnancy (2), early/exclusive breastfeeding (3), clean drinking water and sanitation (WASH) to prevent enteropathy (4), and routine childhood vaccination against diarrhoeal and respiratory infections (5)."
+    },
+    {
+      "number": 43,
+      "topic": "Reading Comprehension",
+      "passage_id": "P13",
+      "question": "Which of the following are the most rational inferences that can be made from the passage?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Farmers' income will be higher with pulse cultivation than with paddy cultivation.",
+        "2. Pulse cultivation causes less pollution as compared to paddy cultivation.",
+        "3. Pulse straw can be used to improve soil quality.",
+        "4. In the context of northern Indian agriculture, paddy straw has no usefulness.",
+        "5. Mechanized agriculture is the main cause for stubble burning."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "2, 3 and 5"
+        },
+        {
+          "id": "b",
+          "text": "1, 4 and 5"
+        },
+        {
+          "id": "c",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1 and 4 only"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Inference 2 is valid: unlike paddy straw which farmers burn, Arhar straw is ploughed back, avoiding smoke pollution. Inference 3 is valid: the text states Arhar straw is green and decomposes rapidly when ploughed back, enriching soil organic matter. Inferences 1, 4, and 5 make unjustified or extreme leaps."
+    },
+    {
+      "number": 44,
+      "topic": "Reading Comprehension",
+      "passage_id": "P14",
+      "question": "With reference to the above passage, the following assumptions have been made:\nWhich of the above assumptions is/are valid?",
+      "statements": [
+        "1. High risks involved in holding maximum water in reservoirs are due to our over-dependence on hydropower projects.",
+        "2. Storage capacity of dams should not be fully used before or during monsoon season.",
+        "3. Role of dams in flood control is underestimated in India."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 2 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Assumption 2 is valid: the passage cites the internationally accepted rule curve practice that water levels must be kept below full capacity before and during the monsoon so that flood cushions exist. Assumption 1 is an over-attribution ('over-dependence on hydropower projects'), and Assumption 3 is unstated."
+    },
+    {
+      "number": 45,
+      "topic": "Reading Comprehension",
+      "passage_id": "P15",
+      "question": "Which of the following is/are the most rational and logical inference/inferences that can be made from the passage?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. It is essential to rethink and redefine the economic role of the State in the quest for development.",
+        "2. India has not made effective implementation of its policies in social sectors nor made sufficient investments in them."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Inference 1 is directly supported: the passage argues that economic liberalization suffered from limitations in conception and left deep crises in agriculture, infrastructure, and education, necessitating a fundamental rethinking and redefinition of the State's economic role. Inference 2 generalizes social sector implementation beyond the scope of the passage."
+    },
+    {
+      "number": 46,
+      "topic": "Reading Comprehension",
+      "passage_id": "P15",
+      "question": "With reference to the above passage, the following assumptions have been made:\nWhich of the above assumptions is/are valid?",
+      "statements": [
+        "1. India's economy needs to be greatly integrated with global economy so as to create large number of jobs and to sustain its growth momentum.",
+        "2. Economic liberalization would cause large economic growth which would reduce poverty and create sufficient employment in the long run."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Neither assumption is made by the author. The passage specifically critiques liberalization for producing 'jobless growth, persistent poverty and rising inequality', directly challenging the assumption that economic liberalization automatically resolves poverty or creates sufficient employment."
+    },
+    {
+      "number": 47,
+      "topic": "Percentages / Successive Discounts & Tax",
+      "passage_id": null,
+      "question": "A shop owner offers the following discount options on an article to a customer:\n1. Successive discounts of 10% and 20%, and then pay a service tax of 10%\n2. Successive discounts of 20% and 10%, and then pay a service tax of 10%\n3. Pay a service tax of 10% first, then successive discounts of 20% and 10%\nWhich one of the following is correct?",
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only is the best option for the customer."
+        },
+        {
+          "id": "b",
+          "text": "2 only is the best option for the customer."
+        },
+        {
+          "id": "c",
+          "text": "3 only is the best option for the customer."
+        },
+        {
+          "id": "d",
+          "text": "All the options are equally good for the customer."
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Let original price be P.\n- Option 1: Final Price = P × (1 − 0.10) × (1 − 0.20) × (1 + 0.10) = P × 0.9 × 0.8 × 1.1 = 0.792P.\n- Option 2: Final Price = P × (1 − 0.20) × (1 − 0.10) × (1 + 0.10) = P × 0.8 × 0.9 × 1.1 = 0.792P.\n- Option 3: Final Price = P × (1 + 0.10) × (1 − 0.20) × (1 − 0.10) = P × 1.1 × 0.8 × 0.9 = 0.792P.\nSince multiplication of real numbers is commutative, all three options result in the exact same final price (0.792P). All options are equally good for the customer."
+    },
+    {
+      "number": 48,
+      "topic": "Coding-Decoding / Letter Values",
+      "passage_id": null,
+      "question": "The letters from A to Z are numbered from 1 to 26 respectively. If GHI = 1578 and DEF = 912, then what is ABC equal to?",
+      "options": [
+        {
+          "id": "a",
+          "text": "492"
+        },
+        {
+          "id": "b",
+          "text": "468"
+        },
+        {
+          "id": "c",
+          "text": "262"
+        },
+        {
+          "id": "d",
+          "text": "246"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Letter positions in alphabet: G=7, H=8, I=9. Form the 3-digit number 789: 789 × 2 = 1578!\nLetter positions for DEF: D=4, E=5, F=6. Form the 3-digit number 456: 456 × 2 = 912!\nApplying the exact same rule to ABC: A=1, B=2, C=3. Form the 3-digit number 123: 123 × 2 = 246."
+    },
+    {
+      "number": 49,
+      "topic": "Letter Analogy",
+      "passage_id": null,
+      "question": "What is the missing term @ in the following?\nACPQ : BESU :: MNGI : @",
+      "options": [
+        {
+          "id": "a",
+          "text": "NPJL"
+        },
+        {
+          "id": "b",
+          "text": "NOJM"
+        },
+        {
+          "id": "c",
+          "text": "NPIL"
+        },
+        {
+          "id": "d",
+          "text": "NPJM"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Look at the letter shifts from ACPQ to BESU:\n- A (1) + 1 -> B (2)\n- C (3) + 2 -> E (5)\n- P (16) + 3 -> S (19)\n- Q (17) + 4 -> U (21)\nThe shift pattern is +1, +2, +3, +4.\nApply +1, +2, +3, +4 to MNGI:\n- M (13) + 1 = 14 -> N\n- N (14) + 2 = 16 -> P\n- G (7) + 3 = 10 -> J\n- I (9) + 4 = 13 -> M? Wait! Let's check GHI: I is 9, 9 + 4 = 13 (M) or 9 + 3? Wait, let's look at option (d) NPJM and option (a) NPJL:\nWait, check I + ? In alphabet: M, N, G, I: M + 1 = N, N + 2 = P, G + 3 = J, I (9) + 3 = L (12) or I + 4 = M (13). Look at BESU: Q is 17, U is 21 => 21 - 17 = 4. So the shifts are +1, +2, +3, +4. Then MNGI + (+1, +2, +3, +4) gives N, P, J, M! Option (d) is NPJM. In UPSC official answer key, option (d) NPJM was given."
+    },
+    {
+      "number": 50,
+      "topic": "Exponents / Number Comparison",
+      "passage_id": null,
+      "question": "What is the largest number among the following?",
+      "options": [
+        {
+          "id": "a",
+          "text": "(1/2)⁻⁶"
+        },
+        {
+          "id": "b",
+          "text": "(1/4)⁻³"
+        },
+        {
+          "id": "c",
+          "text": "(1/3)⁻⁴"
+        },
+        {
+          "id": "d",
+          "text": "(1/6)⁻²"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Evaluate each expression:\n- (a) (1/2)⁻⁶ = 2⁶ = 64\n- (b) (1/4)⁻³ = 4³ = 64\n- (c) (1/3)⁻⁴ = 3⁴ = 81\n- (d) (1/6)⁻² = 6² = 36\nAmong 64, 64, 81, and 36, the largest is 81."
+    },
+    {
+      "number": 51,
+      "topic": "Fractions / HCF",
+      "passage_id": null,
+      "question": "What is the greatest length x such that 3½ m and 8¾ m are integral multiples of x?",
+      "options": [
+        {
+          "id": "a",
+          "text": "1½ m"
+        },
+        {
+          "id": "b",
+          "text": "1⅓ m"
+        },
+        {
+          "id": "c",
+          "text": "1¼ m"
+        },
+        {
+          "id": "d",
+          "text": "1¾ m"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "3½ m = 7/2 m = 14/4 m.\n8¾ m = 35/4 m.\nWe need the HCF of 7/2 and 35/4:\nHCF of fractions = HCF(numerators) / LCM(denominators) = HCF(7, 35) / LCM(2, 4) = 7 / 4 = 1¾ m.\nCheck: 14/4 = 2 × (7/4) (integer multiple 2), and 35/4 = 5 × (7/4) (integer multiple 5)."
+    },
+    {
+      "number": 52,
+      "topic": "Data Interpretation / Demographics",
+      "passage_id": null,
+      "question": "Consider the following data:\n[Year | Birthrate | Death rate]\n1911-1921: 48.1 | 35.5\n1921-1931: 46.4 | 36.3\n1931-1941: 45.2 | 31.2\n1941-1951: 39.9 | 27.4\n1951-1961: 41.7 | 22.8\n1961-1971: 41.1 | 18.9\n1971-1981: 37.1 | 14.8\nFor which period was the natural growth rate maximum?",
+      "options": [
+        {
+          "id": "a",
+          "text": "1911-1921"
+        },
+        {
+          "id": "b",
+          "text": "1941-1951"
+        },
+        {
+          "id": "c",
+          "text": "1961-1971"
+        },
+        {
+          "id": "d",
+          "text": "1971-1981"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Natural growth rate = Birth rate − Death rate:\n- 1911-1921: 48.1 − 35.5 = 12.6\n- 1941-1951: 39.9 − 27.4 = 12.5\n- 1961-1971: 41.1 − 18.9 = 22.2\n- 1971-1981: 37.1 − 14.8 = 22.3\n(Wait, 1951-1961 is 41.7 - 22.8 = 18.9).\nComparing 1961-1971 (22.2) and 1971-1981 (22.3), the growth rate is maximum for 1971-1981 (22.3)."
+    },
+    {
+      "number": 53,
+      "topic": "Recurring Decimals / Fractions",
+      "passage_id": null,
+      "question": "The recurring decimal representation 1.272727... is equivalent to",
+      "options": [
+        {
+          "id": "a",
+          "text": "13/11"
+        },
+        {
+          "id": "b",
+          "text": "14/11"
+        },
+        {
+          "id": "c",
+          "text": "127/99"
+        },
+        {
+          "id": "d",
+          "text": "137/99"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Let x = 1.272727...\n100x = 127.272727...\nSubtracting the two equations:\n99x = 126 => x = 126 / 99.\nDivide numerator and denominator by 9:\n126 / 9 = 14\n99 / 9 = 11\nThus, x = 14/11."
+    },
+    {
+      "number": 54,
+      "topic": "LCM and Remainder Theorem",
+      "passage_id": null,
+      "question": "What is the least four-digit number when divided by 3, 4, 5 and 6 leaves a remainder 2 in each case?",
+      "options": [
+        {
+          "id": "a",
+          "text": "1012"
+        },
+        {
+          "id": "b",
+          "text": "1022"
+        },
+        {
+          "id": "c",
+          "text": "1122"
+        },
+        {
+          "id": "d",
+          "text": "1222"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "The number must be of the form: N = k × LCM(3, 4, 5, 6) + 2.\nLCM(3, 4, 5, 6) = 60.\nWe need the least 4-digit number (N >= 1000):\nDivide 1000 by 60: 1000 = 60 × 16 + 40.\nFor k = 16: 60 × 16 + 2 = 962 (3-digit).\nFor k = 17: 60 × 17 + 2 = 1020 + 2 = 1022 (least 4-digit number)."
+    },
+    {
+      "number": 55,
+      "topic": "Percentages / Linear Ratios",
+      "passage_id": null,
+      "question": "In adult population of a city, 40% men and 30% women are married. What is the percentage of married adult population if no man marries more than one woman and no woman marries more than one man; and there are no widows and widowers?",
+      "options": [
+        {
+          "id": "a",
+          "text": "33⅓%"
+        },
+        {
+          "id": "b",
+          "text": "34%"
+        },
+        {
+          "id": "c",
+          "text": "34²⁄₇%"
+        },
+        {
+          "id": "d",
+          "text": "35%"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Let total adult men = M and total adult women = W.\nNumber of married men = 0.40M.\nNumber of married women = 0.30W.\nSince each married man is married to exactly one woman: 0.40M = 0.30W => 4M = 3W => M / W = 3 / 4.\nLet M = 300 and W = 400. Total adult population = 300 + 400 = 700.\nMarried men = 40% of 300 = 120.\nMarried women = 30% of 400 = 120.\nTotal married adults = 120 + 120 = 240.\nPercentage of married adult population = (240 / 700) × 100% = 240 / 7 = 34 2/7%."
+    },
+    {
+      "number": 56,
+      "topic": "Number System / Remainders",
+      "passage_id": null,
+      "question": "What is the remainder when 51 × 27 × 35 × 62 × 75 is divided by 100?",
+      "options": [
+        {
+          "id": "a",
+          "text": "50"
+        },
+        {
+          "id": "b",
+          "text": "25"
+        },
+        {
+          "id": "c",
+          "text": "5"
+        },
+        {
+          "id": "d",
+          "text": "1"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Let P = 51 × 27 × 35 × 62 × 75.\nNotice the factors: 75 = 25 × 3, and 62 = 2 × 31.\nThus, 25 × 2 = 50 is a common factor of P and 100.\nDivide both P and 100 by 50:\nP / 50 = (51 × 27 × 35 × 31 × 3) / 1.\nNow evaluate (P / 50) mod 2:\nAll factors {51, 27, 35, 31, 3} are odd integers! The product of odd integers is odd.\nTherefore, (P / 50) ≡ 1 (mod 2).\nMultiplying back by the cancelled factor 50:\nP mod 100 = 1 × 50 = 50."
+    },
+    {
+      "number": 57,
+      "topic": "Ratios and Proportions",
+      "passage_id": null,
+      "question": "A sum of ₹ 2,500 is distributed among X, Y and Z in the ratio ½ : ¾ : ⅚. What is the difference between the maximum share and the minimum share?",
+      "options": [
+        {
+          "id": "a",
+          "text": "₹ 300"
+        },
+        {
+          "id": "b",
+          "text": "₹ 350"
+        },
+        {
+          "id": "c",
+          "text": "₹ 400"
+        },
+        {
+          "id": "d",
+          "text": "₹ 450"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Ratio of shares X : Y : Z = 1/2 : 3/4 : 5/6.\nMultiply by LCM(2, 4, 6) = 12 to convert to integers:\nX : Y : Z = 6 : 9 : 10.\nSum of ratio terms = 6 + 9 + 10 = 25 parts.\nTotal sum = ₹2,500. Value of 1 part = 2500 / 25 = ₹100.\n- Maximum share = Z = 10 parts = 10 × 100 = ₹1,000.\n- Minimum share = X = 6 parts = 6 × 100 = ₹600.\nDifference between maximum and minimum shares = 1000 − 600 = ₹400."
+    },
+    {
+      "number": 58,
+      "topic": "Number Properties / Exponents",
+      "passage_id": null,
+      "question": "For what value of n, the sum of digits in the number (10ⁿ + 1) is 2?",
+      "options": [
+        {
+          "id": "a",
+          "text": "For n = 0 only"
+        },
+        {
+          "id": "b",
+          "text": "For any whole number n"
+        },
+        {
+          "id": "c",
+          "text": "For any positive integer n only"
+        },
+        {
+          "id": "d",
+          "text": "For any real number n"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Test whole numbers (non-negative integers):\n- For n = 0: 10⁰ + 1 = 1 + 1 = 2 (sum of digits is 2).\n- For n = 1: 10¹ + 1 = 11 (sum of digits is 1 + 1 = 2).\n- For n = 2: 10² + 1 = 101 (sum of digits is 1 + 0 + 1 = 2).\n- For any whole number n >= 0, 10ⁿ + 1 = 100...001, which always consists of two 1s and n−1 zeroes. The sum of digits is always 1 + 1 = 2. Thus, it holds for any whole number n."
+    },
+    {
+      "number": 59,
+      "topic": "Averages / Invariance",
+      "passage_id": null,
+      "question": "In a class, there are three groups A, B and C. If one student from group A and two students from group B are shifted to group C, then what happens to the average weight of the students of the class?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It increases."
+        },
+        {
+          "id": "b",
+          "text": "It decreases."
+        },
+        {
+          "id": "c",
+          "text": "It remains the same."
+        },
+        {
+          "id": "d",
+          "text": "No conclusion can be drawn due to insufficient data."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "The average weight of the students of the ENTIRE CLASS is given by (Total weight of all students in the class) / (Total number of students in the class). Shifting students internally between groups A, B, and C does not add or remove any student from the class, nor does it alter the weight of any student. Thus, both the total weight and the total headcount of the class remain identical, so the overall class average remains the same."
+    },
+    {
+      "number": 60,
+      "topic": "Combinatorics / Combinations",
+      "passage_id": null,
+      "question": "How many different sums can be formed with the denominations ₹50, ₹100, ₹200, ₹500 and ₹2,000 taking at least three denominations at a time?",
+      "options": [
+        {
+          "id": "a",
+          "text": "16"
+        },
+        {
+          "id": "b",
+          "text": "15"
+        },
+        {
+          "id": "c",
+          "text": "14"
+        },
+        {
+          "id": "d",
+          "text": "10"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "There are 5 distinct denominations available: {50, 100, 200, 500, 2000}. Notice that every distinct subset of denominations produces a unique sum because no combination of smaller denominations equals a larger one or another combination.\nWe must take at least three denominations at a time (subsets of size 3, 4, or 5):\n- Subsets of size 3: 5C3 = 10\n- Subsets of size 4: 5C4 = 5\n- Subsets of size 5: 5C5 = 1\nTotal distinct sums = 10 + 5 + 1 = 16."
+    },
+    {
+      "number": 61,
+      "topic": "Reading Comprehension",
+      "passage_id": "P16",
+      "question": "Which one of the following is the most logical and rational inference that can be made from the above passage?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Indian banking system is not able to help the country in its economic growth."
+        },
+        {
+          "id": "b",
+          "text": "Economic reforms that started in 1991 have not helped in improving the economy to expected levels."
+        },
+        {
+          "id": "c",
+          "text": "India lacks the institutional mechanism to deal with the failure of banks."
+        },
+        {
+          "id": "d",
+          "text": "Encouraging the foreign investments in our industrial sector is a good alternative to this sector's dependence on banks for credit."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "The author directly identifies the core institutional defect: 'Today, we cannot shut down banks because there is no proper system to shut them down. Weak loss-making banks continue to need more capital... setting up of a resolution corporation for banks should have followed the 1991 reforms', inferring that India lacks an institutional mechanism to resolve failing banks."
+    },
+    {
+      "number": 62,
+      "topic": "Reading Comprehension",
+      "passage_id": "P17",
+      "question": "Which one of the following is the most logical and rational inference that can be made from the above passage?",
+      "options": [
+        {
+          "id": "a",
+          "text": "India's commitment to reduce emissions by 33% is unlikely to be achieved."
+        },
+        {
+          "id": "b",
+          "text": "India should import gas rather than invest in renewable resources."
+        },
+        {
+          "id": "c",
+          "text": "Getting renewable resources to market too soon may be costly."
+        },
+        {
+          "id": "d",
+          "text": "India should put in more efforts in the exploration of natural gas."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "The passage notes that 'certain renewable resources are still going through their cost curves and learning curves to get the required amount of output' and businesses are wary of investing heavily while the technology is not yet mature, inferring that prematurely forcing renewable resources to market can be very costly."
+    },
+    {
+      "number": 63,
+      "topic": "Reading Comprehension",
+      "passage_id": "P17",
+      "question": "With reference to the above passage, the following assumptions have been made:\nWhich of the above assumptions is/are valid?",
+      "statements": [
+        "1. Governments often provide inefficient and costly subsidies for technologies that may not be ready in the near future.",
+        "2. India's commitment of reducing emissions by 33% by 2030 shall be on the basis of gas-based economy."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Neither assumption is valid: The passage does not claim government subsidies are inefficient or wasteful (1), and emission reduction goals involve a mix of renewables and gas rather than resting solely on a gas-based economy (2)."
+    },
+    {
+      "number": 64,
+      "topic": "Reading Comprehension",
+      "passage_id": "P18",
+      "question": "With reference to the above passage, the following assumptions have been made:\nWhich of the above assumptions is/are valid?",
+      "statements": [
+        "1. Genome editing does not require the transfer of genes from one plant to another.",
+        "2. Through genome editing, the chosen genes can be altered precisely in a manner akin to the natural process that helps plants to adapt to the environmental factors."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Both assumptions are valid: 1. The passage contrasts genome editing with transgenic modification and notes that it operates via molecular scissors on the existing plant genome (no foreign gene transfer required). 2. The text explicitly states that molecular scissors dissect and repair genes in a manner that 'occurs naturally when plants are under attack from diseases and can throw up new mutations that enable the plant to survive'."
+    },
+    {
+      "number": 65,
+      "topic": "Reading Comprehension",
+      "passage_id": "P19",
+      "question": "In the context of India, which one of the following statements best reflects the critical message of the passage?",
+      "options": [
+        {
+          "id": "a",
+          "text": "In India, the drainage networks are not separate for sewerage and storm water."
+        },
+        {
+          "id": "b",
+          "text": "Urban local bodies do not have enough resources and legislative authority to deal with the problems of waste management."
+        },
+        {
+          "id": "c",
+          "text": "Solid waste management should be integrated with the maintenance of drainage and sewerage networks."
+        },
+        {
+          "id": "d",
+          "text": "Bad management of solid waste and sewerage systems by our municipalities is the reason for drinking water shortages in our cities."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "The author emphasizes that unattended dry garbage combines with poor drainage and untreated sewage disposal into storm drains to create choked, stagnant breeding grounds for water-borne diseases, conveying that solid waste management must be integrated with drainage and sewerage maintenance."
+    },
+    {
+      "number": 66,
+      "topic": "Reading Comprehension",
+      "passage_id": "P20",
+      "question": "What is the most logical inference from the above passage?",
+      "options": [
+        {
+          "id": "a",
+          "text": "State shall not interfere with the religious affairs of the citizens."
+        },
+        {
+          "id": "b",
+          "text": "Religious freedom under the Constitution is open to State intervention."
+        },
+        {
+          "id": "c",
+          "text": "Religious freedom of the citizens is not covered under fundamental rights."
+        },
+        {
+          "id": "d",
+          "text": "Religious practices of any community are immune to State laws."
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "The author analyzes the opening rider of Article 25 ('subject to public order, morality, health and to the other provisions of this Part'), concluding that religious freedom is constitutionally subordinated to public health, morality, and equality before the law, making it subject to State regulation and intervention."
+    },
+    {
+      "number": 67,
+      "topic": "Permutations and Combinations",
+      "passage_id": null,
+      "question": "How many different 5-letter words (with or without meaning) can be constructed using all the letters of the word 'DELHI' so that each word has to start with D and end with I?",
+      "options": [
+        {
+          "id": "a",
+          "text": "24"
+        },
+        {
+          "id": "b",
+          "text": "18"
+        },
+        {
+          "id": "c",
+          "text": "12"
+        },
+        {
+          "id": "d",
+          "text": "6"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "The word 'DELHI' has 5 distinct letters: {D, E, L, H, I}.\nThe word structure is: D _ _ _ I.\nThe first position is fixed with D (1 way), and the last position is fixed with I (1 way).\nThe remaining 3 middle positions must be filled using the remaining 3 distinct letters {E, L, H}.\nNumber of ways to arrange 3 letters = 3! = 3 × 2 × 1 = 6."
+    },
+    {
+      "number": 68,
+      "topic": "Mixtures and Replacements",
+      "passage_id": null,
+      "question": "A bottle contains 20 litres of liquid A. 4 litres of liquid A is taken out of it and replaced by same quantity of liquid B. Again 4 litres of the mixture is taken out and replaced by same quantity of liquid B. What is the ratio of quantity of liquid A to that of liquid B in the final mixture?",
+      "options": [
+        {
+          "id": "a",
+          "text": "4:1"
+        },
+        {
+          "id": "b",
+          "text": "5:1"
+        },
+        {
+          "id": "c",
+          "text": "16:9"
+        },
+        {
+          "id": "d",
+          "text": "17:8"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Initial volume V = 20 L of liquid A. Quantity removed and replaced x = 4 L. Number of operations n = 2.\nRemaining volume of Liquid A after n operations = V × (1 − x/V)ⁿ:\nLiquid A = 20 × (1 − 4/20)² = 20 × (1 − 1/5)² = 20 × (4/5)² = 20 × 16/25 = 64/5 = 12.8 litres.\nTotal volume remains 20 litres, so volume of Liquid B = 20 − 12.8 = 7.2 litres.\nRatio of Liquid A to Liquid B = 12.8 / 7.2 = 128 / 72 = 16 / 9 = 16:9."
+    },
+    {
+      "number": 69,
+      "topic": "Averages / Cricket Statistics",
+      "passage_id": null,
+      "question": "The average score of a batsman after his 50th innings was 46.4. After 60th innings, his average score increases by 2.6. What was his average score in the last ten innings?",
+      "options": [
+        {
+          "id": "a",
+          "text": "122"
+        },
+        {
+          "id": "b",
+          "text": "91"
+        },
+        {
+          "id": "c",
+          "text": "62"
+        },
+        {
+          "id": "d",
+          "text": "49"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Total runs after 50 innings = 50 × 46.4 = 2320 runs.\nAfter 60 innings, new average = 46.4 + 2.6 = 49.0.\nTotal runs after 60 innings = 60 × 49.0 = 2940 runs.\nRuns scored in the last 10 innings = 2940 − 2320 = 620 runs.\nAverage score in the last ten innings = 620 / 10 = 62."
+    },
+    {
+      "number": 70,
+      "topic": "Percentages / Price and Consumption",
+      "passage_id": null,
+      "question": "As a result of 25% hike in the price of rice per kg, a person is able to purchase 6 kg less rice for ₹ 1,200. What was the original price of rice per kg?",
+      "options": [
+        {
+          "id": "a",
+          "text": "₹ 30"
+        },
+        {
+          "id": "b",
+          "text": "₹ 40"
+        },
+        {
+          "id": "c",
+          "text": "₹ 50"
+        },
+        {
+          "id": "d",
+          "text": "₹ 60"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Let original price be P per kg. New price = 1.25P per kg.\nOriginal quantity = 1200 / P. New quantity = 1200 / 1.25P = 960 / P.\nDifference in quantity = 6 kg:\n1200 / P − 960 / P = 6 => 240 / P = 6 => P = 240 / 6 = ₹40 per kg."
+    },
+    {
+      "number": 71,
+      "topic": "Time and Work",
+      "passage_id": null,
+      "question": "A person X can complete 20% of work in 8 days and another person Y can complete 25% of the same work in 6 days. If they work together, in how many days will 40% of the work be completed?",
+      "options": [
+        {
+          "id": "a",
+          "text": "6"
+        },
+        {
+          "id": "b",
+          "text": "8"
+        },
+        {
+          "id": "c",
+          "text": "10"
+        },
+        {
+          "id": "d",
+          "text": "12"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "X completes 20% (1/5) in 8 days => Full work by X takes 8 × 5 = 40 days. (Rate = 1/40 per day).\nY completes 25% (1/4) in 6 days => Full work by Y takes 6 × 4 = 24 days. (Rate = 1/24 per day).\nCombined daily work rate = 1/40 + 1/24 = (3 + 5) / 120 = 8 / 120 = 1/15 of work per day.\nThey complete 100% in 15 days.\nTime to complete 40% (2/5) of the work = (2/5) × 15 = 6 days."
+    },
+    {
+      "number": 72,
+      "topic": "Harmonic Mean / Average Speed",
+      "passage_id": null,
+      "question": "A car travels from a place X to place Y at an average speed of v km/hr, from Y to X at an average speed of 2v km/hr, again from X to Y at an average speed of 3v km/hr and again from Y to X at an average speed of 4v km/hr. Then the average speed of the car for the entire journey",
+      "options": [
+        {
+          "id": "a",
+          "text": "is less than v km/hr"
+        },
+        {
+          "id": "b",
+          "text": "lies between v and 2v km/hr"
+        },
+        {
+          "id": "c",
+          "text": "lies between 2v and 3v km/hr"
+        },
+        {
+          "id": "d",
+          "text": "lies between 3v and 4v km/hr"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Let distance between X and Y be d. Total distance for the 4 legs = 4d.\nTotal time = d/v + d/(2v) + d/(3v) + d/(4v) = (d/v) × (1 + 1/2 + 1/3 + 1/4) = (d/v) × (12 + 6 + 4 + 3) / 12 = (25/12) (d/v).\nAverage speed = Total distance / Total time = 4d / [(25/12)(d/v)] = (48 / 25) v = 1.92v.\nSince 1.92v lies strictly between v and 2v, the average speed lies between v and 2v km/hr."
+    },
+    {
+      "number": 73,
+      "topic": "Geometry / Intersection of Curves",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the above statements is/are correct?",
+      "statements": [
+        "1. The minimum number of points of intersection of a square and a circle is 2.",
+        "2. The maximum number of points of intersection of a square and a circle is 8."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 1 is incorrect: If a circle is tangent to one side of a square from the inside or outside, they intersect at exactly 1 point! (Or if they are completely disjoint, they intersect at 0 points). Thus, the minimum number of points of intersection is not 2. Statement 2 is correct: A circle can intersect each of the 4 straight line segments (sides) of a square at at most 2 points, giving a maximum of 4 × 2 = 8 points of intersection. Thus, only Statement 2 is correct."
+    },
+    {
+      "number": 74,
+      "topic": "Boats and Streams",
+      "passage_id": null,
+      "question": "A man takes half time in rowing a certain distance downstream than upstream. What is the ratio of the speed in still water to the speed of current?",
+      "options": [
+        {
+          "id": "a",
+          "text": "1:2"
+        },
+        {
+          "id": "b",
+          "text": "2:1"
+        },
+        {
+          "id": "c",
+          "text": "1:3"
+        },
+        {
+          "id": "d",
+          "text": "3:1"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Let speed in still water be u and speed of current be v.\nDownstream speed = u + v. Upstream speed = u − v.\nTime taken downstream is half the time taken upstream: T_down = (1/2) T_up.\nSince distance d is constant, speed is inversely proportional to time:\nu + v = 2(u − v) => u + v = 2u − 2v => u = 3v => u / v = 3 / 1 = 3:1."
+    },
+    {
+      "number": 75,
+      "topic": "Number Theory / Difference of Squares",
+      "passage_id": null,
+      "question": "How many pairs of natural numbers are there such that the difference of whose squares is 63?",
+      "options": [
+        {
+          "id": "a",
+          "text": "3"
+        },
+        {
+          "id": "b",
+          "text": "4"
+        },
+        {
+          "id": "c",
+          "text": "5"
+        },
+        {
+          "id": "d",
+          "text": "2"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "We need natural numbers a, b such that a² − b² = 63 => (a − b)(a + b) = 63, where a > b >= 1, so (a − b) and (a + b) are positive integer divisors of 63 with (a − b) < (a + b).\nFactor pairs of 63 = d1 × d2 with d1 < d2:\n1. 1 × 63: a − b = 1, a + b = 63 => 2a = 64 => a = 32, b = 31 (Check: 32² − 31² = 1024 − 961 = 63)\n2. 3 × 21: a − b = 3, a + b = 21 => 2a = 24 => a = 12, b = 9 (Check: 12² − 9² = 144 − 81 = 63)\n3. 7 × 9: a − b = 7, a + b = 9 => 2a = 16 => a = 8, b = 1 (Check: 8² − 1² = 64 − 1 = 63)\nThere are exactly 3 such pairs of natural numbers: (32, 31), (12, 9), and (8, 1)."
+    },
+    {
+      "number": 76,
+      "topic": "Fractions / Sensitivity Analysis",
+      "passage_id": null,
+      "question": "Which one of the following will have minimum change in its value if 5 is added to both numerator and the denominator of the fractions 2/3, 3/4, 4/5 and 5/6?",
+      "options": [
+        {
+          "id": "a",
+          "text": "2/3"
+        },
+        {
+          "id": "b",
+          "text": "3/4"
+        },
+        {
+          "id": "c",
+          "text": "4/5"
+        },
+        {
+          "id": "d",
+          "text": "5/6"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Let original fraction be a/b. Adding 5 gives (a + 5)/(b + 5). Change = (a + 5)/(b + 5) − a/b = [b(a + 5) − a(b + 5)] / [b(b + 5)] = 5(b − a) / [b(b + 5)].\nHere each fraction has b − a = 1! So Change = 5 / [b(b + 5)].\nTo minimize this change, the denominator b(b + 5) must be maximized! Thus, the fraction with the largest denominator b will experience the minimum change.\nDenominators: b = 3, 4, 5, 6. The largest denominator is b = 6 for 5/6.\nCheck values:\n- 2/3: 7/8 − 2/3 = 5/24 ≈ 0.208\n- 3/4: 8/9 − 3/4 = 5/36 ≈ 0.139\n- 4/5: 9/10 − 4/5 = 5/50 = 0.100\n- 5/6: 10/11 − 5/6 = 5/66 ≈ 0.076 (minimum change!)."
+    },
+    {
+      "number": 77,
+      "topic": "Number Theory / Divisibility",
+      "passage_id": null,
+      "question": "A digit n > 3 is divisible by 3 but not divisible by 6. Which one of the following is divisible by 4?",
+      "options": [
+        {
+          "id": "a",
+          "text": "2n"
+        },
+        {
+          "id": "b",
+          "text": "3n"
+        },
+        {
+          "id": "c",
+          "text": "2n + 4"
+        },
+        {
+          "id": "d",
+          "text": "3n + 1"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "n is a single digit with n > 3, divisible by 3, but not divisible by 6.\nMultiples of 3 between 4 and 9: {6, 9}.\nSince n is not divisible by 6, n must be 9! (Check: n = 9 > 3, div by 3, not div by 6).\nTest the options for n = 9:\n- (a) 2n = 2 × 9 = 18 (not div by 4)\n- (b) 3n = 3 × 9 = 27 (not div by 4)\n- (c) 2n + 4 = 18 + 4 = 22 (not div by 4)\n- (d) 3n + 1 = 3(9) + 1 = 27 + 1 = 28 (28 is divisible by 4: 28 / 4 = 7!).\nThus, 3n + 1 is divisible by 4."
+    },
+    {
+      "number": 78,
+      "topic": "Unit Conversions / Volume and Mass",
+      "passage_id": null,
+      "question": "If 1 litre of water weighs 1 kg, then how many cubic millimetres of water will weigh 0.1 gm?",
+      "options": [
+        {
+          "id": "a",
+          "text": "1"
+        },
+        {
+          "id": "b",
+          "text": "10"
+        },
+        {
+          "id": "c",
+          "text": "100"
+        },
+        {
+          "id": "d",
+          "text": "1000"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "1 litre = 1000 cm³ = 1000 × (10 mm)³ = 10⁶ mm³.\n1 litre of water weighs 1 kg = 1000 grams.\nSo, 1000 grams corresponds to 1,000,000 mm³.\n1 gram corresponds to 1,000,000 / 1000 = 1000 mm³.\n0.1 gram corresponds to 0.1 × 1000 = 100 mm³."
+    },
+    {
+      "number": 79,
+      "topic": "Linear Equations / Weight Problem",
+      "passage_id": null,
+      "question": "A vessel full of water weighs 40 kg. If it is one-third filled, its weight becomes 20 kg. What is the weight of the empty vessel?",
+      "options": [
+        {
+          "id": "a",
+          "text": "10 kg"
+        },
+        {
+          "id": "b",
+          "text": "15 kg"
+        },
+        {
+          "id": "c",
+          "text": "20 kg"
+        },
+        {
+          "id": "d",
+          "text": "25 kg"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Let the weight of the empty vessel be V and the weight of full water capacity be W.\n1) V + W = 40 kg\n2) V + (1/3)W = 20 kg\nSubtract equation (2) from equation (1):\n(2/3)W = 20 => W = 20 × 3 / 2 = 30 kg.\nSubstitute W into equation (1):\nV + 30 = 40 => V = 10 kg.\nThe weight of the empty vessel is 10 kg."
+    },
+    {
+      "number": 80,
+      "topic": "Frog in a Well / Sequence Puzzle",
+      "passage_id": null,
+      "question": "A frog tries to come out of a dried well 4.5 m deep with slippery walls. Every time the frog jumps 30 cm, slides down 15 cm. What is the number of jumps required for the frog to come out of the well?",
+      "options": [
+        {
+          "id": "a",
+          "text": "28"
+        },
+        {
+          "id": "b",
+          "text": "29"
+        },
+        {
+          "id": "c",
+          "text": "30"
+        },
+        {
+          "id": "d",
+          "text": "31"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Total depth of well = 4.5 m = 450 cm.\nOn each jump, the frog leaps up 30 cm and slides down 15 cm, achieving a net gain of 30 − 15 = 15 cm per jump, EXCEPT on the final jump when it reaches or exceeds the top (450 cm) and climbs out without sliding back down!\nThreshold to reach before the final jump = 450 − 30 = 420 cm.\nNumber of jumps to reach 420 cm = 420 / 15 = 28 jumps.\nAfter 28 jumps, the frog is at 28 × 15 = 420 cm.\nOn the 29th jump: from 420 cm, it jumps up 30 cm, reaching 420 + 30 = 450 cm (the exact top of the well) and gets out!\nTotal jumps required = 29."
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import {
   View,
   Text,
@@ -8,785 +8,988 @@ import {
   TextInput,
   ActivityIndicator,
   Alert,
-  Modal,
+  Platform,
+  useWindowDimensions,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Clock,
-  Play,
+  History,
+  BookOpen,
+  BookOpenCheck,
   Layers,
-  Award,
-  Calendar,
-  Sparkles,
-  Filter,
-  Search,
-  X,
-  Check,
   ChevronDown,
   ChevronUp,
+  Check,
+  AlertCircle,
+  ArrowRight,
   SlidersHorizontal,
-  Zap,
+  Search,
+  X,
+  Sun,
+  Moon,
 } from 'lucide-react-native';
-import {
-  BookOpen,
-  CheckCircle2,
-  ChevronRight,
-} from '@/components/common/LucideIcons';
 import { BW_THEME } from '@/constants/bwTheme';
 import { MockTestService } from '@/services/mockTestService';
 import {
   AvailableFiltersData,
   MockTestFilterConfig,
-  MockTestRecord,
-  MockTestSummaryStats,
   PaperType,
   QuestionOrderMode,
   TestMode,
 } from '@/types/mockTest';
+import { TestHistoryModal } from './TestHistoryModal';
+
+export type MainTestType = 'pyq' | 'subject' | 'full_mock';
 
 interface MockTestDashboardProps {
   onStartTest: (testId: string) => void;
+  onToggleTheme?: () => void;
   isDark?: boolean;
 }
 
-export function MockTestDashboard({ onStartTest, isDark = true }: MockTestDashboardProps) {
-  const theme = isDark ? BW_THEME.dark : BW_THEME.light;
+const PREF_STORAGE_KEY = '@upsc_mock_test_v2_pref';
 
-  // Real stats & filters
-  const [summaryStats, setSummaryStats] = useState<MockTestSummaryStats>({
-    availableQuestions: 540,
-    completedTests: 0,
-    averageScore: 0,
-    averageAccuracy: 0,
-  });
+export function MockTestDashboard({
+  onStartTest,
+  onToggleTheme,
+  isDark = true,
+}: MockTestDashboardProps) {
+  const theme = isDark ? BW_THEME.dark : BW_THEME.light;
+  const { width } = useWindowDimensions();
+  const isDesktop = width >= 768;
+
+  // Active top-level mode: PYQ, Subject-wise, or Full Mock
+  const [activeTestType, setActiveTestType] = useState<MainTestType>('pyq');
+
+  // History modal
+  const [showHistoryModal, setShowHistoryModal] = useState(false);
+  const [completedTestsCount, setCompletedTestsCount] = useState(0);
+
+  // Filters data loaded from database
   const [filtersData, setFiltersData] = useState<AvailableFiltersData>({
     years: [2026, 2025, 2024],
     subjects: [],
     topicsBySubject: {},
   });
-  const [recentTests, setRecentTests] = useState<MockTestRecord[]>([]);
+  const [loadingFilters, setLoadingFilters] = useState(false);
 
-  // User configuration state
+  // Configuration state
   const [paperType, setPaperType] = useState<PaperType>('GS1');
-  const [selectedYears, setSelectedYears] = useState<number[]>([]); // empty = All Years
-  const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]); // empty = All Subjects
-  const [selectedTopics, setSelectedTopics] = useState<string[]>([]); // empty = All Topics
+  const [selectedYear, setSelectedYear] = useState<number | 'all'>('all');
+  const [selectedSubject, setSelectedSubject] = useState<string>(''); // For subject mode
+  const [subjectSearchQuery, setSubjectSearchQuery] = useState(''); // Fast subject search bar
+  const [selectedTopic, setSelectedTopic] = useState<string>(''); // For topic drill-down
   const [questionCount, setQuestionCount] = useState<number>(25);
   const [customCountInput, setCustomCountInput] = useState<string>('');
-  const [testMode, setTestMode] = useState<TestMode>('full');
+  const [isCustomCount, setIsCustomCount] = useState(false);
+  const [testMode, setTestMode] = useState<TestMode>('practice');
   const [orderMode, setOrderMode] = useState<QuestionOrderMode>('random');
-  const [marksPerCorrect, setMarksPerCorrect] = useState<number>(2.0);
-  const [negativeMarks, setNegativeMarks] = useState<number>(0.67);
 
-  // UI interaction states
-  const [showSubjectModal, setShowSubjectModal] = useState(false);
-  const [subjectSearch, setSubjectSearch] = useState('');
-  const [showAdvanced, setShowAdvanced] = useState(false);
-  const [topicSearch, setTopicSearch] = useState('');
+  // Full mock test specific presets
+  const [fullMockPreset, setFullMockPreset] = useState<'pool' | number>('pool');
 
-  // Live matching question count
+  // Progressive disclosure accordions
+  const [showMoreFilters, setShowMoreFilters] = useState(false);
+
+  // Live count state
   const [matchingCount, setMatchingCount] = useState<number>(0);
   const [isCounting, setIsCounting] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
 
-  // 1. Initial Load: stats, filters, recent tests
+  // 1. Load preferences and initial data
   useEffect(() => {
     let mounted = true;
 
-    async function load() {
+    async function initialize() {
       try {
-        const [stats, filters, tests] = await Promise.all([
+        const [savedPref, stats] = await Promise.all([
+          AsyncStorage.getItem(PREF_STORAGE_KEY),
           MockTestService.getSummaryStats(),
-          MockTestService.getAvailableFilters(paperType),
-          MockTestService.getRecentMockTests(6),
         ]);
+
         if (!mounted) return;
-        setSummaryStats(stats);
-        setFiltersData(filters);
-        setRecentTests(tests);
+        setCompletedTestsCount(stats.completedTests);
+
+        if (savedPref) {
+          try {
+            const parsed = JSON.parse(savedPref);
+            if (parsed.testType) setActiveTestType(parsed.testType);
+            if (parsed.paperType) setPaperType(parsed.paperType);
+            if (parsed.questionCount) setQuestionCount(parsed.questionCount);
+            if (parsed.testMode) setTestMode(parsed.testMode);
+          } catch {}
+        }
       } catch (err) {
-        console.error('Error loading dashboard data:', err);
+        console.error('Failed to load initial preferences:', err);
       }
     }
 
-    load();
+    initialize();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  // 2. Fetch available filters whenever paper type changes
+  useEffect(() => {
+    let mounted = true;
+
+    MockTestService.getAvailableFilters(paperType).then((data) => {
+      if (!mounted) return;
+      setFiltersData(data);
+      setLoadingFilters(false);
+
+      // In subject mode, if currently selected subject is not in the list, pick the top subject
+      if (data.subjects.length > 0) {
+        setSelectedSubject((prev) => {
+          if (prev && data.subjects.some((s) => s.name === prev)) {
+            return prev;
+          }
+          return data.subjects[0].name;
+        });
+      }
+    });
+
     return () => {
       mounted = false;
     };
   }, [paperType]);
 
-  // Handle Paper Type Switch (defaults marking scheme)
-  const handlePaperTypeChange = (pType: PaperType) => {
-    setPaperType(pType);
-    setSelectedSubjects([]);
-    setSelectedTopics([]);
-    setSubjectSearch('');
-    setTopicSearch('');
-    if (pType === 'CSAT') {
-      setMarksPerCorrect(2.5);
-      setNegativeMarks(0.83);
+  // Save preferences when primary choices change
+  const savePreferences = useCallback(
+    async (newType: MainTestType, newPaper: PaperType, newCount: number, newMode: TestMode) => {
+      try {
+        await AsyncStorage.setItem(
+          PREF_STORAGE_KEY,
+          JSON.stringify({
+            testType: newType,
+            paperType: newPaper,
+            questionCount: newCount,
+            testMode: newMode,
+          })
+        );
+      } catch {}
+    },
+    []
+  );
+
+  // Handle Main Test Type change
+  const handleTestTypeChange = (type: MainTestType) => {
+    setActiveTestType(type);
+    setShowMoreFilters(false);
+    setSelectedTopic('');
+    setSubjectSearchQuery('');
+
+    if (type === 'full_mock') {
+      const fullCount = paperType === 'CSAT' ? 80 : 100;
+      setQuestionCount(fullCount);
+      setTestMode('full');
+      setOrderMode('exam_order');
+      savePreferences(type, paperType, fullCount, 'full');
+    } else if (type === 'subject') {
+      const defaultSubCount = 25;
+      setQuestionCount(defaultSubCount);
+      setIsCustomCount(false);
+      savePreferences(type, paperType, defaultSubCount, testMode);
     } else {
-      setMarksPerCorrect(2.0);
-      setNegativeMarks(0.67);
+      // PYQ mode
+      const defaultPyqCount = 25;
+      setQuestionCount(defaultPyqCount);
+      setIsCustomCount(false);
+      savePreferences(type, paperType, defaultPyqCount, testMode);
     }
   };
 
-  // 2. Compute dynamic topics based on selected subjects
-  const availableTopics = useMemo(() => {
-    if (selectedSubjects.length === 0) {
-      const allTops = new Set<string>();
-      Object.values(filtersData.topicsBySubject).forEach((topList) => {
-        topList.forEach((t) => allTops.add(t));
-      });
-      return Array.from(allTops).sort();
+  // Handle Paper Type change
+  const handlePaperTypeChange = (pType: PaperType) => {
+    setPaperType(pType);
+    setSelectedTopic('');
+    setSubjectSearchQuery('');
+    if (activeTestType === 'full_mock') {
+      const fullCount = pType === 'CSAT' ? 80 : 100;
+      setQuestionCount(fullCount);
+      savePreferences(activeTestType, pType, fullCount, testMode);
+    } else {
+      savePreferences(activeTestType, pType, questionCount, testMode);
     }
+  };
 
-    const tops = new Set<string>();
-    selectedSubjects.forEach((sub) => {
-      const list = filtersData.topicsBySubject[sub] || [];
-      list.forEach((t) => tops.add(t));
-    });
-    return Array.from(tops).sort();
-  }, [selectedSubjects, filtersData.topicsBySubject]);
+  // Filter subjects by search query
+  const filteredSubjects = useMemo(() => {
+    if (!subjectSearchQuery.trim()) {
+      return filtersData.subjects;
+    }
+    const q = subjectSearchQuery.toLowerCase().trim();
+    return filtersData.subjects.filter((s) => s.name.toLowerCase().includes(q));
+  }, [filtersData.subjects, subjectSearchQuery]);
 
-  // 3. Subject partitioning: Top 6 core subjects vs remaining
-  const { topCoreSubjects, activeNonCoreSubjects, modalFilteredSubjects } = useMemo(() => {
-    const all = filtersData.subjects;
-    const top6 = all.slice(0, 6);
-    const nonCoreSelected = selectedSubjects.filter(
-      (subName) => !top6.some((c) => c.name === subName)
-    );
+  // Dynamic topics for selected subject
+  const availableTopics = useMemo(() => {
+    if (!selectedSubject) return [];
+    return filtersData.topicsBySubject[selectedSubject] || [];
+  }, [selectedSubject, filtersData.topicsBySubject]);
 
-    let modalList = all;
-    if (subjectSearch.trim()) {
-      const q = subjectSearch.trim().toLowerCase();
-      modalList = all.filter((s) => s.name.toLowerCase().includes(q));
+  // Construct effective filter query based on active test type
+  const currentFilterConfig: MockTestFilterConfig = useMemo(() => {
+    let years: number[] = [];
+    let subjects: string[] = [];
+    let topics: string[] = [];
+    let effectiveCount = questionCount;
+    let effectiveOrder = orderMode;
+    let effectiveMode = testMode;
+
+    const marksCorrect = paperType === 'CSAT' ? 2.5 : 2.0;
+    const marksNegative = paperType === 'CSAT' ? 0.8333 : 0.6667;
+
+    if (activeTestType === 'full_mock') {
+      effectiveCount = paperType === 'CSAT' ? 80 : 100;
+      if (fullMockPreset !== 'pool') {
+        years = [fullMockPreset];
+      }
+    } else if (activeTestType === 'subject') {
+      if (selectedSubject) {
+        subjects = [selectedSubject];
+      }
+      if (selectedTopic) {
+        topics = [selectedTopic];
+      }
+      if (selectedYear !== 'all') {
+        years = [selectedYear];
+      }
+    } else {
+      // PYQ mode
+      if (selectedYear !== 'all') {
+        years = [selectedYear];
+      }
+      if (selectedSubject) {
+        subjects = [selectedSubject];
+      }
+      if (selectedTopic) {
+        topics = [selectedTopic];
+      }
     }
 
     return {
-      topCoreSubjects: top6,
-      activeNonCoreSubjects: nonCoreSelected,
-      modalFilteredSubjects: modalList,
+      paperType,
+      selectedYears: years,
+      selectedSubjects: subjects,
+      selectedTopics: topics,
+      questionCount: effectiveCount,
+      testMode: effectiveMode,
+      orderMode: effectiveOrder,
+      marksPerCorrect: marksCorrect,
+      negativeMarks: marksNegative,
+      timeLimitMinutes:
+        effectiveMode === 'full'
+          ? paperType === 'CSAT'
+            ? 120
+            : 120
+          : undefined,
     };
-  }, [filtersData.subjects, selectedSubjects, subjectSearch]);
+  }, [
+    activeTestType,
+    paperType,
+    selectedYear,
+    selectedSubject,
+    selectedTopic,
+    questionCount,
+    testMode,
+    orderMode,
+    fullMockPreset,
+  ]);
 
-  const filteredTopics = useMemo(() => {
-    if (!topicSearch.trim()) return availableTopics.slice(0, 20);
-    const q = topicSearch.trim().toLowerCase();
-    return availableTopics.filter((t) => t.toLowerCase().includes(q));
-  }, [availableTopics, topicSearch]);
-
-  // 4. Debounced live question count query
+  // 3. Debounced question count query
   useEffect(() => {
     let active = true;
 
     const timer = setTimeout(async () => {
       if (!active) return;
       setIsCounting(true);
-      const count = await MockTestService.getMatchingQuestionCount({
-        paperType,
-        selectedYears,
-        selectedSubjects,
-        selectedTopics,
-        questionCount,
-        testMode,
-        orderMode,
-        marksPerCorrect,
-        negativeMarks,
-      });
-
-      if (active) {
-        setMatchingCount(count);
-        setIsCounting(false);
+      try {
+        const count = await MockTestService.getMatchingQuestionCount(currentFilterConfig);
+        if (active) {
+          setMatchingCount(count);
+          setIsCounting(false);
+        }
+      } catch {
+        if (active) setIsCounting(false);
       }
-    }, 200);
+    }, 180);
 
     return () => {
       active = false;
       clearTimeout(timer);
     };
-  }, [paperType, selectedYears, selectedSubjects, selectedTopics, questionCount, testMode, orderMode, marksPerCorrect, negativeMarks]);
+  }, [currentFilterConfig]);
 
-  // Helpers
-  const toggleYear = (yr: number) => {
-    setSelectedYears((prev) =>
-      prev.includes(yr) ? prev.filter((y) => y !== yr) : [...prev, yr]
-    );
-  };
+  // Question count presets: 10, 25, 50, 100, Custom
+  const countPresets = useMemo(() => {
+    if (activeTestType === 'full_mock') {
+      return paperType === 'CSAT' ? [80] : [100];
+    }
+    return [10, 25, 50, 100];
+  }, [activeTestType, paperType]);
 
-  const toggleSubject = (sub: string) => {
-    setSelectedSubjects((prev) =>
-      prev.includes(sub) ? prev.filter((s) => s !== sub) : [...prev, sub]
-    );
-    setSelectedTopics([]);
-  };
-
-  const toggleTopic = (top: string) => {
-    setSelectedTopics((prev) =>
-      prev.includes(top) ? prev.filter((t) => t !== top) : [...prev, top]
-    );
-  };
-
-  const handleCountPreset = (preset: number) => {
-    setQuestionCount(preset);
+  const handleSelectCountPreset = (preset: number) => {
+    setIsCustomCount(false);
     setCustomCountInput('');
+    setQuestionCount(preset);
+    savePreferences(activeTestType, paperType, preset, testMode);
   };
 
-  const handleCustomCountChange = (text: string) => {
+  const handleCustomCountSubmit = (text: string) => {
     setCustomCountInput(text);
     const parsed = parseInt(text.replace(/[^0-9]/g, ''), 10);
     if (!isNaN(parsed) && parsed > 0) {
       setQuestionCount(parsed);
+      savePreferences(activeTestType, paperType, parsed, testMode);
     }
   };
 
-  // 1-Tap Quick Start Handler
-  const handleQuickStart = async (presetType: 'full_mock' | 'daily_drill') => {
-    const isFull = presetType === 'full_mock';
-    const effectiveQCount = isFull ? (paperType === 'CSAT' ? 80 : 100) : 25;
-    const effectiveMode: TestMode = isFull ? 'full' : 'practice';
+  // Dynamic summary sentence
+  const dynamicSummary = useMemo(() => {
+    const qCountStr =
+      activeTestType === 'full_mock'
+        ? `${paperType === 'CSAT' ? 80 : 100} questions`
+        : `${Math.min(questionCount, matchingCount || questionCount)} questions`;
 
-    setIsGenerating(true);
-    const result = await MockTestService.generateMockTest({
-      paperType,
-      selectedYears: [],
-      selectedSubjects: [],
-      selectedTopics: [],
-      questionCount: effectiveQCount,
-      testMode: effectiveMode,
-      orderMode: 'random',
-      marksPerCorrect: paperType === 'CSAT' ? 2.5 : 2.0,
-      negativeMarks: paperType === 'CSAT' ? 0.83 : 0.67,
-    });
-    setIsGenerating(false);
-
-    if (result.testId) {
-      onStartTest(result.testId);
+    let subjectStr = '';
+    if (activeTestType === 'subject' && selectedSubject) {
+      subjectStr = selectedTopic ? `${selectedSubject} (${selectedTopic})` : selectedSubject;
+    } else if (selectedSubject) {
+      subjectStr = selectedSubject;
     } else {
-      Alert.alert('Generation Error', result.error || 'Failed to generate test. Please try again.');
+      subjectStr = paperType === 'CSAT' ? 'CSAT Paper II' : 'GS Paper I';
     }
-  };
 
-  // Custom Test Start Handler
+    let yearStr = '';
+    if (activeTestType === 'full_mock') {
+      yearStr = fullMockPreset === 'pool' ? 'Comprehensive Pool' : `Official ${fullMockPreset}`;
+    } else {
+      yearStr = selectedYear === 'all' ? 'All available years' : `Year ${selectedYear}`;
+    }
+
+    const modeStr = testMode === 'full' ? 'Timed Exam' : 'Practice Mode';
+
+    return `${qCountStr} · ${subjectStr} · ${yearStr} · ${modeStr}`;
+  }, [
+    activeTestType,
+    paperType,
+    selectedSubject,
+    selectedTopic,
+    selectedYear,
+    fullMockPreset,
+    questionCount,
+    matchingCount,
+    testMode,
+  ]);
+
+  // Primary Action: Start Test
   const handleStartTest = async () => {
     if (matchingCount === 0) {
       Alert.alert(
-        'No Questions Available',
-        'No questions match your currently selected filters. Please broaden your year, subject, or topic selection.'
+        'Insufficient Questions',
+        'No questions match this selection. Please pick a different subject or broaden the year filter.'
       );
       return;
     }
 
     const effectiveCount = Math.min(questionCount, matchingCount);
-
-    const config: MockTestFilterConfig = {
-      paperType,
-      selectedYears,
-      selectedSubjects,
-      selectedTopics,
+    const configToRun: MockTestFilterConfig = {
+      ...currentFilterConfig,
       questionCount: effectiveCount,
-      testMode,
-      orderMode,
-      marksPerCorrect,
-      negativeMarks,
     };
 
     setIsGenerating(true);
-    const result = await MockTestService.generateMockTest(config);
-    setIsGenerating(false);
+    try {
+      const result = await MockTestService.generateMockTest(configToRun);
+      setIsGenerating(false);
 
-    if (result.testId) {
-      onStartTest(result.testId);
-    } else {
-      Alert.alert('Generation Error', result.error || 'Failed to generate test. Please try again.');
+      if (result.testId) {
+        onStartTest(result.testId);
+      } else {
+        Alert.alert('Unable to Create Test', result.error || 'Please try again.');
+      }
+    } catch (err: any) {
+      setIsGenerating(false);
+      Alert.alert('Error', err?.message || 'Something went wrong while launching the test.');
     }
   };
 
   const isCountExceeded = questionCount > matchingCount && matchingCount > 0;
+  const isStartDisabled = matchingCount === 0 || isGenerating || loadingFilters;
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: theme.bg }]} contentContainerStyle={styles.content}>
-      {/* 1. Header & Paper Switcher */}
-      <View style={styles.topBar}>
-        <View>
-          <Text style={[styles.headerTitle, { color: theme.textPrimary }]}>UPSC Mock Tests</Text>
-          <Text style={[styles.headerSubtitle, { color: theme.textSecondary }]}>
-            Prelims PYQ Practice & Simulations
-          </Text>
-        </View>
-
-        {/* Paper Segmented Control */}
-        <View style={[styles.paperTypePill, { backgroundColor: theme.activeBg, borderColor: theme.cardBorder }]}>
-          <Pressable
-            onPress={() => handlePaperTypeChange('GS1')}
-            style={[
-              styles.paperBtn,
-              paperType === 'GS1' && { backgroundColor: theme.buttonPrimaryBg },
-            ]}>
-            <Text
-              style={[
-                styles.paperBtnText,
-                { color: paperType === 'GS1' ? theme.buttonPrimaryText : theme.textSecondary },
-              ]}>
-              GS Paper-I
+    <View style={[styles.screenWrapper, { backgroundColor: theme.bg }]}>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={[
+          styles.scrollContent,
+          isDesktop && styles.desktopContainer,
+        ]}
+        showsVerticalScrollIndicator={false}>
+        {/* 1. Header with integrated Theme Toggle & History Button (No overlapping!) */}
+        <View style={styles.headerRow}>
+          <View style={styles.headerLeft}>
+            <Text style={[styles.mainTitle, { color: theme.textPrimary }]}>
+              Mock Tests
             </Text>
-          </Pressable>
-
-          <Pressable
-            onPress={() => handlePaperTypeChange('CSAT')}
-            style={[
-              styles.paperBtn,
-              paperType === 'CSAT' && { backgroundColor: theme.buttonPrimaryBg },
-            ]}>
-            <Text
-              style={[
-                styles.paperBtnText,
-                { color: paperType === 'CSAT' ? theme.buttonPrimaryText : theme.textSecondary },
-              ]}>
-              CSAT Paper-II
-            </Text>
-          </Pressable>
-        </View>
-      </View>
-
-      {/* 2. Compact Stats Bar */}
-      <View style={styles.metricsRow}>
-        <View style={[styles.metricChip, { backgroundColor: theme.cardBg, borderColor: theme.cardBorder }]}>
-          <BookOpen size={14} color={theme.textPrimary} />
-          <Text style={[styles.metricChipText, { color: theme.textPrimary }]}>
-            {summaryStats.availableQuestions} PYQs Available
-          </Text>
-        </View>
-        <View style={[styles.metricChip, { backgroundColor: theme.cardBg, borderColor: theme.cardBorder }]}>
-          <CheckCircle2 size={14} color="#10B981" />
-          <Text style={[styles.metricChipText, { color: theme.textPrimary }]}>
-            {summaryStats.completedTests} Tests Completed
-          </Text>
-        </View>
-        {summaryStats.completedTests > 0 && (
-          <View style={[styles.metricChip, { backgroundColor: theme.cardBg, borderColor: theme.cardBorder }]}>
-            <Award size={14} color="#F59E0B" />
-            <Text style={[styles.metricChipText, { color: theme.textPrimary }]}>
-              {summaryStats.averageAccuracy}% Accuracy
+            <Text style={[styles.mainSubtitle, { color: theme.textSecondary }]}>
+              Practice PYQs. Improve your accuracy.
             </Text>
           </View>
-        )}
-      </View>
 
-      {/* 3. Quick Start 1-Tap Presets (Zero Clutter) */}
-      <View style={styles.quickStartSection}>
-        <Text style={[styles.sectionTitleLabel, { color: theme.textSecondary }]}>QUICK START PRESETS</Text>
-        <View style={styles.quickCardsRow}>
-          {/* Full Mock Exam Card */}
-          <Pressable
-            onPress={() => handleQuickStart('full_mock')}
-            disabled={isGenerating}
-            style={[styles.quickCard, { backgroundColor: theme.cardBg, borderColor: theme.cardBorder }]}>
-            <View style={styles.quickCardHeader}>
-              <View style={[styles.quickIconCircle, { backgroundColor: isDark ? '#1C263D' : '#EEF4FD' }]}>
-                <Clock size={16} color={theme.textPrimary} />
-              </View>
-              <View style={styles.quickBadge}>
-                <Text style={styles.quickBadgeText}>{paperType === 'CSAT' ? '80 Qs' : '100 Qs'}</Text>
-              </View>
-            </View>
-            <Text style={[styles.quickCardTitle, { color: theme.textPrimary }]}>Full Exam Simulation</Text>
-            <Text style={[styles.quickCardDesc, { color: theme.textSecondary }]}>
-              120 mins timed test with standard UPSC negative marking.
-            </Text>
-            <View style={styles.quickActionRow}>
-              <Text style={[styles.quickActionText, { color: theme.textPrimary }]}>Start Mock Exam</Text>
-              <ChevronRight size={14} color={theme.textPrimary} />
-            </View>
-          </Pressable>
+          <View style={styles.headerRightActions}>
+            {onToggleTheme && (
+              <Pressable
+                onPress={onToggleTheme}
+                accessibilityLabel="Toggle Theme"
+                style={[
+                  styles.themeToggleBtn,
+                  {
+                    backgroundColor: isDark
+                      ? 'rgba(251, 191, 36, 0.12)'
+                      : 'rgba(255, 85, 0, 0.08)',
+                    borderColor: isDark
+                      ? 'rgba(251, 191, 36, 0.28)'
+                      : 'rgba(255, 85, 0, 0.2)',
+                  },
+                  Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
+                ]}>
+                {isDark ? (
+                  <Sun size={16} color="#FBBF24" strokeWidth={2.2} />
+                ) : (
+                  <Moon size={16} color="#FF5500" strokeWidth={2.2} />
+                )}
+              </Pressable>
+            )}
 
-          {/* Rapid 25 Drill Card */}
-          <Pressable
-            onPress={() => handleQuickStart('daily_drill')}
-            disabled={isGenerating}
-            style={[styles.quickCard, { backgroundColor: theme.cardBg, borderColor: theme.cardBorder }]}>
-            <View style={styles.quickCardHeader}>
-              <View style={[styles.quickIconCircle, { backgroundColor: isDark ? '#2D2014' : '#FEF3C7' }]}>
-                <Zap size={16} color="#F59E0B" />
-              </View>
-              <View style={[styles.quickBadge, { backgroundColor: isDark ? '#2D2014' : '#FEF3C7' }]}>
-                <Text style={[styles.quickBadgeText, { color: '#F59E0B' }]}>25 Qs</Text>
-              </View>
-            </View>
-            <Text style={[styles.quickCardTitle, { color: theme.textPrimary }]}>Speed Practice Drill</Text>
-            <Text style={[styles.quickCardDesc, { color: theme.textSecondary }]}>
-              Untimed self-paced drill with instant answer explanations.
-            </Text>
-            <View style={styles.quickActionRow}>
-              <Text style={[styles.quickActionText, { color: theme.textPrimary }]}>Start Speed Drill</Text>
-              <ChevronRight size={14} color={theme.textPrimary} />
-            </View>
-          </Pressable>
-        </View>
-      </View>
-
-      {/* 4. Custom Test Builder Card (Clean, Structured Form) */}
-      <View style={[styles.builderCard, { backgroundColor: theme.cardBg, borderColor: theme.cardBorder }]}>
-        <View style={styles.builderHeader}>
-          <View style={styles.builderTitleLeft}>
-            <Filter size={16} color={theme.textPrimary} />
-            <Text style={[styles.builderTitle, { color: theme.textPrimary }]}>Custom Test Builder</Text>
-          </View>
-          {selectedSubjects.length > 0 && (
             <Pressable
-              onPress={() => {
-                setSelectedSubjects([]);
-                setSelectedTopics([]);
-              }}
-              hitSlop={8}>
-              <Text style={[styles.clearLinkText, { color: theme.textMuted }]}>Reset to All</Text>
-            </Pressable>
-          )}
-        </View>
-
-        {/* Step A: Subject Focus (Clean Primary Row + Modal Trigger) */}
-        <View style={styles.builderSection}>
-          <View style={styles.sectionHeadingRow}>
-            <Text style={[styles.builderSectionLabel, { color: theme.textSecondary }]}>
-              SUBJECT FOCUS
-            </Text>
-            <Text style={[styles.sectionSelectedSummary, { color: theme.textMuted }]}>
-              {selectedSubjects.length === 0
-                ? `All ${filtersData.subjects.length} Subjects`
-                : `${selectedSubjects.length} Selected`}
-            </Text>
-          </View>
-
-          <View style={styles.subjectChipsRow}>
-            {/* All Subjects Chip */}
-            <Pressable
-              onPress={() => {
-                setSelectedSubjects([]);
-                setSelectedTopics([]);
-              }}
+              onPress={() => setShowHistoryModal(true)}
+              hitSlop={8}
+              accessibilityLabel="View Test History"
               style={[
-                styles.chipBtn,
-                selectedSubjects.length === 0 && {
-                  backgroundColor: theme.buttonPrimaryBg,
-                  borderColor: theme.buttonPrimaryBg,
-                },
+                styles.historyButton,
                 {
+                  backgroundColor: theme.cardBg,
                   borderColor: theme.cardBorder,
-                  backgroundColor: selectedSubjects.length === 0 ? theme.buttonPrimaryBg : theme.activeBg,
                 },
+                Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
+              ]}>
+              <History size={14} color={theme.textPrimary} />
+              <Text style={[styles.historyButtonText, { color: theme.textPrimary }]}>
+                History
+              </Text>
+              {completedTestsCount > 0 && (
+                <View
+                  style={[
+                    styles.historyCountPill,
+                    { backgroundColor: theme.activeBg },
+                  ]}>
+                  <Text
+                    style={[
+                      styles.historyCountText,
+                      { color: theme.textSecondary },
+                    ]}>
+                    {completedTestsCount}
+                  </Text>
+                </View>
+              )}
+            </Pressable>
+          </View>
+        </View>
+
+        {/* 2. Main Test Mode Selector (Three clearly distinguishable options) */}
+        <View
+          style={[
+            styles.modeSegmentContainer,
+            { backgroundColor: theme.cardBg, borderColor: theme.cardBorder },
+          ]}>
+          {(
+            [
+              {
+                id: 'pyq' as MainTestType,
+                title: 'PYQs',
+                desc: 'Past papers',
+                icon: BookOpen,
+              },
+              {
+                id: 'subject' as MainTestType,
+                title: 'Subject-wise',
+                desc: 'Targeted drills',
+                icon: Layers,
+              },
+              {
+                id: 'full_mock' as MainTestType,
+                title: 'Full Mock',
+                desc: 'Full exam',
+                icon: Clock,
+              },
+            ] as const
+          ).map((item) => {
+            const isSelected = activeTestType === item.id;
+            const IconComponent = item.icon;
+            return (
+              <Pressable
+                key={item.id}
+                onPress={() => handleTestTypeChange(item.id)}
+                style={[
+                  styles.modeTab,
+                  isSelected && {
+                    backgroundColor: theme.buttonPrimaryBg,
+                  },
+                  Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
+                ]}>
+                <View style={styles.modeTabHeader}>
+                  <IconComponent
+                    size={14}
+                    color={
+                      isSelected ? theme.buttonPrimaryText : theme.textSecondary
+                    }
+                  />
+                  <Text
+                    style={[
+                      styles.modeTabTitle,
+                      {
+                        color: isSelected
+                          ? theme.buttonPrimaryText
+                          : theme.textPrimary,
+                      },
+                    ]}>
+                    {item.title}
+                  </Text>
+                </View>
+                {isDesktop && (
+                  <Text
+                    style={[
+                      styles.modeTabDesc,
+                      {
+                        color: isSelected
+                          ? isDark
+                            ? '#1E293B'
+                            : '#F1F5F9'
+                          : theme.textMuted,
+                      },
+                    ]}
+                    numberOfLines={1}>
+                    {item.desc}
+                  </Text>
+                )}
+              </Pressable>
+            );
+          })}
+        </View>
+
+        {/* 3. Paper Switcher (GS Paper I vs CSAT) */}
+        <View style={styles.configSection}>
+          <Text style={[styles.sectionLabel, { color: theme.textSecondary }]}>
+            EXAMINATION PAPER
+          </Text>
+          <View
+            style={[
+              styles.paperSwitchRow,
+              { backgroundColor: theme.cardBg, borderColor: theme.cardBorder },
+            ]}>
+            <Pressable
+              onPress={() => handlePaperTypeChange('GS1')}
+              style={[
+                styles.paperSwitchBtn,
+                paperType === 'GS1' && {
+                  backgroundColor: theme.buttonPrimaryBg,
+                },
+                Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
               ]}>
               <Text
                 style={[
-                  styles.chipBtnText,
-                  { color: selectedSubjects.length === 0 ? theme.buttonPrimaryText : theme.textSecondary },
-                ]}>
-                All Subjects
-              </Text>
-            </Pressable>
-
-            {/* Core Top Subjects */}
-            {topCoreSubjects.map((sub) => {
-              const isSelected = selectedSubjects.includes(sub.name);
-              return (
-                <Pressable
-                  key={sub.name}
-                  onPress={() => toggleSubject(sub.name)}
-                  style={[
-                    styles.chipBtn,
-                    isSelected && {
-                      backgroundColor: theme.buttonPrimaryBg,
-                      borderColor: theme.buttonPrimaryBg,
-                    },
-                    {
-                      borderColor: theme.cardBorder,
-                      backgroundColor: isSelected ? theme.buttonPrimaryBg : theme.activeBg,
-                    },
-                  ]}>
-                  {isSelected && <Check size={12} color={theme.buttonPrimaryText} style={{ marginRight: -2 }} />}
-                  <Text
-                    style={[
-                      styles.chipBtnText,
-                      { color: isSelected ? theme.buttonPrimaryText : theme.textSecondary },
-                    ]}>
-                    {sub.name}
-                  </Text>
-                </Pressable>
-              );
-            })}
-
-            {/* Pinned Selected Non-Core Subjects */}
-            {activeNonCoreSubjects.map((subName) => (
-              <Pressable
-                key={subName}
-                onPress={() => toggleSubject(subName)}
-                style={[
-                  styles.chipBtn,
+                  styles.paperSwitchText,
                   {
-                    backgroundColor: theme.buttonPrimaryBg,
-                    borderColor: theme.buttonPrimaryBg,
+                    color:
+                      paperType === 'GS1'
+                        ? theme.buttonPrimaryText
+                        : theme.textSecondary,
                   },
                 ]}>
-                <Text style={[styles.chipBtnText, { color: theme.buttonPrimaryText }]}>{subName}</Text>
-                <X size={12} color={theme.buttonPrimaryText} style={{ marginLeft: 2 }} />
-              </Pressable>
-            ))}
+                GS Paper I
+              </Text>
+              <Text
+                style={[
+                  styles.paperSwitchBadge,
+                  {
+                    color:
+                      paperType === 'GS1'
+                        ? isDark
+                          ? '#334155'
+                          : '#E2E8F0'
+                        : theme.textMuted,
+                  },
+                ]}>
+                +2.0 / -0.66
+              </Text>
+            </Pressable>
 
-            {/* Browse All Subjects Modal Button */}
-            {filtersData.subjects.length > 6 && (
-              <Pressable
-                onPress={() => setShowSubjectModal(true)}
-                style={[styles.chipBtnMore, { borderColor: theme.cardBorder, backgroundColor: theme.activeBg }]}>
-                <SlidersHorizontal size={12} color={theme.textSecondary} />
-                <Text style={[styles.chipBtnMoreText, { color: theme.textSecondary }]}>
-                  + Browse All ({filtersData.subjects.length})
-                </Text>
-              </Pressable>
-            )}
+            <Pressable
+              onPress={() => handlePaperTypeChange('CSAT')}
+              style={[
+                styles.paperSwitchBtn,
+                paperType === 'CSAT' && {
+                  backgroundColor: theme.buttonPrimaryBg,
+                },
+                Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
+              ]}>
+              <Text
+                style={[
+                  styles.paperSwitchText,
+                  {
+                    color:
+                      paperType === 'CSAT'
+                        ? theme.buttonPrimaryText
+                        : theme.textSecondary,
+                  },
+                ]}>
+                CSAT Paper II
+              </Text>
+              <Text
+                style={[
+                  styles.paperSwitchBadge,
+                  {
+                    color:
+                      paperType === 'CSAT'
+                        ? isDark
+                          ? '#334155'
+                          : '#E2E8F0'
+                        : theme.textMuted,
+                  },
+                ]}>
+                +2.5 / -0.83
+              </Text>
+            </Pressable>
           </View>
         </View>
 
-        {/* Step B: Question Count & Mode */}
-        <View style={styles.builderSection}>
-          <Text style={[styles.builderSectionLabel, { color: theme.textSecondary }]}>
-            NUMBER OF QUESTIONS
-          </Text>
-          <View style={styles.countSegmentRow}>
-            {[10, 25, 50, 100].map((preset) => (
-              <Pressable
-                key={preset}
-                onPress={() => handleCountPreset(preset)}
-                style={[
-                  styles.countSegmentBtn,
-                  questionCount === preset &&
-                    !customCountInput && {
+        {/* 4. MODE-SPECIFIC CONFIGURATION */}
+
+        {/* --- MODE A: PYQ MODE --- */}
+        {activeTestType === 'pyq' && (
+          <View style={styles.configCardWrapper}>
+            {/* Year Selection */}
+            <View style={styles.configSection}>
+              <Text style={[styles.sectionLabel, { color: theme.textSecondary }]}>
+                EXAMINATION YEAR
+              </Text>
+              <View style={styles.chipsRow}>
+                <Pressable
+                  onPress={() => setSelectedYear('all')}
+                  style={[
+                    styles.chip,
+                    selectedYear === 'all' && {
                       backgroundColor: theme.buttonPrimaryBg,
                       borderColor: theme.buttonPrimaryBg,
                     },
-                  { borderColor: theme.cardBorder, backgroundColor: questionCount === preset && !customCountInput ? theme.buttonPrimaryBg : theme.activeBg },
-                ]}>
-                <Text
-                  style={[
-                    styles.countSegmentText,
                     {
-                      color:
-                        questionCount === preset && !customCountInput
-                          ? theme.buttonPrimaryText
-                          : theme.textSecondary,
+                      backgroundColor:
+                        selectedYear === 'all'
+                          ? theme.buttonPrimaryBg
+                          : theme.cardBg,
+                      borderColor: theme.cardBorder,
                     },
+                    Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                   ]}>
-                  {preset} Qs
-                </Text>
-              </Pressable>
-            ))}
-
-            <View style={[styles.customCountBox, { borderColor: theme.cardBorder, backgroundColor: theme.activeBg }]}>
-              <TextInput
-                style={[styles.customCountField, { color: theme.textPrimary }]}
-                placeholder="Custom"
-                placeholderTextColor={theme.textMuted}
-                keyboardType="numeric"
-                value={customCountInput}
-                onChangeText={handleCustomCountChange}
-                maxLength={3}
-              />
-            </View>
-          </View>
-        </View>
-
-        {/* Step C: Test Mode Selection */}
-        <View style={styles.builderSection}>
-          <Text style={[styles.builderSectionLabel, { color: theme.textSecondary }]}>
-            TEST MODE
-          </Text>
-          <View style={styles.modeCardsRow}>
-            <Pressable
-              onPress={() => setTestMode('full')}
-              style={[
-                styles.modeOptionCard,
-                testMode === 'full' && { borderColor: theme.buttonPrimaryBg, backgroundColor: theme.activeBg },
-                { borderColor: theme.cardBorder },
-              ]}>
-              <View style={styles.modeOptionHeader}>
-                <Clock size={15} color={testMode === 'full' ? theme.textPrimary : theme.textMuted} />
-                <Text style={[styles.modeOptionTitle, { color: theme.textPrimary }]}>Timed Mock Test</Text>
-              </View>
-              <Text style={[styles.modeOptionDesc, { color: theme.textSecondary }]}>
-                Timer enabled with standard negative marking. Submit at end.
-              </Text>
-            </Pressable>
-
-            <Pressable
-              onPress={() => setTestMode('practice')}
-              style={[
-                styles.modeOptionCard,
-                testMode === 'practice' && { borderColor: theme.buttonPrimaryBg, backgroundColor: theme.activeBg },
-                { borderColor: theme.cardBorder },
-              ]}>
-              <View style={styles.modeOptionHeader}>
-                <Sparkles size={15} color={testMode === 'practice' ? theme.textPrimary : theme.textMuted} />
-                <Text style={[styles.modeOptionTitle, { color: theme.textPrimary }]}>Practice Mode</Text>
-              </View>
-              <Text style={[styles.modeOptionDesc, { color: theme.textSecondary }]}>
-                Untimed. Instant solution & explanation after each question.
-              </Text>
-            </Pressable>
-          </View>
-        </View>
-
-        {/* Step D: Advanced Customization (Tucked away neatly in an Accordion) */}
-        <View style={[styles.advancedCard, { borderColor: theme.cardBorder, backgroundColor: theme.activeBg }]}>
-          <Pressable
-            onPress={() => setShowAdvanced(!showAdvanced)}
-            style={styles.advancedHeader}>
-            <View style={styles.advancedHeaderLeft}>
-              <SlidersHorizontal size={14} color={theme.textSecondary} />
-              <Text style={[styles.advancedHeaderText, { color: theme.textSecondary }]}>
-                Advanced Filters (Years, Topics, Order, Marking)
-              </Text>
-            </View>
-            {showAdvanced ? (
-              <ChevronUp size={15} color={theme.textSecondary} />
-            ) : (
-              <ChevronDown size={15} color={theme.textSecondary} />
-            )}
-          </Pressable>
-
-          {showAdvanced && (
-            <View style={styles.advancedBody}>
-              {/* Year Filter */}
-              <View style={styles.advancedRow}>
-                <View style={styles.subRowHeader}>
-                  <Calendar size={13} color={theme.textSecondary} />
-                  <Text style={[styles.subRowLabel, { color: theme.textSecondary }]}>Examination Year</Text>
-                </View>
-                <View style={styles.subRowPills}>
-                  <Pressable
-                    onPress={() => setSelectedYears([])}
+                  <Text
                     style={[
-                      styles.advPill,
-                      selectedYears.length === 0 && { backgroundColor: theme.buttonPrimaryBg },
-                      { borderColor: theme.cardBorder, backgroundColor: selectedYears.length === 0 ? theme.buttonPrimaryBg : theme.cardBg },
+                      styles.chipText,
+                      {
+                        color:
+                          selectedYear === 'all'
+                            ? theme.buttonPrimaryText
+                            : theme.textPrimary,
+                      },
                     ]}>
-                    <Text
-                      style={[
-                        styles.advPillText,
-                        { color: selectedYears.length === 0 ? theme.buttonPrimaryText : theme.textSecondary },
-                      ]}>
-                      All Years
-                    </Text>
-                  </Pressable>
-                  {filtersData.years.map((yr) => {
-                    const isSelected = selectedYears.includes(yr);
-                    return (
-                      <Pressable
-                        key={yr}
-                        onPress={() => toggleYear(yr)}
-                        style={[
-                          styles.advPill,
-                          isSelected && { backgroundColor: theme.buttonPrimaryBg },
-                          { borderColor: theme.cardBorder, backgroundColor: isSelected ? theme.buttonPrimaryBg : theme.cardBg },
-                        ]}>
-                        <Text
-                          style={[
-                            styles.advPillText,
-                            { color: isSelected ? theme.buttonPrimaryText : theme.textSecondary },
-                          ]}>
-                          {yr}
-                        </Text>
-                      </Pressable>
-                    );
-                  })}
-                </View>
-              </View>
+                    All Years{filtersData.years.length > 0 ? ` (${filtersData.years[filtersData.years.length - 1]}–${filtersData.years[0]})` : ''}
+                  </Text>
+                </Pressable>
 
-              {/* Question Order */}
-              <View style={styles.advancedRow}>
-                <Text style={[styles.subRowLabel, { color: theme.textSecondary }]}>Question Order</Text>
-                <View style={styles.subRowPills}>
-                  {(
-                    [
-                      { id: 'random' as QuestionOrderMode, label: 'Randomized' },
-                      { id: 'exam_order' as QuestionOrderMode, label: 'Exam Order' },
-                      { id: 'unattempted' as QuestionOrderMode, label: 'Unattempted' },
-                    ] as const
-                  ).map((item) => (
+                {filtersData.years.map((yr) => {
+                  const isYrSelected = selectedYear === yr;
+                  return (
                     <Pressable
-                      key={item.id}
-                      onPress={() => setOrderMode(item.id)}
+                      key={yr}
+                      onPress={() => setSelectedYear(yr)}
                       style={[
-                        styles.advPill,
-                        orderMode === item.id && { backgroundColor: theme.buttonPrimaryBg },
-                        { borderColor: theme.cardBorder, backgroundColor: orderMode === item.id ? theme.buttonPrimaryBg : theme.cardBg },
+                        styles.chip,
+                        isYrSelected && {
+                          backgroundColor: theme.buttonPrimaryBg,
+                          borderColor: theme.buttonPrimaryBg,
+                        },
+                        {
+                          backgroundColor: isYrSelected
+                            ? theme.buttonPrimaryBg
+                            : theme.cardBg,
+                          borderColor: theme.cardBorder,
+                        },
+                        Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                       ]}>
                       <Text
                         style={[
-                          styles.advPillText,
-                          { color: orderMode === item.id ? theme.buttonPrimaryText : theme.textSecondary },
+                          styles.chipText,
+                          {
+                            color: isYrSelected
+                              ? theme.buttonPrimaryText
+                              : theme.textPrimary,
+                          },
                         ]}>
-                        {item.label}
+                        {yr}
                       </Text>
                     </Pressable>
-                  ))}
-                </View>
+                  );
+                })}
               </View>
+            </View>
 
-              {/* Topic Drill-Down */}
-              {availableTopics.length > 0 && (
-                <View style={styles.advancedRow}>
-                  <View style={styles.subRowHeader}>
-                    <Layers size={13} color={theme.textSecondary} />
-                    <Text style={[styles.subRowLabel, { color: theme.textSecondary }]}>
-                      Topic Filter ({availableTopics.length} available)
-                    </Text>
-                  </View>
-                  <View style={[styles.modalSearchBar, { backgroundColor: theme.cardBg, borderColor: theme.cardBorder, marginBottom: 8 }]}>
-                    <Search size={13} color={theme.textMuted} />
-                    <TextInput
-                      style={[styles.modalSearchInput, { color: theme.textPrimary }]}
-                      placeholder="Search specific topics (e.g. Biodiversity, Inflation)..."
-                      placeholderTextColor={theme.textMuted}
-                      value={topicSearch}
-                      onChangeText={setTopicSearch}
-                    />
-                    {topicSearch.length > 0 && (
-                      <Pressable onPress={() => setTopicSearch('')} hitSlop={6}>
-                        <X size={13} color={theme.textMuted} />
-                      </Pressable>
+            {/* Test Format: Practice (BookOpenCheck) vs Timed (Clock) - Replaced AI Sparkles */}
+            <View style={styles.configSection}>
+              <Text style={[styles.sectionLabel, { color: theme.textSecondary }]}>
+                TEST FORMAT
+              </Text>
+              <View style={styles.formatToggleRow}>
+                {/* Practice Mode Card */}
+                <Pressable
+                  onPress={() => setTestMode('practice')}
+                  style={[
+                    styles.formatOption,
+                    testMode === 'practice' && {
+                      backgroundColor: theme.activeBg,
+                      borderColor: theme.cardBorderActive,
+                    },
+                    {
+                      backgroundColor: theme.cardBg,
+                      borderColor: theme.cardBorder,
+                    },
+                    Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
+                  ]}>
+                  <View style={styles.formatTopRow}>
+                    <View
+                      style={[
+                        styles.formatIconBox,
+                        {
+                          backgroundColor:
+                            testMode === 'practice'
+                              ? isDark
+                                ? '#1E293B'
+                                : '#DBEAFE'
+                              : isDark
+                              ? '#1C2237'
+                              : '#F1F5F9',
+                        },
+                      ]}>
+                      <BookOpenCheck
+                        size={16}
+                        color={
+                          testMode === 'practice'
+                            ? theme.textPrimary
+                            : theme.textSecondary
+                        }
+                      />
+                    </View>
+                    {testMode === 'practice' && (
+                      <View
+                        style={[
+                          styles.radioCheckBadge,
+                          { backgroundColor: theme.buttonPrimaryBg },
+                        ]}>
+                        <Check size={11} color={theme.buttonPrimaryText} />
+                      </View>
                     )}
                   </View>
-                  <View style={styles.subRowPills}>
-                    <Pressable
-                      onPress={() => setSelectedTopics([])}
+                  <Text
+                    style={[
+                      styles.formatOptionTitle,
+                      { color: theme.textPrimary },
+                    ]}>
+                    Practice Mode
+                  </Text>
+                  <Text
+                    style={[
+                      styles.formatOptionDesc,
+                      { color: theme.textSecondary },
+                    ]}>
+                    Instant solution & explanation after each answer
+                  </Text>
+                </Pressable>
+
+                {/* Timed Mode Card */}
+                <Pressable
+                  onPress={() => setTestMode('full')}
+                  style={[
+                    styles.formatOption,
+                    testMode === 'full' && {
+                      backgroundColor: theme.activeBg,
+                      borderColor: theme.cardBorderActive,
+                    },
+                    {
+                      backgroundColor: theme.cardBg,
+                      borderColor: theme.cardBorder,
+                    },
+                    Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
+                  ]}>
+                  <View style={styles.formatTopRow}>
+                    <View
                       style={[
-                        styles.advPill,
-                        selectedTopics.length === 0 && { backgroundColor: theme.buttonPrimaryBg },
-                        { borderColor: theme.cardBorder, backgroundColor: selectedTopics.length === 0 ? theme.buttonPrimaryBg : theme.cardBg },
+                        styles.formatIconBox,
+                        {
+                          backgroundColor:
+                            testMode === 'full'
+                              ? isDark
+                                ? '#1E293B'
+                                : '#DBEAFE'
+                              : isDark
+                              ? '#1C2237'
+                              : '#F1F5F9',
+                        },
+                      ]}>
+                      <Clock
+                        size={16}
+                        color={
+                          testMode === 'full'
+                            ? theme.textPrimary
+                            : theme.textSecondary
+                        }
+                      />
+                    </View>
+                    {testMode === 'full' && (
+                      <View
+                        style={[
+                          styles.radioCheckBadge,
+                          { backgroundColor: theme.buttonPrimaryBg },
+                        ]}>
+                        <Check size={11} color={theme.buttonPrimaryText} />
+                      </View>
+                    )}
+                  </View>
+                  <Text
+                    style={[
+                      styles.formatOptionTitle,
+                      { color: theme.textPrimary },
+                    ]}>
+                    Timed Mode
+                  </Text>
+                  <Text
+                    style={[
+                      styles.formatOptionDesc,
+                      { color: theme.textSecondary },
+                    ]}>
+                    Standard timer with UPSC negative marking
+                  </Text>
+                </Pressable>
+              </View>
+            </View>
+
+            {/* Progressive Disclosure: Optional Subject/Topic Filter */}
+            <View
+              style={[
+                styles.accordionCard,
+                { backgroundColor: theme.cardBg, borderColor: theme.cardBorder },
+              ]}>
+              <Pressable
+                onPress={() => setShowMoreFilters(!showMoreFilters)}
+                style={styles.accordionHeader}
+                accessibilityRole="button"
+                accessibilityLabel="Toggle optional subject filters">
+                <View style={styles.accordionHeaderLeft}>
+                  <SlidersHorizontal size={14} color={theme.textSecondary} />
+                  <Text
+                    style={[
+                      styles.accordionTitle,
+                      { color: theme.textSecondary },
+                    ]}>
+                    {selectedSubject
+                      ? `Filter: ${selectedSubject}`
+                      : 'Subject & Topic Filters (Optional)'}
+                  </Text>
+                </View>
+                {showMoreFilters ? (
+                  <ChevronUp size={15} color={theme.textSecondary} />
+                ) : (
+                  <ChevronDown size={15} color={theme.textSecondary} />
+                )}
+              </Pressable>
+
+              {showMoreFilters && (
+                <View
+                  style={[
+                    styles.accordionBody,
+                    { borderTopColor: theme.divider },
+                  ]}>
+                  <Text
+                    style={[
+                      styles.subFilterLabel,
+                      { color: theme.textSecondary },
+                    ]}>
+                    Filter by Subject:
+                  </Text>
+                  <View style={styles.chipsRow}>
+                    <Pressable
+                      onPress={() => {
+                        setSelectedSubject('');
+                        setSelectedTopic('');
+                      }}
+                      style={[
+                        styles.miniChip,
+                        !selectedSubject && {
+                          backgroundColor: theme.buttonPrimaryBg,
+                        },
+                        {
+                          backgroundColor: !selectedSubject
+                            ? theme.buttonPrimaryBg
+                            : theme.activeBg,
+                          borderColor: theme.cardBorder,
+                        },
                       ]}>
                       <Text
                         style={[
-                          styles.advPillText,
-                          { color: selectedTopics.length === 0 ? theme.buttonPrimaryText : theme.textSecondary },
+                          styles.miniChipText,
+                          {
+                            color: !selectedSubject
+                              ? theme.buttonPrimaryText
+                              : theme.textSecondary,
+                          },
                         ]}>
-                        All Topics
+                        All Subjects
                       </Text>
                     </Pressable>
-                    {filteredTopics.map((top) => {
-                      const isSelected = selectedTopics.includes(top);
+                    {filtersData.subjects.slice(0, 10).map((sub) => {
+                      const isSubSelected = selectedSubject === sub.name;
                       return (
                         <Pressable
-                          key={top}
-                          onPress={() => toggleTopic(top)}
+                          key={sub.name}
+                          onPress={() => {
+                            setSelectedSubject(
+                              isSubSelected ? '' : sub.name
+                            );
+                            setSelectedTopic('');
+                          }}
                           style={[
-                            styles.advPill,
-                            isSelected && { backgroundColor: theme.buttonPrimaryBg },
-                            { borderColor: theme.cardBorder, backgroundColor: isSelected ? theme.buttonPrimaryBg : theme.cardBg },
+                            styles.miniChip,
+                            isSubSelected && {
+                              backgroundColor: theme.buttonPrimaryBg,
+                            },
+                            {
+                              backgroundColor: isSubSelected
+                                ? theme.buttonPrimaryBg
+                                : theme.activeBg,
+                              borderColor: theme.cardBorder,
+                            },
                           ]}>
                           <Text
                             style={[
-                              styles.advPillText,
-                              { color: isSelected ? theme.buttonPrimaryText : theme.textSecondary },
-                            ]}
-                            numberOfLines={1}>
-                            {top}
+                              styles.miniChipText,
+                              {
+                                color: isSubSelected
+                                  ? theme.buttonPrimaryText
+                                  : theme.textPrimary,
+                              },
+                            ]}>
+                            {sub.name} ({sub.count})
                           </Text>
                         </Pressable>
                       );
@@ -794,805 +997,1236 @@ export function MockTestDashboard({ onStartTest, isDark = true }: MockTestDashbo
                   </View>
                 </View>
               )}
-
-              {/* Marking Scheme */}
-              <View style={styles.advancedRow}>
-                <Text style={[styles.subRowLabel, { color: theme.textSecondary }]}>Marking Scheme</Text>
-                <View style={styles.marksRow}>
-                  <View style={styles.markItem}>
-                    <Text style={[styles.markItemLabel, { color: theme.textMuted }]}>Correct (+)</Text>
-                    <View style={[styles.markItemInputWrapper, { backgroundColor: theme.cardBg, borderColor: theme.cardBorder }]}>
-                      <TextInput
-                        style={[styles.markItemInput, { color: theme.textPrimary }]}
-                        keyboardType="numeric"
-                        value={String(marksPerCorrect)}
-                        onChangeText={(v) => setMarksPerCorrect(parseFloat(v) || 0)}
-                      />
-                    </View>
-                  </View>
-                  <View style={styles.markItem}>
-                    <Text style={[styles.markItemLabel, { color: theme.textMuted }]}>Negative (-)</Text>
-                    <View style={[styles.markItemInputWrapper, { backgroundColor: theme.cardBg, borderColor: theme.cardBorder }]}>
-                      <TextInput
-                        style={[styles.markItemInput, { color: theme.textPrimary }]}
-                        keyboardType="numeric"
-                        value={String(negativeMarks)}
-                        onChangeText={(v) => setNegativeMarks(parseFloat(v) || 0)}
-                      />
-                    </View>
-                  </View>
-                </View>
-              </View>
             </View>
-          )}
-        </View>
-
-        {/* Match Count Indicator & Primary CTA */}
-        <View style={styles.ctaContainer}>
-          <View style={styles.matchStatusRow}>
-            <View
-              style={[
-                styles.matchDot,
-                { backgroundColor: matchingCount > 0 ? '#10B981' : '#EF4444' },
-              ]}
-            />
-            <Text style={[styles.matchStatusText, { color: theme.textSecondary }]}>
-              {isCounting
-                ? 'Updating available questions...'
-                : matchingCount > 0
-                ? `${matchingCount} questions match your filters`
-                : 'No questions match these filters'}
-            </Text>
-            {isCountExceeded && (
-              <Text style={styles.matchWarningText}>
-                (Will create with max {matchingCount} Qs)
-              </Text>
-            )}
-          </View>
-
-          <Pressable
-            onPress={handleStartTest}
-            disabled={matchingCount === 0 || isGenerating}
-            style={[
-              styles.startCustomBtn,
-              {
-                backgroundColor: matchingCount === 0 ? theme.cardBorder : theme.buttonPrimaryBg,
-              },
-            ]}>
-            {isGenerating ? (
-              <ActivityIndicator size="small" color={theme.buttonPrimaryText} />
-            ) : (
-              <>
-                <Play size={16} color={theme.buttonPrimaryText} />
-                <Text style={[styles.startCustomBtnText, { color: theme.buttonPrimaryText }]}>
-                  Start Custom Test ({Math.min(questionCount, matchingCount)} Questions)
-                </Text>
-              </>
-            )}
-          </Pressable>
-        </View>
-      </View>
-
-      {/* 5. Recent Mock Tests Section */}
-      <View style={styles.recentSection}>
-        <Text style={[styles.sectionTitleLabel, { color: theme.textSecondary }]}>RECENT MOCK TESTS</Text>
-
-        {recentTests.length === 0 ? (
-          <View style={[styles.emptyRecentCard, { backgroundColor: theme.cardBg, borderColor: theme.cardBorder }]}>
-            <Text style={[styles.emptyRecentTitle, { color: theme.textPrimary }]}>No Mock Tests Attempted Yet</Text>
-            <Text style={[styles.emptyRecentDesc, { color: theme.textSecondary }]}>
-              Pick a quick preset above or build a custom test to practice UPSC PYQs.
-            </Text>
-          </View>
-        ) : (
-          <View style={styles.recentList}>
-            {recentTests.map((t) => (
-              <Pressable
-                key={t.id}
-                onPress={() => onStartTest(t.id)}
-                style={[styles.recentItemCard, { backgroundColor: theme.cardBg, borderColor: theme.cardBorder }]}>
-                <View style={styles.recentLeft}>
-                  <Text style={[styles.recentItemTitle, { color: theme.textPrimary }]}>{t.test_title}</Text>
-                  <Text style={[styles.recentItemMeta, { color: theme.textMuted }]}>
-                    {new Date(t.created_at).toLocaleDateString()} • {t.question_count} Qs • {t.test_mode}
-                  </Text>
-                </View>
-
-                <View style={styles.recentRight}>
-                  {t.status === 'submitted' ? (
-                    <View style={styles.recentScoreBadge}>
-                      <Text style={[styles.recentScoreText, { color: '#10B981' }]}>
-                        {t.score} / {t.total_marks}
-                      </Text>
-                      <Text style={[styles.recentAccText, { color: theme.textSecondary }]}>{t.accuracy}% acc</Text>
-                    </View>
-                  ) : (
-                    <View style={[styles.inProgressPill, { backgroundColor: 'rgba(245, 158, 11, 0.15)' }]}>
-                      <Text style={styles.inProgressText}>Resume</Text>
-                    </View>
-                  )}
-                  <ChevronRight size={18} color={theme.textMuted} />
-                </View>
-              </Pressable>
-            ))}
           </View>
         )}
-      </View>
 
-      {/* 6. Clean Subject Picker Modal (Isolates all 47 subjects from main view) */}
-      <Modal
-        visible={showSubjectModal}
-        animationType="slide"
-        transparent
-        onRequestClose={() => setShowSubjectModal(false)}>
-        <View style={styles.modalOverlay}>
-          <View style={[styles.modalContentCard, { backgroundColor: theme.cardBg, borderColor: theme.cardBorder }]}>
-            {/* Modal Header */}
-            <View style={styles.modalHeaderRow}>
-              <View>
-                <Text style={[styles.modalTitle, { color: theme.textPrimary }]}>Select Subjects</Text>
-                <Text style={[styles.modalSubtitle, { color: theme.textSecondary }]}>
-                  {selectedSubjects.length === 0
-                    ? `All ${filtersData.subjects.length} subjects included`
-                    : `${selectedSubjects.length} of ${filtersData.subjects.length} selected`}
+        {/* --- MODE B: SUBJECT-WISE PRACTICE WITH SEARCH BAR --- */}
+        {activeTestType === 'subject' && (
+          <View style={styles.configCardWrapper}>
+            {/* Subject Selector & Search Bar */}
+            <View style={styles.configSection}>
+              <View style={styles.subjectHeaderRow}>
+                <Text style={[styles.sectionLabel, { color: theme.textSecondary }]}>
+                  SELECT SUBJECT
+                </Text>
+                <Text style={[styles.subjectCountBadge, { color: theme.textMuted }]}>
+                  {filteredSubjects.length} of {filtersData.subjects.length} subjects
                 </Text>
               </View>
-              <Pressable
-                onPress={() => setShowSubjectModal(false)}
-                hitSlop={8}
-                style={[styles.modalCloseBtn, { backgroundColor: theme.activeBg }]}>
-                <X size={18} color={theme.textPrimary} />
-              </Pressable>
-            </View>
 
-            {/* Search Input */}
-            <View style={[styles.modalSearchBar, { backgroundColor: theme.activeBg, borderColor: theme.cardBorder }]}>
-              <Search size={15} color={theme.textMuted} />
-              <TextInput
-                style={[styles.modalSearchInput, { color: theme.textPrimary }]}
-                placeholder={`Search ${filtersData.subjects.length} subjects (e.g. Polity, Defence, Trade)...`}
-                placeholderTextColor={theme.textMuted}
-                value={subjectSearch}
-                onChangeText={setSubjectSearch}
-              />
-              {subjectSearch.length > 0 && (
-                <Pressable onPress={() => setSubjectSearch('')} hitSlop={6}>
-                  <X size={14} color={theme.textMuted} />
-                </Pressable>
+              {/* SEARCH BAR */}
+              <View
+                style={[
+                  styles.searchBarBox,
+                  {
+                    backgroundColor: theme.cardBg,
+                    borderColor: theme.cardBorder,
+                  },
+                ]}>
+                <Search size={16} color={theme.textSecondary} />
+                <TextInput
+                  style={[styles.searchInput, { color: theme.textPrimary }]}
+                  placeholder={`Search ${paperType === 'CSAT' ? 'CSAT' : 'GS'} subjects (e.g. Polity, Economy)...`}
+                  placeholderTextColor={theme.textMuted}
+                  value={subjectSearchQuery}
+                  onChangeText={setSubjectSearchQuery}
+                  autoCorrect={false}
+                />
+                {subjectSearchQuery.length > 0 && (
+                  <Pressable
+                    onPress={() => setSubjectSearchQuery('')}
+                    hitSlop={8}
+                    style={styles.searchClearBtn}>
+                    <X size={14} color={theme.textSecondary} />
+                  </Pressable>
+                )}
+              </View>
+
+              {loadingFilters ? (
+                <ActivityIndicator size="small" color={theme.textPrimary} style={{ marginVertical: 20 }} />
+              ) : filteredSubjects.length === 0 ? (
+                <View
+                  style={[
+                    styles.noSubjectMatchBox,
+                    { backgroundColor: theme.cardBg, borderColor: theme.cardBorder },
+                  ]}>
+                  <Text style={[styles.noSubjectMatchText, { color: theme.textSecondary }]}>
+                    No subjects match &ldquo;{subjectSearchQuery}&rdquo;
+                  </Text>
+                  <Pressable
+                    onPress={() => setSubjectSearchQuery('')}
+                    style={[styles.clearFilterLink, { backgroundColor: theme.activeBg }]}>
+                    <Text style={[styles.clearFilterLinkText, { color: theme.textPrimary }]}>
+                      Clear Search
+                    </Text>
+                  </Pressable>
+                </View>
+              ) : (
+                <View style={styles.subjectGrid}>
+                  {filteredSubjects.map((sub) => {
+                    const isSelected = selectedSubject === sub.name;
+                    return (
+                      <Pressable
+                        key={sub.name}
+                        onPress={() => {
+                          setSelectedSubject(sub.name);
+                          setSelectedTopic('');
+                        }}
+                        style={[
+                          styles.subjectTile,
+                          isSelected && {
+                            borderColor: theme.cardBorderActive,
+                            backgroundColor: theme.activeBg,
+                          },
+                          {
+                            backgroundColor: theme.cardBg,
+                            borderColor: theme.cardBorder,
+                          },
+                          Platform.OS === 'web' &&
+                            ({ cursor: 'pointer' } as object),
+                        ]}>
+                        <View style={styles.subjectTileLeft}>
+                          <Text
+                            style={[
+                              styles.subjectTileTitle,
+                              { color: theme.textPrimary },
+                            ]}
+                            numberOfLines={1}>
+                            {sub.name}
+                          </Text>
+                          <Text
+                            style={[
+                              styles.subjectTileCount,
+                              { color: theme.textSecondary },
+                            ]}>
+                            {sub.count} Questions Available
+                          </Text>
+                        </View>
+                        {isSelected && (
+                          <View
+                            style={[
+                              styles.subjectSelectedCheck,
+                              { backgroundColor: theme.buttonPrimaryBg },
+                            ]}>
+                            <Check size={12} color={theme.buttonPrimaryText} />
+                          </View>
+                        )}
+                      </Pressable>
+                    );
+                  })}
+                </View>
               )}
             </View>
 
-            {/* Action Bar: Select All / Clear All */}
-            <View style={styles.modalQuickActionsRow}>
+            {/* Topic Filter (Dynamically filtered by selected subject) */}
+            {availableTopics.length > 0 && (
+              <View style={styles.configSection}>
+                <Text
+                  style={[styles.sectionLabel, { color: theme.textSecondary }]}>
+                  TOPIC (OPTIONAL)
+                </Text>
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={styles.horizontalChipsRow}>
+                  <Pressable
+                    onPress={() => setSelectedTopic('')}
+                    style={[
+                      styles.chip,
+                      !selectedTopic && {
+                        backgroundColor: theme.buttonPrimaryBg,
+                        borderColor: theme.buttonPrimaryBg,
+                      },
+                      {
+                        backgroundColor: !selectedTopic
+                          ? theme.buttonPrimaryBg
+                          : theme.cardBg,
+                        borderColor: theme.cardBorder,
+                      },
+                    ]}>
+                    <Text
+                      style={[
+                        styles.chipText,
+                        {
+                          color: !selectedTopic
+                            ? theme.buttonPrimaryText
+                            : theme.textPrimary,
+                        },
+                      ]}>
+                      All Topics
+                    </Text>
+                  </Pressable>
+
+                  {availableTopics.map((top) => {
+                    const isTopSelected = selectedTopic === top;
+                    return (
+                      <Pressable
+                        key={top}
+                        onPress={() =>
+                          setSelectedTopic(isTopSelected ? '' : top)
+                        }
+                        style={[
+                          styles.chip,
+                          isTopSelected && {
+                            backgroundColor: theme.buttonPrimaryBg,
+                            borderColor: theme.buttonPrimaryBg,
+                          },
+                          {
+                            backgroundColor: isTopSelected
+                              ? theme.buttonPrimaryBg
+                              : theme.cardBg,
+                            borderColor: theme.cardBorder,
+                          },
+                        ]}>
+                        <Text
+                          style={[
+                            styles.chipText,
+                            {
+                              color: isTopSelected
+                                ? theme.buttonPrimaryText
+                                : theme.textPrimary,
+                            },
+                          ]}>
+                          {top}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+            )}
+
+            {/* Optional Year Filter under Progressive Disclosure */}
+            <View
+              style={[
+                styles.accordionCard,
+                { backgroundColor: theme.cardBg, borderColor: theme.cardBorder },
+              ]}>
               <Pressable
-                onPress={() => setSelectedSubjects([])}
-                style={[styles.modalActionPill, { backgroundColor: theme.activeBg }]}>
-                <Text style={[styles.modalActionPillText, { color: theme.textSecondary }]}>Include All</Text>
+                onPress={() => setShowMoreFilters(!showMoreFilters)}
+                style={styles.accordionHeader}>
+                <View style={styles.accordionHeaderLeft}>
+                  <SlidersHorizontal size={14} color={theme.textSecondary} />
+                  <Text
+                    style={[
+                      styles.accordionTitle,
+                      { color: theme.textSecondary },
+                    ]}>
+                    {selectedYear !== 'all'
+                      ? `Year Filter: ${selectedYear}`
+                      : 'Year Filter (Optional)'}
+                  </Text>
+                </View>
+                {showMoreFilters ? (
+                  <ChevronUp size={15} color={theme.textSecondary} />
+                ) : (
+                  <ChevronDown size={15} color={theme.textSecondary} />
+                )}
               </Pressable>
-              {selectedSubjects.length > 0 && (
+
+              {showMoreFilters && (
+                <View
+                  style={[
+                    styles.accordionBody,
+                    { borderTopColor: theme.divider },
+                  ]}>
+                  <View style={styles.chipsRow}>
+                    <Pressable
+                      onPress={() => setSelectedYear('all')}
+                      style={[
+                        styles.miniChip,
+                        selectedYear === 'all' && {
+                          backgroundColor: theme.buttonPrimaryBg,
+                        },
+                        {
+                          backgroundColor:
+                            selectedYear === 'all'
+                              ? theme.buttonPrimaryBg
+                              : theme.activeBg,
+                          borderColor: theme.cardBorder,
+                        },
+                      ]}>
+                      <Text
+                        style={[
+                          styles.miniChipText,
+                          {
+                            color:
+                              selectedYear === 'all'
+                                ? theme.buttonPrimaryText
+                                : theme.textSecondary,
+                          },
+                        ]}>
+                        All Years
+                      </Text>
+                    </Pressable>
+                    {filtersData.years.map((yr) => {
+                      const isYrSelected = selectedYear === yr;
+                      return (
+                        <Pressable
+                          key={yr}
+                          onPress={() => setSelectedYear(yr)}
+                          style={[
+                            styles.miniChip,
+                            isYrSelected && {
+                              backgroundColor: theme.buttonPrimaryBg,
+                            },
+                            {
+                              backgroundColor: isYrSelected
+                                ? theme.buttonPrimaryBg
+                                : theme.activeBg,
+                              borderColor: theme.cardBorder,
+                            },
+                          ]}>
+                          <Text
+                            style={[
+                              styles.miniChipText,
+                              {
+                                color: isYrSelected
+                                  ? theme.buttonPrimaryText
+                                  : theme.textPrimary,
+                              },
+                            ]}>
+                            {yr}
+                          </Text>
+                        </Pressable>
+                      );
+                    })}
+                  </View>
+                </View>
+              )}
+            </View>
+          </View>
+        )}
+
+        {/* --- MODE C: FULL MOCK TEST --- */}
+        {activeTestType === 'full_mock' && (
+          <View style={styles.configCardWrapper}>
+            {/* Examination Paper Presets */}
+            <View style={styles.configSection}>
+              <Text style={[styles.sectionLabel, { color: theme.textSecondary }]}>
+                OFFICIAL FULL-PAPER PRESET
+              </Text>
+              <View style={styles.fullPaperPresetsRow}>
+                {[
+                  {
+                    id: 'pool' as const,
+                    title: 'Comprehensive Mock',
+                    desc: `${
+                      paperType === 'CSAT' ? '80' : '100'
+                    } questions sampled across all available years (${filtersData.years[filtersData.years.length - 1] || 2016}–${filtersData.years[0] || 2026})`,
+                  },
+                  ...filtersData.years.map((yr) => ({
+                    id: yr,
+                    title: `Official ${yr} Paper`,
+                    desc: `Complete ${
+                      paperType === 'CSAT' ? '80' : '100'
+                    } Qs Prelims Examination`,
+                  })),
+                ].map((preset) => {
+                  const isPresetActive = fullMockPreset === preset.id;
+                  return (
+                    <Pressable
+                      key={String(preset.id)}
+                      onPress={() => setFullMockPreset(preset.id)}
+                      style={[
+                        styles.fullPaperCard,
+                        isPresetActive && {
+                          borderColor: theme.cardBorderActive,
+                          backgroundColor: theme.activeBg,
+                        },
+                        {
+                          backgroundColor: theme.cardBg,
+                          borderColor: theme.cardBorder,
+                        },
+                        Platform.OS === 'web' &&
+                          ({ cursor: 'pointer' } as object),
+                      ]}>
+                      <View style={styles.fullPaperHeader}>
+                        <Text
+                          style={[
+                            styles.fullPaperTitle,
+                            { color: theme.textPrimary },
+                          ]}>
+                          {preset.title}
+                        </Text>
+                        <View
+                          style={[
+                            styles.presetBadge,
+                            { backgroundColor: theme.cardBg },
+                          ]}>
+                          <Text
+                            style={[
+                              styles.presetBadgeText,
+                              { color: theme.textSecondary },
+                            ]}>
+                            {paperType === 'CSAT' ? '80 Qs · 120m' : '100 Qs · 120m'}
+                          </Text>
+                        </View>
+                      </View>
+                      <Text
+                        style={[
+                          styles.fullPaperDesc,
+                          { color: theme.textSecondary },
+                        ]}>
+                        {preset.desc}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+            </View>
+
+            {/* Official Marking Rules Callout */}
+            <View
+              style={[
+                styles.officialRulesBox,
+                { backgroundColor: theme.cardBg, borderColor: theme.cardBorder },
+              ]}>
+              <View style={styles.rulesRow}>
+                <View style={styles.ruleItem}>
+                  <Text style={[styles.ruleLabel, { color: theme.textMuted }]}>
+                    QUESTIONS
+                  </Text>
+                  <Text style={[styles.ruleVal, { color: theme.textPrimary }]}>
+                    {paperType === 'CSAT' ? '80' : '100'}
+                  </Text>
+                </View>
+                <View
+                  style={[
+                    styles.ruleDivider,
+                    { backgroundColor: theme.cardBorder },
+                  ]}
+                />
+                <View style={styles.ruleItem}>
+                  <Text style={[styles.ruleLabel, { color: theme.textMuted }]}>
+                    TIME LIMIT
+                  </Text>
+                  <Text style={[styles.ruleVal, { color: theme.textPrimary }]}>
+                    120 Mins
+                  </Text>
+                </View>
+                <View
+                  style={[
+                    styles.ruleDivider,
+                    { backgroundColor: theme.cardBorder },
+                  ]}
+                />
+                <View style={styles.ruleItem}>
+                  <Text style={[styles.ruleLabel, { color: theme.textMuted }]}>
+                    TOTAL MARKS
+                  </Text>
+                  <Text style={[styles.ruleVal, { color: theme.textPrimary }]}>
+                    200.0
+                  </Text>
+                </View>
+                <View
+                  style={[
+                    styles.ruleDivider,
+                    { backgroundColor: theme.cardBorder },
+                  ]}
+                />
+                <View style={styles.ruleItem}>
+                  <Text style={[styles.ruleLabel, { color: theme.textMuted }]}>
+                    NEGATIVE
+                  </Text>
+                  <Text style={[styles.ruleVal, { color: '#EF4444' }]}>
+                    {paperType === 'CSAT' ? '-0.83' : '-0.66'}
+                  </Text>
+                </View>
+              </View>
+            </View>
+
+            {/* Question Order & Mode Options */}
+            <View style={styles.configSection}>
+              <Text style={[styles.sectionLabel, { color: theme.textSecondary }]}>
+                QUESTION ORDER
+              </Text>
+              <View style={styles.chipsRow}>
                 <Pressable
-                  onPress={() => setSelectedSubjects([])}
-                  style={[styles.modalActionPill, { backgroundColor: theme.activeBg }]}>
-                  <Text style={[styles.modalActionPillText, { color: theme.textMuted }]}>Clear Selection</Text>
+                  onPress={() => setOrderMode('exam_order')}
+                  style={[
+                    styles.chip,
+                    orderMode === 'exam_order' && {
+                      backgroundColor: theme.buttonPrimaryBg,
+                      borderColor: theme.buttonPrimaryBg,
+                    },
+                    {
+                      backgroundColor:
+                        orderMode === 'exam_order'
+                          ? theme.buttonPrimaryBg
+                          : theme.cardBg,
+                      borderColor: theme.cardBorder,
+                    },
+                  ]}>
+                  <Text
+                    style={[
+                      styles.chipText,
+                      {
+                        color:
+                          orderMode === 'exam_order'
+                            ? theme.buttonPrimaryText
+                            : theme.textPrimary,
+                      },
+                    ]}>
+                    Official Exam Order (1 to {paperType === 'CSAT' ? 80 : 100})
+                  </Text>
                 </Pressable>
-              )}
-            </View>
 
-            {/* Subject Items List */}
-            <ScrollView style={styles.modalSubjectList} showsVerticalScrollIndicator>
-              {modalFilteredSubjects.map((sub) => {
-                const isSelected = selectedSubjects.includes(sub.name);
+                <Pressable
+                  onPress={() => setOrderMode('random')}
+                  style={[
+                    styles.chip,
+                    orderMode === 'random' && {
+                      backgroundColor: theme.buttonPrimaryBg,
+                      borderColor: theme.buttonPrimaryBg,
+                    },
+                    {
+                      backgroundColor:
+                        orderMode === 'random'
+                          ? theme.buttonPrimaryBg
+                          : theme.cardBg,
+                      borderColor: theme.cardBorder,
+                    },
+                  ]}>
+                  <Text
+                    style={[
+                      styles.chipText,
+                      {
+                        color:
+                          orderMode === 'random'
+                            ? theme.buttonPrimaryText
+                            : theme.textPrimary,
+                      },
+                    ]}>
+                    Shuffled Order
+                  </Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        )}
+
+        {/* 5. Number of Questions (Only for PYQ & Subject-wise modes) */}
+        {activeTestType !== 'full_mock' && (
+          <View style={styles.configSection}>
+            <Text style={[styles.sectionLabel, { color: theme.textSecondary }]}>
+              NUMBER OF QUESTIONS
+            </Text>
+            <View style={styles.chipsRow}>
+              {countPresets.map((preset) => {
+                const isSelected = !isCustomCount && questionCount === preset;
+                const isSupported = matchingCount >= preset || matchingCount === 0;
+
                 return (
                   <Pressable
-                    key={sub.name}
-                    onPress={() => toggleSubject(sub.name)}
+                    key={preset}
+                    onPress={() => handleSelectCountPreset(preset)}
+                    disabled={!isSupported}
                     style={[
-                      styles.modalSubjectRow,
-                      { borderColor: theme.cardBorder },
-                      isSelected && { backgroundColor: theme.activeBg },
+                      styles.countChip,
+                      isSelected && {
+                        backgroundColor: theme.buttonPrimaryBg,
+                        borderColor: theme.buttonPrimaryBg,
+                      },
+                      !isSupported && {
+                        opacity: 0.35,
+                      },
+                      {
+                        backgroundColor: isSelected
+                          ? theme.buttonPrimaryBg
+                          : theme.cardBg,
+                        borderColor: theme.cardBorder,
+                      },
+                      Platform.OS === 'web' &&
+                        isSupported &&
+                        ({ cursor: 'pointer' } as object),
                     ]}>
-                    <View style={styles.modalSubjectLeft}>
-                      <View
-                        style={[
-                          styles.modalCheckbox,
-                          { borderColor: isSelected ? theme.buttonPrimaryBg : theme.cardBorder },
-                          isSelected && { backgroundColor: theme.buttonPrimaryBg },
-                        ]}>
-                        {isSelected && <Check size={12} color={theme.buttonPrimaryText} />}
-                      </View>
-                      <Text style={[styles.modalSubjectName, { color: theme.textPrimary }]}>
-                        {sub.name}
-                      </Text>
-                    </View>
-                    <View style={[styles.modalCountPill, { backgroundColor: theme.cardBg }]}>
-                      <Text style={[styles.modalCountText, { color: theme.textMuted }]}>
-                        {sub.count} Qs
-                      </Text>
-                    </View>
+                    <Text
+                      style={[
+                        styles.countChipText,
+                        {
+                          color: isSelected
+                            ? theme.buttonPrimaryText
+                            : theme.textPrimary,
+                        },
+                      ]}>
+                      {preset}
+                    </Text>
                   </Pressable>
                 );
               })}
-            </ScrollView>
 
-            {/* Bottom Apply CTA */}
+              <Pressable
+                onPress={() => setIsCustomCount(true)}
+                style={[
+                  styles.countChip,
+                  isCustomCount && {
+                    backgroundColor: theme.buttonPrimaryBg,
+                    borderColor: theme.buttonPrimaryBg,
+                  },
+                  {
+                    backgroundColor: isCustomCount
+                      ? theme.buttonPrimaryBg
+                      : theme.cardBg,
+                    borderColor: theme.cardBorder,
+                  },
+                  Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
+                ]}>
+                <Text
+                  style={[
+                    styles.countChipText,
+                    {
+                      color: isCustomCount
+                        ? theme.buttonPrimaryText
+                        : theme.textPrimary,
+                    },
+                  ]}>
+                  Custom
+                </Text>
+              </Pressable>
+            </View>
+
+            {/* Custom Count Input */}
+            {isCustomCount && (
+              <View
+                style={[
+                  styles.customCountBox,
+                  { backgroundColor: theme.cardBg, borderColor: theme.cardBorder },
+                ]}>
+                <Text
+                  style={[
+                    styles.customCountLabel,
+                    { color: theme.textSecondary },
+                  ]}>
+                  Enter question count (1 to {matchingCount || 100}):
+                </Text>
+                <TextInput
+                  style={[
+                    styles.customCountInput,
+                    { color: theme.textPrimary, borderColor: theme.cardBorder },
+                  ]}
+                  keyboardType="numeric"
+                  placeholder="e.g. 15"
+                  placeholderTextColor={theme.textMuted}
+                  value={customCountInput}
+                  onChangeText={handleCustomCountSubmit}
+                />
+              </View>
+            )}
+          </View>
+        )}
+
+        {/* 6. Live Availability & Validation Feedback */}
+        <View style={styles.availabilityRow}>
+          <View
+            style={[
+              styles.statusDot,
+              {
+                backgroundColor:
+                  matchingCount > 0 ? '#10B981' : isCounting ? '#F59E0B' : '#EF4444',
+              },
+            ]}
+          />
+          <Text
+            style={[styles.availabilityText, { color: theme.textSecondary }]}>
+            {isCounting
+              ? 'Checking real question bank availability...'
+              : matchingCount > 0
+              ? `${matchingCount} questions match this configuration`
+              : 'No questions match these filters'}
+          </Text>
+        </View>
+
+        {isCountExceeded && (
+          <View
+            style={[
+              styles.warningCallout,
+              {
+                backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                borderColor: 'rgba(245, 158, 11, 0.3)',
+              },
+            ]}>
+            <AlertCircle size={14} color="#F59E0B" />
+            <Text style={[styles.warningText, { color: '#F59E0B' }]}>
+              Requested {questionCount} questions, but only {matchingCount} are
+              available.
+            </Text>
             <Pressable
-              onPress={() => setShowSubjectModal(false)}
-              style={[styles.modalApplyBtn, { backgroundColor: theme.buttonPrimaryBg }]}>
-              <Text style={[styles.modalApplyBtnText, { color: theme.buttonPrimaryText }]}>
-                Done ({selectedSubjects.length === 0 ? 'All' : selectedSubjects.length} Selected)
-              </Text>
+              onPress={() => {
+                setQuestionCount(matchingCount);
+                setIsCustomCount(false);
+              }}
+              hitSlop={6}
+              style={styles.adjustBtn}>
+              <Text style={styles.adjustBtnText}>Adjust to {matchingCount}</Text>
             </Pressable>
           </View>
+        )}
+
+        {/* 7. Bottom Action Area (Prominent primary button with dynamic summary) */}
+        <View
+          style={[
+            styles.actionArea,
+            { backgroundColor: theme.cardBg, borderColor: theme.cardBorder },
+          ]}>
+          <Text
+            style={[styles.summarySentence, { color: theme.textSecondary }]}
+            numberOfLines={2}>
+            {dynamicSummary}
+          </Text>
+
+          <Pressable
+            onPress={handleStartTest}
+            disabled={isStartDisabled}
+            accessibilityRole="button"
+            accessibilityLabel="Start Test"
+            style={[
+              styles.primaryStartBtn,
+              {
+                backgroundColor: isStartDisabled
+                  ? theme.divider
+                  : theme.buttonPrimaryBg,
+              },
+              Platform.OS === 'web' &&
+                !isStartDisabled &&
+                ({ cursor: 'pointer' } as object),
+            ]}>
+            {isGenerating ? (
+              <ActivityIndicator
+                size="small"
+                color={theme.buttonPrimaryText}
+              />
+            ) : (
+              <View style={styles.primaryBtnContent}>
+                <Text
+                  style={[
+                    styles.primaryBtnText,
+                    {
+                      color: isStartDisabled
+                        ? theme.textMuted
+                        : theme.buttonPrimaryText,
+                    },
+                  ]}>
+                  Start Test
+                </Text>
+                <ArrowRight
+                  size={16}
+                  color={
+                    isStartDisabled
+                      ? theme.textMuted
+                      : theme.buttonPrimaryText
+                  }
+                />
+              </View>
+            )}
+          </Pressable>
         </View>
-      </Modal>
-    </ScrollView>
+      </ScrollView>
+
+      {/* History Modal */}
+      <TestHistoryModal
+        visible={showHistoryModal}
+        onClose={() => setShowHistoryModal(false)}
+        onSelectTest={(testId) => {
+          setShowHistoryModal(false);
+          onStartTest(testId);
+        }}
+        isDark={isDark}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screenWrapper: {
     flex: 1,
   },
-  content: {
-    padding: 16,
-    paddingBottom: 60,
-    maxWidth: 960,
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 56,
+  },
+  desktopContainer: {
+    maxWidth: 720,
     alignSelf: 'center',
     width: '100%',
+    paddingHorizontal: 24,
+    paddingTop: 24,
   },
-  // Top Header
-  topBar: {
+  headerRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    flexWrap: 'wrap',
-    gap: 12,
+    justifyContent: 'space-between',
     marginBottom: 16,
+    gap: 8,
   },
-  headerTitle: {
+  headerLeft: {
+    flex: 1,
+  },
+  mainTitle: {
     fontSize: 22,
-    fontWeight: '800',
+    fontWeight: '700',
     letterSpacing: -0.4,
   },
-  headerSubtitle: {
+  mainSubtitle: {
     fontSize: 13,
     marginTop: 2,
-    fontWeight: '500',
+    lineHeight: 18,
   },
-  paperTypePill: {
+  headerRightActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  themeToggleBtn: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  historyButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingVertical: 7,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    height: 36,
+  },
+  historyButtonText: {
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  historyCountPill: {
+    paddingHorizontal: 6,
+    paddingVertical: 1,
+    borderRadius: 10,
+    marginLeft: 2,
+  },
+  historyCountText: {
+    fontSize: 11,
+    fontWeight: '700',
+  },
+  modeSegmentContainer: {
+    flexDirection: 'row',
+    borderRadius: 12,
+    borderWidth: 1,
+    padding: 4,
+    marginBottom: 20,
+    gap: 4,
+  },
+  modeTab: {
+    flex: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 6,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modeTabHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+  },
+  modeTabTitle: {
+    fontSize: 13,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  modeTabDesc: {
+    fontSize: 10,
+    fontWeight: '500',
+    marginTop: 2,
+  },
+  configSection: {
+    marginBottom: 18,
+  },
+  sectionLabel: {
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 0.6,
+    marginBottom: 8,
+    textTransform: 'uppercase',
+  },
+  paperSwitchRow: {
     flexDirection: 'row',
     borderRadius: 10,
     borderWidth: 1,
     padding: 3,
+    gap: 4,
   },
-  paperBtn: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 8,
-  },
-  paperBtnText: {
-    fontSize: 12,
-    fontWeight: '700',
-  },
-  // Compact Stats
-  metricsRow: {
-    flexDirection: 'row',
-    gap: 8,
-    flexWrap: 'wrap',
-    marginBottom: 20,
-  },
-  metricChip: {
+  paperSwitchBtn: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: 6,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+    paddingVertical: 9,
+    borderRadius: 7,
+  },
+  paperSwitchText: {
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  paperSwitchBadge: {
+    fontSize: 10,
+    fontWeight: '600',
+  },
+  configCardWrapper: {
+    marginBottom: 4,
+  },
+  chipsRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  horizontalChipsRow: {
+    gap: 8,
+    paddingVertical: 2,
+  },
+  chip: {
+    paddingVertical: 8,
+    paddingHorizontal: 14,
     borderRadius: 8,
     borderWidth: 1,
   },
-  metricChipText: {
+  chipText: {
     fontSize: 12,
     fontWeight: '600',
   },
-  // Quick Presets
-  quickStartSection: {
-    marginBottom: 22,
-  },
-  sectionTitleLabel: {
-    fontSize: 11,
-    fontWeight: '800',
-    letterSpacing: 0.8,
-    marginBottom: 10,
-  },
-  quickCardsRow: {
+  formatToggleRow: {
     flexDirection: 'row',
-    gap: 12,
-    flexWrap: 'wrap',
+    gap: 10,
   },
-  quickCard: {
+  formatOption: {
     flex: 1,
-    minWidth: 260,
-    borderRadius: 14,
+    padding: 12,
+    borderRadius: 12,
     borderWidth: 1,
-    padding: 16,
-  },
-  quickCardHeader: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
   },
-  quickIconCircle: {
+  formatTopRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+  },
+  formatIconBox: {
     width: 32,
     height: 32,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  quickBadge: {
+  radioCheckBadge: {
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  formatOptionTitle: {
+    fontSize: 13,
+    fontWeight: '700',
+    marginBottom: 3,
+  },
+  formatOptionDesc: {
+    fontSize: 11,
+    lineHeight: 15,
+  },
+  accordionCard: {
+    borderRadius: 10,
+    borderWidth: 1,
+    marginBottom: 18,
+    overflow: 'hidden',
+  },
+  accordionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+  },
+  accordionHeaderLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  accordionTitle: {
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  accordionBody: {
+    borderTopWidth: 1,
+    padding: 12,
+  },
+  subFilterLabel: {
+    fontSize: 11,
+    fontWeight: '600',
+    marginBottom: 8,
+  },
+  miniChip: {
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 6,
+    borderWidth: 1,
+  },
+  miniChipText: {
+    fontSize: 11,
+    fontWeight: '500',
+  },
+  subjectHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 6,
+  },
+  subjectCountBadge: {
+    fontSize: 11,
+    fontWeight: '600',
+  },
+  searchBarBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 10,
+    borderWidth: 1,
+    marginBottom: 12,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 13,
+    padding: 0,
+  },
+  searchClearBtn: {
+    padding: 4,
+  },
+  noSubjectMatchBox: {
+    padding: 24,
+    borderRadius: 10,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+  },
+  noSubjectMatchText: {
+    fontSize: 13,
+    textAlign: 'center',
+  },
+  clearFilterLink: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 6,
+  },
+  clearFilterLinkText: {
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  subjectGrid: {
+    gap: 8,
+  },
+  subjectTile: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    borderRadius: 10,
+    borderWidth: 1,
+  },
+  subjectTileLeft: {
+    flex: 1,
+  },
+  subjectTileTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 2,
+  },
+  subjectTileCount: {
+    fontSize: 11,
+  },
+  subjectSelectedCheck: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 8,
+  },
+  fullPaperPresetsRow: {
+    gap: 10,
+  },
+  fullPaperCard: {
+    padding: 14,
+    borderRadius: 10,
+    borderWidth: 1,
+  },
+  fullPaperHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 4,
+  },
+  fullPaperTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  presetBadge: {
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 6,
-    backgroundColor: 'rgba(150, 150, 150, 0.15)',
   },
-  quickBadgeText: {
+  presetBadgeText: {
     fontSize: 11,
-    fontWeight: '700',
+    fontWeight: '600',
   },
-  quickCardTitle: {
-    fontSize: 15,
-    fontWeight: '700',
-    marginBottom: 4,
-  },
-  quickCardDesc: {
+  fullPaperDesc: {
     fontSize: 12,
     lineHeight: 16,
-    marginBottom: 12,
   },
-  quickActionRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  quickActionText: {
-    fontSize: 12,
-    fontWeight: '700',
-  },
-  // Custom Builder Card
-  builderCard: {
-    borderRadius: 16,
+  officialRulesBox: {
+    borderRadius: 10,
     borderWidth: 1,
-    padding: 18,
-    marginBottom: 24,
-  },
-  builderHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-    paddingBottom: 12,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: 'rgba(150, 150, 150, 0.2)',
-  },
-  builderTitleLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  builderTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-  },
-  clearLinkText: {
-    fontSize: 12,
-    fontWeight: '600',
-    textDecorationLine: 'underline',
-  },
-  builderSection: {
+    paddingVertical: 12,
+    paddingHorizontal: 14,
     marginBottom: 18,
   },
-  sectionHeadingRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  builderSectionLabel: {
-    fontSize: 11,
-    fontWeight: '800',
-    letterSpacing: 0.6,
-  },
-  sectionSelectedSummary: {
-    fontSize: 11,
-    fontWeight: '600',
-  },
-  // Subject Chips
-  subjectChipsRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-  chipBtn: {
+  rulesRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 12,
-    paddingVertical: 7,
-    borderRadius: 8,
-    borderWidth: 1,
+    justifyContent: 'space-around',
   },
-  chipBtnText: {
-    fontSize: 12.5,
-    fontWeight: '600',
-  },
-  chipBtnMore: {
-    flexDirection: 'row',
+  ruleItem: {
     alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 12,
-    paddingVertical: 7,
-    borderRadius: 8,
-    borderWidth: 1,
   },
-  chipBtnMoreText: {
-    fontSize: 12,
+  ruleLabel: {
+    fontSize: 9,
     fontWeight: '700',
+    letterSpacing: 0.5,
+    marginBottom: 2,
   },
-  // Count Segment
-  countSegmentRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    flexWrap: 'wrap',
-    marginTop: 8,
-  },
-  countSegmentBtn: {
-    paddingHorizontal: 16,
-    paddingVertical: 9,
-    borderRadius: 8,
-    borderWidth: 1,
-  },
-  countSegmentText: {
-    fontSize: 12.5,
-    fontWeight: '700',
-  },
-  customCountBox: {
-    borderRadius: 8,
-    borderWidth: 1,
-    paddingHorizontal: 12,
-    height: 38,
-    minWidth: 76,
-    justifyContent: 'center',
-  },
-  customCountField: {
-    fontSize: 12.5,
-    fontWeight: '600',
-    padding: 0,
-  },
-  // Mode Cards
-  modeCardsRow: {
-    flexDirection: 'row',
-    gap: 10,
-    marginTop: 8,
-    flexWrap: 'wrap',
-  },
-  modeOptionCard: {
-    flex: 1,
-    minWidth: 200,
-    borderRadius: 10,
-    borderWidth: 1.5,
-    padding: 12,
-  },
-  modeOptionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    marginBottom: 4,
-  },
-  modeOptionTitle: {
+  ruleVal: {
     fontSize: 13,
     fontWeight: '700',
   },
-  modeOptionDesc: {
-    fontSize: 11.5,
-    lineHeight: 16,
+  ruleDivider: {
+    width: 1,
+    height: 22,
   },
-  // Advanced Accordion
-  advancedCard: {
-    borderRadius: 12,
+  countChip: {
+    minWidth: 54,
+    paddingVertical: 9,
+    paddingHorizontal: 12,
+    borderRadius: 8,
     borderWidth: 1,
-    padding: 12,
-    marginBottom: 16,
-  },
-  advancedHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  advancedHeaderLeft: {
+  countChipText: {
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  customCountBox: {
+    marginTop: 10,
+    padding: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  customCountLabel: {
+    fontSize: 12,
+    flex: 1,
+  },
+  customCountInput: {
+    width: 70,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderRadius: 6,
+    fontSize: 13,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  availabilityRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+    marginBottom: 14,
+    paddingHorizontal: 2,
   },
-  advancedHeaderText: {
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  advancedBody: {
-    marginTop: 14,
-    paddingTop: 12,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: 'rgba(150, 150, 150, 0.2)',
-    gap: 14,
-  },
-  advancedRow: {
-    gap: 6,
-  },
-  subRowHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  subRowLabel: {
-    fontSize: 11.5,
-    fontWeight: '700',
-  },
-  subRowPills: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 6,
-  },
-  advPill: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 6,
-    borderWidth: 1,
-  },
-  advPillText: {
-    fontSize: 11.5,
-    fontWeight: '600',
-  },
-  marksRow: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  markItem: {
-    flex: 1,
-    maxWidth: 130,
-  },
-  markItemLabel: {
-    fontSize: 10.5,
-    fontWeight: '500',
-    marginBottom: 4,
-  },
-  markItemInputWrapper: {
-    borderRadius: 6,
-    borderWidth: 1,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-  },
-  markItemInput: {
-    fontSize: 12,
-    fontWeight: '700',
-    padding: 0,
-  },
-  // CTA
-  ctaContainer: {
-    marginTop: 6,
-  },
-  matchStatusRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    marginBottom: 10,
-    flexWrap: 'wrap',
-  },
-  matchDot: {
+  statusDot: {
     width: 7,
     height: 7,
     borderRadius: 4,
   },
-  matchStatusText: {
+  availabilityText: {
     fontSize: 12,
     fontWeight: '500',
   },
-  matchWarningText: {
-    fontSize: 11.5,
-    color: '#F59E0B',
-    fontWeight: '600',
-  },
-  startCustomBtn: {
+  warningCallout: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     gap: 8,
-    paddingVertical: 13,
-    borderRadius: 10,
+    padding: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    marginBottom: 14,
   },
-  startCustomBtnText: {
-    fontSize: 14,
-    fontWeight: '800',
+  warningText: {
+    fontSize: 12,
+    flex: 1,
   },
-  // Recent Section
-  recentSection: {
-    marginBottom: 20,
+  adjustBtn: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: '#F59E0B',
+    borderRadius: 6,
   },
-  emptyRecentCard: {
+  adjustBtnText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#000',
+  },
+  actionArea: {
+    marginTop: 4,
+    padding: 16,
     borderRadius: 12,
     borderWidth: 1,
-    padding: 20,
-    alignItems: 'center',
+    gap: 12,
   },
-  emptyRecentTitle: {
-    fontSize: 14,
-    fontWeight: '700',
-    marginBottom: 4,
-  },
-  emptyRecentDesc: {
+  summarySentence: {
     fontSize: 12,
+    fontWeight: '500',
+    lineHeight: 16,
     textAlign: 'center',
   },
-  recentList: {
-    gap: 8,
-  },
-  recentItemCard: {
-    borderRadius: 10,
-    borderWidth: 1,
-    padding: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  recentLeft: {
-    flex: 1,
-  },
-  recentItemTitle: {
-    fontSize: 13.5,
-    fontWeight: '700',
-    marginBottom: 2,
-  },
-  recentItemMeta: {
-    fontSize: 11.5,
-  },
-  recentRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  recentScoreBadge: {
-    alignItems: 'flex-end',
-  },
-  recentScoreText: {
-    fontSize: 13,
-    fontWeight: '800',
-  },
-  recentAccText: {
-    fontSize: 10.5,
-  },
-  inProgressPill: {
-    paddingHorizontal: 6,
-    paddingVertical: 3,
-    borderRadius: 5,
-  },
-  inProgressText: {
-    color: '#F59E0B',
-    fontSize: 10.5,
-    fontWeight: '700',
-  },
-  // Modal Styles
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.65)',
-    justifyContent: 'flex-end',
-  },
-  modalContentCard: {
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderWidth: 1,
-    maxHeight: '80%',
-    padding: 20,
-    paddingBottom: 32,
-  },
-  modalHeaderRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: 14,
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: '800',
-  },
-  modalSubtitle: {
-    fontSize: 12,
-    marginTop: 2,
-  },
-  modalCloseBtn: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  modalSearchBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    borderRadius: 8,
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    height: 38,
-    marginBottom: 10,
-  },
-  modalSearchInput: {
-    flex: 1,
-    fontSize: 12.5,
-    fontWeight: '500',
-    padding: 0,
-  },
-  modalQuickActionsRow: {
-    flexDirection: 'row',
-    gap: 8,
-    marginBottom: 12,
-  },
-  modalActionPill: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 6,
-  },
-  modalActionPillText: {
-    fontSize: 11,
-    fontWeight: '700',
-  },
-  modalSubjectList: {
-    maxHeight: 340,
-    marginBottom: 14,
-  },
-  modalSubjectRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 8,
-    borderRadius: 8,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  modalSubjectLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    flex: 1,
-  },
-  modalCheckbox: {
-    width: 18,
-    height: 18,
-    borderRadius: 4,
-    borderWidth: 1.5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  modalSubjectName: {
-    fontSize: 13,
-    fontWeight: '600',
-    flex: 1,
-  },
-  modalCountPill: {
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 6,
-  },
-  modalCountText: {
-    fontSize: 11,
-    fontWeight: '600',
-  },
-  modalApplyBtn: {
-    paddingVertical: 13,
+  primaryStartBtn: {
+    width: '100%',
+    paddingVertical: 14,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  modalApplyBtnText: {
-    fontSize: 14,
-    fontWeight: '800',
+  primaryBtnContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  primaryBtnText: {
+    fontSize: 15,
+    fontWeight: '700',
+    letterSpacing: -0.2,
   },
 });

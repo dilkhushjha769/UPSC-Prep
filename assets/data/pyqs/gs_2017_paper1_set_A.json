@@ -1,0 +1,2943 @@
+{
+  "meta": {
+    "exam": "UPSC Civil Services (Preliminary) Examination 2017",
+    "paper": "General Studies Paper-I",
+    "test_booklet_series": "A",
+    "booklet_code": "AMC-U-BKLP",
+    "language": "en",
+    "total_questions": 100,
+    "duration_minutes": 120,
+    "total_marks": 200,
+    "marks_per_correct": 2.0,
+    "negative_marks_per_wrong": 0.6667,
+    "negative_marking_rule": "One-third of the marks assigned to the question is deducted for each wrong answer; no penalty for unattempted questions.",
+    "answer_key_source": "Official UPSC Answer Key & standard reference sources."
+  },
+  "passages": [],
+  "questions": [
+    {
+      "number": 1,
+      "topic": "Indian Polity / Parliament",
+      "passage_id": null,
+      "question": "With reference to the Parliament of India, consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. A private member's bill is a bill presented by a Member of Parliament who is not elected but only nominated by the President of India.",
+        "2. Recently, a private member's bill has been passed in the Parliament of India for the first time in its history."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Both statements are incorrect: 1. A private member's bill is any bill introduced by any Member of Parliament who is not a Minister (whether elected or nominated). 2. Fourteen private member bills have been enacted into law since 1952 (the last was the Supreme Court (Enlargement of Criminal Appellate Jurisdiction) Bill in 1970); it was not passed for the first time recently."
+    },
+    {
+      "number": 2,
+      "topic": "Ancient Indian History / Vedic vs Indus Valley",
+      "passage_id": null,
+      "question": "With reference to the difference between the culture of Rigvedic Aryans and Indus Valley people, which of the following statements is/are correct?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Rigvedic Aryans used the coat of mail and helmet in warfare whereas the people of Indus Valley Civilization did not leave any evidence of using them.",
+        "2. Rigvedic Aryans knew gold, silver and copper whereas Indus Valley people knew only copper and iron.",
+        "3. Rigvedic Aryans had domesticated the horse whereas there is no evidence of Indus Valley people having been aware of this animal."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Statement 1 is correct: Rigvedic hymns frequently mention protective war equipment like varman (coat of mail) and sipra (helmet), whereas Harappan excavations have yielded no armor or helmets. Statement 2 is incorrect because Harappans belonged to the Bronze Age and knew gold, silver, bronze, and copper, but did not know iron. Statement 3 is correct: Rigvedic Aryans relied extensively on horse-drawn chariots, whereas horses were not a typical or well-attested animal in Harappan culture (horse terracotta/bones at Surkotada remain disputed and unrepresented on seals). (UPSC official key: c)."
+    },
+    {
+      "number": 3,
+      "topic": "Government Schemes / Skill Development",
+      "passage_id": null,
+      "question": "'Recognition of Prior Learning Scheme' is sometimes mentioned in the news with reference to",
+      "options": [
+        {
+          "id": "a",
+          "text": "Certifying the skills acquired by construction workers through traditional channels."
+        },
+        {
+          "id": "b",
+          "text": "Enrolling the persons in Universities for distance learning programmes."
+        },
+        {
+          "id": "c",
+          "text": "Reserving some skilled jobs to rural and urban poor in some public sector undertakings."
+        },
+        {
+          "id": "d",
+          "text": "Certifying the skills acquired by trainees under the National Skill Development Programme."
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Recognition of Prior Learning (RPL), a key component under the Pradhan Mantri Kaushal Vikas Yojana (PMKVY), assesses and formally certifies informal and experiential skills acquired by workers (such as construction artisans and craftsmen) through non-formal and traditional channels."
+    },
+    {
+      "number": 4,
+      "topic": "Environment & Ecology / Protected Areas",
+      "passage_id": null,
+      "question": "From the ecological point of view, which one of the following assumes importance in being a good link between the Eastern Ghats and the Western Ghats?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Sathyamangalam Tiger Reserve"
+        },
+        {
+          "id": "b",
+          "text": "Nallamala Forest"
+        },
+        {
+          "id": "c",
+          "text": "Nagarhole National Park"
+        },
+        {
+          "id": "d",
+          "text": "Seshachalam Biosphere Reserve"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Sathyamangalam Tiger Reserve (in Erode district, Tamil Nadu) is situated at the confluence of the Eastern Ghats and the Western Ghats, serving as a vital ecological corridor connecting the Biligirirangana Hills, Mudumalai, and Bandipur landscape."
+    },
+    {
+      "number": 5,
+      "topic": "Political Theory / Concept of Equality",
+      "passage_id": null,
+      "question": "One of the implications of equality in society is the absence of",
+      "options": [
+        {
+          "id": "a",
+          "text": "Privileges"
+        },
+        {
+          "id": "b",
+          "text": "Restraints"
+        },
+        {
+          "id": "c",
+          "text": "Competition"
+        },
+        {
+          "id": "d",
+          "text": "Ideology"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "In classical and modern political philosophy, equality fundamentally signifies the absence of special class, birth, or legal privileges, ensuring equal moral worth, equal standing before the law, and equal opportunity for all."
+    },
+    {
+      "number": 6,
+      "topic": "Environment / Wildlife Trade Monitoring",
+      "passage_id": null,
+      "question": "Consider the following statements in respect of Trade Related Analysis of Fauna and Flora in Commerce (TRAFFIC):\nWhich of the above statements is/are correct?",
+      "statements": [
+        "1. TRAFFIC is a bureau under United Nations Environment Programme (UNEP).",
+        "2. The mission of TRAFFIC is to ensure that trade in wild plants and animals is not a threat to the conservation of nature."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 2 is correct: TRAFFIC's mission is to ensure that wildlife trade does not threaten the conservation of nature. Statement 1 is incorrect because TRAFFIC is a non-governmental wildlife trade monitoring network established in 1976 as a joint conservation programme of WWF and IUCN, not a bureau of UNEP."
+    },
+    {
+      "number": 7,
+      "topic": "Indian Polity / Directive Principles of State Policy",
+      "passage_id": null,
+      "question": "Which principle among the following was added to the Directive Principles of State Policy by the 42nd Amendment to the Constitution?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Equal pay for equal work for both men and women"
+        },
+        {
+          "id": "b",
+          "text": "Participation of workers in the management of industries"
+        },
+        {
+          "id": "c",
+          "text": "Right to work, education and public assistance"
+        },
+        {
+          "id": "d",
+          "text": "Securing living wage and human conditions of work to workers"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "The 42nd Constitutional Amendment Act of 1976 added Article 43A, directing the State to take steps to secure the participation of workers in the management of undertakings, establishments, or other organizations engaged in any industry. (Equal pay is in Article 39(d), Right to work is in Article 41, and living wage is in Article 43)."
+    },
+    {
+      "number": 8,
+      "topic": "Political Theory / Concept of Rights",
+      "passage_id": null,
+      "question": "Which one of the following statements is correct?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Rights are claims of the State against the citizens."
+        },
+        {
+          "id": "b",
+          "text": "Rights are privileges which are incorporated in the Constitution of a State."
+        },
+        {
+          "id": "c",
+          "text": "Rights are claims of the citizens against the State."
+        },
+        {
+          "id": "d",
+          "text": "Rights are privileges of a few citizens against the many."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "In democratic jurisprudence and political philosophy, constitutional rights (especially fundamental rights) represent recognized claims that individuals hold against the State, restricting state authority and protecting citizens from arbitrary action."
+    },
+    {
+      "number": 9,
+      "topic": "Reports & Indices / Gender Parity",
+      "passage_id": null,
+      "question": "Which of the following gives 'Global Gender Gap Index' ranking to the countries of the world?",
+      "options": [
+        {
+          "id": "a",
+          "text": "World Economic Forum"
+        },
+        {
+          "id": "b",
+          "text": "UN Human Rights Council"
+        },
+        {
+          "id": "c",
+          "text": "UN Women"
+        },
+        {
+          "id": "d",
+          "text": "World Health Organization"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "The Global Gender Gap Report and its Global Gender Gap Index have been published annually since 2006 by the World Economic Forum (WEF), benchmarking countries across economic participation, educational attainment, health and survival, and political empowerment."
+    },
+    {
+      "number": 10,
+      "topic": "Government Initiatives / Digital Innovation",
+      "passage_id": null,
+      "question": "Which of the following statements is/are correct regarding Smart India Hackathon 2017?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. It is a centrally sponsored scheme for developing every city of our country into Smart Cities in a decade.",
+        "2. It is an initiative to identify new digital technology innovations for solving the many problems faced by our country.",
+        "3. It is a programme aimed at making all the financial transactions in our country completely digital in a decade."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "3 only"
+        },
+        {
+          "id": "d",
+          "text": "2 and 3 only"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Smart India Hackathon 2017 was a nationwide initiative launched by the Ministry of Human Resource Development (MHRD) and AICTE to harness the technical creativity of engineering students to develop innovative digital solutions for real-world problems faced by central ministries and government departments."
+    },
+    {
+      "number": 11,
+      "topic": "Macroeconomics / Monetary Policy Committee",
+      "passage_id": null,
+      "question": "Which of the following statements is/are correct regarding the Monetary Policy Committee (MPC)?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. It decides the RBI's benchmark interest rates.",
+        "2. It is a 12-member body including the Governor of RBI and is reconstituted every year.",
+        "3. It functions under the chairmanship of the Union Finance Minister."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "1 and 2 only"
+        },
+        {
+          "id": "c",
+          "text": "3 only"
+        },
+        {
+          "id": "d",
+          "text": "2 and 3 only"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Statement 1 is correct: Under Section 45ZB of the amended RBI Act, 1934, the MPC determines the policy interest rate (Repo Rate) required to achieve the inflation target. Statements 2 and 3 are incorrect: The MPC is a 6-member body (not 12-member), comprising three RBI officials and three external government-nominated experts with a 4-year tenure; it is chaired ex-officio by the Governor of the Reserve Bank of India, not the Union Finance Minister."
+    },
+    {
+      "number": 12,
+      "topic": "Art & Culture / Intangible Cultural Heritage",
+      "passage_id": null,
+      "question": "With reference to Manipuri Sankirtana, consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. It is a song and dance performance.",
+        "2. Cymbals are the only musical instruments used in the performance.",
+        "3. It is performed to narrate the life and deeds of Lord Krishna."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1, 2 and 3"
+        },
+        {
+          "id": "b",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1 only"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statements 1 and 3 are correct: Manipuri Sankirtana (inscribed on UNESCO's Representative List of the Intangible Cultural Heritage of Humanity in 2013) combines ritual singing, drumming, and dancing to celebrate the life and deeds of Lord Krishna (1 and 3). Statement 2 is incorrect because both the kartal (cymbals) and the pung (two-headed classical Manipuri drum) are played simultaneously by performers."
+    },
+    {
+      "number": 13,
+      "topic": "Modern Indian History / Land Revenue Systems",
+      "passage_id": null,
+      "question": "Who among the following was/were associated with the introduction of Ryotwari Settlement in India during the British rule?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Lord Cornwallis",
+        "2. Alexander Read",
+        "3. Thomas Munro"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "The Ryotwari system was first experimentally introduced by Captain Alexander Read in Baramahal district (Madras) in 1792 and subsequently developed, systematized, and extended across the Madras Presidency by Sir Thomas Munro in 1820. Lord Cornwallis introduced the Permanent Settlement of Bengal in 1793."
+    },
+    {
+      "number": 14,
+      "topic": "Environment & Biotechnology / Bioremediation",
+      "passage_id": null,
+      "question": "In the context of solving pollution problems, what is/are the advantage/advantages of bioremediation technique?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. It is a technique for cleaning up pollution by enhancing the same biodegradation process that occurs in nature.",
+        "2. Any contaminant with heavy metals such as cadmium and lead can be readily and completely treated by bioremediation using microorganisms.",
+        "3. Genetic engineering can be used to create microorganisms specifically designed for bioremediation."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Statements 1 and 3 are correct: Bioremediation stimulates native microbial biological breakdown of environmental organic pollutants (1), and genetically modified bacteria (such as Pseudomonas putida) can be tailored to degrade specific refractory pollutants (3). Statement 2 is incorrect because heavy metals like cadmium and lead are elemental and cannot be biodegraded or broken down (they can only be bioaccumulated, biosorbed, or transformed in valency, not 'readily and completely treated')."
+    },
+    {
+      "number": 15,
+      "topic": "Modern Indian History / Colonial Labour Legislation",
+      "passage_id": null,
+      "question": "The Trade Disputes Act of 1929 provided for",
+      "options": [
+        {
+          "id": "a",
+          "text": "the participation of workers in the management of industries."
+        },
+        {
+          "id": "b",
+          "text": "arbitrary powers to the management to quell industrial disputes."
+        },
+        {
+          "id": "c",
+          "text": "an intervention by the British Court in the event of a trade dispute."
+        },
+        {
+          "id": "d",
+          "text": "a system of tribunals and a ban on strikes."
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "The Trade Disputes Act of 1929 provided for the establishment of Courts of Inquiry and Boards of Conciliation (tribunal systems) to settle industrial disputes, and declared sudden strikes and lockouts in public utility services illegal without prior one month notice, as well as banning general and sympathetic political strikes."
+    },
+    {
+      "number": 16,
+      "topic": "Indian Polity / Local Governance",
+      "passage_id": null,
+      "question": "Local self-government can be best explained as an exercise in",
+      "options": [
+        {
+          "id": "a",
+          "text": "Federalism"
+        },
+        {
+          "id": "b",
+          "text": "Democratic decentralisation"
+        },
+        {
+          "id": "c",
+          "text": "Administrative delegation"
+        },
+        {
+          "id": "d",
+          "text": "Direct democracy"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Local self-government (Panchayati Raj and Municipalities) operationalizes the principle of 'democratic decentralisation' by transferring decision-making power, planning, resources, and civic administration down to grassroots elected local bodies."
+    },
+    {
+      "number": 17,
+      "topic": "Indian Polity / Constitutional Limitations",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWith reference to the Constitution of India, the Directive Principles of State Policy constitute limitations upon\nWhich of the above statements is/are correct?",
+      "statements": [
+        "1. legislative function.",
+        "2. executive function."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Directive Principles of State Policy (Part IV) are positive programmatic guidelines and socio-economic obligations meant to guide the legislative and executive actions of the State; they are non-justiciable under Article 37 and do not act as negative legal limitations or restrictions upon state organs (Fundamental Rights serve as limitations upon state action)."
+    },
+    {
+      "number": 18,
+      "topic": "International Affairs / European Union",
+      "passage_id": null,
+      "question": "The term 'Digital Single Market Strategy' seen in the news refers to",
+      "options": [
+        {
+          "id": "a",
+          "text": "ASEAN"
+        },
+        {
+          "id": "b",
+          "text": "BRICS"
+        },
+        {
+          "id": "c",
+          "text": "EU"
+        },
+        {
+          "id": "d",
+          "text": "G20"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "The 'Digital Single Market Strategy' was adopted by the European Commission of the European Union (EU) in May 2015 to harmonize digital rules across EU member states, ensure free movement of goods, persons, services, and capital online, and eliminate cross-border telecommunications and geo-blocking barriers."
+    },
+    {
+      "number": 19,
+      "topic": "Indian Physical Geography / Tidal Phenomena",
+      "passage_id": null,
+      "question": "At one of the places in India, if you stand on the seashore and watch the sea, you will find that the sea water recedes from the shore line a few kilometres and comes back to the shore, twice a day, and you can actually walk on the sea floor when the water recedes. This unique phenomenon is seen at",
+      "options": [
+        {
+          "id": "a",
+          "text": "Bhavnagar"
+        },
+        {
+          "id": "b",
+          "text": "Bheemunipatnam"
+        },
+        {
+          "id": "c",
+          "text": "Chandipur"
+        },
+        {
+          "id": "d",
+          "text": "Nagapattinam"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Chandipur Beach (on the Bay of Bengal in Balasore district, Odisha) is world-famous for its extreme macro-tidal variation where seawater recedes up to 5 kilometres during low tide and returns during high tide twice daily, allowing visitors to walk on the exposed sea bed."
+    },
+    {
+      "number": 20,
+      "topic": "Legislation / Benami Property Act",
+      "passage_id": null,
+      "question": "With reference to the 'Prohibition of Benami Property Transactions Act, 1988 (PBPT Act)', consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. A property transaction is not treated as a benami transaction if the owner of the property is not aware of the transaction.",
+        "2. Properties held benami are liable for confiscation by the Government.",
+        "3. The Act provides for three authorities for investigations but does not provide for any appellate mechanism."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "2 and 3 only"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 2 is correct: Under Section 5 of the amended PBPT Act, any property that is subject matter of a benami transaction is liable to be confiscated by the Central Government. Statement 1 is incorrect because transactions where the legal owner is fictitious or unaware of the purchase are precisely defined as benami transactions. Statement 3 is incorrect because the Act specifies four authorities for investigation and explicitly establishes an Appellate Tribunal (under Section 30) whose orders can further be appealed before the High Court."
+    },
+    {
+      "number": 21,
+      "topic": "Environment & Ecology / Pollinators and Food Webs",
+      "passage_id": null,
+      "question": "Due to some reasons, if there is a huge fall in the population of species of butterflies, what could be its likely consequence/consequences?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Pollination of some plants could be adversely affected.",
+        "2. There could be a drastic increase in the fungal infections of some cultivated plants.",
+        "3. It could lead to a fall in the population of some species of wasps, spiders and birds."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Statements 1 and 3 are correct: Butterflies are major entomophilous pollinators of numerous flowering plants and agricultural crops (1); and butterfly larvae (caterpillars) and adults form a primary food source for predators including wasps, spiders, and insectivorous birds, so their collapse causes predatory declines (3). Statement 2 is incorrect as butterflies are not primary fungal suppressors, and there is no evidence that their decline triggers a drastic surge in fungal plant infections."
+    },
+    {
+      "number": 22,
+      "topic": "Renewable Energy / Algal Biofuels",
+      "passage_id": null,
+      "question": "It is possible to produce algae based biofuels, but what is/are the likely limitation(s) of developing countries in promoting this industry?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Production of algae based biofuels is possible in seas only and not on continents.",
+        "2. Setting up and engineering the algae based biofuel production requires high level of expertise/technology until the construction is completed.",
+        "3. Economically viable production necessitates the setting up of large scale facilities which may raise ecological and social concerns."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 2 only"
+        },
+        {
+          "id": "b",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statements 2 and 3 are correct: Third-generation algal biofuel systems (photobioreactors and raceway ponds) demand capital-intensive engineering, specialized genetic/culturing expertise, and advanced harvesting/extraction technology (2); and commercial viability requires vast land and water installations that can disrupt local ecosystems and compete for water resources (3). Statement 1 is incorrect because microalgae can be cultivated on land in closed bioreactors, open ponds, and municipal wastewater, not exclusively in marine environments."
+    },
+    {
+      "number": 23,
+      "topic": "Social Welfare / National Nutrition Mission (POSHAN Abhiyaan)",
+      "passage_id": null,
+      "question": "Which of the following are the objectives of 'National Nutrition Mission'?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. To create awareness relating to malnutrition among pregnant women and lactating mothers.",
+        "2. To reduce the incidence of anaemia among young children, adolescent girls and women.",
+        "3. To promote the consumption of millets, coarse cereals and unpolished rice.",
+        "4. To promote the consumption of poultry eggs."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 2 only"
+        },
+        {
+          "id": "b",
+          "text": "1, 2 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "1, 2 and 4 only"
+        },
+        {
+          "id": "d",
+          "text": "3 and 4 only"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Statements 1 and 2 are core statutory targets of POSHAN Abhiyaan (National Nutrition Mission): reducing stunting, undernutrition, low birth weight, and anaemia among young children, adolescent girls, and pregnant/lactating women through behavioural change communication and ICT-enabled monitoring. Statements 3 and 4 were not designated programmatic targets of the Mission."
+    },
+    {
+      "number": 24,
+      "topic": "Modern Indian History / Labour Movements",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the above statements is/are correct?",
+      "statements": [
+        "1. The Factories Act, 1881 was passed with a view to fix the wages of industrial workers and to allow the workers to form trade unions.",
+        "2. N.M. Lokhande was a pioneer in organizing the labour movement in British India."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 2 is correct: Narayan Meghaji Lokhande (associate of Jyotirao Phule) founded the Bombay Mill-Hands Association in 1890, the first organized trade union in India, and is revered as the father of the Indian labour movement. Statement 1 is incorrect: The Indian Factories Act of 1881 dealt primarily with child labour (banning employment below age 7, limiting hours for children aged 7–12 to 9 hours/day), and did not fix wages or allow the formation of trade unions."
+    },
+    {
+      "number": 25,
+      "topic": "Climate Change / Carbon Capture and Storage",
+      "passage_id": null,
+      "question": "In the context of mitigating the impending global warming due to anthropogenic emissions of carbon dioxide, which of the following can be the potential sites for carbon sequestration?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Abandoned and uneconomic coal seams",
+        "2. Depleted oil and gas reservoirs",
+        "3. Subterranean deep saline formations"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 2 only"
+        },
+        {
+          "id": "b",
+          "text": "3 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "All three are established geological formations for Carbon Capture and Storage (CCS): unminable/abandoned coal seams adsorb CO2 onto coal matrices while recovering coalbed methane (1); depleted hydrocarbon fields have well-characterized caprocks and proven trapping seals (2); and deep saline aquifers offer the largest theoretical storage capacity globally (3)."
+    },
+    {
+      "number": 26,
+      "topic": "Modern Indian History / Butler Committee",
+      "passage_id": null,
+      "question": "The object of the Butler Committee of 1927 was to",
+      "options": [
+        {
+          "id": "a",
+          "text": "Define the jurisdiction of the Central and Provincial Governments."
+        },
+        {
+          "id": "b",
+          "text": "Define the powers of the Secretary of State for India."
+        },
+        {
+          "id": "c",
+          "text": "Impose censorship on national press."
+        },
+        {
+          "id": "d",
+          "text": "Improve the relationship between the Government of India and the Indian States."
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "The Indian States Committee (headed by Sir Harcourt Butler) was appointed in 1927 to investigate and clarify the constitutional relationship between the British Paramount Power (Government of India) and the 565 Princely Indian States, and to suggest measures for more satisfactory relations."
+    },
+    {
+      "number": 27,
+      "topic": "International Trade / WTO Disputes",
+      "passage_id": null,
+      "question": "The term 'Domestic Content Requirement' is sometimes seen in the news with reference to",
+      "options": [
+        {
+          "id": "a",
+          "text": "Developing solar power production in our country"
+        },
+        {
+          "id": "b",
+          "text": "Granting licences to foreign T.V. channels in our country"
+        },
+        {
+          "id": "c",
+          "text": "Exporting our food products to other countries"
+        },
+        {
+          "id": "d",
+          "text": "Permitting foreign educational institutions to set up their campuses in our country"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Under the Jawaharlal Nehru National Solar Mission (JNNSM), India mandated Domestic Content Requirements (DCR) requiring solar power developers to source solar cells and modules manufactured domestically in India, which was challenged by the USA and struck down by the WTO Dispute Settlement Body in 2016."
+    },
+    {
+      "number": 28,
+      "topic": "International Security / Nuclear Governance",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. The Nuclear Security Summits are periodically held under the aegis of the United Nations.",
+        "2. The International Panel on Fissile Materials is an organ of International Atomic Energy Agency."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Both statements are incorrect: 1. The Nuclear Security Summits (2010–2016) were an American-led multilateral initiative initiated by US President Barack Obama (not held under the aegis of the United Nations). 2. The International Panel on Fissile Materials (IPFM) is an independent non-governmental group of international arms control and non-proliferation experts based at Princeton University, not an organ of the IAEA."
+    },
+    {
+      "number": 29,
+      "topic": "Social Security / National Pension System",
+      "passage_id": null,
+      "question": "Who among the following can join the National Pension System (NPS)?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Resident Indian citizens only"
+        },
+        {
+          "id": "b",
+          "text": "Persons of age from 21 to 55 only"
+        },
+        {
+          "id": "c",
+          "text": "All State Government employees joining the services after the date of notification by the respective State Governments"
+        },
+        {
+          "id": "d",
+          "text": "All Central Government employees including those of Armed Forces joining the services on or after 1st April, 2004"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Statement (c) is correct: The NPS was adopted by nearly all State Governments for their employees joining service after the respective state notification dates. Statement (a) is incorrect because Non-Resident Indians (NRIs) and OCIs are eligible. Statement (b) is incorrect because the entry age is 18 to 65 (later extended to 70). Statement (d) is incorrect because members of the Armed Forces are specifically excluded from the NPS."
+    },
+    {
+      "number": 30,
+      "topic": "Indian Geography / River Systems",
+      "passage_id": null,
+      "question": "With reference to river Teesta, consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. The source of river Teesta is the same as that of Brahmaputra but it flows through Sikkim.",
+        "2. River Rangeet originates in Sikkim and it is a tributary of river Teesta.",
+        "3. River Teesta flows into Bay of Bengal on the border of India and Bangladesh."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 2 is correct: The Rangeet River originates in Sikkim and is the largest tributary of the Teesta River. Statement 1 is incorrect because Teesta originates from Tso Lhamo lake / Teesta Khangse glacier in North Sikkim, whereas the Brahmaputra (Yarlung Tsangpo) originates from the Angsi / Chemayungdung glacier in Tibet. Statement 3 is incorrect because Teesta joins the Jamuna (Brahmaputra) in Bangladesh and does not directly flow into the Bay of Bengal on the border."
+    },
+    {
+      "number": 31,
+      "topic": "Health & Diseases / Zika Virus",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. In tropical regions, Zika virus disease is transmitted by the same mosquito that transmits dengue.",
+        "2. Sexual transmission of Zika virus disease is possible."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Both statements are correct: 1. Zika virus is transmitted primarily by the daytime-active Aedes aegypti mosquito, which is the exact same vector transmitting dengue and chikungunya. 2. WHO confirmed that Zika virus can also be transmitted from person to person through sexual intercourse."
+    },
+    {
+      "number": 32,
+      "topic": "Standards and Quality Certification in India",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. The Standard Mark of Bureau of Indian Standards (BIS) is mandatory for automotive tyres and tubes.",
+        "2. AGMARK is a quality Certification Mark issued by the Food and Agriculture Organisation (FAO)."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Statement 1 is correct: Under the Pneumatic Tyres and Tubes for Automotive Vehicles (Quality Control) Order, the ISI mark issued by BIS is legally mandatory for all automotive tyres and tubes in India. Statement 2 is incorrect because AGMARK is an Indian national quality certification mark issued under the Agricultural Produce (Grading and Marking) Act, 1937 by the Directorate of Marketing and Inspection (Ministry of Agriculture), not the FAO."
+    },
+    {
+      "number": 33,
+      "topic": "Agriculture / e-NAM Scheme",
+      "passage_id": null,
+      "question": "What is/are the advantage/advantages of implementing the 'National Agriculture Market' scheme?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. It is a pan-India electronic trading portal for agricultural commodities.",
+        "2. It provides the farmers access to nationwide market, with prices commensurate with the quality of their produce."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Both statements are correct: e-NAM (National Agriculture Market) is a pan-India electronic portal networking existing APMC mandis to create a unified national market for agricultural commodities (1), enabling transparent price discovery through electronic bidding based on scientific quality assaying (2)."
+    },
+    {
+      "number": 34,
+      "topic": "Intellectual Property Rights / National IPR Policy",
+      "passage_id": null,
+      "question": "With reference to the 'National Intellectual Property Rights Policy', consider the following statements:\nWhich of the above statements is/are correct?",
+      "statements": [
+        "1. It reiterates India's commitment to the Doha Development Agenda and the TRIPS Agreement.",
+        "2. Department of Industrial Policy and Promotion is the nodal agency for regulating intellectual property rights in India."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Both statements are correct: The National IPR Policy (adopted in May 2016) reaffirms India's full commitment to the TRIPS Agreement and flexibilities under the Doha Declaration on Public Health (1); and made the Department of Industrial Policy and Promotion (DIPP, now DPIIT) the single nodal department coordinating, administering, and regulating all forms of IPRs in India (2)."
+    },
+    {
+      "number": 35,
+      "topic": "Wildlife Law / Schedule I Animals",
+      "passage_id": null,
+      "question": "According to the Wildlife (Protection) Act, 1972, which of the following animals cannot be hunted by any person except under some provisions provided by law?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Gharial",
+        "2. Indian wild ass",
+        "3. Wild buffalo"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Under the Wildlife (Protection) Act, 1972, hunting of wild animals listed in Schedule I (and Part II of Schedule II) is completely prohibited, except when permitted under special permits (e.g. self-defense, disease, or scientific research). Gharial (Gavialis gangeticus), Indian wild ass (Equus hemionus khur), and Wild buffalo (Bubalus arnee) are all listed in Schedule I."
+    },
+    {
+      "number": 36,
+      "topic": "Indian Polity / Fundamental Duties",
+      "passage_id": null,
+      "question": "Which of the following statements is/are true of the Fundamental Duties of an Indian citizen?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. A legislative process has been provided to enforce these duties.",
+        "2. They are correlative to legal duties."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Both statements are incorrect: 1. The Constitution itself does not provide an automatic direct legislative enforcement mechanism for Fundamental Duties (Article 51A); they are non-justiciable (though Parliament may enact specific separate laws like the Prevention of Insults to National Honour Act). 2. In legal jurisprudence, rights are correlative to duties, but Fundamental Duties are moral/civic obligations and are not legally correlative to legal duties. (UPSC official key: d)."
+    },
+    {
+      "number": 37,
+      "topic": "Modern Indian History / Pre-Congress Nationalist Organizations",
+      "passage_id": null,
+      "question": "Consider the following pairs:\nWhich of the above pairs is/are correctly matched?",
+      "table": {
+        "headers": [
+          "",
+          "Person",
+          "Role/Organization"
+        ],
+        "rows": [
+          [
+            "1.",
+            "Radhakanta Deb",
+            "First President of the British Indian Association"
+          ],
+          [
+            "2.",
+            "Gazulu Lakshminarasu Chetty",
+            "Founder of the Madras Mahajana Sabha"
+          ],
+          [
+            "3.",
+            "Surendranath Banerjee",
+            "Founder of the Indian Association"
+          ]
+        ]
+      },
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Pair 1 is correct: Raja Radhakanta Deb was the first President of the British Indian Association founded in Calcutta in 1851 (Debendranath Tagore was its secretary). Pair 2 is incorrect: Gazulu Lakshminarasu Chetty founded the Madras Native Association in 1852; the Madras Mahajana Sabha was founded in 1884 by M. Veeraraghavachariar, G. Subramania Iyer, and P. Anandacharlu. Pair 3 is correct: Surendranath Banerjee and Ananda Mohan Bose founded the Indian Association of Calcutta in 1876. Thus, 1 and 3 only are correctly matched."
+    },
+    {
+      "number": 38,
+      "topic": "Indian Polity / Preamble to the Constitution",
+      "passage_id": null,
+      "question": "Which one of the following objectives is not embodied in the Preamble to the Constitution of India?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Liberty of thought"
+        },
+        {
+          "id": "b",
+          "text": "Economic liberty"
+        },
+        {
+          "id": "c",
+          "text": "Liberty of expression"
+        },
+        {
+          "id": "d",
+          "text": "Liberty of belief"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "The Preamble to the Constitution of India explicitly secures: 'LIBERTY of thought, expression, belief, faith and worship' and 'JUSTICE, social, economic and political'. It guarantees economic JUSTICE, not 'economic liberty'."
+    },
+    {
+      "number": 39,
+      "topic": "Governance / Quality Council of India",
+      "passage_id": null,
+      "question": "With reference to 'Quality Council of India (QCI)', consider the following statements:\nWhich of the above statements is/are correct?",
+      "statements": [
+        "1. QCI was set up jointly by the Government of India and the Indian Industry.",
+        "2. Chairman of QCI is appointed by the Prime Minister on the recommendations of the industry to the Government."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Both statements are correct: QCI was set up in 1997 as an autonomous non-profit society jointly by the Government of India (through DIPP) and Indian industry represented by ASSOCHAM, CII, and FICCI (1); and its Chairman is appointed by the Prime Minister based on recommendations submitted by the industry to the Government (2)."
+    },
+    {
+      "number": 40,
+      "topic": "Financial Inclusion / Small Finance Banks",
+      "passage_id": null,
+      "question": "What is the purpose of setting up of Small Finance Banks (SFBs) in India?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. To supply credit to small business units",
+        "2. To supply credit to small and marginal farmers",
+        "3. To encourage young entrepreneurs to set up business particularly in rural areas."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 2 only"
+        },
+        {
+          "id": "b",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "According to RBI guidelines, the primary objective of setting up Small Finance Banks is to further financial inclusion by (a) providing an institutional mechanism for promoting savings and (b) supplying credit to unserved and underserved sections, including small business units, micro and small industries, and small and marginal farmers (1 and 2). Promoting young entrepreneurs in rural areas is not an official objective. (UPSC official key: a)."
+    },
+    {
+      "number": 41,
+      "topic": "Urban Development / International Conferences",
+      "passage_id": null,
+      "question": "With reference to 'Asia Pacific Ministerial Conference on Housing and Urban Development (APMCHUD)', consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. The first APMCHUD was held in India in 2006 on the theme 'Emerging Urban Forms - Policy Responses and Governance Structure'.",
+        "2. India hosts all the Annual Ministerial Conferences in partnership with ADB, APEC and ASEAN."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Both statements are incorrect: 1. The first APMCHUD was held in New Delhi in 2006, but on the theme 'A Vision for Sustainable Urbanisation in the Asia-Pacific by 2020' (the theme 'Emerging Urban Forms' was for the 6th conference in 2016). 2. APMCHUD conferences are biennial (held every two years, not annual) and hosted rotationally by different member nations across the Asia-Pacific in partnership with UN-Habitat, not exclusively hosted by India or partnered with APEC/ASEAN. (UPSC official key: d)."
+    },
+    {
+      "number": 42,
+      "topic": "Political Theory / Philosophy of Democracy",
+      "passage_id": null,
+      "question": "Democracy's superior virtue lies in the fact that it calls into activity",
+      "options": [
+        {
+          "id": "a",
+          "text": "the intelligence and character of ordinary men and women."
+        },
+        {
+          "id": "b",
+          "text": "the methods for strengthening executive leadership."
+        },
+        {
+          "id": "c",
+          "text": "a superior individual with dynamism and vision."
+        },
+        {
+          "id": "d",
+          "text": "a band of dedicated party workers."
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "In classical democratic theory (notably articulated by John Stuart Mill in Considerations on Representative Government), the greatest virtue of representative democracy is its educative and moral effect: by inviting active civic participation, deliberation, and voting, it awakens and elevates the intellect, moral character, and social responsibility of ordinary citizens."
+    },
+    {
+      "number": 43,
+      "topic": "FinTech / Unified Payments Interface (UPI)",
+      "passage_id": null,
+      "question": "Which of the following is a most likely consequence of implementing the 'Unified Payments Interface (UPI)'?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Mobile wallets will not be necessary for online payments."
+        },
+        {
+          "id": "b",
+          "text": "Digital currency will totally replace the physical currency in about two decades."
+        },
+        {
+          "id": "c",
+          "text": "FDI inflows will drastically increase."
+        },
+        {
+          "id": "d",
+          "text": "Direct transfer of subsidies to poor people will become very effective."
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "UPI enables direct account-to-account interoperable transfers in real time using a virtual identifier, removing the friction of loading and locking money into proprietary, non-interoperable third-party mobile prepaid wallets."
+    },
+    {
+      "number": 44,
+      "topic": "Astrophysics / Theoretical Physics",
+      "passage_id": null,
+      "question": "The terms 'Event Horizon', 'Singularity', 'String Theory' and 'Standard Model' are sometimes seen in the news in the context of",
+      "options": [
+        {
+          "id": "a",
+          "text": "Observation and understanding of the Universe"
+        },
+        {
+          "id": "b",
+          "text": "Study of the solar and the lunar eclipses"
+        },
+        {
+          "id": "c",
+          "text": "Placing satellites in the orbit of the Earth"
+        },
+        {
+          "id": "d",
+          "text": "Origin and evolution of living organisms on the Earth"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Event Horizon and Gravitational Singularity describe the boundary and core of black holes in General Relativity; String Theory is a theoretical framework attempting to unify quantum mechanics and gravity; and the Standard Model classifies all known fundamental subatomic particles and forces in the Universe."
+    },
+    {
+      "number": 45,
+      "topic": "Biotechnology / Agricultural Genomics",
+      "passage_id": null,
+      "question": "With reference to agriculture in India, how can the technique of 'genome sequencing', often seen in the news, be used in the immediate future?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Genome sequencing can be used to identify genetic markers for disease resistance and drought tolerance in various crop plants.",
+        "2. This technique helps in reducing the time required to develop new varieties of crop plants.",
+        "3. It can be used to decipher host-pathogen relationships in crops."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "All three applications are operational in genomics-assisted crop breeding: identifying molecular markers linked to biotic/abiotic stress traits (1); accelerating marker-assisted selection (MAS) to cut breeding cycles by half compared to conventional phenotypic selection (2); and sequencing plant pathogens and host genomes to map virulence factors and plant immune response mechanisms (3)."
+    },
+    {
+      "number": 46,
+      "topic": "Indian Polity / Parliamentary System",
+      "passage_id": null,
+      "question": "The main advantage of the parliamentary form of government is that",
+      "options": [
+        {
+          "id": "a",
+          "text": "the executive and legislature work independently."
+        },
+        {
+          "id": "b",
+          "text": "it provides continuity of policy and is more efficient."
+        },
+        {
+          "id": "c",
+          "text": "the executive remains responsible to the legislature."
+        },
+        {
+          "id": "d",
+          "text": "the head of the government cannot be changed without election."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "The fundamental defining feature and primary institutional advantage of the parliamentary system (responsible government) is the continuous executive accountability to the legislature, wherein the Council of Ministers remains collectively responsible to the elected lower house (Article 75(3)) and survives only as long as it enjoys its confidence."
+    },
+    {
+      "number": 47,
+      "topic": "Political Theory / Rights and Duties",
+      "passage_id": null,
+      "question": "In the context of India, which one of the following is the correct relationship between Rights and Duties?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Rights are correlative with Duties."
+        },
+        {
+          "id": "b",
+          "text": "Rights are personal and hence independent of society and Duties."
+        },
+        {
+          "id": "c",
+          "text": "Rights, not Duties, are important for the advancement of the personality of the citizen."
+        },
+        {
+          "id": "d",
+          "text": "Duties, not Rights, are important for the stability of the State."
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "In democratic jurisprudence and political philosophy, rights and duties are intrinsically interconnected and reciprocal: one person's right is another's duty, and an individual's enjoyment of rights depends directly on their fulfillment of civic duties toward society and the State (Rights are correlative with Duties)."
+    },
+    {
+      "number": 48,
+      "topic": "Indian Polity / Constitutional Philosophy",
+      "passage_id": null,
+      "question": "The mind of the makers of the Constitution of India is reflected in which of the following?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The Preamble"
+        },
+        {
+          "id": "b",
+          "text": "The Fundamental Rights"
+        },
+        {
+          "id": "c",
+          "text": "The Directive Principles of State Policy"
+        },
+        {
+          "id": "d",
+          "text": "The Fundamental Duties"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "As the Supreme Court observed in the Berubari Union case (1960) and reaffirmed in Kesavananda Bharati (1973), the Preamble is the key to open the minds of the constitution-makers, summarizing the core political, economic, and moral ideals, values, and vision underlying the Constitution."
+    },
+    {
+      "number": 49,
+      "topic": "Indian Geography / Interstate Transit",
+      "passage_id": null,
+      "question": "If you travel by road from Kohima to Kottayam, what is the minimum number of States within India through which you can travel, including the origin and the destination?",
+      "options": [
+        {
+          "id": "a",
+          "text": "6"
+        },
+        {
+          "id": "b",
+          "text": "7"
+        },
+        {
+          "id": "c",
+          "text": "8"
+        },
+        {
+          "id": "d",
+          "text": "9"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Tracing the minimum contiguous route from Kohima (Nagaland) to Kottayam (Kerala):\n1. Nagaland (Origin, 1)\n2. Assam (2)\n3. West Bengal (3)\n4. Odisha (4)\n5. Andhra Pradesh (5)\n6. Tamil Nadu (6)\n7. Kerala (Destination, 7)\nTotal minimum States = 7."
+    },
+    {
+      "number": 50,
+      "topic": "Indian Polity / Legislative Control over Executive",
+      "passage_id": null,
+      "question": "The Parliament of India exercises control over the functions of the Council of Ministers through\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Adjournment motion",
+        "2. Question hour",
+        "3. Supplementary questions"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Parliament enforces ministerial accountability through multiple parliamentary proceedings: Adjournment motions draw immediate attention to definite matters of urgent public importance involving government censure (1); Question Hour allows members to ask questions and scrutinize policies (2); and Supplementary questions allow follow-ups to pinpoint executive omissions or elicit factual clarity (3)."
+    },
+    {
+      "number": 51,
+      "topic": "Medieval Indian History / Kakatiya Dynasty",
+      "passage_id": null,
+      "question": "Which one of the following was a very important seaport in the Kakatiya kingdom?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Kakinada"
+        },
+        {
+          "id": "b",
+          "text": "Motupalli"
+        },
+        {
+          "id": "c",
+          "text": "Machilipatnam (Masulipatnam)"
+        },
+        {
+          "id": "d",
+          "text": "Nelluru"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Motupalli (in present-day Prakasam district, Andhra Pradesh) was the premier international seaport of the Kakatiya kingdom. King Ganapatideva issued the celebrated Motupalli Abhaya Sasanam (charter of security) in 1244 CE to encourage foreign maritime merchants, an active port also visited and praised by Venetian traveller Marco Polo."
+    },
+    {
+      "number": 52,
+      "topic": "Climate Change / GCCA Initiative",
+      "passage_id": null,
+      "question": "With reference to 'Global Climate Change Alliance', which of the following statements is/are correct?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. It is an initiative of the European Union.",
+        "2. It provides technical and financial support to targeted developing countries to integrate climate change into their development policies and budgets.",
+        "3. It is coordinated by World Resources Institute (WRI) and World Business Council for Sustainable Development (WBCSD)."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 2 only"
+        },
+        {
+          "id": "b",
+          "text": "3 only"
+        },
+        {
+          "id": "c",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Statements 1 and 2 are correct: The GCCA was established by the European Union (EU) in 2007 to strengthen dialogue and cooperation with the most vulnerable developing countries (LDCs and SIDS), providing technical and financial support to mainstream climate resilience into development plans (1 and 2). Statement 3 is incorrect because the GCCA is funded and coordinated directly by the European Commission, not WRI/WBCSD (which developed the GHG Protocol)."
+    },
+    {
+      "number": 53,
+      "topic": "Ancient Indian History / Buddhist Schools",
+      "passage_id": null,
+      "question": "With reference to the religious history of India, consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. Sautrantika and Sammitiya were the sects of Jainism.",
+        "2. Sarvastivadin held that the constituents of phenomena were not wholly momentary, but existed forever in a latent form."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 2 is correct: The Sarvastivada ('doctrine that all exists') school of early Buddhism asserted that dharmas (fundamental constituents of matter and mind) exist in all three periods of time — past, present, and future — rather than being wholly momentary. Statement 1 is incorrect because both Sautrantika and Sammitiya were early schools of Hinayana Buddhism, not Jainism."
+    },
+    {
+      "number": 54,
+      "topic": "World Geography / Mediterranean Sea Coastlines",
+      "passage_id": null,
+      "question": "Mediterranean Sea is a border of which of the following countries?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Jordan",
+        "2. Iraq",
+        "3. Lebanon",
+        "4. Syria"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1, 2 and 3 only"
+        },
+        {
+          "id": "b",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "3 and 4 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 3 and 4 only"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Lebanon and Syria lie directly along the eastern shore of the Mediterranean Sea (the Levant). Jordan is landlocked on the Mediterranean side (separated by Israel/West Bank, with coastline only on the Gulf of Aqaba/Red Sea), and Iraq is landlocked from the Mediterranean (bordering the Persian Gulf)."
+    },
+    {
+      "number": 55,
+      "topic": "Infrastructure Finance / NIIF",
+      "passage_id": null,
+      "question": "With reference to 'National Investment and Infrastructure Fund', which of the following statements is/are correct?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. It is an organ of NITI Aayog.",
+        "2. It has a corpus of ₹ 4,00,000 crore at present."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Both statements are incorrect: 1. NIIF was registered with SEBI as a Category II Alternative Investment Fund (AIF) under the Department of Economic Affairs (Ministry of Finance), not an organ of NITI Aayog. 2. It was set up in 2015 with an initial targeted corpus of ₹40,000 crore (not ₹4,00,000 crore), with 49% government equity and 51% held by institutional/strategic investors."
+    },
+    {
+      "number": 56,
+      "topic": "International Financial Institutions / Global Infrastructure Facility",
+      "passage_id": null,
+      "question": "The Global Infrastructure Facility is a/an",
+      "options": [
+        {
+          "id": "a",
+          "text": "ASEAN initiative to upgrade infrastructure in Asia and financed by credit from the Asian Development Bank."
+        },
+        {
+          "id": "b",
+          "text": "World Bank collaboration that facilitates the preparation and structuring of complex infrastructure Public-Private Partnerships (PPPs) to enable mobilization of private sector and institutional investor capital."
+        },
+        {
+          "id": "c",
+          "text": "Collaboration among the major banks of the world working with the OECD and focused on expanding the set of infrastructure projects that have the potential to mobilize private investment."
+        },
+        {
+          "id": "d",
+          "text": "UNCTAD funded initiative that seeks to finance and facilitate infrastructure development in the world."
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "The Global Infrastructure Facility (GIF) is a global collaboration platform launched by the World Bank in 2014 that facilitates the preparation, structuring, and de-risking of complex infrastructure Public-Private Partnerships (PPPs) to mobilize private capital and institutional investment in emerging markets."
+    },
+    {
+      "number": 57,
+      "topic": "Indian Polity / Electoral Law",
+      "passage_id": null,
+      "question": "For election to the Lok Sabha, a nomination paper can be filed by",
+      "options": [
+        {
+          "id": "a",
+          "text": "anyone residing in India."
+        },
+        {
+          "id": "b",
+          "text": "a resident of the constituency from which the election is to be contested."
+        },
+        {
+          "id": "c",
+          "text": "any citizen of India whose name appears in the electoral roll of a constituency."
+        },
+        {
+          "id": "d",
+          "text": "any citizen of India."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Under Section 4(d) of the Representation of the People Act, 1951, a person is eligible to contest an election to the Lok Sabha from any general constituency in India if he/she is a citizen of India and a registered elector in the electoral roll of ANY parliamentary constituency in India."
+    },
+    {
+      "number": 58,
+      "topic": "Indian Physical Geography / Mountains and Wetlands",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. In India, the Himalayas are spread over five States only.",
+        "2. Western Ghats are spread over five States only.",
+        "3. Pulicat Lake is spread over two States only."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 2 only"
+        },
+        {
+          "id": "b",
+          "text": "3 only"
+        },
+        {
+          "id": "c",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1 and 3 only"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 3 is correct: Pulicat Lagoon (the second largest brackish-water lagoon in India) straddles the border of exactly two states: Andhra Pradesh (Nellore district) and Tamil Nadu (Tiruvallur district). Statement 1 is incorrect because the Himalayas span more than 10 Indian States/UTs (J&K, Ladakh, Himachal Pradesh, Uttarakhand, Sikkim, West Bengal, and the northeastern states). Statement 2 is incorrect because the Western Ghats extend across six States: Gujarat, Maharashtra, Goa, Karnataka, Kerala, and Tamil Nadu."
+    },
+    {
+      "number": 59,
+      "topic": "Environment & Ecology / Water Quality Parameters",
+      "passage_id": null,
+      "question": "Biological Oxygen Demand (BOD) is a standard criterion for",
+      "options": [
+        {
+          "id": "a",
+          "text": "Measuring oxygen levels in blood"
+        },
+        {
+          "id": "b",
+          "text": "Computing oxygen levels in forest ecosystems"
+        },
+        {
+          "id": "c",
+          "text": "Pollution assay in aquatic ecosystems"
+        },
+        {
+          "id": "d",
+          "text": "Assessing oxygen levels in high altitude regions"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Biochemical Oxygen Demand (BOD) measures the amount of dissolved oxygen consumed by aerobic microorganisms to decompose organic matter present in a water sample over a specified period (typically 5 days at 20°C), serving as a universal benchmark for organic pollution in aquatic ecosystems."
+    },
+    {
+      "number": 60,
+      "topic": "International Organizations / UN-Habitat",
+      "passage_id": null,
+      "question": "With reference to the role of UN-Habitat in the United Nations programme working towards a better urban future, which of the statements is/are correct?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. UN-Habitat has been mandated by the United Nations General Assembly to promote socially and environmentally sustainable towns and cities to provide adequate shelter for all.",
+        "2. Its partners are either governments or local urban authorities only.",
+        "3. UN-Habitat contributes to the overall objective of the United Nations system to reduce poverty and to promote access to safe drinking water and basic sanitation."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1, 2 and 3"
+        },
+        {
+          "id": "b",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1 only"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statements 1 and 3 are correct: UN-Habitat is mandated by the UNGA to promote socially and environmentally sustainable human settlements and adequate shelter for all (1), contributing to poverty eradication and improving urban access to clean water and sanitation (SDG 11 and SDG 6) (3). Statement 2 is incorrect because UN-Habitat actively partners with civil society, NGOs, academia, private sector companies, and community foundations, not 'governments or local urban authorities only'."
+    },
+    {
+      "number": 61,
+      "topic": "Skill Development / National Skills Qualification Framework",
+      "passage_id": null,
+      "question": "With reference to 'National Skills Qualification Framework (NSQF)', which of the statements given above is/are correct?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Under NSQF, a learner can acquire the certification for competency only through formal learning.",
+        "2. An outcome expected from the implementation of NSQF is the mobility between vocational and general education."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 2 is correct: One of the central objectives of the NSQF is establishing pathways for horizontal and vertical mobility between vocational training and traditional mainstream general education. Statement 1 is incorrect because NSQF explicitly accommodates and certifies non-formal and informal learning through Recognition of Prior Learning (RPL), not through formal learning only."
+    },
+    {
+      "number": 62,
+      "topic": "Modern Indian History / Government of India Act 1919",
+      "passage_id": null,
+      "question": "In the context of Indian history, the principle of 'Dyarchy (diarchy)' refers to",
+      "options": [
+        {
+          "id": "a",
+          "text": "Division of the central legislature into two houses."
+        },
+        {
+          "id": "b",
+          "text": "Introduction of double government i.e., Central and State governments."
+        },
+        {
+          "id": "c",
+          "text": "Having two sets of rulers; one in London and another in Delhi."
+        },
+        {
+          "id": "d",
+          "text": "Division of the subjects delegated to the provinces into two categories."
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Under the Montagu-Chelmsford Reforms / Government of India Act, 1919, dyarchy was introduced in the provinces by dividing provincial subjects into two categories: 'Transferred subjects' (administered by the Governor with the advice of elected ministers responsible to the legislative council) and 'Reserved subjects' (administered by the Governor and his executive council without legislative responsibility)."
+    },
+    {
+      "number": 63,
+      "topic": "Government Schemes / National Career Service",
+      "passage_id": null,
+      "question": "Consider the following in respect of 'National Career Service':\nWhich of the above statements is/are correct?",
+      "statements": [
+        "1. National Career Service is an initiative of the Department of Personnel and Training, Government of India.",
+        "2. National Career Service has been launched in a Mission Mode to improve the employment opportunities to uneducated youth of the country."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Both statements are incorrect: 1. National Career Service (NCS) was launched in 2015 by the Ministry of Labour and Employment (not DoPT). 2. NCS is a digital job-matching platform transforming employment exchanges for all jobseekers (educated youth, professionals, apprentices, differently abled), and was not launched specifically for 'uneducated youth only'."
+    },
+    {
+      "number": 64,
+      "topic": "Banking / NPA Resolution Schemes (S4A)",
+      "passage_id": null,
+      "question": "Which of the following statements best describes the term 'Scheme for Sustainable Structuring of Stressed Assets (S4A)', recently seen in the news?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It is a procedure for considering ecological costs of developmental schemes formulated by the Government."
+        },
+        {
+          "id": "b",
+          "text": "It is a scheme of RBI for reworking the financial structure of big corporate entities facing genuine difficulties."
+        },
+        {
+          "id": "c",
+          "text": "It is a disinvestment plan of the Government regarding Central Public Sector Undertakings."
+        },
+        {
+          "id": "d",
+          "text": "It is an important provision in 'The Insolvency and Bankruptcy Code' recently implemented by the Government."
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "S4A was introduced by the Reserve Bank of India in June 2016 as a restructuring mechanism for large corporate stressed accounts, allowing lending banks to bifurcate existing debt into sustainable debt (serviced via current cash flows) and unsustainable debt (converted into equity or quasi-equity instruments)."
+    },
+    {
+      "number": 65,
+      "topic": "Environment / Short-Lived Climate Pollutants (CCAC)",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. Climate and Clean Air Coalition (CCAC) to Reduce Short Lived Climate Pollutants is a unique initiative of G20 group of countries.",
+        "2. The CCAC focuses on methane, black carbon and hydrofluorocarbons."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 2 is correct: The CCAC targets short-lived climate pollutants (SLCPs), specifically methane, black carbon (soot), and hydrofluorocarbons (HFCs), which have powerful warming potential and direct public health impacts. Statement 1 is incorrect because the CCAC was launched in 2012 by six founding countries (Bangladesh, Canada, Ghana, Mexico, Sweden, and the USA) alongside the United Nations Environment Programme (UNEP), not the G20."
+    },
+    {
+      "number": 66,
+      "topic": "Physical Geography / Indian Ocean Dipole",
+      "passage_id": null,
+      "question": "With reference to 'Indian Ocean Dipole (IOD)' sometimes mentioned in the news while forecasting Indian monsoon, which of the following statements is/are correct?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. IOD phenomenon is characterised by a difference in sea surface temperature between tropical Western Indian Ocean and tropical Eastern Pacific Ocean.",
+        "2. An IOD phenomenon can influence an El Nino's impact on the monsoon."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 2 is correct: A positive IOD event (warmer western Indian Ocean) enhances convection and rainfall over the Indian subcontinent, mitigating the drying/deficit impact of an El Niño on the Southwest Monsoon (as occurred in 1997). Statement 1 is incorrect because the IOD measures the difference in sea surface temperatures between the tropical Western Indian Ocean and the tropical EASTERN INDIAN Ocean (south of Indonesia), not the Pacific Ocean."
+    },
+    {
+      "number": 67,
+      "topic": "Environment & Biodiversity / Reptile Conservation",
+      "passage_id": null,
+      "question": "If you want to see gharials in their natural habitat, which one of the following is the best place to visit?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Bhitarkanika Mangroves"
+        },
+        {
+          "id": "b",
+          "text": "Chambal River"
+        },
+        {
+          "id": "c",
+          "text": "Pulicat Lake"
+        },
+        {
+          "id": "d",
+          "text": "Deepor Beel"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "The National Chambal Sanctuary (spanning Rajasthan, Madhya Pradesh, and Uttar Pradesh along the Chambal River) harbors the largest remaining wild breeding population of critically endangered Gharials (Gavialis gangeticus) in the world. (Bhitarkanika is famous for saltwater crocodiles)."
+    },
+    {
+      "number": 68,
+      "topic": "Defence & Security / Maritime Cooperation (IONS)",
+      "passage_id": null,
+      "question": "Consider the following in respect of Indian Ocean Naval Symposium (IONS):\nWhich of the above statements is/are correct?",
+      "statements": [
+        "1. Inaugural IONS was held in India in 2015 under the chairmanship of the Indian Navy.",
+        "2. IONS is a voluntary initiative that seeks to increase maritime co-operation among navies of the littoral states of the Indian Ocean Region."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 2 is correct: IONS is a voluntary regional maritime security forum designed to promote interoperability, maritime domain awareness, and humanitarian assistance among the navies of Indian Ocean littoral nations. Statement 1 is incorrect because the inaugural IONS seminar was conceived by the Indian Navy and held in New Delhi in February 2008 (not 2015)."
+    },
+    {
+      "number": 69,
+      "topic": "Ancient Indian Art / Cave Paintings",
+      "passage_id": null,
+      "question": "The painting of Bodhisattva Padmapani is one of the most famous and oft-illustrated paintings at",
+      "options": [
+        {
+          "id": "a",
+          "text": "Ajanta"
+        },
+        {
+          "id": "b",
+          "text": "Badami"
+        },
+        {
+          "id": "c",
+          "text": "Bagh"
+        },
+        {
+          "id": "d",
+          "text": "Ellora"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "The magnificent fresco mural depicting Bodhisattva Padmapani holding a blue lotus in his right hand is located inside Cave 1 at the UNESCO World Heritage Ajanta Caves in Maharashtra, executed under Vakataka patronage in the late 5th century CE."
+    },
+    {
+      "number": 70,
+      "topic": "Art & Culture / Festivals and Communities",
+      "passage_id": null,
+      "question": "Consider the following pairs:\nWhich of the pairs given above is/are correctly matched?",
+      "table": {
+        "headers": [
+          "",
+          "Traditions",
+          "Communities"
+        ],
+        "rows": [
+          [
+            "1.",
+            "Chaliha Sahib Festival",
+            "Sindhis"
+          ],
+          [
+            "2.",
+            "Nanda Raj Jaat Yatra",
+            "Gonds"
+          ],
+          [
+            "3.",
+            "Wari-Warkari",
+            "Santhals"
+          ]
+        ]
+      },
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "None of the above"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Pair 1 is correctly matched: Chaliha Sahib is an auspicious 40-day fasting festival celebrated by the Sindhi community dedicated to Lord Jhulelal (Ishtadev). Pair 2 is incorrectly matched: Nanda Devi Raj Jaat is a grand Himalayan pilgrimage celebrated by the Garhwali and Kumaoni people in Chamoli, Uttarakhand (not Gonds). Pair 3 is incorrectly matched: Wari-Warkari is a centuries-old annual pilgrimage to Pandharpur in Maharashtra undertaken by Warkaris devoted to Lord Vitthal (not Santhals). Thus, only Pair 1 is correctly matched."
+    },
+    {
+      "number": 71,
+      "topic": "Agriculture / Water Conservation",
+      "passage_id": null,
+      "question": "Which of the following practices can help in water conservation in agriculture?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Reduced or zero tillage of the land",
+        "2. Applying gypsum before irrigating the field",
+        "3. Allowing crop residue to remain in the field"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 2 only"
+        },
+        {
+          "id": "b",
+          "text": "3 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Statements 1 and 3 are standard conservation agriculture methods that directly conserve soil moisture by reducing evaporation losses and preserving soil pore structure (zero tillage: 1; surface crop residue mulch: 3). Gypsum (calcium sulfate) is applied primarily as a chemical soil amendment to reclaim sodic/alkali soils (replacing sodium with calcium to improve infiltration), but is not an intrinsic water conservation practice. (UPSC official key: c)."
+    },
+    {
+      "number": 72,
+      "topic": "Government Schemes / Soil Health Card",
+      "passage_id": null,
+      "question": "Consider the following statements:\nThe nation-wide 'Soil Health Card Scheme' aims at\nWhich of the above statements is/are correct?",
+      "statements": [
+        "1. expanding the cultivable area under irrigation.",
+        "2. enabling the banks to assess the quantum of loans to be granted to farmers on the basis of soil quality.",
+        "3. checking the overuse of fertilizers in farmlands."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 2 only"
+        },
+        {
+          "id": "b",
+          "text": "3 only"
+        },
+        {
+          "id": "c",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 3 is correct: The Soil Health Card scheme assesses the nutrient status of farmlands across 12 parameters (N, P, K, S, micronutrients, pH, EC, OC) and prescribes customized, crop-wise dosage recommendations to check the rampant overuse of chemical fertilizers. Statements 1 and 2 are not objectives of the scheme (irrigation expansion is under PMKSY, and crop loans are based on scale of finance, not soil cards)."
+    },
+    {
+      "number": 73,
+      "topic": "Consumer Chemistry / Harmful Chemicals",
+      "passage_id": null,
+      "question": "Consider the following pairs:\nWhich of the pairs given above is/are correctly matched?",
+      "table": {
+        "headers": [
+          "",
+          "Commonly used / consumed materials",
+          "Unwanted or controversial chemicals likely to be found in them"
+        ],
+        "rows": [
+          [
+            "1.",
+            "Lipstick",
+            "Lead"
+          ],
+          [
+            "2.",
+            "Soft drinks",
+            "Brominated vegetable oils"
+          ],
+          [
+            "3.",
+            "Chinese fast food",
+            "Monosodium glutamate"
+          ]
+        ]
+      },
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "All three pairs are correctly matched: 1. Trace lead impurities frequently contaminate colour pigments and cosmetic formulations in lipsticks. 2. Brominated vegetable oil (BVO) is a controversial emulsifier and clouding agent used in citrus-flavoured sodas and soft drinks. 3. Monosodium glutamate (MSG / Ajinomoto) is widely used as an umami flavour enhancer in Chinese fast food."
+    },
+    {
+      "number": 74,
+      "topic": "Display Technology / OLED vs LCD",
+      "passage_id": null,
+      "question": "Organic Light Emitting Diodes (OLEDs) are used to create digital display in many devices. What are the advantages of OLED displays over Liquid Crystal displays?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. OLED displays can be fabricated on flexible plastic substrates.",
+        "2. Roll-up displays embedded in clothing can be made using OLEDs.",
+        "3. Transparent displays are possible using OLEDs."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "1, 2 and 3"
+        },
+        {
+          "id": "d",
+          "text": "None of the above statements is correct"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Because OLED pixels are emissive (emitting their own light without requiring a rigid LED backlight or polarizing filters like LCDs), OLEDs can be printed directly onto ultra-thin, flexible polyimide plastic substrates (1), allowing foldable, bendable, roll-up electronic displays integrated into textiles and clothing (2), as well as see-through transparent heads-up displays (3)."
+    },
+    {
+      "number": 75,
+      "topic": "Art & Culture / Sun Temples of India",
+      "passage_id": null,
+      "question": "Which of the following is/are famous for Sun temples?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Arasavalli",
+        "2. Amarakantak",
+        "3. Omkareshwar"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Arasavalli (in Srikakulam district, Andhra Pradesh) is home to the famous 7th-century Suryanarayana Swamy Sun temple built by Kalinga King Devendra Varma. Amarkantak (Madhya Pradesh) is famed for the Narmadakund temple dedicated to the source of the Narmada River, and Omkareshwar is one of the 12 sacred Jyotirlinga shrines dedicated to Lord Shiva, neither of which is a Sun temple."
+    },
+    {
+      "number": 76,
+      "topic": "Indian Polity / Parliament & State Assembly Elections",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. In the election for Lok Sabha or State Assembly, the winning candidate must get at least 50 percent of the votes polled, to be declared elected.",
+        "2. According to the provisions laid down in the Constitution of India, in Lok Sabha, the Speaker's post goes to the majority party and the Deputy Speaker's to the Opposition."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Both statements are incorrect: 1. Elections to the Lok Sabha and State Legislative Assemblies follow the First-Past-The-Post (FPTP) plurality system where the candidate with the highest number of valid votes polled is declared elected, regardless of whether they cross 50%. 2. Article 93 of the Constitution simply states that the Lok Sabha shall choose two members to be Speaker and Deputy Speaker; allocating the Deputy Speaker's post to the Opposition is an informal parliamentary convention (dating from 1996), not a constitutional mandate."
+    },
+    {
+      "number": 77,
+      "topic": "Indian Economy / Post-1991 Economic Reforms",
+      "passage_id": null,
+      "question": "Which of the following has/have occurred in India after its liberalization of economic policies in 1991?\nSelect the correct answer using the codes given below:",
+      "statements": [
+        "1. Share of agriculture in GDP increased enormously.",
+        "2. Share of India's exports in world trade increased.",
+        "3. FDI inflows increased.",
+        "4. India's foreign exchange reserves increased enormously."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 4 only"
+        },
+        {
+          "id": "b",
+          "text": "2, 3 and 4 only"
+        },
+        {
+          "id": "c",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2, 3 and 4"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statements 2, 3, and 4 are well-documented structural outcomes of the 1991 LPG reforms: India's share in world merchandise and service exports increased significantly (2); annual foreign direct investment inflows surged exponentially (3); and forex reserves expanded from barely $1.2 billion during the 1991 BoP crisis to over $350–$400+ billion (4). Statement 1 is incorrect because the structural share of agriculture in India's GDP steadily declined (falling from over 30% in 1991 to below 18%)."
+    },
+    {
+      "number": 78,
+      "topic": "Biotechnology / Animal Cloning",
+      "passage_id": null,
+      "question": "What is the application of Somatic Cell Nuclear Transfer Technology?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Production of biolarvicides"
+        },
+        {
+          "id": "b",
+          "text": "Manufacture of biodegradable plastics"
+        },
+        {
+          "id": "c",
+          "text": "Reproductive cloning of animals"
+        },
+        {
+          "id": "d",
+          "text": "Production of organisms free of diseases"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Somatic Cell Nuclear Transfer (SCNT) is a laboratory cloning technique wherein the nucleus of an unfertilized oocyte is removed (enucleation) and replaced with the diploid nucleus of a donor somatic cell, famous for the reproductive cloning of Dolly the sheep."
+    },
+    {
+      "number": 79,
+      "topic": "Financial Technology / Retail Payments (NPCI)",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. National Payments Corporation of India (NPCI) helps in promoting the financial inclusion in the country.",
+        "2. NPCI has launched RuPay, a card payment scheme."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Both statements are correct: NPCI (an initiative of RBI and IBA under the Payment and Settlement Systems Act, 2007) powers AEPS (Aadhaar Enabled Payment System), UPI, and IMPS to drive nationwide financial inclusion (1); and launched RuPay in 2012 as an indigenous domestic card payment scheme (2)."
+    },
+    {
+      "number": 80,
+      "topic": "Wildlife Conservation / Technological Tools",
+      "passage_id": null,
+      "question": "The term 'M-STRIPES' is sometimes seen in the news in the context of",
+      "options": [
+        {
+          "id": "a",
+          "text": "Captive breeding of Wild Fauna"
+        },
+        {
+          "id": "b",
+          "text": "Maintenance of Tiger Reserves"
+        },
+        {
+          "id": "c",
+          "text": "Indigenous Satellite Navigation System"
+        },
+        {
+          "id": "d",
+          "text": "Security of National Highways"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "M-STrIPES (Monitoring System for Tigers - Intensive Protection and Ecological Status) is a software- and GPS-based spatial monitoring system developed by the National Tiger Conservation Authority (NTCA) and the Wildlife Institute of India (WII) for patrolling, anti-poaching, and ecological monitoring across Indian tiger reserves."
+    },
+    {
+      "number": 81,
+      "topic": "Taxation / Goods and Services Tax",
+      "passage_id": null,
+      "question": "What is/are the most likely advantages of implementing 'Goods and Services Tax (GST)'?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. It will replace multiple taxes collected by multiple authorities and will thus create a single market in India.",
+        "2. It will drastically reduce the 'Current Account Deficit' of India and will enable it to increase its foreign exchange reserves.",
+        "3. It will enormously increase the growth and size of economy of India and will enable it to overtake China in the near future."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Statement 1 is correct: GST subsumed 17 central and state indirect taxes (excise, service tax, VAT, entry tax) into a single unified destination-based tax, creating a common national domestic market. Statements 2 and 3 are exaggerated extrapolations: domestic indirect tax reform does not directly eliminate the trade/current account deficit or ensure India will overtake China in the near future."
+    },
+    {
+      "number": 82,
+      "topic": "International Trade / Free Trade Negotiations",
+      "passage_id": null,
+      "question": "Broad-based Trade and Investment Agreement (BTIA) is sometimes seen in the news in the context of negotiations held between India and",
+      "options": [
+        {
+          "id": "a",
+          "text": "European Union"
+        },
+        {
+          "id": "b",
+          "text": "Gulf Cooperation Council"
+        },
+        {
+          "id": "c",
+          "text": "Organization for Economic Cooperation and Development"
+        },
+        {
+          "id": "d",
+          "text": "Shanghai Cooperation Organization"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "The Broad-based Trade and Investment Agreement (BTIA) is the official title of the bilateral Free Trade Agreement negotiations initiated in 2007 between India and the European Union (EU) covering goods, services, and investment."
+    },
+    {
+      "number": 83,
+      "topic": "International Trade / WTO Agreements",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. India has ratified the Trade Facilitation Agreement (TFA) of WTO.",
+        "2. TFA is a part of WTO's Bali Ministerial Package of 2013.",
+        "3. TFA came into force in January 2016."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 2 only"
+        },
+        {
+          "id": "b",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Statements 1 and 2 are correct: The Trade Facilitation Agreement (TFA) was concluded at the WTO's 9th Ministerial Conference in Bali in December 2013 (2), and India formally deposited its instrument of ratification in April 2016 (1). Statement 3 is incorrect because the TFA entered into force on 22 February 2017 (not January 2016) after ratification by two-thirds of WTO members."
+    },
+    {
+      "number": 84,
+      "topic": "International Relations / Strategic Infrastructure",
+      "passage_id": null,
+      "question": "What is the importance of developing Chabahar Port by India?",
+      "options": [
+        {
+          "id": "a",
+          "text": "India's trade with African countries will enormously increase."
+        },
+        {
+          "id": "b",
+          "text": "India's relations with oil-producing Arab countries will be strengthened."
+        },
+        {
+          "id": "c",
+          "text": "India will not depend on Pakistan for access to Afghanistan and Central Asia."
+        },
+        {
+          "id": "d",
+          "text": "Pakistan will facilitate and protect the installation of a gas pipeline between Iraq and India."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Developing Chabahar Port (in the Sistan-Baluchestan province of southeastern Iran on the Gulf of Oman) provides India with a direct, bypass sea-land transit route connecting western India to Afghanistan and the resource-rich Central Asian republics without having to pass through Pakistani land territory."
+    },
+    {
+      "number": 85,
+      "topic": "Cybersecurity / Legal Framework (IT Act)",
+      "passage_id": null,
+      "question": "In India, it is legally mandatory for which of the following to report on cyber security incidents?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Service providers",
+        "2. Data centres",
+        "3. Body corporate"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "1 and 2 only"
+        },
+        {
+          "id": "c",
+          "text": "3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Under Section 70B of the Information Technology Act, 2000 and the CERT-In Rules, 2013, it is legally mandatory for all service providers, intermediaries, data centres, and bodies corporate to report specified cybersecurity incidents to the Indian Computer Emergency Response Team (CERT-In)."
+    },
+    {
+      "number": 86,
+      "topic": "Indian Polity / Nature of Suffrage",
+      "passage_id": null,
+      "question": "Right to vote and to be elected in India is a",
+      "options": [
+        {
+          "id": "a",
+          "text": "Fundamental Right"
+        },
+        {
+          "id": "b",
+          "text": "Natural Right"
+        },
+        {
+          "id": "c",
+          "text": "Constitutional Right"
+        },
+        {
+          "id": "d",
+          "text": "Legal Right"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "In Anukul Chandra Pradhan (1997) and People's Union for Civil Liberties (2013), the Supreme Court noted that the right to vote is provided by the Constitution under Article 326 (adult suffrage) and regulated by the Representation of the People Act, 1951. (In the official UPSC Answer Key for 2017, option (c) 'Constitutional Right' was designated as the correct answer)."
+    },
+    {
+      "number": 87,
+      "topic": "Astrophysics / Gravitational Waves (eLISA)",
+      "passage_id": null,
+      "question": "What is the purpose of 'evolved Laser Interferometer Space Antenna (eLISA)' project?",
+      "options": [
+        {
+          "id": "a",
+          "text": "To detect neutrinos"
+        },
+        {
+          "id": "b",
+          "text": "To detect gravitational waves"
+        },
+        {
+          "id": "c",
+          "text": "To detect the effectiveness of missile defence system"
+        },
+        {
+          "id": "d",
+          "text": "To study the effect of solar flares on our communication systems"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "The Laser Interferometer Space Antenna (LISA / eLISA) is a space-based gravitational wave detector mission led by the European Space Agency (ESA) in partnership with NASA, designed to detect low-frequency gravitational waves from merging supermassive black holes across cosmic distances using laser interferometry between three spacecraft."
+    },
+    {
+      "number": 88,
+      "topic": "Education Initiatives / Vidyanjali",
+      "passage_id": null,
+      "question": "What is the purpose of 'Vidyanjali Yojana'?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. To enable the famous foreign educational institutions to open their campuses in India.",
+        "2. To increase the quality of education provided in government schools by taking help from the private sector and the community.",
+        "3. To encourage voluntary monetary contributions from private individuals and organizations so as to improve the infrastructure facilities for primary and secondary schools."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "2 only"
+        },
+        {
+          "id": "b",
+          "text": "3 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 2 only"
+        },
+        {
+          "id": "d",
+          "text": "2 and 3 only"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Vidyanjali is a school volunteer initiative launched by the Ministry of HRD (now Ministry of Education) to enhance the quality of education in government schools through volunteer non-monetary participation by community members, private professionals, and diaspora (in reading, storytelling, arts). It explicitly does NOT involve voluntary monetary contributions (3)."
+    },
+    {
+      "number": 89,
+      "topic": "Government Schemes / Higher Education (Unnat Bharat Abhiyan)",
+      "passage_id": null,
+      "question": "What is the aim of the programme 'Unnat Bharat Abhiyan'?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Achieving 100% literacy by promoting collaboration between voluntary organizations and government's education system and local communities."
+        },
+        {
+          "id": "b",
+          "text": "Connecting institutions of higher education with local communities to address development challenges through appropriate technologies."
+        },
+        {
+          "id": "c",
+          "text": "Strengthening India's scientific research institutions in order to make India a scientific and technological power."
+        },
+        {
+          "id": "d",
+          "text": "Developing human capital by allocating special funds for health care and education of rural and urban poor, and organizing skill development programmes and vocational training for them."
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Unnat Bharat Abhiyan is a flagship programme launched by the Ministry of Education (coordinated by IIT Delhi) connecting higher educational institutions (IITs, NITs, central universities) with clusters of rural villages to identify local development challenges and devise customized technological solutions for sustainable development."
+    },
+    {
+      "number": 90,
+      "topic": "Indian Polity / Election Commission of India",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. The Election Commission of India is a five-member body.",
+        "2. Union Ministry of Home Affairs decides the election schedule for the conduct of both general elections and bye-elections.",
+        "3. Election Commission resolves the disputes relating to splits/mergers of recognised political parties."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 2 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "3 only"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Statement 3 is correct: Under paragraph 15 of the Election Symbols (Reservation and Allotment) Order, 1968, the Election Commission of India is the quasi-judicial tribunal that decides disputes relating to splits and mergers of recognized political parties. Statement 1 is incorrect because the ECI is a three-member body (Chief Election Commissioner and two Election Commissioners). Statement 2 is incorrect because the election schedule is decided and announced independently by the Election Commission, not the MHA."
+    },
+    {
+      "number": 91,
+      "topic": "Wildlife Law / Schedule I Protection",
+      "passage_id": null,
+      "question": "In India, if a species of tortoise is declared protected under Schedule I of the Wildlife (Protection) Act, 1972, what does it imply?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It enjoys the same level of protection as the tiger."
+        },
+        {
+          "id": "b",
+          "text": "It no longer exists in the wild, a few individuals are under captive protection; and now it is impossible to prevent its extinction."
+        },
+        {
+          "id": "c",
+          "text": "It is endemic to a particular region of India."
+        },
+        {
+          "id": "d",
+          "text": "Both (b) and (c) stated above are correct in this context."
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Schedule I of the Wildlife (Protection) Act, 1972 confers the highest statutory legal protection with maximum penal sanctions for hunting or trafficking; all animals placed in Schedule I (such as the Tiger, Lion, Elephant, and Great Indian Bustard) enjoy the exact same statutory level of protection."
+    },
+    {
+      "number": 92,
+      "topic": "Indian Polity / Judicial Review",
+      "passage_id": null,
+      "question": "In India, Judicial Review implies",
+      "options": [
+        {
+          "id": "a",
+          "text": "the power of the Judiciary to pronounce upon the constitutionality of laws and executive orders."
+        },
+        {
+          "id": "b",
+          "text": "the power of the Judiciary to question the wisdom of the laws enacted by the Legislatures."
+        },
+        {
+          "id": "c",
+          "text": "the power of the Judiciary to review all the legislative enactments before they are assented to by the President."
+        },
+        {
+          "id": "d",
+          "text": "the power of the Judiciary to review its own judgements given earlier in similar or different cases."
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Judicial review is the constitutional power of the higher judiciary (Supreme Court under Article 32 and High Courts under Article 226) to examine the legislative competence and constitutional validity of legislative enactments and executive orders, and strike them down if they violate the Constitution."
+    },
+    {
+      "number": 93,
+      "topic": "Modern Indian History / Freedom Struggle Chronology",
+      "passage_id": null,
+      "question": "With reference to Indian freedom struggle, consider the following events:\n1. Mutiny in Royal Indian Navy\n2. Quit India Movement launched\n3. Second Round Table Conference\nWhat is the correct chronological sequence of the above events?",
+      "options": [
+        {
+          "id": "a",
+          "text": "1 - 2 - 3"
+        },
+        {
+          "id": "b",
+          "text": "2 - 1 - 3"
+        },
+        {
+          "id": "c",
+          "text": "3 - 2 - 1"
+        },
+        {
+          "id": "d",
+          "text": "3 - 1 - 2"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Chronological order of the historical events:\n- Second Round Table Conference (London, attended by Mahatma Gandhi): September–December 1931 (3).\n- Quit India Movement launched by Gandhiji at Bombay: August 1942 (2).\n- Royal Indian Navy (RIN) Mutiny aboard HMIS Talwar at Bombay: February 1946 (1).\nThe correct chronological sequence is 3 - 2 - 1."
+    },
+    {
+      "number": 94,
+      "topic": "Indian Economy / Fiscal Trends",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. Tax revenue as a percent of GDP of India has steadily increased in the last decade.",
+        "2. Fiscal deficit as a percent of GDP of India has steadily increased in the last decade."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Both statements are incorrect: Over the decade preceding 2017, both the tax-to-GDP ratio (averaging 10%–11.5%) and fiscal deficit as a percentage of GDP fluctuated year-to-year in response to the 2008 global financial crisis and subsequent fiscal consolidation, neither demonstrating a 'steady increase'."
+    },
+    {
+      "number": 95,
+      "topic": "Wildlife Conservation / Translocation of Species",
+      "passage_id": null,
+      "question": "Recently there was a proposal to translocate some of the lions from their natural habitat in Gujarat to which one of the following sites?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Corbett National Park"
+        },
+        {
+          "id": "b",
+          "text": "Kuno Palpur Wildlife Sanctuary"
+        },
+        {
+          "id": "c",
+          "text": "Mudumalai Wildlife Sanctuary"
+        },
+        {
+          "id": "d",
+          "text": "Sariska National Park"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "In 2013, the Supreme Court of India ordered the Ministry of Environment and Forests and the Gujarat government to translocate a pride of Asiatic lions from Gir National Park in Gujarat to Kuno-Palpur Wildlife Sanctuary in Madhya Pradesh to establish a second genetically viable free-ranging population as insurance against epidemics."
+    },
+    {
+      "number": 96,
+      "topic": "Indian Polity / President's Rule Consequences",
+      "passage_id": null,
+      "question": "Which of the following are not necessarily the consequences of the proclamation of the President's rule in a State?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Dissolution of the State Legislative Assembly",
+        "2. Removal of the Council of Ministers in the State",
+        "3. Dissolution of the local bodies"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 and 2 only"
+        },
+        {
+          "id": "b",
+          "text": "1 and 3 only"
+        },
+        {
+          "id": "c",
+          "text": "2 and 3 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2 and 3"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Upon the imposition of President's Rule (Article 356), the State Council of Ministers headed by the Chief Minister is dismissed immediately (this IS a necessary consequence, 2). However, the State Legislative Assembly is NOT necessarily dissolved immediately (it is often placed under suspended animation, 1); and elected local bodies (Panchayats and Municipalities) are unaffected by Article 356 and are not dissolved (3). Thus, 1 and 3 are NOT necessarily the consequences."
+    },
+    {
+      "number": 97,
+      "topic": "Indian Polity / Fundamental Rights (Right against Exploitation)",
+      "passage_id": null,
+      "question": "Which of the following are envisaged by the Right against Exploitation in the Constitution of India?\nSelect the correct answer using the code given below:",
+      "statements": [
+        "1. Prohibition of traffic in human beings and forced labour",
+        "2. Abolition of untouchability",
+        "3. Protection of the interests of minorities",
+        "4. Prohibition of employment of children in factories and mines"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1, 2 and 4 only"
+        },
+        {
+          "id": "b",
+          "text": "2, 3 and 4 only"
+        },
+        {
+          "id": "c",
+          "text": "1 and 4 only"
+        },
+        {
+          "id": "d",
+          "text": "1, 2, 3 and 4"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "The 'Right against Exploitation' in Part III consists strictly of two articles: Article 23 (Prohibition of traffic in human beings and forced labour / begar, 1) and Article 24 (Prohibition of employment of children below the age of 14 in factories, mines, and hazardous occupations, 4). Abolition of untouchability is under the Right to Equality (Article 17), and protection of minorities is under Cultural and Educational Rights (Article 29)."
+    },
+    {
+      "number": 98,
+      "topic": "Physical Geography / Indian Ocean Islands",
+      "passage_id": null,
+      "question": "Which of the following is geographically closest to Great Nicobar?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Sumatra"
+        },
+        {
+          "id": "b",
+          "text": "Borneo"
+        },
+        {
+          "id": "c",
+          "text": "Java"
+        },
+        {
+          "id": "d",
+          "text": "Sri Lanka"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Indira Point, the southernmost tip of Great Nicobar Island (6°45' N), lies across the Great Channel just about 145–150 kilometres northwest of the Indonesian island of Sumatra (Banda Aceh/Pulau Rondo), which is geographically far closer than Sri Lanka (~1400 km), Java, or Borneo."
+    },
+    {
+      "number": 99,
+      "topic": "Indian Polity / Cabinet Form of Government",
+      "passage_id": null,
+      "question": "Out of the following statements, choose the one that brings out the principle underlying the Cabinet form of Government:",
+      "options": [
+        {
+          "id": "a",
+          "text": "An arrangement for minimizing the criticism against the Government whose responsibilities are complex and hard to carry out to the satisfaction of all."
+        },
+        {
+          "id": "b",
+          "text": "A mechanism for speeding up the activities of the Government whose responsibilities are increasing day by day."
+        },
+        {
+          "id": "c",
+          "text": "A mechanism of parliamentary democracy for ensuring collective responsibility of the Government to the people."
+        },
+        {
+          "id": "d",
+          "text": "A device for strengthening the hands of the head of the Government whose hold over the people is in a state of decline."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "The bedrock principle underlying Cabinet government (responsible parliamentary government) is the collective responsibility of the Council of Ministers to the legislature (the elected representatives of the people), ensuring that the executive exercises authority answerable directly to the people."
+    },
+    {
+      "number": 100,
+      "topic": "Indian Polity / Federalism",
+      "passage_id": null,
+      "question": "Which one of the following is not a feature of Indian federalism?",
+      "options": [
+        {
+          "id": "a",
+          "text": "There is an independent judiciary in India."
+        },
+        {
+          "id": "b",
+          "text": "Powers have been clearly divided between the Centre and the States."
+        },
+        {
+          "id": "c",
+          "text": "The federating units have been given unequal representation in the Rajya Sabha."
+        },
+        {
+          "id": "d",
+          "text": "It is the result of an agreement among the federating units."
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "As Dr. B.R. Ambedkar explained in the Constituent Assembly, Indian federalism is an 'indestructible Union of destructible States' created by the Constitution, not the result of an agreement or compact among sovereign federating units (unlike the United States of America). Thus, statement (d) is NOT a feature of Indian federalism."
+    }
+  ]
+}

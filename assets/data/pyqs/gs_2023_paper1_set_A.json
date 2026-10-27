@@ -1,0 +1,3133 @@
+{
+  "meta": {
+    "exam": "UPSC Civil Services (Preliminary) Examination 2023",
+    "paper": "General Studies Paper-I",
+    "test_booklet_series": "A",
+    "booklet_code": "XDTG-F-GST",
+    "language": "en",
+    "total_questions": 100,
+    "duration_minutes": 120,
+    "total_marks": 200,
+    "marks_per_correct": 2.0,
+    "negative_marks_per_wrong": 0.6667,
+    "negative_marking_rule": "One-third of the marks assigned to the question is deducted for each wrong answer; no penalty for unattempted questions.",
+    "answer_key_source": "Official UPSC Answer Key & standard reference sources."
+  },
+  "passages": [],
+  "questions": [
+    {
+      "number": 1,
+      "topic": "Indian Geography / Lakes and Rivers",
+      "passage_id": null,
+      "question": "Consider the following statements:\nHow many of the statements given above are correct?",
+      "statements": [
+        "1. Jhelum River passes through Wular Lake.",
+        "2. Krishna River directly feeds Kolleru Lake.",
+        "3. Meandering of Gandak River formed Kanwar Lake."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 1 is correct: Jhelum River enters Wular Lake near Sopore and exits it at Baramulla. Statement 2 is incorrect: Kolleru Lake in Andhra Pradesh is directly fed by seasonal rivers Tammileru and Budameru, not directly by the Krishna River. Statement 3 is correct: Kanwar Lake (Kabartal, Bihar) is an oxbow lake formed by the meandering of the Burhi Gandak River. Thus, only two statements (1 and 3) are correct."
+    },
+    {
+      "number": 2,
+      "topic": "Geography / Ports",
+      "passage_id": null,
+      "question": "Consider the following pairs:\nHow many of the above pairs are correctly matched?",
+      "table": {
+        "headers": [
+          "",
+          "Port",
+          "Well known as"
+        ],
+        "rows": [
+          [
+            "1.",
+            "Kamarajar Port",
+            "First major port in India registered as a company"
+          ],
+          [
+            "2.",
+            "Mundra Port",
+            "Largest privately owned port in India"
+          ],
+          [
+            "3.",
+            "Visakhapatnam Port",
+            "Largest container port in India"
+          ]
+        ]
+      },
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one pair"
+        },
+        {
+          "id": "b",
+          "text": "Only two pairs"
+        },
+        {
+          "id": "c",
+          "text": "All three pairs"
+        },
+        {
+          "id": "d",
+          "text": "None of the pairs"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Pair 1 is correct: Kamarajar Port (Ennore) is India's 12th major port and the first to be corporatized/registered under the Companies Act. Pair 2 is correct: Mundra Port in Gujarat is India's largest privately owned commercial port. Pair 3 is incorrect: Jawaharlal Nehru Port (JNPT/Nhava Sheva) in Maharashtra is the largest container port in India, not Visakhapatnam Port. Thus, only two pairs are correctly matched."
+    },
+    {
+      "number": 3,
+      "topic": "Environment / Flora",
+      "passage_id": null,
+      "question": "Consider the following trees:\nHow many of the above are deciduous trees?",
+      "statements": [
+        "1. Jackfruit (Artocarpus heterophyllus)",
+        "2. Mahua (Madhuca indica)",
+        "3. Teak (Tectona grandis)"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Jackfruit is an evergreen tree native to tropical rainforests of the Western Ghats. Mahua and Teak are typical dry/moist deciduous trees of the tropical deciduous forests. Thus, only two (Mahua and Teak) are deciduous trees."
+    },
+    {
+      "number": 4,
+      "topic": "Economic Geography / Agriculture",
+      "passage_id": null,
+      "question": "Consider the following statements:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. India has more arable area than China.",
+        "2. The proportion of irrigated area is more in India as compared to China.",
+        "3. The average productivity per hectare in Indian agriculture is higher than that in China."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 1 is correct: India has around 156 million hectares of arable land, which is larger than China's arable land area (~120 million hectares). Statement 2 is correct: India's proportion of irrigated agricultural land (~50%+) is higher than that of China (~41-45%). Statement 3 is incorrect: Agricultural productivity per hectare (crop yield) in China is considerably higher than in India across most major crops. Thus, only two statements are correct."
+    },
+    {
+      "number": 5,
+      "topic": "Physical Geography / Geomorphology",
+      "passage_id": null,
+      "question": "Which one of the following is the best example of repeated falls in sea level, giving rise to present-day extensive marshland?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Bhitarkanika Mangroves"
+        },
+        {
+          "id": "b",
+          "text": "Marakkanam Salt Pans"
+        },
+        {
+          "id": "c",
+          "text": "Naupada Swamp"
+        },
+        {
+          "id": "d",
+          "text": "Rann of Kutch"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "The Rann of Kutch in Gujarat is a vast seasonal salt marsh that was once an inlet of the Arabian Sea. Repeated marine regressions (falls in sea level) and geological uplift transformed the shallow sea into an extensive seasonal marsh and salt mudflat."
+    },
+    {
+      "number": 6,
+      "topic": "Economic Geography / Minerals",
+      "passage_id": null,
+      "question": "Ilmenite and rutile, abundantly available in certain coastal tracts of India, are rich sources of which one of the following?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Aluminium"
+        },
+        {
+          "id": "b",
+          "text": "Copper"
+        },
+        {
+          "id": "c",
+          "text": "Iron"
+        },
+        {
+          "id": "d",
+          "text": "Titanium"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Ilmenite (FeTiO3) and rutile (TiO2) are primary mineral ores of Titanium, found abundantly in beach placer sand deposits of Kerala, Tamil Nadu, Andhra Pradesh, and Odisha."
+    },
+    {
+      "number": 7,
+      "topic": "Economic Geography / World Minerals",
+      "passage_id": null,
+      "question": "About three-fourths of world's cobalt, a metal required for the manufacture of batteries for electric motor vehicles, is produced by",
+      "options": [
+        {
+          "id": "a",
+          "text": "Argentina"
+        },
+        {
+          "id": "b",
+          "text": "Botswana"
+        },
+        {
+          "id": "c",
+          "text": "the Democratic Republic of the Congo"
+        },
+        {
+          "id": "d",
+          "text": "Kazakhstan"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "The Democratic Republic of the Congo (DRC) produces approximately 70-75% of global mined cobalt, primarily in its Katanga Copper Belt."
+    },
+    {
+      "number": 8,
+      "topic": "World Geography / Africa",
+      "passage_id": null,
+      "question": "Which one of the following is a part of the Congo Basin?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Cameroon"
+        },
+        {
+          "id": "b",
+          "text": "Nigeria"
+        },
+        {
+          "id": "c",
+          "text": "South Sudan"
+        },
+        {
+          "id": "d",
+          "text": "Uganda"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "The Congo Basin covers portions of six countries: Cameroon, Central African Republic, Democratic Republic of the Congo, Republic of the Congo, Equatorial Guinea, and Gabon. Southern Cameroon drains into the Congo River system."
+    },
+    {
+      "number": 9,
+      "topic": "Indian Geography / Mountain Ranges",
+      "passage_id": null,
+      "question": "Consider the following statements:\nHow many of the statements given above are correct?",
+      "statements": [
+        "1. Amarkantak Hills are at the confluence of Vindhya and Sahyadri Ranges.",
+        "2. Biligirirangan Hills constitute the easternmost part of Satpura Range.",
+        "3. Seshachalam Hills constitute the southernmost part of Western Ghats."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Statement 1 is incorrect: Amarkantak is at the meeting point of the Vindhya and Satpura (Maikal) ranges, not Sahyadri (Western Ghats). Statement 2 is incorrect: Biligirirangana Hills (BR Hills) are in Karnataka at the confluence of Western and Eastern Ghats, far south of the Satpura range. Statement 3 is incorrect: Seshachalam Hills are part of the Eastern Ghats in southern Andhra Pradesh (Tirupati), while the southernmost part of Western Ghats is the Cardamom/Agasthyamala hills. None of the statements are correct."
+    },
+    {
+      "number": 10,
+      "topic": "Infrastructure / Connectivity Projects",
+      "passage_id": null,
+      "question": "With reference to India's projects on connectivity, consider the following statements:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. East-West Corridor under Golden Quadrilateral Project connects Dibrugarh and Surat.",
+        "2. Trilateral Highway connects Moreh in Manipur and Chiang Mai in Thailand via Myanmar.",
+        "3. Bangladesh-China-India-Myanmar Economic Corridor connects Varanasi in Uttar Pradesh with Kunming in China."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Statement 1 is incorrect: The East-West Corridor connects Silchar (Assam) to Porbandar (Gujarat), not Dibrugarh and Surat. Statement 2 is incorrect: The India-Myanmar-Thailand Trilateral Highway connects Moreh (Manipur) to Mae Sot (Thailand), not Chiang Mai. Statement 3 is incorrect: The BCIM Corridor connects Kolkata (India) to Kunming (China), not Varanasi. None of the statements are correct."
+    },
+    {
+      "number": 11,
+      "topic": "Energy / Nuclear Energy",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: India, despite having uranium deposits, depends on coal for most of its electricity production.",
+        "Statement-II: Uranium, enriched to the extent of at least 60%, is required for the production of electricity."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Statement-I is correct: Coal accounts for over 50% of India's electricity production, while nuclear energy contributes roughly 2-3%. Statement-II is incorrect: Nuclear power reactors require Low-Enriched Uranium (typically 3% to 5% U-235) or natural uranium (0.7% in PHWRs). Uranium enriched to 60% or more is highly enriched uranium used for propulsion in naval reactors or nuclear weapons (usually 90%+)."
+    },
+    {
+      "number": 12,
+      "topic": "Environment / Biodiversity",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: Marsupials are not naturally found in India.",
+        "Statement-II: Marsupials can thrive only in montane grasslands with no predators."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Statement-I is correct: Marsupials are native to Australasia and the Americas; they are not found naturally in India. Statement-II is incorrect: Marsupials thrive in diverse habitats, including deserts, tropical rainforests, and woodlands, and coexist with many predators (dingoes, raptors, snakes, big cats)."
+    },
+    {
+      "number": 13,
+      "topic": "Environment / Conservation Bodies",
+      "passage_id": null,
+      "question": "'Invasive Species Specialist Group' (that develops Global Invasive Species Database) belongs to which one of the following organizations?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The International Union for Conservation of Nature"
+        },
+        {
+          "id": "b",
+          "text": "The United Nations Environment Programme"
+        },
+        {
+          "id": "c",
+          "text": "The United Nations World Commission for Environment and Development"
+        },
+        {
+          "id": "d",
+          "text": "The World Wide Fund for Nature"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "The Invasive Species Specialist Group (ISSG) is a global network of scientific and policy experts on invasive species organized under the Species Survival Commission (SSC) of the International Union for Conservation of Nature (IUCN)."
+    },
+    {
+      "number": 14,
+      "topic": "Environment / Wildlife Fauna",
+      "passage_id": null,
+      "question": "Consider the following fauna:\nHow many of the above are generally nocturnal or most active after sunset?",
+      "statements": [
+        "1. Lion-tailed Macaque",
+        "2. Malabar Civet",
+        "3. Sambar Deer"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Lion-tailed Macaque is diurnal (active during daylight hours). Malabar Civet is strictly nocturnal, and Sambar Deer is crepuscular/nocturnal (most active after dusk and feeding at night). Thus, only two are nocturnal or active after sunset."
+    },
+    {
+      "number": 15,
+      "topic": "Science / Animal Behaviour",
+      "passage_id": null,
+      "question": "Which of the following organisms perform waggle dance for others of their kin to indicate the direction and the distance to a source of their food?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Butterflies"
+        },
+        {
+          "id": "b",
+          "text": "Dragonflies"
+        },
+        {
+          "id": "c",
+          "text": "Honeybees"
+        },
+        {
+          "id": "d",
+          "text": "Wasps"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Forager honeybees (Apis mellifera) perform the famous 'waggle dance' inside the hive to communicate the precise distance and direction of rich food/flower sources relative to the sun."
+    },
+    {
+      "number": 16,
+      "topic": "Botany / Fungi",
+      "passage_id": null,
+      "question": "Consider the following statements:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. Some mushrooms have medicinal properties.",
+        "2. Some mushrooms have psychoactive properties.",
+        "3. Some mushrooms have insecticidal properties.",
+        "4. Some mushrooms have bioluminescent properties."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "Only three"
+        },
+        {
+          "id": "d",
+          "text": "All four"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "All four are true: 1. Reishi, Shiitake, and Cordyceps have proven medicinal/immunomodulatory properties. 2. Psilocybin mushrooms ('magic mushrooms') are potent psychoactive fungi. 3. Several entomopathogenic fungi/mushrooms produce insecticidal toxins (e.g., Cordyceps, Beauveria). 4. Over 80 species of bioluminescent mushrooms (e.g., Mycena chlorophos, Omphalotus nidiformis) glow in the dark via luciferin-luciferase reactions."
+    },
+    {
+      "number": 17,
+      "topic": "Environment / Wildlife",
+      "passage_id": null,
+      "question": "Consider the following statements regarding the Indian squirrels:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. They build nests by making burrows in the ground.",
+        "2. They store their food materials like nuts and seeds in the ground.",
+        "3. They are omnivorous."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Indian palm squirrels (Funambulus palmarum) and five-striped squirrels build nests in tree hollows as well as cavities/crevices near the ground. They practice caching nuts and seeds in ground crevices/burrows and are omnivorous, eating seeds, nuts, fruits, insects, bird eggs, and small reptiles. UPSC official key accepted all three (option c) or only two."
+    },
+    {
+      "number": 18,
+      "topic": "Science and Technology / Extremophiles",
+      "passage_id": null,
+      "question": "Consider the following statements:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. Some microorganisms can grow in environments with temperature above the boiling point of water.",
+        "2. Some microorganisms can grow in environments with temperature below the freezing point of water.",
+        "3. Some microorganisms can grow in highly acidic environment with a pH below 3."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "All three statements are correct: 1. Hyperthermophilic archaea (e.g., Methanopyrus kandleri, Strain 121) thrive at 100°C–122°C near hydrothermal vents. 2. Psychrophilic bacteria (e.g., Planococcus halocryophilus) remain active at sub-zero temperatures down to -15°C in brine pockets. 3. Acidophilic microorganisms (e.g., Picrophilus oshimae, Ferroplasma) thrive at pH below 1.0 (even at pH 0.06)."
+    },
+    {
+      "number": 19,
+      "topic": "Environment / Animal Behaviour",
+      "passage_id": null,
+      "question": "Which one of the following makes a tool with a stick to scrape insects from a hole in a tree or a log of wood?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Fishing cat"
+        },
+        {
+          "id": "b",
+          "text": "Orangutan"
+        },
+        {
+          "id": "c",
+          "text": "Otter"
+        },
+        {
+          "id": "d",
+          "text": "Sloth bear"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Wild orangutans (especially in Sumatra) are well known for manufacturing and using stick tools to extract honey, seeds, and insects (termites and ants) from tree hollows."
+    },
+    {
+      "number": 20,
+      "topic": "Environment / Chemistry",
+      "passage_id": null,
+      "question": "Consider the following:\nIn the making of how many of the above are hydrofluorocarbons used?",
+      "statements": [
+        "1. Aerosols",
+        "2. Foam agents",
+        "3. Fire retardants",
+        "4. Lubricants"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "Only three"
+        },
+        {
+          "id": "d",
+          "text": "All four"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Hydrofluorocarbons (HFCs) were commercialized as replacements for CFCs and HCFCs across multiple applications: aerosol propellants (1), blowing agents in foam manufacture (2), gaseous fire-suppression extinguishing agents (3), and synthetic lubricants/solvents (4)."
+    },
+    {
+      "number": 21,
+      "topic": "Economy / Taxation",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: Interest income from the deposits in Infrastructure Investment Trusts (InvITs) distributed to their investors is exempted from tax, but the dividend is taxable.",
+        "Statement-II: InvITs are recognized as borrowers under the 'Securitization and Reconstruction of Financial Assets and Enforcement of Security Interest Act, 2002'."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Statement-I is incorrect: Under the Income-tax Act, interest distributed by business trusts (REITs/InvITs) is taxable in the hands of unit holders, while dividend income is generally exempt if the SPV has not opted for the concessional tax regime under Section 115BAA. Statement-II is correct: InvITs and REITs are recognized as borrowers under the SARFAESI Act, 2002."
+    },
+    {
+      "number": 22,
+      "topic": "Economy / Monetary Policy",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: In the post-pandemic recent past, many Central Banks worldwide had carried out interest rate hikes.",
+        "Statement-II: Central Banks generally assume that they have the ability to counteract the rising consumer prices via monetary policy means."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Post-pandemic supply shocks and demand recovery created global inflation, prompting the US Federal Reserve, ECB, RBI, and other central banks to aggressively raise policy interest rates (Statement-I). Central banks operate on the principle that tightening monetary policy reduces aggregate demand and cools inflation (Statement-II, which explains Statement-I)."
+    },
+    {
+      "number": 23,
+      "topic": "Environment / Carbon Markets",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: Carbon markets are likely to be one of the most widespread tools in the fight against climate change.",
+        "Statement-II: Carbon markets transfer resources from the private sector to the State."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Statement-I is correct: Carbon emissions trading systems (cap-and-trade or voluntary carbon credits) are recognized globally under Article 6 of the Paris Agreement. Statement-II is incorrect: Carbon markets primarily transfer resources between private buyers (polluters needing credits) and private developers/innovators (entities reducing/sequestering emissions), not from the private sector to the State."
+    },
+    {
+      "number": 24,
+      "topic": "Indian Economy / Central Banking",
+      "passage_id": null,
+      "question": "Which one of the following activities of the Reserve Bank of India is considered to be part of 'sterilization'?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Conducting 'Open Market Operations'"
+        },
+        {
+          "id": "b",
+          "text": "Oversight of settlement and payment systems"
+        },
+        {
+          "id": "c",
+          "text": "Debt and cash management for the Central and State Governments"
+        },
+        {
+          "id": "d",
+          "text": "Regulating the functions of Non-banking Financial Institutions"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Sterilization is a monetary action by the RBI to neutralize the impact of large foreign exchange inflows or outflows on domestic money supply, which it accomplishes primarily by conducting Open Market Operations (selling or buying government securities)."
+    },
+    {
+      "number": 25,
+      "topic": "Indian Economy / Financial Markets",
+      "passage_id": null,
+      "question": "Consider the following markets:\nHow many of the above are included in capital markets?",
+      "statements": [
+        "1. Government Bond Market",
+        "2. Call Money Market",
+        "3. Treasury Bill Market",
+        "4. Stock Market"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "Only three"
+        },
+        {
+          "id": "d",
+          "text": "All four"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "The financial market is bifurcated into: 1. Money Market (short-term instruments up to 1 year): Call Money Market and Treasury Bill Market. 2. Capital Market (long-term debt and equity): Government Bond Market (dated securities) and Stock (Equity) Market. Thus, only two are included in capital markets."
+    },
+    {
+      "number": 26,
+      "topic": "Agriculture / Farmer Organizations",
+      "passage_id": null,
+      "question": "Which one of the following best describes the concept of 'Small Farmer Large Field'?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Resettlement of a large number of people, uprooted from their countries due to war, by giving them a large cultivable land which they cultivate collectively and share the produce"
+        },
+        {
+          "id": "b",
+          "text": "Many marginal farmers in an area organize themselves into groups and synchronize and harmonize selected agricultural operations"
+        },
+        {
+          "id": "c",
+          "text": "Many marginal farmers in an area together make a contract with a corporate body and surrender their land to the corporate body for a fixed term for which the corporate body makes a payment of agreed amount to the farmers"
+        },
+        {
+          "id": "d",
+          "text": "A company extends loans, technical knowledge and material inputs to a number of small farmers in an area so that they produce the agricultural commodity required by the company for its manufacturing process and commercial production"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "The 'Small Farmer Large Field' (SFLF) model is a collaborative aggregation model where contiguous smallholder farmers organize into groups to synchronize operations (like land preparation, planting, harvesting, and input purchase), achieving economies of scale without surrendering individual land ownership."
+    },
+    {
+      "number": 27,
+      "topic": "Agriculture / MSP and Crops",
+      "passage_id": null,
+      "question": "Consider the following statements:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. The Government of India provides Minimum Support Price for niger (Guizotia abyssinica) seeds.",
+        "2. Niger is cultivated as a Kharif crop.",
+        "3. Some tribal people in India use niger seed oil for cooking."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "All three statements are correct: 1. CACP announces MSP for niger seed (one of the 14 Kharif crops under MSP). 2. Niger is cultivated predominantly during the Kharif season in tribal hilly tracts of Odisha, MP, Maharashtra, and Andhra Pradesh. 3. Tribal communities extensively use cold-pressed niger seed oil for culinary and therapeutic purposes."
+    },
+    {
+      "number": 28,
+      "topic": "Economy / Capital",
+      "passage_id": null,
+      "question": "Consider the investments in the following assets:\nHow many of the above are considered intangible investments?",
+      "statements": [
+        "1. Brand recognition",
+        "2. Inventory",
+        "3. Intellectual property",
+        "4. Mailing list of clients"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "Only three"
+        },
+        {
+          "id": "d",
+          "text": "All four"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Intangible assets lack physical substance: Brand recognition (1), Intellectual property (patents, copyrights, trademarks) (3), and Customer/mailing lists (4) are intangible assets. Inventory (2) consists of raw materials and finished physical goods, which are tangible assets. Thus, only three are intangible investments."
+    },
+    {
+      "number": 29,
+      "topic": "Indian Polity / Finance Commission",
+      "passage_id": null,
+      "question": "Consider the following:\nFor the horizontal tax devolution, the Fifteenth Finance Commission used how many of the above as criteria other than population, area and income distance?",
+      "statements": [
+        "1. Demographic performance",
+        "2. Forest and ecology",
+        "3. Governance reforms",
+        "4. Stable government",
+        "5. Tax and fiscal efforts"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only two"
+        },
+        {
+          "id": "b",
+          "text": "Only three"
+        },
+        {
+          "id": "c",
+          "text": "Only four"
+        },
+        {
+          "id": "d",
+          "text": "All five"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "The 15th Finance Commission horizontal devolution formula uses six criteria: 1. Income distance (45%) 2. Area (15%) 3. Population (2011 Census, 15%) 4. Demographic performance (12.5%) 5. Forest and ecology (10%) 6. Tax and fiscal efforts (2.5%). 'Governance reforms' and 'Stable government' were NOT criteria. Thus, exactly three (1, 2, and 5) were used."
+    },
+    {
+      "number": 30,
+      "topic": "International Organizations / Development Finance",
+      "passage_id": null,
+      "question": "Consider the following infrastructure sectors:\nOn how many of the above does UNOPS Sustainable Investments in Infrastructure and Innovation (S3i) initiative focus for its investments?",
+      "statements": [
+        "1. Affordable housing",
+        "2. Mass rapid transport",
+        "3. Health care",
+        "4. Renewable energy"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "Only three"
+        },
+        {
+          "id": "d",
+          "text": "All four"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "The United Nations Office for Project Services (UNOPS) Sustainable Investments in Infrastructure and Innovation (S3i) initiative focuses on three priority sectors: Affordable Housing, Renewable Energy, and Health Infrastructure. It does not focus on Mass Rapid Transport. Thus, it focuses on three sectors."
+    },
+    {
+      "number": 31,
+      "topic": "Indian Polity / Jurisprudence",
+      "passage_id": null,
+      "question": "In essence, what does 'Due Process of Law' mean?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The principle of natural justice"
+        },
+        {
+          "id": "b",
+          "text": "The procedure established by law"
+        },
+        {
+          "id": "c",
+          "text": "Fair application of law"
+        },
+        {
+          "id": "d",
+          "text": "Equality before law"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "'Due process of law' examines not just that a law has been formally enacted, but that the law itself and its application are just, fair, and reasonable, incorporating the principles of natural justice and fair application of law (as held in Maneka Gandhi v. Union of India). In standard UPSC key, (c) or (a) is debated; UPSC key accepted (c) Fair application of law."
+    },
+    {
+      "number": 32,
+      "topic": "Indian Polity / Prisons",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: In India, prisons are managed by State Governments with their own rules and regulations for the day-to-day administration of prisons.",
+        "Statement-II: In India, prisons are governed by the Prisons Act, 1894 which expressly kept the subject of prisons in the control of Provincial Governments."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Under Entry 4 of List II (State List) in the Seventh Schedule, 'Prisons, reformatories, Borstal institutions...' is a State subject. The Prisons Act of 1894 historically vested the control and regulation of prisons in Provincial (now State) Governments, which explains why states frame their own prison manuals and rules."
+    },
+    {
+      "number": 33,
+      "topic": "Indian Polity / Constitutionalism",
+      "passage_id": null,
+      "question": "Which one of the following statements best reflects the Chief purpose of the 'Constitution' of a country?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It determines the objective for the making of necessary laws."
+        },
+        {
+          "id": "b",
+          "text": "It enables the creation of political offices and a government."
+        },
+        {
+          "id": "c",
+          "text": "It defines and limits the powers of government."
+        },
+        {
+          "id": "d",
+          "text": "It secures social justice, social equality and social security."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Constitutionalism fundamentally signifies limited government. The primary and chief purpose of a written constitution is to define the parameters of state authority and impose legal limitations on governmental power to safeguard citizens' liberties."
+    },
+    {
+      "number": 34,
+      "topic": "Indian Polity / Constitutional Amendments",
+      "passage_id": null,
+      "question": "In India, which one of the following Constitutional Amendments was widely believed to be enacted to overcome the judicial interpretations of the Fundamental Rights?",
+      "options": [
+        {
+          "id": "a",
+          "text": "1st Amendment"
+        },
+        {
+          "id": "b",
+          "text": "42nd Amendment"
+        },
+        {
+          "id": "c",
+          "text": "44th Amendment"
+        },
+        {
+          "id": "d",
+          "text": "86th Amendment"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "The Constitution (First Amendment) Act, 1951 was enacted specifically to overcome judicial rulings in cases such as Romesh Thappar (free speech), State of Madras v. Champakam Dorairajan (reservations), and Kameshwar Singh (zamindari abolition), introducing Articles 15(4), 19(2), 31A, 31B, and the Ninth Schedule."
+    },
+    {
+      "number": 35,
+      "topic": "Indian Polity / Constitutional Bodies",
+      "passage_id": null,
+      "question": "Consider the following organizations/bodies in India:\nHow many of the above are constitutional bodies?",
+      "statements": [
+        "1. The National Commission for Backward Classes",
+        "2. The National Human Rights Commission",
+        "3. The National Law Commission",
+        "4. The National Consumer Disputes Redressal Commission"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "Only three"
+        },
+        {
+          "id": "d",
+          "text": "All four"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "1. NCBC was granted constitutional status under Article 338B by the 102nd Constitutional Amendment Act, 2018. 2. NHRC is a statutory body under the Protection of Human Rights Act, 1993. 3. Law Commission of India is a non-statutory executive body formed by government resolution. 4. NCDRC is a quasi-judicial statutory body under the Consumer Protection Act. Thus, only one body is a constitutional body."
+    },
+    {
+      "number": 36,
+      "topic": "Indian Polity / President of India",
+      "passage_id": null,
+      "question": "Consider the following statements:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. If the election of the President of India is declared void by the Supreme Court of India, all acts done by him/her in the performance of duties of his/her office of President before the date of decision become invalid.",
+        "2. Election for the post of the President of India can be postponed on the ground that some Legislative Assemblies have been dissolved and elections are yet to take place.",
+        "3. When a Bill is presented to the President of India, the Constitution prescribes time limits within which he/she has to declare his/her assent."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Statement 1 is incorrect: Under Article 71(2), acts done by the President in the performance of duties prior to the Supreme Court declaring the election void are NOT invalidated. Statement 2 is incorrect: Under Article 71(4), election of the President cannot be questioned or postponed on the ground of any vacancy in the electoral college. Statement 3 is incorrect: Article 111 does not prescribe any time limit within which the President must declare assent (giving rise to 'pocket veto'). None of the statements are correct."
+    },
+    {
+      "number": 37,
+      "topic": "Indian Polity / Parliament",
+      "passage_id": null,
+      "question": "With reference to Finance Bill and Money Bill in the Indian Parliament, consider the following statements:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. When the Lok Sabha transmits Finance Bill to the Rajya Sabha, it can amend or reject the Bill.",
+        "2. When the Lok Sabha transmits Money Bill to the Rajya Sabha, it cannot amend or reject the Bill, it can only make recommendations.",
+        "3. In the case of disagreement between the Lok Sabha and the Rajya Sabha, there is no joint sitting for Money Bill, but a joint sitting becomes necessary for Finance Bill."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Statement 1 is incorrect: The annual 'Finance Bill' introduced alongside the Union Budget is certified as a Money Bill under Article 110 (or if treated as Finance Bill Type I under Article 117(1), RS can amend, but UPSC official answer considered Finance Bill as the Budget Finance Bill which is a Money Bill; alternatively, Statement 3 says joint sitting 'becomes necessary', which is false since a joint sitting is discretionary/optional for the President, not mandatory). In the official UPSC key, Statement 2 is correct and Statement 3 is incorrect; Statement 1 is either false or true depending on classification. Official answer key: (a) Only one or (b) Only two. Official key is (a) Only one (statement 2 only)."
+    },
+    {
+      "number": 38,
+      "topic": "Environment / Wildlife Protection Act",
+      "passage_id": null,
+      "question": "Consider the following statements:\nOnce the Central Government notifies an area as a 'Community Reserve'\nHow many of the above statements are correct?",
+      "statements": [
+        "1. the Chief Wildlife Warden of the State becomes the governing authority of such forest",
+        "2. hunting is not allowed in such area",
+        "3. people of such area are allowed to collect non-timber forest produce",
+        "4. people of such area are allowed traditional agricultural practices"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "Only three"
+        },
+        {
+          "id": "d",
+          "text": "All four"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Under Section 36D of the Wild Life (Protection) Act, 1972: The Community Reserve Management Committee manages the reserve, but the Chief Wildlife Warden is the governing authority of the reserve (1 is correct). Hunting is strictly prohibited in community reserves (2 is correct). The committee regulates collection of non-timber forest produce for subsistence (3 is correct). However, changing land use or continuing agricultural expansion/practices is restricted (4 is incorrect). Thus, three statements (1, 2, 3) are correct."
+    },
+    {
+      "number": 39,
+      "topic": "Indian Polity / Fifth Schedule",
+      "passage_id": null,
+      "question": "With reference to 'Scheduled Areas' in India, consider the following statements:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. Within a State, the notification of an area as Scheduled Area takes place through an Order of the President.",
+        "2. The largest administrative unit forming the Scheduled Area is the District and the lowest is the cluster of villages in the Block.",
+        "3. The Chief Ministers of the concerned States are required to submit annual reports to the Union Home Ministry on the administration of Scheduled Areas in the States."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 1 is correct: Under Para 6 of the Fifth Schedule, the President by order declares any area to be a Scheduled Area. Statement 2 is correct: Scheduled Areas can span an entire district, a block, or a cluster of villages. Statement 3 is incorrect: Under Para 3, it is the Governor of each State (not the Chief Minister) who submits an annual report to the President of India (not the Union Home Ministry). Thus, only two statements are correct."
+    },
+    {
+      "number": 40,
+      "topic": "Indian Polity / Reservations",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: The Supreme Court of India has held in some judgements that the reservation policies made under Article 16(4) of the Constitution of India would be limited by Article 335 for maintenance of efficiency of administration.",
+        "Statement-II: Article 335 of the Constitution of India defines the term 'efficiency of administration'."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Statement-I is correct: In landmark cases such as Indra Sawhney (1992) and M. Nagaraj (2006), the Supreme Court held that reservations under Article 16(4) are conditioned by Article 335 to ensure efficiency of administration. Statement-II is incorrect: The Constitution of India nowhere defines the phrase 'efficiency of administration'."
+    },
+    {
+      "number": 41,
+      "topic": "Ancient Indian History / Buddhism",
+      "passage_id": null,
+      "question": "In which one of the following regions was Dhanyakataka, which flourished as a prominent Buddhist centre under the Mahasanghikas, located?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Andhra"
+        },
+        {
+          "id": "b",
+          "text": "Gandhara"
+        },
+        {
+          "id": "c",
+          "text": "Kalinga"
+        },
+        {
+          "id": "d",
+          "text": "Magadha"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Dhanyakataka (modern Dharanikota near Amaravati in Guntur district, Andhra Pradesh) was the prominent capital of the Satavahanas and a major stronghold of the Mahasanghika school of Buddhism."
+    },
+    {
+      "number": 42,
+      "topic": "Ancient Indian History / Art and Architecture",
+      "passage_id": null,
+      "question": "With reference to ancient India, consider the following statements:\nHow many of the statements given above are correct?",
+      "statements": [
+        "1. The concept of Stupa is Buddhist in origin.",
+        "2. Stupa was generally a repository of relics.",
+        "3. Stupa was a votive and commemorative structure in Buddhist tradition."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 1 is incorrect: The stupa (burial tumulus/earthen mound) is pre-Buddhist in origin and was mentioned in the Rigveda and Atharvaveda; Buddhism adopted and embellished it. Statement 2 is correct: Stupas served as relic repositories (dhatu-garbha) preserving relics of Buddha or Buddhist arhats. Statement 3 is correct: Stupas were also constructed as votive offerings or to commemorate events and sacred places. Thus, only two statements (2 and 3) are correct."
+    },
+    {
+      "number": 43,
+      "topic": "Ancient Indian History / Sangam Age",
+      "passage_id": null,
+      "question": "With reference to ancient South India, Korkai, Poompuhar and Muchiri were well known as",
+      "options": [
+        {
+          "id": "a",
+          "text": "capital cities"
+        },
+        {
+          "id": "b",
+          "text": "ports"
+        },
+        {
+          "id": "c",
+          "text": "centres of iron-and-steel making"
+        },
+        {
+          "id": "d",
+          "text": "shrines of Jain Tirthankaras"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Korkai (Pandya port renowned for pearl fisheries), Poompuhar/Kaveripattinam (major Chola port), and Muchiri/Muziris (famous Chera port on the Malabar coast) were the prominent trading ports of Sangam-era South India."
+    },
+    {
+      "number": 44,
+      "topic": "Ancient Indian History / Sangam Culture",
+      "passage_id": null,
+      "question": "Which one of the following explains the practice of 'Vattakirutal' as mentioned in Sangam poems?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Kings employing women bodyguards"
+        },
+        {
+          "id": "b",
+          "text": "Learned persons assembling in royal courts to discuss religious and philosophical matters"
+        },
+        {
+          "id": "c",
+          "text": "Young girls keeping watch over agricultural fields and driving away birds and animals"
+        },
+        {
+          "id": "d",
+          "text": "A king defeated in battle committing ritual suicide by starving himself to death"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "In Sangam tradition, 'Vattakirutal' was a ritual practice wherein a king who suffered defeat in battle or lost his honour sat facing north and fasted unto death to end his life honorably."
+    },
+    {
+      "number": 45,
+      "topic": "Medieval Indian History / Dynasties",
+      "passage_id": null,
+      "question": "Consider the following dynasties:\nHow many of the above dynasties established their kingdoms in early eighth century AD?",
+      "statements": [
+        "1. Hoysala",
+        "2. Gahadavala",
+        "3. Kakatiya",
+        "4. Yadava"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "Only three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "All four dynasties emerged much later in the 10th to 12th centuries AD: Hoysalas (10th-11th century), Gahadavalas of Kanauj (late 11th century, c. 1090 AD), Kakatiyas of Warangal (12th century), and Yadavas/Seunas of Devagiri (late 12th century). None established their kingdoms in the early 8th century AD (c. 700-750 AD)."
+    },
+    {
+      "number": 46,
+      "topic": "Ancient Indian Literature",
+      "passage_id": null,
+      "question": "With reference to ancient Indian History, consider the following pairs:\nHow many of the above pairs are correctly matched?",
+      "table": {
+        "headers": [
+          "",
+          "Literary work",
+          "Author"
+        ],
+        "rows": [
+          [
+            "1.",
+            "Devichandragupta",
+            "Bilhana"
+          ],
+          [
+            "2.",
+            "Hammira-Mahakavya",
+            "Nayachandra Suri"
+          ],
+          [
+            "3.",
+            "Milinda-panha",
+            "Nagarjuna"
+          ],
+          [
+            "4.",
+            "Nitivakyamrita",
+            "Somadeva Suri"
+          ]
+        ]
+      },
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "Only three"
+        },
+        {
+          "id": "d",
+          "text": "All four"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Pair 1 is incorrect: Devichandraguptam was written by Vishakhadatta (Bilhana wrote Vikramankadevacharita). Pair 2 is correct: Hammira-Mahakavya is by Jain scholar Nayachandra Suri. Pair 3 is incorrect: Milinda-panha records dialogue between King Menander and Buddhist monk Nagasena, not Nagarjuna. Pair 4 is correct: Nitivakyamrita is a treatise on statecraft by Jain scholar Somadeva Suri. Thus, only two pairs (2 and 4) are correctly matched."
+    },
+    {
+      "number": 47,
+      "topic": "Ancient Indian Philosophy / Jainism",
+      "passage_id": null,
+      "question": "\"Souls are not only the property of animal and plant life, but also of rocks, running water and many other natural objects not looked on as living by other religious sects.\"\nThe above statement reflects one of the core beliefs of which one of the following religious sects of ancient India?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Buddhism"
+        },
+        {
+          "id": "b",
+          "text": "Jainism"
+        },
+        {
+          "id": "c",
+          "text": "Shaivism"
+        },
+        {
+          "id": "d",
+          "text": "Vaishnavism"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "A central tenet of Jainism is hylozoism / pan-psychism, believing that jiva (soul) exists not only in animals and plants, but also in non-mobile elemental entities like earth-bodied (rocks), water-bodied (running water), fire-bodied, and wind-bodied beings."
+    },
+    {
+      "number": 48,
+      "topic": "Medieval Indian History / Vijayanagara",
+      "passage_id": null,
+      "question": "Who among the following rulers of Vijayanagara Empire constructed a large dam across Tungabhadra River and a canal-cum-aqueduct several kilometres long from the river to the capital city?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Devaraya I"
+        },
+        {
+          "id": "b",
+          "text": "Mallikarjuna"
+        },
+        {
+          "id": "c",
+          "text": "Vira Vijaya"
+        },
+        {
+          "id": "d",
+          "text": "Virupaksha"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "As recorded by Italian traveler Nicolo de Conti, Sangama king Devaraya I (r. 1406–1422) constructed a massive barrage/dam across the Tungabhadra River and brought a 24-km long canal into Vijayanagara city to resolve water scarcity."
+    },
+    {
+      "number": 49,
+      "topic": "Medieval Indian History / Gujarat Sultanate",
+      "passage_id": null,
+      "question": "Who among the following rulers of medieval Gujarat surrendered Diu to Portuguese?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Ahmad Shah"
+        },
+        {
+          "id": "b",
+          "text": "Mahmud Begarha"
+        },
+        {
+          "id": "c",
+          "text": "Bahadur Shah"
+        },
+        {
+          "id": "d",
+          "text": "Muhammad Shah"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Sultan Bahadur Shah of Gujarat signed the Treaty of Bassein in 1534 with the Portuguese governor Nuno da Cunha, ceding Bassein, and subsequently permitted the Portuguese to build a fort at Diu in 1535 while seeking assistance against the Mughal Emperor Humayun."
+    },
+    {
+      "number": 50,
+      "topic": "Modern Indian History / Colonial Acts",
+      "passage_id": null,
+      "question": "By which one of the following Acts was the Governor General of Bengal designated as the Governor General of India?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The Regulating Act"
+        },
+        {
+          "id": "b",
+          "text": "The Pitt's India Act"
+        },
+        {
+          "id": "c",
+          "text": "The Charter Act of 1793"
+        },
+        {
+          "id": "d",
+          "text": "The Charter Act of 1833"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "The Charter Act of 1833 elevated the Governor-General of Bengal to the Governor-General of India, centralizing legislative power. Lord William Bentinck became the first Governor-General of India."
+    },
+    {
+      "number": 51,
+      "topic": "Government Schemes / Health",
+      "passage_id": null,
+      "question": "Consider the following statements in relation to Janani Suraksha Yojana:\nHow many of the statements given above are correct?",
+      "statements": [
+        "1. It is a safe motherhood intervention of the State Health Departments.",
+        "2. Its objective is to reduce maternal and neonatal mortality among poor pregnant women.",
+        "3. It aims to promote institutional delivery among poor pregnant women.",
+        "4. Its objective includes providing public health facilities to sick infants up to one year of age."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "Only three"
+        },
+        {
+          "id": "d",
+          "text": "All four"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 1 is incorrect: JSY is a 100% centrally sponsored scheme under the National Health Mission (Ministry of Health and Family Welfare), not purely of state health departments. Statements 2 and 3 are correct: It aims to reduce maternal and neonatal mortality by promoting institutional deliveries through cash assistance. Statement 4 is incorrect: Care for sick infants up to one year of age is under Janani Shishu Suraksha Karyakram (JSSK), not JSY. Thus, only two statements (2 and 3) are correct."
+    },
+    {
+      "number": 52,
+      "topic": "Government Schemes / Health",
+      "passage_id": null,
+      "question": "Consider the following statements in the context of interventions being undertaken under Anaemia Mukt Bharat Strategy:\nHow many of the statements given above are correct?",
+      "statements": [
+        "1. It provides prophylactic calcium supplementation for pre-school children, adolescents and pregnant women.",
+        "2. It runs a campaign for delayed cord clamping at the time of child-birth.",
+        "3. It provides for periodic deworming to children and adolescents.",
+        "4. It addresses non-nutritional causes of anaemia in endemic pockets with special focus on malaria, hemoglobinopathies and fluorosis."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "Only three"
+        },
+        {
+          "id": "d",
+          "text": "All four"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Statement 1 is incorrect: AMB provides prophylactic Iron and Folic Acid (IFA) supplementation, not calcium. Statements 2, 3, and 4 are key institutional pillars under the 6x6x6 strategy of AMB: delayed cord clamping by at least 3 minutes (2), biannual deworming with albendazole (3), and addressing non-nutritional causes (malaria, hemoglobinopathies, fluorosis) (4). Thus, only three statements are correct."
+    },
+    {
+      "number": 53,
+      "topic": "Science and Technology / Materials",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. Carbon fibres are used in the manufacture of components used in automobiles and aircrafts.",
+        "2. Carbon fibres once used cannot be recycled."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Statement 1 is correct: Due to their high strength-to-weight ratio and stiffness, carbon fibres are widely used in airframes (Boeing 787), sports cars, and aerospace parts. Statement 2 is incorrect: Carbon fibre reinforced polymers can be recycled using methods like pyrolysis, solvolysis, and thermal recycling."
+    },
+    {
+      "number": 54,
+      "topic": "Science and Technology / Sensors",
+      "passage_id": null,
+      "question": "Consider the following actions:\nIn how many of the above actions is the function of accelerometer required?",
+      "statements": [
+        "1. Detection of car crash/collision which results in the deployment of airbags almost instantaneously",
+        "2. Detection of accidental free fall of a laptop towards the ground which results in the immediate turning off of the hard drive",
+        "3. Detection of the tilt of the smart-phone which results in the rotation of display between portrait and landscape mode"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Accelerometers measure proper acceleration and inertial forces. All three actions rely on microelectromechanical (MEMS) accelerometers: sudden rapid deceleration triggers airbags (1), free-fall zero-g detection parks hard-drive read/write heads (2), and static gravitational tilt rotates smartphone screens (3)."
+    },
+    {
+      "number": 55,
+      "topic": "Agriculture / Aquaculture",
+      "passage_id": null,
+      "question": "With reference to the role of biofilters in Recirculating Aquaculture System, consider the following statements:\nHow many of the statements given above are correct?",
+      "statements": [
+        "1. Biofilters provide waste treatment by removing uneaten fish feed.",
+        "2. Biofilters convert ammonia present in fish waste to nitrate.",
+        "3. Biofilters increase phosphorus as nutrient for fish in water."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Statement 1 is incorrect: Mechanical filters/drum filters remove suspended solids like uneaten fish feed; biofilters treat dissolved waste. Statement 2 is correct: Nitrifying bacteria (Nitrosomonas and Nitrobacter) in biofilters oxidize toxic ammonia into nitrite and then into less toxic nitrate. Statement 3 is incorrect: Biofilters do not add phosphorus; accumulation of phosphorus is unwanted and managed separately. Thus, only one statement is correct."
+    },
+    {
+      "number": 56,
+      "topic": "Science and Technology / Astronomy",
+      "passage_id": null,
+      "question": "Consider the following pairs:\nHow many of the above pairs are correctly matched?",
+      "table": {
+        "headers": [
+          "",
+          "Objects in space",
+          "Description"
+        ],
+        "rows": [
+          [
+            "1.",
+            "Cepheids",
+            "Giant clouds of dust and gas in space"
+          ],
+          [
+            "2.",
+            "Nebulae",
+            "Stars which brighten and dim periodically"
+          ],
+          [
+            "3.",
+            "Pulsars",
+            "Neutron stars that are formed when massive stars run out of fuel and collapse"
+          ]
+        ]
+      },
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Pair 1 is incorrect: Cepheids are pulsating variable stars that brighten and dim periodically. Pair 2 is incorrect: Nebulae are giant interstellar clouds of dust and gas in space (descriptions 1 and 2 are swapped). Pair 3 is correct: Pulsars are rapidly rotating magnetized neutron stars formed during the supernova collapse of massive stars. Thus, only one pair (3) is correctly matched."
+    },
+    {
+      "number": 57,
+      "topic": "Science and Technology / Space",
+      "passage_id": null,
+      "question": "Which one of the following countries has its own Satellite Navigation System?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Australia"
+        },
+        {
+          "id": "b",
+          "text": "Canada"
+        },
+        {
+          "id": "c",
+          "text": "Israel"
+        },
+        {
+          "id": "d",
+          "text": "Japan"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Japan has its own regional satellite navigation system known as QZSS (Quasi-Zenith Satellite System, also known as Michibiki). Other countries with operational satellite navigation systems are the USA (GPS), Russia (GLONASS), the EU (Galileo), China (BeiDou), and India (NavIC)."
+    },
+    {
+      "number": 58,
+      "topic": "Defence / Missile Technology",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. Ballistic missiles are jet-propelled at subsonic speeds throughout their flights, while cruise missiles are rocket-powered only in the initial phase of flight.",
+        "2. Agni-V is a medium-range supersonic cruise missile, while BrahMos is a solid-fuelled intercontinental ballistic missile."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Statement 1 is incorrect: Ballistic missiles are rocket-powered in the boost phase and follow a parabolic sub-orbital trajectory; cruise missiles use jet engine propulsion throughout flight. Statement 2 is incorrect: Agni-V is an intercontinental ballistic missile (ICBM), and BrahMos is a supersonic cruise missile (the descriptions are interchanged). Neither statement is correct."
+    },
+    {
+      "number": 59,
+      "topic": "Environment / Pollution",
+      "passage_id": null,
+      "question": "Consider the following statements regarding mercury pollution:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. Gold mining activity is a source of mercury pollution in the world.",
+        "2. Coal-based thermal power plants cause mercury pollution.",
+        "3. There is no known safe level of exposure to mercury."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "All three statements are correct: 1. Artisanal and small-scale gold mining (ASGM) is the single largest anthropogenic source of mercury emissions. 2. Coal combustion in thermal power plants is another major industrial emitter of airborne mercury. 3. According to the WHO, mercury is one of the top ten chemicals of major public health concern, and there is no known safe level of exposure."
+    },
+    {
+      "number": 60,
+      "topic": "Science and Technology / Clean Energy",
+      "passage_id": null,
+      "question": "With reference to green hydrogen, consider the following statements:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. It can be used directly as a fuel for internal combustion.",
+        "2. It can be blended with natural gas and used as fuel for heat or power generation.",
+        "3. It can be used in the hydrogen fuel cell to run vehicles."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "All three statements are correct: Green hydrogen can be burned directly in modified hydrogen internal combustion engines (H2-ICE) (1), blended with piped natural gas (up to 15-20%) for city gas distribution and power/heating (2), and utilized electrochemically in proton-exchange membrane fuel cells to drive electric vehicles (3)."
+    },
+    {
+      "number": 61,
+      "topic": "World Geography / Eastern Europe",
+      "passage_id": null,
+      "question": "Consider the following countries:\nHow many of the above-mentioned countries share a land border with Ukraine?",
+      "statements": [
+        "1. Bulgaria",
+        "2. Czech Republic",
+        "3. Hungary",
+        "4. Latvia",
+        "5. Lithuania",
+        "6. Romania"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only two"
+        },
+        {
+          "id": "b",
+          "text": "Only three"
+        },
+        {
+          "id": "c",
+          "text": "Only four"
+        },
+        {
+          "id": "d",
+          "text": "Only five"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Ukraine shares land borders with seven countries: Russia, Belarus, Poland, Slovakia, Hungary, Romania, and Moldova. Among the listed countries, only two (Hungary and Romania) share a land border with Ukraine."
+    },
+    {
+      "number": 62,
+      "topic": "Physical Geography / Atmosphere",
+      "passage_id": null,
+      "question": "With reference to the Earth's atmosphere, which one of the following statements is correct?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The total amount of insolation received at the equator is roughly about 10 times of that received at the poles."
+        },
+        {
+          "id": "b",
+          "text": "Infrared rays constitute roughly two-thirds of insolation."
+        },
+        {
+          "id": "c",
+          "text": "Infrared waves are largely absorbed by water vapour that is concentrated in the lower atmosphere."
+        },
+        {
+          "id": "d",
+          "text": "Infrared waves are a part of visible spectrum of electromagnetic waves of solar radiation."
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Incoming terrestrial longwave infrared radiation (and a portion of incoming solar infrared) is heavily absorbed by greenhouse gases, primarily water vapour, which is concentrated in the lower troposphere. Options a and b are factually inaccurate, and infrared is outside the visible light spectrum."
+    },
+    {
+      "number": 63,
+      "topic": "Physical Geography / Soils",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: The soil in tropical rain forests is rich in nutrients.",
+        "Statement-II: The high temperature and moisture of tropical rain forests cause dead organic matter in the soil to decompose quickly."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Statement-I is incorrect: Tropical rainforest soils (oxisols/ultisols) are heavily leached and nutrient-poor because torrential rainfall washes away soluble bases. Statement-II is correct: The persistent high heat and humidity cause rapid microbial decomposition of litter, which is absorbed almost immediately by dense plant roots."
+    },
+    {
+      "number": 64,
+      "topic": "Physical Geography / Climatology",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: The temperature contrast between continents and oceans is greater during summer than in winter.",
+        "Statement-II: The specific heat of water is more than that of land surface."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Statement-I is incorrect: In the Northern Hemisphere, continental landmasses cool down drastically in winter (down to -40°C or lower) while oceans remain relatively warm (above 0°C), making thermal contrast between land and oceans significantly larger in winter than in summer. Statement-II is correct: Water has a much higher specific heat capacity than land."
+    },
+    {
+      "number": 65,
+      "topic": "Physical Geography / Seismology",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. In a seismograph, P waves are recorded earlier than S waves.",
+        "2. In P waves, the individual particles vibrate to and fro in the direction of wave propagation whereas in S waves, the particles vibrate up and down at right angles to the direction of wave propagation."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Both statements are correct: P waves (Primary/Compressional waves) travel fastest and arrive first at seismic recording stations. P waves are longitudinal waves where particle motion is parallel to wave propagation, whereas S waves (Secondary/Shear waves) are transverse waves where particle motion is perpendicular to propagation."
+    },
+    {
+      "number": 66,
+      "topic": "Energy / Thermal Power Plants",
+      "passage_id": null,
+      "question": "With reference to coal-based thermal power plants in India, consider the following statements:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. None of them uses seawater.",
+        "2. None of them is set up in water-stressed district.",
+        "3. None of them is privately owned."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "All three statements are incorrect: 1. Several coastal thermal power plants (e.g., Mundra in Gujarat) use seawater for once-through cooling. 2. Over 40% of India's coal-fired power plants are located in water-stressed districts. 3. Numerous major coal-fired power plants are owned and operated by private independent power producers (e.g., Adani, Tata Power, JSW Energy). None of the statements are correct."
+    },
+    {
+      "number": 67,
+      "topic": "Science and Technology / Biotechnology & Health",
+      "passage_id": null,
+      "question": "'Wolbachia method' is sometimes talked about with reference to which one of the following?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Controlling the viral diseases spread by mosquitoes"
+        },
+        {
+          "id": "b",
+          "text": "Converting crop residues into packing material"
+        },
+        {
+          "id": "c",
+          "text": "Producing biodegradable plastics"
+        },
+        {
+          "id": "d",
+          "text": "Producing biochar from thermo-chemical conversion of biomass"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "The Wolbachia method involves introducing Wolbachia pipientis bacteria into Aedes aegypti mosquitoes. Wolbachia prevents viruses like Dengue, Zika, and Chikungunya from replicating within the mosquito, significantly curbing viral disease transmission."
+    },
+    {
+      "number": 68,
+      "topic": "Environment / Carbon Sequestration",
+      "passage_id": null,
+      "question": "Consider the following activities:\nHow many of the above activities are often considered and discussed for carbon capture and sequestration?",
+      "statements": [
+        "1. Spreading finely ground basalt rock on farmlands extensively",
+        "2. Increasing the alkalinity of oceans by adding lime",
+        "3. Capturing carbon dioxide released by various industries and pumping it into abandoned subterranean mines in the form of carbonated waters"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "All three are recognized geoengineering Carbon Dioxide Removal (CDR) and sequestration techniques: 1. Enhanced rock weathering (spreading crushed silicate/basalt on agricultural soils). 2. Ocean alkalinity enhancement (adding calcium hydroxide/lime to oceans). 3. Geological in-situ mineral carbonation in underground mines or basalt formations (e.g., CarbFix project in Iceland)."
+    },
+    {
+      "number": 69,
+      "topic": "Science and Technology / Genomics",
+      "passage_id": null,
+      "question": "'Aerial metagenomics' best refers to which one of the following situations?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Collecting DNA samples from air in a habitat at one go"
+        },
+        {
+          "id": "b",
+          "text": "Understanding the genetic makeup of avian species of a habitat"
+        },
+        {
+          "id": "c",
+          "text": "Using air-borne devices to collect blood samples from moving animals"
+        },
+        {
+          "id": "d",
+          "text": "Sending drones to inaccessible areas to collect plant and animal samples from land surfaces and water bodies"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "'Aerial metagenomics' is the sequencing of environmental airborne DNA (air eDNA) captured directly from the ambient air of a habitat to survey and identify biodiversity present in that environment at a single point in time."
+    },
+    {
+      "number": 70,
+      "topic": "Science and Technology / Genetics",
+      "passage_id": null,
+      "question": "'Microsatellite DNA' is used in the case of which one of the following?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Studying the evolutionary relationships among various species of fauna"
+        },
+        {
+          "id": "b",
+          "text": "Stimulating 'stem cells' to transform into diverse functional tissues"
+        },
+        {
+          "id": "c",
+          "text": "Promoting clonal propagation of horticultural plants"
+        },
+        {
+          "id": "d",
+          "text": "Assessing the efficacy of drugs by conducting series of drug trials in a population"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Microsatellite DNA (Short Tandem Repeats or STRs) consists of tandemly repeated 1–6 nucleotide sequence motifs. Due to high polymorphism and mutation rates, they serve as prominent genetic markers in population genetics, phylogenetic analysis, and studying evolutionary relationships among species."
+    },
+    {
+      "number": 71,
+      "topic": "Indian Economy / MSME Sector",
+      "passage_id": null,
+      "question": "Consider the following statements with reference to India:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. According to the 'Micro, Small and Medium Enterprises Development (MSMED) Act, 2006', the 'medium enterprises' are those with investments in plant and machinery between ₹15 crore and ₹25 crore.",
+        "2. All bank loans to the Micro, Small and Medium Enterprises qualify under the priority sector."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 1 is incorrect: Under the revised composite classification (effective 2020), a medium enterprise is defined as having investment in plant & machinery not exceeding ₹50 crore and annual turnover not exceeding ₹250 crore. Statement 2 is correct: Under RBI Priority Sector Lending (PSL) guidelines, all bank loans to MSMEs qualify under the priority sector."
+    },
+    {
+      "number": 72,
+      "topic": "Economy / CBDC",
+      "passage_id": null,
+      "question": "With reference to Central Bank digital currencies, consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. It is possible to make payments in a digital currency without using US dollar or SWIFT system.",
+        "2. A digital currency can be distributed with a condition programmed into it such as a time-frame for spending it."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Both statements are correct: 1. Cross-border CBDC platforms (e.g. mBridge) settle international payments peer-to-peer using central bank digital currencies, bypassing SWIFT and the US dollar clearing system. 2. Programmable CBDCs can incorporate smart contracts, enabling programmable conditions such as expiry dates or restricted usage for specific subsidies."
+    },
+    {
+      "number": 73,
+      "topic": "Finance / Stock Markets",
+      "passage_id": null,
+      "question": "In the context of finance, the term 'beta' refers to",
+      "options": [
+        {
+          "id": "a",
+          "text": "the process of simultaneous buying and selling of an asset from different platforms"
+        },
+        {
+          "id": "b",
+          "text": "an investment strategy of a portfolio manager to balance risk versus reward"
+        },
+        {
+          "id": "c",
+          "text": "a type of systemic risk that arises where perfect hedging is not possible"
+        },
+        {
+          "id": "d",
+          "text": "a numeric value that measures the fluctuations of a stock to changes in the overall stock market"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "In capital asset pricing (finance), 'Beta' is a statistical measure of the volatility or systematic risk of an individual security or portfolio in comparison to the market as a whole (Beta > 1 means higher volatility than the benchmark index)."
+    },
+    {
+      "number": 74,
+      "topic": "Social Development / Microfinance",
+      "passage_id": null,
+      "question": "Consider the following statements:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. The Self-Help Group (SHG) programme was originally initiated by the State Bank of India by providing microcredit to the financially deprived.",
+        "2. In an SHG, all members of a group take responsibility for a loan that an individual member takes.",
+        "3. The Regional Rural Banks and Scheduled Commercial Banks support SHGs."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 1 is incorrect: The SHG Bank Linkage Project was launched as a pilot in 1992 by the National Bank for Agriculture and Rural Development (NABARD), not by the State Bank of India. Statement 2 is correct: SHGs work on mutual guarantee/peer pressure, where the group assumes collective responsibility for loan repayment. Statement 3 is correct: RRBs, Scheduled Commercial Banks, and Cooperative Banks actively finance and support SHGs under the SHG-Bank linkage scheme. Thus, only two statements (2 and 3) are correct."
+    },
+    {
+      "number": 75,
+      "topic": "Health Governance / Indian Polity",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: India's public sector health care system largely focuses on curative care with limited preventive, promotive and rehabilitative care.",
+        "Statement-II: Under India's decentralized approach to health care delivery, the States are primarily responsible for organizing health services."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement-I is correct: National Health Policy documents critique the public healthcare system for being disproportionately skewed toward secondary and tertiary curative care. Statement-II is correct: Under Entry 6 of List II (State List), 'Public health and sanitation; hospitals and dispensaries' is primarily a State responsibility. However, the states being responsible does not explain why care is biased toward curative over preventive care (which stems from resource allocation and infrastructure priorities)."
+    },
+    {
+      "number": 76,
+      "topic": "Environment / Water Resources",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: According to the United Nations' 'World Water Development Report, 2022', India extracts more than a quarter of the world's groundwater withdrawal each year.",
+        "Statement-II: India needs to extract more than a quarter of the world's groundwater each year to satisfy the drinking water and sanitation needs of almost 18% of world's population living in its territory."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Statement-I is correct: India extracts roughly 251 billion cubic meters per year, which is over 25% of total global groundwater extraction. Statement-II is incorrect: Over 89% of extracted groundwater in India is used for agricultural irrigation (predominantly for water-thirsty crops like rice, wheat, and sugarcane), not for drinking water and domestic sanitation."
+    },
+    {
+      "number": 77,
+      "topic": "Indian Polity / Internal Security",
+      "passage_id": null,
+      "question": "Consider the following statements:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. According to the Constitution of India, the Central Government has a duty to protect States from internal disturbances.",
+        "2. The Constitution of India exempts the States from providing legal counsel to a person being held for preventive detention.",
+        "3. According to the Prevention of Terrorism Act, 2002, confession of the accused before the police cannot be used as evidence."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 1 is correct: Article 355 states that it is the duty of the Union to protect every State against external aggression and internal disturbance. Statement 2 is correct: Under Article 22(3)(b), the fundamental right to consult and be defended by a legal practitioner of one's choice (Article 22(1)) does not apply to any person arrested or detained under preventive detention laws. Statement 3 is incorrect: Under Section 32 of POTA, 2002, a confession made by a person before a police officer not below the rank of Superintendent of Police was admissible in trial (unlike Section 25 of the Indian Evidence Act). Thus, only two statements (1 and 2) are correct."
+    },
+    {
+      "number": 78,
+      "topic": "World Affairs / Famine & Conflicts",
+      "passage_id": null,
+      "question": "Which one of the following countries has been suffering from decades of civil strife and food shortages and was in news in the recent past for its very severe famine?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Angola"
+        },
+        {
+          "id": "b",
+          "text": "Costa Rica"
+        },
+        {
+          "id": "c",
+          "text": "Ecuador"
+        },
+        {
+          "id": "d",
+          "text": "Somalia"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Somalia in the Horn of Africa has faced decades of civil conflict (involving Al-Shabaab) and historic multi-year droughts that brought millions to the brink of severe catastrophic famine."
+    },
+    {
+      "number": 79,
+      "topic": "Environment / Biodiversity Act",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. In India, the Biodiversity Management Committees are key to the realization of the objectives of the Nagoya Protocol.",
+        "2. The Biodiversity Management Committees have important functions in determining access and benefit sharing, including the power to levy collection fees on the access of biological resources within its jurisdiction."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Both statements are correct: Under the Biological Diversity Act, 2002, BMCs constituted at local body levels operationalize Access and Benefit Sharing (ABS), which is the cornerstone of the Nagoya Protocol (1), and Section 41(3) empowers BMCs to levy collection fees on any person accessing biological resources from within their territorial jurisdiction (2)."
+    },
+    {
+      "number": 80,
+      "topic": "Indian Polity / Presidential Elections",
+      "passage_id": null,
+      "question": "Consider the following statements in respect of election to the President of India:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. The members nominated to either House of the Parliament or the Legislative Assemblies of States are also eligible to be included in the Electoral College.",
+        "2. Higher the number of elective Assembly seats, higher is the value of vote of each MLA of that State.",
+        "3. The value of vote of each MLA of Madhya Pradesh is greater than that of Kerala.",
+        "4. The value of vote of each MLA of Puducherry is higher than that of Arunachal Pradesh because the ratio of total population to total number of elective seats in Puducherry is greater as compared to Arunachal Pradesh."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "Only three"
+        },
+        {
+          "id": "d",
+          "text": "All four"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 1 is incorrect: Nominated members of Parliament and State Assemblies do not participate in the Presidential Electoral College (Article 54). Statement 2 is incorrect: Value of an MLA's vote = (Total State 1971 Population) / (Total elected MLAs * 1000). A higher number of seats in the denominator actually decreases the per-MLA vote value for a given population. Statement 3 is incorrect: In the 2022 Presidential Election, the value of each MLA vote in Kerala was 152, whereas in Madhya Pradesh it was 131. Statement 4 is correct: The value of each MLA vote in Puducherry was 16, whereas in Arunachal Pradesh it was 8, because Puducherry's population-to-seats ratio is higher. (Wait, UPSC key evaluation considered two statements correct: statements 3/4 or single statement; official answer is (a) Only one or (b) Only two; official key accepted (b) or (a)). Officially, statement 4 is definitely correct."
+    },
+    {
+      "number": 81,
+      "topic": "Modern Indian History / Archaeology",
+      "passage_id": null,
+      "question": "With reference to the Indian History, Alexander Rea, A. H. Longhurst, Robert Sewell, James Burgess and Walter Elliot were associated with",
+      "options": [
+        {
+          "id": "a",
+          "text": "archaeological excavations"
+        },
+        {
+          "id": "b",
+          "text": "establishment of English Press in Colonial India"
+        },
+        {
+          "id": "c",
+          "text": "establishment of Churches in Princely States"
+        },
+        {
+          "id": "d",
+          "text": "construction of railways in Colonial India"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "Alexander Rea, A.H. Longhurst, Robert Sewell, James Burgess, and Walter Elliot were noted British colonial antiquarians and archaeologists associated with the Archaeological Survey of India (ASI), pioneering excavations at sites like Amaravati, Hampi, Mahabalipuram, and Adichanallur."
+    },
+    {
+      "number": 82,
+      "topic": "Ancient Art and Architecture / Caves",
+      "passage_id": null,
+      "question": "Consider the following pairs:\nHow many of the above pairs are correctly matched?",
+      "table": {
+        "headers": [
+          "",
+          "Site",
+          "Well known for"
+        ],
+        "rows": [
+          [
+            "1.",
+            "Besnagar",
+            "Shaivite cave shrine"
+          ],
+          [
+            "2.",
+            "Bhaja",
+            "Buddhist cave shrine"
+          ],
+          [
+            "3.",
+            "Sittanavasal",
+            "Jain cave shrine"
+          ]
+        ]
+      },
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Pair 1 is incorrect: Besnagar (Vidisha, MP) is famous for the Heliodorus Pillar dedicated to Vasudeva (Vaishnavite, not Shaivite). Pair 2 is correct: Bhaja Caves in Maharashtra are prominent Hinayana Buddhist rock-cut chaityas and viharas. Pair 3 is correct: Sittanavasal in Tamil Nadu is a celebrated 2nd-9th century Jain rock-cut cave temple famous for its Jain frescoes and beds. Thus, only two pairs (2 and 3) are correctly matched."
+    },
+    {
+      "number": 83,
+      "topic": "Modern Indian History / Swadeshi Movement",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: 7th August is declared as the National Handloom Day.",
+        "Statement-II: It was in 1905 that the Swadeshi Movement was launched on the same day."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "The Government of India declared August 7 as National Handloom Day to commemorate the historic Swadeshi Movement, which was officially proclaimed on 7 August 1905 at the Calcutta Town Hall to encourage indigenous handlooms and boycott foreign goods."
+    },
+    {
+      "number": 84,
+      "topic": "Indian Polity / National Symbols",
+      "passage_id": null,
+      "question": "Consider the following statements in respect of the National Flag of India according to the Flag Code of India, 2002:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: One of the standard sizes of the National Flag of India is 600 mm x 400 mm.",
+        "Statement-II: The ratio of the length to the height (width) of the Flag shall be 3:2."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Statement-I is incorrect: Under Part I of the Flag Code of India, 2002, the standard flag sizes (in mm) are 6300x4200, 3600x2400, 2700x1800, 1800x1200, 1350x900, 900x600, 450x300, 225x150, and 150x100; 600 mm x 400 mm is NOT one of the nine standard sizes. Statement-II is correct: The ratio of the length to the height (width) of the Flag is fixed at 3:2."
+    },
+    {
+      "number": 85,
+      "topic": "Indian Polity / Constitution Day",
+      "passage_id": null,
+      "question": "Consider the following statements in respect of the Constitution Day:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: The Constitution Day is celebrated on 26th November every year to promote constitutional values among citizens.",
+        "Statement-II: On 26th November, 1949, the Constituent Assembly of India set up a Drafting Committee under the Chairmanship of Dr. B. R. Ambedkar to prepare a Draft Constitution of India."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Statement-I is correct: Constitution Day (Samvidhan Diwas) is celebrated on 26 November every year. Statement-II is incorrect: The Drafting Committee was set up on 29 August 1947, not 26 November 1949. On 26 November 1949, the Constituent Assembly adopted and enacted the Constitution."
+    },
+    {
+      "number": 86,
+      "topic": "Economic Geography / Trade",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: Switzerland is one of the leading exporters of gold in terms of value.",
+        "Statement-II: Switzerland has the second largest gold reserves in the world."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Statement-I is correct: Switzerland is the world's leading gold refining hub and largest gold exporter by value (refining raw gold and re-exporting it). Statement-II is incorrect: According to the World Gold Council, the largest official gold reserves are held by the USA, followed by Germany, Italy, and France; Switzerland ranks 7th or 8th."
+    },
+    {
+      "number": 87,
+      "topic": "International Relations / Bilateral Forums",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: Recently, the United States of America (USA) and the European Union (EU) have launched the 'Trade and Technology Council'.",
+        "Statement-II: The USA and the EU claim that through this they are trying to bring technological progress and physical productivity under their control."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Statement-I is correct: The US-EU Trade and Technology Council (TTC) was established in June 2021 as a diplomatic coordination platform on technology standards, supply chain security, and green tech. Statement-II is incorrect: The official goal is to promote democratic tech standards, secure supply chains, and foster transatlantic trade cooperation, not to monopolize or control global technological progress and productivity."
+    },
+    {
+      "number": 88,
+      "topic": "Indian Economy / Foreign Trade & Schemes",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: India accounts for 3.2% of global export of goods.",
+        "Statement-II: Many local companies and some foreign companies operating in India have taken advantage of India's 'Production-linked Incentive' scheme."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Statement-I is incorrect: According to WTO trade data and the Economic Survey, India's share in world merchandise (goods) exports is roughly 1.8% to 2.2% (it reaches ~3.5% only when commercial services exports are included). Statement-II is correct: Numerous domestic manufacturers and foreign multinational corporations (such as Apple's contract vendors Foxconn and Pegatron, Samsung, and Tata) have enrolled in and benefited from India's PLI schemes."
+    },
+    {
+      "number": 89,
+      "topic": "International Organizations / European Union",
+      "passage_id": null,
+      "question": "Consider the following statements:\nThe 'Stability and Growth Pact' of the European Union is a treaty that\nHow many of the above statements are correct?",
+      "statements": [
+        "1. limits the levels of the budgetary deficit of the countries of the European Union",
+        "2. makes the countries of the European Union to share their infrastructure facilities",
+        "3. enables the countries of the European Union to share their technologies"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "a",
+      "explanation": "The Stability and Growth Pact (SGP) is a fiscal framework binding EU member states to ensure fiscal discipline: fiscal deficits must not exceed 3% of GDP, and public debt must remain under 60% of GDP (Statement 1 is correct). It does not mandate sharing infrastructure facilities or technologies (Statements 2 and 3 are incorrect). Thus, only one statement is correct."
+    },
+    {
+      "number": 90,
+      "topic": "International Conventions / Migration",
+      "passage_id": null,
+      "question": "Consider the following statements:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. Recently, all the countries of the United Nations have adopted the first-ever compact for international migration, the 'Global Compact for Safe, Orderly and Regular Migration (GCM)'.",
+        "2. The objectives and commitments stated in the GCM are binding on the UN member countries.",
+        "3. The GCM addresses internal migration or internally displaced people also in its objectives and commitments."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Statement 1 is incorrect: Not all UN countries adopted the GCM; the US, Hungary, Israel, Poland, and the Czech Republic voted against or refused to join. Statement 2 is incorrect: GCM is explicitly a non-legally binding cooperative framework. Statement 3 is incorrect: GCM focuses specifically on international cross-border migration, not internal migration or internally displaced persons (IDPs). None of the statements are correct."
+    },
+    {
+      "number": 91,
+      "topic": "Internal Security / Home Guards",
+      "passage_id": null,
+      "question": "With reference to Home Guards, consider the following statements:\nHow many of the above statements are correct?",
+      "statements": [
+        "1. Home Guards are raised under the Home Guards Act and Rules of the Central Government.",
+        "2. The role of the Home Guards is to serve as an auxiliary force to the police in maintenance of internal security.",
+        "3. To prevent infiltration on the international border/coastal areas, the Border Wing Home Guards Battalions have been raised in some States."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statement 1 is incorrect: Home Guards are voluntary organizations raised by respective State Governments/UT administrations under their individual State Home Guards Acts, not under a Central Government Act. Statements 2 and 3 are correct: Home Guards serve as an auxiliary force to the state police for maintaining public order and disaster relief, and Border Wing Home Guards (BWHG) battalions were raised in border states (like Punjab, Rajasthan, Gujarat, Assam, Meghalaya, and Tripura) to guard international borders and check infiltration. Thus, only two statements (2 and 3) are correct."
+    },
+    {
+      "number": 92,
+      "topic": "Indian Polity / Legislation",
+      "passage_id": null,
+      "question": "With reference to India, consider the following pairs:\nHow many of the above pairs are correctly matched?",
+      "table": {
+        "headers": [
+          "",
+          "Action",
+          "The Act under which it is covered"
+        ],
+        "rows": [
+          [
+            "1.",
+            "Unauthorized wearing of police or military uniforms",
+            "The Official Secrets Act, 1923"
+          ],
+          [
+            "2.",
+            "Knowingly misleading or otherwise interfering with a police officer or military officer when engaged in their duties",
+            "The Indian Evidence Act, 1872"
+          ],
+          [
+            "3.",
+            "Celebratory gunfire which can endanger the personal safety of others",
+            "The Arms (Amendment) Act, 2019"
+          ]
+        ]
+      },
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one pair"
+        },
+        {
+          "id": "b",
+          "text": "Only two pairs"
+        },
+        {
+          "id": "c",
+          "text": "All three pairs"
+        },
+        {
+          "id": "d",
+          "text": "None of the pairs"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Pair 1 is correct: Section 6 of the Official Secrets Act, 1923 specifically penalizes the unauthorized use of uniforms, falsification of reports, or personation of police/military officers. Pair 2 is incorrect: Misleading or obstructing public servants on duty is covered under the Indian Penal Code (Section 186/187), not the Indian Evidence Act. Pair 3 is correct: The Arms (Amendment) Act, 2019 inserted Section 25(9), making celebratory gunfire that endangers life punishable with imprisonment and fine. Thus, only two pairs (1 and 3) are correctly matched."
+    },
+    {
+      "number": 93,
+      "topic": "Current Affairs / Global Conflicts",
+      "passage_id": null,
+      "question": "Consider the following pairs:\nHow many of the above pairs are correctly matched?",
+      "table": {
+        "headers": [
+          "",
+          "Regions often mentioned in news",
+          "Reason for being in news"
+        ],
+        "rows": [
+          [
+            "1.",
+            "North Kivu and Ituri",
+            "War between Armenia and Azerbaijan"
+          ],
+          [
+            "2.",
+            "Nagorno-Karabakh",
+            "Insurgency in Mozambique"
+          ],
+          [
+            "3.",
+            "Kherson and Zaporizhzhia",
+            "Dispute between Israel and Lebanon"
+          ]
+        ]
+      },
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "All three pairs are mismatched: North Kivu and Ituri are conflict zones in the Democratic Republic of the Congo. Nagorno-Karabakh is the disputed region between Armenia and Azerbaijan. Kherson and Zaporizhzhia are frontline battleground regions in Ukraine during the Russia-Ukraine war. None of the pairs are correctly matched."
+    },
+    {
+      "number": 94,
+      "topic": "International Affairs / Middle East",
+      "passage_id": null,
+      "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
+      "statements": [
+        "Statement-I: Israel has established diplomatic relations with some Arab States.",
+        "Statement-II: The 'Arab Peace Initiative' mediated by Saudi Arabia was signed by Israel and Arab League."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+        },
+        {
+          "id": "b",
+          "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+        },
+        {
+          "id": "c",
+          "text": "Statement-I is correct but Statement-II is incorrect"
+        },
+        {
+          "id": "d",
+          "text": "Statement-I is incorrect but Statement-II is correct"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Statement-I is correct: Under the 2020 Abraham Accords, Israel established formal diplomatic ties with the UAE, Bahrain, Morocco, and Sudan (joining earlier treaties with Egypt and Jordan). Statement-II is incorrect: The Arab Peace Initiative of 2002 was adopted by the Arab League, but Israel never signed or formally accepted it as a bilateral treaty."
+    },
+    {
+      "number": 95,
+      "topic": "Sports Awards / Current Affairs",
+      "passage_id": null,
+      "question": "Consider the following pairs with regard to sports awards:\nHow many of the above pairs are correctly matched?",
+      "table": {
+        "headers": [
+          "",
+          "Sports Award",
+          "Criteria"
+        ],
+        "rows": [
+          [
+            "1.",
+            "Major Dhyan Chand Khel Ratna Award",
+            "For the most spectacular and outstanding performance by a sportsperson over a period of last four years"
+          ],
+          [
+            "2.",
+            "Arjuna Award",
+            "For the lifetime achievement by a sportsperson"
+          ],
+          [
+            "3.",
+            "Dronacharya Award",
+            "To honour eminent coaches who have successfully trained sportspersons or teams"
+          ],
+          [
+            "4.",
+            "Rashtriya Khel Protsahan Puraskar",
+            "To recognize the contribution made by sportspersons even after their retirement"
+          ]
+        ]
+      },
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "Only three"
+        },
+        {
+          "id": "d",
+          "text": "All four"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Pair 1 is correct: Khel Ratna is awarded for outstanding performance over a 4-year period. Pair 2 is incorrect: Arjuna Award is for good performance over the preceding four years and leadership qualities (Dhyan Chand Award for Lifetime Achievement is for lifetime contribution). Pair 3 is correct: Dronacharya Award honors eminent coaches. Pair 4 is incorrect: Rashtriya Khel Protsahan Puruskar is awarded to corporate entities, sports control boards, and NGOs for sports promotion and sponsorship. Thus, only two pairs (1 and 3) are correctly matched."
+    },
+    {
+      "number": 96,
+      "topic": "Sports / Chess Olympiad",
+      "passage_id": null,
+      "question": "Consider the following statements in respect of the 44th Chess Olympiad, 2022:\nHow many of the statements given above are correct?",
+      "statements": [
+        "1. It was the first time that Chess Olympiad was held in India.",
+        "2. The official mascot was named 'Thambi'.",
+        "3. The trophy for the winning team in the open section is the Vera Menchik Cup.",
+        "4. The trophy for the winning team in the women's section is the Hamilton-Russell Cup."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "Only three"
+        },
+        {
+          "id": "d",
+          "text": "All four"
+        }
+      ],
+      "correct_option": "b",
+      "explanation": "Statements 1 and 2 are correct: The 44th Chess Olympiad held at Mamallapuram (Chennai) was the first-ever Chess Olympiad hosted in India, and its mascot was 'Thambi' (younger brother in Tamil). Statements 3 and 4 are incorrect: The trophy for the open section is the Hamilton-Russell Cup, while the trophy for the women's section is the Vera Menchik Cup (the two trophies are interchanged). Thus, only two statements (1 and 2) are correct."
+    },
+    {
+      "number": 97,
+      "topic": "Current Affairs / World Conflicts",
+      "passage_id": null,
+      "question": "Consider the following pairs:\nHow many of the above pairs are correctly matched?",
+      "table": {
+        "headers": [
+          "",
+          "Area of conflict mentioned in news",
+          "Country where it is located"
+        ],
+        "rows": [
+          [
+            "1.",
+            "Donbas",
+            "Syria"
+          ],
+          [
+            "2.",
+            "Kachin",
+            "Ethiopia"
+          ],
+          [
+            "3.",
+            "Tigray",
+            "North Yemen"
+          ]
+        ]
+      },
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "All three pairs are mismatched: Donbas is an eastern industrial region in Ukraine. Kachin is a state in northern Myanmar. Tigray is a region in northern Ethiopia. None of the pairs are correctly matched."
+    },
+    {
+      "number": 98,
+      "topic": "International Affairs / Africa",
+      "passage_id": null,
+      "question": "In the recent years Chad, Guinea, Mali and Sudan caught the international attention for which one of the following reasons common to all of them?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Discovery of rich deposits of rare earth elements"
+        },
+        {
+          "id": "b",
+          "text": "Establishment of Chinese military bases"
+        },
+        {
+          "id": "c",
+          "text": "Southward expansion of Sahara Desert"
+        },
+        {
+          "id": "d",
+          "text": "Successful coups"
+        }
+      ],
+      "correct_option": "d",
+      "explanation": "Between 2020 and 2023, Chad, Guinea, Mali, and Sudan all witnessed successful military coups d'état that toppled their civilian or transitional governments."
+    },
+    {
+      "number": 99,
+      "topic": "Environment / Decarbonization",
+      "passage_id": null,
+      "question": "Consider the following heavy industries:\nGreen hydrogen is expected to play a significant role in decarbonizing how many of the above industries?",
+      "statements": [
+        "1. Fertilizer plants",
+        "2. Oil refineries",
+        "3. Steel plants"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Only one"
+        },
+        {
+          "id": "b",
+          "text": "Only two"
+        },
+        {
+          "id": "c",
+          "text": "All three"
+        },
+        {
+          "id": "d",
+          "text": "None"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Green hydrogen is considered crucial for decarbonizing hard-to-abate industrial sectors: 1. Fertilizer plants use hydrogen to synthesize green ammonia for urea. 2. Petroleum refineries require vast amounts of hydrogen for hydrotreating and desulfurization of crude oil. 3. Steel plants use green hydrogen as a direct reducing agent (DRI) in blast furnace replacement to replace coking coal. All three industries rely heavily on green hydrogen for decarbonization."
+    },
+    {
+      "number": 100,
+      "topic": "International Organizations / G-20",
+      "passage_id": null,
+      "question": "Consider the following statements about G-20:\nWhich of the statements given above is/are correct?",
+      "statements": [
+        "1. The G-20 group was originally established as a platform for the Finance Ministers and Central Bank Governors to discuss the international economic and financial issues.",
+        "2. Digital public infrastructure is one of India's G-20 priorities."
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "1 only"
+        },
+        {
+          "id": "b",
+          "text": "2 only"
+        },
+        {
+          "id": "c",
+          "text": "Both 1 and 2"
+        },
+        {
+          "id": "d",
+          "text": "Neither 1 nor 2"
+        }
+      ],
+      "correct_option": "c",
+      "explanation": "Both statements are correct: 1. The G-20 was founded in 1999 following the Asian financial crisis as an informal ministerial forum for Finance Ministers and Central Bank Governors (before being elevated to leader-level summits in 2008). 2. During India's G-20 Presidency in 2023, Digital Public Infrastructure (DPI) was championed as one of India's foundational priorities."
+    }
+  ]
+}

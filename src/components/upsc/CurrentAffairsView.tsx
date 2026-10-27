@@ -27,7 +27,6 @@ import {
   MessagesSquare,
   Newspaper,
   Scale,
-  Zap,
 } from 'lucide-react-native';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -261,6 +260,40 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
     [activeEventIndex, animateCardTransition]
   );
 
+  // Auto-advance event card every 6.5s (pauses on hover or touch/press hold)
+  const [isAutoPlayPaused, setIsAutoPlayPaused] = useState(false);
+
+  useEffect(() => {
+    if (activeDailyEvents.length <= 1) return;
+    if (isAutoPlayPaused) return;
+    if (
+      articleModalVisible ||
+      notesLibraryModalVisible ||
+      dailyRecallModalVisible ||
+      formatModalVisible ||
+      calendarDropdownVisible
+    ) {
+      return;
+    }
+
+    const timer = setInterval(() => {
+      animateCardTransition('next', () => {
+        setActiveEventIndex((prev) => (prev + 1) % activeDailyEvents.length);
+      });
+    }, 6500);
+
+    return () => clearInterval(timer);
+  }, [
+    activeDailyEvents.length,
+    isAutoPlayPaused,
+    articleModalVisible,
+    notesLibraryModalVisible,
+    dailyRecallModalVisible,
+    formatModalVisible,
+    calendarDropdownVisible,
+    animateCardTransition,
+  ]);
+
   // Horizontal Slide/Swipe gesture responder for mobile & touch views
   const panResponder = useMemo(
     () =>
@@ -279,6 +312,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
           );
         },
         onPanResponderGrant: () => {
+          setIsAutoPlayPaused(true);
           translateX.stopAnimation();
         },
         onPanResponderMove: (_, gestureState) => {
@@ -292,6 +326,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
         },
         onPanResponderTerminationRequest: () => false,
         onPanResponderRelease: (_, gestureState) => {
+          setIsAutoPlayPaused(false);
           const swipeThreshold = 45;
           const velocityThreshold = 0.25;
 
@@ -416,7 +451,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                     accessibilityRole="button"
                   >
                     <View style={styles.calendarIconCircle}>
-                      <Calendar size={14} color={isDark ? '#38BDF8' : '#0284C7'} strokeWidth={2.2} />
+                      <Calendar size={14} color={isDark ? '#94A3B8' : '#64748B'} strokeWidth={2} />
                     </View>
                     <Text style={styles.calendarDatePillText}>
                       {activeDaySummary.label}
@@ -446,7 +481,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                 </Pressable>
               </View>
 
-              {/* Right Corner: Prominent Daily Quiz Button */}
+              {/* Right Corner: Prominent Daily Quiz Button (Main Button) */}
               <Pressable
                 style={({ pressed, hovered }: any) => [
                   styles.prominentDailyQuizBtn,
@@ -457,7 +492,11 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                 accessibilityLabel="Open Daily Quiz with 10 questions"
                 accessibilityRole="button"
               >
-                <Zap size={14} color="#FFFFFF" strokeWidth={2.4} fill="#FFFFFF" />
+                <ListChecks
+                  size={14}
+                  color={isDark ? '#090D16' : '#FFFFFF'}
+                  strokeWidth={2.2}
+                />
                 <Text style={styles.prominentDailyQuizBtnText}>
                   Daily Quiz
                 </Text>
@@ -484,7 +523,11 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                   accessibilityLabel="Open Daily Quiz with 10 questions"
                   accessibilityRole="button"
                 >
-                  <Zap size={13} color="#FFFFFF" strokeWidth={2.4} fill="#FFFFFF" />
+                  <ListChecks
+                    size={13}
+                    color={isDark ? '#090D16' : '#FFFFFF'}
+                    strokeWidth={2.2}
+                  />
                   <Text style={styles.prominentDailyQuizBtnText}>
                     Daily Quiz
                   </Text>
@@ -510,7 +553,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                     accessibilityRole="button"
                   >
                     <View style={styles.calendarIconCircle}>
-                      <Calendar size={13} color={isDark ? '#38BDF8' : '#0284C7'} strokeWidth={2.2} />
+                      <Calendar size={13} color={isDark ? '#94A3B8' : '#64748B'} strokeWidth={2} />
                     </View>
                     <Text style={styles.calendarDatePillText}>
                       {activeDaySummary.label}
@@ -544,34 +587,45 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
 
           {/* D. Adaptive Attractive Interior Event Card with Slide/Swipe Support */}
           {currentDailyEvent ? (
-            <Animated.View
-              style={[
-                styles.eventCardLightWrapper,
-                {
-                  transform: [{ translateX }],
-                  opacity: cardOpacity,
-                },
-              ]}
-              {...panResponder.panHandlers}
+            <View
+              // Mouse hover hold on desktop:
+              onMouseEnter={() => setIsAutoPlayPaused(true)}
+              onMouseLeave={() => setIsAutoPlayPaused(false)}
+              // Touch press and hold on mobile:
+              onTouchStart={() => setIsAutoPlayPaused(true)}
+              onTouchEnd={() => setIsAutoPlayPaused(false)}
+              onTouchCancel={() => setIsAutoPlayPaused(false)}
+              style={styles.eventCardOuterContainer}
             >
-              <DailyEventCard
-                key={currentDailyEvent.id}
-                event={currentDailyEvent}
-                isBookmarked={isBookmarked(currentDailyEvent.id)}
-                onToggleBookmark={toggleBookmark}
-                onOpenDetail={handleOpenDailyEvent}
-                onAddNote={handleAddNoteForEvent}
-                isDark={isDark}
-                onPrevEvent={handlePrevEvent}
-                onNextEvent={handleNextEvent}
-                onSelectEvent={handleSelectEvent}
-                onOpenDailyRecall={() => setDailyRecallModalVisible(true)}
-                hasPrevEvent={activeEventIndex > 0}
-                hasNextEvent={activeEventIndex < activeDailyEvents.length - 1}
-                eventIndex={activeEventIndex}
-                totalEvents={activeDailyEvents.length}
-              />
-            </Animated.View>
+              <Animated.View
+                style={[
+                  styles.eventCardLightWrapper,
+                  {
+                    transform: [{ translateX }],
+                    opacity: cardOpacity,
+                  },
+                ]}
+                {...panResponder.panHandlers}
+              >
+                <DailyEventCard
+                  key={currentDailyEvent.id}
+                  event={currentDailyEvent}
+                  isBookmarked={isBookmarked(currentDailyEvent.id)}
+                  onToggleBookmark={toggleBookmark}
+                  onOpenDetail={handleOpenDailyEvent}
+                  onAddNote={handleAddNoteForEvent}
+                  isDark={isDark}
+                  onPrevEvent={handlePrevEvent}
+                  onNextEvent={handleNextEvent}
+                  onSelectEvent={handleSelectEvent}
+                  onOpenDailyRecall={() => setDailyRecallModalVisible(true)}
+                  hasPrevEvent={activeEventIndex > 0}
+                  hasNextEvent={activeEventIndex < activeDailyEvents.length - 1}
+                  eventIndex={activeEventIndex}
+                  totalEvents={activeDailyEvents.length}
+                />
+              </Animated.View>
+            </View>
           ) : (
             <View style={styles.emptyContainer}>
               <Text style={styles.emptyText}>No events available for this date.</Text>
@@ -944,26 +998,26 @@ const getStyles = (
       paddingRight: 10,
       paddingVertical: 5.5,
       borderRadius: 8,
-      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.08)' : '#F0F9FF',
+      backgroundColor: isDark ? '#141E2D' : '#F8FAFC',
       borderWidth: 1,
-      borderColor: isDark ? 'rgba(56, 189, 248, 0.28)' : '#BAE6FD',
+      borderColor: isDark ? '#233248' : '#E2E8F0',
     },
     calendarDatePillBtnHover: {
-      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.16)' : '#E0F2FE',
-      borderColor: isDark ? '#38BDF8' : '#0284C7',
+      backgroundColor: isDark ? '#1A273A' : '#F1F5F9',
+      borderColor: isDark ? '#334764' : '#CBD5E1',
     },
     calendarIconCircle: {
       width: 22,
       height: 22,
       borderRadius: 5,
-      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.18)' : '#E0F2FE',
+      backgroundColor: isDark ? '#1E2D42' : '#F1F5F9',
       alignItems: 'center',
       justifyContent: 'center',
     },
     calendarDatePillText: {
       fontSize: 12.5,
-      fontWeight: '700',
-      color: isDark ? '#F1F5F9' : '#0369A1',
+      fontWeight: '600',
+      color: isDark ? '#E2E8F0' : '#1E293B',
       letterSpacing: -0.15,
     },
 
@@ -979,57 +1033,62 @@ const getStyles = (
       borderColor: isDark ? '#23334A' : '#E2E8F0',
     },
     dayReadTickBtnActive: {
-      backgroundColor: isDark ? '#059669' : '#10B981',
-      borderColor: isDark ? '#10B981' : '#059669',
+      backgroundColor: isDark ? '#1E293B' : '#0F172A',
+      borderColor: isDark ? '#334155' : '#0F172A',
     },
 
-    /* Prominent Daily Quiz Button at Right Corner */
+    /* Prominent Daily Quiz Button (Real Main / Primary Button) */
     prominentDailyQuizBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 8,
-      paddingLeft: isDesktop ? 14 : 11,
-      paddingRight: isDesktop ? 12 : 9,
+      gap: 7.5,
+      paddingLeft: isDesktop ? 13 : 11,
+      paddingRight: isDesktop ? 11 : 9,
       paddingVertical: isDesktop ? 7.5 : 6.5,
-      borderRadius: 9,
-      backgroundColor: isDark ? '#0284C7' : '#0284C7',
+      borderRadius: 8,
+      backgroundColor: isDark ? '#FFFFFF' : '#0F172A',
       borderWidth: 1,
-      borderColor: isDark ? '#38BDF8' : '#0369A1',
-      shadowColor: '#0284C7',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: isDark ? 0.35 : 0.2,
-      shadowRadius: 5,
-      elevation: 3,
+      borderColor: isDark ? '#FFFFFF' : '#0F172A',
+      shadowColor: '#000000',
+      shadowOffset: { width: 0, height: 1.5 },
+      shadowOpacity: isDark ? 0.2 : 0.12,
+      shadowRadius: 3,
+      elevation: 2,
     },
     prominentDailyQuizBtnHover: {
-      backgroundColor: isDark ? '#0369A1' : '#0369A1',
-      borderColor: '#38BDF8',
+      backgroundColor: isDark ? '#E2E8F0' : '#1E293B',
+      borderColor: isDark ? '#E2E8F0' : '#1E293B',
       transform: [{ translateY: -1 }],
     },
     prominentDailyQuizBtnText: {
       fontSize: isDesktop ? 13 : 12,
-      fontWeight: '800',
-      color: '#FFFFFF',
-      letterSpacing: -0.2,
+      fontWeight: '700',
+      color: isDark ? '#090D16' : '#FFFFFF',
+      letterSpacing: -0.15,
     },
     prominentDailyQuizBadge: {
-      paddingHorizontal: 6,
-      paddingVertical: 2,
-      borderRadius: 5,
-      backgroundColor: 'rgba(255, 255, 255, 0.25)',
+      paddingHorizontal: 5.5,
+      paddingVertical: 1.5,
+      borderRadius: 4,
+      backgroundColor: isDark ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.2)',
     },
     prominentDailyQuizBadgeText: {
       fontSize: 10,
-      fontWeight: '800',
-      color: '#FFFFFF',
-      letterSpacing: 0.2,
+      fontWeight: '700',
+      color: isDark ? '#090D16' : '#FFFFFF',
+      letterSpacing: 0.1,
     },
 
     /* Adaptive Interior Event Card Wrapper */
+    eventCardOuterContainer: {
+      width: '100%',
+      position: 'relative',
+    },
     eventCardLightWrapper: {
       width: '100%',
       borderRadius: 14,
       overflow: 'hidden',
+      position: 'relative',
       ...(!isDark
         ? {
           shadowColor: '#0F172A',

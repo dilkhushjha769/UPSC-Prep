@@ -11,45 +11,28 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   ArrowLeft,
-  Check,
   Calendar,
-  ChevronDown,
-  ChevronRight,
-  Filter,
-  Newspaper,
-  BookOpen,
-  Layers,
-  Scale,
-  Landmark,
-  MessagesSquare,
-  Globe,
-  Leaf,
   RotateCw,
 } from 'lucide-react-native';
 import {
   FormatCategory,
   CuratedArticle,
-  NEWS_AGENCIES,
   DAILY_EVENTS_DATA,
-  getDailyEventsSummary,
   getTodayDateKey,
 } from '@/data/currentAffairsData';
 import {
   classifyIntoSimplifiedTaxonomy,
-  DAILY_NEWS_FEED_FILTERS,
   DailyNewsFeedFilterId,
-  EES_SUBJECT_GROUPS,
-  getMainCategoryById,
-  SUBJECT_MAIN_CATEGORIES,
-  SubjectGroupName,
+  SIMPLIFIED_SUBCATEGORIES_MAP,
 } from '@/constants/currentAffairsCategories';
-import { BW_THEME } from '@/constants/bwTheme';
-import { PALETTE } from '@/constants/colors';
 import { fetchLiveDailyNewsArticles, mapDailyEventToCuratedArticle } from '@/services/newsFeedService';
 import { CalendarDropdown } from './CalendarDropdown';
-import { EditorialNewsCard } from './EditorialNewsCard';
+import { EditorialNewsCard, EditorialNewsItem } from './EditorialNewsCard';
+import { EditorialSidebarWidgets } from './EditorialSidebarWidgets';
+import { CAQuizModal } from './CAQuizModal';
 
 interface FormatFeedModalProps {
   visible: boolean;
@@ -62,6 +45,19 @@ interface FormatFeedModalProps {
   selectedAgencyId?: string;
 }
 
+// Category Tabs matching the Figma design
+const CATEGORY_TABS = [
+  { id: 'all', label: 'All', categoryId: 'all' },
+  { id: 'polity', label: 'Polity', categoryId: 'polity-governance' },
+  { id: 'economy', label: 'Economy', categoryId: 'economy-environment-science' },
+  { id: 'international', label: 'International Relations', categoryId: 'international-affairs' },
+  { id: 'environment', label: 'Environment', categoryId: 'economy-environment-science' },
+  { id: 'science', label: 'Science & Tech', categoryId: 'economy-environment-science' },
+  { id: 'reports', label: 'Reports & Schemes', categoryId: 'reports-schemes-data' },
+  { id: 'editorials', label: 'Editorials', categoryId: 'editorials-explainers' },
+  { id: 'daily-news', label: 'Daily News', categoryId: 'daily-news' },
+];
+
 export function FormatFeedModal({
   visible,
   onClose,
@@ -70,61 +66,433 @@ export function FormatFeedModal({
   isDark,
   savedItemIds,
   onToggleBookmark,
-  selectedAgencyId = 'all',
 }: FormatFeedModalProps) {
   const { width } = useWindowDimensions();
   const isDesktop = width >= 768;
 
-  const theme = isDark ? BW_THEME.dark : BW_THEME.light;
-  const styles = useMemo(() => getStyles(theme, isDark, isDesktop), [theme, isDark, isDesktop]);
+  // Active Category Tab: initialized based on clicked formatCategory
+  const [prevFormatCatId, setPrevFormatCatId] = useState<string | undefined>(formatCategory?.id);
+  const [activeCategoryTab, setActiveCategoryTab] = useState<string>(() => {
+    if (!formatCategory) return 'all';
+    if (formatCategory.id === 'polity-governance') return 'polity';
+    if (formatCategory.id === 'economy-environment-science') return 'economy';
+    if (formatCategory.id === 'international-affairs') return 'international';
+    if (formatCategory.id === 'reports-schemes-data') return 'reports';
+    if (formatCategory.id === 'editorials-explainers') return 'editorials';
+    if (formatCategory.id === 'daily-news') return 'daily-news';
+    return 'all';
+  });
 
-  // Default calendar date to current date ('Today, 29 Oct') in Asia/Kolkata
+  // Sync tab when formatCategory prop changes without effect
+  if (formatCategory && formatCategory.id !== prevFormatCatId) {
+    setPrevFormatCatId(formatCategory.id);
+    if (formatCategory.id === 'polity-governance') setActiveCategoryTab('polity');
+    else if (formatCategory.id === 'economy-environment-science') setActiveCategoryTab('economy');
+    else if (formatCategory.id === 'international-affairs') setActiveCategoryTab('international');
+    else if (formatCategory.id === 'reports-schemes-data') setActiveCategoryTab('reports');
+    else if (formatCategory.id === 'editorials-explainers') setActiveCategoryTab('editorials');
+    else if (formatCategory.id === 'daily-news') setActiveCategoryTab('daily-news');
+    else setActiveCategoryTab('all');
+  }
+
+  // Selected date key (defaults to today 2026-10-29 in Asia/Kolkata)
   const todayDateKey = useMemo(() => getTodayDateKey(), []);
   const [selectedDateKey, setSelectedDateKey] = useState<string>(todayDateKey);
-  const [showAllDates, setShowAllDates] = useState<boolean>(true);
 
-  // Simplified Taxonomy Filters
-  // 1. For Daily News: 5 Feed Filters (All News, Today's News, Most Important, Prelims Relevant, Mains Relevant)
-  const [dailyFeedFilter, setDailyFeedFilter] = useState<DailyNewsFeedFilterId>('all');
-  // 2. For Daily News: Main Category filter ('all' | one of the 5 subject categories)
-  const [selectedMainCatFilter, setSelectedMainCatFilter] = useState<string>('all');
-  // 3. For Economy, Environment & Science: Subject Group filter ('All' | 'Economy' | 'Environment & Ecology' | 'Science & Technology')
-  const [selectedSubjectGroup, setSelectedSubjectGroup] = useState<string>('All');
-  // 4. For all categories: Subcategory filter ('All' | one of the 3-4 broad subcategories)
+  // Prelims vs Mains Focus Filter
+  const [focusFilter, setFocusFilter] = useState<'prelims' | 'mains' | 'all'>('prelims');
+
+  // Subcategory and Feed Filters
+  const [dailyFeedFilter] = useState<DailyNewsFeedFilterId>('all');
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>('All');
 
-  const [userAgencyFilter, setUserAgencyFilter] = useState<string | null>(null);
-  const [agencyDropdownOpen, setAgencyDropdownOpen] = useState<boolean>(false);
+  // Calendar modal state
   const [calendarModalOpen, setCalendarModalOpen] = useState<boolean>(false);
   const [calendarPos, setCalendarPos] = useState<{ top: number; left?: number; right?: number }>({
-    top: 76,
-    right: 24,
+    top: 140,
+    left: 20,
   });
   const dateBtnRef = useRef<React.ElementRef<typeof View>>(null);
 
-  const activeAgencyFilter = userAgencyFilter ?? (selectedAgencyId || 'all');
-  const activeAgency = useMemo(
-    () => NEWS_AGENCIES.find((a) => a.id === activeAgencyFilter) || NEWS_AGENCIES[0],
-    [activeAgencyFilter]
-  );
+  // Quiz Modal State
+  const [quizModalOpen, setQuizModalOpen] = useState<boolean>(false);
+
+  // Read articles tracking for "Today's progress" widget
+  const [readArticleIds, setReadArticleIds] = useState<string[]>([
+    'ca_29_standing_committees',
+    'ca_29_monetary_policy',
+    'ca_29_ramsar_wetlands',
+  ]);
+
+  useEffect(() => {
+    void (async () => {
+      try {
+        const read = await AsyncStorage.getItem('@upsc_ca_read_article_ids');
+        if (read) {
+          const parsed = JSON.parse(read);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setReadArticleIds(parsed);
+          }
+        }
+      } catch {
+        // Fallback
+      }
+    })();
+  }, []);
+
+  const markArticleRead = useCallback((id: string) => {
+    setReadArticleIds((prev) => {
+      if (prev.includes(id)) return prev;
+      const next = [...prev, id];
+      void AsyncStorage.setItem('@upsc_ca_read_article_ids', JSON.stringify(next));
+      return next;
+    });
+  }, []);
+
   const [liveArticles, setLiveArticles] = useState<CuratedArticle[]>([]);
-  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Reset filters cleanly whenever a new category is opened
-  const [prevCategoryId, setPrevCategoryId] = useState<string | undefined>(formatCategory?.id);
-  if (prevCategoryId !== formatCategory?.id) {
-    setPrevCategoryId(formatCategory?.id);
-    setSelectedDateKey(getTodayDateKey());
-    setShowAllDates(true);
-    setDailyFeedFilter('all');
-    setSelectedMainCatFilter('all');
-    setSelectedSubjectGroup('All');
-    setSelectedSubcategory('All');
-  }
+  // 7-day strip computed ending at selectedDateKey
+  const sevenDayStrip = useMemo(() => {
+    const days: { dateKey: string; dayName: string; dayNum: string }[] = [];
+    const [y, m, d] = (selectedDateKey || '2026-10-29').split('-').map(Number);
+    const anchor = new Date(y, m - 1, d);
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  const isDailyNews = formatCategory?.id === 'daily-news';
-  const isEESCategory = formatCategory?.id === 'economy-environment-science';
-  const isEditorialsCategory = formatCategory?.id === 'editorials-explainers';
+    for (let i = 6; i >= 0; i--) {
+      const dt = new Date(anchor);
+      dt.setDate(anchor.getDate() - i);
+      const key = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(
+        dt.getDate()
+      ).padStart(2, '0')}`;
+      days.push({
+        dateKey: key,
+        dayName: dayNames[dt.getDay()],
+        dayNum: String(dt.getDate()),
+      });
+    }
+    return days;
+  }, [selectedDateKey]);
+
+  // Formatted curated subtitle
+  const curatedSubtitle = useMemo(() => {
+    try {
+      const [y, m, d] = selectedDateKey.split('-').map(Number);
+      const date = new Date(y, m - 1, d);
+      const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December',
+      ];
+      const dayName = dayNames[date.getDay()];
+      const monthName = monthNames[date.getMonth()];
+      return `Curated for UPSC · ${dayName}, ${d} ${monthName} ${y}`;
+    } catch {
+      return 'Curated for UPSC · Thursday, 29 October 2026';
+    }
+  }, [selectedDateKey]);
+
+  // Normalize article helper
+  const ensureNormalizedArticle = useCallback((art: CuratedArticle): CuratedArticle => {
+    if (art.mainCategoryId && art.subjectGroup && art.subcategory) {
+      return art;
+    }
+    const classification = classifyIntoSimplifiedTaxonomy({
+      headline: art.title,
+      summary: art.summary,
+      sourceCategoryHint: art.category,
+      sourceName: art.source,
+      existingMainCategoryId: art.mainCategoryId,
+      existingSubcategory: art.subcategory,
+    });
+    return {
+      ...art,
+      mainCategoryId: classification.mainCategoryId,
+      subjectGroup: classification.subjectGroup,
+      subcategory: classification.subcategory,
+      isMostImportant: art.isMostImportant ?? classification.isMostImportant,
+      isPrelimsRelevant: art.isPrelimsRelevant ?? classification.isPrelimsRelevant,
+      isMainsRelevant: art.isMainsRelevant ?? classification.isMainsRelevant,
+      editorialAuthor: art.editorialAuthor || classification.editorialAuthor,
+    };
+  }, []);
+
+  // Fetch live articles for current module
+  useEffect(() => {
+    if (!visible) return;
+    let isMounted = true;
+    const catId = formatCategory?.id || 'daily-news';
+    void fetchLiveDailyNewsArticles('all', catId).then((items) => {
+      if (isMounted && items && items.length > 0) {
+        setLiveArticles(items.map(ensureNormalizedArticle));
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [visible, formatCategory, ensureNormalizedArticle]);
+
+  // Refresh handler
+  const handleManualRefresh = useCallback(async () => {
+    try {
+      const catId = formatCategory?.id || 'daily-news';
+      const items = await fetchLiveDailyNewsArticles('all', catId);
+      if (items && items.length > 0) {
+        setLiveArticles(items.map(ensureNormalizedArticle));
+      }
+    } catch {
+      // Fallback
+    }
+  }, [formatCategory, ensureNormalizedArticle]);
+
+  // Historical archive articles
+  const historicalArchiveArticles = useMemo(() => {
+    const items: CuratedArticle[] = [];
+    for (const day of DAILY_EVENTS_DATA) {
+      for (const ev of day.events) {
+        items.push(
+          ensureNormalizedArticle(
+            mapDailyEventToCuratedArticle({
+              ...ev,
+              dateKey: ev.dateKey || day.dateKey,
+            })
+          )
+        );
+      }
+    }
+    return items;
+  }, [ensureNormalizedArticle]);
+
+  // Combined pool of articles
+  const allArticles = useMemo(() => {
+    const baseCategoryArticles = formatCategory?.articles.map(ensureNormalizedArticle) || [];
+    const seen = new Set<string>();
+    const merged: CuratedArticle[] = [];
+
+    for (const art of [
+      ...liveArticles,
+      ...historicalArchiveArticles,
+      ...baseCategoryArticles,
+    ]) {
+      const key = art.title.trim().toLowerCase().slice(0, 36);
+      if (!seen.has(key)) {
+        seen.add(key);
+        merged.push(art);
+      }
+    }
+    return merged;
+  }, [formatCategory, liveArticles, historicalArchiveArticles, ensureNormalizedArticle]);
+
+  // Filtered articles list based on activeCategoryTab, date, Prelims/Mains, and subcategory
+  const filteredArticles = useMemo(() => {
+    let list = [...allArticles];
+
+    // 1. Date filter: match selected date (if available in dateKey/date/publishedDateIst)
+    const dateMatched = list.filter((art) => {
+      if (art.dateKey) return art.dateKey === selectedDateKey;
+      if (art.publishedDateIst) return art.publishedDateIst.slice(0, 10) === selectedDateKey;
+      return true;
+    });
+    if (dateMatched.length >= 3) {
+      list = dateMatched;
+    }
+
+    // 2. Prelims vs Mains Focus Filter
+    if (focusFilter === 'prelims') {
+      list = list.filter((a) => a.isPrelimsRelevant !== false);
+    } else if (focusFilter === 'mains') {
+      list = list.filter((a) => a.isMainsRelevant !== false);
+    }
+
+    // 3. Category Tab Filter
+    if (activeCategoryTab !== 'all' && activeCategoryTab !== 'daily-news') {
+      const cat = activeCategoryTab.toLowerCase();
+      list = list.filter((item) => {
+        const itemCat = (item.category || '').toLowerCase();
+        const mainCat = (item.mainCategoryId || '').toLowerCase();
+        const subGroup = (item.subjectGroup || '').toLowerCase();
+
+        if (cat === 'polity') {
+          return itemCat.includes('polity') || mainCat.includes('polity') || subGroup.includes('polity');
+        }
+        if (cat === 'economy') {
+          return itemCat.includes('economy') || subGroup === 'economy';
+        }
+        if (cat === 'international') {
+          return (
+            itemCat.includes('international') ||
+            itemCat.includes('relations') ||
+            mainCat.includes('international')
+          );
+        }
+        if (cat === 'environment') {
+          return itemCat.includes('environment') || subGroup.includes('environment');
+        }
+        if (cat === 'science') {
+          return itemCat.includes('sci') || itemCat.includes('tech') || subGroup.includes('science');
+        }
+        if (cat === 'reports') {
+          return itemCat.includes('report') || itemCat.includes('scheme') || mainCat.includes('reports');
+        }
+        if (cat === 'editorials') {
+          return itemCat.includes('editorial') || mainCat.includes('editorials');
+        }
+        return true;
+      });
+    }
+
+    // 4. Subcategory Filter
+    if (selectedSubcategory !== 'All') {
+      list = list.filter(
+        (a) => a.subcategory && a.subcategory.toLowerCase() === selectedSubcategory.toLowerCase()
+      );
+    }
+
+    // 5. Daily news feed filter
+    if (activeCategoryTab === 'daily-news') {
+      if (dailyFeedFilter === 'important') {
+        list = list.filter((a) => a.isMostImportant);
+      } else if (dailyFeedFilter === 'prelims') {
+        list = list.filter((a) => a.isPrelimsRelevant);
+      } else if (dailyFeedFilter === 'mains') {
+        list = list.filter((a) => a.isMainsRelevant);
+      }
+    }
+
+    // Fallback if empty
+    if (list.length === 0 && allArticles.length > 0) {
+      return allArticles.slice(0, 8);
+    }
+
+    return list;
+  }, [
+    allArticles,
+    selectedDateKey,
+    focusFilter,
+    activeCategoryTab,
+    selectedSubcategory,
+    dailyFeedFilter,
+  ]);
+
+  // Subcategories for active category
+  const currentSubcategories = useMemo(() => {
+    if (activeCategoryTab === 'all' || activeCategoryTab === 'daily-news') return [];
+    if (activeCategoryTab === 'polity') {
+      return SIMPLIFIED_SUBCATEGORIES_MAP['polity-governance'] || [];
+    }
+    if (activeCategoryTab === 'economy') {
+      return (
+        SIMPLIFIED_SUBCATEGORIES_MAP['economy-environment-science']?.filter((s: string) =>
+          [
+            'Banking, Finance and Monetary Policy',
+            'Growth, Budget, Taxation and Economic Indicators',
+            'Agriculture, Industry, Infrastructure and Employment',
+            'Trade, Investment and Economic Reports',
+          ].includes(s)
+        ) || []
+      );
+    }
+    if (activeCategoryTab === 'international') {
+      return SIMPLIFIED_SUBCATEGORIES_MAP['international-affairs'] || [];
+    }
+    if (activeCategoryTab === 'environment') {
+      return (
+        SIMPLIFIED_SUBCATEGORIES_MAP['economy-environment-science']?.filter((s: string) =>
+          [
+            'Climate Change, Pollution and Environmental Policies',
+            'Biodiversity, Wildlife and Conservation',
+            'Renewable Energy and Sustainable Development',
+            'Environmental Reports, Agreements and Disasters',
+          ].includes(s)
+        ) || []
+      );
+    }
+    if (activeCategoryTab === 'science') {
+      return (
+        SIMPLIFIED_SUBCATEGORIES_MAP['economy-environment-science']?.filter((s: string) =>
+          [
+            'Space, Defence and Nuclear Technology',
+            'AI, Digital Technology and Emerging Technologies',
+            'Biotechnology, Health Research and Scientific Discoveries',
+            'Science Policy, Research Missions and Innovation',
+          ].includes(s)
+        ) || []
+      );
+    }
+    if (activeCategoryTab === 'reports') {
+      return SIMPLIFIED_SUBCATEGORIES_MAP['reports-schemes-data'] || [];
+    }
+    if (activeCategoryTab === 'editorials') {
+      return SIMPLIFIED_SUBCATEGORIES_MAP['editorials-explainers'] || [];
+    }
+    return [];
+  }, [activeCategoryTab]);
+
+  // Count read articles
+  const readCount = useMemo(() => {
+    return filteredArticles.filter((art) => readArticleIds.includes(art.id)).length;
+  }, [filteredArticles, readArticleIds]);
+
+  const totalCount = useMemo(() => {
+    return Math.max(8, filteredArticles.length);
+  }, [filteredArticles.length]);
+
+  // Saved items for "Saved for revision" widget
+  const savedRevisionItems = useMemo(() => {
+    const list: { id: string; title: string; data: any }[] = [];
+    const seen = new Set<string>();
+
+    for (const art of allArticles) {
+      if (savedItemIds.includes(art.id)) {
+        const shortTitle = (art.title || '').split('—')[0].split('&')[0].trim();
+        if (!seen.has(shortTitle)) {
+          seen.add(shortTitle);
+          list.push({ id: art.id, title: shortTitle, data: art });
+        }
+      }
+    }
+
+    // Default sample entries from Figma image
+    if (list.length === 0) {
+      list.push(
+        {
+          id: 'ca_29_standing_committees',
+          title: 'Standing committees',
+          data: {
+            id: 'ca_29_standing_committees',
+            title: 'How parliamentary standing committees scrutinise legislation',
+            category: 'Polity',
+            paper: 'GS-II',
+            source: 'The Hindu',
+            whyItMatters: 'Committees shape the quality of lawmaking. Revise their composition, powers and limits, and how referral of Bills works in practice.',
+            summary: 'Parliamentary Standing Committees examine bills, budgets, and policies in detail, ensuring bipartisan scrutiny away from public rhetoric.',
+          },
+        },
+        {
+          id: 'ca_29_ramsar_wetlands',
+          title: 'Ramsar Convention',
+          data: {
+            id: 'ca_29_ramsar_wetlands',
+            title: 'Wetland conservation and the Ramsar Convention',
+            category: 'Environment',
+            paper: 'GS-III',
+            source: 'Press Information Bureau (PIB)',
+            whyItMatters: 'Revise the Ramsar criteria, the wise-use principle and the domestic legal framework that protects wetlands.',
+            summary: 'India currently has 85 Ramsar sites under the Ramsar Convention on Wetlands of International Importance, crucial for ecology and flood mitigation.',
+          },
+        }
+      );
+    }
+
+    return list;
+  }, [allArticles, savedItemIds]);
+
+  const handleReadSummary = useCallback(
+    (item: EditorialNewsItem) => {
+      markArticleRead(item.id);
+      onSelectArticle(item as unknown as CuratedArticle);
+    },
+    [markArticleRead, onSelectArticle]
+  );
 
   const handleOpenCalendar = () => {
     if (calendarModalOpen) {
@@ -143,803 +511,336 @@ export function FormatFeedModal({
     }
   };
 
-  // Ensure every article has normalized simplified taxonomy metadata
-  const ensureNormalizedArticle = useCallback((art: CuratedArticle): CuratedArticle => {
-    if (art.mainCategoryId && art.subjectGroup && art.subcategory) {
-      return art;
-    }
-    const classified = classifyIntoSimplifiedTaxonomy({
-      headline: art.title,
-      summary: art.summary,
-      existingMainCategoryId: art.mainCategoryId || art.uiModuleId,
-      existingPrimaryCategory: art.primaryCategory,
-      existingSubjectGroup: art.subjectGroup,
-      existingSubcategory: art.subcategory || art.category,
-      sourceName: art.source,
-      editorialAuthor: art.editorialAuthor,
-    });
-    return {
-      ...art,
-      mainCategoryId: classified.mainCategoryId,
-      subjectGroup: classified.subjectGroup,
-      subcategory: classified.subcategory,
-      category: classified.subcategory,
-      isMostImportant: art.isMostImportant ?? classified.isMostImportant,
-      isPrelimsRelevant: art.isPrelimsRelevant ?? classified.isPrelimsRelevant,
-      isMainsRelevant: art.isMainsRelevant ?? classified.isMainsRelevant,
-      editorialAuthor: art.editorialAuthor || classified.editorialAuthor,
-      aiExplanationDisclaimer: art.aiExplanationDisclaimer || classified.aiExplanationDisclaimer,
-    };
-  }, []);
-
-  // Convert past curated DAILY_EVENTS_DATA into CuratedArticle items
-  const historicalArchiveArticles = useMemo(() => {
-    const items: CuratedArticle[] = [];
-    for (const day of DAILY_EVENTS_DATA) {
-      for (const ev of day.events) {
-        items.push(
-          ensureNormalizedArticle(
-            mapDailyEventToCuratedArticle({
-              ...ev,
-              dateKey: ev.dateKey || day.dateKey,
-            })
-          )
-        );
-      }
-    }
-    return items;
-  }, [ensureNormalizedArticle]);
-
-  // Derive dateKey ('YYYY-MM-DD') from any CuratedArticle
-  const resolveArticleDateKey = useCallback(
-    (art: CuratedArticle): string => {
-      if (art.publishedDateIst) return art.publishedDateIst.slice(0, 10);
-      if (art.dateKey) return art.dateKey;
-      if (art.publishedAt) {
-        const d = new Date(art.publishedAt);
-        if (!isNaN(d.getTime())) {
-          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
-            d.getDate()
-          ).padStart(2, '0')}`;
-        }
-      }
-      if (art.date) {
-        if (art.date.toLowerCase().includes('today')) return todayDateKey;
-        const parsed = new Date(art.date);
-        if (!isNaN(parsed.getTime())) {
-          return `${parsed.getFullYear()}-${String(parsed.getMonth() + 1).padStart(2, '0')}-${String(
-            parsed.getDate()
-          ).padStart(2, '0')}`;
-        }
-      }
-      return todayDateKey;
-    },
-    [todayDateKey]
-  );
-
-  // Format label for active date filter button (always shows current date by default)
-  const activeDateFilterLabel = useMemo(() => {
-    const summary = getDailyEventsSummary(selectedDateKey);
-    return summary.label;
-  }, [selectedDateKey]);
-
-  // Manual refresh button handler
-  const handleManualRefresh = useCallback(async () => {
-    if (!formatCategory) return;
-    setIsRefreshing(true);
-    try {
-      const items = await fetchLiveDailyNewsArticles('all', formatCategory.id);
-      if (items && items.length > 0) {
-        setLiveArticles(items.map(ensureNormalizedArticle));
-      }
-    } catch {
-      // Fallback
-    } finally {
-      setIsRefreshing(false);
-    }
-  }, [formatCategory, ensureNormalizedArticle]);
-
-  // Initial fetch on modal open for the selected category module
-  useEffect(() => {
-    if (!visible || !formatCategory) return;
-
-    let isMounted = true;
-    void fetchLiveDailyNewsArticles('all', formatCategory.id).then((items) => {
-      if (isMounted && items && items.length > 0) {
-        setLiveArticles(items.map(ensureNormalizedArticle));
-      }
-    });
-
-    return () => {
-      isMounted = false;
-    };
-  }, [visible, formatCategory, ensureNormalizedArticle]);
-
-  // Combined articles list: live database articles + historical archive + category base articles
-  const allArticles = useMemo(() => {
-    if (!formatCategory) return [];
-
-    const matchesCategory = (art: CuratedArticle): boolean => {
-      if (formatCategory.id === 'daily-news') return true;
-      return art.mainCategoryId === formatCategory.id || art.uiModuleId === formatCategory.id;
-    };
-
-    const relevantArchive = historicalArchiveArticles.filter(matchesCategory);
-
-    // If a specific past date is selected that isn't in DAILY_EVENTS_DATA, include its generated archive stories
-    let dynamicDateArchive: CuratedArticle[] = [];
-    if (!DAILY_EVENTS_DATA.some((d) => d.dateKey === selectedDateKey)) {
-      const genDay = getDailyEventsSummary(selectedDateKey);
-      dynamicDateArchive = genDay.events
-        .map((ev) =>
-          ensureNormalizedArticle(
-            mapDailyEventToCuratedArticle({
-              ...ev,
-              dateKey: selectedDateKey,
-            })
-          )
-        )
-        .filter(matchesCategory);
-    }
-
-    const normalizedStatic = formatCategory.articles.map(ensureNormalizedArticle).filter(matchesCategory);
-
-    const seen = new Set<string>();
-    const merged: CuratedArticle[] = [];
-
-    for (const art of [
-      ...liveArticles.filter(matchesCategory),
-      ...relevantArchive,
-      ...dynamicDateArchive,
-      ...normalizedStatic,
-    ]) {
-      const key = art.title.trim().toLowerCase().slice(0, 42);
-      if (!seen.has(key)) {
-        seen.add(key);
-        merged.push(art);
-      }
-    }
-    return merged;
-  }, [formatCategory, liveArticles, historicalArchiveArticles, selectedDateKey, ensureNormalizedArticle]);
-
-  // Compute available Subcategories based on the active Main Category / Subject Group
-  const availableSubcategories = useMemo(() => {
-    if (!formatCategory) return [];
-    if (isDailyNews) {
-      if (selectedMainCatFilter === 'all') {
-        return [];
-      }
-      const mainDef = getMainCategoryById(selectedMainCatFilter);
-      return mainDef ? mainDef.subcategories : [];
-    }
-    if (isEESCategory) {
-      if (selectedSubjectGroup === 'All') {
-        return [];
-      }
-      const groupDef = EES_SUBJECT_GROUPS.find((g) => g.title === selectedSubjectGroup);
-      return groupDef ? [...groupDef.subcategories] : [];
-    }
-    const mainDef = getMainCategoryById(formatCategory.id);
-    return mainDef ? mainDef.subcategories : [];
-  }, [formatCategory, isDailyNews, isEESCategory, selectedMainCatFilter, selectedSubjectGroup]);
-
-  // Filtered articles according to Feed Filter, Date, Main Category, Subject Group, Subcategory, and Source
-  const { filteredArticles, isShowingDateFallback } = useMemo(() => {
-    if (!allArticles.length) return { filteredArticles: [], isShowingDateFallback: false };
-
-    let list = allArticles;
-    let usedDateFallback = false;
-
-    // 1. Daily News 5 Feed Filters (All News, Today's News, Most Important, Prelims Relevant, Mains Relevant)
-    if (isDailyNews) {
-      if (dailyFeedFilter === 'today') {
-        const todayMatches = list.filter((item) => resolveArticleDateKey(item) === selectedDateKey);
-        if (todayMatches.length > 0) {
-          list = todayMatches;
-        } else {
-          usedDateFallback = true;
-        }
-      } else if (dailyFeedFilter === 'important') {
-        const impMatches = list.filter((item) => Boolean(item.isMostImportant));
-        if (impMatches.length > 0) list = impMatches;
-      } else if (dailyFeedFilter === 'prelims') {
-        const prelimsMatches = list.filter((item) => item.isPrelimsRelevant !== false);
-        if (prelimsMatches.length > 0) list = prelimsMatches;
-      } else if (dailyFeedFilter === 'mains') {
-        const mainsMatches = list.filter((item) => item.isMainsRelevant !== false);
-        if (mainsMatches.length > 0) list = mainsMatches;
-      }
-    }
-
-    // 2. Date Filter (when user explicitly picked a date on the calendar)
-    if (!showAllDates && dailyFeedFilter !== 'today') {
-      const dateMatched = list.filter((item) => resolveArticleDateKey(item) === selectedDateKey);
-      if (dateMatched.length > 0) {
-        list = dateMatched;
-      } else {
-        usedDateFallback = true;
-      }
-    }
-
-    // 3. Main Category Filter (inside Daily News)
-    if (isDailyNews && selectedMainCatFilter !== 'all') {
-      list = list.filter((item) => item.mainCategoryId === selectedMainCatFilter);
-    }
-
-    // 4. Subject Group Filter (inside Economy, Environment & Science)
-    if (isEESCategory && selectedSubjectGroup !== 'All') {
-      list = list.filter((item) => item.subjectGroup === selectedSubjectGroup);
-    }
-
-    // 5. Subcategory Filter
-    if (selectedSubcategory !== 'All') {
-      list = list.filter((item) => item.subcategory === selectedSubcategory);
-    }
-
-    // 6. Source (Agency) Filter
-    if (activeAgencyFilter !== 'all') {
-      const agency = NEWS_AGENCIES.find((a) => a.id === activeAgencyFilter);
-      if (agency?.matchKeyword) {
-        const kw = agency.matchKeyword.toLowerCase();
-        const matched = list.filter(
-          (item) => item.agencyId === activeAgencyFilter || item.source.toLowerCase().includes(kw)
-        );
-        if (matched.length > 0) {
-          list = matched;
-        }
-      }
-    }
-
-    return { filteredArticles: list, isShowingDateFallback: usedDateFallback };
-  }, [
-    allArticles,
-    isDailyNews,
-    dailyFeedFilter,
-    showAllDates,
-    selectedDateKey,
-    selectedMainCatFilter,
-    isEESCategory,
-    selectedSubjectGroup,
-    selectedSubcategory,
-    activeAgencyFilter,
-    resolveArticleDateKey,
-  ]);
-
-  if (!visible || !formatCategory) return null;
-
-  const renderCategoryIcon = () => {
-    const iconColor = isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary;
-    const iconProps = { size: 18, color: iconColor, strokeWidth: 2 };
-    switch (formatCategory.iconName) {
-      case 'Newspaper':
-        return <Newspaper {...iconProps} />;
-      case 'BookOpen':
-        return <BookOpen {...iconProps} />;
-      case 'Layers':
-        return <Layers {...iconProps} />;
-      case 'Scale':
-        return <Scale {...iconProps} />;
-      case 'Landmark':
-        return <Landmark {...iconProps} />;
-      case 'MessagesSquare':
-        return <MessagesSquare {...iconProps} />;
-      case 'Globe':
-        return <Globe {...iconProps} />;
-      case 'Leaf':
-        return <Leaf {...iconProps} />;
-      default:
-        return <BookOpen {...iconProps} />;
-    }
-  };
-
-  const renderEditorialRow = (item: CuratedArticle) => {
-    return (
-      <EditorialNewsCard
-        key={item.id}
-        item={item as any}
-        isBookmarked={savedItemIds.includes(item.id)}
-        onToggleBookmark={onToggleBookmark}
-        onReadSummary={(art) => onSelectArticle(art as CuratedArticle)}
-        isDark={isDark}
-      />
-    );
-  };
-
-  // For Economy, Environment & Science when viewing 'All', keep the 3 subject groups visually distinct!
-  const showGroupedEESLayout = isEESCategory && selectedSubjectGroup === 'All';
-
   return (
     <Modal visible={visible} animationType="slide" transparent={false} onRequestClose={onClose}>
-      <SafeAreaView style={styles.safeArea}>
+      <SafeAreaView style={[styles.safeArea, isDark && styles.safeAreaDark]}>
         <StatusBar style={isDark ? 'light' : 'dark'} />
 
-        {/* ================================================================ */}
-        {/* 1. FIGMA TOP NAVIGATION & FILTER BAR                             */}
-        {/* ================================================================ */}
-        <View style={styles.topBar}>
-          <View style={styles.topBarInner}>
-            {/* Left: Back Button + Category Icon & Title */}
-            <View style={styles.titleSection}>
-              <Pressable
-                style={({ pressed }) => [styles.backBtn, pressed && styles.pressed]}
-                onPress={onClose}
-                hitSlop={8}
-                accessibilityRole="button"
-                accessibilityLabel="Back to Current Affairs"
-              >
-                <ArrowLeft size={18} color={theme.textPrimary} strokeWidth={2.2} />
-              </Pressable>
+        <ScrollView
+          style={[styles.container, isDark && styles.containerDark]}
+          contentContainerStyle={styles.contentContainer}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.centerContainer}>
+            {/* ======================================================== */}
+            {/* 1. TOP HEADER: Back + Title + Subtitle + Toggle          */}
+            {/* ======================================================== */}
+            <View style={styles.header}>
+              <View style={styles.headerLeft}>
+                <View style={styles.headerTitleRow}>
+                  <Pressable
+                    style={({ pressed }: any) => [
+                      styles.backBtn,
+                      isDark && styles.backBtnDark,
+                      pressed && styles.btnPressed,
+                    ]}
+                    onPress={onClose}
+                    accessibilityRole="button"
+                    accessibilityLabel="Back to Current Affairs Overview"
+                    hitSlop={8}
+                  >
+                    <ArrowLeft size={18} color={isDark ? '#F9FAFB' : '#111827'} strokeWidth={2.2} />
+                  </Pressable>
 
-              <View style={styles.titleTextGroup}>
-                <View style={styles.titleRow}>
-                  {renderCategoryIcon()}
-                  <Text style={styles.pageTitle} numberOfLines={1}>
-                    {formatCategory.title}
+                  <Text style={[styles.heading, isDark && styles.headingDark]}>
+                    Current Affairs
                   </Text>
                 </View>
-              </View>
-            </View>
 
-            {/* Right: Current Date Calendar Picker + Source Filter Dropdown + Refresh */}
-            <View style={styles.controlsRow}>
-              {/* Current Date Calendar Picker Button */}
-              <View ref={dateBtnRef} collapsable={false}>
-                <Pressable
-                  style={({ pressed, hovered }: any) => [
-                    styles.controlPillBtn,
-                    (!showAllDates || calendarModalOpen) && styles.controlPillBtnActive,
-                    hovered && styles.controlPillBtnHover,
-                    pressed && styles.pressed,
-                  ]}
-                  onPress={handleOpenCalendar}
-                  accessibilityRole="button"
-                  accessibilityLabel={`Select date. Currently ${activeDateFilterLabel}`}
-                >
-                  <Calendar
-                    size={13.5}
-                    color={isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary}
-                    strokeWidth={2.2}
-                  />
-                  <Text style={styles.controlPillText} numberOfLines={1}>
-                    {activeDateFilterLabel}
-                  </Text>
-                  <ChevronDown
-                    size={13}
-                    color={calendarModalOpen ? PALETTE.highlight.primary : theme.textMuted}
-                    strokeWidth={2.2}
-                  />
-                </Pressable>
-              </View>
-
-              {/* Toggle All 20 Days vs Selected Date */}
-              {!showAllDates && (
-                <Pressable
-                  style={[styles.controlPillBtn, styles.clearDateBtn]}
-                  onPress={() => {
-                    setShowAllDates(true);
-                    if (dailyFeedFilter === 'today') setDailyFeedFilter('all');
-                  }}
-                >
-                  <Text style={styles.clearDateBtnText}>All 20 Days</Text>
-                </Pressable>
-              )}
-
-              {/* Source (Agency) Filter Dropdown Button */}
-              <Pressable
-                style={({ pressed, hovered }: any) => [
-                  styles.controlPillBtn,
-                  agencyDropdownOpen && styles.controlPillBtnActive,
-                  hovered && styles.controlPillBtnHover,
-                  pressed && styles.pressed,
-                ]}
-                onPress={() => setAgencyDropdownOpen((prev) => !prev)}
-                accessibilityRole="button"
-                accessibilityLabel={`Filter by source: ${activeAgency.name}`}
-              >
-                <Filter
-                  size={13}
-                  color={isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary}
-                  strokeWidth={2.2}
-                />
-                <Text style={styles.controlPillText} numberOfLines={1}>
-                  {activeAgency.shortName === 'All' ? 'All Sources' : activeAgency.shortName}
+                <Text style={[styles.subtitle, isDark && styles.subtitleDark]}>
+                  {curatedSubtitle}
                 </Text>
-                <ChevronDown
-                  size={13}
-                  color={agencyDropdownOpen ? PALETTE.highlight.primary : theme.textMuted}
-                  strokeWidth={2.2}
-                />
-              </Pressable>
-
-              {/* Subtle Sync / Refresh Icon Button */}
-              <Pressable
-                style={({ pressed }) => [
-                  styles.iconCircleBtn,
-                  isRefreshing && styles.refreshSpinning,
-                  pressed && styles.pressed,
-                ]}
-                onPress={handleManualRefresh}
-                hitSlop={6}
-                accessibilityLabel="Refresh feed"
-              >
-                <RotateCw size={14.5} color={theme.textSecondary} strokeWidth={2} />
-              </Pressable>
-            </View>
-          </View>
-
-          {/* ============================================================== */}
-          {/* A. DAILY NEWS: 5 FEED FILTERS + MAIN CATEGORY FILTER           */}
-          {/* ============================================================== */}
-          {isDailyNews && (
-            <>
-              <View style={styles.subFilterBar}>
-                <ScrollView
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  contentContainerStyle={styles.paperPillsScroll}
-                >
-                  {DAILY_NEWS_FEED_FILTERS.map((f) => {
-                    const active = dailyFeedFilter === f.id;
-                    return (
-                      <Pressable
-                        key={f.id}
-                        style={[styles.paperFilterChip, active && styles.paperFilterChipActive]}
-                        onPress={() => {
-                          setDailyFeedFilter(f.id);
-                          if (f.id === 'today') {
-                            setShowAllDates(false);
-                          } else if (f.id === 'all') {
-                            setShowAllDates(true);
-                          }
-                        }}
-                      >
-                        <Text
-                          style={[
-                            styles.paperFilterChipText,
-                            active && styles.paperFilterChipTextActive,
-                          ]}
-                        >
-                          {f.label}
-                        </Text>
-                      </Pressable>
-                    );
-                  })}
-                </ScrollView>
-
-                {isDesktop && (
-                  <Text style={styles.storyTotalCountText}>
-                    {filteredArticles.length} {filteredArticles.length === 1 ? 'story' : 'stories'}
-                  </Text>
-                )}
               </View>
 
-              {/* Main Category Filter Row inside Daily News */}
-              <View style={styles.secondaryFilterBar}>
-                <ScrollView
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  contentContainerStyle={styles.paperPillsScroll}
-                >
+              <View style={styles.headerRight}>
+                {/* Segmented [ Prelims | Mains ] Toggle Pill */}
+                <View style={[styles.segmentedToggle, isDark && styles.segmentedToggleDark]}>
                   <Pressable
                     style={[
-                      styles.subcatFilterChip,
-                      selectedMainCatFilter === 'all' && styles.subcatFilterChipActive,
+                      styles.toggleBtn,
+                      focusFilter === 'prelims' && styles.toggleBtnActive,
+                      focusFilter === 'prelims' && isDark && styles.toggleBtnActiveDark,
                     ]}
-                    onPress={() => {
-                      setSelectedMainCatFilter('all');
-                      setSelectedSubcategory('All');
-                    }}
+                    onPress={() => setFocusFilter(focusFilter === 'prelims' ? 'all' : 'prelims')}
+                    accessibilityRole="button"
+                    accessibilityLabel="Filter by Prelims"
                   >
                     <Text
                       style={[
-                        styles.subcatFilterChipText,
-                        selectedMainCatFilter === 'all' && styles.subcatFilterChipTextActive,
+                        styles.toggleBtnText,
+                        focusFilter === 'prelims' && styles.toggleBtnTextActive,
+                        focusFilter !== 'prelims' && isDark && styles.toggleBtnTextInactiveDark,
                       ]}
                     >
-                      All 5 Subject Categories
+                      Prelims
                     </Text>
                   </Pressable>
 
-                  {SUBJECT_MAIN_CATEGORIES.map((cat) => {
-                    const active = selectedMainCatFilter === cat.id;
+                  <Pressable
+                    style={[
+                      styles.toggleBtn,
+                      focusFilter === 'mains' && styles.toggleBtnActive,
+                      focusFilter === 'mains' && isDark && styles.toggleBtnActiveDark,
+                    ]}
+                    onPress={() => setFocusFilter(focusFilter === 'mains' ? 'all' : 'mains')}
+                    accessibilityRole="button"
+                    accessibilityLabel="Filter by Mains"
+                  >
+                    <Text
+                      style={[
+                        styles.toggleBtnText,
+                        focusFilter === 'mains' && styles.toggleBtnTextActive,
+                        focusFilter !== 'mains' && isDark && styles.toggleBtnTextInactiveDark,
+                      ]}
+                    >
+                      Mains
+                    </Text>
+                  </Pressable>
+                </View>
+
+                {/* Refresh Icon */}
+                <Pressable
+                  style={({ pressed }: any) => [
+                    styles.iconBtn,
+                    isDark && styles.iconBtnDark,
+                    pressed && styles.btnPressed,
+                  ]}
+                  onPress={handleManualRefresh}
+                  accessibilityLabel="Refresh Feed"
+                  hitSlop={6}
+                >
+                  <RotateCw
+                    size={16}
+                    color={isDark ? '#9CA3AF' : '#4B5563'}
+                    strokeWidth={2}
+                  />
+                </Pressable>
+              </View>
+            </View>
+
+            {/* ======================================================== */}
+            {/* 2. DATE SELECTOR STRIP (7-Day Row from Figma)             */}
+            {/* ======================================================== */}
+            <View style={styles.dateStripWrapper}>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.dateStripContent}
+              >
+                {sevenDayStrip.map((item) => {
+                  const isSelected = item.dateKey === selectedDateKey;
+                  return (
+                    <Pressable
+                      key={item.dateKey}
+                      style={({ pressed }: any) => [
+                        styles.dateCard,
+                        isDark && styles.dateCardDark,
+                        isSelected && styles.dateCardSelected,
+                        isSelected && isDark && styles.dateCardSelectedDark,
+                        pressed && styles.btnPressed,
+                      ]}
+                      onPress={() => setSelectedDateKey(item.dateKey)}
+                      accessibilityRole="button"
+                      accessibilityLabel={`Select date ${item.dayName} ${item.dayNum}`}
+                    >
+                      <Text
+                        style={[
+                          styles.dateCardDay,
+                          isDark && styles.dateCardDayDark,
+                          isSelected && styles.dateCardDaySelected,
+                        ]}
+                      >
+                        {item.dayName}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.dateCardNum,
+                          isDark && styles.dateCardNumDark,
+                          isSelected && styles.dateCardNumSelected,
+                        ]}
+                      >
+                        {item.dayNum}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+
+                {/* Calendar button for full 20 calendar days */}
+                <View ref={dateBtnRef} collapsable={false}>
+                  <Pressable
+                    style={({ pressed }: any) => [
+                      styles.moreDatesBtn,
+                      isDark && styles.moreDatesBtnDark,
+                      pressed && styles.btnPressed,
+                    ]}
+                    onPress={handleOpenCalendar}
+                    accessibilityRole="button"
+                    accessibilityLabel="More dates calendar"
+                  >
+                    <Calendar size={18} color={isDark ? '#9CA3AF' : '#4B5563'} strokeWidth={2} />
+                  </Pressable>
+                </View>
+              </ScrollView>
+            </View>
+
+            {/* ======================================================== */}
+            {/* 3. CATEGORY FILTER PILLS ROW (Terracotta Active Pill)     */}
+            {/* ======================================================== */}
+            <View style={styles.categoryPillsWrapper}>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.categoryPillsContent}
+              >
+                {CATEGORY_TABS.map((tab) => {
+                  const isSelected = activeCategoryTab === tab.id;
+                  return (
+                    <Pressable
+                      key={tab.id}
+                      style={({ pressed }: any) => [
+                        styles.categoryPill,
+                        isDark && styles.categoryPillDark,
+                        isSelected && styles.categoryPillSelected,
+                        pressed && styles.btnPressed,
+                      ]}
+                      onPress={() => {
+                        setActiveCategoryTab(tab.id);
+                        setSelectedSubcategory('All');
+                      }}
+                      accessibilityRole="button"
+                      accessibilityLabel={`Filter by ${tab.label}`}
+                    >
+                      <Text
+                        style={[
+                          styles.categoryPillText,
+                          isDark && styles.categoryPillTextDark,
+                          isSelected && styles.categoryPillTextSelected,
+                        ]}
+                      >
+                        {tab.label}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </ScrollView>
+            </View>
+
+            {/* Subcategories Row if active category has subcategories */}
+            {currentSubcategories.length > 0 && (
+              <View style={styles.subcategoriesWrapper}>
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={styles.subcategoriesContent}
+                >
+                  <Pressable
+                    style={[
+                      styles.subcatChip,
+                      isDark && styles.subcatChipDark,
+                      selectedSubcategory === 'All' && styles.subcatChipSelected,
+                    ]}
+                    onPress={() => setSelectedSubcategory('All')}
+                  >
+                    <Text
+                      style={[
+                        styles.subcatChipText,
+                        isDark && styles.subcatChipTextDark,
+                        selectedSubcategory === 'All' && styles.subcatChipTextSelected,
+                      ]}
+                    >
+                      All Subcategories
+                    </Text>
+                  </Pressable>
+                  {currentSubcategories.map((subcat: string) => {
+                    const isSelected = selectedSubcategory === subcat;
                     return (
                       <Pressable
-                        key={cat.id}
-                        style={[styles.subcatFilterChip, active && styles.subcatFilterChipActive]}
-                        onPress={() => {
-                          setSelectedMainCatFilter(cat.id);
-                          setSelectedSubcategory('All');
-                        }}
+                        key={subcat}
+                        style={[
+                          styles.subcatChip,
+                          isDark && styles.subcatChipDark,
+                          isSelected && styles.subcatChipSelected,
+                        ]}
+                        onPress={() => setSelectedSubcategory(isSelected ? 'All' : subcat)}
                       >
                         <Text
                           style={[
-                            styles.subcatFilterChipText,
-                            active && styles.subcatFilterChipTextActive,
+                            styles.subcatChipText,
+                            isDark && styles.subcatChipTextDark,
+                            isSelected && styles.subcatChipTextSelected,
                           ]}
                         >
-                          {cat.title}
+                          {subcat}
                         </Text>
                       </Pressable>
                     );
                   })}
                 </ScrollView>
               </View>
-            </>
-          )}
-
-          {/* ============================================================== */}
-          {/* B. ECONOMY, ENVIRONMENT & SCIENCE: 3 DISTINCT SUBJECT GROUPS   */}
-          {/* ============================================================== */}
-          {isEESCategory && (
-            <View style={styles.subFilterBar}>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.paperPillsScroll}
-              >
-                <Pressable
-                  style={[
-                    styles.paperFilterChip,
-                    selectedSubjectGroup === 'All' && styles.paperFilterChipActive,
-                  ]}
-                  onPress={() => {
-                    setSelectedSubjectGroup('All');
-                    setSelectedSubcategory('All');
-                  }}
-                >
-                  <Text
-                    style={[
-                      styles.paperFilterChipText,
-                      selectedSubjectGroup === 'All' && styles.paperFilterChipTextActive,
-                    ]}
-                  >
-                    All 3 Subject Groups (Distinct)
-                  </Text>
-                </Pressable>
-
-                {EES_SUBJECT_GROUPS.map((grp) => {
-                  const active = selectedSubjectGroup === grp.title;
-                  return (
-                    <Pressable
-                      key={grp.id}
-                      style={[styles.paperFilterChip, active && styles.paperFilterChipActive]}
-                      onPress={() => {
-                        setSelectedSubjectGroup(grp.title);
-                        setSelectedSubcategory('All');
-                      }}
-                    >
-                      <Text
-                        style={[
-                          styles.paperFilterChipText,
-                          active && styles.paperFilterChipTextActive,
-                        ]}
-                      >
-                        {grp.title}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </ScrollView>
-
-              {isDesktop && (
-                <Text style={styles.storyTotalCountText}>
-                  {filteredArticles.length} {filteredArticles.length === 1 ? 'story' : 'stories'}
-                </Text>
-              )}
-            </View>
-          )}
-
-          {/* ============================================================== */}
-          {/* C. SUBCATEGORY FILTER BAR (3–4 Broad Subcategories per Group)  */}
-          {/* ============================================================== */}
-          {availableSubcategories.length > 0 && (
-            <View style={isDailyNews || isEESCategory ? styles.secondaryFilterBar : styles.subFilterBar}>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.paperPillsScroll}
-              >
-                <Pressable
-                  style={[
-                    styles.paperFilterChip,
-                    selectedSubcategory === 'All' && styles.paperFilterChipActive,
-                  ]}
-                  onPress={() => setSelectedSubcategory('All')}
-                >
-                  <Text
-                    style={[
-                      styles.paperFilterChipText,
-                      selectedSubcategory === 'All' && styles.paperFilterChipTextActive,
-                    ]}
-                  >
-                    All Subcategories
-                  </Text>
-                </Pressable>
-
-                {availableSubcategories.map((sub) => {
-                  const active = selectedSubcategory === sub;
-                  return (
-                    <Pressable
-                      key={sub}
-                      style={[styles.paperFilterChip, active && styles.paperFilterChipActive]}
-                      onPress={() => setSelectedSubcategory(sub)}
-                    >
-                      <Text
-                        style={[
-                          styles.paperFilterChipText,
-                          active && styles.paperFilterChipTextActive,
-                        ]}
-                      >
-                        {sub}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </ScrollView>
-
-              {isDesktop && !isDailyNews && !isEESCategory && (
-                <Text style={styles.storyTotalCountText}>
-                  {filteredArticles.length} {filteredArticles.length === 1 ? 'story' : 'stories'}
-                </Text>
-              )}
-            </View>
-          )}
-        </View>
-
-        {/* ================================================================ */}
-        {/* 2. SOURCE (AGENCY) DROPDOWN MENU OVERLAY                         */}
-        {/* ================================================================ */}
-        {agencyDropdownOpen && (
-          <View style={styles.dropdownOverlayWrapper}>
-            <Pressable
-              style={styles.dropdownBackdrop}
-              onPress={() => setAgencyDropdownOpen(false)}
-            />
-            <View style={styles.agencyDropdownCard}>
-              <Text style={styles.agencyDropdownHeading}>Filter by Source</Text>
-              {NEWS_AGENCIES.map((agency) => {
-                const isSelected = activeAgencyFilter === agency.id;
-                const count =
-                  agency.id === 'all'
-                    ? allArticles.length
-                    : allArticles.filter(
-                        (a) =>
-                          a.agencyId === agency.id ||
-                          a.source.toLowerCase().includes((agency.matchKeyword || '').toLowerCase())
-                      ).length;
-
-                return (
-                  <Pressable
-                    key={agency.id}
-                    style={({ pressed }) => [
-                      styles.agencyMenuItem,
-                      isSelected && styles.agencyMenuItemActive,
-                      pressed && styles.pressed,
-                    ]}
-                    onPress={() => {
-                      setUserAgencyFilter(agency.id);
-                      setAgencyDropdownOpen(false);
-                    }}
-                  >
-                    <View style={styles.agencyMenuItemLeft}>
-                      <Text
-                        style={[
-                          styles.agencyMenuItemText,
-                          isSelected && styles.agencyMenuItemTextActive,
-                        ]}
-                      >
-                        {agency.name}
-                      </Text>
-                      {count > 0 && <Text style={styles.agencyMenuCountText}>{count}</Text>}
-                    </View>
-                    {isSelected && (
-                      <Check
-                        size={14}
-                        color={isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary}
-                        strokeWidth={2.5}
-                      />
-                    )}
-                  </Pressable>
-                );
-              })}
-            </View>
-          </View>
-        )}
-
-        {/* ================================================================ */}
-        {/* 3. CLEAN EDITORIAL NEWS FEED                                     */}
-        {/* ================================================================ */}
-        <ScrollView
-          style={styles.scrollArea}
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={styles.feedCenterContainer}>
-            {/* Editorial vs AI Explainer Transparency Banner inside Editorials & Explainers */}
-            {isEditorialsCategory && (
-              <View style={styles.editorialNoticeBanner}>
-                <Text style={styles.editorialNoticeTitle}>
-                  Editorial Attribution & AI Explainer Policy
-                </Text>
-                <Text style={styles.editorialNoticeText}>
-                  Original editorial opinions are attributed to their respective authors and publishers with direct source links. Concise takeaways and syllabus mappings are AI-structured educational explanations—complete copyrighted articles are never reproduced.
-                </Text>
-              </View>
             )}
 
-            {/* Subtle Date Context Notice if showing archive fallback */}
-            {isShowingDateFallback && !showAllDates && (
-              <View style={styles.dateContextBanner}>
-                <Text style={styles.dateContextText}>
-                  Showing latest verified stories in {formatCategory.title}
-                </Text>
-                <Pressable onPress={() => setShowAllDates(true)}>
-                  <Text style={styles.dateContextAction}>Show all 20 days</Text>
-                </Pressable>
-              </View>
-            )}
-
-            {/* ============================================================ */}
-            {/* DISTINCT 3-GROUP SECTIONS FOR ECONOMY, ENVIRONMENT & SCIENCE */}
-            {/* ============================================================ */}
-            {showGroupedEESLayout ? (
-              EES_SUBJECT_GROUPS.map((group) => {
-                const groupArticles = filteredArticles.filter(
-                  (a) => a.subjectGroup === (group.title as SubjectGroupName)
-                );
-                if (groupArticles.length === 0) return null;
-
-                return (
-                  <View key={group.id} style={styles.eesDistinctGroupSection}>
-                    <View
-                      style={[
-                        styles.eesGroupHeaderBar,
-                        { borderLeftColor: group.accentColor },
-                      ]}
-                    >
-                      <View style={styles.eesGroupHeaderTop}>
-                        <Text style={styles.eesGroupTitleText}>{group.title}</Text>
-                        <Pressable
-                          style={styles.eesFilterGroupBtn}
-                          onPress={() => setSelectedSubjectGroup(group.title)}
-                        >
-                          <Text style={styles.eesFilterGroupBtnText}>
-                            Filter {group.shortTitle} ({groupArticles.length})
-                          </Text>
-                          <ChevronRight
-                            size={13}
-                            color={isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary}
-                          />
-                        </Pressable>
-                      </View>
-                      <Text style={styles.eesSubcategoryListHint} numberOfLines={2}>
-                        Subcategories: {group.subcategories.join(' • ')}
-                      </Text>
-                    </View>
-
-                    {groupArticles.map(renderEditorialRow)}
+            {/* ======================================================== */}
+            {/* 4. MAIN CONTENT GRID (2 Columns Desktop, Stacked Mobile)  */}
+            {/* ======================================================== */}
+            <View style={isDesktop ? styles.desktopGrid : styles.mobileGrid}>
+              {/* Left Column: News Cards Feed */}
+              <View style={isDesktop ? styles.feedColumn : styles.mobileFeedColumn}>
+                {filteredArticles.length === 0 ? (
+                  <View style={[styles.emptyCard, isDark && styles.emptyCardDark]}>
+                    <Text style={[styles.emptyCardTitle, isDark && styles.emptyCardTitleDark]}>
+                      No articles found
+                    </Text>
+                    <Text style={[styles.emptyCardSubtitle, isDark && styles.emptyCardSubtitleDark]}>
+                      Try selecting a different date or subcategory to explore UPSC materials.
+                    </Text>
                   </View>
-                );
-              })
-            ) : (
-              filteredArticles.map(renderEditorialRow)
-            )}
+                ) : (
+                  filteredArticles.map((item) => (
+                    <EditorialNewsCard
+                      key={item.id}
+                      item={item as any}
+                      isBookmarked={savedItemIds.includes(item.id)}
+                      onToggleBookmark={onToggleBookmark}
+                      onReadSummary={handleReadSummary}
+                      isDark={isDark}
+                    />
+                  ))
+                )}
+              </View>
+
+              {/* Right Column: Sidebar Widgets */}
+              <View style={isDesktop ? styles.sidebarColumn : styles.mobileSidebarColumn}>
+                <EditorialSidebarWidgets
+                  readCount={readCount}
+                  totalCount={totalCount}
+                  savedItems={savedRevisionItems}
+                  onStartQuiz={() => setQuizModalOpen(true)}
+                  onSelectSavedItem={(item) => onSelectArticle(item.data as CuratedArticle)}
+                  isDark={isDark}
+                />
+              </View>
+            </View>
           </View>
         </ScrollView>
 
-        {/* Figma Calendar Dropdown for Date Filtering (Defaults to Today, 29 Oct) */}
+        {/* Calendar Dropdown Modal */}
         <CalendarDropdown
           visible={calendarModalOpen}
           onClose={() => setCalendarModalOpen(false)}
           selectedDateKey={selectedDateKey}
           onSelectDate={(newDateKey) => {
             setSelectedDateKey(newDateKey);
-            setShowAllDates(false);
             setCalendarModalOpen(false);
           }}
           topOffset={calendarPos.top}
           leftOffset={calendarPos.left}
-          rightOffset={calendarPos.right}
+          isDark={isDark}
+        />
+
+        {/* Daily Quiz Modal */}
+        <CAQuizModal
+          visible={quizModalOpen}
+          onClose={() => setQuizModalOpen(false)}
           isDark={isDark}
         />
       </SafeAreaView>
@@ -947,556 +848,346 @@ export function FormatFeedModal({
   );
 }
 
-const getStyles = (
-  theme: typeof BW_THEME.dark,
-  isDark: boolean,
-  isDesktop: boolean
-) =>
-  StyleSheet.create({
-    safeArea: {
-      flex: 1,
-      backgroundColor: theme.bg,
-    },
-
-    /* 1. Top Navigation & Filter Bar */
-    topBar: {
-      backgroundColor: theme.bg,
-      borderBottomWidth: 1,
-      borderBottomColor: isDark ? '#2F3036' : '#E8E9F1',
-      paddingTop: isDesktop ? 14 : 10,
-    },
-    topBarInner: {
-      maxWidth: 940,
-      width: '100%',
-      alignSelf: 'center',
-      paddingHorizontal: isDesktop ? 24 : 16,
-      paddingBottom: 12,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      gap: 12,
-      flexWrap: 'wrap',
-    },
-    titleSection: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 12,
-      flexShrink: 1,
-    },
-    backBtn: {
-      width: 36,
-      height: 36,
-      borderRadius: 10,
-      backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-      borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    titleTextGroup: {
-      flexShrink: 1,
-    },
-    titleRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 8,
-    },
-    pageTitle: {
-      fontSize: isDesktop ? 20 : 17.5,
-      fontWeight: '700',
-      color: theme.textPrimary,
-      letterSpacing: -0.3,
-    },
-    controlsRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 8,
-      flexWrap: 'wrap',
-    },
-    controlPillBtn: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 6,
-      paddingHorizontal: 11,
-      paddingVertical: 7.5,
-      borderRadius: 10,
-      backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-      borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
-    },
-    controlPillBtnActive: {
-      borderColor: PALETTE.highlight.primary,
-      backgroundColor: isDark ? '#383A42' : '#F8F9FE',
-    },
-    controlPillBtnHover: {
-      borderColor: isDark ? '#494A50' : '#D4D6DD',
-    },
-    controlPillText: {
-      fontSize: 12.5,
-      fontWeight: '600',
-      color: theme.textPrimary,
-      letterSpacing: -0.1,
-    },
-    clearDateBtn: {
-      backgroundColor: isDark ? 'rgba(0, 111, 253, 0.14)' : PALETTE.highlight.tint20,
-      borderColor: isDark ? 'rgba(111, 186, 255, 0.3)' : PALETTE.highlight.tint40,
-    },
-    clearDateBtnText: {
-      fontSize: 12,
-      fontWeight: '700',
-      color: isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary,
-    },
-    iconCircleBtn: {
-      width: 35,
-      height: 35,
-      borderRadius: 10,
-      backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-      borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    refreshSpinning: {
-      opacity: 0.5,
-    },
-
-    /* Sub-Bars for Feed Filters, Subject Groups & Subcategories */
-    subFilterBar: {
-      maxWidth: 940,
-      width: '100%',
-      alignSelf: 'center',
-      paddingHorizontal: isDesktop ? 24 : 16,
-      paddingVertical: 9,
-      borderTopWidth: 1,
-      borderTopColor: isDark ? '#26272C' : '#F0F1F5',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      gap: 12,
-    },
-    secondaryFilterBar: {
-      maxWidth: 940,
-      width: '100%',
-      alignSelf: 'center',
-      paddingHorizontal: isDesktop ? 24 : 16,
-      paddingVertical: 7,
-      borderTopWidth: 1,
-      borderTopColor: isDark ? '#26272C' : '#F0F1F5',
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    paperPillsScroll: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 6,
-    },
-    paperFilterChip: {
-      paddingHorizontal: 11,
-      paddingVertical: 5,
-      borderRadius: 8,
-      backgroundColor: 'transparent',
-      borderWidth: 1,
-      borderColor: 'transparent',
-    },
-    paperFilterChipActive: {
-      backgroundColor: '#A84319',
-      borderColor: '#A84319',
-    },
-    paperFilterChipText: {
-      fontSize: 12,
-      fontWeight: '600',
-      color: theme.textMuted,
-    },
-    paperFilterChipTextActive: {
-      color: '#FFFFFF',
-      fontWeight: '700',
-    },
-    subcatFilterChip: {
-      paddingHorizontal: 10,
-      paddingVertical: 4,
-      borderRadius: 7,
-      backgroundColor: isDark ? '#26272C' : '#F2F4F8',
-      borderWidth: 1,
-      borderColor: isDark ? '#34363E' : '#E5E7EB',
-    },
-    subcatFilterChipActive: {
-      backgroundColor: isDark ? 'rgba(0, 111, 253, 0.18)' : PALETTE.highlight.tint20,
-      borderColor: isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary,
-    },
-    subcatFilterChipText: {
-      fontSize: 11.5,
-      fontWeight: '600',
-      color: theme.textSecondary,
-    },
-    subcatFilterChipTextActive: {
-      color: isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary,
-      fontWeight: '700',
-    },
-    storyTotalCountText: {
-      fontSize: 12,
-      fontWeight: '600',
-      color: theme.textMuted,
-    },
-
-    /* 2. Source Dropdown Menu */
-    dropdownOverlayWrapper: {
-      position: 'absolute',
-      top: 62,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      zIndex: 60,
-    },
-    dropdownBackdrop: {
-      ...StyleSheet.absoluteFill,
-      backgroundColor: 'rgba(0, 0, 0, 0.25)',
-    },
-    agencyDropdownCard: {
-      position: 'absolute',
-      top: 4,
-      right: isDesktop ? 32 : 16,
-      width: 224,
-      borderRadius: 14,
-      paddingVertical: 8,
-      paddingHorizontal: 6,
-      backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#FFFFFF',
-      borderWidth: 1,
-      borderColor: isDark ? PALETTE.neutral.dark.textMuted : '#E8E9F1',
-      shadowColor: '#000000',
-      shadowOffset: { width: 0, height: 8 },
-      shadowOpacity: 0.24,
-      shadowRadius: 16,
-      elevation: 10,
-    },
-    agencyDropdownHeading: {
-      fontSize: 11,
-      fontWeight: '700',
-      color: theme.textMuted,
-      textTransform: 'uppercase',
-      letterSpacing: 0.5,
-      paddingHorizontal: 10,
-      paddingVertical: 6,
-    },
-    agencyMenuItem: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      paddingHorizontal: 10,
-      paddingVertical: 9,
-      borderRadius: 9,
-    },
-    agencyMenuItemActive: {
-      backgroundColor: isDark ? 'rgba(0, 111, 253, 0.14)' : PALETTE.highlight.tint20,
-    },
-    agencyMenuItemLeft: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 8,
-    },
-    agencyMenuItemText: {
-      fontSize: 13,
-      fontWeight: '600',
-      color: theme.textPrimary,
-    },
-    agencyMenuItemTextActive: {
-      color: isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary,
-      fontWeight: '700',
-    },
-    agencyMenuCountText: {
-      fontSize: 11,
-      fontWeight: '600',
-      color: theme.textMuted,
-    },
-
-    /* 3. Feed Scroll Area */
-    scrollArea: {
-      flex: 1,
-    },
-    scrollContent: {
-      paddingBottom: 64,
-    },
-    feedCenterContainer: {
-      maxWidth: 940,
-      width: '100%',
-      alignSelf: 'center',
-      paddingHorizontal: isDesktop ? 24 : 16,
-    },
-    editorialNoticeBanner: {
-      marginTop: 14,
-      paddingVertical: 11,
-      paddingHorizontal: 14,
-      borderRadius: 10,
-      backgroundColor: isDark ? '#26272C' : '#FFFFFF',
-      borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
-      gap: 4,
-    },
-    editorialNoticeTitle: {
-      fontSize: 12,
-      fontWeight: '700',
-      color: theme.textPrimary,
-    },
-    editorialNoticeText: {
-      fontSize: 12,
-      lineHeight: 17,
-      color: theme.textSecondary,
-    },
-    dateContextBanner: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      paddingVertical: 10,
-      paddingHorizontal: 12,
-      marginTop: 12,
-      borderRadius: 8,
-      backgroundColor: isDark ? '#26272C' : '#FFFFFF',
-      borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
-    },
-    dateContextText: {
-      fontSize: 12,
-      color: theme.textSecondary,
-      fontWeight: '500',
-    },
-    dateContextAction: {
-      fontSize: 12,
-      fontWeight: '700',
-      color: isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary,
-    },
-
-    /* Visually Distinct EES Subject Group Sections */
-    eesDistinctGroupSection: {
-      marginTop: 18,
-      marginBottom: 8,
-    },
-    eesGroupHeaderBar: {
-      paddingVertical: 10,
-      paddingHorizontal: 14,
-      backgroundColor: isDark ? '#26272C' : '#FFFFFF',
-      borderRadius: 10,
-      borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
-      borderLeftWidth: 4,
-      gap: 4,
-    },
-    eesGroupHeaderTop: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-    },
-    eesGroupTitleText: {
-      fontSize: 15,
-      fontWeight: '700',
-      color: theme.textPrimary,
-      letterSpacing: -0.2,
-    },
-    eesFilterGroupBtn: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 3,
-    },
-    eesFilterGroupBtnText: {
-      fontSize: 12,
-      fontWeight: '700',
-      color: isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary,
-    },
-    eesSubcategoryListHint: {
-      fontSize: 11.5,
-      color: theme.textMuted,
-      lineHeight: 16,
-    },
-
-    /* A. Lead Story Editorial Layout */
-    leadStoryCard: {
-      paddingVertical: isDesktop ? 22 : 18,
-      borderBottomWidth: 1,
-      borderBottomColor: isDark ? '#2F3036' : '#E8E9F1',
-      ...(Platform.OS === 'web' ? ({ cursor: 'pointer' } as object) : {}),
-    },
-    leadStoryGrid: {
-      flexDirection: isDesktop ? 'row' : 'column-reverse',
-      alignItems: isDesktop ? 'center' : 'stretch',
-      gap: isDesktop ? 24 : 14,
-    },
-    leadStoryTextCol: {
-      flex: 1,
-      gap: 8,
-    },
-    leadImageContainer: {
-      width: isDesktop ? 280 : '100%',
-      height: isDesktop ? 176 : 190,
-      borderRadius: 12,
-      overflow: 'hidden',
-      backgroundColor: isDark ? '#26272C' : '#E8E9F1',
-      borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
-      flexShrink: 0,
-    },
-    leadImage: {
-      width: '100%',
-      height: '100%',
-    },
-    articleMetaLine: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      flexWrap: 'wrap',
-      gap: 6,
-    },
-    sourceLabelText: {
-      fontSize: 12,
-      fontWeight: '700',
-      color: isDark ? '#C5C6CC' : '#494A50',
-      maxWidth: isDesktop ? 320 : 200,
-    },
-    metaDot: {
-      fontSize: 12,
-      color: theme.textMuted,
-    },
-    dateLabelText: {
-      fontSize: 12,
-      fontWeight: '500',
-      color: theme.textMuted,
-    },
-    gsBadgePill: {
-      paddingHorizontal: 7,
-      paddingVertical: 2,
-      borderRadius: 5,
-      backgroundColor: isDark ? 'rgba(0, 111, 253, 0.16)' : PALETTE.highlight.tint20,
-      marginLeft: 2,
-    },
-    gsBadgePillText: {
-      fontSize: 10.5,
-      fontWeight: '700',
-      color: isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary,
-    },
-    importantBadgePill: {
-      paddingHorizontal: 7,
-      paddingVertical: 2,
-      borderRadius: 5,
-      backgroundColor: isDark ? 'rgba(217, 119, 6, 0.18)' : '#FEF3C7',
-    },
-    importantBadgeText: {
-      fontSize: 10.5,
-      fontWeight: '700',
-      color: isDark ? '#FBBF24' : '#B45309',
-    },
-    editorialAttributionRow: {
-      paddingVertical: 2,
-    },
-    editorialAuthorBadgeText: {
-      fontSize: 11.5,
-      fontWeight: '600',
-      color: isDark ? '#F43F5E' : '#BE123C',
-    },
-    leadHeadlineText: {
-      fontSize: isDesktop ? 20 : 18,
-      fontWeight: '700',
-      lineHeight: isDesktop ? 28 : 25,
-      color: theme.textPrimary,
-      letterSpacing: -0.3,
-    },
-    leadSummaryText: {
-      fontSize: 14,
-      lineHeight: 21,
-      color: theme.textSecondary,
-    },
-
-    /* B. Streamlined Editorial List Rows */
-    editorialRow: {
-      flexDirection: 'row',
-      alignItems: 'flex-start',
-      justifyContent: 'space-between',
-      gap: isDesktop ? 20 : 14,
-      paddingVertical: isDesktop ? 18 : 15,
-      borderBottomWidth: 1,
-      borderBottomColor: isDark ? '#2F3036' : '#E8E9F1',
-      ...(Platform.OS === 'web' ? ({ cursor: 'pointer' } as object) : {}),
-    },
-    editorialRowLeft: {
-      flex: 1,
-      gap: 6,
-    },
-    rowHeadlineText: {
-      fontSize: isDesktop ? 16 : 15,
-      fontWeight: '700',
-      lineHeight: isDesktop ? 23 : 21,
-      color: theme.textPrimary,
-      letterSpacing: -0.2,
-    },
-    rowExcerptText: {
-      fontSize: 13.5,
-      lineHeight: 19.5,
-      color: theme.textSecondary,
-    },
-    rowThumbnailBox: {
-      width: isDesktop ? 124 : 92,
-      height: isDesktop ? 88 : 76,
-      borderRadius: 10,
-      overflow: 'hidden',
-      backgroundColor: isDark ? '#26272C' : '#E8E9F1',
-      borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
-      flexShrink: 0,
-      marginTop: 2,
-    },
-    rowThumbnailImage: {
-      width: '100%',
-      height: '100%',
-    },
-
-    /* Shared Footer Action Bar inside each story */
-    articleFooterLine: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      marginTop: 4,
-      gap: 10,
-    },
-    taxonomyTagRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 6,
-      flexShrink: 1,
-    },
-    subjectGroupBadge: {
-      paddingHorizontal: 6,
-      paddingVertical: 2,
-      borderRadius: 4,
-      backgroundColor: isDark ? '#2F3036' : '#EEF2F6',
-    },
-    subjectGroupBadgeText: {
-      fontSize: 10.5,
-      fontWeight: '700',
-      color: theme.textSecondary,
-    },
-    topicTagText: {
-      fontSize: 11.5,
-      fontWeight: '600',
-      color: theme.textMuted,
-      flexShrink: 1,
-    },
-    articleActionsRight: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 14,
-    },
-    bookmarkIconBtn: {
-      padding: 2,
-    },
-    readFullLink: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 2,
-    },
-    readFullLinkText: {
-      fontSize: 12.5,
-      fontWeight: '700',
-      color: isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary,
-    },
-    pressed: {
-      opacity: 0.78,
-    },
-    rowPressed: {
-      opacity: 0.75,
-    },
-  });
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#FBFBF9',
+  },
+  safeAreaDark: {
+    backgroundColor: '#0D1117',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#FBFBF9',
+  },
+  containerDark: {
+    backgroundColor: '#0D1117',
+  },
+  contentContainer: {
+    paddingBottom: 60,
+  },
+  centerContainer: {
+    width: '100%',
+    maxWidth: 1040,
+    alignSelf: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 16,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    gap: 16,
+    marginBottom: 24,
+  },
+  headerLeft: {
+    flex: 1,
+    minWidth: 260,
+  },
+  headerTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginBottom: 6,
+  },
+  backBtn: {
+    width: 36,
+    height: 36,
+    borderRadius: 8,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  backBtnDark: {
+    backgroundColor: '#161B22',
+    borderColor: '#30363D',
+  },
+  heading: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#111827',
+    fontFamily: Platform.select({
+      ios: 'Georgia',
+      android: 'serif',
+      web: 'Georgia, "Times New Roman", serif',
+      default: 'serif',
+    }),
+    letterSpacing: -0.4,
+  },
+  headingDark: {
+    color: '#F9FAFB',
+  },
+  subtitle: {
+    fontSize: 14,
+    color: '#6B7280',
+    fontWeight: '500',
+    marginLeft: 48,
+  },
+  subtitleDark: {
+    color: '#9CA3AF',
+  },
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  segmentedToggle: {
+    flexDirection: 'row',
+    backgroundColor: '#EFEFEF',
+    borderRadius: 8,
+    padding: 3,
+  },
+  segmentedToggleDark: {
+    backgroundColor: '#21262D',
+  },
+  toggleBtn: {
+    paddingHorizontal: 16,
+    paddingVertical: 7,
+    borderRadius: 6,
+  },
+  toggleBtnActive: {
+    backgroundColor: '#17202A',
+  },
+  toggleBtnActiveDark: {
+    backgroundColor: '#30363D',
+  },
+  toggleBtnText: {
+    fontSize: 13.5,
+    fontWeight: '600',
+    color: '#4B5563',
+  },
+  toggleBtnTextActive: {
+    color: '#FFFFFF',
+  },
+  toggleBtnTextInactiveDark: {
+    color: '#9CA3AF',
+  },
+  iconBtn: {
+    width: 36,
+    height: 36,
+    borderRadius: 8,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconBtnDark: {
+    backgroundColor: '#161B22',
+    borderColor: '#30363D',
+  },
+  btnPressed: {
+    opacity: 0.8,
+    transform: [{ scale: 0.97 }],
+  },
+  dateStripWrapper: {
+    marginBottom: 20,
+  },
+  dateStripContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingVertical: 4,
+  },
+  dateCard: {
+    width: 52,
+    height: 60,
+    borderRadius: 12,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 6,
+    ...Platform.select({
+      web: {
+        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
+      },
+      default: {
+        elevation: 1,
+      },
+    }),
+  },
+  dateCardDark: {
+    backgroundColor: '#161B22',
+    borderColor: '#30363D',
+  },
+  dateCardSelected: {
+    backgroundColor: '#17202A',
+    borderColor: '#17202A',
+  },
+  dateCardSelectedDark: {
+    backgroundColor: '#30363D',
+    borderColor: '#30363D',
+  },
+  dateCardDay: {
+    fontSize: 12,
+    color: '#6B7280',
+    fontWeight: '500',
+    marginBottom: 2,
+  },
+  dateCardDayDark: {
+    color: '#9CA3AF',
+  },
+  dateCardDaySelected: {
+    color: '#9CA3AF',
+  },
+  dateCardNum: {
+    fontSize: 17,
+    fontWeight: '700',
+    color: '#111827',
+  },
+  dateCardNumDark: {
+    color: '#F9FAFB',
+  },
+  dateCardNumSelected: {
+    color: '#FFFFFF',
+  },
+  moreDatesBtn: {
+    width: 44,
+    height: 60,
+    borderRadius: 12,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  moreDatesBtnDark: {
+    backgroundColor: '#161B22',
+    borderColor: '#30363D',
+  },
+  categoryPillsWrapper: {
+    marginBottom: 16,
+  },
+  categoryPillsContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingVertical: 2,
+  },
+  categoryPill: {
+    paddingHorizontal: 18,
+    paddingVertical: 8,
+    borderRadius: 999,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  categoryPillDark: {
+    backgroundColor: '#161B22',
+    borderColor: '#30363D',
+  },
+  categoryPillSelected: {
+    backgroundColor: '#A84319',
+    borderColor: '#A84319',
+  },
+  categoryPillText: {
+    fontSize: 13.5,
+    fontWeight: '600',
+    color: '#374151',
+  },
+  categoryPillTextDark: {
+    color: '#D1D5DB',
+  },
+  categoryPillTextSelected: {
+    color: '#FFFFFF',
+    fontWeight: '700',
+  },
+  subcategoriesWrapper: {
+    marginBottom: 18,
+  },
+  subcategoriesContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  subcatChip: {
+    paddingHorizontal: 13,
+    paddingVertical: 5,
+    borderRadius: 6,
+    backgroundColor: '#F3F4F6',
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  subcatChipDark: {
+    backgroundColor: '#21262D',
+    borderColor: '#30363D',
+  },
+  subcatChipSelected: {
+    backgroundColor: '#17202A',
+    borderColor: '#17202A',
+  },
+  subcatChipText: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#4B5563',
+  },
+  subcatChipTextDark: {
+    color: '#9CA3AF',
+  },
+  subcatChipTextSelected: {
+    color: '#FFFFFF',
+    fontWeight: '600',
+  },
+  desktopGrid: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 24,
+    marginTop: 8,
+  },
+  mobileGrid: {
+    flexDirection: 'column',
+    gap: 24,
+    marginTop: 8,
+  },
+  feedColumn: {
+    flex: 1,
+    minWidth: 0,
+  },
+  mobileFeedColumn: {
+    width: '100%',
+  },
+  sidebarColumn: {
+    width: 320,
+    flexShrink: 0,
+  },
+  mobileSidebarColumn: {
+    width: '100%',
+  },
+  emptyCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    padding: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyCardDark: {
+    backgroundColor: '#161B22',
+    borderColor: '#30363D',
+  },
+  emptyCardTitle: {
+    fontSize: 17,
+    fontWeight: '700',
+    color: '#111827',
+    marginBottom: 6,
+  },
+  emptyCardTitleDark: {
+    color: '#F9FAFB',
+  },
+  emptyCardSubtitle: {
+    fontSize: 14,
+    color: '#6B7280',
+    textAlign: 'center',
+    maxWidth: 320,
+    lineHeight: 20,
+  },
+  emptyCardSubtitleDark: {
+    color: '#9CA3AF',
+  },
+});

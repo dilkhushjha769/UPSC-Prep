@@ -1,4 +1,3 @@
-import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
 import {
   ArrowLeft,
   BookOpen,
@@ -10,7 +9,7 @@ import {
 } from '@/components/common/LucideIcons';
 import { PrelimsThemeType, usePrelimsTheme } from '@/constants/prelimsTheme';
 import { getChapterQuestions, getChapterShortNotes } from '@/data/prelimsData';
-import { Chapter, Subject } from '@/types/prelims';
+import { Chapter, PYQQuestion, Subject } from '@/types/prelims';
 import { useMemo, useState } from 'react';
 import {
   KeyboardAvoidingView,
@@ -31,6 +30,7 @@ interface ChapterDetailViewProps {
   serialNumber?: number;
   onBack: () => void;
   onStartPractice: (chapter: Chapter, initialYearFilter?: number) => void;
+  onStartSubtopicPractice?: (chapter: Chapter, subtopicTitle: string, questions: PYQQuestion[]) => void;
   onStartQuiz: (chapter: Chapter, questionCount?: number, durationMinutes?: number) => void;
 }
 
@@ -40,6 +40,7 @@ export function ChapterDetailView({
   serialNumber,
   onBack,
   onStartPractice,
+  onStartSubtopicPractice,
   onStartQuiz,
 }: ChapterDetailViewProps) {
   const theme = usePrelimsTheme();
@@ -134,7 +135,6 @@ export function ChapterDetailView({
 
   return (
     <View style={styles.container}>
-      <BlueTextureBackground isDark={theme.isDark} />
       {/* Top Navigation Bar */}
       <View style={styles.navBar}>
         <Pressable
@@ -158,9 +158,12 @@ export function ChapterDetailView({
       >
         {/* Chapter Header */}
         <View style={styles.headerBlock}>
+          <Text style={styles.breadcrumbText}>
+            UPSC Prelims › {subject.paper === 'GS2' ? 'GS Paper II (CSAT)' : 'GS Paper I'} › {subject.shortTitle} › {chapter.title}
+          </Text>
           <Text style={styles.chapterTitle}>{chapter.title}</Text>
           <Text style={styles.subjectContext}>
-            {subject.title} · {chapter.totalQuestions10Yrs} Questions (2015–2024)
+            {subject.title} · {chapter.totalQuestions10Yrs} Verified PYQs ({subject.paper === 'GS2' ? '2018–2026' : '2016–2026'})
           </Text>
         </View>
 
@@ -204,6 +207,61 @@ export function ChapterDetailView({
             <Text style={styles.btnQuizText}>Take Quiz</Text>
           </Pressable>
         </View>
+
+        {/* SUBTOPICS BREAKDOWN (Canonical Subtopic Hierarchy) */}
+        {chapter.subtopics && chapter.subtopics.length > 0 && (
+          <View style={styles.section}>
+            <View style={styles.sectionHeaderRow}>
+              <Text style={styles.sectionTitle}>Subtopic-Wise Breakdown</Text>
+              <Text style={styles.sectionSubtitleTag}>
+                {chapter.subtopics.length} Subtopics · {chapter.totalQuestions10Yrs} Qs
+              </Text>
+            </View>
+            <View style={styles.subtopicsListCard}>
+              {chapter.subtopics.map((sub, sIdx) => {
+                const subQs = chapterQuestions.filter(
+                  (q) => q.subtopicId === sub.id || q.subtopicName === sub.name
+                );
+                return (
+                  <Pressable
+                    key={sub.id}
+                    style={({ pressed }) => [
+                      styles.subtopicRow,
+                      sIdx < (chapter.subtopics?.length || 0) - 1 && styles.subtopicRowBorder,
+                      pressed && styles.pressed,
+                    ]}
+                    onPress={() => {
+                      if (subQs.length > 0 && onStartSubtopicPractice) {
+                        onStartSubtopicPractice(chapter, sub.name, subQs);
+                      } else if (subQs.length > 0) {
+                        onStartPractice(chapter);
+                      }
+                    }}
+                  >
+                    <View style={styles.subtopicLeft}>
+                      <View style={styles.subtopicIndexBadge}>
+                        <Text style={styles.subtopicIndexText}>
+                          {String(sIdx + 1).padStart(2, '0')}
+                        </Text>
+                      </View>
+                      <Text style={styles.subtopicTitle} numberOfLines={2}>
+                        {sub.name}
+                      </Text>
+                    </View>
+                    <View style={styles.subtopicRight}>
+                      <View style={styles.subtopicCountBadge}>
+                        <Text style={styles.subtopicCountText}>{sub.count} Qs</Text>
+                      </View>
+                      {sub.count > 0 && (
+                        <Text style={styles.subtopicPracticeLink}>Practice ›</Text>
+                      )}
+                    </View>
+                  </Pressable>
+                );
+              })}
+            </View>
+          </View>
+        )}
 
         {/* QUICK REVISION CARD (Placed Above Trends, Expandable on Click) */}
         <View style={styles.section}>
@@ -493,6 +551,81 @@ const getStyles = (theme: PrelimsThemeType) =>
     },
     headerBlock: {
       marginBottom: 16,
+    },
+    breadcrumbText: {
+      fontSize: 11,
+      fontWeight: '700',
+      color: theme.colors.textMuted,
+      letterSpacing: 0.25,
+      marginBottom: 4,
+    },
+    subtopicsListCard: {
+      backgroundColor: theme.colors.bgSurface,
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: theme.colors.borderCard,
+      overflow: 'hidden',
+      ...theme.shadows.card,
+    },
+    subtopicRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingVertical: 11,
+      paddingHorizontal: 14,
+      gap: 10,
+    },
+    subtopicRowBorder: {
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.borderSubtle,
+    },
+    subtopicLeft: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+      flex: 1,
+    },
+    subtopicIndexBadge: {
+      width: 24,
+      height: 24,
+      borderRadius: 6,
+      backgroundColor: theme.colors.bgSurfaceMuted,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    subtopicIndexText: {
+      fontSize: 10,
+      fontWeight: '800',
+      color: theme.colors.textMuted,
+    },
+    subtopicTitle: {
+      fontSize: 13,
+      fontWeight: '600',
+      color: theme.colors.textPrimary,
+      flex: 1,
+    },
+    subtopicRight: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    subtopicCountBadge: {
+      paddingVertical: 3,
+      paddingHorizontal: 8,
+      borderRadius: 999,
+      backgroundColor: theme.colors.bgSurfaceMuted,
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
+    },
+    subtopicCountText: {
+      fontSize: 11,
+      fontWeight: '700',
+      color: theme.colors.textSecondary,
+    },
+    subtopicPracticeLink: {
+      fontSize: 11,
+      fontWeight: '700',
+      color: theme.colors.primary,
     },
     chapterTitle: {
       fontFamily: Platform.select({

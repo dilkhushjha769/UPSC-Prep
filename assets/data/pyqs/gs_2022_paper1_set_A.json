@@ -1,23 +1,25 @@
 {
   "meta": {
-    "exam": "UPSC Civil Services (Preliminary) Examination 2022",
-    "paper": "General Studies Paper-I",
+    "exam": "UPSC CSE Prelims",
+    "paper": "General Studies Paper I",
     "test_booklet_series": "A",
     "booklet_code": "VGYH-U-FGT",
     "language": "en",
     "total_questions": 100,
     "duration_minutes": 120,
     "total_marks": 200,
-    "marks_per_correct": 2.0,
+    "marks_per_correct": 2,
     "negative_marks_per_wrong": 0.6667,
     "negative_marking_rule": "One-third of the marks assigned to the question is deducted for each wrong answer; no penalty for unattempted questions.",
-    "answer_key_source": "Official UPSC Answer Key & standard reference sources."
+    "answer_key_source": "Official UPSC Answer Key & standard reference sources.",
+    "year": 2022,
+    "paper_type": "GS1"
   },
   "passages": [],
   "questions": [
     {
       "number": 1,
-      "topic": "Economy / International Financial Institutions",
+      "topic": "External Sector and Balance of Payments",
       "passage_id": null,
       "question": "\"Rapid Financing Instrument\" and \"Rapid Credit Facility\" are related to the provisions of lending by which one of the following?",
       "options": [
@@ -39,11 +41,29 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The Rapid Financing Instrument (RFI) and Rapid Credit Facility (RCF) are lending windows of the International Monetary Fund (IMF) that provide rapid financial assistance with limited conditionality to member countries facing urgent balance of payments needs."
+      "explanation": "The Rapid Financing Instrument (RFI) and Rapid Credit Facility (RCF) are lending windows of the International Monetary Fund (IMF) that provide rapid financial assistance with limited conditionality to member countries facing urgent balance of payments needs.",
+      "raw_topic": "Economy / International Financial Institutions",
+      "id": "upsc_2022_gs1_q1",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "external_sector_and_balance_of_payments",
+      "subtopic_id": "external_sector_and_balance_of_payments_international_financial_institutions",
+      "subtopic": "International Financial Institutions",
+      "secondary_tags": [
+        "International Relations"
+      ],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on External Sector, Balance of Payments, Exchange Rate & Trade (Economy / International Financial Institutions).",
+      "validation_status": "verified"
     },
     {
       "number": 2,
-      "topic": "Economy / External Sector",
+      "topic": "External Sector and Balance of Payments",
       "passage_id": null,
       "question": "With reference to the Indian economy, consider the following statements:\nWhich of the above statements are correct?",
       "statements": [
@@ -70,11 +90,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statement 1 is correct: An increase in NEER indicates that the domestic currency (rupee) has appreciated against the trade-weighted basket of foreign currencies. Statement 2 is incorrect: An increase in REER implies that domestic exports are becoming more expensive relative to foreign competitors, indicating a loss (deterioration), not an improvement, in trade competitiveness. Statement 3 is correct: Since REER = NEER × (Domestic Price Index / Foreign Price Index), a divergence between domestic and trading partners' inflation rates increases the spread/divergence between NEER and REER."
+      "explanation": "Statement 1 is correct: An increase in NEER indicates that the domestic currency (rupee) has appreciated against the trade-weighted basket of foreign currencies. Statement 2 is incorrect: An increase in REER implies that domestic exports are becoming more expensive relative to foreign competitors, indicating a loss (deterioration), not an improvement, in trade competitiveness. Statement 3 is correct: Since REER = NEER × (Domestic Price Index / Foreign Price Index), a divergence between domestic and trading partners' inflation rates increases the spread/divergence between NEER and REER.",
+      "raw_topic": "Economy / External Sector",
+      "id": "upsc_2022_gs1_q2",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "external_sector_and_balance_of_payments",
+      "subtopic_id": "external_sector_and_balance_of_payments_external_sector",
+      "subtopic": "External Sector",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on External Sector, Balance of Payments, Exchange Rate & Trade (Economy / External Sector).",
+      "validation_status": "verified"
     },
     {
       "number": 3,
-      "topic": "Economy / Monetary Policy",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "With reference to the Indian economy, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -101,11 +137,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: To combat high inflation, the RBI conducts open market sales (sells government securities) to suck out liquidity from the banking system, rather than buying them. Statement 2 is correct: When the rupee depreciates sharply, the RBI sells dollars from foreign exchange reserves to increase dollar supply and stabilize the rupee. Statement 3 is correct: When US/EU interest rates fall, global capital floods into emerging markets like India; to prevent excessive rupee appreciation, the RBI intervenes by buying dollars."
+      "explanation": "Statement 1 is incorrect: To combat high inflation, the RBI conducts open market sales (sells government securities) to suck out liquidity from the banking system, rather than buying them. Statement 2 is correct: When the rupee depreciates sharply, the RBI sells dollars from foreign exchange reserves to increase dollar supply and stabilize the rupee. Statement 3 is correct: When US/EU interest rates fall, global capital floods into emerging markets like India; to prevent excessive rupee appreciation, the RBI intervenes by buying dollars.",
+      "raw_topic": "Economy / Monetary Policy",
+      "id": "upsc_2022_gs1_q3",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_monetary_policy",
+      "subtopic": "Monetary Policy",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Economy / Monetary Policy).",
+      "validation_status": "verified"
     },
     {
       "number": 4,
-      "topic": "International Economy / Debt Architecture",
+      "topic": "External Sector and Balance of Payments",
       "passage_id": null,
       "question": "With reference to the \"G20 Common Framework\", consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -131,11 +183,29 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Both statements are correct: The G20 Common Framework for Debt Treatments beyond the DSSI was endorsed in November 2020 by the G20 together with the Paris Club of official bilateral creditors to coordinate structural debt restructuring for IDA-eligible Low Income Countries facing sovereign debt distress."
+      "explanation": "Both statements are correct: The G20 Common Framework for Debt Treatments beyond the DSSI was endorsed in November 2020 by the G20 together with the Paris Club of official bilateral creditors to coordinate structural debt restructuring for IDA-eligible Low Income Countries facing sovereign debt distress.",
+      "raw_topic": "International Economy / Debt Architecture",
+      "id": "upsc_2022_gs1_q4",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "external_sector_and_balance_of_payments",
+      "subtopic_id": "external_sector_and_balance_of_payments_debt_architecture",
+      "subtopic": "Debt Architecture",
+      "secondary_tags": [
+        "International Relations"
+      ],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on External Sector, Balance of Payments, Exchange Rate & Trade (International Economy / Debt Architecture).",
+      "validation_status": "verified"
     },
     {
       "number": 5,
-      "topic": "Economy / Debt Instruments",
+      "topic": "Money and Financial Markets",
       "passage_id": null,
       "question": "With reference to the Indian economy, what are the advantages of \"Inflation-Indexed Bonds (IIBs)\"?\nWhich of the statements given above are correct?",
       "statements": [
@@ -162,11 +232,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statements 1 and 2 are correct: Because IIBs guarantee real yields by indexing principal and coupon payments to inflation (protecting investors against inflation risk), the government can issue them at lower nominal coupon rates. Statement 3 is incorrect: Interest received and capital gains on IIBs are subject to normal income tax rules and are not tax-exempt."
+      "explanation": "Statements 1 and 2 are correct: Because IIBs guarantee real yields by indexing principal and coupon payments to inflation (protecting investors against inflation risk), the government can issue them at lower nominal coupon rates. Statement 3 is incorrect: Interest received and capital gains on IIBs are subject to normal income tax rules and are not tax-exempt.",
+      "raw_topic": "Economy / Debt Instruments",
+      "id": "upsc_2022_gs1_q5",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "money_and_financial_markets",
+      "subtopic_id": "money_and_financial_markets_debt_instruments",
+      "subtopic": "Debt Instruments",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Money and Financial Markets (Economy / Debt Instruments).",
+      "validation_status": "verified"
     },
     {
       "number": 6,
-      "topic": "Economy / FDI & E-Commerce",
+      "topic": "External Sector and Balance of Payments",
       "passage_id": null,
       "question": "With reference to foreign-owned e-commerce firms operating in India, which of the following statements is/are correct?",
       "statements": [
@@ -192,11 +278,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: Under India's FDI policy in e-commerce, 100% FDI is allowed only in the marketplace model; FDI is strictly prohibited in the inventory-based model (foreign e-commerce entities cannot sell their own inventory/goods). Statement 2 is correct: Regulations restrict e-commerce entities from exercising control over inventory or holding equity stakes in vendor entities operating on their platform."
+      "explanation": "Statement 1 is incorrect: Under India's FDI policy in e-commerce, 100% FDI is allowed only in the marketplace model; FDI is strictly prohibited in the inventory-based model (foreign e-commerce entities cannot sell their own inventory/goods). Statement 2 is correct: Regulations restrict e-commerce entities from exercising control over inventory or holding equity stakes in vendor entities operating on their platform.",
+      "raw_topic": "Economy / FDI & E-Commerce",
+      "id": "upsc_2022_gs1_q6",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "external_sector_and_balance_of_payments",
+      "subtopic_id": "external_sector_and_balance_of_payments_fdi_e_commerce",
+      "subtopic": "FDI & E-Commerce",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on External Sector, Balance of Payments, Exchange Rate & Trade (Economy / FDI & E-Commerce).",
+      "validation_status": "verified"
     },
     {
       "number": 7,
-      "topic": "Economy / National Income",
+      "topic": "National Income and Economic Growth",
       "passage_id": null,
       "question": "Which of the following activities constitute real sector in the economy?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -224,11 +326,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The real sector comprises economic activities involving the direct production, distribution, and consumption of physical goods and non-financial services (such as farming and manufacturing textiles, items 1 and 2). Lending money and issuing bonds (items 3 and 4) are financial intermediation activities belonging to the financial sector."
+      "explanation": "The real sector comprises economic activities involving the direct production, distribution, and consumption of physical goods and non-financial services (such as farming and manufacturing textiles, items 1 and 2). Lending money and issuing bonds (items 3 and 4) are financial intermediation activities belonging to the financial sector.",
+      "raw_topic": "Economy / National Income",
+      "id": "upsc_2022_gs1_q7",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "national_income_and_economic_growth",
+      "subtopic_id": "national_income_and_economic_growth_national_income",
+      "subtopic": "National Income",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on National Income, GDP & Economic Growth (Economy / National Income).",
+      "validation_status": "verified"
     },
     {
       "number": 8,
-      "topic": "Economy / Taxation",
+      "topic": "Taxation",
       "passage_id": null,
       "question": "Which one of the following situations best reflects \"Indirect Transfers\" often talked about in media recently with reference to India?",
       "options": [
@@ -250,11 +368,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Under the Indian Income-tax Act (introduced retrospectively via the Finance Act 2012 in the Vodafone controversy), an 'indirect transfer' occurs when shares of a foreign company incorporated abroad are transferred, but those shares derive their value substantially from underlying assets situated in India."
+      "explanation": "Under the Indian Income-tax Act (introduced retrospectively via the Finance Act 2012 in the Vodafone controversy), an 'indirect transfer' occurs when shares of a foreign company incorporated abroad are transferred, but those shares derive their value substantially from underlying assets situated in India.",
+      "raw_topic": "Economy / Taxation",
+      "id": "upsc_2022_gs1_q8",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "taxation",
+      "subtopic_id": "taxation_taxation",
+      "subtopic": "Taxation",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Direct/Indirect Taxation & GST (Economy / Taxation).",
+      "validation_status": "verified"
     },
     {
       "number": 9,
-      "topic": "Economy / Corporate Finance",
+      "topic": "Fiscal Policy and Budget",
       "passage_id": null,
       "question": "With reference to the expenditure made by an organisation or a company, which of the following statements is/are correct?",
       "statements": [
@@ -280,11 +414,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is correct: Acquiring new technology or proprietary IP generates long-term economic benefits and creates an asset, classifying it as capital expenditure (CapEx). Statement 2 is incorrect: Debt and equity financing are methods of raising capital (liabilities and equity on the balance sheet), not expenditures. Revenue expenditure refers to ongoing operational day-to-day business costs."
+      "explanation": "Statement 1 is correct: Acquiring new technology or proprietary IP generates long-term economic benefits and creates an asset, classifying it as capital expenditure (CapEx). Statement 2 is incorrect: Debt and equity financing are methods of raising capital (liabilities and equity on the balance sheet), not expenditures. Revenue expenditure refers to ongoing operational day-to-day business costs.",
+      "raw_topic": "Economy / Corporate Finance",
+      "id": "upsc_2022_gs1_q9",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "fiscal_policy_and_budget",
+      "subtopic_id": "fiscal_policy_and_budget_corporate_finance",
+      "subtopic": "Corporate Finance",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Fiscal Policy, Union Budget & Public Debt (Economy / Corporate Finance).",
+      "validation_status": "verified"
     },
     {
       "number": 10,
-      "topic": "Economy / Public Debt",
+      "topic": "Fiscal Policy and Budget",
       "passage_id": null,
       "question": "With reference to the Indian economy, consider the following statements:\nWhich of the above statements is/are correct?",
       "statements": [
@@ -310,11 +460,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Both statements are correct: Household financial savings (channelled through bank deposits, life insurance, small savings schemes, and provident funds) are heavily invested in government securities to fund fiscal deficits (1). Long-term dated securities issued through market auctions constitute the largest share of the Central Government's internal debt (2)."
+      "explanation": "Both statements are correct: Household financial savings (channelled through bank deposits, life insurance, small savings schemes, and provident funds) are heavily invested in government securities to fund fiscal deficits (1). Long-term dated securities issued through market auctions constitute the largest share of the Central Government's internal debt (2).",
+      "raw_topic": "Economy / Public Debt",
+      "id": "upsc_2022_gs1_q10",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "fiscal_policy_and_budget",
+      "subtopic_id": "fiscal_policy_and_budget_public_debt",
+      "subtopic": "Public Debt",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Fiscal Policy, Union Budget & Public Debt (Economy / Public Debt).",
+      "validation_status": "verified"
     },
     {
       "number": 11,
-      "topic": "Indian Polity / Judiciary",
+      "topic": "Judiciary",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -342,11 +508,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statements 1, 2, and 4 are correct: The Contempt of Courts Act, 1971 was enacted based on the recommendations of the H.N. Sanyal Committee (1). Articles 129 and 215 of the Constitution declare the Supreme Court and High Courts as courts of record with power to punish for contempt of themselves (2). Entry 77 of List I and Entry 14 of List III empower Parliament to legislate on contempt of court (4). Statement 3 is incorrect: The Constitution does not define Civil and Criminal Contempt; they are defined under Section 2 of the Contempt of Courts Act, 1971."
+      "explanation": "Statements 1, 2, and 4 are correct: The Contempt of Courts Act, 1971 was enacted based on the recommendations of the H.N. Sanyal Committee (1). Articles 129 and 215 of the Constitution declare the Supreme Court and High Courts as courts of record with power to punish for contempt of themselves (2). Entry 77 of List I and Entry 14 of List III empower Parliament to legislate on contempt of court (4). Statement 3 is incorrect: The Constitution does not define Civil and Criminal Contempt; they are defined under Section 2 of the Contempt of Courts Act, 1971.",
+      "raw_topic": "Indian Polity / Judiciary",
+      "id": "upsc_2022_gs1_q11",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "judiciary",
+      "subtopic_id": "judiciary_judiciary",
+      "subtopic": "Judiciary",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Judiciary, Courts, or Legal System (Indian Polity / Judiciary).",
+      "validation_status": "verified"
     },
     {
       "number": 12,
-      "topic": "Indian Polity / Legal Profession",
+      "topic": "Judiciary",
       "passage_id": null,
       "question": "With reference to India, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -372,11 +554,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: Under the Advocates Act, 1961, full-time salaried government law officers are generally barred from practicing as advocates in courts, while enrolled advocates working in law firms or handling patent matters can be recognized as advocates. Statement 2 is correct: Under Section 7(1)(h) and (i) of the Advocates Act, 1961, the Bar Council of India (BCI) lays down standards of legal education and recognizes universities and law colleges conferring law degrees."
+      "explanation": "Statement 1 is incorrect: Under the Advocates Act, 1961, full-time salaried government law officers are generally barred from practicing as advocates in courts, while enrolled advocates working in law firms or handling patent matters can be recognized as advocates. Statement 2 is correct: Under Section 7(1)(h) and (i) of the Advocates Act, 1961, the Bar Council of India (BCI) lays down standards of legal education and recognizes universities and law colleges conferring law degrees.",
+      "raw_topic": "Indian Polity / Legal Profession",
+      "id": "upsc_2022_gs1_q12",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "judiciary",
+      "subtopic_id": "judiciary_legal_profession",
+      "subtopic": "Legal Profession",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Judiciary, Courts, or Legal System (Indian Polity / Legal Profession).",
+      "validation_status": "verified"
     },
     {
       "number": 13,
-      "topic": "Indian Polity / Constitutional Amendment",
+      "topic": "Parliament",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -403,11 +601,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: Under Article 368, a constitutional amendment bill does not require the prior recommendation of the President. Statement 2 is correct: The 24th Constitutional Amendment Act, 1971 made it obligatory for the President to give assent to a Constitution Amendment Bill. Statement 3 is correct: Under Article 368, the bill must be passed in each House by a special majority separately, and there is no provision for a joint sitting in case of disagreement."
+      "explanation": "Statement 1 is incorrect: Under Article 368, a constitutional amendment bill does not require the prior recommendation of the President. Statement 2 is correct: The 24th Constitutional Amendment Act, 1971 made it obligatory for the President to give assent to a Constitution Amendment Bill. Statement 3 is correct: Under Article 368, the bill must be passed in each House by a special majority separately, and there is no provision for a joint sitting in case of disagreement.",
+      "raw_topic": "Indian Polity / Constitutional Amendment",
+      "id": "upsc_2022_gs1_q13",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "parliament",
+      "subtopic_id": "parliament_constitutional_amendment",
+      "subtopic": "Constitutional Amendment",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Parliament, Legislative Procedures, or Committees (Indian Polity / Constitutional Amendment).",
+      "validation_status": "verified"
     },
     {
       "number": 14,
-      "topic": "Indian Polity / Council of Ministers",
+      "topic": "Parliament",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -433,11 +647,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: The Constitution does not classify ministers into ranks; this classification is an administrative and parliamentary convention based on the Rules of Business. Statement 2 is correct: Article 75(1A), inserted by the 91st Constitutional Amendment Act, 2003, stipulates that the total number of ministers, including the Prime Minister, shall not exceed 15% of the total strength of the Lok Sabha."
+      "explanation": "Statement 1 is incorrect: The Constitution does not classify ministers into ranks; this classification is an administrative and parliamentary convention based on the Rules of Business. Statement 2 is correct: Article 75(1A), inserted by the 91st Constitutional Amendment Act, 2003, stipulates that the total number of ministers, including the Prime Minister, shall not exceed 15% of the total strength of the Lok Sabha.",
+      "raw_topic": "Indian Polity / Council of Ministers",
+      "id": "upsc_2022_gs1_q14",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "parliament",
+      "subtopic_id": "parliament_council_of_ministers",
+      "subtopic": "Council of Ministers",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Parliament, Legislative Procedures, or Committees (Indian Polity / Council of Ministers).",
+      "validation_status": "verified"
     },
     {
       "number": 15,
-      "topic": "Indian Polity / Parliament",
+      "topic": "Parliament",
       "passage_id": null,
       "question": "Which of the following is/are the exclusive power(s) of Lok Sabha?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -464,11 +694,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Item 1 is incorrect: Proclamations of Emergency (Articles 352, 356, 360) must be approved by both Lok Sabha and Rajya Sabha. Item 2 is correct: Under Article 75(3), the Council of Ministers is collectively responsible to the Lok Sabha alone; hence, a motion of no-confidence can only be moved and passed in the Lok Sabha. Item 3 is incorrect: Under Article 61, impeachment charges against the President can be initiated and investigated in either House of Parliament."
+      "explanation": "Item 1 is incorrect: Proclamations of Emergency (Articles 352, 356, 360) must be approved by both Lok Sabha and Rajya Sabha. Item 2 is correct: Under Article 75(3), the Council of Ministers is collectively responsible to the Lok Sabha alone; hence, a motion of no-confidence can only be moved and passed in the Lok Sabha. Item 3 is incorrect: Under Article 61, impeachment charges against the President can be initiated and investigated in either House of Parliament.",
+      "raw_topic": "Indian Polity / Parliament",
+      "id": "upsc_2022_gs1_q15",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "parliament",
+      "subtopic_id": "parliament_parliament",
+      "subtopic": "Parliament",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Parliament, Legislative Procedures, or Committees (Indian Polity / Parliament).",
+      "validation_status": "verified"
     },
     {
       "number": 16,
-      "topic": "Indian Polity / Tenth Schedule",
+      "topic": "Elections and Representation",
       "passage_id": null,
       "question": "With reference to anti-defection law in India, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -494,11 +740,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: Under Paragraph 2(3) of the Tenth Schedule, a nominated member is disqualified if he/she joins any political party AFTER the expiry of six months from taking his/her seat (they CAN join within six months). Statement 2 is correct: The Tenth Schedule prescribes no specific timeline within which the Speaker or Chairman must adjudicate a disqualification petition."
+      "explanation": "Statement 1 is incorrect: Under Paragraph 2(3) of the Tenth Schedule, a nominated member is disqualified if he/she joins any political party AFTER the expiry of six months from taking his/her seat (they CAN join within six months). Statement 2 is correct: The Tenth Schedule prescribes no specific timeline within which the Speaker or Chairman must adjudicate a disqualification petition.",
+      "raw_topic": "Indian Polity / Tenth Schedule",
+      "id": "upsc_2022_gs1_q16",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "elections_and_representation",
+      "subtopic_id": "elections_and_representation_tenth_schedule",
+      "subtopic": "Tenth Schedule",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Elections, Representation, or Anti-Defection (Indian Polity / Tenth Schedule).",
+      "validation_status": "verified"
     },
     {
       "number": 17,
-      "topic": "Indian Polity / Law Officers",
+      "topic": "Constitutional Bodies",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -524,11 +786,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Statement 1 is incorrect: Under Article 88, only the Attorney General of India and Union Ministers have the right to speak and take part in parliamentary proceedings; the Solicitor General has no constitutional right to participate in Parliament. Statement 2 is incorrect: Article 76 states that the Attorney General holds office during the pleasure of the President; resigning upon a change of government is a conventional practice, not a constitutional requirement."
+      "explanation": "Statement 1 is incorrect: Under Article 88, only the Attorney General of India and Union Ministers have the right to speak and take part in parliamentary proceedings; the Solicitor General has no constitutional right to participate in Parliament. Statement 2 is incorrect: Article 76 states that the Attorney General holds office during the pleasure of the President; resigning upon a change of government is a conventional practice, not a constitutional requirement.",
+      "raw_topic": "Indian Polity / Law Officers",
+      "id": "upsc_2022_gs1_q17",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "constitutional_bodies",
+      "subtopic_id": "constitutional_bodies_law_officers",
+      "subtopic": "Law Officers",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Constitutional Bodies (Indian Polity / Law Officers).",
+      "validation_status": "verified"
     },
     {
       "number": 18,
-      "topic": "Indian Polity / Writs",
+      "topic": "Fundamental Rights and Duties",
       "passage_id": null,
       "question": "With reference to the writs issued by the Courts in India, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -555,11 +833,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statement 1 is correct: Mandamus lies only against public authorities performing public functions; it does not lie against a private entity unless performing an assigned statutory or public duty. Statement 2 is incorrect: Mandamus can be issued against any company, statutory corporation, or government company discharging public duties. Statement 3 is correct: The rule of locus standi is relaxed for Quo Warranto; any citizen/public-minded person can challenge the illegal usurpation of a substantive public office."
+      "explanation": "Statement 1 is correct: Mandamus lies only against public authorities performing public functions; it does not lie against a private entity unless performing an assigned statutory or public duty. Statement 2 is incorrect: Mandamus can be issued against any company, statutory corporation, or government company discharging public duties. Statement 3 is correct: The rule of locus standi is relaxed for Quo Warranto; any citizen/public-minded person can challenge the illegal usurpation of a substantive public office.",
+      "raw_topic": "Indian Polity / Writs",
+      "id": "upsc_2022_gs1_q18",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "fundamental_rights_and_duties",
+      "subtopic_id": "fundamental_rights_and_duties_writs",
+      "subtopic": "Writs",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Fundamental Rights, Writs, or Fundamental Duties (Indian Polity / Writs).",
+      "validation_status": "verified"
     },
     {
       "number": 19,
-      "topic": "Governance / Health Schemes",
+      "topic": "Governance and Public Policy",
       "passage_id": null,
       "question": "With reference to Ayushman Bharat Digital Mission, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -586,11 +880,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: Adoption of ABDM is voluntary for private and public hospitals. Statement 2 is incorrect: Participation by citizens (creation of Ayushman Bharat Health Account - ABHA ID) is entirely optional and consent-based. Statement 3 is correct: ABDM creates an interoperable digital health ecosystem ensuring seamless nationwide portability of health records."
+      "explanation": "Statement 1 is incorrect: Adoption of ABDM is voluntary for private and public hospitals. Statement 2 is incorrect: Participation by citizens (creation of Ayushman Bharat Health Account - ABHA ID) is entirely optional and consent-based. Statement 3 is correct: ABDM creates an interoperable digital health ecosystem ensuring seamless nationwide portability of health records.",
+      "raw_topic": "Governance / Health Schemes",
+      "id": "upsc_2022_gs1_q19",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "governance_and_public_policy",
+      "subtopic_id": "governance_and_public_policy_health_schemes",
+      "subtopic": "Health Schemes",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Governance, Public Policy & Welfare Legislation question (Governance / Health Schemes).",
+      "validation_status": "verified"
     },
     {
       "number": 20,
-      "topic": "Indian Polity / Presiding Officers",
+      "topic": "Parliament",
       "passage_id": null,
       "question": "With reference to Deputy Speaker of Lok Sabha, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -618,11 +928,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statement 1 is correct: Under Rule 8 of Rules of Procedure and Conduct of Business in Lok Sabha, the election of the Deputy Speaker takes place on such date as the Speaker may fix. Statement 2 is incorrect: There is no mandatory constitutional or statutory provision requiring the Deputy Speaker to be from the opposition (it is merely an informal political consensus developed since the 11th Lok Sabha). Statement 3 is correct: While presiding, the Deputy Speaker exercises all powers of the Speaker, and his/her rulings cannot be appealed. Statement 4 is incorrect: The motion is moved by any member of the House and seconded by another member, not moved by the Speaker."
+      "explanation": "Statement 1 is correct: Under Rule 8 of Rules of Procedure and Conduct of Business in Lok Sabha, the election of the Deputy Speaker takes place on such date as the Speaker may fix. Statement 2 is incorrect: There is no mandatory constitutional or statutory provision requiring the Deputy Speaker to be from the opposition (it is merely an informal political consensus developed since the 11th Lok Sabha). Statement 3 is correct: While presiding, the Deputy Speaker exercises all powers of the Speaker, and his/her rulings cannot be appealed. Statement 4 is incorrect: The motion is moved by any member of the House and seconded by another member, not moved by the Speaker.",
+      "raw_topic": "Indian Polity / Presiding Officers",
+      "id": "upsc_2022_gs1_q20",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "parliament",
+      "subtopic_id": "parliament_presiding_officers",
+      "subtopic": "Presiding Officers",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Parliament, Legislative Procedures, or Committees (Indian Polity / Presiding Officers).",
+      "validation_status": "verified"
     },
     {
       "number": 21,
-      "topic": "Environment / Agriculture & GHG Emissions",
+      "topic": "Climate Change",
       "passage_id": null,
       "question": "Among the following crops, which one is the most important anthropogenic source of both methane and nitrous oxide?",
       "options": [
@@ -644,11 +970,29 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Flooded paddy rice cultivation creates anaerobic soil conditions leading to methanogenesis (methane emission), while intermittent drying and the heavy application of synthetic nitrogen fertilizers cause nitrification and denitrification, releasing large amounts of nitrous oxide (N2O)."
+      "explanation": "Flooded paddy rice cultivation creates anaerobic soil conditions leading to methanogenesis (methane emission), while intermittent drying and the heavy application of synthetic nitrogen fertilizers cause nitrification and denitrification, releasing large amounts of nitrous oxide (N2O).",
+      "raw_topic": "Environment / Agriculture & GHG Emissions",
+      "id": "upsc_2022_gs1_q21",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "climate_change",
+      "subtopic_id": "climate_change_agriculture_ghg_emissions",
+      "subtopic": "Agriculture & GHG Emissions",
+      "secondary_tags": [
+        "Agriculture"
+      ],
+      "classification_confidence": 0.87,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Environment question on Climate Change, GHGs & Carbon Cycle (Environment / Agriculture & GHG Emissions).",
+      "validation_status": "verified"
     },
     {
       "number": 22,
-      "topic": "Agriculture / Rice Cultivation Techniques",
+      "topic": "Agriculture and Food Management",
       "passage_id": null,
       "question": "\"System of Rice Intensification\" of cultivation, in which alternate wetting and drying of rice fields is practised, results in:\nSelect the correct answer using the code given below:",
       "statements": [
@@ -675,11 +1019,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All three are verified benefits of SRI (System of Rice Intensification): 1. Single seedlings planted at wider spacing reduce seed requirements by up to 80-90%. 2. Alternate wetting and drying (AWD) aerates the soil, preventing anaerobic conditions and slashing methane emissions by 30-70%. 3. Reduced irrigation water pumping requirements significantly lower electricity/fuel consumption."
+      "explanation": "All three are verified benefits of SRI (System of Rice Intensification): 1. Single seedlings planted at wider spacing reduce seed requirements by up to 80-90%. 2. Alternate wetting and drying (AWD) aerates the soil, preventing anaerobic conditions and slashing methane emissions by 30-70%. 3. Reduced irrigation water pumping requirements significantly lower electricity/fuel consumption.",
+      "raw_topic": "Agriculture / Rice Cultivation Techniques",
+      "id": "upsc_2022_gs1_q22",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "agriculture_and_food_management",
+      "subtopic_id": "agriculture_and_food_management_rice_cultivation_techniques",
+      "subtopic": "Rice Cultivation Techniques",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy & Agriculture question on cropping systems, MSP, PDS, or agri-inputs (Agriculture / Rice Cultivation Techniques).",
+      "validation_status": "verified"
     },
     {
       "number": 23,
-      "topic": "World Geography / African Lakes",
+      "topic": "World Geography",
       "passage_id": null,
       "question": "Which one of the following lakes of West Africa has become dry and turned into a desert?",
       "options": [
@@ -701,11 +1061,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Lake Faguibine in Mali (West Africa), fed by channels from the Niger River, completely dried up following severe Sahelian droughts in the 1970s and 1980s, turning the lakebed into desert sand dunes."
+      "explanation": "Lake Faguibine in Mali (West Africa), fed by channels from the Niger River, completely dried up following severe Sahelian droughts in the 1970s and 1980s, turning the lakebed into desert sand dunes.",
+      "raw_topic": "World Geography / African Lakes",
+      "id": "upsc_2022_gs1_q23",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "world_geography",
+      "subtopic_id": "world_geography_african_lakes",
+      "subtopic": "African Lakes",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 World Geography question on global rivers, lakes, mountains, or regions (World Geography / African Lakes).",
+      "validation_status": "verified"
     },
     {
       "number": 24,
-      "topic": "Indian Geography / Geomorphology",
+      "topic": "Geomorphology",
       "passage_id": null,
       "question": "Gandikota canyon of South India was created by which one of the following rivers?",
       "options": [
@@ -727,11 +1103,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The Gandikota Canyon (popularly known as the 'Grand Canyon of India') is a deep gorge carved through the Erramala hills by the Pennar River in the Kadapa district of Andhra Pradesh."
+      "explanation": "The Gandikota Canyon (popularly known as the 'Grand Canyon of India') is a deep gorge carved through the Erramala hills by the Pennar River in the Kadapa district of Andhra Pradesh.",
+      "raw_topic": "Indian Geography / Geomorphology",
+      "id": "upsc_2022_gs1_q24",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "geomorphology",
+      "subtopic_id": "geomorphology_geomorphology",
+      "subtopic": "Geomorphology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Geomorphology & Earth's Interior (Indian Geography / Geomorphology).",
+      "validation_status": "verified"
     },
     {
       "number": 25,
-      "topic": "Indian Geography / Mountain Peaks",
+      "topic": "Indian Geography",
       "passage_id": null,
       "question": "Consider the following pairs:\nWhich of the pairs given above is/are correctly matched?",
       "table": {
@@ -777,11 +1169,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Pair 1 is incorrect: Namcha Barwa is located in the easternmost Himalayas (Tibet/Arunachal border), not Garhwal. Pair 2 is correctly matched: Nanda Devi is the highest peak in the Garhwal/Kumaon Himalayas of Uttarakhand. Pair 3 is incorrect: Nokrek is the highest peak in the Garo Hills (Meghalaya Plateau), not Sikkim Himalaya. Thus, only pair 2 is correctly matched."
+      "explanation": "Pair 1 is incorrect: Namcha Barwa is located in the easternmost Himalayas (Tibet/Arunachal border), not Garhwal. Pair 2 is correctly matched: Nanda Devi is the highest peak in the Garhwal/Kumaon Himalayas of Uttarakhand. Pair 3 is incorrect: Nokrek is the highest peak in the Garo Hills (Meghalaya Plateau), not Sikkim Himalaya. Thus, only pair 2 is correctly matched.",
+      "raw_topic": "Indian Geography / Mountain Peaks",
+      "id": "upsc_2022_gs1_q25",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "indian_geography",
+      "subtopic_id": "indian_geography_mountain_peaks",
+      "subtopic": "Mountain Peaks",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Indian Geography question on Indian physiography, rivers, or lakes (Indian Geography / Mountain Peaks).",
+      "validation_status": "verified"
     },
     {
       "number": 26,
-      "topic": "World Geography / Regional Terminology",
+      "topic": "Mapping and Places in News",
       "passage_id": null,
       "question": "The term \"Levant\" often heard in the news roughly corresponds to which of the following regions?",
       "options": [
@@ -803,11 +1211,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The 'Levant' is a historical geographical term referring to the large area along the Eastern Mediterranean shores, primarily comprising modern-day Syria, Lebanon, Jordan, Israel, Palestine, and parts of southern Turkey."
+      "explanation": "The 'Levant' is a historical geographical term referring to the large area along the Eastern Mediterranean shores, primarily comprising modern-day Syria, Lebanon, Jordan, Israel, Palestine, and parts of southern Turkey.",
+      "raw_topic": "World Geography / Regional Terminology",
+      "id": "upsc_2022_gs1_q26",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "mapping_and_places_in_news",
+      "subtopic_id": "mapping_and_places_in_news_regional_terminology",
+      "subtopic": "Regional Terminology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on World Mapping, Borders & Places in News (World Geography / Regional Terminology).",
+      "validation_status": "verified"
     },
     {
       "number": 27,
-      "topic": "World Geography / Central Asia",
+      "topic": "World Geography",
       "passage_id": null,
       "question": "Consider the following countries:\nWhich of the above have borders with Afghanistan?",
       "statements": [
@@ -836,11 +1260,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Afghanistan shares land borders with six countries: Iran, Pakistan, China, and three Central Asian nations — Tajikistan, Turkmenistan, and Uzbekistan. Azerbaijan (across the Caspian Sea) and Kyrgyzstan do not share a border with Afghanistan."
+      "explanation": "Afghanistan shares land borders with six countries: Iran, Pakistan, China, and three Central Asian nations — Tajikistan, Turkmenistan, and Uzbekistan. Azerbaijan (across the Caspian Sea) and Kyrgyzstan do not share a border with Afghanistan.",
+      "raw_topic": "World Geography / Central Asia",
+      "id": "upsc_2022_gs1_q27",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "world_geography",
+      "subtopic_id": "world_geography_central_asia",
+      "subtopic": "Central Asia",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 World Geography question on global rivers, lakes, mountains, or regions (World Geography / Central Asia).",
+      "validation_status": "verified"
     },
     {
       "number": 28,
-      "topic": "Economic Geography / Nuclear Minerals",
+      "topic": "Resources and Industries",
       "passage_id": null,
       "question": "With reference to India, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -868,11 +1308,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statements 1, 2, and 4 are correct: Monazite is a phosphate mineral rich in rare earth elements (like cerium, lanthanum, neodymium) and contains radioactive Thorium (1 and 2). Under the Atomic Energy Act and export control policies, monazite is a prescribed atomic substance and can only be processed and exported by designated Government bodies like Indian Rare Earths Limited (IREL) (4). Statement 3 is incorrect: Monazite occurs in specific coastal placer deposits (mainly in Kerala, Tamil Nadu, Odisha, and Andhra Pradesh), not along the 'entire' coastline of India."
+      "explanation": "Statements 1, 2, and 4 are correct: Monazite is a phosphate mineral rich in rare earth elements (like cerium, lanthanum, neodymium) and contains radioactive Thorium (1 and 2). Under the Atomic Energy Act and export control policies, monazite is a prescribed atomic substance and can only be processed and exported by designated Government bodies like Indian Rare Earths Limited (IREL) (4). Statement 3 is incorrect: Monazite occurs in specific coastal placer deposits (mainly in Kerala, Tamil Nadu, Odisha, and Andhra Pradesh), not along the 'entire' coastline of India.",
+      "raw_topic": "Economic Geography / Nuclear Minerals",
+      "id": "upsc_2022_gs1_q28",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "resources_and_industries",
+      "subtopic_id": "resources_and_industries_nuclear_minerals",
+      "subtopic": "Nuclear Minerals",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Mineral/Energy Resources and Industries (Economic Geography / Nuclear Minerals).",
+      "validation_status": "verified"
     },
     {
       "number": 29,
-      "topic": "Physical Geography / Earth Movements",
+      "topic": "Physical Geography",
       "passage_id": null,
       "question": "In the northern hemisphere, the longest day of the year normally occurs in the:",
       "options": [
@@ -894,11 +1350,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The summer solstice in the Northern Hemisphere occurs annually on June 20 or June 21, when the Sun is directly overhead at the Tropic of Cancer, marking the longest day (most hours of daylight) of the year in the second half of June."
+      "explanation": "The summer solstice in the Northern Hemisphere occurs annually on June 20 or June 21, when the Sun is directly overhead at the Tropic of Cancer, marking the longest day (most hours of daylight) of the year in the second half of June.",
+      "raw_topic": "Physical Geography / Earth Movements",
+      "id": "upsc_2022_gs1_q29",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "physical_geography",
+      "subtopic_id": "physical_geography_earth_movements",
+      "subtopic": "Earth Movements",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Physical Geography question (Physical Geography / Earth Movements).",
+      "validation_status": "verified"
     },
     {
       "number": 30,
-      "topic": "Environment / Ramsar Wetlands",
+      "topic": "Protected Areas",
       "passage_id": null,
       "question": "Consider the following pairs:\nHow many pairs given above are correctly matched?",
       "table": {
@@ -949,11 +1421,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Pair 1 is incorrect: Hokera Wetland is in Jammu and Kashmir, not Punjab. Pair 2 is correct: Renuka Wetland is in Sirmaur district, Himachal Pradesh. Pair 3 is correct: Rudrasagar Lake is in Tripura. Pair 4 is incorrect: Sasthamkotta Lake is in Kollam district, Kerala, not Tamil Nadu. Thus, only two pairs (2 and 3) are correctly matched."
+      "explanation": "Pair 1 is incorrect: Hokera Wetland is in Jammu and Kashmir, not Punjab. Pair 2 is correct: Renuka Wetland is in Sirmaur district, Himachal Pradesh. Pair 3 is correct: Rudrasagar Lake is in Tripura. Pair 4 is incorrect: Sasthamkotta Lake is in Kollam district, Kerala, not Tamil Nadu. Thus, only two pairs (2 and 3) are correctly matched.",
+      "raw_topic": "Environment / Ramsar Wetlands",
+      "id": "upsc_2022_gs1_q30",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "protected_areas",
+      "subtopic_id": "protected_areas_ramsar_wetlands",
+      "subtopic": "Ramsar Wetlands",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Protected Areas (National Parks, Reserves, Ramsar Wetlands) (Environment / Ramsar Wetlands).",
+      "validation_status": "verified"
     },
     {
       "number": 31,
-      "topic": "Science and Technology / Digital Public Infrastructure",
+      "topic": "Information Technology and AI",
       "passage_id": null,
       "question": "Consider the following:\nWhich of the above are built on top of open-source digital platforms?",
       "statements": [
@@ -981,11 +1469,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All four are built using open-source architecture in accordance with the Government of India's Open Source Software Adoption Policy: Aarogya Setu's source code was open-sourced on GitHub; CoWIN is built on open-source microservices; DigiLocker is built using open-source frameworks; and DIKSHA is powered by Sunbird, an open-source digital public good."
+      "explanation": "All four are built using open-source architecture in accordance with the Government of India's Open Source Software Adoption Policy: Aarogya Setu's source code was open-sourced on GitHub; CoWIN is built on open-source microservices; DigiLocker is built using open-source frameworks; and DIKSHA is powered by Sunbird, an open-source digital public good.",
+      "raw_topic": "Science and Technology / Digital Public Infrastructure",
+      "id": "upsc_2022_gs1_q31",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "information_technology_and_ai",
+      "subtopic_id": "information_technology_and_ai_digital_public_infrastructure",
+      "subtopic": "Digital Public Infrastructure",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on IT, AI, Telecom, Blockchain, or Cybersecurity (Science and Technology / Digital Public Infrastructure).",
+      "validation_status": "verified"
     },
     {
       "number": 32,
-      "topic": "Science and Technology / Information Technology",
+      "topic": "Information Technology and AI",
       "passage_id": null,
       "question": "With reference to Web 3.0, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -1012,11 +1516,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All three statements are correct: Web 3.0 represents a decentralized semantic web where decentralized identity allows individuals to control and monetize their own data (1); decentralized applications (dApps) enable peer-to-peer blockchain-based social networks like Lens Protocol and Mastodon (2); and governance is driven by decentralized autonomous organizations (DAOs) and users rather than centralized Big Tech monopolies (3)."
+      "explanation": "All three statements are correct: Web 3.0 represents a decentralized semantic web where decentralized identity allows individuals to control and monetize their own data (1); decentralized applications (dApps) enable peer-to-peer blockchain-based social networks like Lens Protocol and Mastodon (2); and governance is driven by decentralized autonomous organizations (DAOs) and users rather than centralized Big Tech monopolies (3).",
+      "raw_topic": "Science and Technology / Information Technology",
+      "id": "upsc_2022_gs1_q32",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "information_technology_and_ai",
+      "subtopic_id": "information_technology_and_ai_information_technology",
+      "subtopic": "Information Technology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on IT, AI, Telecom, Blockchain, or Cybersecurity (Science and Technology / Information Technology).",
+      "validation_status": "verified"
     },
     {
       "number": 33,
-      "topic": "Science and Technology / Cloud Computing",
+      "topic": "Information Technology and AI",
       "passage_id": null,
       "question": "With reference to \"Software as a Service (SaaS)\", consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -1043,11 +1563,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All three statements are correct: SaaS applications allow tenants to customize user interfaces, dashboards, and custom data fields without altering underlying source code (1); cloud hosting allows users to securely access SaaS applications from any web browser or mobile device (2); and web-based email services (Outlook, Hotmail, Yahoo! Mail, Gmail) are classic examples of SaaS (3)."
+      "explanation": "All three statements are correct: SaaS applications allow tenants to customize user interfaces, dashboards, and custom data fields without altering underlying source code (1); cloud hosting allows users to securely access SaaS applications from any web browser or mobile device (2); and web-based email services (Outlook, Hotmail, Yahoo! Mail, Gmail) are classic examples of SaaS (3).",
+      "raw_topic": "Science and Technology / Cloud Computing",
+      "id": "upsc_2022_gs1_q33",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "information_technology_and_ai",
+      "subtopic_id": "information_technology_and_ai_cloud_computing",
+      "subtopic": "Cloud Computing",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on IT, AI, Telecom, Blockchain, or Cybersecurity (Science and Technology / Cloud Computing).",
+      "validation_status": "verified"
     },
     {
       "number": 34,
-      "topic": "Defence / Space Weaponry",
+      "topic": "Space Technology",
       "passage_id": null,
       "question": "Which one of the following statements best reflects the idea behind the \"Fractional Orbital Bombardment System\" often talked about in media?",
       "options": [
@@ -1069,11 +1605,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "A Fractional Orbital Bombardment System (FOBS) launches a nuclear warhead into low Earth orbit (fractional orbit), allowing it to approach targets from unexpected trajectories (e.g. over the South Pole, evading early-warning radar systems positioned for North Polar ICBMs) before retro-rockets fire to deorbit the weapon over the target."
+      "explanation": "A Fractional Orbital Bombardment System (FOBS) launches a nuclear warhead into low Earth orbit (fractional orbit), allowing it to approach targets from unexpected trajectories (e.g. over the South Pole, evading early-warning radar systems positioned for North Polar ICBMs) before retro-rockets fire to deorbit the weapon over the target.",
+      "raw_topic": "Defence / Space Weaponry",
+      "id": "upsc_2022_gs1_q34",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "space_technology",
+      "subtopic_id": "space_technology_space_weaponry",
+      "subtopic": "Space Weaponry",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Space Technology, Satellites, or Astrophysics (Defence / Space Weaponry).",
+      "validation_status": "verified"
     },
     {
       "number": 35,
-      "topic": "Science and Technology / Quantum Technology",
+      "topic": "Information Technology and AI",
       "passage_id": null,
       "question": "Which one of the following is the context in which the term \"qubit\" is mentioned?",
       "options": [
@@ -1095,11 +1647,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "A 'qubit' (quantum bit) is the basic unit of information in quantum computing, representing 0, 1, or any quantum superposition of both states simultaneously via superposition and entanglement."
+      "explanation": "A 'qubit' (quantum bit) is the basic unit of information in quantum computing, representing 0, 1, or any quantum superposition of both states simultaneously via superposition and entanglement.",
+      "raw_topic": "Science and Technology / Quantum Technology",
+      "id": "upsc_2022_gs1_q35",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "information_technology_and_ai",
+      "subtopic_id": "information_technology_and_ai_quantum_technology",
+      "subtopic": "Quantum Technology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on IT, AI, Telecom, Blockchain, or Cybersecurity (Science and Technology / Quantum Technology).",
+      "validation_status": "verified"
     },
     {
       "number": 36,
-      "topic": "Science and Technology / Telecommunications",
+      "topic": "Information Technology and AI",
       "passage_id": null,
       "question": "Consider the following communication technologies:\nWhich of the above are considered Short-Range devices/technologies?",
       "statements": [
@@ -1126,11 +1694,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "In telecommunications classification, Short-Range Devices (SRDs) or technologies transmit signals over localized distances. RFID works over centimeters to meters; WLAN (Wi-Fi) operates over tens of meters; and CCTV transmits video feeds within a localized, closed perimeter. All three are categorized under short-range systems."
+      "explanation": "In telecommunications classification, Short-Range Devices (SRDs) or technologies transmit signals over localized distances. RFID works over centimeters to meters; WLAN (Wi-Fi) operates over tens of meters; and CCTV transmits video feeds within a localized, closed perimeter. All three are categorized under short-range systems.",
+      "raw_topic": "Science and Technology / Telecommunications",
+      "id": "upsc_2022_gs1_q36",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "information_technology_and_ai",
+      "subtopic_id": "information_technology_and_ai_telecommunications",
+      "subtopic": "Telecommunications",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on IT, AI, Telecom, Blockchain, or Cybersecurity (Science and Technology / Telecommunications).",
+      "validation_status": "verified"
     },
     {
       "number": 37,
-      "topic": "Science and Technology / Microbiology",
+      "topic": "Biology and Human Health",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -1157,11 +1741,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Biofilms are dense surface-associated microbial communities encased in an extracellular matrix. They readily colonize catheters and artificial joint implants (1), form persistent contaminants on food processing equipment (2), and display extreme tolerance/resistance to antibiotics (up to 1,000 times higher than free-floating bacteria) (3)."
+      "explanation": "Biofilms are dense surface-associated microbial communities encased in an extracellular matrix. They readily colonize catheters and artificial joint implants (1), form persistent contaminants on food processing equipment (2), and display extreme tolerance/resistance to antibiotics (up to 1,000 times higher than free-floating bacteria) (3).",
+      "raw_topic": "Science and Technology / Microbiology",
+      "id": "upsc_2022_gs1_q37",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "biology_and_human_health",
+      "subtopic_id": "biology_and_human_health_microbiology",
+      "subtopic": "Microbiology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Biology, Infectious Diseases, Vaccines & Human Health (Science and Technology / Microbiology).",
+      "validation_status": "verified"
     },
     {
       "number": 38,
-      "topic": "Biology / Microbiology & Nutrition",
+      "topic": "Biology and Human Health",
       "passage_id": null,
       "question": "Consider the following statements in respect of probiotics:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1188,11 +1788,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statement 1 is correct: Probiotics include both beneficial bacteria (Lactobacillus, Bifidobacterium) and yeasts (e.g. Saccharomyces boulardii). Statement 2 is incorrect: Many probiotic organisms are indigenous commensals naturally inhabiting the human gastrointestinal tract. Statement 3 is correct: Lactic acid bacteria produce the enzyme lactase (beta-galactosidase), aiding the digestion and breakdown of lactose (milk sugar)."
+      "explanation": "Statement 1 is correct: Probiotics include both beneficial bacteria (Lactobacillus, Bifidobacterium) and yeasts (e.g. Saccharomyces boulardii). Statement 2 is incorrect: Many probiotic organisms are indigenous commensals naturally inhabiting the human gastrointestinal tract. Statement 3 is correct: Lactic acid bacteria produce the enzyme lactase (beta-galactosidase), aiding the digestion and breakdown of lactose (milk sugar).",
+      "raw_topic": "Biology / Microbiology & Nutrition",
+      "id": "upsc_2022_gs1_q38",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "biology_and_human_health",
+      "subtopic_id": "biology_and_human_health_microbiology_nutrition",
+      "subtopic": "Microbiology & Nutrition",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Biology, Infectious Diseases, Vaccines & Human Health (Biology / Microbiology & Nutrition).",
+      "validation_status": "verified"
     },
     {
       "number": 39,
-      "topic": "Science and Technology / Vaccine Platforms",
+      "topic": "Biology and Human Health",
       "passage_id": null,
       "question": "In the context of vaccines manufactured to prevent COVID-19 pandemic, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -1219,11 +1835,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: Covishield (developed by Oxford-AstraZeneca and produced by SII) is a chimpanzee adenovirus viral vector vaccine, not an mRNA vaccine (mRNA vaccines were Pfizer-BioNTech and Moderna). Statement 2 is correct: Sputnik V is an adenoviral vector vaccine utilizing human adenovirus serotypes Ad26 and Ad5. Statement 3 is correct: Bharat Biotech's COVAXIN is a whole-virion inactivated SARS-CoV-2 vaccine."
+      "explanation": "Statement 1 is incorrect: Covishield (developed by Oxford-AstraZeneca and produced by SII) is a chimpanzee adenovirus viral vector vaccine, not an mRNA vaccine (mRNA vaccines were Pfizer-BioNTech and Moderna). Statement 2 is correct: Sputnik V is an adenoviral vector vaccine utilizing human adenovirus serotypes Ad26 and Ad5. Statement 3 is correct: Bharat Biotech's COVAXIN is a whole-virion inactivated SARS-CoV-2 vaccine.",
+      "raw_topic": "Science and Technology / Vaccine Platforms",
+      "id": "upsc_2022_gs1_q39",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "biology_and_human_health",
+      "subtopic_id": "biology_and_human_health_vaccine_platforms",
+      "subtopic": "Vaccine Platforms",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Biology, Infectious Diseases, Vaccines & Human Health (Science and Technology / Vaccine Platforms).",
+      "validation_status": "verified"
     },
     {
       "number": 40,
-      "topic": "Space Science / Solar Physics",
+      "topic": "Space Technology",
       "passage_id": null,
       "question": "If a major solar storm (solar flare) reaches the Earth, which of the following are the possible effects on the Earth?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -1254,11 +1886,29 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "A coronal mass ejection/geomagnetic storm disrupts high-frequency radio and ionospheric signals (affecting GPS and aircraft communications: 1 and 7), induces geomagnetically induced currents (damaging electrical power grids: 3), generates widespread brilliant auroras extending to mid-latitudes (4), and heats/expands the upper atmosphere, causing atmospheric drag that alters satellite orbits (6). Solar storms cannot trigger geological earthquakes/tsunamis (2 is wrong) nor directly spark planetary forest fires (5 is wrong)."
+      "explanation": "A coronal mass ejection/geomagnetic storm disrupts high-frequency radio and ionospheric signals (affecting GPS and aircraft communications: 1 and 7), induces geomagnetically induced currents (damaging electrical power grids: 3), generates widespread brilliant auroras extending to mid-latitudes (4), and heats/expands the upper atmosphere, causing atmospheric drag that alters satellite orbits (6). Solar storms cannot trigger geological earthquakes/tsunamis (2 is wrong) nor directly spark planetary forest fires (5 is wrong).",
+      "raw_topic": "Space Science / Solar Physics",
+      "id": "upsc_2022_gs1_q40",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "space_technology",
+      "subtopic_id": "space_technology_solar_physics",
+      "subtopic": "Solar Physics",
+      "secondary_tags": [
+        "Geography"
+      ],
+      "classification_confidence": 0.88,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Science & Tech question on Space Technology, Satellites, or Astrophysics (Space Science / Solar Physics).",
+      "validation_status": "verified_cross_tagged"
     },
     {
       "number": 41,
-      "topic": "Environment / Climate Tracking",
+      "topic": "International Environmental Conventions",
       "passage_id": null,
       "question": "\"Climate Action Tracker\" which monitors the emission reduction pledges of different countries is a :",
       "options": [
@@ -1280,11 +1930,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The Climate Action Tracker (CAT) is an independent scientific tracking project created and maintained by a consortium of research organizations (Climate Analytics and the NewClimate Institute) tracking government climate action against the Paris Agreement temperature goals."
+      "explanation": "The Climate Action Tracker (CAT) is an independent scientific tracking project created and maintained by a consortium of research organizations (Climate Analytics and the NewClimate Institute) tracking government climate action against the Paris Agreement temperature goals.",
+      "raw_topic": "Environment / Climate Tracking",
+      "id": "upsc_2022_gs1_q41",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "international_environmental_conventions",
+      "subtopic_id": "international_environmental_conventions_climate_tracking",
+      "subtopic": "Climate Tracking",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on International Environmental Conventions & Global Initiatives (Environment / Climate Tracking).",
+      "validation_status": "verified"
     },
     {
       "number": 42,
-      "topic": "Environment / International Climate Initiatives",
+      "topic": "International Environmental Conventions",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -1313,11 +1979,29 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statements 1, 3, and 4 are correct: The Climate Group is an international NGO driving climate leadership initiatives (1); EP100 is led by the Climate Group in partnership with the Alliance to Save Energy (not IEA, so 2 is incorrect), encouraging global corporations to commit to doubling energy productivity (3); Indian companies like Mahindra & Mahindra, Dalmia Cement, and UltraTech are active members of EP100 (4); and the Climate Group (not the IEA) serves as the Secretariat to the Under2 Coalition (so 5 is incorrect)."
+      "explanation": "Statements 1, 3, and 4 are correct: The Climate Group is an international NGO driving climate leadership initiatives (1); EP100 is led by the Climate Group in partnership with the Alliance to Save Energy (not IEA, so 2 is incorrect), encouraging global corporations to commit to doubling energy productivity (3); Indian companies like Mahindra & Mahindra, Dalmia Cement, and UltraTech are active members of EP100 (4); and the Climate Group (not the IEA) serves as the Secretariat to the Under2 Coalition (so 5 is incorrect).",
+      "raw_topic": "Environment / International Climate Initiatives",
+      "id": "upsc_2022_gs1_q42",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "international_environmental_conventions",
+      "subtopic_id": "international_environmental_conventions_international_climate_initiatives",
+      "subtopic": "International Climate Initiatives",
+      "secondary_tags": [
+        "International Relations"
+      ],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on International Environmental Conventions & Global Initiatives (Environment / International Climate Initiatives).",
+      "validation_status": "verified"
     },
     {
       "number": 43,
-      "topic": "Environment / Wetland Ecology",
+      "topic": "Ecosystems",
       "passage_id": null,
       "question": "\"If rainforests and tropical forests are the lungs of the Earth, then surely wetlands function as its kidneys.\" Which one of the following functions of wetlands best reflects the above statement?",
       "options": [
@@ -1339,11 +2023,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "The metaphorical designation of wetlands as the 'kidneys of the Earth' originates from their bio-filtration and water purification functions: wetland plants and microbes trap sediments, break down pollutants, and absorb heavy metals and excess nutrients (nitrates and phosphates), filtering water naturally."
+      "explanation": "The metaphorical designation of wetlands as the 'kidneys of the Earth' originates from their bio-filtration and water purification functions: wetland plants and microbes trap sediments, break down pollutants, and absorb heavy metals and excess nutrients (nitrates and phosphates), filtering water naturally.",
+      "raw_topic": "Environment / Wetland Ecology",
+      "id": "upsc_2022_gs1_q43",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "ecosystems",
+      "subtopic_id": "ecosystems_wetland_ecology",
+      "subtopic": "Wetland Ecology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Ecosystems, Trophic Dynamics & Adaptations (Environment / Wetland Ecology).",
+      "validation_status": "verified"
     },
     {
       "number": 44,
-      "topic": "Environment / Air Quality Standards",
+      "topic": "Pollution",
       "passage_id": null,
       "question": "In the context of WHO Air Quality Guidelines, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -1371,11 +2071,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is correct: Under the updated 2021 WHO Global Air Quality Guidelines, the recommended annual limit for PM2.5 is 5 μg/m³ and the 24-hour mean is 15 μg/m³. Statement 2 is incorrect: Ground-level tropospheric ozone is a photochemical oxidant formed by reactions between NOx and VOCs in the presence of strong, hot sunlight, peaking during hot, clear sunny days, not inclement weather. Statement 3 is incorrect: PM2.5 (fine particles) can penetrate deep into lung alveoli and enter the bloodstream; coarse PM10 is predominantly trapped in the upper respiratory tract. Statement 4 is correct: Ground-level ozone is a powerful respiratory irritant that triggers bronchoconstriction and asthma attacks."
+      "explanation": "Statement 1 is correct: Under the updated 2021 WHO Global Air Quality Guidelines, the recommended annual limit for PM2.5 is 5 μg/m³ and the 24-hour mean is 15 μg/m³. Statement 2 is incorrect: Ground-level tropospheric ozone is a photochemical oxidant formed by reactions between NOx and VOCs in the presence of strong, hot sunlight, peaking during hot, clear sunny days, not inclement weather. Statement 3 is incorrect: PM2.5 (fine particles) can penetrate deep into lung alveoli and enter the bloodstream; coarse PM10 is predominantly trapped in the upper respiratory tract. Statement 4 is correct: Ground-level ozone is a powerful respiratory irritant that triggers bronchoconstriction and asthma attacks.",
+      "raw_topic": "Environment / Air Quality Standards",
+      "id": "upsc_2022_gs1_q44",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "pollution",
+      "subtopic_id": "pollution_air_quality_standards",
+      "subtopic": "Air Quality Standards",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Pollution, Waste Management, or Bioremediation (Environment / Air Quality Standards).",
+      "validation_status": "verified"
     },
     {
       "number": 45,
-      "topic": "Environment / Flora & Fungi",
+      "topic": "Biodiversity",
       "passage_id": null,
       "question": "With reference to \"Gucchi\" sometimes mentioned in the news, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1402,11 +2118,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statements 1 and 2 are correct: Gucchi (Morchella esculenta / morel) is a prized edible wild ascomycete fungus that grows naturally in temperate conifer forests of Jammu and Kashmir and Himachal Pradesh. Statement 3 is incorrect: Gucchi cannot be easily cultivated commercially and is wild-foraged by local forest communities."
+      "explanation": "Statements 1 and 2 are correct: Gucchi (Morchella esculenta / morel) is a prized edible wild ascomycete fungus that grows naturally in temperate conifer forests of Jammu and Kashmir and Himachal Pradesh. Statement 3 is incorrect: Gucchi cannot be easily cultivated commercially and is wild-foraged by local forest communities.",
+      "raw_topic": "Environment / Flora & Fungi",
+      "id": "upsc_2022_gs1_q45",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "biodiversity",
+      "subtopic_id": "biodiversity_flora_fungi",
+      "subtopic": "Flora & Fungi",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Biodiversity, Invasive Species & Flora (Environment / Flora & Fungi).",
+      "validation_status": "verified"
     },
     {
       "number": 46,
-      "topic": "Science and Technology / Polymers",
+      "topic": "Chemistry in Everyday Life",
       "passage_id": null,
       "question": "With reference to polyethylene terephthalate, the use of which is so widespread in our daily lives, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -1434,11 +2166,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statements 1 and 3 are correct: PET fibres (polyester) are widely blended with cotton and wool to improve wrinkle resistance and tensile strength (1); and PET bottles are readily recycled (rPET) into fleece jackets, carpets, and new packaging (3). Statement 2 is incorrect: High-proof alcoholic beverages can leach phthalate compounds, so PET is not used for storing all types of alcoholic beverages. Statement 4 is incorrect: Incinerating PET (a hydrocarbon polymer) produces carbon dioxide and toxic greenhouse gases."
+      "explanation": "Statements 1 and 3 are correct: PET fibres (polyester) are widely blended with cotton and wool to improve wrinkle resistance and tensile strength (1); and PET bottles are readily recycled (rPET) into fleece jackets, carpets, and new packaging (3). Statement 2 is incorrect: High-proof alcoholic beverages can leach phthalate compounds, so PET is not used for storing all types of alcoholic beverages. Statement 4 is incorrect: Incinerating PET (a hydrocarbon polymer) produces carbon dioxide and toxic greenhouse gases.",
+      "raw_topic": "Science and Technology / Polymers",
+      "id": "upsc_2022_gs1_q46",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "chemistry_in_everyday_life",
+      "subtopic_id": "chemistry_in_everyday_life_polymers",
+      "subtopic": "Polymers",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Chemistry in Everyday Life (Science and Technology / Polymers).",
+      "validation_status": "verified"
     },
     {
       "number": 47,
-      "topic": "Environment / Wildlife Fauna",
+      "topic": "Species and Conservation",
       "passage_id": null,
       "question": "Which of the following is not a bird?",
       "options": [
@@ -1460,11 +2208,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Golden Mahseer (Tor putitora) is a freshwater carp/fish species native to fast-flowing rivers of the Himalayan foothills. Indian Nightjar, Spoonbill, and White Ibis are all avian (bird) species."
+      "explanation": "Golden Mahseer (Tor putitora) is a freshwater carp/fish species native to fast-flowing rivers of the Himalayan foothills. Indian Nightjar, Spoonbill, and White Ibis are all avian (bird) species.",
+      "raw_topic": "Environment / Wildlife Fauna",
+      "id": "upsc_2022_gs1_q47",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "species_and_conservation",
+      "subtopic_id": "species_and_conservation_wildlife_fauna",
+      "subtopic": "Wildlife Fauna",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Wildlife Species, Animal Behaviour & Conservation (Environment / Wildlife Fauna).",
+      "validation_status": "verified"
     },
     {
       "number": 48,
-      "topic": "Agriculture / Nitrogen Fixation",
+      "topic": "Agriculture and Food Management",
       "passage_id": null,
       "question": "Which of the following are nitrogen-fixing plants?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -1494,11 +2258,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Leguminous plants of the family Fabaceae host symbiotic rhizobia bacteria in root nodules that fix atmospheric nitrogen: Alfalfa (Medicago sativa), Chickpea (Cicer arietinum), and Clover (Trifolium spp.) are true nitrogen-fixing plants. Amaranth, Purslane, and Spinach are non-leguminous plants and do not fix nitrogen."
+      "explanation": "Leguminous plants of the family Fabaceae host symbiotic rhizobia bacteria in root nodules that fix atmospheric nitrogen: Alfalfa (Medicago sativa), Chickpea (Cicer arietinum), and Clover (Trifolium spp.) are true nitrogen-fixing plants. Amaranth, Purslane, and Spinach are non-leguminous plants and do not fix nitrogen.",
+      "raw_topic": "Agriculture / Nitrogen Fixation",
+      "id": "upsc_2022_gs1_q48",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "agriculture_and_food_management",
+      "subtopic_id": "agriculture_and_food_management_nitrogen_fixation",
+      "subtopic": "Nitrogen Fixation",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy & Agriculture question on cropping systems, MSP, PDS, or agri-inputs (Agriculture / Nitrogen Fixation).",
+      "validation_status": "verified"
     },
     {
       "number": 49,
-      "topic": "Environment / Marine Conservation",
+      "topic": "Species and Conservation",
       "passage_id": null,
       "question": "\"Biorock technology\" is talked about in which one of the following situations?",
       "options": [
@@ -1520,11 +2300,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Biorock technology (mineral accretion technology) passes safe, low-voltage direct current through submerged steel structures to precipitate calcium carbonate and magnesium hydroxide minerals out of seawater, creating limestone substrates that accelerate coral reef growth and restoration by 3-5 times."
+      "explanation": "Biorock technology (mineral accretion technology) passes safe, low-voltage direct current through submerged steel structures to precipitate calcium carbonate and magnesium hydroxide minerals out of seawater, creating limestone substrates that accelerate coral reef growth and restoration by 3-5 times.",
+      "raw_topic": "Environment / Marine Conservation",
+      "id": "upsc_2022_gs1_q49",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "species_and_conservation",
+      "subtopic_id": "species_and_conservation_marine_conservation",
+      "subtopic": "Marine Conservation",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Wildlife Species, Animal Behaviour & Conservation (Environment / Marine Conservation).",
+      "validation_status": "verified"
     },
     {
       "number": 50,
-      "topic": "Environment / Afforestation Techniques",
+      "topic": "Sustainable Development",
       "passage_id": null,
       "question": "The \"Miyawaki method\" is well known for the:",
       "options": [
@@ -1546,11 +2342,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Pioneered by Japanese botanist Akira Miyawaki, the Miyawaki method involves planting diverse native species densely close together, resulting in fast-growing, self-sustaining mini-forests that grow 10 times faster and 30 times denser, ideal for urban afforestation."
+      "explanation": "Pioneered by Japanese botanist Akira Miyawaki, the Miyawaki method involves planting diverse native species densely close together, resulting in fast-growing, self-sustaining mini-forests that grow 10 times faster and 30 times denser, ideal for urban afforestation.",
+      "raw_topic": "Environment / Afforestation Techniques",
+      "id": "upsc_2022_gs1_q50",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "sustainable_development",
+      "subtopic_id": "sustainable_development_afforestation_techniques",
+      "subtopic": "Afforestation Techniques",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Sustainable Development & Green Practices (Environment / Afforestation Techniques).",
+      "validation_status": "verified"
     },
     {
       "number": 51,
-      "topic": "Modern Indian History / Dyarchy",
+      "topic": "Modern Indian History",
       "passage_id": null,
       "question": "In the Government of India Act 1919, the functions of Provincial Government were divided into \"Reserved\" and \"Transferred\" subjects. Which of the following were treated as \"Reserved\" subjects?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -1578,11 +2390,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Under the Montagu-Chelmsford Reforms (Government of India Act 1919), provincial dyarchy divided subjects into: 'Reserved Subjects' administered directly by the Governor and his Executive Council (Administration of Justice, Land Revenue, Police, Irrigation, Finance) and 'Transferred Subjects' administered by Indian ministers responsible to the legislative council (Local Self-Government, Education, Public Health, Agriculture)."
+      "explanation": "Under the Montagu-Chelmsford Reforms (Government of India Act 1919), provincial dyarchy divided subjects into: 'Reserved Subjects' administered directly by the Governor and his Executive Council (Administration of Justice, Land Revenue, Police, Irrigation, Finance) and 'Transferred Subjects' administered by Indian ministers responsible to the legislative council (Local Self-Government, Education, Public Health, Agriculture).",
+      "raw_topic": "Modern Indian History / Dyarchy",
+      "id": "upsc_2022_gs1_q51",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "modern_indian_history",
+      "subtopic_id": "modern_indian_history_dyarchy",
+      "subtopic": "Dyarchy",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Modern Indian History question on colonial policies, reforms, uprisings, or acts (Modern Indian History / Dyarchy).",
+      "validation_status": "verified"
     },
     {
       "number": 52,
-      "topic": "Medieval Indian History / Numismatics",
+      "topic": "Medieval Indian History",
       "passage_id": null,
       "question": "In medieval India, the term \"Fanam\" referred to:",
       "options": [
@@ -1604,11 +2432,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "In medieval South India, 'Fanam' (derived from Sanskrit 'panam' / Tamil 'panam') was a standard small gold (or silver) coin issued by Vijayanagara rulers, Nayakas, and regional dynasties."
+      "explanation": "In medieval South India, 'Fanam' (derived from Sanskrit 'panam' / Tamil 'panam') was a standard small gold (or silver) coin issued by Vijayanagara rulers, Nayakas, and regional dynasties.",
+      "raw_topic": "Medieval Indian History / Numismatics",
+      "id": "upsc_2022_gs1_q52",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "medieval_indian_history",
+      "subtopic_id": "medieval_indian_history_numismatics",
+      "subtopic": "Numismatics",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Medieval Indian History question (Medieval Indian History / Numismatics).",
+      "validation_status": "verified"
     },
     {
       "number": 53,
-      "topic": "Modern Indian History / Revolutionary Movement",
+      "topic": "Indian National Movement",
       "passage_id": null,
       "question": "Consider the following freedom fighters:\nWho of the above was/were actively associated with the Ghadar Party?",
       "statements": [
@@ -1635,11 +2479,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Rash Behari Bose was the key revolutionary leader who coordinated the Pan-India Ghadar Mutiny of February 1915 between Ghadar activists in North America, Punjab rebels, and army cantonments. Barindra Kumar Ghosh was associated with the Jugantar/Anushilan Samiti in Bengal, and Jogesh Chandra Chatterjee was a founder of the Hindustan Republican Association (HRA)."
+      "explanation": "Rash Behari Bose was the key revolutionary leader who coordinated the Pan-India Ghadar Mutiny of February 1915 between Ghadar activists in North America, Punjab rebels, and army cantonments. Barindra Kumar Ghosh was associated with the Jugantar/Anushilan Samiti in Bengal, and Jogesh Chandra Chatterjee was a founder of the Hindustan Republican Association (HRA).",
+      "raw_topic": "Modern Indian History / Revolutionary Movement",
+      "id": "upsc_2022_gs1_q53",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "indian_national_movement",
+      "subtopic_id": "indian_national_movement_revolutionary_movement",
+      "subtopic": "Revolutionary Movement",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Modern History question on the Indian National Movement (Modern Indian History / Revolutionary Movement).",
+      "validation_status": "verified"
     },
     {
       "number": 54,
-      "topic": "Modern Indian History / Constitutional Missions",
+      "topic": "Indian National Movement",
       "passage_id": null,
       "question": "With reference to the proposals of Cripps Mission, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1665,11 +2525,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: The Cripps proposals stipulated that members from British Indian provinces in the Constituent Assembly would be ELECTED by the proportional representation system by the lower houses of provincial assemblies, while representatives of Princely States would be nominated by their rulers. Statement 2 is correct: The proposal granted any province unwilling to accept the new constitution the right to retain its constitutional position or draft its own constitution and sign a separate treaty with Britain."
+      "explanation": "Statement 1 is incorrect: The Cripps proposals stipulated that members from British Indian provinces in the Constituent Assembly would be ELECTED by the proportional representation system by the lower houses of provincial assemblies, while representatives of Princely States would be nominated by their rulers. Statement 2 is correct: The proposal granted any province unwilling to accept the new constitution the right to retain its constitutional position or draft its own constitution and sign a separate treaty with Britain.",
+      "raw_topic": "Modern Indian History / Constitutional Missions",
+      "id": "upsc_2022_gs1_q54",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "indian_national_movement",
+      "subtopic_id": "indian_national_movement_constitutional_missions",
+      "subtopic": "Constitutional Missions",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Modern History question on the Indian National Movement (Modern Indian History / Constitutional Missions).",
+      "validation_status": "verified"
     },
     {
       "number": 55,
-      "topic": "Ancient Indian Literature / Jainism & Buddhism",
+      "topic": "Literature, Music and Dance",
       "passage_id": null,
       "question": "With reference to Indian history, consider the following texts:\nWhich of the above are Jaina texts?",
       "statements": [
@@ -1697,11 +2573,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Parishishtaparvan (written by Jain polymath Hemachandra) and Trishashtilakshana Mahapurana (authored by Jain Digambara acharyas Jinasena and Gunabhadra) are celebrated Jain texts (2 and 4). Nettipakarana (a Pali Theravada exegetical treatise) and Avadanashataka (a Sanskrit anthology of one hundred Buddhist tales) are Buddhist texts (1 and 3)."
+      "explanation": "Parishishtaparvan (written by Jain polymath Hemachandra) and Trishashtilakshana Mahapurana (authored by Jain Digambara acharyas Jinasena and Gunabhadra) are celebrated Jain texts (2 and 4). Nettipakarana (a Pali Theravada exegetical treatise) and Avadanashataka (a Sanskrit anthology of one hundred Buddhist tales) are Buddhist texts (1 and 3).",
+      "raw_topic": "Ancient Indian Literature / Jainism & Buddhism",
+      "id": "upsc_2022_gs1_q55",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "literature_music_dance",
+      "subtopic_id": "literature_music_dance_jainism_buddhism",
+      "subtopic": "Jainism & Buddhism",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 History & Culture question on Literature, Music or Dance (Ancient Indian Literature / Jainism & Buddhism).",
+      "validation_status": "verified"
     },
     {
       "number": 56,
-      "topic": "Ancient Indian History / Scholars",
+      "topic": "Medieval Indian History",
       "passage_id": null,
       "question": "With reference to Indian history, consider the following pairs:\nHow many pairs given above are correctly matched?",
       "table": {
@@ -1747,11 +2639,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Pair 1 is incorrect: Aryadeva was a celebrated Mahayana Buddhist philosopher and the foremost disciple of Nagarjuna (Madhyamaka school), not a Jain scholar. Pair 2 is correct: Dignaga was the founding father of Buddhist logic and epistemology (pramana). Pair 3 is correct: Nathamuni was the revered early Vaishnava acharya who compiled the 4,000 verses of the Nalayira Divya Prabandham. Thus, only two pairs (2 and 3) are correctly matched."
+      "explanation": "Pair 1 is incorrect: Aryadeva was a celebrated Mahayana Buddhist philosopher and the foremost disciple of Nagarjuna (Madhyamaka school), not a Jain scholar. Pair 2 is correct: Dignaga was the founding father of Buddhist logic and epistemology (pramana). Pair 3 is correct: Nathamuni was the revered early Vaishnava acharya who compiled the 4,000 verses of the Nalayira Divya Prabandham. Thus, only two pairs (2 and 3) are correctly matched.",
+      "raw_topic": "Ancient Indian History / Scholars",
+      "id": "upsc_2022_gs1_q56",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "medieval_indian_history",
+      "subtopic_id": "medieval_indian_history_scholars",
+      "subtopic": "Scholars",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Medieval Indian History question (Ancient Indian History / Scholars).",
+      "validation_status": "verified"
     },
     {
       "number": 57,
-      "topic": "Medieval Indian History / Delhi Sultanate",
+      "topic": "Medieval Indian History",
       "passage_id": null,
       "question": "With reference to Indian history, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1778,11 +2686,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: The first major Mongol incursions into India occurred during the reign of Shams-ud-din Iltutmish in 1221 (under Genghis Khan pursuing Jalal-ud-din Mangabarni). Statement 2 is correct: In 1303, a massive Mongol army led by Taraghai marched up to Delhi and besieged the city while Alauddin Khalji took refuge in the Siri Fort. Statement 3 is incorrect: Under Muhammad bin Tughlaq, the Mongol invasion led by Tarmashirin was repulsed, and the Sultan did not lose north-western territories to the Mongols."
+      "explanation": "Statement 1 is incorrect: The first major Mongol incursions into India occurred during the reign of Shams-ud-din Iltutmish in 1221 (under Genghis Khan pursuing Jalal-ud-din Mangabarni). Statement 2 is correct: In 1303, a massive Mongol army led by Taraghai marched up to Delhi and besieged the city while Alauddin Khalji took refuge in the Siri Fort. Statement 3 is incorrect: Under Muhammad bin Tughlaq, the Mongol invasion led by Tarmashirin was repulsed, and the Sultan did not lose north-western territories to the Mongols.",
+      "raw_topic": "Medieval Indian History / Delhi Sultanate",
+      "id": "upsc_2022_gs1_q57",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "medieval_indian_history",
+      "subtopic_id": "medieval_indian_history_delhi_sultanate",
+      "subtopic": "Delhi Sultanate",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Medieval Indian History question (Medieval Indian History / Delhi Sultanate).",
+      "validation_status": "verified"
     },
     {
       "number": 58,
-      "topic": "Medieval Indian History / Social Classes",
+      "topic": "Medieval Indian History",
       "passage_id": null,
       "question": "With reference to Indian history, who of the following were known as \"Kulah-Daran\"?",
       "options": [
@@ -1804,11 +2728,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "In the Delhi Sultanate, the Sayyids (revered descendants of Prophet Muhammad) wore a distinctive pointed cap known as a 'kulah' and were therefore known as 'Kulah-Daran'."
+      "explanation": "In the Delhi Sultanate, the Sayyids (revered descendants of Prophet Muhammad) wore a distinctive pointed cap known as a 'kulah' and were therefore known as 'Kulah-Daran'.",
+      "raw_topic": "Medieval Indian History / Social Classes",
+      "id": "upsc_2022_gs1_q58",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "medieval_indian_history",
+      "subtopic_id": "medieval_indian_history_social_classes",
+      "subtopic": "Social Classes",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Medieval Indian History question (Medieval Indian History / Social Classes).",
+      "validation_status": "verified"
     },
     {
       "number": 59,
-      "topic": "Modern Indian History / European Trading Companies",
+      "topic": "Architecture, Sculpture and Painting",
       "passage_id": null,
       "question": "With reference to Indian history, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -1835,11 +2775,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: The Gajapati dynasty of Odisha collapsed by the mid-16th century, long before the Dutch established their factories on the Coromandel coast (Pulicat, 1610) with grants from the Golconda Sultanate and Vijayanagara Nayakas. Statement 2 is correct: Alfonso de Albuquerque captured Goa in 1510 from Ismail Adil Shah of the Bijapur Sultanate. Statement 3 is correct: Francis Day obtained a lease of land in Madras in 1639 from Damarla Venkatadri Nayaka, a feudatory representative of the Aravidu Vijayanagara ruler Peda Venkata Raya."
+      "explanation": "Statement 1 is incorrect: The Gajapati dynasty of Odisha collapsed by the mid-16th century, long before the Dutch established their factories on the Coromandel coast (Pulicat, 1610) with grants from the Golconda Sultanate and Vijayanagara Nayakas. Statement 2 is correct: Alfonso de Albuquerque captured Goa in 1510 from Ismail Adil Shah of the Bijapur Sultanate. Statement 3 is correct: Francis Day obtained a lease of land in Madras in 1639 from Damarla Venkatadri Nayaka, a feudatory representative of the Aravidu Vijayanagara ruler Peda Venkata Raya.",
+      "raw_topic": "Modern Indian History / European Trading Companies",
+      "id": "upsc_2022_gs1_q59",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "architecture_sculpture_painting",
+      "subtopic_id": "architecture_sculpture_painting_european_trading_companies",
+      "subtopic": "European Trading Companies",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 History & Culture question focusing on Architecture, Sculpture or Painting (Modern Indian History / European Trading Companies).",
+      "validation_status": "verified"
     },
     {
       "number": 60,
-      "topic": "Ancient Indian History / Arthashastra",
+      "topic": "Ancient Indian History",
       "passage_id": null,
       "question": "According to Kautilya's Arthashastra, which of the following are correct?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -1866,11 +2822,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All three statements are explicitly outlined in Book III, Chapter 13 ('Rules regarding Slaves and Laborers') of Kautilya's Arthashastra: Judicial penalties could enslave a person for failure to pay fines (dandapranita) (1); a female slave who bore a child to her master gained her freedom (2); and the child was recognized as legitimate and entitled to inherit the master's legal status (3)."
+      "explanation": "All three statements are explicitly outlined in Book III, Chapter 13 ('Rules regarding Slaves and Laborers') of Kautilya's Arthashastra: Judicial penalties could enslave a person for failure to pay fines (dandapranita) (1); a female slave who bore a child to her master gained her freedom (2); and the child was recognized as legitimate and entitled to inherit the master's legal status (3).",
+      "raw_topic": "Ancient Indian History / Arthashastra",
+      "id": "upsc_2022_gs1_q60",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "ancient_indian_history",
+      "subtopic_id": "ancient_indian_history_arthashastra",
+      "subtopic": "Arthashastra",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Ancient Indian History question (Ancient Indian History / Arthashastra).",
+      "validation_status": "verified"
     },
     {
       "number": 61,
-      "topic": "Economy / External Commercial Borrowings & Monetary Policy",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -1897,11 +2869,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statements 1 and 2 are correct: Higher interest rates in the US prompt global institutional capital to exit emerging markets (capital flight) (1), which tightens liquidity, weakens the domestic currency, and raises refinancing and interest costs on floating-rate ECBs (2). Statement 3 is incorrect: Devaluation/depreciation of the domestic currency increases (rather than decreases) currency risk because more rupees must be paid to service unhedged foreign currency debt."
+      "explanation": "Statements 1 and 2 are correct: Higher interest rates in the US prompt global institutional capital to exit emerging markets (capital flight) (1), which tightens liquidity, weakens the domestic currency, and raises refinancing and interest costs on floating-rate ECBs (2). Statement 3 is incorrect: Devaluation/depreciation of the domestic currency increases (rather than decreases) currency risk because more rupees must be paid to service unhedged foreign currency debt.",
+      "raw_topic": "Economy / External Commercial Borrowings & Monetary Policy",
+      "id": "upsc_2022_gs1_q61",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_external_commercial_borrowings_monetary_policy",
+      "subtopic": "External Commercial Borrowings & Monetary Policy",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Economy / External Commercial Borrowings & Monetary Policy).",
+      "validation_status": "verified"
     },
     {
       "number": 62,
-      "topic": "Indian Geography / Agriculture",
+      "topic": "Indian Geography",
       "passage_id": null,
       "question": "Consider the following States:\nHow many of the above are generally known as tea-producing States?",
       "statements": [
@@ -1929,11 +2917,29 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Kerala (Wayanad, Idukki/Munnar), Himachal Pradesh (Kangra Valley), and Tripura (North/Unakoti districts) are well-recognized tea-producing states registered with the Tea Board of India. Andhra Pradesh is not recognized as a commercial tea-producing state. Thus, only three states are tea-producing states."
+      "explanation": "Kerala (Wayanad, Idukki/Munnar), Himachal Pradesh (Kangra Valley), and Tripura (North/Unakoti districts) are well-recognized tea-producing states registered with the Tea Board of India. Andhra Pradesh is not recognized as a commercial tea-producing state. Thus, only three states are tea-producing states.",
+      "raw_topic": "Indian Geography / Agriculture",
+      "id": "upsc_2022_gs1_q62",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "indian_geography",
+      "subtopic_id": "indian_geography_agriculture",
+      "subtopic": "Agriculture",
+      "secondary_tags": [
+        "Agriculture"
+      ],
+      "classification_confidence": 0.87,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Indian Geography question on Indian physiography, rivers, or lakes (Indian Geography / Agriculture).",
+      "validation_status": "verified"
     },
     {
       "number": 63,
-      "topic": "Economy / Credit Rating Agencies",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -1960,11 +2966,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: Credit Rating Agencies (CRAs) in India are regulated by the Securities and Exchange Board of India (SEBI) under the SEBI (Credit Rating Agencies) Regulations, 1999, not by the RBI. Statements 2 and 3 are correct: ICRA Limited is a publicly traded corporation listed on the BSE and NSE, and Brickwork Ratings is a recognized Indian credit rating agency."
+      "explanation": "Statement 1 is incorrect: Credit Rating Agencies (CRAs) in India are regulated by the Securities and Exchange Board of India (SEBI) under the SEBI (Credit Rating Agencies) Regulations, 1999, not by the RBI. Statements 2 and 3 are correct: ICRA Limited is a publicly traded corporation listed on the BSE and NSE, and Brickwork Ratings is a recognized Indian credit rating agency.",
+      "raw_topic": "Economy / Credit Rating Agencies",
+      "id": "upsc_2022_gs1_q63",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_credit_rating_agencies",
+      "subtopic": "Credit Rating Agencies",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Economy / Credit Rating Agencies).",
+      "validation_status": "verified"
     },
     {
       "number": 64,
-      "topic": "Indian Economy / Banking Governance",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "With reference to the 'Banks Board Bureau (BBB)', which of the following statements are correct?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -1991,11 +3013,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: The Chairman of the Banks Board Bureau (now Financial Services Institutions Bureau - FSIB) is an eminent professional or former bureaucrat/banker appointed by the Central Government, not the Governor of the RBI. Statements 2 and 3 are correct: The BBB was established under the Indradhanush framework to recommend appointments of whole-time directors and heads of Public Sector Banks and to assist them in developing strategies and capital-raising plans."
+      "explanation": "Statement 1 is incorrect: The Chairman of the Banks Board Bureau (now Financial Services Institutions Bureau - FSIB) is an eminent professional or former bureaucrat/banker appointed by the Central Government, not the Governor of the RBI. Statements 2 and 3 are correct: The BBB was established under the Indradhanush framework to recommend appointments of whole-time directors and heads of Public Sector Banks and to assist them in developing strategies and capital-raising plans.",
+      "raw_topic": "Indian Economy / Banking Governance",
+      "id": "upsc_2022_gs1_q64",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_banking_governance",
+      "subtopic": "Banking Governance",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Indian Economy / Banking Governance).",
+      "validation_status": "verified"
     },
     {
       "number": 65,
-      "topic": "Economy / Hybrid Financial Instruments",
+      "topic": "Money and Financial Markets",
       "passage_id": null,
       "question": "With reference to Convertible Bonds, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2021,11 +3059,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Both statements are correct: 1. Because investors receive the valuable embedded call option to convert debt into equity shares, issuers can offer convertible bonds at a lower coupon (interest rate) than comparable non-convertible debt. 2. Since equity prices appreciate alongside corporate revenues and inflation, holding an option to convert to equity provides investors with a hedge and a degree of indexation against inflation."
+      "explanation": "Both statements are correct: 1. Because investors receive the valuable embedded call option to convert debt into equity shares, issuers can offer convertible bonds at a lower coupon (interest rate) than comparable non-convertible debt. 2. Since equity prices appreciate alongside corporate revenues and inflation, holding an option to convert to equity provides investors with a hedge and a degree of indexation against inflation.",
+      "raw_topic": "Economy / Hybrid Financial Instruments",
+      "id": "upsc_2022_gs1_q65",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "money_and_financial_markets",
+      "subtopic_id": "money_and_financial_markets_hybrid_financial_instruments",
+      "subtopic": "Hybrid Financial Instruments",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Money and Financial Markets (Economy / Hybrid Financial Instruments).",
+      "validation_status": "verified"
     },
     {
       "number": 66,
-      "topic": "International Organizations / Indian Membership",
+      "topic": "International Organisations",
       "passage_id": null,
       "question": "Consider the following:\nIndia is a member of which of the above?",
       "statements": [
@@ -2052,11 +3106,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "India is a member of all three: 1. India is a founding member and second-largest shareholder in the AIIB. 2. India joined the MTCR as its 35th member in June 2016. 3. India became a full member of the Shanghai Cooperation Organisation (SCO) at the Astana Summit in 2017."
+      "explanation": "India is a member of all three: 1. India is a founding member and second-largest shareholder in the AIIB. 2. India joined the MTCR as its 35th member in June 2016. 3. India became a full member of the Shanghai Cooperation Organisation (SCO) at the Astana Summit in 2017.",
+      "raw_topic": "International Organizations / Indian Membership",
+      "id": "upsc_2022_gs1_q66",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "international_organisations",
+      "subtopic_id": "international_organisations_indian_membership",
+      "subtopic": "Indian Membership",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs & IR question on International Organisations and Multilateral Groupings (International Organizations / Indian Membership).",
+      "validation_status": "verified"
     },
     {
       "number": 67,
-      "topic": "World Geography & International Economics / Vietnam",
+      "topic": "World Geography",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -2085,11 +3155,29 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statements 1, 3, and 4 are correct: Vietnam has maintained one of the world's highest GDP growth rates, propelled by deep integration into global manufacturing supply chains, free trade agreements, export orientation, low labor costs, and a stable currency. Statement 2 is incorrect because Vietnam is a one-party socialist state led by the Communist Party of Vietnam. Statement 5 is incorrect because countries like Singapore, Japan, and South Korea dominate high-productivity e-services in the Indo-Pacific."
+      "explanation": "Statements 1, 3, and 4 are correct: Vietnam has maintained one of the world's highest GDP growth rates, propelled by deep integration into global manufacturing supply chains, free trade agreements, export orientation, low labor costs, and a stable currency. Statement 2 is incorrect because Vietnam is a one-party socialist state led by the Communist Party of Vietnam. Statement 5 is incorrect because countries like Singapore, Japan, and South Korea dominate high-productivity e-services in the Indo-Pacific.",
+      "raw_topic": "World Geography & International Economics / Vietnam",
+      "id": "upsc_2022_gs1_q67",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "world_geography",
+      "subtopic_id": "world_geography_vietnam",
+      "subtopic": "Vietnam",
+      "secondary_tags": [
+        "International Relations"
+      ],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 World Geography question on global rivers, lakes, mountains, or regions (World Geography & International Economics / Vietnam).",
+      "validation_status": "verified"
     },
     {
       "number": 68,
-      "topic": "Indian Economy / Monetary Policy Framework",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "In India, which one of the following is responsible for maintaining price stability by controlling inflation?",
       "options": [
@@ -2111,11 +3199,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Under the flexible inflation targeting framework established by the 2016 amendment to the Reserve Bank of India Act, 1934 (Section 45ZB), the primary mandate of the RBI's Monetary Policy Committee is to maintain price stability (targeting 4% +/- 2% CPI inflation)."
+      "explanation": "Under the flexible inflation targeting framework established by the 2016 amendment to the Reserve Bank of India Act, 1934 (Section 45ZB), the primary mandate of the RBI's Monetary Policy Committee is to maintain price stability (targeting 4% +/- 2% CPI inflation).",
+      "raw_topic": "Indian Economy / Monetary Policy Framework",
+      "id": "upsc_2022_gs1_q68",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_monetary_policy_framework",
+      "subtopic": "Monetary Policy Framework",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Indian Economy / Monetary Policy Framework).",
+      "validation_status": "verified"
     },
     {
       "number": 69,
-      "topic": "Science and Technology / Blockchain & Web3",
+      "topic": "Information Technology and AI",
       "passage_id": null,
       "question": "With reference to Non-Fungible Tokens (NFTs), consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -2142,11 +3246,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statements 1 and 2 are correct: NFTs are distinct cryptographic tokens stored on a blockchain that represent unique metadata or digital ownership certificates for digital or physical assets. Statement 3 is incorrect: Unlike cryptocurrencies or fiat money, NFTs are non-fungible (each is unique and non-interchangeable); they cannot be traded at equivalency and do not serve as a fungible medium of exchange."
+      "explanation": "Statements 1 and 2 are correct: NFTs are distinct cryptographic tokens stored on a blockchain that represent unique metadata or digital ownership certificates for digital or physical assets. Statement 3 is incorrect: Unlike cryptocurrencies or fiat money, NFTs are non-fungible (each is unique and non-interchangeable); they cannot be traded at equivalency and do not serve as a fungible medium of exchange.",
+      "raw_topic": "Science and Technology / Blockchain & Web3",
+      "id": "upsc_2022_gs1_q69",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "information_technology_and_ai",
+      "subtopic_id": "information_technology_and_ai_blockchain_web3",
+      "subtopic": "Blockchain & Web3",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on IT, AI, Telecom, Blockchain, or Cybersecurity (Science and Technology / Blockchain & Web3).",
+      "validation_status": "verified"
     },
     {
       "number": 70,
-      "topic": "Indian Geography / Reservoirs",
+      "topic": "Indian Geography",
       "passage_id": null,
       "question": "Consider the following pairs:\nHow many pairs given above are not correctly matched?",
       "table": {
@@ -2197,11 +3317,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Pair 1 is incorrectly matched: Ghataprabha reservoir is in Belagavi, Karnataka (not Telangana). Pair 2 is correctly matched: Gandhi Sagar Dam on the Chambal River is in Mandsaur, Madhya Pradesh. Pair 3 is incorrectly matched: Indira Sagar Dam on the Narmada River is in Khandwa, Madhya Pradesh (not Andhra Pradesh). Pair 4 is incorrectly matched: Maithon Dam on the Barakar River (DVC) is in Jharkhand (not Chhattisgarh). Thus, three pairs (1, 3, and 4) are NOT correctly matched."
+      "explanation": "Pair 1 is incorrectly matched: Ghataprabha reservoir is in Belagavi, Karnataka (not Telangana). Pair 2 is correctly matched: Gandhi Sagar Dam on the Chambal River is in Mandsaur, Madhya Pradesh. Pair 3 is incorrectly matched: Indira Sagar Dam on the Narmada River is in Khandwa, Madhya Pradesh (not Andhra Pradesh). Pair 4 is incorrectly matched: Maithon Dam on the Barakar River (DVC) is in Jharkhand (not Chhattisgarh). Thus, three pairs (1, 3, and 4) are NOT correctly matched.",
+      "raw_topic": "Indian Geography / Reservoirs",
+      "id": "upsc_2022_gs1_q70",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "indian_geography",
+      "subtopic_id": "indian_geography_reservoirs",
+      "subtopic": "Reservoirs",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Indian Geography question on Indian physiography, rivers, or lakes (Indian Geography / Reservoirs).",
+      "validation_status": "verified"
     },
     {
       "number": 71,
-      "topic": "Governance / Labour Statistics",
+      "topic": "Governance and Public Policy",
       "passage_id": null,
       "question": "In India, which one of the following compiles information on industrial disputes, closures, retrenchments and lay-offs in factories employing workers?",
       "options": [
@@ -2223,11 +3359,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The Labour Bureau, an attached office under the Ministry of Labour and Employment, is responsible for collecting, compiling, and publishing statistical data on industrial disputes, strikes, lockouts, closures, retrenchments, and layoffs across Indian industries."
+      "explanation": "The Labour Bureau, an attached office under the Ministry of Labour and Employment, is responsible for collecting, compiling, and publishing statistical data on industrial disputes, strikes, lockouts, closures, retrenchments, and layoffs across Indian industries.",
+      "raw_topic": "Governance / Labour Statistics",
+      "id": "upsc_2022_gs1_q71",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "governance_and_public_policy",
+      "subtopic_id": "governance_and_public_policy_labour_statistics",
+      "subtopic": "Labour Statistics",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Governance, Public Policy & Welfare Legislation question (Governance / Labour Statistics).",
+      "validation_status": "verified"
     },
     {
       "number": 72,
-      "topic": "Indian Economy / Coal Sector",
+      "topic": "Infrastructure",
       "passage_id": null,
       "question": "In India, what is the role of the Coal Controller's Organization (CCO)?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2255,11 +3407,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statements 1, 2, and 3 are correct statutory functions of the Coal Controller's Organization (CCO): It compiles and publishes national coal statistics (1); monitors the development progress of allocated captive and commercial coal blocks (2); and acts as the designated authority under the Coal Bearing Areas (Acquisition and Development) Act, 1957 to hear objections to land acquisitions (3). Statement 4 is incorrect because CCO does not control commercial delivery schedules to end consumers."
+      "explanation": "Statements 1, 2, and 3 are correct statutory functions of the Coal Controller's Organization (CCO): It compiles and publishes national coal statistics (1); monitors the development progress of allocated captive and commercial coal blocks (2); and acts as the designated authority under the Coal Bearing Areas (Acquisition and Development) Act, 1957 to hear objections to land acquisitions (3). Statement 4 is incorrect because CCO does not control commercial delivery schedules to end consumers.",
+      "raw_topic": "Indian Economy / Coal Sector",
+      "id": "upsc_2022_gs1_q72",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "infrastructure",
+      "subtopic_id": "infrastructure_coal_sector",
+      "subtopic": "Coal Sector",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Infrastructure, Energy & Transport (Indian Economy / Coal Sector).",
+      "validation_status": "verified"
     },
     {
       "number": 73,
-      "topic": "Indian Polity / Fifth Schedule",
+      "topic": "Federalism and Centre-State Relations",
       "passage_id": null,
       "question": "If a particular area is brought under the Fifth Schedule of the Constitution of India, which one of the following statements best reflects the consequence of it?",
       "options": [
@@ -2281,11 +3449,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Under Paragraph 5(2) of the Fifth Schedule of the Constitution, the Governor is empowered to make regulations prohibiting or restricting the transfer of land by or among members of the Scheduled Tribes in Scheduled Areas to non-tribal persons (as upheld in Samatha v. State of Andhra Pradesh)."
+      "explanation": "Under Paragraph 5(2) of the Fifth Schedule of the Constitution, the Governor is empowered to make regulations prohibiting or restricting the transfer of land by or among members of the Scheduled Tribes in Scheduled Areas to non-tribal persons (as upheld in Samatha v. State of Andhra Pradesh).",
+      "raw_topic": "Indian Polity / Fifth Schedule",
+      "id": "upsc_2022_gs1_q73",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "federalism_and_centre_state_relations",
+      "subtopic_id": "federalism_and_centre_state_relations_fifth_schedule",
+      "subtopic": "Fifth Schedule",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Federalism, Centre-State Relations, or 5th/6th Schedules (Indian Polity / Fifth Schedule).",
+      "validation_status": "verified"
     },
     {
       "number": 74,
-      "topic": "Governance / Sanitation & Urban Development",
+      "topic": "Governance and Public Policy",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2311,11 +3495,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: The India Sanitation Coalition (ISC) is a multi-stakeholder platform launched at FICCI supported by non-profit foundations, corporate CSR, and bilateral agencies (like BMGF), not funded directly by GoI and WHO. Statement 2 is correct: The National Institute of Urban Affairs (NIUA), established in 1976, is an apex research and policy think-tank registered under the Ministry of Housing and Urban Affairs providing cutting-edge urban solutions."
+      "explanation": "Statement 1 is incorrect: The India Sanitation Coalition (ISC) is a multi-stakeholder platform launched at FICCI supported by non-profit foundations, corporate CSR, and bilateral agencies (like BMGF), not funded directly by GoI and WHO. Statement 2 is correct: The National Institute of Urban Affairs (NIUA), established in 1976, is an apex research and policy think-tank registered under the Ministry of Housing and Urban Affairs providing cutting-edge urban solutions.",
+      "raw_topic": "Governance / Sanitation & Urban Development",
+      "id": "upsc_2022_gs1_q74",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "governance_and_public_policy",
+      "subtopic_id": "governance_and_public_policy_sanitation_urban_development",
+      "subtopic": "Sanitation & Urban Development",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Governance, Public Policy & Welfare Legislation question (Governance / Sanitation & Urban Development).",
+      "validation_status": "verified"
     },
     {
       "number": 75,
-      "topic": "Environment / Environmental Legislation",
+      "topic": "Environmental Laws and Institutions",
       "passage_id": null,
       "question": "Which one of the following has been constituted under the Environment (Protection) Act, 1986?",
       "options": [
@@ -2337,11 +3537,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The Central Ground Water Authority (CGWA) was constituted under Section 3(3) of the Environment (Protection) Act, 1986 pursuant to Supreme Court directives in M.C. Mehta v. Union of India to regulate and control groundwater development and management."
+      "explanation": "The Central Ground Water Authority (CGWA) was constituted under Section 3(3) of the Environment (Protection) Act, 1986 pursuant to Supreme Court directives in M.C. Mehta v. Union of India to regulate and control groundwater development and management.",
+      "raw_topic": "Environment / Environmental Legislation",
+      "id": "upsc_2022_gs1_q75",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "environmental_laws_and_institutions",
+      "subtopic_id": "environmental_laws_and_institutions_environmental_legislation",
+      "subtopic": "Environmental Legislation",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Environmental Laws, Committees, and Statutory Institutions (Environment / Environmental Legislation).",
+      "validation_status": "verified"
     },
     {
       "number": 76,
-      "topic": "International Organizations / United Nations",
+      "topic": "International Organisations",
       "passage_id": null,
       "question": "With reference to the \"United Nations Credentials Committee\", consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2368,11 +3584,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is incorrect: The Credentials Committee is appointed by the UN General Assembly (not the Security Council) under Rule 28 of the UNGA Rules of Procedure. Statement 2 is incorrect: It meets annually in November/December during the main part of the General Assembly session, not in March, June, and September. Statement 3 is correct: It examines the credentials of diplomatic representatives of all UN member states and reports its recommendations to the General Assembly for adoption."
+      "explanation": "Statement 1 is incorrect: The Credentials Committee is appointed by the UN General Assembly (not the Security Council) under Rule 28 of the UNGA Rules of Procedure. Statement 2 is incorrect: It meets annually in November/December during the main part of the General Assembly session, not in March, June, and September. Statement 3 is correct: It examines the credentials of diplomatic representatives of all UN member states and reports its recommendations to the General Assembly for adoption.",
+      "raw_topic": "International Organizations / United Nations",
+      "id": "upsc_2022_gs1_q76",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "international_organisations",
+      "subtopic_id": "international_organisations_united_nations",
+      "subtopic": "United Nations",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs & IR question on International Organisations and Multilateral Groupings (International Organizations / United Nations).",
+      "validation_status": "verified"
     },
     {
       "number": 77,
-      "topic": "Maritime Safety / Polar Waters",
+      "topic": "International Organisations",
       "passage_id": null,
       "question": "Which one of the following statements best describes the 'Polar Code'?",
       "options": [
@@ -2394,11 +3626,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The International Code for Ships Operating in Polar Waters ('Polar Code') is a mandatory international regime adopted by the International Maritime Organization (IMO) that sets binding design, construction, search and rescue, and environmental safety standards for vessels sailing in Arctic and Antarctic waters."
+      "explanation": "The International Code for Ships Operating in Polar Waters ('Polar Code') is a mandatory international regime adopted by the International Maritime Organization (IMO) that sets binding design, construction, search and rescue, and environmental safety standards for vessels sailing in Arctic and Antarctic waters.",
+      "raw_topic": "Maritime Safety / Polar Waters",
+      "id": "upsc_2022_gs1_q77",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "international_organisations",
+      "subtopic_id": "international_organisations_polar_waters",
+      "subtopic": "Polar Waters",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs & IR question on International Organisations and Multilateral Groupings (Maritime Safety / Polar Waters).",
+      "validation_status": "verified"
     },
     {
       "number": 78,
-      "topic": "International Organizations / UNGA",
+      "topic": "International Organisations",
       "passage_id": null,
       "question": "With reference to the United Nations General Assembly, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -2425,11 +3673,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All three statements are correct: The UNGA can grant Permanent Observer status to non-member states (such as the Holy See and the State of Palestine) (1); intergovernmental organizations (such as the EU, African Union, and INTERPOL) can also be granted observer status (2); and permanent observers have access to UNGA meetings and may establish permanent missions and offices at the UN Headquarters in New York (3)."
+      "explanation": "All three statements are correct: The UNGA can grant Permanent Observer status to non-member states (such as the Holy See and the State of Palestine) (1); intergovernmental organizations (such as the EU, African Union, and INTERPOL) can also be granted observer status (2); and permanent observers have access to UNGA meetings and may establish permanent missions and offices at the UN Headquarters in New York (3).",
+      "raw_topic": "International Organizations / UNGA",
+      "id": "upsc_2022_gs1_q78",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "international_organisations",
+      "subtopic_id": "international_organisations_unga",
+      "subtopic": "UNGA",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs & IR question on International Organisations and Multilateral Groupings (International Organizations / UNGA).",
+      "validation_status": "verified"
     },
     {
       "number": 79,
-      "topic": "Statutory Bodies / Agriculture & Trade",
+      "topic": "Statutory and Regulatory Bodies",
       "passage_id": null,
       "question": "With reference to the \"Tea Board\" in India, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -2457,11 +3721,29 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Statements 1 and 4 are correct: The Tea Board of India is a statutory body established under Section 4 of the Tea Act, 1953 (1), and maintains overseas promotion offices in Dubai and Moscow (4). Statement 2 is incorrect because it functions under the Ministry of Commerce and Industry (not Agriculture). Statement 3 is incorrect because its headquarters is located in Kolkata, West Bengal (not Bengaluru, which is the headquarters of the Coffee Board)."
+      "explanation": "Statements 1 and 4 are correct: The Tea Board of India is a statutory body established under Section 4 of the Tea Act, 1953 (1), and maintains overseas promotion offices in Dubai and Moscow (4). Statement 2 is incorrect because it functions under the Ministry of Commerce and Industry (not Agriculture). Statement 3 is incorrect because its headquarters is located in Kolkata, West Bengal (not Bengaluru, which is the headquarters of the Coffee Board).",
+      "raw_topic": "Statutory Bodies / Agriculture & Trade",
+      "id": "upsc_2022_gs1_q79",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "statutory_and_regulatory_bodies",
+      "subtopic_id": "statutory_and_regulatory_bodies_agriculture_trade",
+      "subtopic": "Agriculture & Trade",
+      "secondary_tags": [
+        "Agriculture"
+      ],
+      "classification_confidence": 0.87,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Polity question on Statutory and Regulatory Bodies (Statutory Bodies / Agriculture & Trade).",
+      "validation_status": "verified"
     },
     {
       "number": 80,
-      "topic": "Environment / Sustainable Finance",
+      "topic": "Sustainable Development",
       "passage_id": null,
       "question": "Which one of the following best describes the term \"greenwashing\"?",
       "options": [
@@ -2483,11 +3765,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "'Greenwashing' is the deceptive marketing practice whereby companies exaggerate, mislead, or fabricate unsubstantiated claims to make their products, services, or investments appear more environmentally sustainable or climate-friendly than they actually are."
+      "explanation": "'Greenwashing' is the deceptive marketing practice whereby companies exaggerate, mislead, or fabricate unsubstantiated claims to make their products, services, or investments appear more environmentally sustainable or climate-friendly than they actually are.",
+      "raw_topic": "Environment / Sustainable Finance",
+      "id": "upsc_2022_gs1_q80",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "sustainable_development",
+      "subtopic_id": "sustainable_development_sustainable_finance",
+      "subtopic": "Sustainable Finance",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Sustainable Development & Green Practices (Environment / Sustainable Finance).",
+      "validation_status": "verified"
     },
     {
       "number": 81,
-      "topic": "Physical Geography / Climatology & Clouds",
+      "topic": "Climatology",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2513,11 +3811,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Both statements are incorrect (their descriptions are reversed): High, thin cirrus clouds transmit incoming solar radiation but strongly trap longwave terrestrial infrared radiation, resulting in a net warming effect. Conversely, low, thick stratocumulus clouds have high albedo, reflecting incoming solar radiation back to space with minimal greenhouse trapping, resulting in a net cooling effect."
+      "explanation": "Both statements are incorrect (their descriptions are reversed): High, thin cirrus clouds transmit incoming solar radiation but strongly trap longwave terrestrial infrared radiation, resulting in a net warming effect. Conversely, low, thick stratocumulus clouds have high albedo, reflecting incoming solar radiation back to space with minimal greenhouse trapping, resulting in a net cooling effect.",
+      "raw_topic": "Physical Geography / Climatology & Clouds",
+      "id": "upsc_2022_gs1_q81",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "climatology",
+      "subtopic_id": "climatology_climatology_clouds",
+      "subtopic": "Climatology & Clouds",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Climatology & Atmospheric Processes (Physical Geography / Climatology & Clouds).",
+      "validation_status": "verified"
     },
     {
       "number": 82,
-      "topic": "World Geography / Refugee Camps",
+      "topic": "World Geography",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2544,11 +3858,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statement 1 is incorrect: Bidibidi is a massive refugee settlement located in northwestern Uganda (Yumbe district), not Kenya. Statement 2 is correct: Bidibidi was established in 2016 primarily to house hundreds of thousands of refugees fleeing the civil war in South Sudan. Statement 3 is correct: The Dadaab refugee complex in eastern Kenya is home to hundreds of thousands of refugees who fled the civil war in Somalia."
+      "explanation": "Statement 1 is incorrect: Bidibidi is a massive refugee settlement located in northwestern Uganda (Yumbe district), not Kenya. Statement 2 is correct: Bidibidi was established in 2016 primarily to house hundreds of thousands of refugees fleeing the civil war in South Sudan. Statement 3 is correct: The Dadaab refugee complex in eastern Kenya is home to hundreds of thousands of refugees who fled the civil war in Somalia.",
+      "raw_topic": "World Geography / Refugee Camps",
+      "id": "upsc_2022_gs1_q82",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "world_geography",
+      "subtopic_id": "world_geography_refugee_camps",
+      "subtopic": "Refugee Camps",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 World Geography question on global rivers, lakes, mountains, or regions (World Geography / Refugee Camps).",
+      "validation_status": "verified"
     },
     {
       "number": 83,
-      "topic": "International Organizations / Regional Groupings",
+      "topic": "International Organisations",
       "passage_id": null,
       "question": "Consider the following countries:\nWhich of the above are members of the Organization of Turkic States?",
       "statements": [
@@ -2577,11 +3907,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The full member states of the Organization of Turkic States (OTS) are Azerbaijan, Kazakhstan, Kyrgyzstan, Turkey, and Uzbekistan (with Hungary, Turkmenistan, and Northern Cyprus as observers). Armenia, Croatia, and Romania are not members."
+      "explanation": "The full member states of the Organization of Turkic States (OTS) are Azerbaijan, Kazakhstan, Kyrgyzstan, Turkey, and Uzbekistan (with Hungary, Turkmenistan, and Northern Cyprus as observers). Armenia, Croatia, and Romania are not members.",
+      "raw_topic": "International Organizations / Regional Groupings",
+      "id": "upsc_2022_gs1_q83",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "international_organisations",
+      "subtopic_id": "international_organisations_regional_groupings",
+      "subtopic": "Regional Groupings",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs & IR question on International Organisations and Multilateral Groupings (International Organizations / Regional Groupings).",
+      "validation_status": "verified"
     },
     {
       "number": 84,
-      "topic": "Renewable Energy / Solar Infrastructure in India",
+      "topic": "Renewable Energy",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2608,11 +3954,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: Bhadla Solar Park (over 2,245 MW) in Rajasthan is the largest solar park in India and the world. Statement 2 is correct: Cochin International Airport in Kerala became the world's first fully solar-powered airport in 2015. Statement 3 is incorrect: India's largest floating solar project was developed at Ramagundam in Telangana (100 MW) and Kayamkulam in Kerala, not in Goa."
+      "explanation": "Statement 1 is incorrect: Bhadla Solar Park (over 2,245 MW) in Rajasthan is the largest solar park in India and the world. Statement 2 is correct: Cochin International Airport in Kerala became the world's first fully solar-powered airport in 2015. Statement 3 is incorrect: India's largest floating solar project was developed at Ramagundam in Telangana (100 MW) and Kayamkulam in Kerala, not in Goa.",
+      "raw_topic": "Renewable Energy / Solar Infrastructure in India",
+      "id": "upsc_2022_gs1_q84",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "renewable_energy",
+      "subtopic_id": "renewable_energy_solar_infrastructure_in_india",
+      "subtopic": "Solar Infrastructure in India",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Renewable Energy & Clean Fuels (Renewable Energy / Solar Infrastructure in India).",
+      "validation_status": "verified"
     },
     {
       "number": 85,
-      "topic": "International Law / UNCLOS",
+      "topic": "International Organisations",
       "passage_id": null,
       "question": "With reference to the United Nations Convention on the Law of Sea, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -2639,11 +4001,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All three statements are verbatim codified articles of UNCLOS: Article 3 establishes the Territorial Sea limit up to 12 nautical miles from baseline (1); Article 17 guarantees ships of all States the right of innocent passage through territorial waters (2); and Article 57 specifies that the Exclusive Economic Zone (EEZ) extends up to 200 nautical miles from the baseline (3)."
+      "explanation": "All three statements are verbatim codified articles of UNCLOS: Article 3 establishes the Territorial Sea limit up to 12 nautical miles from baseline (1); Article 17 guarantees ships of all States the right of innocent passage through territorial waters (2); and Article 57 specifies that the Exclusive Economic Zone (EEZ) extends up to 200 nautical miles from the baseline (3).",
+      "raw_topic": "International Law / UNCLOS",
+      "id": "upsc_2022_gs1_q85",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "international_organisations",
+      "subtopic_id": "international_organisations_unclos",
+      "subtopic": "UNCLOS",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs & IR question on International Organisations and Multilateral Groupings (International Law / UNCLOS).",
+      "validation_status": "verified"
     },
     {
       "number": 86,
-      "topic": "International Geopolitics / Disputed Islands",
+      "topic": "Important Places and Events",
       "passage_id": null,
       "question": "Which one of the following statements best reflects the issue with Senkaku Islands, sometimes mentioned in the news?",
       "options": [
@@ -2665,11 +4043,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The Senkaku Islands (known as the Diaoyu Islands in China) are an uninhabited group of islands in the East China Sea administered by Japan but claimed by China and Taiwan, serving as a persistent flashpoint for naval encounters."
+      "explanation": "The Senkaku Islands (known as the Diaoyu Islands in China) are an uninhabited group of islands in the East China Sea administered by Japan but claimed by China and Taiwan, serving as a persistent flashpoint for naval encounters.",
+      "raw_topic": "International Geopolitics / Disputed Islands",
+      "id": "upsc_2022_gs1_q86",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "important_places_and_events",
+      "subtopic_id": "important_places_and_events_disputed_islands",
+      "subtopic": "Disputed Islands",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs question on Important Places and Global Events (International Geopolitics / Disputed Islands).",
+      "validation_status": "verified"
     },
     {
       "number": 87,
-      "topic": "International Affairs / Current Conflicts",
+      "topic": "Important Places and Events",
       "passage_id": null,
       "question": "Consider the following pairs:\nHow many pairs given above are correctly matched?",
       "table": {
@@ -2720,11 +4114,30 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Pair 1 is incorrect: China established its first overseas military base in Djibouti, not Chad. Pair 2 is correct: Guinea underwent a military coup in September 2021 where Col. Mamady Doumbouya suspended the constitution and dissolved the government. Pair 3 is correct: Lebanon experienced one of the world's most catastrophic economic crises and hyperinflation. Pair 4 is correct: President Kais Saied of Tunisia suspended parliament and sacked the prime minister in July 2021. Thus, three pairs (2, 3, and 4) are correctly matched."
+      "explanation": "Pair 1 is incorrect: China established its first overseas military base in Djibouti, not Chad. Pair 2 is correct: Guinea underwent a military coup in September 2021 where Col. Mamady Doumbouya suspended the constitution and dissolved the government. Pair 3 is correct: Lebanon experienced one of the world's most catastrophic economic crises and hyperinflation. Pair 4 is correct: President Kais Saied of Tunisia suspended parliament and sacked the prime minister in July 2021. Thus, three pairs (2, 3, and 4) are correctly matched.",
+      "raw_topic": "International Affairs / Current Conflicts",
+      "id": "upsc_2022_gs1_q87",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "important_places_and_events",
+      "subtopic_id": "important_places_and_events_current_conflicts",
+      "subtopic": "Current Conflicts",
+      "secondary_tags": [
+        "Indian Polity and Governance",
+        "Economy"
+      ],
+      "classification_confidence": 0.88,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Current Affairs question on Important Places and Global Events (International Affairs / Current Conflicts).",
+      "validation_status": "verified_cross_tagged"
     },
     {
       "number": 88,
-      "topic": "World Geography / Regions in News",
+      "topic": "World Geography",
       "passage_id": null,
       "question": "Consider the following pairs:\nHow many pairs given above are correctly matched?",
       "table": {
@@ -2775,11 +4188,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Pair 1 is correct: Anatolia forms the Asian portion of Turkey. Pair 2 is correct: Amhara is a regional state in northern Ethiopia that was involved in armed conflict. Pair 3 is incorrect: Cabo Delgado is a northern province of Mozambique plagued by Islamist insurgency (not Spain). Pair 4 is incorrect: Catalonia is an autonomous region in northeastern Spain (not Italy). Thus, only two pairs (1 and 2) are correctly matched."
+      "explanation": "Pair 1 is correct: Anatolia forms the Asian portion of Turkey. Pair 2 is correct: Amhara is a regional state in northern Ethiopia that was involved in armed conflict. Pair 3 is incorrect: Cabo Delgado is a northern province of Mozambique plagued by Islamist insurgency (not Spain). Pair 4 is incorrect: Catalonia is an autonomous region in northeastern Spain (not Italy). Thus, only two pairs (1 and 2) are correctly matched.",
+      "raw_topic": "World Geography / Regions in News",
+      "id": "upsc_2022_gs1_q88",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "world_geography",
+      "subtopic_id": "world_geography_regions_in_news",
+      "subtopic": "Regions in News",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 World Geography question on global rivers, lakes, mountains, or regions (World Geography / Regions in News).",
+      "validation_status": "verified"
     },
     {
       "number": 89,
-      "topic": "Environment / Wildlife Protection Act",
+      "topic": "Environmental Laws and Institutions",
       "passage_id": null,
       "question": "With reference to Indian laws about wildlife protection, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2806,11 +4235,29 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is correct: In State of Bihar v. Murad Ali Khan (1988), the Supreme Court affirmed that wild animals are government property under Section 39 of the Wildlife (Protection) Act, 1972. Statement 2 is correct: Protection status under the WPA schedules follows the animal everywhere across the country, regardless of whether it is inside a national park/sanctuary or outside. Statement 3 is incorrect: Under Section 11, the Chief Wildlife Warden can permit hunting/capturing only when satisfied that the animal has ACTUALLY become dangerous to human life or is diseased beyond recovery; mere subjective apprehension or fear is not sufficient ground."
+      "explanation": "Statement 1 is correct: In State of Bihar v. Murad Ali Khan (1988), the Supreme Court affirmed that wild animals are government property under Section 39 of the Wildlife (Protection) Act, 1972. Statement 2 is correct: Protection status under the WPA schedules follows the animal everywhere across the country, regardless of whether it is inside a national park/sanctuary or outside. Statement 3 is incorrect: Under Section 11, the Chief Wildlife Warden can permit hunting/capturing only when satisfied that the animal has ACTUALLY become dangerous to human life or is diseased beyond recovery; mere subjective apprehension or fear is not sufficient ground.",
+      "raw_topic": "Environment / Wildlife Protection Act",
+      "id": "upsc_2022_gs1_q89",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "environmental_laws_and_institutions",
+      "subtopic_id": "environmental_laws_and_institutions_wildlife_protection_act",
+      "subtopic": "Wildlife Protection Act",
+      "secondary_tags": [
+        "Indian Polity and Governance"
+      ],
+      "classification_confidence": 0.88,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Environment question on Environmental Laws, Committees, and Statutory Institutions (Environment / Wildlife Protection Act).",
+      "validation_status": "verified_cross_tagged"
     },
     {
       "number": 90,
-      "topic": "Environment / Entomology",
+      "topic": "Species and Conservation",
       "passage_id": null,
       "question": "Certain species of which one of the following organisms are well known as cultivators of fungi?",
       "options": [
@@ -2832,11 +4279,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Leafcutter ants (genera Atta and Acromyrmex) are renowned fungus-farming social insects; they harvest fresh vegetation and bring it into underground fungal chambers, actively cultivating Lepiotaceae fungi as their exclusive food source."
+      "explanation": "Leafcutter ants (genera Atta and Acromyrmex) are renowned fungus-farming social insects; they harvest fresh vegetation and bring it into underground fungal chambers, actively cultivating Lepiotaceae fungi as their exclusive food source.",
+      "raw_topic": "Environment / Entomology",
+      "id": "upsc_2022_gs1_q90",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "species_and_conservation",
+      "subtopic_id": "species_and_conservation_entomology",
+      "subtopic": "Entomology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Wildlife Species, Animal Behaviour & Conservation (Environment / Entomology).",
+      "validation_status": "verified"
     },
     {
       "number": 91,
-      "topic": "Ancient Indian History / Ashokan Inscriptions",
+      "topic": "Ancient Indian History",
       "passage_id": null,
       "question": "Consider the following pairs:\nHow many pairs given above are correctly matched?",
       "table": {
@@ -2887,11 +4350,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Pair 1 is correct: Dhauli Major Rock Edict is in Khordha district, Odisha. Pair 2 is correct: Erragudi Major Rock Edict is in Kurnool district, Andhra Pradesh. Pair 3 is incorrect: Jaugada is in Ganjam district, Odisha (not Madhya Pradesh). Pair 4 is incorrect: Kalsi is in Dehradun district, Uttarakhand (not Karnataka). Thus, only two pairs (1 and 2) are correctly matched."
+      "explanation": "Pair 1 is correct: Dhauli Major Rock Edict is in Khordha district, Odisha. Pair 2 is correct: Erragudi Major Rock Edict is in Kurnool district, Andhra Pradesh. Pair 3 is incorrect: Jaugada is in Ganjam district, Odisha (not Madhya Pradesh). Pair 4 is incorrect: Kalsi is in Dehradun district, Uttarakhand (not Karnataka). Thus, only two pairs (1 and 2) are correctly matched.",
+      "raw_topic": "Ancient Indian History / Ashokan Inscriptions",
+      "id": "upsc_2022_gs1_q91",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "ancient_indian_history",
+      "subtopic_id": "ancient_indian_history_ashokan_inscriptions",
+      "subtopic": "Ashokan Inscriptions",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Ancient Indian History question (Ancient Indian History / Ashokan Inscriptions).",
+      "validation_status": "verified"
     },
     {
       "number": 92,
-      "topic": "Early Medieval Indian History / Dynasties",
+      "topic": "Medieval Indian History",
       "passage_id": null,
       "question": "Consider the following pairs:\nHow many pairs given above are correctly matched?",
       "table": {
@@ -2942,11 +4421,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Pair 1 is correct: Nannuka was the 9th-century founder of the Chandela dynasty of Jejakabhukti. Pair 2 is incorrect: Jayashakti (from whom Jejakabhukti was named) was a Chandela king, not a Paramara. Pair 3 is correct: Nagabhata II was an illustrious monarch of the Gurjara-Pratihara dynasty who conquered Kanauj. Pair 4 is incorrect: Mihira Bhoja was a Gurjara-Pratihara ruler, and Raja Bhoja was of the Paramara dynasty of Malwa (neither was Rashtrakuta). Thus, only two pairs (1 and 3) are correctly matched."
+      "explanation": "Pair 1 is correct: Nannuka was the 9th-century founder of the Chandela dynasty of Jejakabhukti. Pair 2 is incorrect: Jayashakti (from whom Jejakabhukti was named) was a Chandela king, not a Paramara. Pair 3 is correct: Nagabhata II was an illustrious monarch of the Gurjara-Pratihara dynasty who conquered Kanauj. Pair 4 is incorrect: Mihira Bhoja was a Gurjara-Pratihara ruler, and Raja Bhoja was of the Paramara dynasty of Malwa (neither was Rashtrakuta). Thus, only two pairs (1 and 3) are correctly matched.",
+      "raw_topic": "Early Medieval Indian History / Dynasties",
+      "id": "upsc_2022_gs1_q92",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "medieval_indian_history",
+      "subtopic_id": "medieval_indian_history_dynasties",
+      "subtopic": "Dynasties",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Medieval Indian History question (Early Medieval Indian History / Dynasties).",
+      "validation_status": "verified"
     },
     {
       "number": 93,
-      "topic": "Ancient Indian History / Sangam Literature",
+      "topic": "Literature, Music and Dance",
       "passage_id": null,
       "question": "Which one of the following statements about Sangam literature in ancient South India is correct?",
       "options": [
@@ -2968,11 +4463,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Tolkappiyam and Sangam anthologies explicitly refer to social groups such as Anthanar (Brahmins), Arasar (rulers), Vaisiyar (traders), and Velalar (agriculturists), demonstrating that the fourfold Varna classification of northern Sanskritic tradition was well known to Sangam poets. Options a and c are contradicted by the rich descriptions of material goods and heroic warrior codes (Puram poems)."
+      "explanation": "Tolkappiyam and Sangam anthologies explicitly refer to social groups such as Anthanar (Brahmins), Arasar (rulers), Vaisiyar (traders), and Velalar (agriculturists), demonstrating that the fourfold Varna classification of northern Sanskritic tradition was well known to Sangam poets. Options a and c are contradicted by the rich descriptions of material goods and heroic warrior codes (Puram poems).",
+      "raw_topic": "Ancient Indian History / Sangam Literature",
+      "id": "upsc_2022_gs1_q93",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "literature_music_dance",
+      "subtopic_id": "literature_music_dance_sangam_literature",
+      "subtopic": "Sangam Literature",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 History & Culture question on Literature, Music or Dance (Ancient Indian History / Sangam Literature).",
+      "validation_status": "verified"
     },
     {
       "number": 94,
-      "topic": "Medieval Indian Literature / Translations",
+      "topic": "Literature, Music and Dance",
       "passage_id": null,
       "question": "\"Yogavasistha\" was translated into Persian by Nizamuddin Panipati during the reign of:",
       "options": [
@@ -2994,11 +4505,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "During the reign of Mughal Emperor Akbar, Nizam al-Din Panipati translated the philosophical Sanskrit text Yogavasistha into Persian under the title 'Jug-Basisht' (dedicated to Prince Salim/Jahangir) under the auspices of the imperial translation bureau (Maktab Khana)."
+      "explanation": "During the reign of Mughal Emperor Akbar, Nizam al-Din Panipati translated the philosophical Sanskrit text Yogavasistha into Persian under the title 'Jug-Basisht' (dedicated to Prince Salim/Jahangir) under the auspices of the imperial translation bureau (Maktab Khana).",
+      "raw_topic": "Medieval Indian Literature / Translations",
+      "id": "upsc_2022_gs1_q94",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "literature_music_dance",
+      "subtopic_id": "literature_music_dance_translations",
+      "subtopic": "Translations",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 History & Culture question on Literature, Music or Dance (Medieval Indian Literature / Translations).",
+      "validation_status": "verified"
     },
     {
       "number": 95,
-      "topic": "Art and Culture / Bhakti Movement",
+      "topic": "Art and Culture",
       "passage_id": null,
       "question": "The world's second tallest statue in sitting pose of Ramanuja was inaugurated by the Prime Minister of India at Hyderabad recently. Which one of the following statements correctly represents the teachings of Ramanuja?",
       "options": [
@@ -3020,11 +4547,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Sri Ramanujacharya (propounder of the Vishishtadvaita or qualified non-dualism school) taught that passionate, unconditional devotion (bhakti) and absolute self-surrender (prapatti) to Lord Vishnu/Narayana is the supreme and best path to attain salvation (moksha)."
+      "explanation": "Sri Ramanujacharya (propounder of the Vishishtadvaita or qualified non-dualism school) taught that passionate, unconditional devotion (bhakti) and absolute self-surrender (prapatti) to Lord Vishnu/Narayana is the supreme and best path to attain salvation (moksha).",
+      "raw_topic": "Art and Culture / Bhakti Movement",
+      "id": "upsc_2022_gs1_q95",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "art_and_culture",
+      "subtopic_id": "art_and_culture_bhakti_movement",
+      "subtopic": "Bhakti Movement",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Art and Culture question covering religious/philosophical traditions or cultural heritage (Art and Culture / Bhakti Movement).",
+      "validation_status": "verified"
     },
     {
       "number": 96,
-      "topic": "Art and Culture / Somnath Temple",
+      "topic": "Architecture, Sculpture and Painting",
       "passage_id": null,
       "question": "The Prime Minister recently inaugurated the new Circuit House near Somnath Temple at Veraval. Which of the following statements are correct regarding Somnath Temple?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -3051,11 +4594,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statements 1 and 2 are correct: Somnath is venerated as the first of the twelve sacred Jyotirlinga shrines of Lord Shiva, and Persian scholar Al-Biruni gave an extensive historical account of the temple in his Kitab al-Hind. Statement 3 is incorrect: The Pran Pratishtha of the reconstructed Somnath temple was performed in May 1951 by the first President of India, Dr. Rajendra Prasad, not by Dr. S. Radhakrishnan."
+      "explanation": "Statements 1 and 2 are correct: Somnath is venerated as the first of the twelve sacred Jyotirlinga shrines of Lord Shiva, and Persian scholar Al-Biruni gave an extensive historical account of the temple in his Kitab al-Hind. Statement 3 is incorrect: The Pran Pratishtha of the reconstructed Somnath temple was performed in May 1951 by the first President of India, Dr. Rajendra Prasad, not by Dr. S. Radhakrishnan.",
+      "raw_topic": "Art and Culture / Somnath Temple",
+      "id": "upsc_2022_gs1_q96",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "architecture_sculpture_painting",
+      "subtopic_id": "architecture_sculpture_painting_somnath_temple",
+      "subtopic": "Somnath Temple",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 History & Culture question focusing on Architecture, Sculpture or Painting (Art and Culture / Somnath Temple).",
+      "validation_status": "verified"
     },
     {
       "number": 97,
-      "topic": "Biology / Immunology",
+      "topic": "Biology and Human Health",
       "passage_id": null,
       "question": "Which one of the following statements best describes the role of B cells and T cells in the human body?",
       "options": [
@@ -3077,11 +4636,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "B lymphocytes (B cells) and T lymphocytes (T cells) are the primary white blood cells responsible for adaptive (acquired) immunity: B cells produce antigen-specific antibodies (humoral immunity), and T cells destroy infected cells and coordinate immune responses (cell-mediated immunity) to protect the body from infectious pathogens."
+      "explanation": "B lymphocytes (B cells) and T lymphocytes (T cells) are the primary white blood cells responsible for adaptive (acquired) immunity: B cells produce antigen-specific antibodies (humoral immunity), and T cells destroy infected cells and coordinate immune responses (cell-mediated immunity) to protect the body from infectious pathogens.",
+      "raw_topic": "Biology / Immunology",
+      "id": "upsc_2022_gs1_q97",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "biology_and_human_health",
+      "subtopic_id": "biology_and_human_health_immunology",
+      "subtopic": "Immunology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Biology, Infectious Diseases, Vaccines & Human Health (Biology / Immunology).",
+      "validation_status": "verified"
     },
     {
       "number": 98,
-      "topic": "Science and Technology / Nanotechnology",
+      "topic": "Emerging Technologies",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -3108,11 +4683,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Statement 1 is incorrect: Nanoparticles occur abundantly in nature (in volcanic ash, sea spray aerosols, mineral dust, smoke, and insect wings). Statements 2 and 3 are correct: Nanoparticles of metal oxides (e.g. titanium dioxide TiO2 and zinc oxide ZnO) are widely incorporated into sunscreens and cosmetics for UV absorption (2), and non-biodegradable commercial nanoparticles released into water and air can bioaccumulate, causing oxidative stress and toxicity to humans (3)."
+      "explanation": "Statement 1 is incorrect: Nanoparticles occur abundantly in nature (in volcanic ash, sea spray aerosols, mineral dust, smoke, and insect wings). Statements 2 and 3 are correct: Nanoparticles of metal oxides (e.g. titanium dioxide TiO2 and zinc oxide ZnO) are widely incorporated into sunscreens and cosmetics for UV absorption (2), and non-biodegradable commercial nanoparticles released into water and air can bioaccumulate, causing oxidative stress and toxicity to humans (3).",
+      "raw_topic": "Science and Technology / Nanotechnology",
+      "id": "upsc_2022_gs1_q98",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "emerging_technologies",
+      "subtopic_id": "emerging_technologies_nanotechnology",
+      "subtopic": "Nanotechnology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Emerging Technologies (Science and Technology / Nanotechnology).",
+      "validation_status": "verified"
     },
     {
       "number": 99,
-      "topic": "Science and Technology / DNA Barcoding",
+      "topic": "Biotechnology",
       "passage_id": null,
       "question": "Consider the following statements:\nDNA Barcoding can be a tool to:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -3139,11 +4730,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Statement 1 is incorrect: DNA barcoding sequences short standard gene regions to identify taxonomy; it cannot determine the chronological age of an individual organism (age assessment uses radiocarbon dating, dendrochronology, or epigenetic methylation clocks). Statements 2 and 3 are correct: DNA barcoding is a standard molecular technique for identifying cryptic or lookalike species (2) and detecting adulteration, food fraud, or unauthorized wildlife ingredients in processed foods (3)."
+      "explanation": "Statement 1 is incorrect: DNA barcoding sequences short standard gene regions to identify taxonomy; it cannot determine the chronological age of an individual organism (age assessment uses radiocarbon dating, dendrochronology, or epigenetic methylation clocks). Statements 2 and 3 are correct: DNA barcoding is a standard molecular technique for identifying cryptic or lookalike species (2) and detecting adulteration, food fraud, or unauthorized wildlife ingredients in processed foods (3).",
+      "raw_topic": "Science and Technology / DNA Barcoding",
+      "id": "upsc_2022_gs1_q99",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "biotechnology",
+      "subtopic_id": "biotechnology_dna_barcoding",
+      "subtopic": "DNA Barcoding",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Biotechnology, Genetics & Gene Editing (Science and Technology / DNA Barcoding).",
+      "validation_status": "verified"
     },
     {
       "number": 100,
-      "topic": "Environment / Acid Rain",
+      "topic": "Pollution",
       "passage_id": null,
       "question": "Consider the following:\nExcess of which of the above in the environment is/are cause(s) of acid rain?",
       "statements": [
@@ -3171,7 +4778,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Acid precipitation is caused primarily by atmospheric emissions of Sulphur dioxide (SO2) and Nitrogen oxides (NOx), which react with atmospheric water vapour, oxygen, and oxidants to form dilute sulfuric acid (H2SO4) and nitric acid (HNO3)."
+      "explanation": "Acid precipitation is caused primarily by atmospheric emissions of Sulphur dioxide (SO2) and Nitrogen oxides (NOx), which react with atmospheric water vapour, oxygen, and oxidants to form dilute sulfuric acid (H2SO4) and nitric acid (HNO3).",
+      "raw_topic": "Environment / Acid Rain",
+      "id": "upsc_2022_gs1_q100",
+      "exam": "UPSC CSE Prelims",
+      "year": 2022,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "pollution",
+      "subtopic_id": "pollution_acid_rain",
+      "subtopic": "Acid Rain",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Pollution, Waste Management, or Bioremediation (Environment / Acid Rain).",
+      "validation_status": "verified"
     }
   ]
 }

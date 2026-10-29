@@ -13,7 +13,6 @@ import {
   Bell,
   Calendar as CalendarIcon,
   CheckCircle2,
-  Filter,
   Moon,
   Plus,
   Search,
@@ -27,6 +26,7 @@ import { StudyTask } from '@/types/study';
 import { TaskCard } from './TaskCard';
 import { TaskFormModal } from './TaskFormModal';
 import { Button } from '@/components/ui/Button';
+import { ProgressBar } from '@/components/ui';
 import { resolveTaskColorTag } from '@/constants/taskColors';
 
 type TaskFilter = 'today' | 'todo' | 'done' | 'all';
@@ -222,6 +222,25 @@ export function TasksScreen({
     });
     return groups;
   }, [filteredTasks, activeFilter, todayKey]);
+
+  // Context-aware tasks for progress calculation
+  const tasksForProgress = useMemo(() => {
+    if (activeFilter === 'today' || activeFilter === 'todo' || activeFilter === 'done') {
+      return tasks.filter((t) => t.date === todayKey);
+    }
+    if (selectedDate && activeFilter !== 'all') {
+      return tasks.filter((t) => t.date === selectedDate);
+    }
+    return tasks;
+  }, [tasks, activeFilter, todayKey, selectedDate]);
+
+  const tasksCompletedCount = useMemo(() => {
+    return tasksForProgress.filter((t) => t.completed || t.status === 'completed').length;
+  }, [tasksForProgress]);
+
+  const tasksProgressPct = tasksForProgress.length > 0
+    ? Math.min(100, (tasksCompletedCount / tasksForProgress.length) * 100)
+    : 0;
 
   return (
     <ScrollView
@@ -492,6 +511,44 @@ export function TasksScreen({
           })}
         </ScrollView>
       </View>
+
+      {/* ========================================================= */}
+      {/* 3.5 TASK PROGRESS BAR                                     */}
+      {/* ========================================================= */}
+      {tasksForProgress.length > 0 && (
+        <View
+          style={[
+            styles.tasksProgressBarCard,
+            {
+              backgroundColor: isDark ? '#141824' : '#F8FAFC',
+              borderColor: isDark ? '#262D3D' : '#E2E8F0',
+            },
+          ]}>
+          <View style={styles.tasksProgressBarHeader}>
+            <Text style={[styles.tasksProgressBarLabel, { color: theme.textSecondary }]}>
+              {activeFilter === 'today'
+                ? "Today's Task Completion"
+                : activeFilter === 'all'
+                ? 'Total Task Completion'
+                : `${formattedSelectedDate} Task Completion`}
+            </Text>
+            <Text
+              style={[
+                styles.tasksProgressBarValue,
+                { color: tasksProgressPct === 100 ? '#10B981' : theme.textPrimary },
+              ]}>
+              {tasksCompletedCount} of {tasksForProgress.length} tasks ({Math.round(tasksProgressPct)}%)
+            </Text>
+          </View>
+          <ProgressBar
+            progress={tasksProgressPct}
+            height={3}
+            fillColor={tasksProgressPct === 100 ? '#10B981' : PALETTE.highlight.primary}
+            trackColor={isDark ? 'rgba(255, 255, 255, 0.08)' : '#E8E9F1'}
+            borderRadius={2}
+          />
+        </View>
+      )}
 
       {/* ========================================================= */}
       {/* 4. CONTROLS BAR: Sort & + Add Task Button                 */}
@@ -1014,5 +1071,29 @@ const styles = StyleSheet.create({
     marginTop: 8,
     alignSelf: 'center',
     backgroundColor: PALETTE.highlight.primary, // #006FFD
+  },
+  tasksProgressBarCard: {
+    marginHorizontal: 16,
+    marginBottom: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 12,
+    borderWidth: 1,
+    gap: 6,
+  },
+  tasksProgressBarHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  tasksProgressBarLabel: {
+    fontSize: 11.5,
+    fontFamily: Typography.fontFamily,
+    fontWeight: '500',
+  },
+  tasksProgressBarValue: {
+    fontSize: 11.5,
+    fontFamily: Typography.fontFamily,
+    fontWeight: '700',
   },
 });

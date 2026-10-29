@@ -1,23 +1,25 @@
 {
   "meta": {
-    "exam": "UPSC Civil Services (Preliminary) Examination 2024",
-    "paper": "General Studies Paper-I",
+    "exam": "UPSC CSE Prelims",
+    "paper": "General Studies Paper I",
     "test_booklet_series": "A",
     "booklet_code": "KSPC-P-GSPO",
     "language": "en",
     "total_questions": 100,
     "duration_minutes": 120,
     "total_marks": 200,
-    "marks_per_correct": 2.0,
+    "marks_per_correct": 2,
     "negative_marks_per_wrong": 0.6667,
     "negative_marking_rule": "One-third of the marks assigned to the question is deducted for each wrong answer; no penalty for unattempted questions.",
-    "answer_key_source": "Official UPSC Answer Key & standard reference sources."
+    "answer_key_source": "Official UPSC Answer Key & standard reference sources.",
+    "year": 2024,
+    "paper_type": "GS1"
   },
   "passages": [],
   "questions": [
     {
       "number": 1,
-      "topic": "Geography / Climatology",
+      "topic": "Climatology",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
       "statements": [
@@ -43,11 +45,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Statement-I is incorrect because the atmosphere is largely transparent to incoming shortwave solar radiation and is primarily heated from below by longwave terrestrial radiation. Statement-II is correct because greenhouse gases such as CO2 and water vapour are strong absorbers of longwave terrestrial radiation."
+      "explanation": "Statement-I is incorrect because the atmosphere is largely transparent to incoming shortwave solar radiation and is primarily heated from below by longwave terrestrial radiation. Statement-II is correct because greenhouse gases such as CO2 and water vapour are strong absorbers of longwave terrestrial radiation.",
+      "raw_topic": "Geography / Climatology",
+      "id": "upsc_2024_gs1_q1",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "climatology",
+      "subtopic_id": "climatology_climatology",
+      "subtopic": "Climatology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Climatology & Atmospheric Processes (Geography / Climatology).",
+      "validation_status": "verified"
     },
     {
       "number": 2,
-      "topic": "Geography / Climatology",
+      "topic": "Climatology",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
       "statements": [
@@ -73,11 +91,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The troposphere is thickest at the equator (about 18 km) compared to the poles (about 8 km) because strong solar heating at the equator causes intense vertical convectional currents that push the air and heat to great altitudes."
+      "explanation": "The troposphere is thickest at the equator (about 18 km) compared to the poles (about 8 km) because strong solar heating at the equator causes intense vertical convectional currents that push the air and heat to great altitudes.",
+      "raw_topic": "Geography / Climatology",
+      "id": "upsc_2024_gs1_q2",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "climatology",
+      "subtopic_id": "climatology_climatology",
+      "subtopic": "Climatology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Climatology & Atmospheric Processes (Geography / Climatology).",
+      "validation_status": "verified"
     },
     {
       "number": 3,
-      "topic": "Geography / Volcanology",
+      "topic": "Geomorphology",
       "passage_id": null,
       "question": "Consider the following:\nHow many of the above are products of volcanic eruptions?",
       "statements": [
@@ -105,11 +139,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Volcanic eruptions discharge pyroclastic materials (debris, volcanic bombs), tephra (ash and dust), and various volcanic gases including water vapour, sulphur compounds (SO2, H2S), and nitrogen compounds (ammonia, nitrogen oxides)."
+      "explanation": "Volcanic eruptions discharge pyroclastic materials (debris, volcanic bombs), tephra (ash and dust), and various volcanic gases including water vapour, sulphur compounds (SO2, H2S), and nitrogen compounds (ammonia, nitrogen oxides).",
+      "raw_topic": "Geography / Volcanology",
+      "id": "upsc_2024_gs1_q3",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "geomorphology",
+      "subtopic_id": "geomorphology_volcanology",
+      "subtopic": "Volcanology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Geomorphology & Earth's Interior (Geography / Volcanology).",
+      "validation_status": "verified"
     },
     {
       "number": 4,
-      "topic": "Geography / Climatology",
+      "topic": "Climatology",
       "passage_id": null,
       "question": "Which of the following is/are correct inference/inferences from isothermal maps in the month of January?\nSelect the answer using the code given below:",
       "statements": [
@@ -135,11 +185,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "In January in the Northern Hemisphere, oceans are warmer than continents; thus isotherms bend poleward (north) over oceans and equatorward (south) over continents (Statement 1 is correct). Statement 2 is incorrect because the Gulf Stream and North Atlantic Drift are warm currents, not cold currents."
+      "explanation": "In January in the Northern Hemisphere, oceans are warmer than continents; thus isotherms bend poleward (north) over oceans and equatorward (south) over continents (Statement 1 is correct). Statement 2 is incorrect because the Gulf Stream and North Atlantic Drift are warm currents, not cold currents.",
+      "raw_topic": "Geography / Climatology",
+      "id": "upsc_2024_gs1_q4",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "climatology",
+      "subtopic_id": "climatology_climatology",
+      "subtopic": "Climatology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Climatology & Atmospheric Processes (Geography / Climatology).",
+      "validation_status": "verified"
     },
     {
       "number": 5,
-      "topic": "Economic Geography",
+      "topic": "Physical Geography",
       "passage_id": null,
       "question": "Which of the following countries are well known as the two largest cocoa producers in the world?",
       "options": [
@@ -161,11 +227,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Côte d'Ivoire (Ivory Coast) and Ghana are the two largest producers of cocoa beans globally, together producing nearly 60% of the world's cocoa supply."
+      "explanation": "Côte d'Ivoire (Ivory Coast) and Ghana are the two largest producers of cocoa beans globally, together producing nearly 60% of the world's cocoa supply.",
+      "raw_topic": "Economic Geography",
+      "id": "upsc_2024_gs1_q5",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "physical_geography",
+      "subtopic_id": "physical_geography_core",
+      "subtopic": "Earth Systems, Soils & Natural Vegetation",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Physical Geography question (Economic Geography).",
+      "validation_status": "verified"
     },
     {
       "number": 6,
-      "topic": "Indian Geography / Rivers",
+      "topic": "Indian Geography",
       "passage_id": null,
       "question": "With reference to the Himalayan rivers joining the Ganga downstream of Prayagraj from West to East, which one of the following sequences is correct?",
       "options": [
@@ -187,11 +269,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Downstream (eastward) of Prayagraj, the tributaries joining Ganga from the north in West-to-East order are: Gomati (near Varanasi/Ghazipur), Ghaghara (near Chhapra), Gandak (near Patna/Sonpur), and Kosi (in Kursela/Katihar)."
+      "explanation": "Downstream (eastward) of Prayagraj, the tributaries joining Ganga from the north in West-to-East order are: Gomati (near Varanasi/Ghazipur), Ghaghara (near Chhapra), Gandak (near Patna/Sonpur), and Kosi (in Kursela/Katihar).",
+      "raw_topic": "Indian Geography / Rivers",
+      "id": "upsc_2024_gs1_q6",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "indian_geography",
+      "subtopic_id": "indian_geography_rivers",
+      "subtopic": "Rivers",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Indian Geography question on Indian physiography, rivers, or lakes (Indian Geography / Rivers).",
+      "validation_status": "verified"
     },
     {
       "number": 7,
-      "topic": "Physical Geography / Geomorphology",
+      "topic": "Geomorphology",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
       "statements": [
@@ -218,11 +316,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Rainwater causes chemical weathering through carbonation (dissolved CO2 forming weak carbonic acid) and oxidation (dissolved oxygen reacting with iron-rich minerals). Hence, both Statements II and III are correct and both explain Statement-I."
+      "explanation": "Rainwater causes chemical weathering through carbonation (dissolved CO2 forming weak carbonic acid) and oxidation (dissolved oxygen reacting with iron-rich minerals). Hence, both Statements II and III are correct and both explain Statement-I.",
+      "raw_topic": "Physical Geography / Geomorphology",
+      "id": "upsc_2024_gs1_q7",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "geomorphology",
+      "subtopic_id": "geomorphology_geomorphology",
+      "subtopic": "Geomorphology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Geomorphology & Earth's Interior (Physical Geography / Geomorphology).",
+      "validation_status": "verified"
     },
     {
       "number": 8,
-      "topic": "World Geography / Regional",
+      "topic": "Mapping and Places in News",
       "passage_id": null,
       "question": "Consider the following countries:\nHow many of the above countries have a border with the North Sea?",
       "statements": [
@@ -250,11 +364,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The North Sea is bordered by the UK, Norway, Denmark, Germany, the Netherlands, Belgium, and France. Finland and Russia do not border the North Sea (they border the Baltic Sea and Arctic seas). Thus, only two (Germany and Norway) border the North Sea."
+      "explanation": "The North Sea is bordered by the UK, Norway, Denmark, Germany, the Netherlands, Belgium, and France. Finland and Russia do not border the North Sea (they border the Baltic Sea and Arctic seas). Thus, only two (Germany and Norway) border the North Sea.",
+      "raw_topic": "World Geography / Regional",
+      "id": "upsc_2024_gs1_q8",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "mapping_and_places_in_news",
+      "subtopic_id": "mapping_and_places_in_news_regional",
+      "subtopic": "Regional",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on World Mapping, Borders & Places in News (World Geography / Regional).",
+      "validation_status": "verified"
     },
     {
       "number": 9,
-      "topic": "Indian Geography / Waterfalls",
+      "topic": "Indian Geography",
       "passage_id": null,
       "question": "Consider the following information:\nIn how many of the above rows is the given information correctly matched?",
       "table": {
@@ -304,11 +434,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Row 1 is incorrectly matched because Dhuandhar falls is in the Baghelkhand/Mahakoshal (Jabalpur) region, not Malwa plateau. Row 2 is correctly matched: Hundru falls is on the Subarnarekha River in the Chota Nagpur plateau (Ranchi). Row 3 is incorrectly matched because Gersoppa (Jog) Falls is on the Sharavathi River, not Netravati. Thus, only one row is correctly matched."
+      "explanation": "Row 1 is incorrectly matched because Dhuandhar falls is in the Baghelkhand/Mahakoshal (Jabalpur) region, not Malwa plateau. Row 2 is correctly matched: Hundru falls is on the Subarnarekha River in the Chota Nagpur plateau (Ranchi). Row 3 is incorrectly matched because Gersoppa (Jog) Falls is on the Sharavathi River, not Netravati. Thus, only one row is correctly matched.",
+      "raw_topic": "Indian Geography / Waterfalls",
+      "id": "upsc_2024_gs1_q9",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "indian_geography",
+      "subtopic_id": "indian_geography_waterfalls",
+      "subtopic": "Waterfalls",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Indian Geography question on Indian physiography, rivers, or lakes (Indian Geography / Waterfalls).",
+      "validation_status": "verified"
     },
     {
       "number": 10,
-      "topic": "Physical Geography / Mountains",
+      "topic": "Physical Geography",
       "passage_id": null,
       "question": "Consider the following information:\nIn how many of the above rows is the given information correctly matched?",
       "table": {
@@ -364,11 +510,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Row 1: Vosges is a block mountain in Europe (France), not Central Asia. (Incorrect)\nRow 2: Alps is a young fold mountain in Europe, not a block mountain. (Incorrect)\nRow 3: Appalachians in North America is an old fold mountain. (Correct)\nRow 4: Andes in South America is a young fold mountain. (Correct)\nThus, only two rows (3 and 4) are correctly matched."
+      "explanation": "Row 1: Vosges is a block mountain in Europe (France), not Central Asia. (Incorrect)\nRow 2: Alps is a young fold mountain in Europe, not a block mountain. (Incorrect)\nRow 3: Appalachians in North America is an old fold mountain. (Correct)\nRow 4: Andes in South America is a young fold mountain. (Correct)\nThus, only two rows (3 and 4) are correctly matched.",
+      "raw_topic": "Physical Geography / Mountains",
+      "id": "upsc_2024_gs1_q10",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "physical_geography",
+      "subtopic_id": "physical_geography_mountains",
+      "subtopic": "Mountains",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Physical Geography question (Physical Geography / Mountains).",
+      "validation_status": "verified"
     },
     {
       "number": 11,
-      "topic": "Infrastructure / Current Affairs",
+      "topic": "Infrastructure",
       "passage_id": null,
       "question": "Consider the following airports:\nIn the recent past, which of the above have been constructed as Greenfield projects?\nSelect the answer using the code given below:",
       "statements": [
@@ -395,11 +557,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Donyi Polo Airport (Hollongi, Arunachal Pradesh) and Kushinagar International Airport (Uttar Pradesh) were developed from scratch as greenfield airport projects. Vijayawada Airport is an existing brownfield airport expanded over time."
+      "explanation": "Donyi Polo Airport (Hollongi, Arunachal Pradesh) and Kushinagar International Airport (Uttar Pradesh) were developed from scratch as greenfield airport projects. Vijayawada Airport is an existing brownfield airport expanded over time.",
+      "raw_topic": "Infrastructure / Current Affairs",
+      "id": "upsc_2024_gs1_q11",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "infrastructure",
+      "subtopic_id": "infrastructure_current_affairs",
+      "subtopic": "Current Affairs",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Infrastructure, Energy & Transport (Infrastructure / Current Affairs).",
+      "validation_status": "verified"
     },
     {
       "number": 12,
-      "topic": "Physical Geography / Atmosphere",
+      "topic": "Climatology",
       "passage_id": null,
       "question": "With reference to \"water vapour\", which of the following statements is/are correct?\nSelect the answer using the code given below:",
       "statements": [
@@ -425,7 +603,23 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Water vapour is a gaseous constituent of the atmosphere that decreases rapidly with altitude (almost 90% is found within the lowest 5 km). Statement 2 is incorrect because atmospheric water vapour is highest in warm, humid equatorial/tropical regions (up to 4% by volume) and lowest in cold, dry polar regions (less than 1%)."
+      "explanation": "Water vapour is a gaseous constituent of the atmosphere that decreases rapidly with altitude (almost 90% is found within the lowest 5 km). Statement 2 is incorrect because atmospheric water vapour is highest in warm, humid equatorial/tropical regions (up to 4% by volume) and lowest in cold, dry polar regions (less than 1%).",
+      "raw_topic": "Physical Geography / Atmosphere",
+      "id": "upsc_2024_gs1_q12",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "climatology",
+      "subtopic_id": "climatology_atmosphere",
+      "subtopic": "Atmosphere",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Climatology & Atmospheric Processes (Physical Geography / Atmosphere).",
+      "validation_status": "verified"
     },
     {
       "number": 13,
@@ -451,11 +645,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Marine West Coast (British type) climate is characterized by mild winters, cool summers (very low annual and daily temperature ranges due to oceanic moderation), rainfall throughout the year brought by on-shore Westerlies, with precipitation ranging typically between 50 cm and 250 cm."
+      "explanation": "Marine West Coast (British type) climate is characterized by mild winters, cool summers (very low annual and daily temperature ranges due to oceanic moderation), rainfall throughout the year brought by on-shore Westerlies, with precipitation ranging typically between 50 cm and 250 cm.",
+      "raw_topic": "Climatology",
+      "id": "upsc_2024_gs1_q13",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "climatology",
+      "subtopic_id": "climatology_core",
+      "subtopic": "Atmosphere, Winds, Cyclones & Monsoon Dynamics",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Climatology & Atmospheric Processes (Climatology).",
+      "validation_status": "verified"
     },
     {
       "number": 14,
-      "topic": "Physical Geography / Climatology",
+      "topic": "Climatology",
       "passage_id": null,
       "question": "With reference to \"Coriolis force\", which of the following statements is/are correct?\nSelect the answer using the code given below:",
       "statements": [
@@ -481,11 +691,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The Coriolis force is given by 2 * m * v * omega * sin(latitude). It is directly proportional to wind velocity (Statement 1 is correct) and to the sine of the latitude, making it zero at the equator (sin 0° = 0) and maximum at the poles (sin 90° = 1) (Statement 2 is correct)."
+      "explanation": "The Coriolis force is given by 2 * m * v * omega * sin(latitude). It is directly proportional to wind velocity (Statement 1 is correct) and to the sine of the latitude, making it zero at the equator (sin 0° = 0) and maximum at the poles (sin 90° = 1) (Statement 2 is correct).",
+      "raw_topic": "Physical Geography / Climatology",
+      "id": "upsc_2024_gs1_q14",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "climatology",
+      "subtopic_id": "climatology_climatology",
+      "subtopic": "Climatology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Climatology & Atmospheric Processes (Physical Geography / Climatology).",
+      "validation_status": "verified"
     },
     {
       "number": 15,
-      "topic": "Geography / Earth Movements",
+      "topic": "Physical Geography",
       "passage_id": null,
       "question": "On June 21 every year, which of the following latitude(s) experience(s) a sunlight of more than 12 hours?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -513,11 +739,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "On June 21 (Summer Solstice in the Northern Hemisphere), all latitudes north of the Equator experience daylight exceeding 12 hours. At the Equator daylight is exactly 12 hours. At Tropic of Cancer it is about 13.5 hours, and at the Arctic Circle it is 24 hours of daylight. Thus, 2 and 4 experience more than 12 hours."
+      "explanation": "On June 21 (Summer Solstice in the Northern Hemisphere), all latitudes north of the Equator experience daylight exceeding 12 hours. At the Equator daylight is exactly 12 hours. At Tropic of Cancer it is about 13.5 hours, and at the Arctic Circle it is 24 hours of daylight. Thus, 2 and 4 experience more than 12 hours.",
+      "raw_topic": "Geography / Earth Movements",
+      "id": "upsc_2024_gs1_q15",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "physical_geography",
+      "subtopic_id": "physical_geography_earth_movements",
+      "subtopic": "Earth Movements",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Physical Geography question (Geography / Earth Movements).",
+      "validation_status": "verified"
     },
     {
       "number": 16,
-      "topic": "Environment / Ecology",
+      "topic": "Ecosystems",
       "passage_id": null,
       "question": "One of the following regions has the world's largest tropical peatland, which holds about three years worth of global carbon emissions from fossil fuels; and the possible destruction of which can exert detrimental effect on the global climate. Which one of the following denotes that region?",
       "options": [
@@ -539,11 +781,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The Cuvette Centrale peatlands in the Congo Basin (spanning DRC and Republic of Congo) form the world's largest tropical peatland complex, storing roughly 30 billion tonnes of carbon (equivalent to nearly three years of global fossil fuel emissions)."
+      "explanation": "The Cuvette Centrale peatlands in the Congo Basin (spanning DRC and Republic of Congo) form the world's largest tropical peatland complex, storing roughly 30 billion tonnes of carbon (equivalent to nearly three years of global fossil fuel emissions).",
+      "raw_topic": "Environment / Ecology",
+      "id": "upsc_2024_gs1_q16",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "ecosystems",
+      "subtopic_id": "ecosystems_ecology",
+      "subtopic": "Ecology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Ecosystems, Trophic Dynamics & Adaptations (Environment / Ecology).",
+      "validation_status": "verified"
     },
     {
       "number": 17,
-      "topic": "Environment / Pollution",
+      "topic": "Pollution",
       "passage_id": null,
       "question": "With reference to perfluoroalkyl and polyfluoroalkyl substances (PFAS) that are used in making many consumer products, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -570,11 +828,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "PFAS ('forever chemicals') possess extremely strong carbon-fluorine bonds that resist environmental degradation. They are widely detected in non-stick cookware, food packaging, and water supplies, and bioaccumulate in animal and human tissues over time."
+      "explanation": "PFAS ('forever chemicals') possess extremely strong carbon-fluorine bonds that resist environmental degradation. They are widely detected in non-stick cookware, food packaging, and water supplies, and bioaccumulate in animal and human tissues over time.",
+      "raw_topic": "Environment / Pollution",
+      "id": "upsc_2024_gs1_q17",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "pollution",
+      "subtopic_id": "pollution_pollution",
+      "subtopic": "Pollution",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Pollution, Waste Management, or Bioremediation (Environment / Pollution).",
+      "validation_status": "verified"
     },
     {
       "number": 18,
-      "topic": "Environment / Biodiversity",
+      "topic": "Species and Conservation",
       "passage_id": null,
       "question": "Consider the following:\nParasitoid species are found in how many of the above kind of organisms?",
       "statements": [
@@ -603,11 +877,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Parasitoid insects lay eggs in or on the bodies of other hosts, which are eventually killed. Parasitoid species are well established among Wasps (Hymenoptera), Flies (Diptera, e.g., Tachinid flies), and certain Beetles (Coleoptera, including Carabid/ground beetles of genus Lebia). Centipedes and termites do not have parasitoid species. Thus, three kinds of organisms have parasitoids."
+      "explanation": "Parasitoid insects lay eggs in or on the bodies of other hosts, which are eventually killed. Parasitoid species are well established among Wasps (Hymenoptera), Flies (Diptera, e.g., Tachinid flies), and certain Beetles (Coleoptera, including Carabid/ground beetles of genus Lebia). Centipedes and termites do not have parasitoid species. Thus, three kinds of organisms have parasitoids.",
+      "raw_topic": "Environment / Biodiversity",
+      "id": "upsc_2024_gs1_q18",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "species_and_conservation",
+      "subtopic_id": "species_and_conservation_biodiversity",
+      "subtopic": "Biodiversity",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Wildlife Species, Animal Behaviour & Conservation (Environment / Biodiversity).",
+      "validation_status": "verified"
     },
     {
       "number": 19,
-      "topic": "Agriculture / Botany",
+      "topic": "Agriculture and Food Management",
       "passage_id": null,
       "question": "Consider the following plants:\nHow many of the above belong to the pea family?",
       "statements": [
@@ -634,11 +924,29 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "All three plants belong to the Fabaceae (or Leguminosae) family, commonly known as the legume or pea family: Groundnut (Arachis hypogaea), Horse-gram (Macrotyloma uniflorum), and Soybean (Glycine max)."
+      "explanation": "All three plants belong to the Fabaceae (or Leguminosae) family, commonly known as the legume or pea family: Groundnut (Arachis hypogaea), Horse-gram (Macrotyloma uniflorum), and Soybean (Glycine max).",
+      "raw_topic": "Agriculture / Botany",
+      "id": "upsc_2024_gs1_q19",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "agriculture_and_food_management",
+      "subtopic_id": "agriculture_and_food_management_botany",
+      "subtopic": "Botany",
+      "secondary_tags": [
+        "Environment and Ecology"
+      ],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy & Agriculture question on cropping systems, MSP, PDS, or agri-inputs (Agriculture / Botany).",
+      "validation_status": "verified"
     },
     {
       "number": 20,
-      "topic": "Environment / Wildlife",
+      "topic": "Species and Conservation",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
       "statements": [
@@ -664,11 +972,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statement-I is correct as fruit bats / Indian Flying Fox were historically categorized as vermin under Schedule V of the Wildlife (Protection) Act, 1972. Statement-II is incorrect because the Indian Flying Fox (Pteropus giganteus) is frugivorous (feeds on fruits, nectar, and pollen), not sanguivorous (does not feed on blood)."
+      "explanation": "Statement-I is correct as fruit bats / Indian Flying Fox were historically categorized as vermin under Schedule V of the Wildlife (Protection) Act, 1972. Statement-II is incorrect because the Indian Flying Fox (Pteropus giganteus) is frugivorous (feeds on fruits, nectar, and pollen), not sanguivorous (does not feed on blood).",
+      "raw_topic": "Environment / Wildlife",
+      "id": "upsc_2024_gs1_q20",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "species_and_conservation",
+      "subtopic_id": "species_and_conservation_wildlife",
+      "subtopic": "Wildlife",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Wildlife Species, Animal Behaviour & Conservation (Environment / Wildlife).",
+      "validation_status": "verified"
     },
     {
       "number": 21,
-      "topic": "Environment / Entomology",
+      "topic": "Species and Conservation",
       "passage_id": null,
       "question": "The organisms \"Cicada, Froghopper and Pond skater\" are:",
       "options": [
@@ -690,11 +1014,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Cicadas, Froghoppers (spittlebugs), and Pond skaters (water striders) are all true bugs belonging to the class Insecta (order Hemiptera)."
+      "explanation": "Cicadas, Froghoppers (spittlebugs), and Pond skaters (water striders) are all true bugs belonging to the class Insecta (order Hemiptera).",
+      "raw_topic": "Environment / Entomology",
+      "id": "upsc_2024_gs1_q21",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "species_and_conservation",
+      "subtopic_id": "species_and_conservation_entomology",
+      "subtopic": "Entomology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Wildlife Species, Animal Behaviour & Conservation (Environment / Entomology).",
+      "validation_status": "verified"
     },
     {
       "number": 22,
-      "topic": "Environment / Pollution",
+      "topic": "Pollution",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
       "statements": [
@@ -720,11 +1060,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Most modern commercial chewing gums use synthetic polymers/plastics (such as polyethylene, polyvinyl acetate, and butyl rubber) as their gum base. Because synthetic plastics are non-biodegradable, discarded chewing gums persist in the environment and contribute significantly to microplastic and litter pollution."
+      "explanation": "Most modern commercial chewing gums use synthetic polymers/plastics (such as polyethylene, polyvinyl acetate, and butyl rubber) as their gum base. Because synthetic plastics are non-biodegradable, discarded chewing gums persist in the environment and contribute significantly to microplastic and litter pollution.",
+      "raw_topic": "Environment / Pollution",
+      "id": "upsc_2024_gs1_q22",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "pollution",
+      "subtopic_id": "pollution_pollution",
+      "subtopic": "Pollution",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Pollution, Waste Management, or Bioremediation (Environment / Pollution).",
+      "validation_status": "verified"
     },
     {
       "number": 23,
-      "topic": "Environment / Biodiversity",
+      "topic": "Biodiversity",
       "passage_id": null,
       "question": "Consider the following pairs:\nHow many of the pairs given above are correctly matched?",
       "table": {
@@ -770,11 +1126,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Pair 1 is incorrect: Indri is a lemur endemic to Madagascar, not Brazil. Pair 2 is incorrect: Elk (wapiti) is native to North America and Central/East Asia, not Indonesia. Pair 3 is incorrect: Bonobo is a great ape endemic to the Democratic Republic of the Congo in Central Africa, not Madagascar. None of the pairs are correctly matched."
+      "explanation": "Pair 1 is incorrect: Indri is a lemur endemic to Madagascar, not Brazil. Pair 2 is incorrect: Elk (wapiti) is native to North America and Central/East Asia, not Indonesia. Pair 3 is incorrect: Bonobo is a great ape endemic to the Democratic Republic of the Congo in Central Africa, not Madagascar. None of the pairs are correctly matched.",
+      "raw_topic": "Environment / Biodiversity",
+      "id": "upsc_2024_gs1_q23",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "biodiversity",
+      "subtopic_id": "biodiversity_biodiversity",
+      "subtopic": "Biodiversity",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Biodiversity, Invasive Species & Flora (Environment / Biodiversity).",
+      "validation_status": "verified"
     },
     {
       "number": 24,
-      "topic": "International Organizations / Sanitation",
+      "topic": "International Organisations",
       "passage_id": null,
       "question": "Consider the following statements regarding World Toilet Organization:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -801,11 +1173,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is incorrect: World Toilet Organization (WTO) is a global non-profit NGO founded by Jack Sim in Singapore in 2001, not a specialized agency of the UN. Statement 2 is correct: it established the World Toilet Summit, pioneered World Toilet Day (later recognized by the UN), and founded the World Toilet College. Statement 3 is incorrect: it is an advocacy and capacity-building body, not a funding/grant-making agency."
+      "explanation": "Statement 1 is incorrect: World Toilet Organization (WTO) is a global non-profit NGO founded by Jack Sim in Singapore in 2001, not a specialized agency of the UN. Statement 2 is correct: it established the World Toilet Summit, pioneered World Toilet Day (later recognized by the UN), and founded the World Toilet College. Statement 3 is incorrect: it is an advocacy and capacity-building body, not a funding/grant-making agency.",
+      "raw_topic": "International Organizations / Sanitation",
+      "id": "upsc_2024_gs1_q24",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "international_organisations",
+      "subtopic_id": "international_organisations_sanitation",
+      "subtopic": "Sanitation",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs & IR question on International Organisations and Multilateral Groupings (International Organizations / Sanitation).",
+      "validation_status": "verified"
     },
     {
       "number": 25,
-      "topic": "Environment / Wildlife",
+      "topic": "Species and Conservation",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -832,11 +1220,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is correct: lions can breed throughout the year and do not have a fixed seasonal mating period. Statement 2 is correct: cheetahs cannot roar because they lack the specialized two-piece hyoid apparatus found in Panthera cats; instead they purr, chirp, and hiss. Statement 3 is incorrect: male leopards actively proclaim and defend their territories using scent marking (urine, gland rubbing) and tree claw marks."
+      "explanation": "Statement 1 is correct: lions can breed throughout the year and do not have a fixed seasonal mating period. Statement 2 is correct: cheetahs cannot roar because they lack the specialized two-piece hyoid apparatus found in Panthera cats; instead they purr, chirp, and hiss. Statement 3 is incorrect: male leopards actively proclaim and defend their territories using scent marking (urine, gland rubbing) and tree claw marks.",
+      "raw_topic": "Environment / Wildlife",
+      "id": "upsc_2024_gs1_q25",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "species_and_conservation",
+      "subtopic_id": "species_and_conservation_wildlife",
+      "subtopic": "Wildlife",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Wildlife Species, Animal Behaviour & Conservation (Environment / Wildlife).",
+      "validation_status": "verified"
     },
     {
       "number": 26,
-      "topic": "Agriculture / Climate Change",
+      "topic": "Agriculture and Food Management",
       "passage_id": null,
       "question": "Which one of the following is the correct description of \"100 Million Farmers\"?",
       "options": [
@@ -858,11 +1262,29 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The '100 Million Farmers' initiative, launched by the World Economic Forum (WEF), is a multi-stakeholder platform aimed at transitioning global agriculture towards net-zero, nature-positive food and water systems while supporting farmer livelihoods and climate resilience."
+      "explanation": "The '100 Million Farmers' initiative, launched by the World Economic Forum (WEF), is a multi-stakeholder platform aimed at transitioning global agriculture towards net-zero, nature-positive food and water systems while supporting farmer livelihoods and climate resilience.",
+      "raw_topic": "Agriculture / Climate Change",
+      "id": "upsc_2024_gs1_q26",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "agriculture_and_food_management",
+      "subtopic_id": "agriculture_and_food_management_climate_change",
+      "subtopic": "Climate Change",
+      "secondary_tags": [
+        "Environment and Ecology"
+      ],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy & Agriculture question on cropping systems, MSP, PDS, or agri-inputs (Agriculture / Climate Change).",
+      "validation_status": "verified"
     },
     {
       "number": 27,
-      "topic": "Energy / Science and Technology",
+      "topic": "National and International Developments",
       "passage_id": null,
       "question": "Consider the following:\nHow many of the above are considered \"Distributed Energy Resources\"?",
       "statements": [
@@ -890,11 +1312,29 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Distributed Energy Resources (DERs) are decentralized, small-scale electricity generation or storage units connected to the distribution network or located behind the meter. All four (battery storage, biomass generators, fuel cells, and rooftop solar PV) are classic examples of DERs."
+      "explanation": "Distributed Energy Resources (DERs) are decentralized, small-scale electricity generation or storage units connected to the distribution network or located behind the meter. All four (battery storage, biomass generators, fuel cells, and rooftop solar PV) are classic examples of DERs.",
+      "raw_topic": "Energy / Science and Technology",
+      "id": "upsc_2024_gs1_q27",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "national_and_international_developments",
+      "subtopic_id": "national_and_international_developments_science_and_technology",
+      "subtopic": "Science and Technology",
+      "secondary_tags": [
+        "Science and Technology"
+      ],
+      "classification_confidence": 0.86,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Current Affairs & International Relations question (Energy / Science and Technology).",
+      "validation_status": "verified"
     },
     {
       "number": 28,
-      "topic": "Environment / Ecology (Mutualism)",
+      "topic": "Ecosystems",
       "passage_id": null,
       "question": "Which one of the following shows a unique relationship with an insect that has coevolved with it and that is the only insect that can pollinate this tree?",
       "options": [
@@ -916,11 +1356,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Fig trees (Ficus species) share an obligate mutualistic relationship with fig wasps (family Agaonidae). Each species of fig is pollinated exclusively by its own co-evolved wasp species, which in turn breeds inside the fig syconium."
+      "explanation": "Fig trees (Ficus species) share an obligate mutualistic relationship with fig wasps (family Agaonidae). Each species of fig is pollinated exclusively by its own co-evolved wasp species, which in turn breeds inside the fig syconium.",
+      "raw_topic": "Environment / Ecology (Mutualism)",
+      "id": "upsc_2024_gs1_q28",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "ecosystems",
+      "subtopic_id": "ecosystems_ecology_mutualism",
+      "subtopic": "Ecology (Mutualism)",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Ecosystems, Trophic Dynamics & Adaptations (Environment / Ecology (Mutualism)).",
+      "validation_status": "verified"
     },
     {
       "number": 29,
-      "topic": "Environment / Biodiversity",
+      "topic": "Species and Conservation",
       "passage_id": null,
       "question": "Consider the following:\nHow many of the above have poisonous species among them?",
       "statements": [
@@ -947,11 +1403,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "All three groups contain poisonous species: Butterflies (e.g. Monarch butterfly and African giant swallowtail sequester toxins and are poisonous to ingest), Fish (e.g. Pufferfish contain deadly tetrodotoxin), and Frogs (e.g. Poison dart frogs contain lethal batrachotoxins in their skin)."
+      "explanation": "All three groups contain poisonous species: Butterflies (e.g. Monarch butterfly and African giant swallowtail sequester toxins and are poisonous to ingest), Fish (e.g. Pufferfish contain deadly tetrodotoxin), and Frogs (e.g. Poison dart frogs contain lethal batrachotoxins in their skin).",
+      "raw_topic": "Environment / Biodiversity",
+      "id": "upsc_2024_gs1_q29",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "species_and_conservation",
+      "subtopic_id": "species_and_conservation_biodiversity",
+      "subtopic": "Biodiversity",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Wildlife Species, Animal Behaviour & Conservation (Environment / Biodiversity).",
+      "validation_status": "verified"
     },
     {
       "number": 30,
-      "topic": "Botany / Flora of India",
+      "topic": "Biodiversity",
       "passage_id": null,
       "question": "Consider the following:\nHow many of the above trees are actually native to India?",
       "statements": [
@@ -978,11 +1450,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Cashew (Anacardium occidentale) is native to northeastern Brazil and was introduced to India by the Portuguese. Papaya (Carica papaya) is native to tropical America/Mesoamerica and was also introduced by the Portuguese. Red Sanders (Pterocarpus santalinus) is strictly endemic/native to India (specifically the southern Eastern Ghats of Andhra Pradesh). Thus, only one tree is native to India."
+      "explanation": "Cashew (Anacardium occidentale) is native to northeastern Brazil and was introduced to India by the Portuguese. Papaya (Carica papaya) is native to tropical America/Mesoamerica and was also introduced by the Portuguese. Red Sanders (Pterocarpus santalinus) is strictly endemic/native to India (specifically the southern Eastern Ghats of Andhra Pradesh). Thus, only one tree is native to India.",
+      "raw_topic": "Botany / Flora of India",
+      "id": "upsc_2024_gs1_q30",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "biodiversity",
+      "subtopic_id": "biodiversity_flora_of_india",
+      "subtopic": "Flora of India",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Biodiversity, Invasive Species & Flora (Botany / Flora of India).",
+      "validation_status": "verified"
     },
     {
       "number": 31,
-      "topic": "Science and Technology / Nuclear & Space",
+      "topic": "Space Technology",
       "passage_id": null,
       "question": "With reference to radioisotope thermoelectric generators (RTGs), consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -1009,11 +1497,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: RTGs are not nuclear fission reactors; they have no chain reactions and simply convert the heat released by natural radioactive decay of isotopes into electricity via thermocouples. Statements 2 and 3 are correct: RTGs are standard power sources for deep-space missions (Voyager, Curiosity, Perseverance) and commonly utilize non-weapons-grade Plutonium-238 produced as a by-product of nuclear material processing."
+      "explanation": "Statement 1 is incorrect: RTGs are not nuclear fission reactors; they have no chain reactions and simply convert the heat released by natural radioactive decay of isotopes into electricity via thermocouples. Statements 2 and 3 are correct: RTGs are standard power sources for deep-space missions (Voyager, Curiosity, Perseverance) and commonly utilize non-weapons-grade Plutonium-238 produced as a by-product of nuclear material processing.",
+      "raw_topic": "Science and Technology / Nuclear & Space",
+      "id": "upsc_2024_gs1_q31",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "space_technology",
+      "subtopic_id": "space_technology_nuclear_space",
+      "subtopic": "Nuclear & Space",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Space Technology, Satellites, or Astrophysics (Science and Technology / Nuclear & Space).",
+      "validation_status": "verified"
     },
     {
       "number": 32,
-      "topic": "Science / Astronomy",
+      "topic": "Space Technology",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
       "statements": [
@@ -1039,11 +1543,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Statement-I is incorrect because massive giant stars burn through their nuclear fuel extraordinarily fast and live only millions of years, whereas smaller dwarf stars (like red dwarfs) burn fuel slowly and survive for hundreds of billions of years. Statement-II is correct because higher central temperatures and pressures in massive stars drive nuclear fusion reactions at vastly higher rates."
+      "explanation": "Statement-I is incorrect because massive giant stars burn through their nuclear fuel extraordinarily fast and live only millions of years, whereas smaller dwarf stars (like red dwarfs) burn fuel slowly and survive for hundreds of billions of years. Statement-II is correct because higher central temperatures and pressures in massive stars drive nuclear fusion reactions at vastly higher rates.",
+      "raw_topic": "Science / Astronomy",
+      "id": "upsc_2024_gs1_q32",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "space_technology",
+      "subtopic_id": "space_technology_astronomy",
+      "subtopic": "Astronomy",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Space Technology, Satellites, or Astrophysics (Science / Astronomy).",
+      "validation_status": "verified"
     },
     {
       "number": 33,
-      "topic": "Biology / Human Physiology",
+      "topic": "Biology and Human Health",
       "passage_id": null,
       "question": "Which one of the following is synthesised in human body that dilates blood vessels and increases blood flow?",
       "options": [
@@ -1065,11 +1585,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Nitric oxide (NO) is synthesized by vascular endothelial cells from L-arginine; it acts as a potent signaling molecule that relaxes vascular smooth muscle, causing vasodilation and increased blood flow (the discovery that won the 1998 Nobel Prize)."
+      "explanation": "Nitric oxide (NO) is synthesized by vascular endothelial cells from L-arginine; it acts as a potent signaling molecule that relaxes vascular smooth muscle, causing vasodilation and increased blood flow (the discovery that won the 1998 Nobel Prize).",
+      "raw_topic": "Biology / Human Physiology",
+      "id": "upsc_2024_gs1_q33",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "biology_and_human_health",
+      "subtopic_id": "biology_and_human_health_human_physiology",
+      "subtopic": "Human Physiology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Biology, Infectious Diseases, Vaccines & Human Health (Biology / Human Physiology).",
+      "validation_status": "verified"
     },
     {
       "number": 34,
-      "topic": "Science and Technology / Radars",
+      "topic": "Defence Technology",
       "passage_id": null,
       "question": "Consider the following activities:\nIn how many of the above activities can the radars be used?",
       "statements": [
@@ -1096,11 +1632,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Millimeter-wave radar body scanners at airports detect objects on passengers but cannot chemically identify narcotics (that requires spectrometry/chemical sniffers/X-ray diffraction). Radar is extensively used in Doppler weather radar for monitoring precipitation (2) and in aeroecology for tracking bird, bat, and insect migrations (3). Thus, radars are used in two activities."
+      "explanation": "Millimeter-wave radar body scanners at airports detect objects on passengers but cannot chemically identify narcotics (that requires spectrometry/chemical sniffers/X-ray diffraction). Radar is extensively used in Doppler weather radar for monitoring precipitation (2) and in aeroecology for tracking bird, bat, and insect migrations (3). Thus, radars are used in two activities.",
+      "raw_topic": "Science and Technology / Radars",
+      "id": "upsc_2024_gs1_q34",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "defence_technology",
+      "subtopic_id": "defence_technology_radars",
+      "subtopic": "Radars",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Defence & Aerospace Technology (Science and Technology / Radars).",
+      "validation_status": "verified"
     },
     {
       "number": 35,
-      "topic": "Defence / Fighter Aircraft",
+      "topic": "Defence Technology",
       "passage_id": null,
       "question": "Consider the following aircraft:\nHow many of the above are considered fifth generation fighter aircraft?",
       "statements": [
@@ -1127,11 +1679,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Dassault Rafale is a 4.5 generation fighter; MiG-29 is a 4th generation fighter; and LCA Tejas MK-1 is a 4th generation fighter. Fifth-generation fighters include aircraft like the F-22 Raptor, F-35 Lightning II, Su-57, and J-20. None of the listed aircraft are fifth-generation fighters."
+      "explanation": "Dassault Rafale is a 4.5 generation fighter; MiG-29 is a 4th generation fighter; and LCA Tejas MK-1 is a 4th generation fighter. Fifth-generation fighters include aircraft like the F-22 Raptor, F-35 Lightning II, Su-57, and J-20. None of the listed aircraft are fifth-generation fighters.",
+      "raw_topic": "Defence / Fighter Aircraft",
+      "id": "upsc_2024_gs1_q35",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "defence_technology",
+      "subtopic_id": "defence_technology_fighter_aircraft",
+      "subtopic": "Fighter Aircraft",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Defence & Aerospace Technology (Defence / Fighter Aircraft).",
+      "validation_status": "verified"
     },
     {
       "number": 36,
-      "topic": "Science and Technology / Materials",
+      "topic": "Chemistry in Everyday Life",
       "passage_id": null,
       "question": "In which of the following are hydrogels used?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -1158,11 +1726,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Hydrogels are 3D hydrophilic polymer networks used extensively in controlled/targeted drug delivery systems (1), advanced thermal management/evaporative cooling in mobile air-conditioning systems (2), and aqueous preparation of bio-lubricants/industrial lubricants (3)."
+      "explanation": "Hydrogels are 3D hydrophilic polymer networks used extensively in controlled/targeted drug delivery systems (1), advanced thermal management/evaporative cooling in mobile air-conditioning systems (2), and aqueous preparation of bio-lubricants/industrial lubricants (3).",
+      "raw_topic": "Science and Technology / Materials",
+      "id": "upsc_2024_gs1_q36",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "chemistry_in_everyday_life",
+      "subtopic_id": "chemistry_in_everyday_life_materials",
+      "subtopic": "Materials",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Chemistry in Everyday Life (Science and Technology / Materials).",
+      "validation_status": "verified"
     },
     {
       "number": 37,
-      "topic": "Science and Technology / Clean Energy",
+      "topic": "Renewable Energy",
       "passage_id": null,
       "question": "Which one of the following is the exhaust pipe emission from Fuel Cell Electric Vehicles, powered by hydrogen?",
       "options": [
@@ -1184,11 +1768,29 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Hydrogen fuel cells combine hydrogen fuel from the tank with oxygen from ambient air via an electrochemical reaction: 2H2 + O2 -> 2H2O + electricity. The only tailpipe emission produced is water vapour and warm air."
+      "explanation": "Hydrogen fuel cells combine hydrogen fuel from the tank with oxygen from ambient air via an electrochemical reaction: 2H2 + O2 -> 2H2O + electricity. The only tailpipe emission produced is water vapour and warm air.",
+      "raw_topic": "Science and Technology / Clean Energy",
+      "id": "upsc_2024_gs1_q37",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "renewable_energy",
+      "subtopic_id": "renewable_energy_clean_energy",
+      "subtopic": "Clean Energy",
+      "secondary_tags": [
+        "Science and Technology"
+      ],
+      "classification_confidence": 0.86,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Clean Energy / Renewable Technology question (Science and Technology / Clean Energy).",
+      "validation_status": "verified"
     },
     {
       "number": 38,
-      "topic": "Renewable Energy / Hydropower",
+      "topic": "Renewable Energy",
       "passage_id": null,
       "question": "Recently, the term \"pumped-storage hydropower\" is actually and appropriately discussed in the context of which one of the following?",
       "options": [
@@ -1210,11 +1812,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Pumped-storage hydropower (PSH) acts as a giant 'water battery' by pumping water from a lower reservoir to an upper reservoir during times of excess renewable energy, and releasing it through turbines during peak demand, providing grid-scale long-duration energy storage."
+      "explanation": "Pumped-storage hydropower (PSH) acts as a giant 'water battery' by pumping water from a lower reservoir to an upper reservoir during times of excess renewable energy, and releasing it through turbines during peak demand, providing grid-scale long-duration energy storage.",
+      "raw_topic": "Renewable Energy / Hydropower",
+      "id": "upsc_2024_gs1_q38",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "renewable_energy",
+      "subtopic_id": "renewable_energy_hydropower",
+      "subtopic": "Hydropower",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Renewable Energy & Clean Fuels (Renewable Energy / Hydropower).",
+      "validation_status": "verified"
     },
     {
       "number": 39,
-      "topic": "Environment / Science and Technology",
+      "topic": "Pollution",
       "passage_id": null,
       "question": "\"Membrane Bioreactors\" are often discussed in the context of:",
       "options": [
@@ -1236,11 +1854,29 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Membrane Bioreactors (MBRs) combine a conventional biological treatment process (e.g., activated sludge) with membrane filtration (microfiltration or ultrafiltration) to purify and treat municipal and industrial wastewater."
+      "explanation": "Membrane Bioreactors (MBRs) combine a conventional biological treatment process (e.g., activated sludge) with membrane filtration (microfiltration or ultrafiltration) to purify and treat municipal and industrial wastewater.",
+      "raw_topic": "Environment / Science and Technology",
+      "id": "upsc_2024_gs1_q39",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "pollution",
+      "subtopic_id": "pollution_science_and_technology",
+      "subtopic": "Science and Technology",
+      "secondary_tags": [
+        "Science and Technology"
+      ],
+      "classification_confidence": 0.86,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Environment question on Pollution, Waste Management, or Bioremediation (Environment / Science and Technology).",
+      "validation_status": "verified"
     },
     {
       "number": 40,
-      "topic": "Indian Economy / Financial Markets",
+      "topic": "Money and Financial Markets",
       "passage_id": null,
       "question": "With reference to the Indian economy, \"Collateral Borrowing and Lending Obligations\" are the instruments of:",
       "options": [
@@ -1262,11 +1898,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Collateralized Borrowing and Lending Obligation (CBLO, now replaced by TREPS - Triparty Repo Dealing and Settlement) is a collateralized short-term money market instrument developed by the Clearing Corporation of India (CCIL)."
+      "explanation": "Collateralized Borrowing and Lending Obligation (CBLO, now replaced by TREPS - Triparty Repo Dealing and Settlement) is a collateralized short-term money market instrument developed by the Clearing Corporation of India (CCIL).",
+      "raw_topic": "Indian Economy / Financial Markets",
+      "id": "upsc_2024_gs1_q40",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "money_and_financial_markets",
+      "subtopic_id": "money_and_financial_markets_financial_markets",
+      "subtopic": "Financial Markets",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Money and Financial Markets (Indian Economy / Financial Markets).",
+      "validation_status": "verified"
     },
     {
       "number": 41,
-      "topic": "Demography / Indian Economy",
+      "topic": "Population and Human Geography",
       "passage_id": null,
       "question": "The total fertility rate in an economy is defined as:",
       "options": [
@@ -1288,11 +1940,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Total Fertility Rate (TFR) is standardly defined as the average number of children that would be born to a woman over her lifetime if she were to experience the exact current age-specific fertility rates through her reproductive/childbearing years."
+      "explanation": "Total Fertility Rate (TFR) is standardly defined as the average number of children that would be born to a woman over her lifetime if she were to experience the exact current age-specific fertility rates through her reproductive/childbearing years.",
+      "raw_topic": "Demography / Indian Economy",
+      "id": "upsc_2024_gs1_q41",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "population_and_human_geography",
+      "subtopic_id": "population_and_human_geography_indian_economy",
+      "subtopic": "Indian Economy",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Population, Demography & Human Geography (Demography / Indian Economy).",
+      "validation_status": "verified"
     },
     {
       "number": 42,
-      "topic": "Indian Economy / Banking & Finance",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1319,11 +1987,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Statement 1 is incorrect: NBFCs do not have direct access to the RBI's regular Liquidity Adjustment Facility (LAF) window (which is restricted to commercial banks and primary dealers). Statements 2 and 3 are correct: Foreign Portfolio/Institutional Investors (FPIs/FIIs) are permitted to invest in G-Secs (including through the Fully Accessible Route), and SEBI permits stock exchanges (BSE/NSE) to provide dedicated debt trading platforms."
+      "explanation": "Statement 1 is incorrect: NBFCs do not have direct access to the RBI's regular Liquidity Adjustment Facility (LAF) window (which is restricted to commercial banks and primary dealers). Statements 2 and 3 are correct: Foreign Portfolio/Institutional Investors (FPIs/FIIs) are permitted to invest in G-Secs (including through the Fully Accessible Route), and SEBI permits stock exchanges (BSE/NSE) to provide dedicated debt trading platforms.",
+      "raw_topic": "Indian Economy / Banking & Finance",
+      "id": "upsc_2024_gs1_q42",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_banking_finance",
+      "subtopic": "Banking & Finance",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Indian Economy / Banking & Finance).",
+      "validation_status": "verified"
     },
     {
       "number": 43,
-      "topic": "Indian Economy / Capital Markets",
+      "topic": "Money and Financial Markets",
       "passage_id": null,
       "question": "In India, which of the following can trade in Corporate Bonds and Government Securities?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -1350,11 +2034,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Institutional players such as Insurance Companies and Pension Funds actively hold and trade Corporate Bonds and G-Secs. Additionally, under the RBI Retail Direct scheme and stock exchange platforms, individual Retail Investors can directly invest in and trade both government securities and corporate bonds."
+      "explanation": "Institutional players such as Insurance Companies and Pension Funds actively hold and trade Corporate Bonds and G-Secs. Additionally, under the RBI Retail Direct scheme and stock exchange platforms, individual Retail Investors can directly invest in and trade both government securities and corporate bonds.",
+      "raw_topic": "Indian Economy / Capital Markets",
+      "id": "upsc_2024_gs1_q43",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "money_and_financial_markets",
+      "subtopic_id": "money_and_financial_markets_capital_markets",
+      "subtopic": "Capital Markets",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Money and Financial Markets (Indian Economy / Capital Markets).",
+      "validation_status": "verified"
     },
     {
       "number": 44,
-      "topic": "Indian Economy / Financial Instruments",
+      "topic": "Money and Financial Markets",
       "passage_id": null,
       "question": "Consider the following:\nWhich of the above is/are considered financial instruments?",
       "statements": [
@@ -1381,11 +2081,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "A financial instrument is a monetary contract that gives rise to a financial asset of one entity and a financial liability or equity instrument of another entity. ETFs (pooled investment securities) and Currency Swaps (derivative contracts) are financial instruments. Motor vehicles are physical tangible capital/consumer assets, not financial instruments."
+      "explanation": "A financial instrument is a monetary contract that gives rise to a financial asset of one entity and a financial liability or equity instrument of another entity. ETFs (pooled investment securities) and Currency Swaps (derivative contracts) are financial instruments. Motor vehicles are physical tangible capital/consumer assets, not financial instruments.",
+      "raw_topic": "Indian Economy / Financial Instruments",
+      "id": "upsc_2024_gs1_q44",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "money_and_financial_markets",
+      "subtopic_id": "money_and_financial_markets_financial_instruments",
+      "subtopic": "Financial Instruments",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Money and Financial Markets (Indian Economy / Financial Instruments).",
+      "validation_status": "verified"
     },
     {
       "number": 45,
-      "topic": "Indian Economy / Sectors of Economy",
+      "topic": "National Income and Economic Growth",
       "passage_id": null,
       "question": "With reference to the sectors of the Indian economy, consider the following pairs:\nHow many of the pairs given above are correctly matched?",
       "table": {
@@ -1436,11 +2152,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Pair 1 is incorrect: Warehousing/storage of agricultural produce is a service activity, thus part of the Tertiary sector. Pair 2 is correct: Dairy farming directly relies on biological processes and animal husbandry, placing it in the Primary sector. Pair 3 is incorrect: Exploration of minerals is an extractive activity tied to Mining, classified under the Primary sector. Pair 4 is correct: Weaving cloth transforms raw cotton/yarn into fabric, belonging to manufacturing in the Secondary sector. Thus, two pairs (2 and 4) are correctly matched."
+      "explanation": "Pair 1 is incorrect: Warehousing/storage of agricultural produce is a service activity, thus part of the Tertiary sector. Pair 2 is correct: Dairy farming directly relies on biological processes and animal husbandry, placing it in the Primary sector. Pair 3 is incorrect: Exploration of minerals is an extractive activity tied to Mining, classified under the Primary sector. Pair 4 is correct: Weaving cloth transforms raw cotton/yarn into fabric, belonging to manufacturing in the Secondary sector. Thus, two pairs (2 and 4) are correctly matched.",
+      "raw_topic": "Indian Economy / Sectors of Economy",
+      "id": "upsc_2024_gs1_q45",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "national_income_and_economic_growth",
+      "subtopic_id": "national_income_and_economic_growth_sectors_of_economy",
+      "subtopic": "Sectors of Economy",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on National Income, GDP & Economic Growth (Indian Economy / Sectors of Economy).",
+      "validation_status": "verified"
     },
     {
       "number": 46,
-      "topic": "Environment / Renewable Energy",
+      "topic": "Renewable Energy",
       "passage_id": null,
       "question": "Consider the following materials:\nWhich of the above can be used as feedstock for producing Sustainable Aviation Fuel?",
       "statements": [
@@ -1468,11 +2200,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Under international certified pathways (such as ASTM D7566), Sustainable Aviation Fuel (SAF) can be synthesized from various feedstocks: agricultural crop residues, corn grain (via alcohol-to-jet), sewage/wastewater sludge (via hydrothermal liquefaction), and forestry/wood mill wastes."
+      "explanation": "Under international certified pathways (such as ASTM D7566), Sustainable Aviation Fuel (SAF) can be synthesized from various feedstocks: agricultural crop residues, corn grain (via alcohol-to-jet), sewage/wastewater sludge (via hydrothermal liquefaction), and forestry/wood mill wastes.",
+      "raw_topic": "Environment / Renewable Energy",
+      "id": "upsc_2024_gs1_q46",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "renewable_energy",
+      "subtopic_id": "renewable_energy_renewable_energy",
+      "subtopic": "Renewable Energy",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Renewable Energy & Clean Fuels (Environment / Renewable Energy).",
+      "validation_status": "verified"
     },
     {
       "number": 47,
-      "topic": "Economics / Factors of Production",
+      "topic": "National Income and Economic Growth",
       "passage_id": null,
       "question": "With reference to physical capital in Indian economy, consider the following pairs:\nHow many of the above pairs are correctly matched?",
       "table": {
@@ -1523,11 +2271,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "As defined in standard economics (NCERT Class 9 Economics): Tools, machines, and buildings (like a farmer's plough or a computer) can be used in production over many years and are called Fixed Capital (making pair 1 incorrect and pair 2 correct). Raw materials and money in hand (like yarn used by the weaver or fuel like petrol) are consumed in the production process and are called Working Capital (making pair 3 incorrect and pair 4 correct). Thus, only two pairs (2 and 4) are correctly matched."
+      "explanation": "As defined in standard economics (NCERT Class 9 Economics): Tools, machines, and buildings (like a farmer's plough or a computer) can be used in production over many years and are called Fixed Capital (making pair 1 incorrect and pair 2 correct). Raw materials and money in hand (like yarn used by the weaver or fuel like petrol) are consumed in the production process and are called Working Capital (making pair 3 incorrect and pair 4 correct). Thus, only two pairs (2 and 4) are correctly matched.",
+      "raw_topic": "Economics / Factors of Production",
+      "id": "upsc_2024_gs1_q47",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "national_income_and_economic_growth",
+      "subtopic_id": "national_income_and_economic_growth_factors_of_production",
+      "subtopic": "Factors of Production",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on National Income, GDP & Economic Growth (Economics / Factors of Production).",
+      "validation_status": "verified"
     },
     {
       "number": 48,
-      "topic": "Science and Technology / Computer Science",
+      "topic": "Information Technology and AI",
       "passage_id": null,
       "question": "Which one of the following words/phrases is most appropriately used to denote \"an interoperable network of 3D virtual worlds that can be accessed simultaneously by millions of users, who can exert property rights over virtual items\"?",
       "options": [
@@ -1549,11 +2313,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The 'Metaverse' refers to an integrated, persistent network of 3D immersive virtual spaces where users interact, conduct economic transactions, and own digital assets."
+      "explanation": "The 'Metaverse' refers to an integrated, persistent network of 3D immersive virtual spaces where users interact, conduct economic transactions, and own digital assets.",
+      "raw_topic": "Science and Technology / Computer Science",
+      "id": "upsc_2024_gs1_q48",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "information_technology_and_ai",
+      "subtopic_id": "information_technology_and_ai_computer_science",
+      "subtopic": "Computer Science",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on IT, AI, Telecom, Blockchain, or Cybersecurity (Science and Technology / Computer Science).",
+      "validation_status": "verified"
     },
     {
       "number": 49,
-      "topic": "Indian Economy / Banking Regulations",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "With reference to the rule/rules imposed by the Reserve Bank of India while treating foreign banks, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1579,11 +2359,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: RBI mandates a minimum paid-up capital of ₹500 crore for setting up a Wholly Owned Subsidiary (WOS) of a foreign bank in India. Statement 2 is correct: Under RBI governance guidelines for foreign bank subsidiaries, at least 50% of the board of directors must be Indian nationals residing in India."
+      "explanation": "Statement 1 is incorrect: RBI mandates a minimum paid-up capital of ₹500 crore for setting up a Wholly Owned Subsidiary (WOS) of a foreign bank in India. Statement 2 is correct: Under RBI governance guidelines for foreign bank subsidiaries, at least 50% of the board of directors must be Indian nationals residing in India.",
+      "raw_topic": "Indian Economy / Banking Regulations",
+      "id": "upsc_2024_gs1_q49",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_banking_regulations",
+      "subtopic": "Banking Regulations",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Indian Economy / Banking Regulations).",
+      "validation_status": "verified"
     },
     {
       "number": 50,
-      "topic": "Corporate Governance / CSR",
+      "topic": "Money and Financial Markets",
       "passage_id": null,
       "question": "With reference to Corporate Social Responsibility (CSR) rules in India, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1609,11 +2405,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is correct: Under the Companies (CSR Policy) Rules, 2014, activities that benefit only the company's own employees or their families are expressly excluded from qualifying as CSR. Statement 2 is incorrect: Section 135(5) of the Companies Act, 2013 explicitly mandates that qualifying companies must spend at least 2% of their average net profits made during the three immediately preceding financial years on CSR."
+      "explanation": "Statement 1 is correct: Under the Companies (CSR Policy) Rules, 2014, activities that benefit only the company's own employees or their families are expressly excluded from qualifying as CSR. Statement 2 is incorrect: Section 135(5) of the Companies Act, 2013 explicitly mandates that qualifying companies must spend at least 2% of their average net profits made during the three immediately preceding financial years on CSR.",
+      "raw_topic": "Corporate Governance / CSR",
+      "id": "upsc_2024_gs1_q50",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "money_and_financial_markets",
+      "subtopic_id": "money_and_financial_markets_csr",
+      "subtopic": "CSR",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Money and Financial Markets (Corporate Governance / CSR).",
+      "validation_status": "verified"
     },
     {
       "number": 51,
-      "topic": "Economy / Sovereign Debt",
+      "topic": "Fiscal Policy and Budget",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
       "statements": [
@@ -1639,11 +2451,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "US Treasury securities are backed by the 'full faith and credit' of the US government rather than gold or specific pledged physical collateral. Therefore, if the US were to default, bondholders possess no physical collateral or assets to seize to satisfy their payment claims."
+      "explanation": "US Treasury securities are backed by the 'full faith and credit' of the US government rather than gold or specific pledged physical collateral. Therefore, if the US were to default, bondholders possess no physical collateral or assets to seize to satisfy their payment claims.",
+      "raw_topic": "Economy / Sovereign Debt",
+      "id": "upsc_2024_gs1_q51",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "fiscal_policy_and_budget",
+      "subtopic_id": "fiscal_policy_and_budget_sovereign_debt",
+      "subtopic": "Sovereign Debt",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Fiscal Policy, Union Budget & Public Debt (Economy / Sovereign Debt).",
+      "validation_status": "verified"
     },
     {
       "number": 52,
-      "topic": "Economy / Banking",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
       "statements": [
@@ -1669,11 +2497,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statement-I is correct: Syndicated lending involves a group of lenders pooling funds to provide a massive loan, thereby diversifying and sharing the credit default risk. Statement-II is incorrect: Syndicated facilities can be structured as fixed term loans, revolving credit lines, or a combination of both."
+      "explanation": "Statement-I is correct: Syndicated lending involves a group of lenders pooling funds to provide a massive loan, thereby diversifying and sharing the credit default risk. Statement-II is incorrect: Syndicated facilities can be structured as fixed term loans, revolving credit lines, or a combination of both.",
+      "raw_topic": "Economy / Banking",
+      "id": "upsc_2024_gs1_q52",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_banking",
+      "subtopic": "Banking",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Economy / Banking).",
+      "validation_status": "verified"
     },
     {
       "number": 53,
-      "topic": "Indian Economy / Digital Currency",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "Consider the following statements in respect of the digital rupee:\nWhich of the statements given above are correct?",
       "statements": [
@@ -1701,11 +2545,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Statements 1, 2, and 4 are correct: The Central Bank Digital Currency (e-Rupee) is legal tender issued by the RBI, reflects as a direct sovereign liability on the RBI's balance sheet, and is convertible at par (1:1) with physical currency and bank deposits. Statement 3 is incorrect: Like fiat paper money, the digital rupee is not immune to inflation and loses purchasing power if general price levels rise."
+      "explanation": "Statements 1, 2, and 4 are correct: The Central Bank Digital Currency (e-Rupee) is legal tender issued by the RBI, reflects as a direct sovereign liability on the RBI's balance sheet, and is convertible at par (1:1) with physical currency and bank deposits. Statement 3 is incorrect: Like fiat paper money, the digital rupee is not immune to inflation and loses purchasing power if general price levels rise.",
+      "raw_topic": "Indian Economy / Digital Currency",
+      "id": "upsc_2024_gs1_q53",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_digital_currency",
+      "subtopic": "Digital Currency",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Indian Economy / Digital Currency).",
+      "validation_status": "verified"
     },
     {
       "number": 54,
-      "topic": "Ancient Indian History / Buddhism",
+      "topic": "Art and Culture",
       "passage_id": null,
       "question": "With reference to ancient India, Gautama Buddha was generally known by which of the following epithets?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -1732,11 +2592,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Gautama Buddha is widely known as 'Shakyamuni' (the sage of the Shakya clan) and 'Tathagata' (one who has thus gone/arrived). 'Nataputta' (or Nayaputta / Vardhamana Jnatiputra) is the epithet of Vardhamana Mahavira in Jain and Buddhist texts, not of Gautama Buddha."
+      "explanation": "Gautama Buddha is widely known as 'Shakyamuni' (the sage of the Shakya clan) and 'Tathagata' (one who has thus gone/arrived). 'Nataputta' (or Nayaputta / Vardhamana Jnatiputra) is the epithet of Vardhamana Mahavira in Jain and Buddhist texts, not of Gautama Buddha.",
+      "raw_topic": "Ancient Indian History / Buddhism",
+      "id": "upsc_2024_gs1_q54",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "art_and_culture",
+      "subtopic_id": "art_and_culture_buddhism",
+      "subtopic": "Buddhism",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Art and Culture question covering religious/philosophical traditions or cultural heritage (Ancient Indian History / Buddhism).",
+      "validation_status": "verified"
     },
     {
       "number": 55,
-      "topic": "Ancient History / Archaeology",
+      "topic": "Ancient Indian History",
       "passage_id": null,
       "question": "Consider the following information:\nIn which of the above rows is the given information correctly matched?",
       "table": {
@@ -1792,7 +2668,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Row 1 is incorrect: Chandraketugarh is in West Bengal (North 24 Parganas), not Odisha. Row 2 is correct: Inamgaon is a prominent Chalcolithic site on the Ghod River in Maharashtra. Row 3 is correct: Mangadu is a well-known Megalithic burial site in Kollam district, Kerala. Row 4 is incorrect: Salihundam is a major structural Buddhist stupa and vihara site on a hill overlooking the Vamsadhara River in Srikakulam, Andhra Pradesh, not a rock-cut cave shrine complex. Thus, rows 2 and 3 are correctly matched."
+      "explanation": "Row 1 is incorrect: Chandraketugarh is in West Bengal (North 24 Parganas), not Odisha. Row 2 is correct: Inamgaon is a prominent Chalcolithic site on the Ghod River in Maharashtra. Row 3 is correct: Mangadu is a well-known Megalithic burial site in Kollam district, Kerala. Row 4 is incorrect: Salihundam is a major structural Buddhist stupa and vihara site on a hill overlooking the Vamsadhara River in Srikakulam, Andhra Pradesh, not a rock-cut cave shrine complex. Thus, rows 2 and 3 are correctly matched.",
+      "raw_topic": "Ancient History / Archaeology",
+      "id": "upsc_2024_gs1_q55",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "ancient_indian_history",
+      "subtopic_id": "ancient_indian_history_archaeology",
+      "subtopic": "Archaeology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Ancient Indian History question (Ancient History / Archaeology).",
+      "validation_status": "verified"
     },
     {
       "number": 56,
@@ -1818,11 +2710,29 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Vijayanagara emperor Krishnadevaraya maintained friendly relations with Portuguese governor Afonso de Albuquerque and granted permission to the Portuguese to construct a fortress at Bhatkal in 1510 to secure the supply of Arabian horses."
+      "explanation": "Vijayanagara emperor Krishnadevaraya maintained friendly relations with Portuguese governor Afonso de Albuquerque and granted permission to the Portuguese to construct a fortress at Bhatkal in 1510 to secure the supply of Arabian horses.",
+      "raw_topic": "Medieval Indian History",
+      "id": "upsc_2024_gs1_q56",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "medieval_indian_history",
+      "subtopic_id": "medieval_indian_history_core",
+      "subtopic": "Sultanate, Vijayanagara & Mughal India",
+      "secondary_tags": [
+        "Indian Polity and Governance"
+      ],
+      "classification_confidence": 0.88,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Medieval Indian History question (Medieval Indian History).",
+      "validation_status": "verified_cross_tagged"
     },
     {
       "number": 57,
-      "topic": "Modern Indian History / Land Revenue",
+      "topic": "Modern Indian History",
       "passage_id": null,
       "question": "With reference to revenue collection by Cornwallis, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1848,11 +2758,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: Ryotwari was introduced by Thomas Munro and Alexander Read (not Cornwallis), and revenue was rigidly collected even during crop failures without standard exemptions. Statement 2 is correct: Under the Sunset Law of Cornwallis's Permanent Settlement (1793), if a zamindar failed to deposit the fixed revenue by sunset on the specified date, his zamindari estate was auctioned off."
+      "explanation": "Statement 1 is incorrect: Ryotwari was introduced by Thomas Munro and Alexander Read (not Cornwallis), and revenue was rigidly collected even during crop failures without standard exemptions. Statement 2 is correct: Under the Sunset Law of Cornwallis's Permanent Settlement (1793), if a zamindar failed to deposit the fixed revenue by sunset on the specified date, his zamindari estate was auctioned off.",
+      "raw_topic": "Modern Indian History / Land Revenue",
+      "id": "upsc_2024_gs1_q57",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "modern_indian_history",
+      "subtopic_id": "modern_indian_history_land_revenue",
+      "subtopic": "Land Revenue",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Modern Indian History question on colonial policies, reforms, uprisings, or acts (Modern Indian History / Land Revenue).",
+      "validation_status": "verified"
     },
     {
       "number": 58,
-      "topic": "Ancient Indian Literature",
+      "topic": "Literature, Music and Dance",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1878,11 +2804,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: Upanishads contain famous allegories and parables, such as the parable of the two birds on a single tree in the Mundaka/Svetasvatara Upanishad and the story of Satyakama Jabala in the Chandogya Upanishad. Statement 2 is correct: Principal Upanishads were composed in the late Vedic period (c. 800–500 BCE), whereas the major classical Puranas were codified much later during the Gupta and post-Gupta eras."
+      "explanation": "Statement 1 is incorrect: Upanishads contain famous allegories and parables, such as the parable of the two birds on a single tree in the Mundaka/Svetasvatara Upanishad and the story of Satyakama Jabala in the Chandogya Upanishad. Statement 2 is correct: Principal Upanishads were composed in the late Vedic period (c. 800–500 BCE), whereas the major classical Puranas were codified much later during the Gupta and post-Gupta eras.",
+      "raw_topic": "Ancient Indian Literature",
+      "id": "upsc_2024_gs1_q58",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "literature_music_dance",
+      "subtopic_id": "literature_music_dance_core",
+      "subtopic": "Classical Literature, Performing Arts & Music",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 History & Culture question on Literature, Music or Dance (Ancient Indian Literature).",
+      "validation_status": "verified"
     },
     {
       "number": 59,
-      "topic": "International Bodies / Agriculture",
+      "topic": "International Organisations",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1908,11 +2850,29 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is correct: India is a member of the London-based International Grains Council (IGC). Statement 2 is incorrect: Membership in the IGC is entirely voluntary; non-member countries trade wheat and rice freely across global markets."
+      "explanation": "Statement 1 is correct: India is a member of the London-based International Grains Council (IGC). Statement 2 is incorrect: Membership in the IGC is entirely voluntary; non-member countries trade wheat and rice freely across global markets.",
+      "raw_topic": "International Bodies / Agriculture",
+      "id": "upsc_2024_gs1_q59",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "international_organisations",
+      "subtopic_id": "international_organisations_agriculture",
+      "subtopic": "Agriculture",
+      "secondary_tags": [
+        "Agriculture"
+      ],
+      "classification_confidence": 0.87,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Current Affairs & IR question on International Organisations and Multilateral Groupings (International Bodies / Agriculture).",
+      "validation_status": "verified"
     },
     {
       "number": 60,
-      "topic": "Art and Culture / UNESCO",
+      "topic": "Art and Culture",
       "passage_id": null,
       "question": "Which one of the following was the latest inclusion in the Intangible Cultural Heritage List of UNESCO?",
       "options": [
@@ -1934,11 +2894,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Garba of Gujarat was inscribed on UNESCO's Representative List of the Intangible Cultural Heritage of Humanity in December 2023, making it the latest among the options (Chhau was inscribed in 2010, Kumbh Mela in 2017, and Durga Puja in Kolkata in 2021)."
+      "explanation": "Garba of Gujarat was inscribed on UNESCO's Representative List of the Intangible Cultural Heritage of Humanity in December 2023, making it the latest among the options (Chhau was inscribed in 2010, Kumbh Mela in 2017, and Durga Puja in Kolkata in 2021).",
+      "raw_topic": "Art and Culture / UNESCO",
+      "id": "upsc_2024_gs1_q60",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "art_and_culture",
+      "subtopic_id": "art_and_culture_unesco",
+      "subtopic": "UNESCO",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Art and Culture question covering religious/philosophical traditions or cultural heritage (Art and Culture / UNESCO).",
+      "validation_status": "verified"
     },
     {
       "number": 61,
-      "topic": "Indian Polity / Constituent Assembly",
+      "topic": "Constitution",
       "passage_id": null,
       "question": "Who was the Provisional President of the Constituent Assembly before Dr. Rajendra Prasad took over?",
       "options": [
@@ -1960,11 +2936,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Following the French practice of electing the oldest member, Dr. Sachchidananda Sinha was elected as the temporary/provisional President of the Constituent Assembly on 9 December 1946 before Dr. Rajendra Prasad was elected permanent President on 11 December 1946."
+      "explanation": "Following the French practice of electing the oldest member, Dr. Sachchidananda Sinha was elected as the temporary/provisional President of the Constituent Assembly on 9 December 1946 before Dr. Rajendra Prasad was elected permanent President on 11 December 1946.",
+      "raw_topic": "Indian Polity / Constituent Assembly",
+      "id": "upsc_2024_gs1_q61",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "constitution",
+      "subtopic_id": "constitution_constituent_assembly",
+      "subtopic": "Constituent Assembly",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Constitutional Provisions, Schedules, Amendments, or Emergency (Indian Polity / Constituent Assembly).",
+      "validation_status": "verified"
     },
     {
       "number": 62,
-      "topic": "Constitutional Development / Colonial Acts",
+      "topic": "Modern Indian History",
       "passage_id": null,
       "question": "With reference to the Government of India Act, 1935, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1990,11 +2982,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is correct: The Act provided for an All India Federation consisting of Governors' provinces, Chief Commissioners' provinces, and Princely States that agreed to join. Statement 2 is incorrect: Under dyarchy at the federal level, Defence and External Affairs were 'Reserved Subjects' under the discretionary executive authority of the Governor-General, outside the control of the federal legislature."
+      "explanation": "Statement 1 is correct: The Act provided for an All India Federation consisting of Governors' provinces, Chief Commissioners' provinces, and Princely States that agreed to join. Statement 2 is incorrect: Under dyarchy at the federal level, Defence and External Affairs were 'Reserved Subjects' under the discretionary executive authority of the Governor-General, outside the control of the federal legislature.",
+      "raw_topic": "Constitutional Development / Colonial Acts",
+      "id": "upsc_2024_gs1_q62",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "modern_indian_history",
+      "subtopic_id": "modern_indian_history_colonial_acts",
+      "subtopic": "Colonial Acts",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Modern Indian History question on colonial policies, reforms, uprisings, or acts (Constitutional Development / Colonial Acts).",
+      "validation_status": "verified"
     },
     {
       "number": 63,
-      "topic": "Ancient Indian Literature",
+      "topic": "Literature, Music and Dance",
       "passage_id": null,
       "question": "Which one of the following is a work attributed to playwright Bhasa?",
       "options": [
@@ -2016,11 +3024,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Madhyama-vyayoga (The Middle One, focusing on Bhima and Ghatotkacha) is one of the thirteen Sanskrit plays attributed to the ancient classical playwright Bhasa. Kavyalankara was written by Bhamaha, Natyashastra by Bharata Muni, and Mahabhashya by Patanjali."
+      "explanation": "Madhyama-vyayoga (The Middle One, focusing on Bhima and Ghatotkacha) is one of the thirteen Sanskrit plays attributed to the ancient classical playwright Bhasa. Kavyalankara was written by Bhamaha, Natyashastra by Bharata Muni, and Mahabhashya by Patanjali.",
+      "raw_topic": "Ancient Indian Literature",
+      "id": "upsc_2024_gs1_q63",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "literature_music_dance",
+      "subtopic_id": "literature_music_dance_core",
+      "subtopic": "Classical Literature, Performing Arts & Music",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 History & Culture question on Literature, Music or Dance (Ancient Indian Literature).",
+      "validation_status": "verified"
     },
     {
       "number": 64,
-      "topic": "Ancient History / Buddhism",
+      "topic": "Art and Culture",
       "passage_id": null,
       "question": "Sanghabhuti, an Indian Buddhist monk, who travelled to China at the end of the fourth century AD, was the author of a commentary on:",
       "options": [
@@ -2042,11 +3066,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Sanghabhuti (from Kashmir) travelled to Chang'an, China in 381 CE and translated/authored influential commentaries on the Sarvastivada Vinaya and Vibhasha texts into Chinese."
+      "explanation": "Sanghabhuti (from Kashmir) travelled to Chang'an, China in 381 CE and translated/authored influential commentaries on the Sarvastivada Vinaya and Vibhasha texts into Chinese.",
+      "raw_topic": "Ancient History / Buddhism",
+      "id": "upsc_2024_gs1_q64",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "art_and_culture",
+      "subtopic_id": "art_and_culture_buddhism",
+      "subtopic": "Buddhism",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Art and Culture question covering religious/philosophical traditions or cultural heritage (Ancient History / Buddhism).",
+      "validation_status": "verified"
     },
     {
       "number": 65,
-      "topic": "Art and Culture / UNESCO Heritage",
+      "topic": "Art and Culture",
       "passage_id": null,
       "question": "Consider the following properties included in the World Heritage List released by UNESCO:\nHow many of the above properties were included in 2023?",
       "statements": [
@@ -2074,11 +3114,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Santiniketan (West Bengal) and the Sacred Ensembles of the Hoysalas (Belur, Halebidu, and Somanathapura in Karnataka) were both inscribed on the UNESCO World Heritage List in September 2023. Rani-ki-Vav was inscribed in 2014, and Mahabodhi Temple Complex in 2002. Thus, only two properties were included in 2023."
+      "explanation": "Santiniketan (West Bengal) and the Sacred Ensembles of the Hoysalas (Belur, Halebidu, and Somanathapura in Karnataka) were both inscribed on the UNESCO World Heritage List in September 2023. Rani-ki-Vav was inscribed in 2014, and Mahabodhi Temple Complex in 2002. Thus, only two properties were included in 2023.",
+      "raw_topic": "Art and Culture / UNESCO Heritage",
+      "id": "upsc_2024_gs1_q65",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "art_and_culture",
+      "subtopic_id": "art_and_culture_unesco_heritage",
+      "subtopic": "UNESCO Heritage",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Art and Culture question covering religious/philosophical traditions or cultural heritage (Art and Culture / UNESCO Heritage).",
+      "validation_status": "verified"
     },
     {
       "number": 66,
-      "topic": "Indian Polity / Constitutional Amendment",
+      "topic": "Constitution",
       "passage_id": null,
       "question": "As per Article 368 of the Constitution of India, the Parliament may amend any provision of the Constitution by way of:\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2105,11 +3161,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Article 368(1) explicitly states: 'Parliament may in exercise of its constituent power amend by way of addition, variation or repeal any provision of this Constitution in accordance with the procedure laid down in this article.'"
+      "explanation": "Article 368(1) explicitly states: 'Parliament may in exercise of its constituent power amend by way of addition, variation or repeal any provision of this Constitution in accordance with the procedure laid down in this article.'",
+      "raw_topic": "Indian Polity / Constitutional Amendment",
+      "id": "upsc_2024_gs1_q66",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "constitution",
+      "subtopic_id": "constitution_constitutional_amendment",
+      "subtopic": "Constitutional Amendment",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Constitutional Provisions, Schedules, Amendments, or Emergency (Indian Polity / Constitutional Amendment).",
+      "validation_status": "verified"
     },
     {
       "number": 67,
-      "topic": "World Demography / International Current Affairs",
+      "topic": "Population and Human Geography",
       "passage_id": null,
       "question": "Consider the following countries:\nWhich of the above countries are frequently mentioned in the media for their low birth rates, or ageing population or declining population?",
       "statements": [
@@ -2138,11 +3210,29 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Italy, Japan, and South Korea have some of the lowest fertility rates in the world (with South Korea's TFR dropping below 0.8) and are grappling with rapid demographic ageing and population decline. Nigeria and South Africa have high fertility rates and youthful growing populations."
+      "explanation": "Italy, Japan, and South Korea have some of the lowest fertility rates in the world (with South Korea's TFR dropping below 0.8) and are grappling with rapid demographic ageing and population decline. Nigeria and South Africa have high fertility rates and youthful growing populations.",
+      "raw_topic": "World Demography / International Current Affairs",
+      "id": "upsc_2024_gs1_q67",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "population_and_human_geography",
+      "subtopic_id": "population_and_human_geography_international_current_affairs",
+      "subtopic": "International Current Affairs",
+      "secondary_tags": [
+        "International Relations"
+      ],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Population, Demography & Human Geography (World Demography / International Current Affairs).",
+      "validation_status": "verified"
     },
     {
       "number": 68,
-      "topic": "Indian Polity / Parliament",
+      "topic": "Parliament",
       "passage_id": null,
       "question": "Which of the following statements are correct in respect of a Money Bill in the Parliament?\nSelect the answer using the code given below:",
       "statements": [
@@ -2170,11 +3260,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statements 1, 2, and 3 are correct under Articles 109 and 110 of the Constitution: Money Bills originate only in the Lok Sabha, Rajya Sabha has 14 days to recommend amendments and cannot reject or delay it, and if it does not return the bill within 14 days it is deemed passed. Statement 4 is incorrect because Lok Sabha is entirely free to accept or reject any or all recommendations of Rajya Sabha."
+      "explanation": "Statements 1, 2, and 3 are correct under Articles 109 and 110 of the Constitution: Money Bills originate only in the Lok Sabha, Rajya Sabha has 14 days to recommend amendments and cannot reject or delay it, and if it does not return the bill within 14 days it is deemed passed. Statement 4 is incorrect because Lok Sabha is entirely free to accept or reject any or all recommendations of Rajya Sabha.",
+      "raw_topic": "Indian Polity / Parliament",
+      "id": "upsc_2024_gs1_q68",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "parliament",
+      "subtopic_id": "parliament_parliament",
+      "subtopic": "Parliament",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Parliament, Legislative Procedures, or Committees (Indian Polity / Parliament).",
+      "validation_status": "verified"
     },
     {
       "number": 69,
-      "topic": "Indian Defence Forces / Equivalent Ranks",
+      "topic": "Defence Technology",
       "passage_id": null,
       "question": "Which of the following is/are correctly matched in terms of equivalent rank in the three services of Indian Defence forces?\nSelect the correct answer using the code given below:",
       "table": {
@@ -2230,11 +3336,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Row 1: Brigadier = Air Commodore = Commodore (Navy Commander is equivalent to Lt. Colonel). Row 2: Major General = Air Vice Marshal = Rear Admiral (Vice Admiral is equivalent to Lt. General). Row 3: Major = Squadron Leader = Lieutenant Commander (Correct). Row 4: Lt. Colonel = Wing Commander = Commander (Group Captain and Captain are equivalent to Colonel). Thus, only row 3 is correctly matched."
+      "explanation": "Row 1: Brigadier = Air Commodore = Commodore (Navy Commander is equivalent to Lt. Colonel). Row 2: Major General = Air Vice Marshal = Rear Admiral (Vice Admiral is equivalent to Lt. General). Row 3: Major = Squadron Leader = Lieutenant Commander (Correct). Row 4: Lt. Colonel = Wing Commander = Commander (Group Captain and Captain are equivalent to Colonel). Thus, only row 3 is correctly matched.",
+      "raw_topic": "Indian Defence Forces / Equivalent Ranks",
+      "id": "upsc_2024_gs1_q69",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "defence_technology",
+      "subtopic_id": "defence_technology_equivalent_ranks",
+      "subtopic": "Equivalent Ranks",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Defence & Aerospace Technology (Indian Defence Forces / Equivalent Ranks).",
+      "validation_status": "verified"
     },
     {
       "number": 70,
-      "topic": "Indian Polity / Statutory Bodies",
+      "topic": "President and Vice-President",
       "passage_id": null,
       "question": "The North Eastern Council (NEC) was established by the North Eastern Council Act, 1971. Subsequent to the amendment of NEC Act in 2002, the Council comprises which of the following members?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2262,11 +3384,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Under the amended North Eastern Council Act, the NEC comprises the Governors and Chief Ministers of the eight northeastern states, three members nominated by the President of India, and the Union Home Minister who acts as the ex-officio Chairman of the Council."
+      "explanation": "Under the amended North Eastern Council Act, the NEC comprises the Governors and Chief Ministers of the eight northeastern states, three members nominated by the President of India, and the Union Home Minister who acts as the ex-officio Chairman of the Council.",
+      "raw_topic": "Indian Polity / Statutory Bodies",
+      "id": "upsc_2024_gs1_q70",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "president_and_vice_president",
+      "subtopic_id": "president_and_vice_president_statutory_bodies",
+      "subtopic": "Statutory Bodies",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on President, Vice-President, or Governor (Indian Polity / Statutory Bodies).",
+      "validation_status": "verified"
     },
     {
       "number": 71,
-      "topic": "Indian Polity / Elections & Delimitation",
+      "topic": "Elections and Representation",
       "passage_id": null,
       "question": "How many Delimitation Commissions have been constituted by the Government of India till December 2023?",
       "options": [
@@ -2288,11 +3426,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "The Government of India has set up Delimitation Commissions four times under four Delimitation Commission Acts: 1952, 1962, 1972, and 2002."
+      "explanation": "The Government of India has set up Delimitation Commissions four times under four Delimitation Commission Acts: 1952, 1962, 1972, and 2002.",
+      "raw_topic": "Indian Polity / Elections & Delimitation",
+      "id": "upsc_2024_gs1_q71",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "elections_and_representation",
+      "subtopic_id": "elections_and_representation_elections_delimitation",
+      "subtopic": "Elections & Delimitation",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Elections, Representation, or Anti-Defection (Indian Polity / Elections & Delimitation).",
+      "validation_status": "verified"
     },
     {
       "number": 72,
-      "topic": "Indian Polity / Eighth Schedule",
+      "topic": "Constitution",
       "passage_id": null,
       "question": "The Constitution (71st Amendment) Act, 1992 amends the Eighth Schedule to the Constitution to include which of the following languages?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2320,11 +3474,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The 71st Constitutional Amendment Act of 1992 added Konkani, Manipuri, and Nepali to the Eighth Schedule. Maithili (along with Bodo, Dogri, and Santhali) was added later by the 92nd Constitutional Amendment Act of 2003."
+      "explanation": "The 71st Constitutional Amendment Act of 1992 added Konkani, Manipuri, and Nepali to the Eighth Schedule. Maithili (along with Bodo, Dogri, and Santhali) was added later by the 92nd Constitutional Amendment Act of 2003.",
+      "raw_topic": "Indian Polity / Eighth Schedule",
+      "id": "upsc_2024_gs1_q72",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "constitution",
+      "subtopic_id": "constitution_eighth_schedule",
+      "subtopic": "Eighth Schedule",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Constitutional Provisions, Schedules, Amendments, or Emergency (Indian Polity / Eighth Schedule).",
+      "validation_status": "verified"
     },
     {
       "number": 73,
-      "topic": "Modern Indian History / Political Parties",
+      "topic": "Modern Indian History",
       "passage_id": null,
       "question": "Consider the following pairs:\nHow many of the above are correctly matched?",
       "table": {
@@ -2375,11 +3545,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Pair 1 is correctly matched: Bharatiya Jana Sangh was founded in 1951 by Dr. Syama Prasad Mookerjee. Pair 2 is incorrectly matched: C. Rajagopalachari founded the Swatantra Party in 1959. Pair 3 is correctly matched: Congress for Democracy was formed in 1977 by Babu Jagjivan Ram. Pair 4 is incorrectly matched: Acharya Narendra Deva was a founding leader of the Congress Socialist Party / Socialist Party. Thus, two pairs (1 and 3) are correctly matched."
+      "explanation": "Pair 1 is correctly matched: Bharatiya Jana Sangh was founded in 1951 by Dr. Syama Prasad Mookerjee. Pair 2 is incorrectly matched: C. Rajagopalachari founded the Swatantra Party in 1959. Pair 3 is correctly matched: Congress for Democracy was formed in 1977 by Babu Jagjivan Ram. Pair 4 is incorrectly matched: Acharya Narendra Deva was a founding leader of the Congress Socialist Party / Socialist Party. Thus, two pairs (1 and 3) are correctly matched.",
+      "raw_topic": "Modern Indian History / Political Parties",
+      "id": "upsc_2024_gs1_q73",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "modern_indian_history",
+      "subtopic_id": "modern_indian_history_political_parties",
+      "subtopic": "Political Parties",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Modern Indian History question on colonial policies, reforms, uprisings, or acts (Modern Indian History / Political Parties).",
+      "validation_status": "verified"
     },
     {
       "number": 74,
-      "topic": "Indian Polity / Parts of the Constitution",
+      "topic": "Governance and Public Policy",
       "passage_id": null,
       "question": "Which of the following statements are correct about the Constitution of India?\nSelect the answer using the code given below:",
       "statements": [
@@ -2406,11 +3592,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All three statements are correct: Part IX-A deals with Municipalities (Articles 243P to 243ZG), Part XVIII contains Emergency Provisions (Articles 352 to 360), and Part XX contains Amendment of the Constitution (Article 368)."
+      "explanation": "All three statements are correct: Part IX-A deals with Municipalities (Articles 243P to 243ZG), Part XVIII contains Emergency Provisions (Articles 352 to 360), and Part XX contains Amendment of the Constitution (Article 368).",
+      "raw_topic": "Indian Polity / Parts of the Constitution",
+      "id": "upsc_2024_gs1_q74",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "governance_and_public_policy",
+      "subtopic_id": "governance_and_public_policy_parts_of_the_constitution",
+      "subtopic": "Parts of the Constitution",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Governance, Public Policy & Welfare Legislation question (Indian Polity / Parts of the Constitution).",
+      "validation_status": "verified"
     },
     {
       "number": 75,
-      "topic": "Indian Polity / Seventh Schedule",
+      "topic": "Federalism and Centre-State Relations",
       "passage_id": null,
       "question": "Which one of the following statements is correct as per the Constitution of India?",
       "options": [
@@ -2432,11 +3634,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Under the Seventh Schedule: Entry 81 of the Union List covers inter-State migration; Entry 42 of the Union List covers inter-State trade and commerce; Entry 85 of the Union List covers Corporation tax; and Entry 81 of the Union List covers 'Inter-State migration; inter-State quarantine'. Thus, Inter-State quarantine is a Union subject under the Union List."
+      "explanation": "Under the Seventh Schedule: Entry 81 of the Union List covers inter-State migration; Entry 42 of the Union List covers inter-State trade and commerce; Entry 85 of the Union List covers Corporation tax; and Entry 81 of the Union List covers 'Inter-State migration; inter-State quarantine'. Thus, Inter-State quarantine is a Union subject under the Union List.",
+      "raw_topic": "Indian Polity / Seventh Schedule",
+      "id": "upsc_2024_gs1_q75",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "federalism_and_centre_state_relations",
+      "subtopic_id": "federalism_and_centre_state_relations_seventh_schedule",
+      "subtopic": "Seventh Schedule",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Federalism, Centre-State Relations, or 5th/6th Schedules (Indian Polity / Seventh Schedule).",
+      "validation_status": "verified"
     },
     {
       "number": 76,
-      "topic": "Indian Polity / Fundamental Rights",
+      "topic": "Fundamental Rights and Duties",
       "passage_id": null,
       "question": "Under which of the following Articles of the Constitution of India, has the Supreme Court placed the Right to Privacy?",
       "options": [
@@ -2458,11 +3676,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "In the landmark nine-judge Constitution Bench ruling in Justice K.S. Puttaswamy (Retd.) v. Union of India (2017), the Supreme Court unanimously declared the Right to Privacy as an intrinsic part of the right to life and personal liberty guaranteed under Article 21."
+      "explanation": "In the landmark nine-judge Constitution Bench ruling in Justice K.S. Puttaswamy (Retd.) v. Union of India (2017), the Supreme Court unanimously declared the Right to Privacy as an intrinsic part of the right to life and personal liberty guaranteed under Article 21.",
+      "raw_topic": "Indian Polity / Fundamental Rights",
+      "id": "upsc_2024_gs1_q76",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "fundamental_rights_and_duties",
+      "subtopic_id": "fundamental_rights_and_duties_fundamental_rights",
+      "subtopic": "Fundamental Rights",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Fundamental Rights, Writs, or Fundamental Duties (Indian Polity / Fundamental Rights).",
+      "validation_status": "verified"
     },
     {
       "number": 77,
-      "topic": "Defence Administration / CDS",
+      "topic": "Defence Technology",
       "passage_id": null,
       "question": "What are the duties of the Chief of Defence Staff (CDS) as Head of the Department of Military Affairs?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2489,11 +3723,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "The CDS acts as the Permanent Chairman of the Chiefs of Staff Committee (1) and as the Principal Military Advisor to the Raksha Mantri on all tri-service matters (3). The CDS does not exercise operational military command over the three Service Chiefs (the Service Chiefs retain operational command of their respective forces)."
+      "explanation": "The CDS acts as the Permanent Chairman of the Chiefs of Staff Committee (1) and as the Principal Military Advisor to the Raksha Mantri on all tri-service matters (3). The CDS does not exercise operational military command over the three Service Chiefs (the Service Chiefs retain operational command of their respective forces).",
+      "raw_topic": "Defence Administration / CDS",
+      "id": "upsc_2024_gs1_q77",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "defence_technology",
+      "subtopic_id": "defence_technology_cds",
+      "subtopic": "CDS",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Defence & Aerospace Technology (Defence Administration / CDS).",
+      "validation_status": "verified"
     },
     {
       "number": 78,
-      "topic": "Defence / Military Operations",
+      "topic": "Defence Technology",
       "passage_id": null,
       "question": "Operations undertaken by the Army towards upliftment of the local population in remote areas to include addressing of their basic needs is called:",
       "options": [
@@ -2515,11 +3765,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Operation Sadbhavana (Goodwill) is a welfare initiative launched by the Indian Army in Jammu & Kashmir and Ladakh to improve education, healthcare, infrastructure, and community development for local populations."
+      "explanation": "Operation Sadbhavana (Goodwill) is a welfare initiative launched by the Indian Army in Jammu & Kashmir and Ladakh to improve education, healthcare, infrastructure, and community development for local populations.",
+      "raw_topic": "Defence / Military Operations",
+      "id": "upsc_2024_gs1_q78",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "defence_technology",
+      "subtopic_id": "defence_technology_military_operations",
+      "subtopic": "Military Operations",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Defence & Aerospace Technology (Defence / Military Operations).",
+      "validation_status": "verified"
     },
     {
       "number": 79,
-      "topic": "World Geography / Political Borders",
+      "topic": "Mapping and Places in News",
       "passage_id": null,
       "question": "The longest border between any two countries in the world is between:",
       "options": [
@@ -2541,11 +3807,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The land boundary between Canada and the United States of America is approximately 8,891 kilometres (5,525 miles) long, making it the longest international land border in the world."
+      "explanation": "The land boundary between Canada and the United States of America is approximately 8,891 kilometres (5,525 miles) long, making it the longest international land border in the world.",
+      "raw_topic": "World Geography / Political Borders",
+      "id": "upsc_2024_gs1_q79",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "mapping_and_places_in_news",
+      "subtopic_id": "mapping_and_places_in_news_political_borders",
+      "subtopic": "Political Borders",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on World Mapping, Borders & Places in News (World Geography / Political Borders).",
+      "validation_status": "verified"
     },
     {
       "number": 80,
-      "topic": "Indian Polity / Parliamentary Committees",
+      "topic": "Parliament",
       "passage_id": null,
       "question": "Which of the following statements about the Ethics Committee in the Lok Sabha are correct?\nSelect the answer using the code given below:",
       "statements": [
@@ -2572,11 +3854,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statement 1 is correct: In Lok Sabha, the Ethics Committee was first constituted as an ad-hoc committee in 2000 and became a permanent standing committee in 2015. Statement 2 is incorrect: Any person (including any member of the public) can file a complaint against an MP supported by an affidavit, or a Member can forward it. Statement 3 is correct: Rules specify that the Committee cannot take up matters that are sub-judice."
+      "explanation": "Statement 1 is correct: In Lok Sabha, the Ethics Committee was first constituted as an ad-hoc committee in 2000 and became a permanent standing committee in 2015. Statement 2 is incorrect: Any person (including any member of the public) can file a complaint against an MP supported by an affidavit, or a Member can forward it. Statement 3 is correct: Rules specify that the Committee cannot take up matters that are sub-judice.",
+      "raw_topic": "Indian Polity / Parliamentary Committees",
+      "id": "upsc_2024_gs1_q80",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "parliament",
+      "subtopic_id": "parliament_parliamentary_committees",
+      "subtopic": "Parliamentary Committees",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Parliament, Legislative Procedures, or Committees (Indian Polity / Parliamentary Committees).",
+      "validation_status": "verified"
     },
     {
       "number": 81,
-      "topic": "Governance / Women Reservation",
+      "topic": "Parliament",
       "passage_id": null,
       "question": "Consider the following statements regarding 'Nari Shakti Vandan Adhiniyam':\nWhich of the statements given above are correct?",
       "statements": [
@@ -2603,11 +3901,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The Constitution (106th Amendment) Act, 2023 specifies that the 33% reservation for women will come into effect only after a delimitation exercise is conducted following the first post-enactment Census (not applicable to the 18th Lok Sabha elected in 2024; Statement 1 is incorrect). The Act has a sunset clause of 15 years from commencement (Statement 2 is correct) and provides horizontal reservation of one-third seats for SC and ST women within the SC and ST quotas (Statement 3 is correct)."
+      "explanation": "The Constitution (106th Amendment) Act, 2023 specifies that the 33% reservation for women will come into effect only after a delimitation exercise is conducted following the first post-enactment Census (not applicable to the 18th Lok Sabha elected in 2024; Statement 1 is incorrect). The Act has a sunset clause of 15 years from commencement (Statement 2 is correct) and provides horizontal reservation of one-third seats for SC and ST women within the SC and ST quotas (Statement 3 is correct).",
+      "raw_topic": "Governance / Women Reservation",
+      "id": "upsc_2024_gs1_q81",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "parliament",
+      "subtopic_id": "parliament_women_reservation",
+      "subtopic": "Women Reservation",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Parliament, Legislative Procedures, or Committees (Governance / Women Reservation).",
+      "validation_status": "verified"
     },
     {
       "number": 82,
-      "topic": "Defence / Joint Exercises",
+      "topic": "Defence Technology",
       "passage_id": null,
       "question": "Which of the following statements about 'Exercise Mitra Shakti-2023' are correct?\nSelect the answer using the code given below:",
       "statements": [
@@ -2635,11 +3949,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Statement 1 is incorrect because Exercise Mitra Shakti is conducted between India and Sri Lanka (India-Bangladesh exercise is SAMPRITI). Statements 2, 3, and 4 are correct: the 9th edition took place at Aundh (Pune) in November 2023, focused on counter-terrorism in sub-humid/urban environments, and for the first time incorporated Indian Air Force personnel alongside the armies."
+      "explanation": "Statement 1 is incorrect because Exercise Mitra Shakti is conducted between India and Sri Lanka (India-Bangladesh exercise is SAMPRITI). Statements 2, 3, and 4 are correct: the 9th edition took place at Aundh (Pune) in November 2023, focused on counter-terrorism in sub-humid/urban environments, and for the first time incorporated Indian Air Force personnel alongside the armies.",
+      "raw_topic": "Defence / Joint Exercises",
+      "id": "upsc_2024_gs1_q82",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "defence_technology",
+      "subtopic_id": "defence_technology_joint_exercises",
+      "subtopic": "Joint Exercises",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Defence & Aerospace Technology (Defence / Joint Exercises).",
+      "validation_status": "verified"
     },
     {
       "number": 83,
-      "topic": "Indian Polity / Writs",
+      "topic": "Fundamental Rights and Duties",
       "passage_id": null,
       "question": "A Writ of Prohibition is an order issued by the Supreme Court or High Courts to:",
       "options": [
@@ -2661,11 +3991,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "A Writ of Prohibition is a judicial writ issued by a superior court to an inferior/subordinate court or quasi-judicial tribunal to prevent it from exceeding its jurisdiction or usurping jurisdiction with which it is not legally vested."
+      "explanation": "A Writ of Prohibition is a judicial writ issued by a superior court to an inferior/subordinate court or quasi-judicial tribunal to prevent it from exceeding its jurisdiction or usurping jurisdiction with which it is not legally vested.",
+      "raw_topic": "Indian Polity / Writs",
+      "id": "upsc_2024_gs1_q83",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "fundamental_rights_and_duties",
+      "subtopic_id": "fundamental_rights_and_duties_writs",
+      "subtopic": "Writs",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Fundamental Rights, Writs, or Fundamental Duties (Indian Polity / Writs).",
+      "validation_status": "verified"
     },
     {
       "number": 84,
-      "topic": "Indian Polity / Scheduled Tribes",
+      "topic": "Constitution",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2691,11 +4037,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: Under Article 342 of the Constitution, it is the President of India (not the Governor) who notifies communities as Scheduled Tribes after consulting the Governor. Statement 2 is correct: Scheduling of a tribe is state-specific; a community specified as an ST in one state need not enjoy ST status in another state."
+      "explanation": "Statement 1 is incorrect: Under Article 342 of the Constitution, it is the President of India (not the Governor) who notifies communities as Scheduled Tribes after consulting the Governor. Statement 2 is correct: Scheduling of a tribe is state-specific; a community specified as an ST in one state need not enjoy ST status in another state.",
+      "raw_topic": "Indian Polity / Scheduled Tribes",
+      "id": "upsc_2024_gs1_q84",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "constitution",
+      "subtopic_id": "constitution_scheduled_tribes",
+      "subtopic": "Scheduled Tribes",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Constitutional Provisions, Schedules, Amendments, or Emergency (Indian Polity / Scheduled Tribes).",
+      "validation_status": "verified"
     },
     {
       "number": 85,
-      "topic": "Indian Polity / Budgetary Procedure",
+      "topic": "Parliament",
       "passage_id": null,
       "question": "With reference to Union Budget, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2721,11 +4083,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: Under Article 112, the President causes the Annual Financial Statement to be laid before both Houses; the Finance Minister presents it on behalf of the President (not the Prime Minister). Statement 2 is correct: Under Article 113(3), no demand for a grant can be made except on the prior recommendation of the President."
+      "explanation": "Statement 1 is incorrect: Under Article 112, the President causes the Annual Financial Statement to be laid before both Houses; the Finance Minister presents it on behalf of the President (not the Prime Minister). Statement 2 is correct: Under Article 113(3), no demand for a grant can be made except on the prior recommendation of the President.",
+      "raw_topic": "Indian Polity / Budgetary Procedure",
+      "id": "upsc_2024_gs1_q85",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "parliament",
+      "subtopic_id": "parliament_budgetary_procedure",
+      "subtopic": "Budgetary Procedure",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Parliament, Legislative Procedures, or Committees (Indian Polity / Budgetary Procedure).",
+      "validation_status": "verified"
     },
     {
       "number": 86,
-      "topic": "Current Affairs / Books and Authors",
+      "topic": "International Organisations",
       "passage_id": null,
       "question": "Who of the following is the author of the books \"The India Way\" and \"Why Bharat Matters\"?",
       "options": [
@@ -2747,11 +4125,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Dr. S. Jaishankar, India's External Affairs Minister, is the author of 'The India Way: Strategies for an Uncertain World' (2020) and 'Why Bharat Matters' (2024)."
+      "explanation": "Dr. S. Jaishankar, India's External Affairs Minister, is the author of 'The India Way: Strategies for an Uncertain World' (2020) and 'Why Bharat Matters' (2024).",
+      "raw_topic": "Current Affairs / Books and Authors",
+      "id": "upsc_2024_gs1_q86",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "international_organisations",
+      "subtopic_id": "international_organisations_books_and_authors",
+      "subtopic": "Books and Authors",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs & IR question on International Organisations and Multilateral Groupings (Current Affairs / Books and Authors).",
+      "validation_status": "verified"
     },
     {
       "number": 87,
-      "topic": "International Affairs / Current Events",
+      "topic": "Important Places and Events",
       "passage_id": null,
       "question": "Consider the following pairs:\nHow many of the pairs given above are correctly matched?",
       "table": {
@@ -2797,11 +4191,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Pair 1 is correctly matched: Argentina has suffered extreme economic turmoil and triple-digit inflation. Pair 2 is correctly matched: Sudan has been embroiled in violent conflict between the Sudanese Armed Forces (SAF) and the paramilitary Rapid Support Forces (RSF). Pair 3 is incorrectly matched: Turkey has never rescinded its NATO membership; it remains an active member. Thus, two pairs are correctly matched."
+      "explanation": "Pair 1 is correctly matched: Argentina has suffered extreme economic turmoil and triple-digit inflation. Pair 2 is correctly matched: Sudan has been embroiled in violent conflict between the Sudanese Armed Forces (SAF) and the paramilitary Rapid Support Forces (RSF). Pair 3 is incorrectly matched: Turkey has never rescinded its NATO membership; it remains an active member. Thus, two pairs are correctly matched.",
+      "raw_topic": "International Affairs / Current Events",
+      "id": "upsc_2024_gs1_q87",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "important_places_and_events",
+      "subtopic_id": "important_places_and_events_current_events",
+      "subtopic": "Current Events",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs question on Important Places and Global Events (International Affairs / Current Events).",
+      "validation_status": "verified"
     },
     {
       "number": 88,
-      "topic": "World Geography / Energy Infrastructure",
+      "topic": "Resources and Industries",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
       "statements": [
@@ -2827,11 +4237,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The SUMED (Suez-Mediterranean) pipeline in Egypt connects the Ain Sukhna terminal on the Red Sea to Sidi Kerir on the Mediterranean Sea, providing an alternative to the Suez Canal for transporting crude oil from the Persian Gulf to European markets."
+      "explanation": "The SUMED (Suez-Mediterranean) pipeline in Egypt connects the Ain Sukhna terminal on the Red Sea to Sidi Kerir on the Mediterranean Sea, providing an alternative to the Suez Canal for transporting crude oil from the Persian Gulf to European markets.",
+      "raw_topic": "World Geography / Energy Infrastructure",
+      "id": "upsc_2024_gs1_q88",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "resources_and_industries",
+      "subtopic_id": "resources_and_industries_energy_infrastructure",
+      "subtopic": "Energy Infrastructure",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Mineral/Energy Resources and Industries (World Geography / Energy Infrastructure).",
+      "validation_status": "verified"
     },
     {
       "number": 89,
-      "topic": "Physical Geography / Red Sea",
+      "topic": "Mapping and Places in News",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2857,11 +4283,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The Red Sea is located in an arid subtropical zone with extremely low rainfall (averaging under 6 cm/year) and has no significant permanent perennial rivers flowing into it. Both statements are correct."
+      "explanation": "The Red Sea is located in an arid subtropical zone with extremely low rainfall (averaging under 6 cm/year) and has no significant permanent perennial rivers flowing into it. Both statements are correct.",
+      "raw_topic": "Physical Geography / Red Sea",
+      "id": "upsc_2024_gs1_q89",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "mapping_and_places_in_news",
+      "subtopic_id": "mapping_and_places_in_news_red_sea",
+      "subtopic": "Red Sea",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on World Mapping, Borders & Places in News (Physical Geography / Red Sea).",
+      "validation_status": "verified"
     },
     {
       "number": 90,
-      "topic": "Environment / Air Pollution",
+      "topic": "Pollution",
       "passage_id": null,
       "question": "According to the Environmental Protection Agency (EPA), which one of the following is the largest source of sulphur dioxide emissions?",
       "options": [
@@ -2883,11 +4325,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "According to the US EPA, the largest single source of SO2 emissions into the atmosphere is the combustion of fossil fuels (particularly coal and heavy fuel oil) at electric power generation plants."
+      "explanation": "According to the US EPA, the largest single source of SO2 emissions into the atmosphere is the combustion of fossil fuels (particularly coal and heavy fuel oil) at electric power generation plants.",
+      "raw_topic": "Environment / Air Pollution",
+      "id": "upsc_2024_gs1_q90",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "pollution",
+      "subtopic_id": "pollution_air_pollution",
+      "subtopic": "Air Pollution",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Pollution, Waste Management, or Bioremediation (Environment / Air Pollution).",
+      "validation_status": "verified"
     },
     {
       "number": 91,
-      "topic": "International Affairs / Sahel Region",
+      "topic": "Important Places and Events",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
       "statements": [
@@ -2913,11 +4371,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The Sahel region in West/Central Africa has witnessed chronic instability and terrorism, driven by and resulting in a wave of military coups in Mali, Burkina Faso, Niger, and Chad."
+      "explanation": "The Sahel region in West/Central Africa has witnessed chronic instability and terrorism, driven by and resulting in a wave of military coups in Mali, Burkina Faso, Niger, and Chad.",
+      "raw_topic": "International Affairs / Sahel Region",
+      "id": "upsc_2024_gs1_q91",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "important_places_and_events",
+      "subtopic_id": "important_places_and_events_sahel_region",
+      "subtopic": "Sahel Region",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs question on Important Places and Global Events (International Affairs / Sahel Region).",
+      "validation_status": "verified"
     },
     {
       "number": 92,
-      "topic": "Trade / Agricultural Regulations",
+      "topic": "External Sector and Balance of Payments",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
       "statements": [
@@ -2943,11 +4417,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Statement-I is incorrect: India actively imports apples from the USA (such as Washington apples). Statement-II is correct: Under the Food Safety and Standards Act, 2006 and Environment (Protection) Act, 1986 rules, no person can import GM food products without prior regulatory approval from GEAC / FSSAI."
+      "explanation": "Statement-I is incorrect: India actively imports apples from the USA (such as Washington apples). Statement-II is correct: Under the Food Safety and Standards Act, 2006 and Environment (Protection) Act, 1986 rules, no person can import GM food products without prior regulatory approval from GEAC / FSSAI.",
+      "raw_topic": "Trade / Agricultural Regulations",
+      "id": "upsc_2024_gs1_q92",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "external_sector_and_balance_of_payments",
+      "subtopic_id": "external_sector_and_balance_of_payments_agricultural_regulations",
+      "subtopic": "Agricultural Regulations",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on External Sector, Balance of Payments, Exchange Rate & Trade (Trade / Agricultural Regulations).",
+      "validation_status": "verified"
     },
     {
       "number": 93,
-      "topic": "Indian Polity / Lok Sabha Speaker",
+      "topic": "Parliament",
       "passage_id": null,
       "question": "With reference to the Speaker of the Lok Sabha, consider the following statements:\nWhile any resolution for the removal of the Speaker of the Lok Sabha is under consideration\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2974,11 +4464,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Under Article 96(1), when a resolution for removal of the Speaker is under consideration, the Speaker shall not preside (Statement 1 is correct). However, under Article 96(2), the Speaker has the right to speak and take part in proceedings, and is entitled to vote in the first instance on such resolution (though not in the case of equality of votes). Thus, statements 2 and 3 are incorrect."
+      "explanation": "Under Article 96(1), when a resolution for removal of the Speaker is under consideration, the Speaker shall not preside (Statement 1 is correct). However, under Article 96(2), the Speaker has the right to speak and take part in proceedings, and is entitled to vote in the first instance on such resolution (though not in the case of equality of votes). Thus, statements 2 and 3 are incorrect.",
+      "raw_topic": "Indian Polity / Lok Sabha Speaker",
+      "id": "upsc_2024_gs1_q93",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "parliament",
+      "subtopic_id": "parliament_lok_sabha_speaker",
+      "subtopic": "Lok Sabha Speaker",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Parliament, Legislative Procedures, or Committees (Indian Polity / Lok Sabha Speaker).",
+      "validation_status": "verified"
     },
     {
       "number": 94,
-      "topic": "Indian Polity / Parliament Bills",
+      "topic": "Parliament",
       "passage_id": null,
       "question": "With reference to the Indian Parliament, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -3005,11 +4511,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Under Article 107 and 108 of the Constitution: A bill pending in the Lok Sabha lapses on its dissolution (1 is correct). A bill passed by the Lok Sabha and pending in the Rajya Sabha also lapses (2 is correct). Under Article 108(5), a bill does NOT lapse if the President has already notified an intention to summon a joint sitting prior to the dissolution of Lok Sabha (3 is incorrect)."
+      "explanation": "Under Article 107 and 108 of the Constitution: A bill pending in the Lok Sabha lapses on its dissolution (1 is correct). A bill passed by the Lok Sabha and pending in the Rajya Sabha also lapses (2 is correct). Under Article 108(5), a bill does NOT lapse if the President has already notified an intention to summon a joint sitting prior to the dissolution of Lok Sabha (3 is incorrect).",
+      "raw_topic": "Indian Polity / Parliament Bills",
+      "id": "upsc_2024_gs1_q94",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "parliament",
+      "subtopic_id": "parliament_parliament_bills",
+      "subtopic": "Parliament Bills",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Parliament, Legislative Procedures, or Committees (Indian Polity / Parliament Bills).",
+      "validation_status": "verified"
     },
     {
       "number": 95,
-      "topic": "Indian Polity / Sessions of Parliament",
+      "topic": "Parliament",
       "passage_id": null,
       "question": "With reference to the Parliament of India, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -3036,11 +4558,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statement 1 is incorrect: Under Article 74, the President exercises the power to prorogue on the aid and advice of the Council of Ministers. Statement 2 is correct: While prorogation usually follows adjournment sine die, there is no constitutional bar preventing the President from proroguing while a House is in session. Statement 3 is correct: Dissolution of the Lok Sabha is done on the binding advice of the Council of Ministers (except in rare situations where a government loses majority)."
+      "explanation": "Statement 1 is incorrect: Under Article 74, the President exercises the power to prorogue on the aid and advice of the Council of Ministers. Statement 2 is correct: While prorogation usually follows adjournment sine die, there is no constitutional bar preventing the President from proroguing while a House is in session. Statement 3 is correct: Dissolution of the Lok Sabha is done on the binding advice of the Council of Ministers (except in rare situations where a government loses majority).",
+      "raw_topic": "Indian Polity / Sessions of Parliament",
+      "id": "upsc_2024_gs1_q95",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "parliament",
+      "subtopic_id": "parliament_sessions_of_parliament",
+      "subtopic": "Sessions of Parliament",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Parliament, Legislative Procedures, or Committees (Indian Polity / Sessions of Parliament).",
+      "validation_status": "verified"
     },
     {
       "number": 96,
-      "topic": "International Environment / European Union",
+      "topic": "International Environmental Conventions",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
       "statements": [
@@ -3066,11 +4604,30 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statement-I is correct: The European Parliament formally adopted the Net-Zero Industry Act in April 2024 to scale up domestic manufacturing of clean technologies. Statement-II is incorrect: Under the European Climate Law, the EU's legally binding target for net-zero carbon neutrality is 2050 (with an intermediate greenhouse gas reduction goal proposed for 2040), and it does not mandate developing 100% of all clean technologies exclusively on its own."
+      "explanation": "Statement-I is correct: The European Parliament formally adopted the Net-Zero Industry Act in April 2024 to scale up domestic manufacturing of clean technologies. Statement-II is incorrect: Under the European Climate Law, the EU's legally binding target for net-zero carbon neutrality is 2050 (with an intermediate greenhouse gas reduction goal proposed for 2040), and it does not mandate developing 100% of all clean technologies exclusively on its own.",
+      "raw_topic": "International Environment / European Union",
+      "id": "upsc_2024_gs1_q96",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "international_environmental_conventions",
+      "subtopic_id": "international_environmental_conventions_european_union",
+      "subtopic": "European Union",
+      "secondary_tags": [
+        "International Relations",
+        "Indian Polity and Governance"
+      ],
+      "classification_confidence": 0.88,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Environment question on International Environmental Conventions & Global Initiatives (International Environment / European Union).",
+      "validation_status": "verified_cross_tagged"
     },
     {
       "number": 97,
-      "topic": "International Affairs / Latin America",
+      "topic": "National and International Developments",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich one of the following is correct in respect of the above statements?",
       "statements": [
@@ -3096,11 +4653,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Statement-I is incorrect: Venezuela continues to face a severe socio-economic and humanitarian crisis, and over 7.7 million Venezuelans have fled the country. Statement-II is correct: Venezuela possesses the largest proven crude oil reserves in the world (over 300 billion barrels, largely in the Orinoco Belt)."
+      "explanation": "Statement-I is incorrect: Venezuela continues to face a severe socio-economic and humanitarian crisis, and over 7.7 million Venezuelans have fled the country. Statement-II is correct: Venezuela possesses the largest proven crude oil reserves in the world (over 300 billion barrels, largely in the Orinoco Belt).",
+      "raw_topic": "International Affairs / Latin America",
+      "id": "upsc_2024_gs1_q97",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "national_and_international_developments",
+      "subtopic_id": "national_and_international_developments_latin_america",
+      "subtopic": "Latin America",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs & International Relations question (International Affairs / Latin America).",
+      "validation_status": "verified"
     },
     {
       "number": 98,
-      "topic": "Government Schemes / Land Governance",
+      "topic": "Government Schemes and Economic Development",
       "passage_id": null,
       "question": "With reference to the Digital India Land Records Modernisation Programme, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -3127,11 +4700,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All three statements are correct: DILRMP was revamped as a 100% Centrally Funded Central Sector Scheme by the Ministry of Rural Development; it includes digitisation and geo-referencing of cadastral maps; and it features a project for multilingual transliteration of Records of Rights (RoRs) across the 22 Eighth Schedule languages."
+      "explanation": "All three statements are correct: DILRMP was revamped as a 100% Centrally Funded Central Sector Scheme by the Ministry of Rural Development; it includes digitisation and geo-referencing of cadastral maps; and it features a project for multilingual transliteration of Records of Rights (RoRs) across the 22 Eighth Schedule languages.",
+      "raw_topic": "Government Schemes / Land Governance",
+      "id": "upsc_2024_gs1_q98",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "government_schemes_and_economic_development",
+      "subtopic_id": "government_schemes_and_economic_development_land_governance",
+      "subtopic": "Land Governance",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Government Schemes, MSMEs & Economic Development (Government Schemes / Land Governance).",
+      "validation_status": "verified"
     },
     {
       "number": 99,
-      "topic": "Government Schemes / Health",
+      "topic": "Government Schemes and Economic Development",
       "passage_id": null,
       "question": "With reference to the 'Pradhan Mantri Surakshit Matritva Abhiyan', consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -3157,11 +4746,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: PMSMA guarantees a package of comprehensive antenatal care (ANC) on the 9th of every month specifically during the 2nd and 3rd trimesters; it does not provide a 6-month postnatal guarantee package (postnatal care is under other programs like JSSK). Statement 2 is correct: PMSMA invites OB-GYN and radiologist specialists from the private sector to volunteer their services at designated public health facilities."
+      "explanation": "Statement 1 is incorrect: PMSMA guarantees a package of comprehensive antenatal care (ANC) on the 9th of every month specifically during the 2nd and 3rd trimesters; it does not provide a 6-month postnatal guarantee package (postnatal care is under other programs like JSSK). Statement 2 is correct: PMSMA invites OB-GYN and radiologist specialists from the private sector to volunteer their services at designated public health facilities.",
+      "raw_topic": "Government Schemes / Health",
+      "id": "upsc_2024_gs1_q99",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "government_schemes_and_economic_development",
+      "subtopic_id": "government_schemes_and_economic_development_health",
+      "subtopic": "Health",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Government Schemes, MSMEs & Economic Development (Government Schemes / Health).",
+      "validation_status": "verified"
     },
     {
       "number": 100,
-      "topic": "Government Schemes / Social Security",
+      "topic": "Government Schemes and Economic Development",
       "passage_id": null,
       "question": "With reference to the Pradhan Mantri Shram Yogi Maan-dhan (PM-SYM) Yojana, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -3189,7 +4794,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "PM-SYM entry age is 18 to 40 years (Statement 1 is incorrect). The beneficiary makes an age-specific monthly contribution (from ₹55 to ₹200) matched 50:50 by the Central Government (Statement 2 is correct). Beneficiaries receive a guaranteed minimum monthly pension of ₹3,000 upon reaching 60 years (Statement 3 is correct). If the pensioner dies, the family pension (50%) is applicable only to the spouse, not to unmarried daughters (Statement 4 is incorrect)."
+      "explanation": "PM-SYM entry age is 18 to 40 years (Statement 1 is incorrect). The beneficiary makes an age-specific monthly contribution (from ₹55 to ₹200) matched 50:50 by the Central Government (Statement 2 is correct). Beneficiaries receive a guaranteed minimum monthly pension of ₹3,000 upon reaching 60 years (Statement 3 is correct). If the pensioner dies, the family pension (50%) is applicable only to the spouse, not to unmarried daughters (Statement 4 is incorrect).",
+      "raw_topic": "Government Schemes / Social Security",
+      "id": "upsc_2024_gs1_q100",
+      "exam": "UPSC CSE Prelims",
+      "year": 2024,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "government_schemes_and_economic_development",
+      "subtopic_id": "government_schemes_and_economic_development_social_security",
+      "subtopic": "Social Security",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Government Schemes, MSMEs & Economic Development (Government Schemes / Social Security).",
+      "validation_status": "verified"
     }
   ]
 }

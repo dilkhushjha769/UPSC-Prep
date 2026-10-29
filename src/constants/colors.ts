@@ -57,6 +57,9 @@ export const PALETTE = {
   },
 } as const;
 
+export const GLOBAL_PRIMARY_BLUE = '#006FFD';
+export const TOGGLE_ACTIVE_COLOR = '#006FFD';
+
 // ============================================================================
 // 2. FLAT COLOR TOKENS
 // ============================================================================

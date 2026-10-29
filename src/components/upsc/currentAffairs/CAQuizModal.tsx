@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import {
+  BackHandler,
   Modal,
   View,
   Text,
@@ -10,6 +11,10 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import {
+  AlertTriangle,
+  Play,
+  Clock,
+  Layers,
   X,
   Timer,
   CheckCircle2,
@@ -21,6 +26,8 @@ import {
 } from 'lucide-react-native';
 import { CA_QUIZ_QUESTIONS, CAQuizQuestion } from '@/data/currentAffairsData';
 import { BW_THEME } from '@/constants/bwTheme';
+import { EditorialExplanationView } from '@/components/common/EditorialExplanationView';
+import { examFocusService } from '@/services/examFocusService';
 import { useStudy } from '@/context/StudyContext';
 
 interface CAQuizModalProps {
@@ -51,6 +58,8 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, 'A' | 'B' | 'C' | 'D'>>({});
   const [timeLeft, setTimeLeft] = useState(durationSeconds);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [quizStarted, setQuizStarted] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   const selectedAnswersRef = useRef(selectedAnswers);
   useEffect(() => {
@@ -69,7 +78,7 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
 
   // Timer countdown
   useEffect(() => {
-    if (isSubmitted) return;
+    if (!quizStarted || isSubmitted) return;
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
@@ -81,7 +90,7 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
       });
     }, 1000);
     return () => clearInterval(timer);
-  }, [isSubmitted, handleSubmit]);
+  }, [quizStarted, isSubmitted, handleSubmit]);
 
   const currentQ = questions[currentIndex];
   const answeredCount = Object.keys(selectedAnswers).length;
@@ -100,6 +109,40 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
     return Math.max(0, Number(raw.toFixed(2)));
   }, [correctCount, incorrectCount]);
 
+
+
+  // Exam Focus Mode - Activate when quiz actually starts, restore on finish/unmount
+  useEffect(() => {
+    if (quizStarted && !isSubmitted) {
+      const sessionId = `ca-drill-${Date.now()}`;
+      examFocusService.activateFocusMode(sessionId, 'Current Affairs Speed Drill');
+      return () => {
+        examFocusService.deactivateFocusMode(sessionId);
+      };
+    }
+  }, [quizStarted, isSubmitted]);
+
+  const handleRequestClose = useCallback(() => {
+    if (!quizStarted || isSubmitted) {
+      onClose();
+      return;
+    }
+    setShowExitConfirm(true);
+  }, [quizStarted, isSubmitted, onClose]);
+
+  useEffect(() => {
+    const onBackPress = () => {
+      if (showExitConfirm) {
+        setShowExitConfirm(false);
+        return true;
+      }
+      handleRequestClose();
+      return true;
+    };
+    const sub = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    return () => sub.remove();
+  }, [showExitConfirm, handleRequestClose]);
+
   const formatTime = (secs: number) => {
     const m = Math.floor(secs / 60);
     const s = secs % 60;
@@ -111,7 +154,7 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
       <StatusBar style={isDark ? 'light' : 'dark'} />
       {/* Top Header */}
       <View style={styles.header}>
-          <Pressable style={styles.closeBtn} onPress={onClose}>
+          <Pressable style={styles.closeBtn} onPress={handleRequestClose}>
             <X size={18} color={theme.textPrimary} strokeWidth={2.2} />
           </Pressable>
 
@@ -319,12 +362,13 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
                     })}
                   </View>
 
-                  {/* Explanation Box */}
-                  <View style={styles.explanationBox}>
-                    <Text style={styles.explanationTitle}>Explanation & UPSC Context:</Text>
-                    <Text style={styles.explanationBody}>{q.explanation}</Text>
-                    <Text style={styles.explanationSource}>Source: {q.source}</Text>
-                  </View>
+                  <EditorialExplanationView
+                    isDark={isDark}
+                    correctAnswer={q.correctAnswer}
+                    explanationText={q.explanation}
+                    source={q.source}
+                    showHeaderBadge={false}
+                  />
                 </View>
               );
             })}

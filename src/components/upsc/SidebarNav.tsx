@@ -184,8 +184,9 @@ export function SidebarNav({
         {/* User Mini Profile */}
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => setIsQuickEditOpen(true)}
-          style={styles.profileMiniRow}>
+          onPress={() => onSelectTab('profile')}
+          style={styles.profileMiniRow}
+          accessibilityLabel="Open Profile">
           <View
             style={[
               styles.avatarBox,

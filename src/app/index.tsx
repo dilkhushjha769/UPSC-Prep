@@ -151,7 +151,11 @@ export default function AppScreen() {
           )}
 
           {activeTab === 'prelims' && (
-            <PrelimsScreen isDark={isDark} onBack={() => setActiveTab('home')} />
+            <PrelimsScreen
+              isDark={isDark}
+              onBack={() => setActiveTab('home')}
+              onToggleTheme={toggleTheme}
+            />
           )}
 
           {activeTab === 'mock-test' && (
@@ -186,7 +190,13 @@ export default function AppScreen() {
       </View>
 
       {/* Floating Theme Changer across non-home screens on mobile (excluding screens that have their own header theme button) */}
-      {!isDesktop && activeTab !== 'home' && activeTab !== 'tasks' && activeTab !== 'notifications' && activeTab !== 'profile' && activeTab !== 'mock-test' && (
+      {!isDesktop &&
+        activeTab !== 'home' &&
+        activeTab !== 'tasks' &&
+        activeTab !== 'notifications' &&
+        activeTab !== 'profile' &&
+        activeTab !== 'mock-test' &&
+        activeTab !== 'prelims' && (
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={toggleTheme}

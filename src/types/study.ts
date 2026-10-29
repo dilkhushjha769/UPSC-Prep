@@ -89,6 +89,8 @@ export interface NotificationPreferences {
   soundEnabled: boolean; // Notification alert sounds
   vibrationEnabled: boolean; // Haptic feedback
   quietHoursEnabled: boolean; // Mute notifications from 11 PM to 6 AM
+  focusModeDuringTests?: boolean; // Exam Focus Mode: Automatically silence notifications during quizzes & mock tests
+  androidDndRequested?: boolean; // Request Android system Do Not Disturb where supported
 }
 
 export interface UserStudyConfig {
@@ -97,6 +99,7 @@ export interface UserStudyConfig {
   targetExamDate: string; // YYYY-MM-DD
   examPhase: string; // e.g. "UPSC CSE 2027 • Prelims & Mains"
   dailyGoalMinutes: number; // e.g. 360 (6 hours)
+  dailyQuestionsGoal?: number; // e.g. 20 questions
   qualifyingStreakMinutes: number; // e.g. 60 mins
   gsTargetMinutes: number; // e.g. 210 (3.5 hours)
   caTargetMinutes: number; // e.g. 90 (1.5 hours)

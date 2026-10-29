@@ -8,11 +8,18 @@ import {
   Pressable,
   useWindowDimensions,
   Platform,
+  BackHandler,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import {
   X,
+  HelpCircle,
+  Clock,
+  Layers,
+  Play,
+  CheckCircle2,
+  ShieldAlert,
   Timer,
   Flag,
   ArrowLeft,
@@ -28,6 +35,8 @@ import {
   Bookmark,
 } from '@/components/common/LucideIcons';
 import { PYQQuestion, QuizResult } from '@/types/prelims';
+import { EditorialExplanationView } from '@/components/common/EditorialExplanationView';
+import { examFocusService } from '@/services/examFocusService';
 import { useStudy } from '@/context/StudyContext';
 import { usePrelimsTheme, PrelimsThemeType } from '@/constants/prelimsTheme';
 import { BookmarkStorageService } from '@/services/bookmarkStorage';
@@ -114,6 +123,7 @@ function QuizModalContent({
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [showMobilePalette, setShowMobilePalette] = useState(false);
   const [showExitModal, setShowExitModal] = useState(false);
+  const [quizStarted, setQuizStarted] = useState(false);
 
   const handleSelectQuestion = useCallback((idx: number) => {
     if (idx < 0 || idx >= questions.length) return;
@@ -180,7 +190,7 @@ function QuizModalContent({
 
   // Timer countdown
   useEffect(() => {
-    if (isSubmitted) return;
+    if (!quizStarted || isSubmitted) return;
     const interval = setInterval(() => {
       setTimeLeftSeconds((prev) => {
         if (prev <= 1) {
@@ -192,7 +202,7 @@ function QuizModalContent({
       });
     }, 1000);
     return () => clearInterval(interval);
-  }, [isSubmitted, handleSubmitQuiz]);
+  }, [quizStarted, isSubmitted, handleSubmitQuiz]);
 
   const currentQ = questions[currentIndex] || questions[0];
 
@@ -279,12 +289,34 @@ function QuizModalContent({
   };
 
   const handleRequestClose = useCallback(() => {
-    if (isSubmitted) {
+    if (!quizStarted || isSubmitted) {
       onClose();
       return;
     }
     setShowExitModal(true);
-  }, [isSubmitted, onClose]);
+  }, [quizStarted, isSubmitted, onClose]);
+
+
+  // Exam Focus Mode - Activate when quiz actually starts, restore on finish/unmount
+  useEffect(() => {
+    if (quizStarted && !isSubmitted) {
+      const sessionId = `prelims-quiz-${Date.now()}`;
+      examFocusService.activateFocusMode(sessionId, title || 'UPSC Prelims Practice Quiz');
+      return () => {
+        examFocusService.deactivateFocusMode(sessionId);
+      };
+    }
+  }, [quizStarted, isSubmitted, title]);
+
+  // Handle hardware and browser back buttons
+  useEffect(() => {
+    const onBackPress = () => {
+      handleRequestClose();
+      return true;
+    };
+    const sub = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    return () => sub.remove();
+  }, [handleRequestClose]);
 
   // Keyboard navigation on Web
   useEffect(() => {
@@ -344,6 +376,208 @@ function QuizModalContent({
     handleClearResponse,
     handleRequestClose,
   ]);
+
+  // =========================================================================
+  // VIEW 0: Pre-Quiz Rules & Important Guidelines (Before timer starts)
+  // =========================================================================
+  if (!quizStarted) {
+    return (
+      <View style={styles.sheetContainer}>
+        <BlueTextureBackground isDark={theme.isDark} />
+
+        {/* Top Controls Row */}
+        <View style={styles.rulesTopBar}>
+          <Pressable
+            style={({ pressed }) => [styles.rulesCloseBtn, pressed && styles.pressed]}
+            onPress={onClose}
+            accessibilityRole="button"
+            accessibilityLabel="Close Instructions"
+          >
+            <X size={18} color={theme.colors.textPrimary} strokeWidth={2.2} />
+          </Pressable>
+          <Text style={[styles.rulesHeaderTitle, { color: theme.colors.textPrimary }]}>
+            Test Instructions
+          </Text>
+          <View style={{ width: 38 }} />
+        </View>
+
+        <ScrollView
+          style={styles.rulesScrollView}
+          contentContainerStyle={styles.rulesScrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          {/* Hero Quiz Title Block */}
+          <View style={styles.rulesHeroBlock}>
+            <View style={styles.rulesBadgeRow}>
+              <View style={styles.rulesExamBadge}>
+                <Text style={styles.rulesExamBadgeText}>UPSC PRELIMS</Text>
+              </View>
+              <Text style={styles.rulesPaperText}>TIMED MOCK QUIZ</Text>
+            </View>
+            <Text style={[styles.rulesMainTitle, { color: theme.colors.textPrimary }]}>
+              {title || 'UPSC Prelims Practice Quiz'}
+            </Text>
+            <Text style={[styles.rulesSubtitle, { color: theme.colors.textSecondary }]}>
+              Please review all test guidelines, marking rules, and navigation options before starting.
+            </Text>
+          </View>
+
+          {/* Key Test Parameters Grid (4 Cards) */}
+          <View style={styles.rulesParamsGrid}>
+            {/* 1. Questions */}
+            <View style={[styles.paramCard, { backgroundColor: theme.colors.bgSurface, borderColor: theme.colors.borderCard }]}>
+              <HelpCircle size={18} color="#2F80ED" strokeWidth={2.2} />
+              <Text style={[styles.paramValue, { color: theme.colors.textPrimary }]}>
+                {questions.length}
+              </Text>
+              <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>
+                Questions
+              </Text>
+            </View>
+
+            {/* 2. Duration */}
+            <View style={[styles.paramCard, { backgroundColor: theme.colors.bgSurface, borderColor: theme.colors.borderCard }]}>
+              <Clock size={18} color="#F59E0B" strokeWidth={2.2} />
+              <Text style={[styles.paramValue, { color: theme.colors.textPrimary }]}>
+                {durationMinutes} Min
+              </Text>
+              <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>
+                Time Limit
+              </Text>
+            </View>
+
+            {/* 3. Marking Scheme */}
+            <View style={[styles.paramCard, { backgroundColor: theme.colors.bgSurface, borderColor: theme.colors.borderCard }]}>
+              <Award size={18} color="#35C98A" strokeWidth={2.2} />
+              <Text style={[styles.paramValue, { color: '#35C98A' }]}>
+                +2.0 / -0.66
+              </Text>
+              <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>
+                Marking
+              </Text>
+            </View>
+
+            {/* 4. Total Marks */}
+            <View style={[styles.paramCard, { backgroundColor: theme.colors.bgSurface, borderColor: theme.colors.borderCard }]}>
+              <Layers size={18} color="#8257E6" strokeWidth={2.2} />
+              <Text style={[styles.paramValue, { color: theme.colors.textPrimary }]}>
+                {(questions.length * 2).toFixed(1)}
+              </Text>
+              <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>
+                Max Marks
+              </Text>
+            </View>
+          </View>
+
+          {/* Section: Important Rules & Guidelines */}
+          <View style={[styles.rulesListCard, { backgroundColor: theme.colors.bgSurface, borderColor: theme.colors.borderCard }]}>
+            <Text style={[styles.rulesSectionHeading, { color: theme.colors.textPrimary }]}>
+              Examination Guidelines & Rules
+            </Text>
+
+            {/* Rule 1 */}
+            <View style={styles.ruleItemRow}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1C263D' : '#EEF4FD' }]}>
+                <Text style={styles.ruleItemNumText}>1</Text>
+              </View>
+              <View style={styles.ruleItemContent}>
+                <Text style={[styles.ruleItemTitle, { color: theme.colors.textPrimary }]}>
+                  Timer & Auto-Submission
+                </Text>
+                <Text style={[styles.ruleItemDesc, { color: theme.colors.textSecondary }]}>
+                  The countdown timer starts the moment you press &ldquo;Start Quiz Now&rdquo;. If time runs out, your test will automatically submit your chosen answers.
+                </Text>
+              </View>
+            </View>
+
+            {/* Rule 2 */}
+            <View style={styles.ruleItemRow}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1C263D' : '#EEF4FD' }]}>
+                <Text style={styles.ruleItemNumText}>2</Text>
+              </View>
+              <View style={styles.ruleItemContent}>
+                <Text style={[styles.ruleItemTitle, { color: theme.colors.textPrimary }]}>
+                  UPSC Negative Marking (1/3rd Penalty)
+                </Text>
+                <Text style={[styles.ruleItemDesc, { color: theme.colors.textSecondary }]}>
+                  Each correct answer awards +2.00 marks. Each wrong answer incurs a 0.66 penalty (-1/3). Unattempted questions carry zero penalty.
+                </Text>
+              </View>
+            </View>
+
+            {/* Rule 3 */}
+            <View style={styles.ruleItemRow}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1C263D' : '#EEF4FD' }]}>
+                <Text style={styles.ruleItemNumText}>3</Text>
+              </View>
+              <View style={styles.ruleItemContent}>
+                <Text style={[styles.ruleItemTitle, { color: theme.colors.textPrimary }]}>
+                  Question Navigation & Review Flag
+                </Text>
+                <Text style={[styles.ruleItemDesc, { color: theme.colors.textSecondary }]}>
+                  You can jump to any question using the Question Palette grid. Use &ldquo;Mark for Review&rdquo; on questions you wish to revisit before submitting.
+                </Text>
+              </View>
+            </View>
+
+            {/* Rule 4 */}
+            <View style={styles.ruleItemRow}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1C263D' : '#EEF4FD' }]}>
+                <Text style={styles.ruleItemNumText}>4</Text>
+              </View>
+              <View style={styles.ruleItemContent}>
+                <Text style={[styles.ruleItemTitle, { color: theme.colors.textPrimary }]}>
+                  Confirmation on Back / Exit
+                </Text>
+                <Text style={[styles.ruleItemDesc, { color: theme.colors.textSecondary }]}>
+                  If you attempt to close or navigate back while the quiz is in progress, you will be prompted for confirmation to prevent accidental loss of progress.
+                </Text>
+              </View>
+            </View>
+
+            {/* Rule 5 */}
+            <View style={styles.ruleItemRow}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1C263D' : '#EEF4FD' }]}>
+                <Text style={styles.ruleItemNumText}>5</Text>
+              </View>
+              <View style={styles.ruleItemContent}>
+                <Text style={[styles.ruleItemTitle, { color: theme.colors.textPrimary }]}>
+                  Instant Editorial Solutions
+                </Text>
+                <Text style={[styles.ruleItemDesc, { color: theme.colors.textSecondary }]}>
+                  Upon completion, you will immediately see your detailed scorecard, accuracy, time analysis, and complete question explanations with official UPSC key.
+                </Text>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+
+        {/* Bottom Action Bar */}
+        <View style={[styles.rulesBottomBar, { backgroundColor: theme.colors.bgSurface, borderTopColor: theme.colors.borderCard }]}>
+          <Pressable
+            style={({ pressed }) => [styles.rulesCancelBtn, pressed && styles.pressed]}
+            onPress={onClose}
+            accessibilityRole="button"
+            accessibilityLabel="Cancel Quiz"
+          >
+            <Text style={[styles.rulesCancelBtnText, { color: theme.colors.textSecondary }]}>
+              Cancel
+            </Text>
+          </Pressable>
+
+          <Pressable
+            style={({ pressed }) => [styles.rulesStartBtn, pressed && styles.pressed]}
+            onPress={() => setQuizStarted(true)}
+            accessibilityRole="button"
+            accessibilityLabel="Start Quiz Now"
+          >
+            <Play size={16} color="#FFFFFF" fill="#FFFFFF" strokeWidth={2} />
+            <Text style={styles.rulesStartBtnText}>Start Quiz Now</Text>
+          </Pressable>
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.sheetContainer}>
@@ -897,15 +1131,14 @@ function QuizModalContent({
                       <Text style={styles.reviewOfficialKey}>Option ({q.correctAnswer})</Text>
                     </View>
 
-                    <View style={styles.solutionBox}>
-                      <Text style={styles.solutionTitle}>Explanation:</Text>
-                      <Text style={styles.solutionText}>{q.explanation.coreConcept}</Text>
-                      {q.explanation.eliminationTechnique && (
-                        <Text style={styles.solutionTrick}>
-                          Elimination Strategy: {q.explanation.eliminationTechnique}
-                        </Text>
-                      )}
-                    </View>
+                    <EditorialExplanationView
+                      isDark={theme.isDark}
+                      correctAnswer={q.correctAnswer}
+                      coreConcept={q.explanation?.coreConcept}
+                      detailedAnalysis={q.explanation?.detailedAnalysis}
+                      eliminationTechnique={q.explanation?.eliminationTechnique}
+                      showHeaderBadge={false}
+                    />
                   </View>
                 );
               })}
@@ -935,15 +1168,15 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
   return StyleSheet.create({
     fullScreenSafeArea: {
       flex: 1,
-      backgroundColor: isDark ? '#080A0E' : '#F8FAFC',
+      backgroundColor: isDark ? '#1F2024' : '#F8F9FE',
     },
     fullScreenContainer: {
       flex: 1,
-      backgroundColor: isDark ? '#080A0E' : '#F8FAFC',
+      backgroundColor: isDark ? '#1F2024' : '#F8F9FE',
     },
     sheetContainer: {
       flex: 1,
-      backgroundColor: isDark ? '#080A0E' : '#F8FAFC',
+      backgroundColor: isDark ? '#1F2024' : '#F8F9FE',
     },
     topBar: {
       position: 'relative',
@@ -1091,7 +1324,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     metaYearText: {
       fontSize: 10.5,
       fontWeight: '700',
-      color: isDark ? '#FFC9A3' : '#EA4E00',
+      color: '#10B981',
     },
     metaMarkingTag: {
       backgroundColor: isDark ? '#191C25' : '#F1F5F9',
@@ -1542,7 +1775,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       padding: 12,
       borderRadius: 8,
       borderLeftWidth: 3,
-      borderLeftColor: theme.colors.textPrimary,
+      borderLeftColor: '#10B981',
       gap: 4,
     },
     solutionTitle: {
@@ -1688,6 +1921,186 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       fontSize: 13,
       fontWeight: '700',
       color: '#EF4444',
+    },
+    // Rules & Guidelines Styles
+    rulesTopBar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 20,
+      paddingVertical: 14,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.borderSubtle,
+    },
+    rulesCloseBtn: {
+      width: 38,
+      height: 38,
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
+      backgroundColor: theme.colors.bgSurface,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    rulesHeaderTitle: {
+      fontSize: 16,
+      fontWeight: '700',
+      letterSpacing: -0.2,
+    },
+    rulesScrollView: {
+      flex: 1,
+    },
+    rulesScrollContent: {
+      paddingHorizontal: 20,
+      paddingTop: 18,
+      paddingBottom: 24,
+      alignItems: 'center',
+    },
+    rulesHeroBlock: {
+      width: '100%',
+      maxWidth: 640,
+      marginBottom: 20,
+    },
+    rulesBadgeRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+      marginBottom: 8,
+    },
+    rulesExamBadge: {
+      backgroundColor: theme.isDark ? '#1C263D' : '#EAF2FF',
+      paddingHorizontal: 8,
+      paddingVertical: 3,
+      borderRadius: 6,
+    },
+    rulesExamBadgeText: {
+      fontSize: 10.5,
+      fontWeight: '800',
+      color: theme.isDark ? '#6FBAFF' : '#006FFD',
+      letterSpacing: 0.5,
+    },
+    rulesPaperText: {
+      fontSize: 11,
+      fontWeight: '700',
+      color: theme.colors.textMuted,
+      letterSpacing: 0.5,
+    },
+    rulesMainTitle: {
+      fontSize: 22,
+      fontWeight: '800',
+      letterSpacing: -0.4,
+      marginBottom: 6,
+    },
+    rulesSubtitle: {
+      fontSize: 13,
+      lineHeight: 18,
+    },
+    rulesParamsGrid: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 10,
+      width: '100%',
+      maxWidth: 640,
+      marginBottom: 18,
+    },
+    paramCard: {
+      flex: 1,
+      minWidth: 130,
+      borderWidth: 1,
+      borderRadius: 12,
+      padding: 14,
+      alignItems: 'center',
+      gap: 6,
+    },
+    paramValue: {
+      fontSize: 16,
+      fontWeight: '800',
+      letterSpacing: -0.2,
+    },
+    paramLabel: {
+      fontSize: 11,
+      fontWeight: '600',
+    },
+    rulesListCard: {
+      width: '100%',
+      maxWidth: 640,
+      borderWidth: 1,
+      borderRadius: 14,
+      padding: 18,
+      gap: 14,
+    },
+    rulesSectionHeading: {
+      fontSize: 14,
+      fontWeight: '700',
+      letterSpacing: -0.2,
+      marginBottom: 2,
+    },
+    ruleItemRow: {
+      flexDirection: 'row',
+      gap: 12,
+      alignItems: 'flex-start',
+    },
+    ruleItemNumber: {
+      width: 24,
+      height: 24,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 1,
+    },
+    ruleItemNumText: {
+      fontSize: 11,
+      fontWeight: '800',
+      color: '#0D6EFD',
+    },
+    ruleItemContent: {
+      flex: 1,
+    },
+    ruleItemTitle: {
+      fontSize: 13.5,
+      fontWeight: '700',
+      marginBottom: 3,
+    },
+    ruleItemDesc: {
+      fontSize: 12,
+      lineHeight: 17,
+    },
+    rulesBottomBar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 20,
+      paddingVertical: 14,
+      borderTopWidth: 1,
+      gap: 12,
+    },
+    rulesCancelBtn: {
+      flex: 1,
+      maxWidth: 160,
+      paddingVertical: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 10,
+    },
+    rulesCancelBtnText: {
+      fontSize: 13.5,
+      fontWeight: '700',
+    },
+    rulesStartBtn: {
+      flex: 2,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 8,
+      backgroundColor: '#0D6EFD',
+      paddingVertical: 12,
+      borderRadius: 10,
+    },
+    rulesStartBtnText: {
+      fontSize: 14,
+      fontWeight: '700',
+      color: '#FFFFFF',
+      letterSpacing: -0.1,
     },
   });
 };

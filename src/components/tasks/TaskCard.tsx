@@ -1,13 +1,12 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import { Check, Clock, Trash2 } from 'lucide-react-native';
-import { PALETTE, Typography } from '@/constants/colors';
+import { Typography } from '@/constants/colors';
 import { StudyTask, TaskColorTag } from '@/types/study';
 import { getTaskColors } from '@/constants/taskColors';
 
@@ -30,6 +29,8 @@ export function TaskCard({
   onPress,
   onDelete,
 }: TaskCardProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const effectiveTag = colorTagOverride || (task.colorTag && task.colorTag !== 'default' ? task.colorTag : undefined);
   const colorTheme = getTaskColors(effectiveTag, isDark);
   const isCompleted = Boolean(task.completed || task.status === 'completed');
@@ -49,10 +50,19 @@ export function TaskCard({
 
   const metaColor = colorTheme.isColored ? colorTheme.subtext : (isDark ? '#9EA0AA' : '#6B6E7D');
 
+  const handleCardPress = () => {
+    if (taskDesc) {
+      setIsExpanded((prev) => !prev);
+    }
+    if (onPress) {
+      onPress(task);
+    }
+  };
+
   return (
     <TouchableOpacity
       activeOpacity={0.85}
-      onPress={() => onPress && onPress(task)}
+      onPress={handleCardPress}
       style={[
         styles.cardContainer,
         {
@@ -96,7 +106,7 @@ export function TaskCard({
           {taskTitle}
         </Text>
 
-        {Boolean(taskDesc && showNotes) && (
+        {Boolean(taskDesc && showNotes && isExpanded) && (
           <Text
             style={[
               styles.descText,
@@ -104,8 +114,7 @@ export function TaskCard({
                 color: colorTheme.subtext,
                 opacity: isCompleted ? 0.6 : 0.95,
               },
-            ]}
-            numberOfLines={2}>
+            ]}>
             {taskDesc}
           </Text>
         )}
@@ -218,6 +227,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontFamily: Typography.fontFamily,
     lineHeight: 18,
+    marginTop: 4,
   },
   actionsRight: {
     flexDirection: 'row',

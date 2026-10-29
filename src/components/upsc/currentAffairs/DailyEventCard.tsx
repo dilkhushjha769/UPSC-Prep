@@ -17,6 +17,7 @@ import {
 } from 'lucide-react-native';
 import { DailyEventItem } from '@/data/currentAffairsData';
 import { BW_THEME } from '@/constants/bwTheme';
+import { EditorialExplanationView } from '@/components/common/EditorialExplanationView';
 import { generateEventRecallQuestions } from '@/services/eventRecallService';
 import {
   parseExecutiveBrief,
@@ -292,7 +293,6 @@ export function DailyEventCard({
             {recallQuestions.map((q) => {
               const selectedOption = recallAnswers[q.id];
               const isAnswered = selectedOption !== undefined;
-              const isCorrect = selectedOption === q.correctAnswer;
 
               return (
                 <View key={q.id} style={styles.recallQuestionCard}>
@@ -368,28 +368,12 @@ export function DailyEventCard({
                   </View>
 
                   {isAnswered && (
-                    <View
-                      style={[
-                        styles.recallFeedbackCard,
-                        isCorrect ? styles.recallFeedbackCorrect : styles.recallFeedbackWrong,
-                      ]}
-                    >
-                      <Text
-                        style={[
-                          styles.recallFeedbackHeading,
-                          isCorrect
-                            ? styles.recallFeedbackHeadingCorrect
-                            : styles.recallFeedbackHeadingWrong,
-                        ]}
-                      >
-                        {isCorrect ? '✓ Correct Recall' : `✗ Correct Answer: Option ${q.correctAnswer}`}
-                      </Text>
-                      <Text style={styles.recallExplanationText}>{q.explanation}</Text>
-                      <View style={styles.recallSyllabusBox}>
-                        <Text style={styles.recallSyllabusTag}>📚 UPSC Syllabus Linkage:</Text>
-                        <Text style={styles.recallSyllabusText}>{q.syllabusRelevance}</Text>
-                      </View>
-                    </View>
+                    <EditorialExplanationView
+                      isDark={isDark}
+                      correctAnswer={q.correctAnswer}
+                      explanationText={q.explanation}
+                      syllabusRelevance={q.syllabusRelevance}
+                    />
                   )}
                 </View>
               );

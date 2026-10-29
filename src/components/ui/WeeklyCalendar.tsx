@@ -6,6 +6,7 @@ import {
   StyleProp,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
   ViewStyle,
 } from 'react-native';
@@ -168,6 +169,10 @@ export function WeeklyCalendar({
   style,
   markedDates,
 }: WeeklyCalendarProps) {
+  const { width } = useWindowDimensions();
+  const isMobile = width < 768;
+  const isCompact = width < 420;
+
   const [weekOffset, setWeekOffset] = useState<number>(0);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState<boolean>(false);
 
@@ -214,6 +219,8 @@ export function WeeklyCalendar({
         {
           backgroundColor: theme.cardBg,
           borderColor: theme.cardBorder,
+          paddingHorizontal: isCompact ? 12 : isMobile ? 14 : 16,
+          paddingVertical: isCompact ? 14 : 18,
         },
         style,
       ]}>
@@ -221,17 +228,32 @@ export function WeeklyCalendar({
       {/* HEADER: Month & Year Title on Left, Arrows & Calendar on Right */}
       {/* ========================================================= */}
       <View style={styles.cardHeader}>
-        <Text style={[styles.headerTitle, { color: theme.dateNormal }]}>
+        <Text
+          numberOfLines={1}
+          style={[
+            styles.headerTitle,
+            {
+              color: theme.dateNormal,
+              fontSize: isCompact ? 15 : isMobile ? 16 : 18,
+            },
+          ]}>
           {monthTitle}
         </Text>
 
-        <View style={styles.headerControls}>
+        <View
+          style={[
+            styles.headerControls,
+            { gap: isCompact ? 5 : isMobile ? 6 : 8 },
+          ]}>
           {/* Previous Week Arrow Button */}
           <Pressable
             onPress={() => setWeekOffset((prev) => prev - 1)}
             style={({ pressed }) => [
               styles.arrowBtn,
               {
+                width: isCompact ? 28 : isMobile ? 30 : 32,
+                height: isCompact ? 28 : isMobile ? 30 : 32,
+                borderRadius: isCompact ? 14 : isMobile ? 15 : 16,
                 backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F4F5F9',
                 borderColor: isDark ? '#383A42' : '#E8E9F1',
               },
@@ -240,7 +262,7 @@ export function WeeklyCalendar({
             ]}
             hitSlop={6}
             accessibilityLabel="Previous week">
-            <ChevronLeftIcon size={14} color={theme.dateNormal} />
+            <ChevronLeftIcon size={isCompact ? 12 : 14} color={theme.dateNormal} />
           </Pressable>
 
           {/* Next Week Arrow Button (Disabled if currently on today's week) */}
@@ -250,6 +272,9 @@ export function WeeklyCalendar({
             style={({ pressed }) => [
               styles.arrowBtn,
               {
+                width: isCompact ? 28 : isMobile ? 30 : 32,
+                height: isCompact ? 28 : isMobile ? 30 : 32,
+                borderRadius: isCompact ? 14 : isMobile ? 15 : 16,
                 backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F4F5F9',
                 borderColor: isDark ? '#383A42' : '#E8E9F1',
                 opacity: weekOffset >= 0 ? 0.35 : 1,
@@ -260,7 +285,7 @@ export function WeeklyCalendar({
             ]}
             hitSlop={6}
             accessibilityLabel="Next week">
-            <ChevronRightIcon size={14} color={theme.dateNormal} />
+            <ChevronRightIcon size={isCompact ? 12 : 14} color={theme.dateNormal} />
           </Pressable>
 
           {/* Calendar Button (Opens Calendar in Modal Form) */}
@@ -273,14 +298,18 @@ export function WeeklyCalendar({
               backgroundColor: isDark ? 'rgba(255, 255, 255, 0.05)' : '#F8F9FE',
               borderColor: isDark ? '#494A50' : '#D4D6DD',
               borderWidth: 1,
+              paddingHorizontal: isCompact ? 8 : isMobile ? 10 : 14,
+              paddingVertical: isCompact ? 5 : isMobile ? 6 : 8,
+              borderRadius: isCompact ? 8 : 10,
             }}
             textStyle={{
               color: isDark ? '#FFFFFF' : '#1F2024',
               fontWeight: '600',
+              fontSize: isCompact ? 11 : 12,
             }}
             leftIcon={
               <CalendarIcon
-                size={13}
+                size={isCompact ? 11 : 13}
                 color={isDark ? '#8F9098' : '#71727A'}
               />
             }
@@ -334,7 +363,7 @@ export function WeeklyCalendar({
           }
 
           return (
-            <View key={day.dateStr} style={styles.dayCol}>
+            <View key={day.dateStr} style={[styles.dayCol, { gap: isCompact ? 5 : 8 }]}>
               {/* Weekday Label on Top (Mon, Tue, Wed, Thu, Fri, Sat, Sun) */}
               <Text
                 style={[
@@ -342,6 +371,7 @@ export function WeeklyCalendar({
                   {
                     color: labelColor,
                     fontWeight: isToday ? '700' : isPast ? '600' : '500',
+                    fontSize: isCompact ? 10 : isMobile ? 11 : 12,
                   },
                 ]}>
                 {formatDayName(day.dayName)}
@@ -358,6 +388,9 @@ export function WeeklyCalendar({
                 style={({ pressed }) => [
                   styles.circleDate,
                   {
+                    width: isCompact ? 33 : isMobile ? 36 : 40,
+                    height: isCompact ? 33 : isMobile ? 36 : 40,
+                    borderRadius: isCompact ? 16.5 : isMobile ? 18 : 20,
                     backgroundColor: circleBg,
                     borderColor: circleBorderColor,
                     borderWidth: circleBorderWidth,
@@ -376,6 +409,7 @@ export function WeeklyCalendar({
                     {
                       color: numberColor,
                       fontWeight: isToday || isPast ? '700' : '500',
+                      fontSize: isCompact ? 13 : isMobile ? 14 : 16,
                     },
                   ]}>
                   {day.dayNumber}
@@ -461,10 +495,10 @@ export function WeeklyCalendar({
 
 const styles = StyleSheet.create({
   cardContainer: {
-    borderRadius: 24,
+    borderRadius: 22,
     borderWidth: 1,
-    paddingVertical: 18,
-    paddingHorizontal: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 14,
     width: '100%',
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 4 },
@@ -476,21 +510,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 16,
-    paddingHorizontal: 4,
-    gap: 8,
-    flexWrap: 'wrap',
+    marginBottom: 14,
+    paddingHorizontal: 2,
+    gap: 6,
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
     fontFamily: Typography.fontFamily,
     letterSpacing: -0.3,
+    flexShrink: 1,
   },
   headerControls: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    flexShrink: 0,
   },
   arrowBtn: {
     width: 32,
@@ -510,8 +544,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
-    marginHorizontal: 1,
+    marginHorizontal: 0,
   },
   dayLabelText: {
     fontSize: 12,

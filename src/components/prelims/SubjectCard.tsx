@@ -15,6 +15,7 @@ export function SubjectCard({ subject, serialNumber, onPress, isLast }: SubjectC
   const theme = usePrelimsTheme();
   const styles = useMemo(() => getStyles(theme), [theme]);
   const formattedSerial = String(serialNumber).padStart(2, '0');
+  const mastery = Math.min(100, Math.max(0, subject.masteredPercent || 0));
 
   return (
     <Pressable
@@ -33,7 +34,27 @@ export function SubjectCard({ subject, serialNumber, onPress, isLast }: SubjectC
         </View>
 
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{subject.title}</Text>
+          <View style={styles.titleRow}>
+            <Text style={styles.title}>{subject.title}</Text>
+            <Text
+              style={[
+                styles.masteryText,
+                { color: mastery >= 70 ? '#10B981' : '#006FFD' },
+              ]}>
+              {mastery}%
+            </Text>
+          </View>
+          <View style={[styles.progressTrack, { backgroundColor: theme.colors.borderSubtle }]}>
+            <View
+              style={[
+                styles.progressFill,
+                {
+                  width: `${mastery}%`,
+                  backgroundColor: mastery >= 70 ? '#10B981' : '#006FFD',
+                },
+              ]}
+            />
+          </View>
           <Text style={styles.subtitle}>
             {subject.chapters.length} Chapters · {subject.totalQuestions10Yrs} Questions
           </Text>
@@ -93,13 +114,32 @@ const getStyles = (theme: PrelimsThemeType) =>
     },
     textContainer: {
       flex: 1,
+      gap: 4,
+    },
+    titleRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
     },
     title: {
       fontSize: 15,
       fontWeight: '700',
       color: theme.colors.textPrimary,
       letterSpacing: -0.2,
-      marginBottom: 3,
+    },
+    masteryText: {
+      fontSize: 12,
+      fontWeight: '700',
+    },
+    progressTrack: {
+      height: 3,
+      borderRadius: 1.5,
+      width: '100%',
+      overflow: 'hidden',
+    },
+    progressFill: {
+      height: '100%',
+      borderRadius: 1.5,
     },
     subtitle: {
       fontSize: 12,
@@ -113,4 +153,3 @@ const getStyles = (theme: PrelimsThemeType) =>
       justifyContent: 'center',
     },
   });
-

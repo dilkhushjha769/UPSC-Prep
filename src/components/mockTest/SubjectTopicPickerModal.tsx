@@ -82,8 +82,8 @@ function SubjectTopicPickerInner({
           style={[
             styles.modalContent,
             {
-              backgroundColor: isDark ? '#151A2B' : '#FFFFFF',
-              borderColor: isDark ? '#232D44' : '#E2E8F0',
+              backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
+              borderColor: isDark ? '#262E40' : '#EAE5DC',
             },
           ]}>
           {/* Header */}
@@ -101,7 +101,7 @@ function SubjectTopicPickerInner({
               hitSlop={8}
               style={[
                 styles.closeBtn,
-                { backgroundColor: isDark ? '#1E2538' : '#F1F5F9' },
+                { backgroundColor: isDark ? '#1E2535' : '#F0EDE6' },
               ]}>
               <X size={15} color={theme.textSecondary} />
             </Pressable>
@@ -112,8 +112,8 @@ function SubjectTopicPickerInner({
             style={[
               styles.searchBox,
               {
-                backgroundColor: isDark ? '#0E121F' : '#F8FAFC',
-                borderColor: isDark ? '#232D44' : '#E2E8F0',
+                backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                borderColor: isDark ? '#262E40' : '#EAE5DC',
               },
             ]}>
             <Search size={15} color={theme.textMuted} />
@@ -142,15 +142,15 @@ function SubjectTopicPickerInner({
                   ? [
                       styles.chipActive,
                       {
-                        backgroundColor: isDark ? '#F8FAFC' : '#0F172A',
-                        borderColor: isDark ? '#F8FAFC' : '#0F172A',
+                        backgroundColor: isDark ? '#FAF9F6' : '#1C2433',
+                        borderColor: isDark ? '#FAF9F6' : '#1C2433',
                       },
                     ]
                   : [
                       styles.chipInactive,
                       {
-                        backgroundColor: isDark ? '#0E121F' : '#F8FAFC',
-                        borderColor: isDark ? '#232D44' : '#E2E8F0',
+                        backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                        borderColor: isDark ? '#262E40' : '#EAE5DC',
                       },
                     ],
               ]}>
@@ -160,7 +160,7 @@ function SubjectTopicPickerInner({
                   {
                     color: !activeSubject
                       ? isDark
-                        ? '#0F1117'
+                        ? '#151A25'
                         : '#FFFFFF'
                       : theme.textSecondary,
                     fontWeight: !activeSubject ? '600' : '500',
@@ -202,11 +202,11 @@ function SubjectTopicPickerInner({
                         isSelected && [
                           styles.subjectRowActive,
                           {
-                            backgroundColor: isDark ? '#1C2438' : '#F1F5F9',
+                            backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
                           },
                         ],
                         {
-                          borderBottomColor: isDark ? '#1A2133' : '#F8FAFC',
+                          borderBottomColor: isDark ? '#1E2535' : '#FAF9F6',
                         },
                       ]}>
                       <View style={styles.subjectInfo}>
@@ -240,8 +240,8 @@ function SubjectTopicPickerInner({
                         style={[
                           styles.topicsContainer,
                           {
-                            backgroundColor: isDark ? '#0E121F' : '#F8FAFC',
-                            borderColor: isDark ? '#232D44' : '#E2E8F0',
+                            backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                            borderColor: isDark ? '#262E40' : '#EAE5DC',
                           },
                         ]}>
                         <Text style={[styles.topicsHeading, { color: theme.textMuted }]}>
@@ -256,14 +256,14 @@ function SubjectTopicPickerInner({
                                 ? [
                                     styles.topicPillActive,
                                     {
-                                      backgroundColor: isDark ? '#F8FAFC' : '#0F172A',
+                                      backgroundColor: isDark ? '#FAF9F6' : '#1C2433',
                                     },
                                   ]
                                 : [
                                     styles.topicPillInactive,
                                     {
-                                      backgroundColor: isDark ? '#151A2B' : '#FFFFFF',
-                                      borderColor: isDark ? '#232D44' : '#E2E8F0',
+                                      backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
+                                      borderColor: isDark ? '#262E40' : '#EAE5DC',
                                     },
                                   ],
                             ]}>
@@ -273,7 +273,7 @@ function SubjectTopicPickerInner({
                                 {
                                   color: !activeTopic
                                     ? isDark
-                                      ? '#0F1117'
+                                      ? '#151A25'
                                       : '#FFFFFF'
                                     : theme.textSecondary,
                                 },
@@ -296,14 +296,14 @@ function SubjectTopicPickerInner({
                                     ? [
                                         styles.topicPillActive,
                                         {
-                                          backgroundColor: isDark ? '#F8FAFC' : '#0F172A',
+                                          backgroundColor: isDark ? '#FAF9F6' : '#1C2433',
                                         },
                                       ]
                                     : [
                                         styles.topicPillInactive,
                                         {
-                                          backgroundColor: isDark ? '#151A2B' : '#FFFFFF',
-                                          borderColor: isDark ? '#232D44' : '#E2E8F0',
+                                          backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
+                                          borderColor: isDark ? '#262E40' : '#EAE5DC',
                                         },
                                       ],
                                 ]}>
@@ -313,7 +313,7 @@ function SubjectTopicPickerInner({
                                     {
                                       color: isTopActive
                                         ? isDark
-                                          ? '#0F1117'
+                                          ? '#151A25'
                                           : '#FFFFFF'
                                         : theme.textSecondary,
                                     },
@@ -336,13 +336,13 @@ function SubjectTopicPickerInner({
           <View
             style={[
               styles.modalFooter,
-              { borderTopColor: isDark ? '#232D44' : '#F1F5F9' },
+              { borderTopColor: isDark ? '#262E40' : '#F0EDE6' },
             ]}>
             <Pressable
               onPress={handleReset}
               style={[
                 styles.secondaryBtn,
-                { borderColor: isDark ? '#232D44' : '#E2E8F0' },
+                { borderColor: isDark ? '#262E40' : '#EAE5DC' },
               ]}>
               <Text style={[styles.secondaryBtnText, { color: theme.textSecondary }]}>
                 Clear
@@ -353,12 +353,12 @@ function SubjectTopicPickerInner({
               onPress={() => handleApply(activeSubject, activeTopic)}
               style={[
                 styles.applyBtn,
-                { backgroundColor: isDark ? '#F8FAFC' : '#0F172A' },
+                { backgroundColor: isDark ? '#FAF9F6' : '#1C2433' },
               ]}>
               <Text
                 style={[
                   styles.applyBtnText,
-                  { color: isDark ? '#0F1117' : '#FFFFFF' },
+                  { color: isDark ? '#151A25' : '#FFFFFF' },
                 ]}>
                 Done
               </Text>

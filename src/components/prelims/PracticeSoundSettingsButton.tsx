@@ -27,7 +27,7 @@ function SoundRow({ label, value, onChange, disabled, border, text, isDark }: So
         onValueChange={onChange}
         disabled={disabled}
         isDark={isDark}
-        activeTrackColor="#006FFD"
+        activeTrackColor="#B9570A"
       />
     </View>
   );
@@ -40,10 +40,10 @@ export function PracticeSoundSettingsButton({ isDark }: Props) {
 
   useEffect(() => practiceSoundService.subscribe(setS), []);
 
-  const grey = isDark ? '#9CA3AF' : '#6B7280';
-  const text = isDark ? '#F5F5F7' : '#0F172A';
-  const card = isDark ? '#1F2024' : '#FFFFFF';
-  const border = isDark ? '#35373F' : '#E2E8F0';
+  const grey = isDark ? '#8892A6' : '#5F6B80';
+  const text = isDark ? '#F2EFE8' : '#1C2433';
+  const card = isDark ? '#1C2433' : '#FFFFFF';
+  const border = isDark ? '#333D52' : '#EAE5DC';
 
   return (
     <>
@@ -53,7 +53,7 @@ export function PracticeSoundSettingsButton({ isDark }: Props) {
         accessibilityLabel="Practice settings"
         style={({ pressed }) => [
           styles.gearBtn,
-          { borderColor: border, backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : '#F3F4F6' },
+          { borderColor: border, backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : '#F0EDE6' },
           pressed && { opacity: 0.7 },
         ]}>
         <Settings size={16} color={grey} strokeWidth={2.2} />

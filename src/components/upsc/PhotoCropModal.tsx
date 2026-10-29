@@ -433,10 +433,10 @@ export function PhotoCropModal({
               (isProcessing || isLoadingMeta) && { opacity: 0.5 },
             ]}>
             {isProcessing ? (
-              <ActivityIndicator size="small" color="#09090B" />
+              <ActivityIndicator size="small" color="#151A25" />
             ) : (
               <>
-                <Check size={14} color="#09090B" strokeWidth={2.8} />
+                <Check size={14} color="#151A25" strokeWidth={2.8} />
                 <Text style={styles.doneBtnText}>Done</Text>
               </>
             )}
@@ -648,7 +648,7 @@ const styles = StyleSheet.create({
   doneBtnText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#09090B',
+    color: '#151A25',
   },
   workspace: {
     flex: 1,
@@ -659,7 +659,7 @@ const styles = StyleSheet.create({
   },
   cropViewport: {
     overflow: 'hidden',
-    backgroundColor: '#111520',
+    backgroundColor: '#151A25',
     borderWidth: 2,
     borderColor: '#FFFFFF',
     alignItems: 'center',

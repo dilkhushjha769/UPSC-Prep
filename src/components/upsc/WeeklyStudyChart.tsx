@@ -136,7 +136,7 @@ export function WeeklyStudyChart({ isDark }: WeeklyStudyChartProps) {
           style={[
             styles.targetBadge,
             {
-              backgroundColor: isDark ? '#232042' : '#FFEDE0',
+              backgroundColor: isDark ? '#262E40' : '#FCEBDD',
               borderColor: colors.cardBorderSubtle,
             },
           ]}>
@@ -153,7 +153,7 @@ export function WeeklyStudyChart({ isDark }: WeeklyStudyChartProps) {
           style={[
             styles.statCard,
             {
-              backgroundColor: isDark ? '#1C1A2D' : '#FBFBFE',
+              backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
               borderColor: colors.cardBorderSubtle,
             },
           ]}>
@@ -173,7 +173,7 @@ export function WeeklyStudyChart({ isDark }: WeeklyStudyChartProps) {
           style={[
             styles.statCard,
             {
-              backgroundColor: isDark ? '#1C1A2D' : '#FBFBFE',
+              backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
               borderColor: colors.cardBorderSubtle,
             },
           ]}>
@@ -190,7 +190,7 @@ export function WeeklyStudyChart({ isDark }: WeeklyStudyChartProps) {
           style={[
             styles.statCard,
             {
-              backgroundColor: isDark ? '#1C1A2D' : '#FBFBFE',
+              backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
               borderColor: colors.cardBorderSubtle,
             },
           ]}>
@@ -211,7 +211,7 @@ export function WeeklyStudyChart({ isDark }: WeeklyStudyChartProps) {
         style={[
           styles.dayInspector,
           {
-            backgroundColor: isDark ? '#232042' : '#F4F0FD',
+            backgroundColor: isDark ? '#262E40' : '#E9EDF9',
             borderColor: colors.cardBorder,
           },
         ]}>
@@ -232,8 +232,8 @@ export function WeeklyStudyChart({ isDark }: WeeklyStudyChartProps) {
         <Svg width={chartWidth} height={chartHeight} viewBox={`0 0 ${chartWidth} ${chartHeight}`}>
           <Defs>
             <LinearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-              <Stop offset="0%" stopColor="#FF8A3D" stopOpacity="0.4" />
-              <Stop offset="100%" stopColor="#FF8A3D" stopOpacity="0.0" />
+              <Stop offset="0%" stopColor="#D9822B" stopOpacity="0.4" />
+              <Stop offset="100%" stopColor="#D9822B" stopOpacity="0.4" />
             </LinearGradient>
           </Defs>
 
@@ -338,7 +338,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 20,
     marginBottom: 24,
-    shadowColor: '#FF5500',
+    shadowColor: '#B9570A',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
     shadowRadius: 12,

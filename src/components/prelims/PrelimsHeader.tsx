@@ -1,4 +1,5 @@
 import React from 'react';
+import { FONT_FAMILY } from '@/constants/designTokens';
 import { PALETTE } from '@/constants/colors';
 import {
   Platform,
@@ -43,13 +44,13 @@ export function PrelimsHeader({
   const isMobile = width < 768;
 
   const colors = {
-    controlBg: isDark ? '#26282E' : '#FFFFFF',
-    controlBorder: isDark ? '#35373F' : '#E8E9F1',
-    textPrimary: isDark ? '#F5F5F7' : '#1F2024',
-    textSecondary: isDark ? '#A7ABB5' : '#71727A',
-    placeholder: isDark ? '#71727A' : '#9CA3AF',
-    searchBg: isDark ? '#25272D' : '#FFFFFF',
-    searchBorder: isDark ? '#35373F' : '#E8E9F1',
+    controlBg: isDark ? '#1E2535' : '#FFFFFF',
+    controlBorder: isDark ? '#333D52' : '#EAE5DC',
+    textPrimary: isDark ? '#F2EFE8' : '#1C2433',
+    textSecondary: isDark ? '#A4ADBF' : '#7A8499',
+    placeholder: isDark ? '#7A8499' : '#8892A6',
+    searchBg: isDark ? '#1E2535' : '#FFFFFF',
+    searchBorder: isDark ? '#333D52' : '#EAE5DC',
   };
 
   return (
@@ -103,12 +104,12 @@ export function PrelimsHeader({
                 Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
                   backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                  borderColor: isDark ? '#383A42' : '#F0F1F5',
+                  borderColor: isDark ? '#333D52' : '#F0EDE6',
                 },
               ]}
             >
               {isDark ? (
-                <Sun size={17} color="#FBBF24" strokeWidth={2.2} />
+                <Sun size={17} color="#D9822B" strokeWidth={2.2} />
               ) : (
                 <Moon size={17} color={PALETTE.highlight.primary} strokeWidth={2.2} />
               )}
@@ -241,6 +242,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   titleText: {
+    fontFamily: FONT_FAMILY.serif,
     fontSize: 27,
     fontWeight: '800',
     letterSpacing: -0.6,

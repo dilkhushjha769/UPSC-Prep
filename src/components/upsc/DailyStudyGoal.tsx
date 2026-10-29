@@ -93,7 +93,7 @@ export function DailyStudyGoal({ isDark }: DailyStudyGoalProps) {
               <View
                 style={[
                   styles.statusBadge,
-                  { backgroundColor: isDark ? '#2D2342' : '#F1EDFD' },
+                  { backgroundColor: isDark ? '#262E40' : '#E9EDF9' },
                 ]}>
                 <Clock size={12} color={colors.primary} />
                 <Text style={[styles.statusBadgeText, { color: colors.primary }]}>
@@ -123,7 +123,7 @@ export function DailyStudyGoal({ isDark }: DailyStudyGoalProps) {
           <View
             style={[
               styles.progressBarTrack,
-              { backgroundColor: isDark ? '#1A2130' : '#FFEDE0' },
+              { backgroundColor: isDark ? '#1E2535' : '#FCEBDD' },
             ]}>
             <View
               style={[
@@ -143,9 +143,9 @@ export function DailyStudyGoal({ isDark }: DailyStudyGoalProps) {
             size={120}
             strokeWidth={11}
             progress={progressRatio}
-            trackColor={isDark ? '#26243A' : '#FFEDE0'}
+            trackColor={isDark ? '#262E40' : '#FCEBDD'}
             fillColor={colors.primary}
-            gradientColors={[colors.primaryLight, colors.primary]}
+            gradientColors={[colors.primary, colors.primary]}
             gradientId="todayGoalGrad">
             <View style={styles.gaugeInnerContent}>
               <View
@@ -199,7 +199,7 @@ export function DailyStudyGoal({ isDark }: DailyStudyGoalProps) {
           style={[
             styles.secondaryActionBtn,
             {
-              backgroundColor: isDark ? '#1A2130' : '#F8FAFC',
+              backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
               borderColor: colors.cardBorderSubtle,
             },
           ]}>
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 20,
     marginBottom: 20,
-    shadowColor: '#FF5500',
+    shadowColor: '#B9570A',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.06,
     shadowRadius: 14,
@@ -347,7 +347,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 16,
-    shadowColor: '#FF5500',
+    shadowColor: '#B9570A',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.25,
     shadowRadius: 8,

@@ -41,9 +41,9 @@ export function StudyStreakCalendar({ isDark }: StudyStreakCalendarProps) {
           <View
             style={[
               styles.flameIconContainer,
-              { backgroundColor: isDark ? '#3B1D28' : '#FEF2F2' },
+              { backgroundColor: isDark ? '#262E40' : '#FBE4E1' },
             ]}>
-            <Flame size={20} color="#EF4444" fill="#EF4444" />
+            <Flame size={20} color="#B42318" fill="#B42318" />
           </View>
           <View>
             <View style={styles.streakTitleRow}>
@@ -101,10 +101,10 @@ export function StudyStreakCalendar({ isDark }: StudyStreakCalendarProps) {
               dayColor = colors.primary;
               numColor = colors.primary;
             } else if (day.isCompleted) {
-              itemBg = isDark ? '#1E293B' : '#F8FAFC';
-              itemBorder = isDark ? '#334155' : '#E2E8F0';
+              itemBg = isDark ? '#1C2433' : '#FAF9F6';
+              itemBorder = isDark ? '#3F4A5E' : '#EAE5DC';
             } else if (day.isPast && !day.isCompleted) {
-              itemBg = isDark ? '#121622' : '#FAFAFA';
+              itemBg = isDark ? '#151A25' : '#FAF9F6';
               itemBorder = colors.cardBorderSubtle;
               dayColor = colors.textMuted;
               numColor = colors.textMuted;
@@ -201,14 +201,14 @@ export function StudyStreakCalendar({ isDark }: StudyStreakCalendarProps) {
         style={[
           styles.statsGrid,
           {
-            backgroundColor: isDark ? '#141320' : '#FBFBFE',
+            backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
             borderColor: colors.cardBorderSubtle,
           },
         ]}>
         {/* Metric 1: Current Streak */}
         <View style={styles.statCol}>
           <View style={styles.statLabelRow}>
-            <Flame size={13} color="#EF4444" />
+            <Flame size={13} color="#B42318" />
             <Text style={[styles.statLabel, { color: colors.textSecondary }]}>
               Current
             </Text>
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 18,
     marginBottom: 20,
-    shadowColor: '#FF5500',
+    shadowColor: '#B9570A',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
     shadowRadius: 12,

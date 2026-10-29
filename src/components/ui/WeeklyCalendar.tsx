@@ -197,17 +197,17 @@ export function WeeklyCalendar({
   // Theme tokens
   const theme = {
     cardBg: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-    cardBorder: isDark ? '#383A42' : '#F0F1F5',
-    weekdayNormal: isDark ? '#8F9098' : '#71727A',
-    dateNormal: isDark ? '#FFFFFF' : '#1F2024',
+    cardBorder: isDark ? '#333D52' : '#F0EDE6',
+    weekdayNormal: isDark ? '#8892A6' : '#7A8499',
+    dateNormal: isDark ? '#FFFFFF' : '#1C2433',
 
     // Future disabled text tokens (clearly legible)
-    futureWeekdayText: isDark ? '#71727A' : '#8F9098',
-    futureDateText: isDark ? '#8F9098' : '#71727A',
+    futureWeekdayText: isDark ? '#7A8499' : '#8892A6',
+    futureDateText: isDark ? '#8892A6' : '#7A8499',
 
     // Solid circle badges
-    solidBlueBg: PALETTE.highlight.primary, // #006FFD (Current day)
-    solidGreenBg: PALETTE.support.success.medium, // #3AC0A0 (Past streak days)
+    solidBlueBg: PALETTE.highlight.primary, // #B9570A (Current day)
+    solidGreenBg: PALETTE.support.success.medium, // #3FA573 (Past streak days)
 
     whiteText: '#FFFFFF',
   };
@@ -254,8 +254,8 @@ export function WeeklyCalendar({
                 width: isCompact ? 28 : isMobile ? 30 : 32,
                 height: isCompact ? 28 : isMobile ? 30 : 32,
                 borderRadius: isCompact ? 14 : isMobile ? 15 : 16,
-                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F4F5F9',
-                borderColor: isDark ? '#383A42' : '#E8E9F1',
+                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F0EDE6',
+                borderColor: isDark ? '#333D52' : '#EAE5DC',
               },
               pressed && { opacity: 0.7 },
               Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
@@ -275,8 +275,8 @@ export function WeeklyCalendar({
                 width: isCompact ? 28 : isMobile ? 30 : 32,
                 height: isCompact ? 28 : isMobile ? 30 : 32,
                 borderRadius: isCompact ? 14 : isMobile ? 15 : 16,
-                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F4F5F9',
-                borderColor: isDark ? '#383A42' : '#E8E9F1',
+                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F0EDE6',
+                borderColor: isDark ? '#333D52' : '#EAE5DC',
                 opacity: weekOffset >= 0 ? 0.35 : 1,
               },
               pressed && weekOffset < 0 && { opacity: 0.7 },
@@ -295,22 +295,22 @@ export function WeeklyCalendar({
             title="Calendar"
             isDark={isDark}
             style={{
-              backgroundColor: isDark ? 'rgba(255, 255, 255, 0.05)' : '#F8F9FE',
-              borderColor: isDark ? '#494A50' : '#D4D6DD',
+              backgroundColor: isDark ? 'rgba(255, 255, 255, 0.05)' : '#FAF9F6',
+              borderColor: isDark ? '#333D52' : '#DDD6CA',
               borderWidth: 1,
               paddingHorizontal: isCompact ? 8 : isMobile ? 10 : 14,
               paddingVertical: isCompact ? 5 : isMobile ? 6 : 8,
               borderRadius: isCompact ? 8 : 10,
             }}
             textStyle={{
-              color: isDark ? '#FFFFFF' : '#1F2024',
+              color: isDark ? '#FFFFFF' : '#1C2433',
               fontWeight: '600',
               fontSize: isCompact ? 11 : 12,
             }}
             leftIcon={
               <CalendarIcon
                 size={isCompact ? 11 : 13}
-                color={isDark ? '#8F9098' : '#71727A'}
+                color={isDark ? '#8892A6' : '#7A8499'}
               />
             }
             onPress={() => setIsCalendarModalOpen(true)}
@@ -330,7 +330,7 @@ export function WeeklyCalendar({
 
           // Circle background & borders
           let circleBg: string = 'transparent';
-          let circleBorderColor: string = isDark ? '#383A42' : '#E8E9F1';
+          let circleBorderColor: string = isDark ? '#333D52' : '#EAE5DC';
           let circleBorderWidth: number = 1;
           let labelColor: string = theme.weekdayNormal;
           let numberColor: string = theme.dateNormal;
@@ -341,7 +341,7 @@ export function WeeklyCalendar({
             numberColor = theme.whiteText;
             circleBorderWidth = isSelected ? 2.5 : 1;
             circleBorderColor = isSelected
-              ? isDark ? '#FFFFFF' : '#1F2024'
+              ? isDark ? '#FFFFFF' : '#1C2433'
               : theme.solidBlueBg;
             labelColor = PALETTE.highlight.primary;
           } else if (isPast) {
@@ -350,14 +350,14 @@ export function WeeklyCalendar({
             numberColor = theme.whiteText;
             circleBorderWidth = isSelected ? 2.5 : 1;
             circleBorderColor = isSelected
-              ? isDark ? '#FFFFFF' : '#1F2024'
+              ? isDark ? '#FFFFFF' : '#1C2433'
               : theme.solidGreenBg;
             labelColor = theme.weekdayNormal;
           } else {
             // Future days: Disabled circle outline with muted text
             circleBg = 'transparent';
             circleBorderWidth = 1;
-            circleBorderColor = isDark ? '#383A42' : '#E8E9F1';
+            circleBorderColor = isDark ? '#333D52' : '#EAE5DC';
             labelColor = theme.futureWeekdayText;
             numberColor = theme.futureDateText;
           }
@@ -436,7 +436,7 @@ export function WeeklyCalendar({
               styles.modalContentCard,
               {
                 backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                borderColor: isDark ? '#383A42' : '#E8E9F1',
+                borderColor: isDark ? '#333D52' : '#EAE5DC',
               },
             ]}
             onPress={(e) => e.stopPropagation()}>
@@ -455,8 +455,8 @@ export function WeeklyCalendar({
                 style={({ pressed }) => [
                   styles.modalCloseBtn,
                   {
-                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F4F5F9',
-                    borderColor: isDark ? '#383A42' : '#E8E9F1',
+                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6',
+                    borderColor: isDark ? '#333D52' : '#EAE5DC',
                   },
                   pressed && { opacity: 0.7 },
                   Platform.OS === 'web' && ({ cursor: 'pointer' } as object),

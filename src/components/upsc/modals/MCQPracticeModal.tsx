@@ -213,7 +213,7 @@ export function MCQPracticeModal({ isDark }: MCQPracticeModalProps) {
                 style={[
                   styles.scoreBanner,
                   {
-                    backgroundColor: isDark ? '#1F2A24' : '#ECFDF5',
+                    backgroundColor: isDark ? '#16382A' : '#E3F1E8',
                     borderColor: colors.accentEmerald,
                   },
                 ]}>
@@ -240,7 +240,7 @@ export function MCQPracticeModal({ isDark }: MCQPracticeModalProps) {
                     style={[
                       styles.questionCard,
                       {
-                        backgroundColor: isDark ? '#1B1A28' : '#FBFBFE',
+                        backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
                         borderColor: colors.cardBorderSubtle,
                       },
                     ]}>
@@ -267,19 +267,19 @@ export function MCQPracticeModal({ isDark }: MCQPracticeModalProps) {
                         const isChosen = userChoice === oIdx;
                         const isCorrect = q.correctIndex === oIdx;
 
-                        let optBg = isDark ? '#232136' : '#FFFFFF';
+                        let optBg = isDark ? '#262E40' : '#FFFFFF';
                         let optBorder = colors.cardBorderSubtle;
                         let optTextColor = colors.textPrimary;
 
                         if (showResults) {
                           if (isCorrect) {
-                            optBg = isDark ? '#1C3328' : '#DCFCE7';
+                            optBg = isDark ? '#16382A' : '#E3F1E8';
                             optBorder = colors.accentEmerald;
-                            optTextColor = isDark ? '#6EE7B7' : '#15803D';
+                            optTextColor = isDark ? '#3FA573' : '#1D5C3D';
                           } else if (isChosen && !isCorrect) {
-                            optBg = isDark ? '#3D1D22' : '#FEE2E2';
-                            optBorder = '#EF4444';
-                            optTextColor = '#DC2626';
+                            optBg = isDark ? '#3D1B18' : '#FBE4E1';
+                            optBorder = '#B42318';
+                            optTextColor = '#B42318';
                           }
                         } else if (isChosen) {
                           optBg = colors.primarySoft;
@@ -334,16 +334,16 @@ export function MCQPracticeModal({ isDark }: MCQPracticeModalProps) {
                         style={[
                           styles.explanationBox,
                           {
-                            backgroundColor: isDark ? 'rgba(16, 185, 129, 0.08)' : '#F0FDF4',
-                            borderColor: isDark ? 'rgba(16, 185, 129, 0.25)' : '#BBF7D0',
+                            backgroundColor: isDark ? 'rgba(38, 115, 77, 0.08)' : '#E3F1E8',
+                            borderColor: isDark ? 'rgba(38, 115, 77, 0.25)' : '#BFDECB',
                           },
                         ]}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 }}>
-                          <Lightbulb size={15} color="#10B981" />
+                          <Lightbulb size={15} color="#26734D" />
                           <Text
                             style={[
                               styles.explanationTitle,
-                              { color: '#10B981', fontWeight: '700' },
+                              { color: '#26734D', fontWeight: '700' },
                             ]}>
                             Official UPSC Key & Explanation:
                           </Text>

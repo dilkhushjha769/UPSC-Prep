@@ -304,7 +304,7 @@ export function ArticleDetailModal({
           {Boolean(editorialAuthor || aiExplanationDisclaimer) && (
             <View style={styles.whyItMattersCard}>
               <View style={styles.sectionHeaderRow}>
-                <BookOpen size={15} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2.2} />
+                <BookOpen size={15} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2.2} />
                 <Text style={styles.whyItMattersHeading}>
                   Original Editorial Attribution vs. AI UPSC Synthesis
                 </Text>
@@ -321,7 +321,7 @@ export function ArticleDetailModal({
           {Boolean(whyItMatters) && (
             <View style={styles.whyItMattersCard}>
               <View style={styles.sectionHeaderRow}>
-                <Sparkles size={15} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2.2} />
+                <Sparkles size={15} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2.2} />
                 <Text style={styles.whyItMattersHeading}>Why This Event Matters for UPSC</Text>
               </View>
               <Text style={styles.whyItMattersText}>{whyItMatters}</Text>
@@ -372,7 +372,7 @@ export function ArticleDetailModal({
           {/* 5. Executive Brief (2–3 Concise Points) */}
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeaderRow}>
-              <ListChecks size={15} color={isDark ? '#60A5FA' : '#2563EB'} strokeWidth={2} />
+              <ListChecks size={15} color={isDark ? '#D9822B' : '#B9570A'} strokeWidth={2} />
               <Text style={styles.sectionLabel}>Executive Brief</Text>
             </View>
             <View style={styles.bulletsList}>
@@ -390,7 +390,7 @@ export function ArticleDetailModal({
           {/* 6. Detailed News Analysis & Institutional Background */}
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeaderRow}>
-              <BookOpen size={15} color={isDark ? '#A78BFA' : '#6D28D9'} strokeWidth={2} />
+              <BookOpen size={15} color={isDark ? '#7C93D1' : '#3D4A66'} strokeWidth={2} />
               <Text style={styles.sectionLabel}>Detailed News Analysis & Background</Text>
             </View>
 
@@ -405,7 +405,7 @@ export function ArticleDetailModal({
             {Boolean(backgroundContext) && (
               <View style={styles.backgroundContextBox}>
                 <View style={styles.sectionHeaderRow}>
-                  <Landmark size={13} color={isDark ? '#C4B5FD' : '#5B21B6'} strokeWidth={2} />
+                  <Landmark size={13} color={isDark ? '#CBD3EB' : '#3D5A99'} strokeWidth={2} />
                   <Text style={styles.backgroundContextTitle}>
                     Background & Institutional Context
                   </Text>
@@ -433,7 +433,7 @@ export function ArticleDetailModal({
           {Boolean(syllabusRelevance) && (
             <View style={styles.syllabusBox}>
               <View style={styles.sectionHeaderRow}>
-                <Compass size={15} color={isDark ? '#38BDF8' : '#0284C7'} strokeWidth={2} />
+                <Compass size={15} color={isDark ? '#7C93D1' : '#3D5A99'} strokeWidth={2} />
                 <Text style={styles.syllabusTitle}>UPSC Syllabus Mapping ({paper})</Text>
               </View>
               {Boolean(syllabusRelevance?.paperTopic) && (
@@ -461,7 +461,7 @@ export function ArticleDetailModal({
           {(prelimsMatrix.length > 0 || prelimsFacts.length > 0) && (
             <View style={styles.prelimsBox}>
               <View style={styles.sectionHeaderRow}>
-                <ShieldCheck size={15} color={isDark ? '#4ADE80' : '#059669'} strokeWidth={2} />
+                <ShieldCheck size={15} color={isDark ? '#3FA573' : '#26734D'} strokeWidth={2} />
                 <Text style={styles.prelimsTitle}>Verified Prelims Facts & Matrix</Text>
               </View>
 
@@ -493,7 +493,7 @@ export function ArticleDetailModal({
           {(item.type === 'article' || item.type === 'event') && (
             <View style={styles.mainsBox}>
               <View style={styles.sectionHeaderRow}>
-                <Scale size={15} color={isDark ? '#FBBF24' : '#B45309'} strokeWidth={2} />
+                <Scale size={15} color={isDark ? '#D9822B' : '#A65A0A'} strokeWidth={2} />
                 <Text style={styles.mainsTitle}>Mains-Oriented Dimensions & Implications</Text>
               </View>
               <Text style={styles.mainsText}>
@@ -525,7 +525,7 @@ export function ArticleDetailModal({
           {(relatedPyqs.length > 0 || Boolean(syllabusRelevance?.relatedPYQ)) && (
             <View style={styles.sectionCard}>
               <View style={styles.sectionHeaderRow}>
-                <FileCheck2 size={15} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2} />
+                <FileCheck2 size={15} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2} />
                 <Text style={styles.sectionLabel}>Related Verified UPSC PYQs</Text>
               </View>
 
@@ -559,7 +559,7 @@ export function ArticleDetailModal({
           {/* 11. Original Source & Additional Independent Reports (Clickable Links) */}
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeaderRow}>
-              <ExternalLink size={15} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2} />
+              <ExternalLink size={15} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2} />
               <Text style={styles.sectionLabel}>
                 Original Source & Corroborating Reports ({sourcesList.length})
               </Text>
@@ -604,7 +604,7 @@ export function ArticleDetailModal({
                     )}
                   </View>
                   {Boolean(src.url) && (
-                    <ExternalLink size={15} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2} />
+                    <ExternalLink size={15} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2} />
                   )}
                 </Pressable>
               ))}
@@ -614,7 +614,7 @@ export function ArticleDetailModal({
           {/* 12. Cross-Verification & Limitations */}
           <View style={styles.verificationCard}>
             <View style={styles.sectionHeaderRow}>
-              <ShieldCheck size={15} color={isDark ? '#4ADE80' : '#059669'} strokeWidth={2.2} />
+              <ShieldCheck size={15} color={isDark ? '#3FA573' : '#26734D'} strokeWidth={2.2} />
               <Text style={styles.verificationHeading}>Cross-Verification & Limitations</Text>
             </View>
 
@@ -655,7 +655,7 @@ export function ArticleDetailModal({
             {crossVerification?.limitations && crossVerification.limitations.length > 0 && (
               <View style={styles.limitationsBox}>
                 <View style={styles.sectionHeaderRow}>
-                  <AlertTriangle size={13} color={isDark ? '#FBBF24' : '#D97706'} strokeWidth={2} />
+                  <AlertTriangle size={13} color={isDark ? '#D9822B' : '#A65A0A'} strokeWidth={2} />
                   <Text style={styles.limitationsTitle}>Source Access & Licensing Notes</Text>
                 </View>
                 {crossVerification.limitations.map((lim, lIdx) => (
@@ -692,9 +692,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       width: 36,
       height: 36,
       borderRadius: 18,
-      backgroundColor: isDark ? '#2F3036' : '#FFFFFF',
+      backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
+      borderColor: isDark ? '#333D52' : '#EAE5DC',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -713,13 +713,13 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       paddingHorizontal: 14,
       paddingVertical: 8,
       borderRadius: 10,
-      backgroundColor: isDark ? '#2F3036' : '#FFFFFF',
+      backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
+      borderColor: isDark ? '#333D52' : '#EAE5DC',
     },
     saveBtnActive: {
-      backgroundColor: '#006FFD',
-      borderColor: '#006FFD',
+      backgroundColor: '#B9570A',
+      borderColor: '#B9570A',
     },
     saveBtnText: {
       fontSize: 12.5,
@@ -747,7 +747,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       gap: 8,
     },
     paperBadge: {
-      backgroundColor: '#006FFD',
+      backgroundColor: '#B9570A',
       paddingHorizontal: 8,
       paddingVertical: 3.5,
       borderRadius: 6,
@@ -772,7 +772,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       color: theme.textPrimary,
     },
     secondaryTagBadge: {
-      backgroundColor: isDark ? 'rgba(111, 186, 255, 0.1)' : '#F0F7FF',
+      backgroundColor: isDark ? 'rgba(111, 186, 255, 0.1)' : '#E9EDF9',
       paddingHorizontal: 8,
       paddingVertical: 3,
       borderRadius: 6,
@@ -780,7 +780,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     secondaryTagText: {
       fontSize: 10.5,
       fontWeight: '600',
-      color: isDark ? '#6FBAFF' : '#006FFD',
+      color: isDark ? '#E8A25E' : '#B9570A',
     },
     dateText: {
       fontSize: 11.5,
@@ -796,9 +796,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       letterSpacing: -0.3,
     },
     whyItMattersCard: {
-      backgroundColor: isDark ? 'rgba(0, 111, 253, 0.1)' : '#F0F7FF',
+      backgroundColor: isDark ? 'rgba(185, 87, 10, 0.1)' : '#E9EDF9',
       borderWidth: 1,
-      borderColor: isDark ? 'rgba(111, 186, 255, 0.25)' : '#BAE6FD',
+      borderColor: isDark ? 'rgba(111, 186, 255, 0.25)' : '#F2C9A3',
       borderRadius: 12,
       padding: 14,
       gap: 6,
@@ -806,7 +806,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     whyItMattersHeading: {
       fontSize: 12,
       fontWeight: '800',
-      color: isDark ? '#6FBAFF' : '#006FFD',
+      color: isDark ? '#E8A25E' : '#B9570A',
       textTransform: 'uppercase',
       letterSpacing: 0.5,
     },
@@ -826,7 +826,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     heroImageWrapper: {
       width: '100%',
       height: 220,
-      backgroundColor: isDark ? '#17191D' : '#F1F5F9',
+      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
       position: 'relative',
     },
     heroImage: {
@@ -939,7 +939,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       width: 20,
       height: 20,
       borderRadius: 10,
-      backgroundColor: isDark ? 'rgba(96, 165, 250, 0.2)' : '#DBEAFE',
+      backgroundColor: isDark ? 'rgba(96, 165, 250, 0.2)' : '#FCEBDD',
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: 1,
@@ -947,7 +947,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     takeawayIndexText: {
       fontSize: 11,
       fontWeight: '800',
-      color: isDark ? '#93C5FD' : '#1D4ED8',
+      color: isDark ? '#F2C9A3' : '#974606',
     },
     bulletText: {
       flex: 1,
@@ -964,9 +964,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       color: theme.textPrimary,
     },
     backgroundContextBox: {
-      backgroundColor: isDark ? 'rgba(139, 92, 246, 0.08)' : '#F5F3FF',
+      backgroundColor: isDark ? 'rgba(139, 92, 246, 0.08)' : '#E9EDF9',
       borderWidth: 1,
-      borderColor: isDark ? 'rgba(167, 139, 250, 0.22)' : '#DDD6FE',
+      borderColor: isDark ? 'rgba(167, 139, 250, 0.22)' : '#CBD3EB',
       padding: 12,
       borderRadius: 10,
       gap: 6,
@@ -974,7 +974,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     backgroundContextTitle: {
       fontSize: 11.5,
       fontWeight: '800',
-      color: isDark ? '#C4B5FD' : '#5B21B6',
+      color: isDark ? '#CBD3EB' : '#3D5A99',
       textTransform: 'uppercase',
       letterSpacing: 0.4,
     },
@@ -1005,9 +1005,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       color: theme.textSecondary,
     },
     prelimsBox: {
-      backgroundColor: isDark ? 'rgba(74, 222, 128, 0.06)' : '#F0FDF4',
+      backgroundColor: isDark ? 'rgba(74, 222, 128, 0.06)' : '#E3F1E8',
       borderWidth: 1,
-      borderColor: isDark ? 'rgba(74, 222, 128, 0.2)' : '#BBF7D0',
+      borderColor: isDark ? 'rgba(74, 222, 128, 0.2)' : '#BFDECB',
       padding: 16,
       borderRadius: 12,
       gap: 12,
@@ -1015,7 +1015,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     prelimsTitle: {
       fontSize: 12,
       fontWeight: '800',
-      color: isDark ? '#4ADE80' : '#059669',
+      color: isDark ? '#3FA573' : '#26734D',
       textTransform: 'uppercase',
       letterSpacing: 0.5,
     },
@@ -1027,13 +1027,13 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       padding: 10,
       borderRadius: 8,
       borderWidth: 1,
-      borderColor: isDark ? 'rgba(74, 222, 128, 0.15)' : '#DCFCE7',
+      borderColor: isDark ? 'rgba(74, 222, 128, 0.15)' : '#E3F1E8',
       gap: 3,
     },
     matrixItemLabel: {
       fontSize: 10.5,
       fontWeight: '800',
-      color: isDark ? '#86EFAC' : '#047857',
+      color: isDark ? '#3FA573' : '#26734D',
       textTransform: 'uppercase',
       letterSpacing: 0.4,
     },
@@ -1055,7 +1055,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       width: 5,
       height: 5,
       borderRadius: 2.5,
-      backgroundColor: isDark ? '#4ADE80' : '#059669',
+      backgroundColor: isDark ? '#3FA573' : '#26734D',
       marginTop: 7,
     },
     prelimsFactText: {
@@ -1065,9 +1065,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       color: theme.textPrimary,
     },
     syllabusBox: {
-      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.07)' : '#F0F9FF',
+      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.07)' : '#E9EDF9',
       borderWidth: 1,
-      borderColor: isDark ? 'rgba(56, 189, 248, 0.22)' : '#BAE6FD',
+      borderColor: isDark ? 'rgba(56, 189, 248, 0.22)' : '#F2C9A3',
       padding: 16,
       borderRadius: 12,
       gap: 10,
@@ -1075,7 +1075,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     syllabusTitle: {
       fontSize: 12,
       fontWeight: '800',
-      color: isDark ? '#38BDF8' : '#0284C7',
+      color: isDark ? '#7C93D1' : '#3D5A99',
       textTransform: 'uppercase',
       letterSpacing: 0.5,
     },
@@ -1085,7 +1085,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     syllabusItemLabel: {
       fontSize: 11,
       fontWeight: '800',
-      color: isDark ? '#7DD3FC' : '#0369A1',
+      color: isDark ? '#3FA573' : '#34508F',
     },
     syllabusItemValue: {
       fontSize: 13,
@@ -1093,9 +1093,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       color: theme.textPrimary,
     },
     mainsBox: {
-      backgroundColor: isDark ? 'rgba(251, 191, 36, 0.06)' : '#FFFBEB',
+      backgroundColor: isDark ? 'rgba(251, 191, 36, 0.06)' : '#FCEBDD',
       borderWidth: 1,
-      borderColor: isDark ? 'rgba(251, 191, 36, 0.22)' : '#FDE68A',
+      borderColor: isDark ? 'rgba(251, 191, 36, 0.22)' : '#F2D2A8',
       padding: 16,
       borderRadius: 12,
       gap: 10,
@@ -1103,7 +1103,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     mainsTitle: {
       fontSize: 12,
       fontWeight: '800',
-      color: isDark ? '#FBBF24' : '#B45309',
+      color: isDark ? '#D9822B' : '#A65A0A',
       textTransform: 'uppercase',
       letterSpacing: 0.5,
     },
@@ -1116,13 +1116,13 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       marginTop: 4,
       paddingTop: 10,
       borderTopWidth: 1,
-      borderTopColor: isDark ? 'rgba(251, 191, 36, 0.2)' : '#FDE68A',
+      borderTopColor: isDark ? 'rgba(251, 191, 36, 0.2)' : '#F2D2A8',
       gap: 4,
     },
     mainsQTitle: {
       fontSize: 11,
       fontWeight: '800',
-      color: isDark ? '#FCD34D' : '#92400E',
+      color: isDark ? '#D9822B' : '#6B3A12',
       textTransform: 'uppercase',
     },
     mainsQText: {
@@ -1146,7 +1146,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       gap: 8,
     },
     pyqYearBadge: {
-      backgroundColor: '#006FFD',
+      backgroundColor: '#B9570A',
       paddingHorizontal: 7,
       paddingVertical: 2.5,
       borderRadius: 5,
@@ -1199,13 +1199,13 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       gap: 8,
     },
     sourceTypePill: {
-      backgroundColor: isDark ? '#2F3036' : '#E2E8F0',
+      backgroundColor: isDark ? '#1E2535' : '#EAE5DC',
       paddingHorizontal: 7,
       paddingVertical: 2,
       borderRadius: 4,
     },
     sourceTypePillOfficial: {
-      backgroundColor: isDark ? 'rgba(74, 222, 128, 0.18)' : '#DCFCE7',
+      backgroundColor: isDark ? 'rgba(74, 222, 128, 0.18)' : '#E3F1E8',
     },
     sourceTypePillText: {
       fontSize: 10,
@@ -1213,7 +1213,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       color: theme.textSecondary,
     },
     sourceTypePillTextOfficial: {
-      color: isDark ? '#4ADE80' : '#047857',
+      color: isDark ? '#3FA573' : '#26734D',
     },
     sourceItemDate: {
       fontSize: 11,
@@ -1226,10 +1226,10 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     },
     sourceItemUrl: {
       fontSize: 11,
-      color: isDark ? '#6FBAFF' : '#006FFD',
+      color: isDark ? '#E8A25E' : '#B9570A',
     },
     verificationCard: {
-      backgroundColor: isDark ? 'rgba(30, 41, 59, 0.55)' : '#F8FAFC',
+      backgroundColor: isDark ? 'rgba(30, 41, 59, 0.55)' : '#FAF9F6',
       borderRadius: 12,
       padding: 16,
       borderWidth: 1,
@@ -1239,7 +1239,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     verificationHeading: {
       fontSize: 12,
       fontWeight: '800',
-      color: isDark ? '#4ADE80' : '#059669',
+      color: isDark ? '#3FA573' : '#26734D',
       textTransform: 'uppercase',
       letterSpacing: 0.5,
     },
@@ -1266,15 +1266,15 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       marginTop: 4,
       padding: 10,
       borderRadius: 8,
-      backgroundColor: isDark ? 'rgba(251, 191, 36, 0.08)' : '#FFFBEB',
+      backgroundColor: isDark ? 'rgba(251, 191, 36, 0.08)' : '#FCEBDD',
       borderWidth: 1,
-      borderColor: isDark ? 'rgba(251, 191, 36, 0.2)' : '#FDE68A',
+      borderColor: isDark ? 'rgba(251, 191, 36, 0.2)' : '#F2D2A8',
       gap: 4,
     },
     limitationsTitle: {
       fontSize: 11,
       fontWeight: '800',
-      color: isDark ? '#FBBF24' : '#B45309',
+      color: isDark ? '#D9822B' : '#A65A0A',
     },
     limitationItemText: {
       fontSize: 11.5,

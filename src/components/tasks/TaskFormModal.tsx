@@ -103,7 +103,7 @@ export function TaskFormModal({
             styles.modalCard,
             {
               backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-              borderColor: isDark ? '#383A42' : '#E8E9F1',
+              borderColor: isDark ? '#333D52' : '#EAE5DC',
             },
           ]}
           onPress={(e) => e.stopPropagation()}>
@@ -124,8 +124,8 @@ export function TaskFormModal({
               style={[
                 styles.closeBtn,
                 {
-                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F4F5F9',
-                  borderColor: isDark ? '#383A42' : '#E8E9F1',
+                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6',
+                  borderColor: isDark ? '#333D52' : '#EAE5DC',
                 },
               ]}>
               <X size={16} color={theme.textPrimary} />
@@ -156,8 +156,8 @@ export function TaskFormModal({
                 style={[
                   styles.textInput,
                   {
-                    backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#F8F9FE',
-                    borderColor: isDark ? '#383A42' : '#E8E9F1',
+                    backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#FAF9F6',
+                    borderColor: isDark ? '#333D52' : '#EAE5DC',
                     color: theme.textPrimary,
                   },
                 ]}
@@ -180,8 +180,8 @@ export function TaskFormModal({
                   styles.textInput,
                   styles.textArea,
                   {
-                    backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#F8F9FE',
-                    borderColor: isDark ? '#383A42' : '#E8E9F1',
+                    backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#FAF9F6',
+                    borderColor: isDark ? '#333D52' : '#EAE5DC',
                     color: theme.textPrimary,
                   },
                 ]}
@@ -207,8 +207,8 @@ export function TaskFormModal({
                 style={[
                   styles.timeInputContainer,
                   {
-                    backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#F8F9FE',
-                    borderColor: isDark ? '#383A42' : '#E8E9F1',
+                    backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#FAF9F6',
+                    borderColor: isDark ? '#333D52' : '#EAE5DC',
                   },
                 ]}>
                 <Clock size={15} color={theme.textMuted} strokeWidth={2} />
@@ -241,10 +241,10 @@ export function TaskFormModal({
                         {
                           backgroundColor: isSelected
                             ? PALETTE.highlight.primary
-                            : (isDark ? PALETTE.neutral.dark.darkest : '#F0F1F5'),
+                            : (isDark ? PALETTE.neutral.dark.darkest : '#F0EDE6'),
                           borderColor: isSelected
                             ? PALETTE.highlight.primary
-                            : (isDark ? '#383A42' : '#E8E9F1'),
+                            : (isDark ? '#333D52' : '#EAE5DC'),
                         },
                       ]}>
                       <Text
@@ -294,7 +294,7 @@ export function TaskFormModal({
               </View>
             </View>
 
-            {/* Save Button (Solid Primary Blue #006FFD) */}
+            {/* Save Button (Solid Primary Blue #B9570A) */}
             <Button
               variant="primary"
               title={isSaving ? 'Adding...' : 'Add Task'}
@@ -361,12 +361,12 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   errorBox: {
-    backgroundColor: 'rgba(239, 68, 68, 0.12)',
+    backgroundColor: 'rgba(180, 35, 24, 0.12)',
     padding: 10,
     borderRadius: 10,
   },
   errorText: {
-    color: '#EF4444',
+    color: '#B42318',
     fontSize: 12,
     fontWeight: '600',
     fontFamily: Typography.fontFamily,
@@ -445,6 +445,6 @@ const styles = StyleSheet.create({
   },
   saveSubmitBtn: {
     marginTop: 6,
-    backgroundColor: PALETTE.highlight.primary, // #006FFD
+    backgroundColor: PALETTE.highlight.primary, // #B9570A
   },
 });

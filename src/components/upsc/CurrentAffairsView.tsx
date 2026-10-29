@@ -563,7 +563,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
   );
 
   const renderFormatIcon = (iconName: string) => {
-    const iconColor = isDark ? '#6FBAFF' : '#006FFD';
+    const iconColor = isDark ? '#E8A25E' : '#B9570A';
     const iconProps = { size: 22, color: iconColor, strokeWidth: 2 };
     switch (iconName) {
       case 'Newspaper':
@@ -616,7 +616,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
               >
                 <Activity
                   size={16}
-                  color={isDark ? '#4ADE80' : '#059669'}
+                  color={isDark ? '#3FA573' : '#26734D'}
                   strokeWidth={2}
                 />
               </Pressable>
@@ -687,13 +687,13 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                     accessibilityLabel={`Select date. Currently showing ${activeDaySummary.label}`}
                     accessibilityRole="button"
                   >
-                    <Calendar size={14} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2.2} />
+                    <Calendar size={14} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2.2} />
                     <Text style={styles.calendarDatePillText}>
                       {activeDaySummary.label}
                     </Text>
                     <ChevronDown
                       size={13}
-                      color={calendarDropdownVisible ? '#006FFD' : (isDark ? '#8F9098' : '#71727A')}
+                      color={calendarDropdownVisible ? '#B9570A' : (isDark ? '#8892A6' : '#7A8499')}
                       strokeWidth={2.2}
                     />
                   </Pressable>
@@ -714,7 +714,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                 >
                   <Check
                     size={13}
-                    color={isCurrentDayRead ? '#FFFFFF' : (isDark ? '#8F9098' : '#71727A')}
+                    color={isCurrentDayRead ? '#FFFFFF' : (isDark ? '#8892A6' : '#7A8499')}
                     strokeWidth={2.8}
                   />
                 </Pressable>
@@ -767,13 +767,13 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                     accessibilityLabel={`Select date. Currently showing ${activeDaySummary.label}`}
                     accessibilityRole="button"
                   >
-                    <Calendar size={14} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2.2} />
+                    <Calendar size={14} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2.2} />
                     <Text style={styles.calendarDatePillText}>
                       {activeDaySummary.label}
                     </Text>
                     <ChevronDown
                       size={13}
-                      color={calendarDropdownVisible ? '#006FFD' : (isDark ? '#8F9098' : '#71727A')}
+                      color={calendarDropdownVisible ? '#B9570A' : (isDark ? '#8892A6' : '#7A8499')}
                       strokeWidth={2.2}
                     />
                   </Pressable>
@@ -794,7 +794,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                 >
                   <Check
                     size={13}
-                    color={isCurrentDayRead ? '#FFFFFF' : (isDark ? '#8F9098' : '#71727A')}
+                    color={isCurrentDayRead ? '#FFFFFF' : (isDark ? '#8892A6' : '#7A8499')}
                     strokeWidth={2.8}
                   />
                 </Pressable>
@@ -880,13 +880,13 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                 accessibilityRole="button"
                 accessibilityLabel={`Filter by agency. Currently selected: ${selectedAgency.name}`}
               >
-                <Filter size={13} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2.2} />
+                <Filter size={13} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2.2} />
                 <Text style={styles.agencyDropdownBtnText} numberOfLines={1}>
                   {selectedAgency.name}
                 </Text>
                 <ChevronDown
                   size={13}
-                  color={agencyDropdownVisible ? '#006FFD' : (isDark ? '#8F9098' : '#71727A')}
+                  color={agencyDropdownVisible ? '#B9570A' : (isDark ? '#8892A6' : '#7A8499')}
                   strokeWidth={2.2}
                 />
               </Pressable>
@@ -926,7 +926,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
               onPress={() => setQuizModalVisible(true)}
             >
               <View style={styles.reviseIconBox}>
-                <ListChecks size={20} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2} />
+                <ListChecks size={20} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2} />
               </View>
               <Text style={styles.reviseCardTitle}>Daily Quiz</Text>
               <Text style={styles.reviseCardSubtitle}>Prelims MCQs with explanations.</Text>
@@ -937,7 +937,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
               onPress={() => setMonthlyModalVisible(true)}
             >
               <View style={styles.reviseIconBox}>
-                <CalendarDays size={20} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2} />
+                <CalendarDays size={20} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2} />
               </View>
               <Text style={styles.reviseCardTitle}>Monthly Revision</Text>
               <Text style={styles.reviseCardSubtitle}>Monthly compilation, topic-wise recap and tests.</Text>
@@ -1102,7 +1102,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                     {isSelected && (
                       <Check
                         size={14}
-                        color={isDark ? '#6FBAFF' : '#006FFD'}
+                        color={isDark ? '#E8A25E' : '#B9570A'}
                         strokeWidth={2.5}
                       />
                     )}
@@ -1173,11 +1173,11 @@ const getStyles = (
       justifyContent: 'center',
       backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#F0F1F5',
+      borderColor: isDark ? '#333D52' : '#F0EDE6',
     },
     headerDivider: {
       height: 1,
-      backgroundColor: isDark ? '#1F2E45' : '#E2E8F0',
+      backgroundColor: isDark ? '#262E40' : '#EAE5DC',
       marginBottom: 20,
       marginTop: 2,
     },
@@ -1202,7 +1202,7 @@ const getStyles = (
     summaryContainerHeading: {
       fontSize: 19,
       fontWeight: '700',
-      color: isDark ? '#F8FAFC' : theme.textPrimary,
+      color: isDark ? '#FAF9F6' : theme.textPrimary,
       letterSpacing: -0.2,
     },
     summaryDateBadge: {
@@ -1212,35 +1212,35 @@ const getStyles = (
       paddingHorizontal: 9,
       paddingVertical: 4.5,
       borderRadius: 7,
-      backgroundColor: isDark ? '#172554' : '#EFF6FF',
+      backgroundColor: isDark ? '#262E40' : '#E9EDF9',
       borderWidth: 1,
-      borderColor: isDark ? '#1E3A8A' : '#BFDBFE',
+      borderColor: isDark ? '#6B3A12' : '#CBD3EB',
     },
     summaryDateBadgeRead: {
-      backgroundColor: isDark ? 'rgba(16, 185, 129, 0.12)' : '#ECFDF5',
-      borderColor: isDark ? 'rgba(16, 185, 129, 0.35)' : '#A7F3D0',
+      backgroundColor: isDark ? 'rgba(38, 115, 77, 0.12)' : '#E3F1E8',
+      borderColor: isDark ? 'rgba(38, 115, 77, 0.35)' : '#BFDECB',
     },
     summaryDateBadgeText: {
       fontSize: 11.5,
       fontWeight: '700',
-      color: isDark ? '#93C5FD' : '#1E3A8A',
+      color: isDark ? '#F2C9A3' : '#6B3A12',
     },
     summaryDateBadgeTextRead: {
-      color: isDark ? '#6EE7B7' : '#047857',
+      color: isDark ? '#3FA573' : '#26734D',
     },
     readCheckCircle: {
       width: 16,
       height: 16,
       borderRadius: 8,
       borderWidth: 1.3,
-      borderColor: isDark ? '#475569' : '#94A3B8',
+      borderColor: isDark ? '#4A5568' : '#7A8499',
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: 'transparent',
     },
     readCheckCircleActive: {
-      backgroundColor: isDark ? '#059669' : '#10B981',
-      borderColor: isDark ? '#059669' : '#10B981',
+      backgroundColor: isDark ? '#26734D' : '#26734D',
+      borderColor: isDark ? '#26734D' : '#26734D',
     },
 
     /* Header Row: The Daily Brief Heading on Left | Prominent Daily Quiz on Right (Desktop) */
@@ -1280,20 +1280,20 @@ const getStyles = (
       borderRadius: 10,
       backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
+      borderColor: isDark ? '#333D52' : '#EAE5DC',
     },
     calendarDatePillBtnOpen: {
       borderColor: PALETTE.highlight.primary,
-      backgroundColor: isDark ? '#383A42' : '#F8F9FE',
+      backgroundColor: isDark ? '#333D52' : '#FAF9F6',
     },
     calendarDatePillBtnHover: {
-      backgroundColor: isDark ? '#383A42' : '#F8F9FE',
-      borderColor: isDark ? '#494A50' : '#D4D6DD',
+      backgroundColor: isDark ? '#333D52' : '#FAF9F6',
+      borderColor: isDark ? '#333D52' : '#DDD6CA',
     },
     calendarDatePillText: {
       fontSize: 13,
       fontWeight: '600',
-      color: isDark ? '#FFFFFF' : '#1F2024',
+      color: isDark ? '#FFFFFF' : '#1C2433',
       letterSpacing: -0.1,
     },
 
@@ -1306,11 +1306,11 @@ const getStyles = (
       justifyContent: 'center',
       backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
+      borderColor: isDark ? '#333D52' : '#EAE5DC',
     },
     dayReadTickBtnActive: {
-      backgroundColor: '#3AC0A0',
-      borderColor: '#3AC0A0',
+      backgroundColor: '#3FA573',
+      borderColor: '#3FA573',
     },
 
     /* Adaptive Interior Event Card Wrapper */
@@ -1325,10 +1325,10 @@ const getStyles = (
       overflow: 'hidden',
       position: 'relative',
       minHeight: isDesktop ? 390 : 540,
-      backgroundColor: isDark ? '#17191D' : 'transparent',
+      backgroundColor: isDark ? '#1E2535' : 'transparent',
       ...(!isDark
         ? {
-          shadowColor: '#0F172A',
+          shadowColor: '#1C2433',
           shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.05,
           shadowRadius: 10,
@@ -1387,20 +1387,20 @@ const getStyles = (
       borderRadius: 10,
       backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
+      borderColor: isDark ? '#333D52' : '#EAE5DC',
     },
     agencyDropdownBtnOpen: {
       borderColor: PALETTE.highlight.primary,
-      backgroundColor: isDark ? '#383A42' : '#F8F9FE',
+      backgroundColor: isDark ? '#333D52' : '#FAF9F6',
     },
     agencyDropdownBtnHover: {
-      backgroundColor: isDark ? '#383A42' : '#F8F9FE',
-      borderColor: isDark ? '#494A50' : '#D4D6DD',
+      backgroundColor: isDark ? '#333D52' : '#FAF9F6',
+      borderColor: isDark ? '#333D52' : '#DDD6CA',
     },
     agencyDropdownBtnText: {
       fontSize: 13,
       fontWeight: '600',
-      color: isDark ? '#FFFFFF' : '#1F2024',
+      color: isDark ? '#FFFFFF' : '#1C2433',
       letterSpacing: -0.1,
     },
     dropdownOverlay: {
@@ -1418,7 +1418,7 @@ const getStyles = (
       paddingHorizontal: 6,
       backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? PALETTE.neutral.dark.textMuted : '#E8E9F1',
+      borderColor: isDark ? PALETTE.neutral.dark.textMuted : '#EAE5DC',
       shadowColor: '#000000',
       shadowOffset: { width: 0, height: 8 },
       shadowOpacity: 0.25,
@@ -1428,7 +1428,7 @@ const getStyles = (
     agencyDropdownHeader: {
       fontSize: 11,
       fontWeight: '700',
-      color: isDark ? '#8F9098' : '#71727A',
+      color: isDark ? '#8892A6' : '#7A8499',
       textTransform: 'uppercase',
       letterSpacing: 0.5,
       paddingHorizontal: 10,
@@ -1443,15 +1443,15 @@ const getStyles = (
       borderRadius: 10,
     },
     agencyDropdownItemActive: {
-      backgroundColor: isDark ? 'rgba(0, 111, 253, 0.14)' : '#EAF2FF',
+      backgroundColor: isDark ? 'rgba(185, 87, 10, 0.14)' : '#FCEBDD',
     },
     agencyDropdownItemText: {
       fontSize: 13.5,
       fontWeight: '600',
-      color: isDark ? '#FFFFFF' : '#1F2024',
+      color: isDark ? '#FFFFFF' : '#1C2433',
     },
     agencyDropdownItemTextActive: {
-      color: isDark ? '#6FBAFF' : '#006FFD',
+      color: isDark ? '#E8A25E' : '#B9570A',
       fontWeight: '700',
     },
     formatGrid: {
@@ -1509,9 +1509,9 @@ const getStyles = (
       width: 44,
       height: 44,
       borderRadius: 12,
-      backgroundColor: isDark ? 'rgba(0, 111, 253, 0.12)' : '#EAF2FF',
+      backgroundColor: isDark ? 'rgba(185, 87, 10, 0.12)' : '#FCEBDD',
       borderWidth: 1,
-      borderColor: isDark ? 'rgba(0, 111, 253, 0.25)' : '#B4DBFF',
+      borderColor: isDark ? 'rgba(185, 87, 10, 0.25)' : '#F2C9A3',
       alignItems: 'center',
       justifyContent: 'center',
       marginBottom: 12,

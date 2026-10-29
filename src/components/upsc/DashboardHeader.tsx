@@ -105,7 +105,7 @@ export function DashboardHeader({ isDark, onToggleTheme }: DashboardHeaderProps)
               },
             ]}>
             {isDark ? (
-              <Sun size={18} color="#FBBF24" />
+              <Sun size={18} color="#D9822B" />
             ) : (
               <Moon size={18} color={colors.textPrimary} />
             )}
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    shadowColor: '#FF5500',
+    shadowColor: '#B9570A',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
     shadowRadius: 6,

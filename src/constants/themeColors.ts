@@ -1,59 +1,52 @@
+import { DARK_TOKENS, LIGHT_TOKENS, SemanticTokens } from './designTokens';
+
+/** Legacy UPSC_THEME shape, now derived from the editorial design tokens. */
+const build = (t: SemanticTokens, isDark: boolean) => ({
+  bg: t.background,
+  cardBg: t.surface,
+  cardBorder: t.border,
+  cardBorderSubtle: t.border,
+  textPrimary: t.foreground,
+  textSecondary: t.mutedForeground,
+  textMuted: t.subtleForeground,
+  primary: t.accent,
+  primaryLight: t.accentHover,
+  primarySoft: t.accentSoft,
+  primarySurface: t.accentSoft,
+  accentPink: t.destructive,
+  accentAmber: t.warning,
+  accentEmerald: t.success,
+  accentSky: t.infoForeground,
+  badgeBg: t.accentSoft,
+  badgeText: t.accent,
+  divider: t.border,
+  shadow: isDark ? 'rgba(0, 0, 0, 0.35)' : 'rgba(28, 36, 51, 0.06)',
+});
+
 export const UPSC_THEME = {
-  light: {
-    bg: '#F8F9FD',
-    cardBg: '#FFFFFF',
-    cardBorder: '#EDE9FE',
-    cardBorderSubtle: '#F1F3F9',
-    textPrimary: '#1E1B4B',
-    textSecondary: '#64748B',
-    textMuted: '#94A3B8',
-    primary: '#7C3AED', // Royal Violet
-    primaryLight: '#8B5CF6',
-    primarySoft: '#F5F3FF',
-    primarySurface: '#EDE9FE',
-    accentPink: '#EC4899',
-    accentAmber: '#F59E0B',
-    accentEmerald: '#10B981',
-    accentSky: '#0284C7',
-    badgeBg: '#F3E8FF',
-    badgeText: '#6D28D9',
-    divider: '#F1F5F9',
-    shadow: 'rgba(124, 58, 237, 0.06)',
-  },
-  dark: {
-    bg: '#0F0E17',
-    cardBg: '#181724',
-    cardBorder: '#2E2B4A',
-    cardBorderSubtle: '#232236',
-    textPrimary: '#F8FAFC',
-    textSecondary: '#94A3B8',
-    textMuted: '#64748B',
-    primary: '#9333EA',
-    primaryLight: '#A855F7',
-    primarySoft: '#231838',
-    primarySurface: '#2E234A',
-    accentPink: '#F472B6',
-    accentAmber: '#FBBF24',
-    accentEmerald: '#34D399',
-    accentSky: '#38BDF8',
-    badgeBg: '#2D1B4E',
-    badgeText: '#D8B4FE',
-    divider: '#242336',
-    shadow: 'rgba(0, 0, 0, 0.35)',
-  },
+  light: build(LIGHT_TOKENS, false),
+  dark: build(DARK_TOKENS, true),
 };
 
-export const SUBJECT_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  Polity: { bg: '#EDE9FE', text: '#6D28D9', border: '#DDD6FE' },
-  'Modern History': { bg: '#FEF3C7', text: '#B45309', border: '#FDE68A' },
-  'Ancient & Medieval': { bg: '#FFEDD5', text: '#C2410C', border: '#FED7AA' },
-  Geography: { bg: '#E0F2FE', text: '#0369A1', border: '#BAE6FD' },
-  Economy: { bg: '#DCFCE7', text: '#15803D', border: '#BBF7D0' },
-  'Environment & Ecology': { bg: '#D1FAE5', text: '#047857', border: '#A7F3D0' },
-  'Science & Technology': { bg: '#FCE7F3', text: '#BE185D', border: '#FBCFE8' },
-  'Current Affairs': { bg: '#E0E7FF', text: '#4338CA', border: '#C7D2FE' },
-  CSAT: { bg: '#F1F5F9', text: '#334155', border: '#E2E8F0' },
-  'Ethics (GS 4)': { bg: '#FAE8FF', text: '#86198F', border: '#F5D0FE' },
-  Essay: { bg: '#FFF1F2', text: '#BE123C', border: '#FFE4E6' },
-  'Optional Subject': { bg: '#F3E8FF', text: '#7E22CE', border: '#E9D5FF' },
+type SubjectTone = { bg: string; text: string; border: string };
+
+const ORANGE: SubjectTone = { bg: '#FCEBDD', text: '#974606', border: '#F2C9A3' };
+const GREEN: SubjectTone = { bg: '#E3F1E8', text: '#1D5C3D', border: '#BFDECB' };
+const BLUE: SubjectTone = { bg: '#E9EDF9', text: '#34508F', border: '#CBD3EB' };
+const NEUTRAL: SubjectTone = { bg: '#F0EDE6', text: '#3F4A5E', border: '#EAE5DC' };
+
+/** Subject badges use only the three soft semantic tones plus neutral. */
+export const SUBJECT_COLORS: Record<string, SubjectTone> = {
+  Polity: BLUE,
+  'Modern History': ORANGE,
+  'Ancient & Medieval': ORANGE,
+  Geography: GREEN,
+  Economy: GREEN,
+  'Environment & Ecology': GREEN,
+  'Science & Technology': BLUE,
+  'Current Affairs': BLUE,
+  CSAT: NEUTRAL,
+  'Ethics (GS 4)': NEUTRAL,
+  Essay: ORANGE,
+  'Optional Subject': NEUTRAL,
 };

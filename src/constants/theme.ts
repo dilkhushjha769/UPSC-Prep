@@ -6,24 +6,24 @@
 import '@/global.css';
 
 import { Platform } from 'react-native';
+import { DARK_TOKENS, LIGHT_TOKENS } from '@/constants/designTokens';
 
 export const Colors = {
   light: {
-    text: '#000000',
-    background: '#ffffff',
-    backgroundElement: '#F0F0F3',
-    backgroundSelected: '#E0E1E6',
-    textSecondary: '#60646C',
+    text: LIGHT_TOKENS.foreground,
+    background: LIGHT_TOKENS.background,
+    backgroundElement: LIGHT_TOKENS.muted,
+    backgroundSelected: LIGHT_TOKENS.border,
+    textSecondary: LIGHT_TOKENS.mutedForeground,
   },
   dark: {
-    text: '#ffffff',
-    background: '#000000',
-    backgroundElement: '#212225',
-    backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
+    text: DARK_TOKENS.foreground,
+    background: DARK_TOKENS.background,
+    backgroundElement: DARK_TOKENS.surface,
+    backgroundSelected: DARK_TOKENS.surfaceRaised,
+    textSecondary: DARK_TOKENS.mutedForeground,
   },
 } as const;
-
 export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
 
 export const Fonts = Platform.select({
@@ -39,7 +39,7 @@ export const Fonts = Platform.select({
   },
   default: {
     sans: 'Inter',
-    serif: 'serif',
+    serif: 'Georgia',
     rounded: 'normal',
     mono: 'monospace',
   },

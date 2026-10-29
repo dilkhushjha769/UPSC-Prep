@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { FONT_FAMILY } from '@/constants/designTokens';
 import {
   Platform,
   ScrollView,
@@ -269,9 +270,9 @@ export function TasksScreen({
               styles.circleIconBtn,
               {
                 backgroundColor: isSearchActive
-                  ? 'rgba(0, 111, 253, 0.12)'
+                  ? 'rgba(185, 87, 10, 0.12)'
                   : (isDark ? PALETTE.neutral.dark.surface : '#FFFFFF'),
-                borderColor: isSearchActive ? PALETTE.highlight.primary : (isDark ? '#383A42' : '#F0F1F5'),
+                borderColor: isSearchActive ? PALETTE.highlight.primary : (isDark ? '#333D52' : '#F0EDE6'),
               },
             ]}>
             <Search
@@ -291,11 +292,11 @@ export function TasksScreen({
                 styles.circleIconBtn,
                 {
                   backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                  borderColor: isDark ? '#383A42' : '#F0F1F5',
+                  borderColor: isDark ? '#333D52' : '#F0EDE6',
                 },
               ]}>
               {isDark ? (
-                <Sun size={17} color="#FBBF24" strokeWidth={2.2} />
+                <Sun size={17} color="#D9822B" strokeWidth={2.2} />
               ) : (
                 <Moon size={17} color={PALETTE.highlight.primary} strokeWidth={2.2} />
               )}
@@ -311,7 +312,7 @@ export function TasksScreen({
               styles.circleIconBtn,
               {
                 backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                borderColor: isDark ? '#383A42' : '#F0F1F5',
+                borderColor: isDark ? '#333D52' : '#F0EDE6',
               },
             ]}>
             <Bell size={18} color={theme.textPrimary} strokeWidth={2.2} />
@@ -319,7 +320,7 @@ export function TasksScreen({
               style={[
                 styles.blueNotificationDot,
                 {
-                  backgroundColor: PALETTE.highlight.primary, // #006FFD (Primary Blue)
+                  backgroundColor: PALETTE.highlight.primary, // #B9570A (Primary Blue)
                   borderColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
                 },
               ]}
@@ -335,7 +336,7 @@ export function TasksScreen({
             styles.searchBarContainer,
             {
               backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-              borderColor: isDark ? '#383A42' : '#E8E9F1',
+              borderColor: isDark ? '#333D52' : '#EAE5DC',
             },
           ]}>
           <Search size={16} color={theme.textMuted} />
@@ -378,11 +379,11 @@ export function TasksScreen({
                 styles.filterPill,
                 {
                   backgroundColor: isActive
-                    ? PALETTE.highlight.primary // #006FFD (Primary Blue)
+                    ? PALETTE.highlight.primary // #B9570A (Primary Blue)
                     : (isDark ? PALETTE.neutral.dark.surface : '#FFFFFF'),
                   borderColor: isActive
                     ? PALETTE.highlight.primary
-                    : (isDark ? '#383A42' : '#E8E9F1'),
+                    : (isDark ? '#333D52' : '#EAE5DC'),
                 },
               ]}>
               <Text
@@ -408,7 +409,7 @@ export function TasksScreen({
           styles.scheduleStripCard,
           {
             backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-            borderColor: isDark ? '#383A42' : '#F0F1F5',
+            borderColor: isDark ? '#333D52' : '#F0EDE6',
           },
         ]}>
         <View style={styles.scheduleHeaderRow}>
@@ -434,11 +435,11 @@ export function TasksScreen({
               styles.todayCapsuleBtn,
               {
                 backgroundColor: (selectedDate === todayKey && activeFilter === 'today')
-                  ? PALETTE.highlight.primary // #006FFD (Solid Blue)
-                  : (isDark ? PALETTE.neutral.dark.darkest : '#F8F9FE'),
+                  ? PALETTE.highlight.primary // #B9570A (Solid Blue)
+                  : (isDark ? PALETTE.neutral.dark.darkest : '#FAF9F6'),
                 borderColor: (selectedDate === todayKey && activeFilter === 'today')
                   ? PALETTE.highlight.primary
-                  : (isDark ? '#383A42' : '#E8E9F1'),
+                  : (isDark ? '#333D52' : '#EAE5DC'),
               },
             ]}>
             <CalendarIcon
@@ -480,11 +481,11 @@ export function TasksScreen({
                   styles.dayStripCapsule,
                   {
                     backgroundColor: isSelected
-                      ? PALETTE.highlight.primary // #006FFD (Primary Blue)
-                      : (isDark ? PALETTE.neutral.dark.darkest : '#F8F9FE'),
+                      ? PALETTE.highlight.primary // #B9570A (Primary Blue)
+                      : (isDark ? PALETTE.neutral.dark.darkest : '#FAF9F6'),
                     borderColor: isSelected
                       ? PALETTE.highlight.primary
-                      : (isDark ? '#383A42' : '#E8E9F1'),
+                      : (isDark ? '#333D52' : '#EAE5DC'),
                   },
                 ]}>
                 <Text
@@ -520,8 +521,8 @@ export function TasksScreen({
           style={[
             styles.tasksProgressBarCard,
             {
-              backgroundColor: isDark ? '#141824' : '#F8FAFC',
-              borderColor: isDark ? '#262D3D' : '#E2E8F0',
+              backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+              borderColor: isDark ? '#262E40' : '#EAE5DC',
             },
           ]}>
           <View style={styles.tasksProgressBarHeader}>
@@ -535,7 +536,7 @@ export function TasksScreen({
             <Text
               style={[
                 styles.tasksProgressBarValue,
-                { color: tasksProgressPct === 100 ? '#10B981' : theme.textPrimary },
+                { color: tasksProgressPct === 100 ? '#26734D' : theme.textPrimary },
               ]}>
               {tasksCompletedCount} of {tasksForProgress.length} tasks ({Math.round(tasksProgressPct)}%)
             </Text>
@@ -543,8 +544,8 @@ export function TasksScreen({
           <ProgressBar
             progress={tasksProgressPct}
             height={3}
-            fillColor={tasksProgressPct === 100 ? '#10B981' : PALETTE.highlight.primary}
-            trackColor={isDark ? 'rgba(255, 255, 255, 0.08)' : '#E8E9F1'}
+            fillColor={tasksProgressPct === 100 ? '#26734D' : PALETTE.highlight.primary}
+            trackColor={isDark ? 'rgba(255, 255, 255, 0.08)' : '#EAE5DC'}
             borderRadius={2}
           />
         </View>
@@ -561,8 +562,8 @@ export function TasksScreen({
             style={[
               styles.controlBtn,
               {
-                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.05)' : '#F8F9FE',
-                borderColor: isDark ? '#383A42' : '#E8E9F1',
+                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.05)' : '#FAF9F6',
+                borderColor: isDark ? '#333D52' : '#EAE5DC',
               },
             ]}>
             <SlidersHorizontal size={13} color={theme.textPrimary} strokeWidth={2.2} />
@@ -596,7 +597,7 @@ export function TasksScreen({
                 <View
                   style={[
                     styles.dateGroupCountBadge,
-                    { backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0F1F5' },
+                    { backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6' },
                   ]}>
                   <Text style={[styles.dateGroupCountText, { color: theme.textSecondary }]}>
                     {group.tasks.length}
@@ -635,14 +636,14 @@ export function TasksScreen({
               styles.cleanEmptyCard,
               {
                 backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                borderColor: isDark ? '#383A42' : '#F0F1F5',
+                borderColor: isDark ? '#333D52' : '#F0EDE6',
               },
             ]}>
             <View
               style={[
                 styles.emptyIconCircle,
                 {
-                  backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#F0F1F5',
+                  backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#F0EDE6',
                 },
               ]}>
               <Search size={20} color={theme.textMuted} strokeWidth={2} />
@@ -671,17 +672,17 @@ export function TasksScreen({
               styles.cleanEmptyCard,
               {
                 backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                borderColor: isDark ? '#383A42' : '#F0F1F5',
+                borderColor: isDark ? '#333D52' : '#F0EDE6',
               },
             ]}>
             <View
               style={[
                 styles.emptyIconCircle,
                 {
-                  backgroundColor: isDark ? 'rgba(16, 185, 129, 0.15)' : 'rgba(16, 185, 129, 0.12)',
+                  backgroundColor: isDark ? 'rgba(38, 115, 77, 0.15)' : 'rgba(38, 115, 77, 0.12)',
                 },
               ]}>
-              <CheckCircle2 size={24} color="#10B981" strokeWidth={2.2} />
+              <CheckCircle2 size={24} color="#26734D" strokeWidth={2.2} />
             </View>
 
             <Text style={[styles.emptyHeading, { color: theme.textPrimary }]}>
@@ -706,14 +707,14 @@ export function TasksScreen({
               styles.cleanEmptyCard,
               {
                 backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                borderColor: isDark ? '#383A42' : '#F0F1F5',
+                borderColor: isDark ? '#333D52' : '#F0EDE6',
               },
             ]}>
             <View
               style={[
                 styles.emptyIconCircle,
                 {
-                  backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#F0F1F5',
+                  backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#F0EDE6',
                 },
               ]}>
               <CheckCircle2 size={24} color={PALETTE.highlight.primary} strokeWidth={2} />
@@ -741,14 +742,14 @@ export function TasksScreen({
               styles.cleanEmptyCard,
               {
                 backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                borderColor: isDark ? '#383A42' : '#F0F1F5',
+                borderColor: isDark ? '#333D52' : '#F0EDE6',
               },
             ]}>
             <View
               style={[
                 styles.emptyIconCircle,
                 {
-                  backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#F0F1F5',
+                  backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#F0EDE6',
                 },
               ]}>
               <CalendarIcon size={22} color={theme.textMuted} strokeWidth={2} />
@@ -776,14 +777,14 @@ export function TasksScreen({
               styles.cleanEmptyCard,
               {
                 backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                borderColor: isDark ? '#383A42' : '#F0F1F5',
+                borderColor: isDark ? '#333D52' : '#F0EDE6',
               },
             ]}>
             <View
               style={[
                 styles.emptyIconCircle,
                 {
-                  backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#F0F1F5',
+                  backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#F0EDE6',
                 },
               ]}>
               <CalendarIcon size={22} color={PALETTE.highlight.primary} strokeWidth={2} />
@@ -843,9 +844,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   mainHeading: {
+    fontFamily: FONT_FAMILY.serif,
     fontSize: 24,
     fontWeight: '800',
-    fontFamily: Typography.fontFamily,
     letterSpacing: -0.4,
   },
   headerIconsCluster: {
@@ -1070,7 +1071,7 @@ const styles = StyleSheet.create({
   emptyAddBtn: {
     marginTop: 8,
     alignSelf: 'center',
-    backgroundColor: PALETTE.highlight.primary, // #006FFD
+    backgroundColor: PALETTE.highlight.primary, // #B9570A
   },
   tasksProgressBarCard: {
     marginHorizontal: 16,

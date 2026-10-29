@@ -94,7 +94,7 @@ export function PipelineStatusModal({
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerTitleGroup}>
-            <Activity size={18} color={isDark ? '#4ADE80' : '#059669'} strokeWidth={2.2} />
+            <Activity size={18} color={isDark ? '#3FA573' : '#26734D'} strokeWidth={2.2} />
             <Text style={styles.headerTitle}>Current Affairs Pipeline Status</Text>
           </View>
 
@@ -126,7 +126,7 @@ export function PipelineStatusModal({
           <View style={styles.summaryHeroCard}>
             <View style={styles.summaryTopRow}>
               <View style={styles.statusPillSuccess}>
-                <CheckCircle2 size={13} color={isDark ? '#4ADE80' : '#059669'} strokeWidth={2.4} />
+                <CheckCircle2 size={13} color={isDark ? '#3FA573' : '#26734D'} strokeWidth={2.4} />
                 <Text style={styles.statusPillSuccessText}>
                   {latestLog?.status === 'completed'
                     ? 'All Sources Healthy'
@@ -180,7 +180,7 @@ export function PipelineStatusModal({
           {(latestLog?.failedJobs?.length || 0) > 0 || staleCategories.length > 0 ? (
             <View style={styles.warningCard}>
               <View style={styles.sectionHeaderRow}>
-                <AlertTriangle size={15} color={isDark ? '#FBBF24' : '#D97706'} strokeWidth={2.2} />
+                <AlertTriangle size={15} color={isDark ? '#D9822B' : '#A65A0A'} strokeWidth={2.2} />
                 <Text style={styles.warningTitle}>
                   Failed Jobs ({latestLog?.failedJobs?.length || 0}) & Stale Categories ({staleCategories.length})
                 </Text>
@@ -198,7 +198,7 @@ export function PipelineStatusModal({
             </View>
           ) : (
             <View style={styles.healthyBanner}>
-              <ShieldCheck size={15} color={isDark ? '#4ADE80' : '#059669'} strokeWidth={2.2} />
+              <ShieldCheck size={15} color={isDark ? '#3FA573' : '#26734D'} strokeWidth={2.2} />
               <Text style={styles.healthyBannerText}>
                 Zero failed jobs and zero stale categories in the latest pipeline run.
               </Text>
@@ -208,7 +208,7 @@ export function PipelineStatusModal({
           {/* 3. Simplified 6 Main Categories & 3 Subject Groups Status */}
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeaderRow}>
-              <Layers size={15} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2.2} />
+              <Layers size={15} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2.2} />
               <Text style={styles.sectionTitle}>
                 6 Main Categories & 3 Subject Groups • Last Updated Status
               </Text>
@@ -244,7 +244,7 @@ export function PipelineStatusModal({
                       <View
                         style={[
                           styles.catHealthDot,
-                          { backgroundColor: isHealthy ? '#22C55E' : '#F59E0B' },
+                          { backgroundColor: isHealthy ? '#26734D' : '#A65A0A' },
                         ]}
                       />
                     </View>
@@ -257,7 +257,7 @@ export function PipelineStatusModal({
           {/* 4. Configured Official & Editorial Sources */}
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeaderRow}>
-              <Database size={15} color={isDark ? '#A78BFA' : '#6D28D9'} strokeWidth={2.2} />
+              <Database size={15} color={isDark ? '#7C93D1' : '#3D4A66'} strokeWidth={2.2} />
               <Text style={styles.sectionTitle}>Authorized Source Hierarchy & Licensing</Text>
             </View>
             <Text style={styles.sourcePolicyText}>
@@ -312,7 +312,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: 6,
-      backgroundColor: '#006FFD',
+      backgroundColor: '#B9570A',
       paddingHorizontal: 12,
       paddingVertical: 7,
       borderRadius: 8,
@@ -326,9 +326,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       width: 34,
       height: 34,
       borderRadius: 17,
-      backgroundColor: isDark ? '#2F3036' : '#FFFFFF',
+      backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
+      borderColor: isDark ? '#333D52' : '#EAE5DC',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -365,7 +365,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: 6,
-      backgroundColor: isDark ? 'rgba(74, 222, 128, 0.14)' : '#DCFCE7',
+      backgroundColor: isDark ? 'rgba(74, 222, 128, 0.14)' : '#E3F1E8',
       paddingHorizontal: 10,
       paddingVertical: 4,
       borderRadius: 999,
@@ -373,7 +373,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     statusPillSuccessText: {
       fontSize: 11.5,
       fontWeight: '800',
-      color: isDark ? '#4ADE80' : '#047857',
+      color: isDark ? '#3FA573' : '#26734D',
     },
     scheduleNoteText: {
       fontSize: 11.5,
@@ -412,9 +412,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       color: theme.textSecondary,
     },
     warningCard: {
-      backgroundColor: isDark ? 'rgba(251, 191, 36, 0.08)' : '#FFFBEB',
+      backgroundColor: isDark ? 'rgba(251, 191, 36, 0.08)' : '#FCEBDD',
       borderWidth: 1,
-      borderColor: isDark ? 'rgba(251, 191, 36, 0.25)' : '#FDE68A',
+      borderColor: isDark ? 'rgba(251, 191, 36, 0.25)' : '#F2D2A8',
       borderRadius: 12,
       padding: 14,
       gap: 6,
@@ -422,7 +422,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     warningTitle: {
       fontSize: 12,
       fontWeight: '800',
-      color: isDark ? '#FBBF24' : '#B45309',
+      color: isDark ? '#D9822B' : '#A65A0A',
     },
     warningItemText: {
       fontSize: 12,
@@ -433,9 +433,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: 8,
-      backgroundColor: isDark ? 'rgba(74, 222, 128, 0.08)' : '#F0FDF4',
+      backgroundColor: isDark ? 'rgba(74, 222, 128, 0.08)' : '#E3F1E8',
       borderWidth: 1,
-      borderColor: isDark ? 'rgba(74, 222, 128, 0.22)' : '#BBF7D0',
+      borderColor: isDark ? 'rgba(74, 222, 128, 0.22)' : '#BFDECB',
       borderRadius: 10,
       paddingHorizontal: 14,
       paddingVertical: 10,

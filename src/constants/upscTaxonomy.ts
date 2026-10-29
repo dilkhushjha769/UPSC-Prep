@@ -47,8 +47,8 @@ export const UPSC_PRELIMS_TAXONOMY: TaxonomySubject[] = [
     name: 'History and Culture',
     shortName: 'History & Culture',
     iconName: 'library-outline',
-    accentColor: '#D97706',
-    lightBg: '#FEF3C7',
+    accentColor: '#A65A0A',
+    lightBg: '#FCEBDD',
     topics: [
       {
         id: 'ancient_indian_history',
@@ -160,8 +160,8 @@ export const UPSC_PRELIMS_TAXONOMY: TaxonomySubject[] = [
     name: 'Geography',
     shortName: 'Geography',
     iconName: 'earth-outline',
-    accentColor: '#0284C7',
-    lightBg: '#E0F2FE',
+    accentColor: '#3D5A99',
+    lightBg: '#E9EDF9',
     topics: [
       {
         id: 'physical_geography',
@@ -278,8 +278,8 @@ export const UPSC_PRELIMS_TAXONOMY: TaxonomySubject[] = [
     name: 'Indian Polity and Governance',
     shortName: 'Polity & Governance',
     iconName: 'shield-checkmark-outline',
-    accentColor: '#EA580C',
-    lightBg: '#FFEDD5',
+    accentColor: '#B9570A',
+    lightBg: '#F2C9A3',
     topics: [
       {
         id: 'constitution',
@@ -448,8 +448,8 @@ export const UPSC_PRELIMS_TAXONOMY: TaxonomySubject[] = [
     name: 'Economy',
     shortName: 'Economy',
     iconName: 'trending-up-outline',
-    accentColor: '#059669',
-    lightBg: '#D1FAE5',
+    accentColor: '#26734D',
+    lightBg: '#E3F1E8',
     topics: [
       {
         id: 'national_income_and_economic_growth',
@@ -586,8 +586,8 @@ export const UPSC_PRELIMS_TAXONOMY: TaxonomySubject[] = [
     name: 'Environment and Ecology',
     shortName: 'Environment & Ecology',
     iconName: 'leaf-outline',
-    accentColor: '#16A34A',
-    lightBg: '#DCFCE7',
+    accentColor: '#26734D',
+    lightBg: '#E3F1E8',
     topics: [
       {
         id: 'ecosystems',
@@ -712,8 +712,8 @@ export const UPSC_PRELIMS_TAXONOMY: TaxonomySubject[] = [
     name: 'Science and Technology',
     shortName: 'Science & Tech',
     iconName: 'flask-outline',
-    accentColor: '#7C3AED',
-    lightBg: '#EDE9FE',
+    accentColor: '#3D5A99',
+    lightBg: '#E9EDF9',
     topics: [
       {
         id: 'physics_in_everyday_life',
@@ -816,8 +816,8 @@ export const UPSC_PRELIMS_TAXONOMY: TaxonomySubject[] = [
     name: 'Current Affairs and Miscellaneous',
     shortName: 'Current Affairs & IR',
     iconName: 'globe-outline',
-    accentColor: '#2563EB',
-    lightBg: '#DBEAFE',
+    accentColor: '#B9570A',
+    lightBg: '#FCEBDD',
     topics: [
       {
         id: 'national_and_international_developments',
@@ -898,8 +898,8 @@ export const UPSC_PRELIMS_TAXONOMY: TaxonomySubject[] = [
     name: 'Reading Comprehension',
     shortName: 'Comprehension',
     iconName: 'book-outline',
-    accentColor: '#0284C7',
-    lightBg: '#E0F2FE',
+    accentColor: '#3D5A99',
+    lightBg: '#E9EDF9',
     topics: [
       {
         id: 'reading_comprehension',
@@ -924,8 +924,8 @@ export const UPSC_PRELIMS_TAXONOMY: TaxonomySubject[] = [
     name: 'Logical and Analytical Reasoning',
     shortName: 'Reasoning',
     iconName: 'extension-puzzle-outline',
-    accentColor: '#7C3AED',
-    lightBg: '#EDE9FE',
+    accentColor: '#3D5A99',
+    lightBg: '#E9EDF9',
     topics: [
       {
         id: 'logical_reasoning',
@@ -975,8 +975,8 @@ export const UPSC_PRELIMS_TAXONOMY: TaxonomySubject[] = [
     name: 'Quantitative Aptitude and Basic Numeracy',
     shortName: 'Basic Numeracy',
     iconName: 'calculator-outline',
-    accentColor: '#059669',
-    lightBg: '#D1FAE5',
+    accentColor: '#26734D',
+    lightBg: '#E3F1E8',
     topics: [
       {
         id: 'basic_numeracy',
@@ -1093,8 +1093,8 @@ export const UPSC_PRELIMS_TAXONOMY: TaxonomySubject[] = [
     name: 'Data Interpretation',
     shortName: 'Data Interpretation',
     iconName: 'bar-chart-outline',
-    accentColor: '#D97706',
-    lightBg: '#FEF3C7',
+    accentColor: '#A65A0A',
+    lightBg: '#FCEBDD',
     topics: [
       {
         id: 'data_interpretation',

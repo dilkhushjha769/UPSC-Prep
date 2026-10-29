@@ -32,12 +32,12 @@ export function FocusModeSettingsScreen({ isDark, onBack }: Props) {
     return () => clearTimeout(t);
   }, []);
 
-  const bg = isDark ? '#1F2024' : '#F8F9FE';
-  const card = isDark ? '#26282E' : '#FFFFFF';
-  const border = isDark ? '#35373F' : '#E5E7EB';
-  const text = isDark ? '#F5F5F7' : '#0F172A';
-  const muted = isDark ? '#A7ABB5' : '#64748B';
-  const track = { false: isDark ? '#343740' : '#D1D5DB', true: '#0D6EFD' };
+  const bg = isDark ? '#1C2433' : '#FAF9F6';
+  const card = isDark ? '#1E2535' : '#FFFFFF';
+  const border = isDark ? '#333D52' : '#EAE5DC';
+  const text = isDark ? '#F2EFE8' : '#1C2433';
+  const muted = isDark ? '#A4ADBF' : '#5F6B80';
+  const track = { false: isDark ? '#262E40' : '#DDD6CA', true: '#B9570A' };
 
   const toggleApp = (id: string) => {
     const next = selected.includes(id) ? selected.filter((x) => x !== id) : [...selected, id];
@@ -71,13 +71,13 @@ export function FocusModeSettingsScreen({ isDark, onBack }: Props) {
                 void examFocusService.setEnabledByUser(v);
               }}
               isDark={isDark}
-              activeTrackColor="#006FFD"
+              activeTrackColor="#B9570A"
             />
           </View>
         </View>
 
         <Text style={[styles.section, { color: muted }]}>APPS TO SILENCE DURING TESTS</Text>
-        <View style={[styles.note, { backgroundColor: isDark ? '#2A2D35' : '#EEF4FF', borderColor: border }]}>
+        <View style={[styles.note, { backgroundColor: isDark ? '#262E40' : '#E9EDF9', borderColor: border }]}>
           <Text style={[styles.noteText, { color: muted }]}>
             {isAndroid
               ? 'Android does not let one app block or mute another app. Pick the apps that distract you, then tap "Mute" to open that app’s own notification settings and turn its notifications off yourself.'
@@ -91,7 +91,7 @@ export function FocusModeSettingsScreen({ isDark, onBack }: Props) {
             return (
               <View key={app.id} style={[styles.appRow, i > 0 && { borderTopWidth: StyleSheet.hairlineWidth, borderColor: border }]}>
                 <Pressable style={styles.appMain} onPress={() => toggleApp(app.id)} accessibilityRole="checkbox" accessibilityState={{ checked: on }}>
-                  <View style={[styles.check, { borderColor: on ? '#0D6EFD' : border, backgroundColor: on ? '#0D6EFD' : 'transparent' }]}>
+                  <View style={[styles.check, { borderColor: on ? '#B9570A' : border, backgroundColor: on ? '#B9570A' : 'transparent' }]}>
                     {on && <Check size={13} color="#FFFFFF" strokeWidth={3} />}
                   </View>
                   <Text style={[styles.appName, { color: text }]}>{app.name}</Text>
@@ -99,7 +99,7 @@ export function FocusModeSettingsScreen({ isDark, onBack }: Props) {
                 {isAndroid && on && app.pkg !== '' && (
                   <Pressable onPress={() => examFocusService.openAppNotificationSettings(app.pkg)} style={styles.muteBtn}>
                     <Text style={styles.muteText}>Mute</Text>
-                    <ExternalLink size={12} color="#0D6EFD" />
+                    <ExternalLink size={12} color="#B9570A" />
                   </Pressable>
                 )}
               </View>
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   check: { width: 20, height: 20, borderRadius: 6, borderWidth: 1.5, alignItems: 'center', justifyContent: 'center' },
   appName: { fontSize: 14.5, fontWeight: '600' },
   muteBtn: { flexDirection: 'row', alignItems: 'center', gap: 4, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 8, backgroundColor: 'rgba(13,110,253,0.12)' },
-  muteText: { fontSize: 12, fontWeight: '700', color: '#0D6EFD' },
+  muteText: { fontSize: 12, fontWeight: '700', color: '#B9570A' },
   dndBtn: { flexDirection: 'row', alignItems: 'center', gap: 12, borderRadius: 14, borderWidth: 1, padding: 14 },
 });
 

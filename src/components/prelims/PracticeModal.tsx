@@ -425,7 +425,7 @@ export function PracticeModal({
                   >
                     <XCircle
                       size={13}
-                      color={statusFilter === 'incorrect' ? '#FFFFFF' : '#71717A'}
+                      color={statusFilter === 'incorrect' ? '#FFFFFF' : '#7A8499'}
                       strokeWidth={2.2}
                     />
                     <Text
@@ -471,7 +471,7 @@ export function PracticeModal({
                   >
                     <Eye
                       size={13}
-                      color={statusFilter === 'unattempted' ? '#FFFFFF' : '#71717A'}
+                      color={statusFilter === 'unattempted' ? '#FFFFFF' : '#7A8499'}
                       strokeWidth={2}
                     />
                     <Text
@@ -497,12 +497,12 @@ export function PracticeModal({
                       color={
                         statusFilter === 'bookmarked'
                           ? theme.colors.darkButtonText
-                          : '#F59E0B'
+                          : '#A65A0A'
                       }
                       fill={
                         statusFilter === 'bookmarked'
                           ? theme.colors.darkButtonText
-                          : '#F59E0B'
+                          : '#A65A0A'
                       }
                       strokeWidth={2}
                     />
@@ -553,7 +553,7 @@ export function PracticeModal({
                       <ChevronDown
                         size={11}
                         color={
-                          selectedYear !== 'all' || showYearPicker ? '#FFFFFF' : '#71717A'
+                          selectedYear !== 'all' || showYearPicker ? '#FFFFFF' : '#7A8499'
                         }
                         strokeWidth={2.2}
                       />
@@ -696,7 +696,7 @@ export function PracticeModal({
                         color={
                           selectedDifficulty !== 'all' || showDiffPicker
                             ? '#FFFFFF'
-                            : '#71717A'
+                            : '#7A8499'
                         }
                         strokeWidth={2.2}
                       />
@@ -831,7 +831,7 @@ export function PracticeModal({
               <View style={styles.emptyFilterCard}>
                 <View style={styles.emptyFilterIconBadge}>
                   {statusFilter === 'bookmarked' ? (
-                    <Bookmark size={24} color="#F59E0B" fill="#F59E0B" strokeWidth={2} />
+                    <Bookmark size={24} color="#A65A0A" fill="#A65A0A" strokeWidth={2} />
                   ) : statusFilter === 'incorrect' ? (
                     <CheckCircle2 size={24} color={theme.colors.textPrimary} strokeWidth={2} />
                   ) : statusFilter === 'solved' ? (
@@ -922,7 +922,7 @@ export function PracticeModal({
                           </View>
                           {bookmarkedIds[q.id] && (
                             <View style={styles.bookmarkedListTag}>
-                              <Bookmark size={11} color="#F59E0B" fill="#F59E0B" strokeWidth={2} />
+                              <Bookmark size={11} color="#A65A0A" fill="#A65A0A" strokeWidth={2} />
                             </View>
                           )}
                         </View>
@@ -937,7 +937,7 @@ export function PracticeModal({
                               </View>
                             ) : (
                               <View style={styles.statusWrongPill}>
-                                <XCircle size={12} color="#71717A" strokeWidth={2.2} />
+                                <XCircle size={12} color="#7A8499" strokeWidth={2.2} />
                                 <Text style={styles.statusWrongText}>Incorrect</Text>
                               </View>
                             )
@@ -951,7 +951,7 @@ export function PracticeModal({
                               <Text style={styles.statusUnattemptedText}>Unattempted</Text>
                             </View>
                           )}
-                          <ChevronRight size={16} color="#71717A" strokeWidth={2} />
+                          <ChevronRight size={16} color="#7A8499" strokeWidth={2} />
                         </View>
                       </View>
 
@@ -1020,8 +1020,8 @@ export function PracticeModal({
                 >
                   <Bookmark
                     size={13}
-                    color={isBookmarked ? '#F59E0B' : theme.colors.textSecondary}
-                    fill={isBookmarked ? '#F59E0B' : 'none'}
+                    color={isBookmarked ? '#A65A0A' : theme.colors.textSecondary}
+                    fill={isBookmarked ? '#A65A0A' : 'none'}
                     strokeWidth={2}
                   />
                 </Pressable>
@@ -1132,13 +1132,13 @@ export function PracticeModal({
                         <Text style={styles.optionContentText}>{opt.text}</Text>
                         {showCorrectBadge && (
                           <View style={styles.optionSubStatusRow}>
-                            <CheckCircle2 size={13} color="#10B981" strokeWidth={2.4} />
+                            <CheckCircle2 size={13} color="#26734D" strokeWidth={2.4} />
                             <Text style={styles.correctAnswerLabelText}>Correct answer</Text>
                           </View>
                         )}
                         {showIncorrectBadge && (
                           <View style={styles.optionSubStatusRow}>
-                            <XCircle size={13} color="#EF4444" strokeWidth={2.4} />
+                            <XCircle size={13} color="#B42318" strokeWidth={2.4} />
                             <Text style={styles.incorrectAnswerLabelText}>Your answer</Text>
                           </View>
                         )}
@@ -1190,7 +1190,7 @@ export function PracticeModal({
                   {/* Conclusion / Examiner Elimination Strategy Box */}
                   <View style={styles.eliminationBlock}>
                     <View style={styles.eliminationTitleRow}>
-                      <Lightbulb size={16} color="#10B981" strokeWidth={2.2} />
+                      <Lightbulb size={16} color="#26734D" strokeWidth={2.2} />
                       <Text style={styles.eliminationTitle}>
                         {currentQ.explanation?.eliminationTechnique
                           ? 'Examiner Elimination Strategy'
@@ -1281,7 +1281,7 @@ export function PracticeModal({
           <View style={styles.exitModalOverlay}>
             <View style={styles.exitModalCard}>
               <View style={styles.exitModalIconWrap}>
-                <AlertTriangle size={26} color="#F59E0B" strokeWidth={2.2} />
+                <AlertTriangle size={26} color="#A65A0A" strokeWidth={2.2} />
               </View>
               <Text style={styles.exitModalTitle}>Exit Practice Session?</Text>
               <Text style={styles.exitModalDesc}>
@@ -1319,11 +1319,11 @@ const getStyles = (theme: PrelimsThemeType) => {
   return StyleSheet.create({
   fullScreenSafeArea: {
     flex: 1,
-    backgroundColor: isDark ? '#1F2024' : '#F8F9FE',
+    backgroundColor: isDark ? '#1C2433' : '#FAF9F6',
   },
   viewContainer: {
     flex: 1,
-    backgroundColor: isDark ? '#1F2024' : '#F8F9FE',
+    backgroundColor: isDark ? '#1C2433' : '#FAF9F6',
   },
   topNavBar: {
     flexDirection: 'row',
@@ -1382,7 +1382,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     borderColor: theme.colors.borderSubtle,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
   },
   attemptTitleCol: {
     flex: 1,
@@ -1408,7 +1408,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
     paddingHorizontal: 9,
     paddingVertical: 6,
     borderRadius: 7,
@@ -1424,7 +1424,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
     paddingHorizontal: 9,
     paddingVertical: 6,
     borderRadius: 7,
@@ -1432,8 +1432,8 @@ const getStyles = (theme: PrelimsThemeType) => {
     borderColor: theme.colors.borderSubtle,
   },
   attemptBookmarkBtnActive: {
-    backgroundColor: isDark ? '#362312' : '#FEF3C7',
-    borderColor: '#F59E0B',
+    backgroundColor: isDark ? '#2A1D12' : '#FCEBDD',
+    borderColor: '#A65A0A',
   },
   attemptBookmarkBtnText: {
     fontSize: 11.5,
@@ -1441,7 +1441,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     color: theme.colors.textSecondary,
   },
   attemptBookmarkBtnTextActive: {
-    color: isDark ? '#FCD34D' : '#D97706',
+    color: isDark ? '#D9822B' : '#A65A0A',
     fontWeight: '800',
   },
   topProgressBarTrack: {
@@ -1450,11 +1450,11 @@ const getStyles = (theme: PrelimsThemeType) => {
     left: 0,
     right: 0,
     height: 2.5,
-    backgroundColor: isDark ? 'rgba(255, 138, 61, 0.22)' : '#FFEDE0',
+    backgroundColor: isDark ? 'rgba(255, 138, 61, 0.22)' : '#FCEBDD',
   },
   topProgressBarFill: {
     height: '100%',
-    backgroundColor: '#FF5500',
+    backgroundColor: '#B9570A',
   },
   qMetaRow: {
     flexDirection: 'row',
@@ -1468,7 +1468,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     gap: 8,
   },
   metaYearTag: {
-    backgroundColor: isDark ? '#222838' : '#FFEDE0',
+    backgroundColor: isDark ? '#262E40' : '#FCEBDD',
     paddingHorizontal: 7,
     paddingVertical: 2.5,
     borderRadius: 5,
@@ -1476,10 +1476,10 @@ const getStyles = (theme: PrelimsThemeType) => {
   metaYearText: {
     fontSize: 10.5,
     fontWeight: '700',
-    color: isDark ? '#FFC9A3' : '#EA4E00',
+    color: isDark ? '#F2C9A3' : '#B9570A',
   },
   metaDifficultyTag: {
-    backgroundColor: isDark ? '#191C25' : '#F1F5F9',
+    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
     paddingHorizontal: 7,
     paddingVertical: 2.5,
     borderRadius: 5,
@@ -1493,7 +1493,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     textTransform: 'capitalize',
   },
   metaTopicTag: {
-    backgroundColor: isDark ? '#191C25' : '#F1F5F9',
+    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
     paddingHorizontal: 7,
     paddingVertical: 2.5,
     borderRadius: 5,
@@ -1509,7 +1509,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
     paddingHorizontal: 9,
     paddingVertical: 4.5,
     borderRadius: 7,
@@ -1522,7 +1522,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     color: theme.colors.textSecondary,
   },
   bookmarkedListTag: {
-    backgroundColor: isDark ? '#362312' : '#FEF3C7',
+    backgroundColor: isDark ? '#2A1D12' : '#FCEBDD',
     paddingHorizontal: 5,
     paddingVertical: 3,
     borderRadius: 5,
@@ -1588,7 +1588,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     borderColor: theme.colors.borderSubtle,
   },
   filterPillActive: {
-    backgroundColor: "#006FFD",
+    backgroundColor: "#B9570A",
     borderColor: theme.colors.darkButton,
   },
   filterPillText: {
@@ -1947,20 +1947,20 @@ const getStyles = (theme: PrelimsThemeType) => {
     gap: 12,
   },
   optionItemDefault: {
-    backgroundColor: isDark ? '#141722' : '#FFFFFF',
-    borderColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#E5E7EB',
+    backgroundColor: isDark ? '#151A25' : '#FFFFFF',
+    borderColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#EAE5DC',
   },
   optionItemSelected: {
-    backgroundColor: isDark ? '#111E38' : '#EEF4FF',
-    borderColor: '#006FFD',
+    backgroundColor: isDark ? '#1E2535' : '#E9EDF9',
+    borderColor: '#B9570A',
   },
   optionItemCorrect: {
-    backgroundColor: isDark ? 'rgba(16, 185, 129, 0.08)' : '#F0FDF4',
-    borderColor: isDark ? 'rgba(16, 185, 129, 0.45)' : '#86EFAC',
+    backgroundColor: isDark ? 'rgba(38, 115, 77, 0.08)' : '#E3F1E8',
+    borderColor: isDark ? 'rgba(38, 115, 77, 0.45)' : '#3FA573',
   },
   optionItemIncorrect: {
-    backgroundColor: isDark ? 'rgba(239, 68, 68, 0.08)' : '#FEF2F2',
-    borderColor: isDark ? 'rgba(239, 68, 68, 0.45)' : '#FECACA',
+    backgroundColor: isDark ? 'rgba(180, 35, 24, 0.08)' : '#FBE4E1',
+    borderColor: isDark ? 'rgba(180, 35, 24, 0.45)' : '#F3C4BF',
   },
   keyBoxBase: {
     width: 30,
@@ -1970,23 +1970,23 @@ const getStyles = (theme: PrelimsThemeType) => {
     justifyContent: 'center',
   },
   keyBoxDefault: {
-    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F3F4F6',
+    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6',
   },
   keyBoxSelected: {
-    backgroundColor: '#006FFD',
+    backgroundColor: '#B9570A',
   },
   keyBoxCorrect: {
-    backgroundColor: '#10B981',
+    backgroundColor: '#26734D',
   },
   keyBoxIncorrect: {
-    backgroundColor: '#EF4444',
+    backgroundColor: '#B42318',
   },
   keyTextBase: {
     fontSize: 12.5,
     fontWeight: '800',
   },
   keyTextDefault: {
-    color: isDark ? '#9CA3AF' : '#4B5563',
+    color: isDark ? '#8892A6' : '#4A5568',
   },
   keyTextSelected: {
     color: '#FFFFFF',
@@ -2016,17 +2016,17 @@ const getStyles = (theme: PrelimsThemeType) => {
   correctAnswerLabelText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#10B981',
+    color: '#26734D',
   },
   incorrectAnswerLabelText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#EF4444',
+    color: '#B42318',
   },
   solutionContainer: {
     backgroundColor: 'transparent',
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: isDark ? 'rgba(255, 255, 255, 0.1)' : '#EAEDF2',
+    borderTopColor: isDark ? 'rgba(255, 255, 255, 0.1)' : '#F0EDE6',
     paddingTop: 18,
     gap: 16,
     marginBottom: 24,
@@ -2050,14 +2050,14 @@ const getStyles = (theme: PrelimsThemeType) => {
     paddingHorizontal: 9,
     paddingVertical: 4,
     borderRadius: 6,
-    backgroundColor: isDark ? 'rgba(16, 185, 129, 0.12)' : '#F0FDF4',
+    backgroundColor: isDark ? 'rgba(38, 115, 77, 0.12)' : '#E3F1E8',
     borderWidth: 1,
-    borderColor: isDark ? 'rgba(16, 185, 129, 0.3)' : '#BBF7D0',
+    borderColor: isDark ? 'rgba(38, 115, 77, 0.3)' : '#BFDECB',
   },
   solutionBadgeText: {
     fontSize: 11.5,
     fontWeight: '700',
-    color: '#10B981',
+    color: '#26734D',
   },
   stepItemRow: {
     flexDirection: 'row',
@@ -2068,7 +2068,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     width: 22,
     height: 22,
     borderRadius: 11,
-    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F3F4F6',
+    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 1,
@@ -2104,8 +2104,8 @@ const getStyles = (theme: PrelimsThemeType) => {
   eliminationBlock: {
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: isDark ? 'rgba(16, 185, 129, 0.25)' : '#BBF7D0',
-    backgroundColor: isDark ? 'rgba(16, 185, 129, 0.08)' : '#F0FDF4',
+    borderColor: isDark ? 'rgba(38, 115, 77, 0.25)' : '#BFDECB',
+    backgroundColor: isDark ? 'rgba(38, 115, 77, 0.08)' : '#E3F1E8',
     padding: 14,
     gap: 8,
     marginTop: 4,
@@ -2118,7 +2118,7 @@ const getStyles = (theme: PrelimsThemeType) => {
   eliminationTitle: {
     fontSize: 13.5,
     fontWeight: '700',
-    color: '#10B981',
+    color: '#26734D',
   },
   eliminationText: {
     fontSize: 13.5,
@@ -2129,13 +2129,13 @@ const getStyles = (theme: PrelimsThemeType) => {
   eliminationVerdictText: {
     fontSize: 13.5,
     fontWeight: '700',
-    color: '#10B981',
+    color: '#26734D',
     lineHeight: 20,
   },
   trendInsightRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.04)' : '#F8FAFC',
+    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.04)' : '#FAF9F6',
     borderRadius: 8,
     padding: 10,
     gap: 4,
@@ -2156,7 +2156,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: isDark ? '#13151C' : '#FFFFFF',
+    backgroundColor: isDark ? '#151A25' : '#FFFFFF',
     borderTopWidth: 1,
     borderTopColor: theme.colors.borderSubtle,
     paddingHorizontal: 16,
@@ -2169,7 +2169,7 @@ const getStyles = (theme: PrelimsThemeType) => {
   navBtnPrev: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
     paddingVertical: 9,
     paddingHorizontal: 14,
     borderRadius: 8,
@@ -2185,7 +2185,7 @@ const getStyles = (theme: PrelimsThemeType) => {
   navBtnListToggle: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: isDark ? '#191C25' : '#F8FAFC',
+    backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
     borderWidth: 1,
     borderColor: theme.colors.borderSubtle,
     borderRadius: 8,
@@ -2233,7 +2233,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     paddingVertical: 3,
     borderRadius: 6,
     borderWidth: 1.2,
-    borderColor: '#F8FAFC',
+    borderColor: '#FAF9F6',
   },
   statusUnsolvedText: {
     fontSize: 11,
@@ -2261,7 +2261,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     backgroundColor: theme.colors.bgSurface,
     borderRadius: 14,
     borderWidth: 1.5,
-    borderColor: '#F8FAFC',
+    borderColor: '#FAF9F6',
     padding: 10,
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 8 },
@@ -2328,7 +2328,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     color: theme.colors.textMuted,
   },
   calendarAllYearsSubActive: {
-    color: '#475569',
+    color: '#4A5568',
   },
   calendarScroll: {
     maxHeight: 210,
@@ -2370,7 +2370,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     marginTop: 2,
   },
   calendarYearTileCountActive: {
-    color: '#475569',
+    color: '#4A5568',
   },
   diffDropdownPopover: {
     position: 'absolute',
@@ -2380,7 +2380,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     backgroundColor: theme.colors.bgSurface,
     borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: '#F8FAFC',
+    borderColor: '#FAF9F6',
     padding: 8,
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 6 },
@@ -2490,7 +2490,7 @@ const getStyles = (theme: PrelimsThemeType) => {
       width: 52,
       height: 52,
       borderRadius: 26,
-      backgroundColor: isDark ? 'rgba(245, 158, 11, 0.15)' : '#FEF3C7',
+      backgroundColor: isDark ? 'rgba(166, 90, 10, 0.15)' : '#FCEBDD',
       alignItems: 'center',
       justifyContent: 'center',
       marginBottom: 14,
@@ -2533,7 +2533,7 @@ const getStyles = (theme: PrelimsThemeType) => {
       flex: 1,
       paddingVertical: 12,
       borderRadius: 10,
-      backgroundColor: '#EF4444',
+      backgroundColor: '#B42318',
       alignItems: 'center',
       justifyContent: 'center',
     },

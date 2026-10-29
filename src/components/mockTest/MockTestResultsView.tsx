@@ -111,7 +111,7 @@ export function MockTestResultsView({
             <Text style={[styles.heroSubTitle, { color: theme.textMuted }]}>TEST COMPLETED</Text>
             <Text style={[styles.heroTitle, { color: theme.textPrimary }]}>{test.test_title}</Text>
           </View>
-          <View style={[styles.scoreBadge, { backgroundColor: isDark ? '#1C263D' : '#FFE8D6' }]}>
+          <View style={[styles.scoreBadge, { backgroundColor: isDark ? '#1E2535' : '#F2C9A3' }]}>
             <Award size={22} color={theme.textPrimary} />
           </View>
         </View>
@@ -123,7 +123,7 @@ export function MockTestResultsView({
             <Text style={[styles.scoreTotal, { color: theme.textSecondary }]}>/ {test.total_marks} Marks</Text>
           </View>
           <View style={styles.accuracyBox}>
-            <Text style={[styles.accuracyPercent, { color: accuracy >= 60 ? '#10B981' : accuracy >= 40 ? '#F59E0B' : '#EF4444' }]}>
+            <Text style={[styles.accuracyPercent, { color: accuracy >= 60 ? '#26734D' : accuracy >= 40 ? '#A65A0A' : '#B42318' }]}>
               {accuracy}%
             </Text>
             <Text style={[styles.accuracyLabel, { color: theme.textMuted }]}>Accuracy</Text>
@@ -133,13 +133,13 @@ export function MockTestResultsView({
         {/* Metrics Bar */}
         <View style={[styles.metricsGrid, { borderTopColor: theme.divider }]}>
           <View style={styles.metricItem}>
-            <View style={[styles.metricDot, { backgroundColor: '#10B981' }]} />
+            <View style={[styles.metricDot, { backgroundColor: '#26734D' }]} />
             <Text style={[styles.metricVal, { color: theme.textPrimary }]}>{test.correct_count}</Text>
             <Text style={[styles.metricLbl, { color: theme.textMuted }]}>Correct</Text>
           </View>
 
           <View style={styles.metricItem}>
-            <View style={[styles.metricDot, { backgroundColor: '#EF4444' }]} />
+            <View style={[styles.metricDot, { backgroundColor: '#B42318' }]} />
             <Text style={[styles.metricVal, { color: theme.textPrimary }]}>{test.incorrect_count}</Text>
             <Text style={[styles.metricLbl, { color: theme.textMuted }]}>Incorrect</Text>
           </View>
@@ -177,7 +177,7 @@ export function MockTestResultsView({
                   <Text style={[styles.subjectMarkText, { color: theme.textPrimary }]}>
                     {stat.marks > 0 ? `+${stat.marks}` : stat.marks} M
                   </Text>
-                  <Text style={[styles.subjectAccuracy, { color: stat.accuracy >= 60 ? '#10B981' : '#F59E0B' }]}>
+                  <Text style={[styles.subjectAccuracy, { color: stat.accuracy >= 60 ? '#26734D' : '#A65A0A' }]}>
                     {stat.accuracy}% acc
                   </Text>
                 </View>
@@ -238,8 +238,8 @@ export function MockTestResultsView({
                 style={[
                   styles.questionCard,
                   {
-                    backgroundColor: isDark ? '#0C0F17' : '#F8FAFC',
-                    borderColor: isCorrect ? '#059669' : userAns ? '#DC2626' : theme.divider,
+                    backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                    borderColor: isCorrect ? '#26734D' : userAns ? '#B42318' : theme.divider,
                   },
                 ]}>
                 {/* Question Header */}
@@ -252,17 +252,17 @@ export function MockTestResultsView({
                   </View>
                   <View style={styles.statusPill}>
                     {isCorrect ? (
-                      <View style={[styles.badgeCorrect, { backgroundColor: 'rgba(16, 185, 129, 0.15)' }]}>
-                        <CheckCircle2 size={13} color="#10B981" />
+                      <View style={[styles.badgeCorrect, { backgroundColor: 'rgba(38, 115, 77, 0.15)' }]}>
+                        <CheckCircle2 size={13} color="#26734D" />
                         <Text style={styles.badgeCorrectText}>Correct (+{test.marks_per_correct})</Text>
                       </View>
                     ) : userAns ? (
-                      <View style={[styles.badgeIncorrect, { backgroundColor: 'rgba(239, 68, 68, 0.15)' }]}>
-                        <XCircle size={13} color="#EF4444" />
+                      <View style={[styles.badgeIncorrect, { backgroundColor: 'rgba(180, 35, 24, 0.15)' }]}>
+                        <XCircle size={13} color="#B42318" />
                         <Text style={styles.badgeIncorrectText}>Incorrect (-{test.negative_marks})</Text>
                       </View>
                     ) : (
-                      <View style={[styles.badgeUnattempted, { backgroundColor: isDark ? '#181E2C' : '#E2E8F0' }]}>
+                      <View style={[styles.badgeUnattempted, { backgroundColor: isDark ? '#1E2535' : '#EAE5DC' }]}>
                         <HelpCircle size={13} color={theme.textMuted} />
                         <Text style={[styles.badgeUnattemptedText, { color: theme.textMuted }]}>Unattempted (0)</Text>
                       </View>
@@ -275,7 +275,7 @@ export function MockTestResultsView({
 
                 {/* Statements if present */}
                 {snap.statements && snap.statements.length > 0 && (
-                  <View style={[styles.statementsBox, { backgroundColor: isDark ? '#121622' : '#FFFFFF', borderColor: theme.divider }]}>
+                  <View style={[styles.statementsBox, { backgroundColor: isDark ? '#151A25' : '#FFFFFF', borderColor: theme.divider }]}>
                     {snap.statements.map((stmt: string, sIdx: number) => (
                       <Text key={sIdx} style={[styles.statementText, { color: theme.textSecondary }]}>
                         {stmt}
@@ -290,18 +290,18 @@ export function MockTestResultsView({
                     const isUserPick = userAns === opt.id.toUpperCase();
                     const isOfficialCorrect = correctAns === opt.id.toUpperCase();
 
-                    let optBg = isDark ? '#121622' : '#FFFFFF';
+                    let optBg = isDark ? '#151A25' : '#FFFFFF';
                     let optBorder = theme.divider;
                     let optTextColor = theme.textPrimary;
 
                     if (isOfficialCorrect) {
-                      optBg = isDark ? '#064E3B' : '#ECFDF5';
-                      optBorder = '#10B981';
-                      optTextColor = isDark ? '#A7F3D0' : '#065F46';
+                      optBg = isDark ? '#16382A' : '#E3F1E8';
+                      optBorder = '#26734D';
+                      optTextColor = isDark ? '#BFDECB' : '#1D5C3D';
                     } else if (isUserPick && !isCorrect) {
-                      optBg = isDark ? '#7F1D1D' : '#FEF2F2';
-                      optBorder = '#EF4444';
-                      optTextColor = isDark ? '#FECACA' : '#991B1B';
+                      optBg = isDark ? '#6E1F18' : '#FBE4E1';
+                      optBorder = '#B42318';
+                      optTextColor = isDark ? '#F3C4BF' : '#6E1F18';
                     }
 
                     return (
@@ -314,7 +314,7 @@ export function MockTestResultsView({
                             borderColor: optBorder,
                           },
                         ]}>
-                        <View style={[styles.optionIdCircle, { backgroundColor: isOfficialCorrect ? '#10B981' : isUserPick ? '#EF4444' : theme.activeBg }]}>
+                        <View style={[styles.optionIdCircle, { backgroundColor: isOfficialCorrect ? '#26734D' : isUserPick ? '#B42318' : theme.activeBg }]}>
                           <Text
                             style={[
                               styles.optionIdText,
@@ -340,7 +340,7 @@ export function MockTestResultsView({
                   <View style={styles.explanationSection}>
                     <Pressable
                       onPress={() => toggleExplanation(q.id)}
-                      style={[styles.explanationToggle, { backgroundColor: isDark ? '#1C2438' : '#EEF4FF' }]}>
+                      style={[styles.explanationToggle, { backgroundColor: isDark ? '#1E2535' : '#E9EDF9' }]}>
                       <BookOpen size={15} color={theme.textPrimary} />
                       <Text style={[styles.explanationToggleText, { color: theme.textPrimary }]}>
                         {isExpanded ? 'Hide Explanation' : 'View Official Solution & Analysis'}
@@ -604,7 +604,7 @@ const styles = StyleSheet.create({
   badgeCorrectText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#10B981',
+    color: '#26734D',
   },
   badgeIncorrect: {
     flexDirection: 'row',
@@ -617,7 +617,7 @@ const styles = StyleSheet.create({
   badgeIncorrectText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#EF4444',
+    color: '#B42318',
   },
   badgeUnattempted: {
     flexDirection: 'row',
@@ -679,13 +679,13 @@ const styles = StyleSheet.create({
   officialAnswerTag: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#10B981',
+    color: '#26734D',
     textTransform: 'uppercase',
   },
   yourPickTag: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#EF4444',
+    color: '#B42318',
     textTransform: 'uppercase',
   },
   explanationSection: {

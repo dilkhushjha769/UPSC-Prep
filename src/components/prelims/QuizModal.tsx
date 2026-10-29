@@ -426,7 +426,7 @@ function QuizModalContent({
           <View style={styles.rulesParamsGrid}>
             {/* 1. Questions */}
             <View style={[styles.paramCard, { backgroundColor: theme.colors.bgSurface, borderColor: theme.colors.borderCard }]}>
-              <HelpCircle size={18} color="#2F80ED" strokeWidth={2.2} />
+              <HelpCircle size={18} color="#B9570A" strokeWidth={2.2} />
               <Text style={[styles.paramValue, { color: theme.colors.textPrimary }]}>
                 {questions.length}
               </Text>
@@ -437,7 +437,7 @@ function QuizModalContent({
 
             {/* 2. Duration */}
             <View style={[styles.paramCard, { backgroundColor: theme.colors.bgSurface, borderColor: theme.colors.borderCard }]}>
-              <Clock size={18} color="#F59E0B" strokeWidth={2.2} />
+              <Clock size={18} color="#A65A0A" strokeWidth={2.2} />
               <Text style={[styles.paramValue, { color: theme.colors.textPrimary }]}>
                 {durationMinutes} Min
               </Text>
@@ -448,8 +448,8 @@ function QuizModalContent({
 
             {/* 3. Marking Scheme */}
             <View style={[styles.paramCard, { backgroundColor: theme.colors.bgSurface, borderColor: theme.colors.borderCard }]}>
-              <Award size={18} color="#35C98A" strokeWidth={2.2} />
-              <Text style={[styles.paramValue, { color: '#35C98A' }]}>
+              <Award size={18} color="#3FA573" strokeWidth={2.2} />
+              <Text style={[styles.paramValue, { color: '#3FA573' }]}>
                 +2.0 / -0.66
               </Text>
               <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>
@@ -459,7 +459,7 @@ function QuizModalContent({
 
             {/* 4. Total Marks */}
             <View style={[styles.paramCard, { backgroundColor: theme.colors.bgSurface, borderColor: theme.colors.borderCard }]}>
-              <Layers size={18} color="#8257E6" strokeWidth={2.2} />
+              <Layers size={18} color="#7C93D1" strokeWidth={2.2} />
               <Text style={[styles.paramValue, { color: theme.colors.textPrimary }]}>
                 {(questions.length * 2).toFixed(1)}
               </Text>
@@ -477,7 +477,7 @@ function QuizModalContent({
 
             {/* Rule 1 */}
             <View style={styles.ruleItemRow}>
-              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1C263D' : '#EEF4FD' }]}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1E2535' : '#FCEBDD' }]}>
                 <Text style={styles.ruleItemNumText}>1</Text>
               </View>
               <View style={styles.ruleItemContent}>
@@ -492,7 +492,7 @@ function QuizModalContent({
 
             {/* Rule 2 */}
             <View style={styles.ruleItemRow}>
-              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1C263D' : '#EEF4FD' }]}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1E2535' : '#FCEBDD' }]}>
                 <Text style={styles.ruleItemNumText}>2</Text>
               </View>
               <View style={styles.ruleItemContent}>
@@ -507,7 +507,7 @@ function QuizModalContent({
 
             {/* Rule 3 */}
             <View style={styles.ruleItemRow}>
-              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1C263D' : '#EEF4FD' }]}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1E2535' : '#FCEBDD' }]}>
                 <Text style={styles.ruleItemNumText}>3</Text>
               </View>
               <View style={styles.ruleItemContent}>
@@ -522,7 +522,7 @@ function QuizModalContent({
 
             {/* Rule 4 */}
             <View style={styles.ruleItemRow}>
-              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1C263D' : '#EEF4FD' }]}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1E2535' : '#FCEBDD' }]}>
                 <Text style={styles.ruleItemNumText}>4</Text>
               </View>
               <View style={styles.ruleItemContent}>
@@ -537,7 +537,7 @@ function QuizModalContent({
 
             {/* Rule 5 */}
             <View style={styles.ruleItemRow}>
-              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1C263D' : '#EEF4FD' }]}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1E2535' : '#FCEBDD' }]}>
                 <Text style={styles.ruleItemNumText}>5</Text>
               </View>
               <View style={styles.ruleItemContent}>
@@ -613,10 +613,10 @@ function QuizModalContent({
                 size={13.5}
                 color={
                   timeLeftSeconds < 120
-                    ? '#EF4444'
+                    ? '#B42318'
                     : theme.isDark
-                    ? '#FFAA70'
-                    : '#FF5500'
+                    ? '#D9822B'
+                    : '#B9570A'
                 }
                 strokeWidth={2.2}
               />
@@ -695,8 +695,8 @@ function QuizModalContent({
                     >
                       <Bookmark
                         size={12}
-                        color={bookmarkedMap[currentQ.id] ? '#F59E0B' : theme.colors.textMuted}
-                        fill={bookmarkedMap[currentQ.id] ? '#F59E0B' : 'none'}
+                        color={bookmarkedMap[currentQ.id] ? '#A65A0A' : theme.colors.textMuted}
+                        fill={bookmarkedMap[currentQ.id] ? '#A65A0A' : 'none'}
                         strokeWidth={2}
                       />
                       <Text
@@ -723,8 +723,8 @@ function QuizModalContent({
                     >
                       <Flag
                         size={12}
-                        color={markedForReview[currentIndex] ? '#FF8A3D' : theme.colors.textMuted}
-                        fill={markedForReview[currentIndex] ? '#FF8A3D' : 'none'}
+                        color={markedForReview[currentIndex] ? '#D9822B' : theme.colors.textMuted}
+                        fill={markedForReview[currentIndex] ? '#D9822B' : 'none'}
                         strokeWidth={2}
                       />
                       <Text
@@ -945,7 +945,7 @@ function QuizModalContent({
             <View style={styles.confirmModalOverlay}>
               <View style={styles.confirmModalCard}>
                 <View style={styles.confirmIconCircle}>
-                  <AlertTriangle size={26} color="#F59E0B" strokeWidth={2.2} />
+                  <AlertTriangle size={26} color="#A65A0A" strokeWidth={2.2} />
                 </View>
 
                 <Text style={styles.confirmModalTitle}>Leave Quiz?</Text>
@@ -967,7 +967,7 @@ function QuizModalContent({
                   </View>
                   <View style={styles.confirmStatDivider} />
                   <View style={styles.confirmStatItem}>
-                    <Text style={[styles.confirmStatNum, { color: theme.isDark ? '#FF8A3D' : '#FF5500' }]}>
+                    <Text style={[styles.confirmStatNum, { color: theme.isDark ? '#D9822B' : '#B9570A' }]}>
                       {formatTime(timeLeftSeconds)}
                     </Text>
                     <Text style={styles.confirmStatLabel}>Time Left</Text>
@@ -1017,14 +1017,14 @@ function QuizModalContent({
 
             <View style={styles.statPillsRow}>
               <View style={[styles.statPill, styles.statPillBorder]}>
-                <Text style={[styles.statPillNum, { color: '#34D399' }]}>
+                <Text style={[styles.statPillNum, { color: '#3FA573' }]}>
                   {result.correct}
                 </Text>
                 <Text style={styles.statPillLabel}>Correct (+{result.correct * 2})</Text>
               </View>
 
               <View style={[styles.statPill, styles.statPillBorder]}>
-                <Text style={[styles.statPillNum, { color: '#F87171' }]}>
+                <Text style={[styles.statPillNum, { color: '#E0675B' }]}>
                   {result.incorrect}
                 </Text>
                 <Text style={styles.statPillLabel}>Wrong (-{(result.incorrect * 0.66).toFixed(2)})</Text>
@@ -1122,7 +1122,7 @@ function QuizModalContent({
                       <Text
                         style={[
                           styles.reviewUserPick,
-                          isRight ? { color: '#34D399' } : { color: '#F87171' },
+                          isRight ? { color: '#3FA573' } : { color: '#E0675B' },
                         ]}
                       >
                         {userPick ? `Option (${userPick})` : 'Not Attempted'}
@@ -1168,15 +1168,15 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
   return StyleSheet.create({
     fullScreenSafeArea: {
       flex: 1,
-      backgroundColor: isDark ? '#1F2024' : '#F8F9FE',
+      backgroundColor: isDark ? '#1C2433' : '#FAF9F6',
     },
     fullScreenContainer: {
       flex: 1,
-      backgroundColor: isDark ? '#1F2024' : '#F8F9FE',
+      backgroundColor: isDark ? '#1C2433' : '#FAF9F6',
     },
     sheetContainer: {
       flex: 1,
-      backgroundColor: isDark ? '#1F2024' : '#F8F9FE',
+      backgroundColor: isDark ? '#1C2433' : '#FAF9F6',
     },
     topBar: {
       position: 'relative',
@@ -1213,17 +1213,17 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       left: 0,
       right: 0,
       height: 2.5,
-      backgroundColor: isDark ? 'rgba(255, 138, 61, 0.22)' : '#FFEDE0',
+      backgroundColor: isDark ? 'rgba(255, 138, 61, 0.22)' : '#FCEBDD',
     },
     topProgressBarFill: {
       height: '100%',
-      backgroundColor: '#FF5500',
+      backgroundColor: '#B9570A',
     },
     closeBtn: {
       width: 34,
       height: 34,
       borderRadius: 8,
-      backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
       borderWidth: 1,
       borderColor: theme.colors.borderCard,
       alignItems: 'center',
@@ -1237,9 +1237,9 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     timerBadge: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: isDark ? 'rgba(255, 106, 19, 0.16)' : '#EEF2FF',
+      backgroundColor: isDark ? 'rgba(255, 106, 19, 0.16)' : '#E9EDF9',
       borderWidth: 1,
-      borderColor: isDark ? 'rgba(255, 138, 61, 0.35)' : '#FFD9BD',
+      borderColor: isDark ? 'rgba(255, 138, 61, 0.35)' : '#F2C9A3',
       paddingHorizontal: isMobile ? 10 : 12,
       paddingVertical: 5,
       borderRadius: 18,
@@ -1247,8 +1247,8 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       gap: 6,
     },
     timerDanger: {
-      backgroundColor: isDark ? 'rgba(239, 68, 68, 0.12)' : '#FEF2F2',
-      borderColor: isDark ? '#DC2626' : '#EF4444',
+      backgroundColor: isDark ? 'rgba(180, 35, 24, 0.12)' : '#FBE4E1',
+      borderColor: isDark ? '#B42318' : '#B42318',
     },
     timerText: {
       fontSize: 13,
@@ -1257,7 +1257,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       letterSpacing: 0.5,
     },
     timerTextDanger: {
-      color: '#EF4444',
+      color: '#B42318',
     },
     mobilePaletteBtn: {
       width: 34,
@@ -1288,7 +1288,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       backgroundColor: isMobile ? 'transparent' : (isDark ? 'rgba(22, 26, 38, 0.7)' : 'rgba(255, 255, 255, 0.75)'),
       borderRadius: isMobile ? 0 : 14,
       borderWidth: isMobile ? 0 : 1,
-      borderColor: isDark ? '#232A3B' : 'rgba(199, 210, 254, 0.6)',
+      borderColor: isDark ? '#262E40' : 'rgba(199, 210, 254, 0.6)',
       display: 'flex',
       flexDirection: 'column',
       overflow: 'hidden',
@@ -1316,7 +1316,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       gap: 8,
     },
     metaYearTag: {
-      backgroundColor: isDark ? '#222838' : '#FFEDE0',
+      backgroundColor: isDark ? '#262E40' : '#FCEBDD',
       paddingHorizontal: 7,
       paddingVertical: 2.5,
       borderRadius: 5,
@@ -1324,10 +1324,10 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     metaYearText: {
       fontSize: 10.5,
       fontWeight: '700',
-      color: '#10B981',
+      color: '#26734D',
     },
     metaMarkingTag: {
-      backgroundColor: isDark ? '#191C25' : '#F1F5F9',
+      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
       paddingHorizontal: 7,
       paddingVertical: 2.5,
       borderRadius: 5,
@@ -1348,7 +1348,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 5,
-      backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
       paddingHorizontal: 9,
       paddingVertical: 5,
       borderRadius: 7,
@@ -1356,8 +1356,8 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       borderColor: theme.colors.borderSubtle,
     },
     bookmarkBtnActive: {
-      backgroundColor: isDark ? '#362312' : '#FEF3C7',
-      borderColor: '#F59E0B',
+      backgroundColor: isDark ? '#2A1D12' : '#FCEBDD',
+      borderColor: '#A65A0A',
     },
     bookmarkBtnText: {
       fontSize: 11,
@@ -1365,14 +1365,14 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       fontWeight: '600',
     },
     bookmarkBtnTextActive: {
-      color: isDark ? '#FCD34D' : '#D97706',
+      color: isDark ? '#D9822B' : '#A65A0A',
       fontWeight: '800',
     },
     markBtn: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 5,
-      backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
       paddingHorizontal: 9,
       paddingVertical: 5,
       borderRadius: 7,
@@ -1380,8 +1380,8 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       borderColor: theme.colors.borderSubtle,
     },
     markBtnActive: {
-      backgroundColor: isDark ? '#261C3D' : '#FFEDE0',
-      borderColor: '#FF8A3D',
+      backgroundColor: isDark ? '#262E40' : '#FCEBDD',
+      borderColor: '#D9822B',
     },
     markBtnText: {
       fontSize: 11,
@@ -1389,7 +1389,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       fontWeight: '600',
     },
     markBtnTextActive: {
-      color: isDark ? '#FFC9A3' : '#FF5500',
+      color: isDark ? '#F2C9A3' : '#B9570A',
       fontWeight: '800',
     },
     questionContainer: {
@@ -1414,26 +1414,26 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       borderRadius: 12,
       borderWidth: 1.5,
       borderColor: theme.colors.borderCard,
-      backgroundColor: isDark ? '#161922' : '#FFFFFF',
+      backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
       gap: 12,
     },
     optionItemSelected: {
-      backgroundColor: isDark ? '#1E2536' : '#FFF5EE',
-      borderColor: isDark ? '#FF8A3D' : '#FF5500',
+      backgroundColor: isDark ? '#1E2535' : '#FCEBDD',
+      borderColor: isDark ? '#D9822B' : '#B9570A',
     },
     keyCircle: {
       width: 28,
       height: 28,
       borderRadius: 14,
-      backgroundColor: isDark ? '#232838' : '#F1F5F9',
+      backgroundColor: isDark ? '#262E40' : '#F0EDE6',
       borderWidth: 1,
       borderColor: theme.colors.borderSubtle,
       alignItems: 'center',
       justifyContent: 'center',
     },
     keyCircleSelected: {
-      backgroundColor: isDark ? '#FF5500' : '#EA4E00',
-      borderColor: isDark ? '#FF8A3D' : '#EA4E00',
+      backgroundColor: isDark ? '#B9570A' : '#B9570A',
+      borderColor: isDark ? '#D9822B' : '#B9570A',
     },
     keyText: {
       fontSize: 12,
@@ -1461,13 +1461,13 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       paddingVertical: isMobile ? 10 : 12,
       borderTopWidth: 1,
       borderTopColor: theme.colors.borderCard,
-      backgroundColor: isDark ? '#181B24' : '#F8FAFC',
+      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
       gap: isMobile ? 8 : 10,
     },
     navPrevBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: isDark ? '#222838' : '#F1F5F9',
+      backgroundColor: isDark ? '#262E40' : '#F0EDE6',
       paddingVertical: 8,
       paddingHorizontal: isMobile ? 10 : 14,
       borderRadius: 8,
@@ -1490,7 +1490,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     clearBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: isDark ? '#222838' : '#F1F5F9',
+      backgroundColor: isDark ? '#262E40' : '#F0EDE6',
       paddingVertical: 6,
       paddingHorizontal: 10,
       borderRadius: 6,
@@ -1525,7 +1525,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     submitBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: '#10B981',
+      backgroundColor: '#26734D',
       paddingVertical: 8,
       paddingHorizontal: isMobile ? 12 : 14,
       borderRadius: 8,
@@ -1626,7 +1626,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     },
     statPill: {
       flex: 1,
-      backgroundColor: isDark ? '#1C202B' : '#F8FAFC',
+      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
       paddingVertical: 10,
       borderRadius: 10,
       alignItems: 'center',
@@ -1718,13 +1718,13 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       borderRadius: 5,
     },
     statusBadgeCorrect: {
-      backgroundColor: isDark ? '#064E3B' : '#ECFDF5',
+      backgroundColor: isDark ? '#16382A' : '#E3F1E8',
     },
     statusBadgeWrong: {
-      backgroundColor: isDark ? '#7F1D1D' : '#FEF2F2',
+      backgroundColor: isDark ? '#6E1F18' : '#FBE4E1',
     },
     statusBadgeSkipped: {
-      backgroundColor: isDark ? '#2D3342' : '#F1F5F9',
+      backgroundColor: isDark ? '#262E40' : '#F0EDE6',
     },
     statusBadgeText: {
       fontSize: 10,
@@ -1732,10 +1732,10 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       letterSpacing: 0.4,
     },
     statusTextCorrect: {
-      color: '#34D399',
+      color: '#3FA573',
     },
     statusTextWrong: {
-      color: '#F87171',
+      color: '#E0675B',
     },
     statusTextSkipped: {
       color: theme.colors.textMuted,
@@ -1750,7 +1750,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       flexDirection: 'row',
       alignItems: 'center',
       flexWrap: 'wrap',
-      backgroundColor: isDark ? '#1A1E29' : '#F8FAFC',
+      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
       padding: 10,
       borderRadius: 8,
       borderWidth: 1,
@@ -1768,14 +1768,14 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     reviewOfficialKey: {
       fontSize: 12,
       fontWeight: '700',
-      color: '#34D399',
+      color: '#3FA573',
     },
     solutionBox: {
-      backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
       padding: 12,
       borderRadius: 8,
       borderLeftWidth: 3,
-      borderLeftColor: '#10B981',
+      borderLeftColor: '#26734D',
       gap: 4,
     },
     solutionTitle: {
@@ -1792,7 +1792,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     },
     solutionTrick: {
       fontSize: 12,
-      color: isDark ? '#FFC9A3' : '#EA4E00',
+      color: isDark ? '#F2C9A3' : '#B9570A',
       fontWeight: '600',
       marginTop: 4,
       lineHeight: 17,
@@ -1835,9 +1835,9 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       width: 52,
       height: 52,
       borderRadius: 26,
-      backgroundColor: isDark ? '#2E1E05' : '#FEF3C7',
+      backgroundColor: isDark ? '#2A1D12' : '#FCEBDD',
       borderWidth: 1,
-      borderColor: isDark ? '#78350F' : '#FDE68A',
+      borderColor: isDark ? '#6B3A08' : '#F2D2A8',
       alignItems: 'center',
       justifyContent: 'center',
       marginBottom: 14,
@@ -1861,7 +1861,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       alignItems: 'center',
       justifyContent: 'space-around',
       width: '100%',
-      backgroundColor: isDark ? '#1C202B' : '#F8FAFC',
+      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
       borderRadius: 10,
       paddingVertical: 10,
       paddingHorizontal: 12,
@@ -1909,9 +1909,9 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     },
     confirmExitBtn: {
       flex: 1,
-      backgroundColor: isDark ? '#2A1517' : '#FEF2F2',
+      backgroundColor: isDark ? '#3D1B18' : '#FBE4E1',
       borderWidth: 1,
-      borderColor: isDark ? '#7F1D1D' : '#FECACA',
+      borderColor: isDark ? '#6E1F18' : '#F3C4BF',
       paddingVertical: 12,
       borderRadius: 10,
       alignItems: 'center',
@@ -1920,7 +1920,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     confirmExitBtnText: {
       fontSize: 13,
       fontWeight: '700',
-      color: '#EF4444',
+      color: '#B42318',
     },
     // Rules & Guidelines Styles
     rulesTopBar: {
@@ -1968,7 +1968,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       marginBottom: 8,
     },
     rulesExamBadge: {
-      backgroundColor: theme.isDark ? '#1C263D' : '#EAF2FF',
+      backgroundColor: theme.isDark ? '#1E2535' : '#FCEBDD',
       paddingHorizontal: 8,
       paddingVertical: 3,
       borderRadius: 6,
@@ -1976,7 +1976,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     rulesExamBadgeText: {
       fontSize: 10.5,
       fontWeight: '800',
-      color: theme.isDark ? '#6FBAFF' : '#006FFD',
+      color: theme.isDark ? '#E8A25E' : '#B9570A',
       letterSpacing: 0.5,
     },
     rulesPaperText: {
@@ -2051,7 +2051,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     ruleItemNumText: {
       fontSize: 11,
       fontWeight: '800',
-      color: '#0D6EFD',
+      color: '#B9570A',
     },
     ruleItemContent: {
       flex: 1,
@@ -2092,7 +2092,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       alignItems: 'center',
       justifyContent: 'center',
       gap: 8,
-      backgroundColor: '#0D6EFD',
+      backgroundColor: '#B9570A',
       paddingVertical: 12,
       borderRadius: 10,
     },

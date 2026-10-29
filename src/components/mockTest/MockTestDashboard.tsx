@@ -88,51 +88,51 @@ export function MockTestDashboard({
   const [isCounting, setIsCounting] = useState<boolean>(false);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
 
-  // Unified theme colors: #006FFD across BOTH light and dark modes
+  // Unified theme colors: #B9570A across BOTH light and dark modes
   const colors = useMemo(() => {
     if (isDark) {
       return {
-        bg: '#1F2024',
-        cardBg: '#2A2C34',
-        cardBorder: '#3E424F',
+        bg: '#1C2433',
+        cardBg: '#262E40',
+        cardBorder: '#333D52',
         textPrimary: '#FFFFFF',
-        textSecondary: '#C5C6CC',
-        textMuted: '#8F9098',
-        primary: '#006FFD',
-        primaryDeep: '#0052CC',
-        primaryTint: 'rgba(0, 111, 253, 0.15)',
-        primaryBorder: '#006FFD',
+        textSecondary: '#C9CFDB',
+        textMuted: '#8892A6',
+        primary: '#B9570A',
+        primaryDeep: '#3D5A99',
+        primaryTint: 'rgba(185, 87, 10, 0.15)',
+        primaryBorder: '#B9570A',
         buttonText: '#FFFFFF',
-        chipBg: '#23252E',
-        chipSelectedBg: '#006FFD',
+        chipBg: '#1E2535',
+        chipSelectedBg: '#B9570A',
         chipSelectedText: '#FFFFFF',
-        metricBoxBg: '#21232B',
-        amberBadge: '#F59E0B',
-        stepBadgeBg: '#006FFD',
+        metricBoxBg: '#1E2535',
+        amberBadge: '#A65A0A',
+        stepBadgeBg: '#B9570A',
         stepBadgeText: '#FFFFFF',
-        eyebrow: '#006FFD',
+        eyebrow: '#B9570A',
       };
     }
     return {
-      bg: '#F8F9FE',
+      bg: '#FAF9F6',
       cardBg: '#FFFFFF',
-      cardBorder: '#E8E9F1',
-      textPrimary: '#1F2024',
-      textSecondary: '#494A50',
-      textMuted: '#71727A',
-      primary: '#006FFD',
-      primaryDeep: '#0052CC',
-      primaryTint: '#EAF2FF',
-      primaryBorder: '#006FFD',
+      cardBorder: '#EAE5DC',
+      textPrimary: '#1C2433',
+      textSecondary: '#333D52',
+      textMuted: '#7A8499',
+      primary: '#B9570A',
+      primaryDeep: '#3D5A99',
+      primaryTint: '#FCEBDD',
+      primaryBorder: '#B9570A',
       buttonText: '#FFFFFF',
-      chipBg: '#F1F3F9',
-      chipSelectedBg: '#006FFD',
+      chipBg: '#E9EDF9',
+      chipSelectedBg: '#B9570A',
       chipSelectedText: '#FFFFFF',
-      metricBoxBg: '#F4F7FC',
-      amberBadge: '#B45309',
-      stepBadgeBg: '#006FFD',
+      metricBoxBg: '#E9EDF9',
+      amberBadge: '#A65A0A',
+      stepBadgeBg: '#B9570A',
       stepBadgeText: '#FFFFFF',
-      eyebrow: '#006FFD',
+      eyebrow: '#B9570A',
     };
   }, [isDark]);
 
@@ -979,8 +979,8 @@ export function MockTestDashboard({
                   {
                     backgroundColor: isStartDisabled
                       ? isDark
-                        ? '#292C36'
-                        : '#D1D5DB'
+                        ? '#262E40'
+                        : '#DDD6CA'
                       : colors.primary,
                     opacity: pressed ? 0.9 : 1,
                   },

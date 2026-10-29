@@ -97,17 +97,17 @@ export function MockTestQuestionPalette({
       </View>
 
       {/* Legend & Stats Summary */}
-      <View style={[styles.legendContainer, { backgroundColor: isDark ? '#0C0F17' : '#F8FAFC' }]}>
+      <View style={[styles.legendContainer, { backgroundColor: isDark ? '#151A25' : '#FAF9F6' }]}>
         <View style={styles.legendItem}>
-          <View style={[styles.legendDot, { backgroundColor: '#10B981' }]} />
+          <View style={[styles.legendDot, { backgroundColor: '#26734D' }]} />
           <Text style={[styles.legendText, { color: theme.textSecondary }]}>Answered ({stats.answered})</Text>
         </View>
         <View style={styles.legendItem}>
-          <View style={[styles.legendDot, { backgroundColor: '#F59E0B' }]} />
+          <View style={[styles.legendDot, { backgroundColor: '#A65A0A' }]} />
           <Text style={[styles.legendText, { color: theme.textSecondary }]}>Marked ({stats.marked})</Text>
         </View>
         <View style={styles.legendItem}>
-          <View style={[styles.legendDot, { backgroundColor: '#FF8A3D' }]} />
+          <View style={[styles.legendDot, { backgroundColor: '#D9822B' }]} />
           <Text style={[styles.legendText, { color: theme.textSecondary }]}>Both ({stats.answeredAndMarked})</Text>
         </View>
         <View style={styles.legendItem}>
@@ -146,19 +146,19 @@ export function MockTestQuestionPalette({
           {filteredQuestions.map(({ q, index, status }) => {
             const isCurrent = index === currentIndex;
 
-            let bgColor = isDark ? '#1C2438' : '#E2E8F0';
-            let textColor = isDark ? '#94A3B8' : '#475569';
+            let bgColor = isDark ? '#1E2535' : '#EAE5DC';
+            let textColor = isDark ? '#7A8499' : '#4A5568';
             let borderColor = 'transparent';
 
             if (status === 'answered') {
-              bgColor = '#065F46';
-              textColor = '#A7F3D0';
+              bgColor = '#1D5C3D';
+              textColor = '#BFDECB';
             } else if (status === 'marked') {
-              bgColor = '#78350F';
-              textColor = '#FDE68A';
+              bgColor = '#6B3A08';
+              textColor = '#F2D2A8';
             } else if (status === 'answered_marked') {
-              bgColor = '#4C1D95';
-              textColor = '#FFD9BD';
+              bgColor = '#3D5A99';
+              textColor = '#F2C9A3';
             }
 
             if (isCurrent) {

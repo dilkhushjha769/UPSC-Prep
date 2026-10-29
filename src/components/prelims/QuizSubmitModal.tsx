@@ -70,28 +70,28 @@ export function QuizSubmitModal({
           {/* 4-Stat Summary Table */}
           <View style={styles.statsSummaryGrid}>
             <View style={[styles.summaryStatItem, styles.statBorderAnswered]}>
-              <Text style={[styles.summaryStatNum, { color: '#10B981' }]}>
+              <Text style={[styles.summaryStatNum, { color: '#26734D' }]}>
                 {answeredCount}
               </Text>
               <Text style={styles.summaryStatLabel}>Answered</Text>
             </View>
 
             <View style={[styles.summaryStatItem, styles.statBorderUnanswered]}>
-              <Text style={[styles.summaryStatNum, { color: '#EF4444' }]}>
+              <Text style={[styles.summaryStatNum, { color: '#B42318' }]}>
                 {unansweredCount}
               </Text>
               <Text style={styles.summaryStatLabel}>Unanswered</Text>
             </View>
 
             <View style={[styles.summaryStatItem, styles.statBorderMarked]}>
-              <Text style={[styles.summaryStatNum, { color: '#FF8A3D' }]}>
+              <Text style={[styles.summaryStatNum, { color: '#D9822B' }]}>
                 {markedCount}
               </Text>
               <Text style={styles.summaryStatLabel}>Marked Review</Text>
             </View>
 
             <View style={[styles.summaryStatItem, styles.statBorderNotVisited]}>
-              <Text style={[styles.summaryStatNum, { color: theme.isDark ? '#E2E8F0' : '#475569' }]}>
+              <Text style={[styles.summaryStatNum, { color: theme.isDark ? '#EAE5DC' : '#4A5568' }]}>
                 {notVisitedCount}
               </Text>
               <Text style={styles.summaryStatLabel}>Not Visited</Text>
@@ -182,7 +182,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     timerPill: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: isDark ? '#1C2230' : '#F1F5F9',
+      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
       paddingVertical: 5,
       paddingHorizontal: 10,
       borderRadius: 6,
@@ -207,20 +207,20 @@ const getStyles = (theme: PrelimsThemeType) => {
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,
-      backgroundColor: isDark ? '#181C26' : '#F8FAFC',
+      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
     },
     statBorderAnswered: {
-      borderColor: isDark ? '#065F46' : '#A7F3D0',
+      borderColor: isDark ? '#1D5C3D' : '#BFDECB',
     },
     statBorderUnanswered: {
-      borderColor: isDark ? '#7F1D1D' : '#FECACA',
+      borderColor: isDark ? '#6E1F18' : '#F3C4BF',
     },
     statBorderMarked: {
-      borderColor: isDark ? '#A63D05' : '#FFD9BD',
+      borderColor: isDark ? '#B9570A' : '#F2C9A3',
     },
     statBorderNotVisited: {
-      borderColor: isDark ? '#475569' : '#CBD5E1',
-      backgroundColor: isDark ? '#1F2937' : '#F1F5F9',
+      borderColor: isDark ? '#4A5568' : '#DDD6CA',
+      backgroundColor: isDark ? '#1C2433' : '#F0EDE6',
     },
     summaryStatNum: {
       fontSize: 18,
@@ -235,15 +235,15 @@ const getStyles = (theme: PrelimsThemeType) => {
       textAlign: 'center',
     },
     warningBox: {
-      backgroundColor: isDark ? '#1F1E28' : '#FFFBEB',
-      borderColor: isDark ? '#4A3B18' : '#FDE68A',
+      backgroundColor: isDark ? '#1E2535' : '#FCEBDD',
+      borderColor: isDark ? '#2A1D12' : '#F2D2A8',
       borderWidth: 1,
       borderRadius: 10,
       padding: 12,
     },
     warningText: {
       fontSize: 12,
-      color: isDark ? '#FDE68A' : '#92400E',
+      color: isDark ? '#F2D2A8' : '#6B3A12',
       lineHeight: 18,
       fontWeight: '500',
     },
@@ -255,7 +255,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     },
     cancelBtn: {
       flex: 1,
-      backgroundColor: isDark ? '#262A36' : '#F1F5F9',
+      backgroundColor: isDark ? '#262E40' : '#F0EDE6',
       paddingVertical: 12,
       borderRadius: 10,
       alignItems: 'center',
@@ -270,7 +270,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     },
     confirmSubmitBtn: {
       flex: 1,
-      backgroundColor: '#10B981',
+      backgroundColor: '#26734D',
       paddingVertical: 12,
       borderRadius: 10,
       alignItems: 'center',

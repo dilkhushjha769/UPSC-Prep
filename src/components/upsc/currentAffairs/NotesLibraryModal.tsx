@@ -215,7 +215,7 @@ export function NotesLibraryModal({
                         <Text style={styles.libraryItemAction}>Tap to view exam breakdown →</Text>
                       </Pressable>
                       <Pressable style={styles.removeSavedBtn} onPress={() => onRemoveSavedItem(id)}>
-                        <Trash2 size={15} color="#EF4444" strokeWidth={2} />
+                        <Trash2 size={15} color="#B42318" strokeWidth={2} />
                       </Pressable>
                     </View>
                   ))}
@@ -249,15 +249,15 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       width: 36,
       height: 36,
       borderRadius: 18,
-      backgroundColor: isDark ? '#2F3036' : '#FFFFFF',
+      backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
+      borderColor: isDark ? '#333D52' : '#EAE5DC',
       alignItems: 'center',
       justifyContent: 'center',
     },
     tabSwitcher: {
       flexDirection: 'row',
-      backgroundColor: isDark ? '#2F3036' : '#F8F9FE',
+      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
       borderRadius: 10,
       padding: 3,
       gap: 4,
@@ -271,7 +271,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       borderRadius: 8,
     },
     tabBtnActive: {
-      backgroundColor: '#006FFD',
+      backgroundColor: '#B9570A',
     },
     tabBtnText: {
       fontSize: 12.5,
@@ -307,7 +307,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: 6,
-      backgroundColor: '#006FFD',
+      backgroundColor: '#B9570A',
       paddingHorizontal: 14,
       paddingVertical: 8,
       borderRadius: 10,
@@ -364,15 +364,15 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       paddingVertical: 8,
       borderRadius: 10,
       borderWidth: 1.5,
-      borderColor: isDark ? '#2897FF' : '#006FFD',
+      borderColor: isDark ? '#D9822B' : '#B9570A',
     },
     cancelBtnText: {
       fontSize: 12.5,
-      color: isDark ? '#6FBAFF' : '#006FFD',
+      color: isDark ? '#E8A25E' : '#B9570A',
       fontWeight: '700',
     },
     saveNoteBtn: {
-      backgroundColor: '#006FFD',
+      backgroundColor: '#B9570A',
       paddingHorizontal: 14,
       paddingVertical: 8,
       borderRadius: 10,

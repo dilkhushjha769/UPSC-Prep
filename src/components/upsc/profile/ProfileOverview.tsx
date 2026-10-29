@@ -97,7 +97,7 @@ export function ProfileOverview({ isDark, onNavigateToTab }: ProfileOverviewProp
                 style={[
                   styles.stageBadge,
                   {
-                    backgroundColor: isDark ? '#232733' : '#F1F5F9',
+                    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
                     borderColor: theme.cardBorder,
                   },
                 ]}>
@@ -122,28 +122,28 @@ export function ProfileOverview({ isDark, onNavigateToTab }: ProfileOverviewProp
 
         {/* Chips for Key Aspirant Details */}
         <View style={[styles.chipsWrap, { borderTopColor: theme.divider }]}>
-          <View style={[styles.chip, { backgroundColor: isDark ? '#141416' : '#F8FAFC', borderColor: theme.cardBorder }]}>
+          <View style={[styles.chip, { backgroundColor: isDark ? '#151A25' : '#FAF9F6', borderColor: theme.cardBorder }]}>
             <Target size={12} color={theme.textPrimary} />
             <Text style={[styles.chipText, { color: theme.textPrimary }]}>
               Target {targetYear} • {diffDays}d left
             </Text>
           </View>
 
-          <View style={[styles.chip, { backgroundColor: isDark ? '#141416' : '#F8FAFC', borderColor: theme.cardBorder }]}>
+          <View style={[styles.chip, { backgroundColor: isDark ? '#151A25' : '#FAF9F6', borderColor: theme.cardBorder }]}>
             <BookOpen size={12} color={theme.textPrimary} />
             <Text style={[styles.chipText, { color: theme.textPrimary }]}>
               {config.optionalSubject || 'Geography'}
             </Text>
           </View>
 
-          <View style={[styles.chip, { backgroundColor: isDark ? '#141416' : '#F8FAFC', borderColor: theme.cardBorder }]}>
+          <View style={[styles.chip, { backgroundColor: isDark ? '#151A25' : '#FAF9F6', borderColor: theme.cardBorder }]}>
             <Globe size={12} color={theme.textPrimary} />
             <Text style={[styles.chipText, { color: theme.textPrimary }]}>
               {config.medium || 'English'}
             </Text>
           </View>
 
-          <View style={[styles.chip, { backgroundColor: isDark ? '#141416' : '#F8FAFC', borderColor: theme.cardBorder }]}>
+          <View style={[styles.chip, { backgroundColor: isDark ? '#151A25' : '#FAF9F6', borderColor: theme.cardBorder }]}>
             <Compass size={12} color={theme.textPrimary} />
             <Text style={[styles.chipText, { color: theme.textPrimary }]}>
               {config.preparationStage || 'Prelims Intensive'}
@@ -183,7 +183,7 @@ export function ProfileOverview({ isDark, onNavigateToTab }: ProfileOverviewProp
               Goal: {goalHrs}h
             </Text>
           </View>
-          <View style={[styles.progressBarTrack, { backgroundColor: isDark ? '#232733' : '#E2E8F0' }]}>
+          <View style={[styles.progressBarTrack, { backgroundColor: isDark ? '#1E2535' : '#EAE5DC' }]}>
             <View
               style={[
                 styles.progressBarFill,
@@ -201,7 +201,7 @@ export function ProfileOverview({ isDark, onNavigateToTab }: ProfileOverviewProp
           style={[
             styles.streakStatsRow,
             {
-              backgroundColor: isDark ? '#0F1014' : '#FAFAFA',
+              backgroundColor: isDark ? '#151A25' : '#FAF9F6',
               borderColor: theme.cardBorder,
             },
           ]}>
@@ -274,7 +274,7 @@ export function ProfileOverview({ isDark, onNavigateToTab }: ProfileOverviewProp
             style={[
               styles.syllabusBigGauge,
               {
-                backgroundColor: isDark ? '#141416' : '#F1F5F9',
+                backgroundColor: isDark ? '#151A25' : '#F0EDE6',
                 borderColor: theme.cardBorder,
               },
             ]}>
@@ -291,7 +291,7 @@ export function ProfileOverview({ isDark, onNavigateToTab }: ProfileOverviewProp
               <Text style={[styles.miniBarTitle, { color: theme.textSecondary }]}>GS 1–4</Text>
               <Text style={[styles.miniBarPercent, { color: theme.textPrimary }]}>71%</Text>
             </View>
-            <View style={[styles.miniBarTrack, { backgroundColor: isDark ? '#232733' : '#E2E8F0' }]}>
+            <View style={[styles.miniBarTrack, { backgroundColor: isDark ? '#1E2535' : '#EAE5DC' }]}>
               <View style={[styles.miniBarFill, { width: '71%', backgroundColor: theme.textPrimary }]} />
             </View>
 
@@ -299,7 +299,7 @@ export function ProfileOverview({ isDark, onNavigateToTab }: ProfileOverviewProp
               <Text style={[styles.miniBarTitle, { color: theme.textSecondary }]}>CSAT</Text>
               <Text style={[styles.miniBarPercent, { color: theme.textPrimary }]}>85%</Text>
             </View>
-            <View style={[styles.miniBarTrack, { backgroundColor: isDark ? '#232733' : '#E2E8F0' }]}>
+            <View style={[styles.miniBarTrack, { backgroundColor: isDark ? '#1E2535' : '#EAE5DC' }]}>
               <View style={[styles.miniBarFill, { width: '85%', backgroundColor: theme.textPrimary }]} />
             </View>
 
@@ -307,7 +307,7 @@ export function ProfileOverview({ isDark, onNavigateToTab }: ProfileOverviewProp
               <Text style={[styles.miniBarTitle, { color: theme.textSecondary }]}>Optional</Text>
               <Text style={[styles.miniBarPercent, { color: theme.textPrimary }]}>55%</Text>
             </View>
-            <View style={[styles.miniBarTrack, { backgroundColor: isDark ? '#232733' : '#E2E8F0' }]}>
+            <View style={[styles.miniBarTrack, { backgroundColor: isDark ? '#1E2535' : '#EAE5DC' }]}>
               <View style={[styles.miniBarFill, { width: '55%', backgroundColor: theme.textPrimary }]} />
             </View>
           </View>
@@ -334,7 +334,7 @@ export function ProfileOverview({ isDark, onNavigateToTab }: ProfileOverviewProp
             style={[
               styles.liveBadge,
               {
-                backgroundColor: isDark ? '#1C2029' : '#F1F5F9',
+                backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
                 borderColor: theme.cardBorder,
               },
             ]}>

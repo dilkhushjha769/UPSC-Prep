@@ -89,8 +89,8 @@ export function MainsAnswerModal({ isDark }: MainsAnswerModalProps) {
               style={[
                 styles.promptBox,
                 {
-                  backgroundColor: isDark ? '#231B2B' : '#FDF2F8',
-                  borderColor: isDark ? '#3D2448' : '#FCE7F3',
+                  backgroundColor: isDark ? '#1E2535' : '#E9EDF9',
+                  borderColor: isDark ? '#262E40' : '#E9EDF9',
                 },
               ]}>
               <View style={styles.promptMeta}>
@@ -127,11 +127,11 @@ export function MainsAnswerModal({ isDark }: MainsAnswerModalProps) {
                     {
                       backgroundColor: checklist[item.id]
                         ? isDark
-                          ? '#1A2E26'
-                          : '#ECFDF5'
+                          ? '#16382A'
+                          : '#E3F1E8'
                         : isDark
-                        ? '#1C1B2A'
-                        : '#FBFBFE',
+                        ? '#1E2535'
+                        : '#FAF9F6',
                       borderColor: checklist[item.id]
                         ? colors.accentEmerald
                         : colors.cardBorderSubtle,
@@ -186,7 +186,7 @@ export function MainsAnswerModal({ isDark }: MainsAnswerModalProps) {
                 style={[
                   styles.textArea,
                   {
-                    backgroundColor: isDark ? '#1C1B2A' : '#F8FAFC',
+                    backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
                     borderColor: colors.cardBorderSubtle,
                     color: colors.textPrimary,
                   },

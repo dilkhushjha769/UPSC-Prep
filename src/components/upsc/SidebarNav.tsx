@@ -136,17 +136,17 @@ export function SidebarNav({
                   style={[
                     styles.streakMiniPill,
                     {
-                      backgroundColor: isDark ? '#261E0A' : '#FEF3C7',
+                      backgroundColor: isDark ? '#2A1D12' : '#FCEBDD',
                       flexDirection: 'row',
                       alignItems: 'center',
                       gap: 3,
                     },
                   ]}>
-                  <Flame size={11} color="#D97706" fill="#FBBF24" />
+                  <Flame size={11} color="#A65A0A" fill="#D9822B" />
                   <Text
                     style={[
                       styles.streakMiniPillText,
-                      { color: isDark ? '#FBBF24' : '#B45309' },
+                      { color: isDark ? '#D9822B' : '#A65A0A' },
                     ]}>
                     {streak.currentStreak}d
                   </Text>
@@ -227,8 +227,8 @@ export function SidebarNav({
             style={[
               styles.editProfileBtn,
               {
-                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0F1F5',
-                borderColor: isDark ? '#383A42' : '#E8E9F1',
+                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6',
+                borderColor: isDark ? '#333D52' : '#EAE5DC',
               },
             ]}
             accessibilityLabel="Edit name and profile photo">
@@ -279,7 +279,7 @@ export function MobileBottomNav({
           backgroundColor: isDark
             ? 'rgba(31, 32, 36, 0.98)'
             : 'rgba(255, 255, 255, 0.98)',
-          borderTopColor: isDark ? '#494A50' : '#E8E9F1',
+          borderTopColor: isDark ? '#333D52' : '#EAE5DC',
           paddingBottom: Math.max(insets.bottom, 6) + 4,
         },
       ]}>
@@ -297,17 +297,17 @@ export function MobileBottomNav({
               style={[
                 styles.mobileIconCapsule,
                 isActive && {
-                  borderColor: '#006FFD',
+                  borderColor: '#B9570A',
                   backgroundColor: isDark
-                    ? 'rgba(0, 111, 253, 0.10)'
-                    : 'rgba(0, 111, 253, 0.06)',
+                    ? 'rgba(185, 87, 10, 0.10)'
+                    : 'rgba(185, 87, 10, 0.06)',
                 },
               ]}>
               <Icon
                 size={19}
                 color={
                   isActive
-                    ? '#006FFD'
+                    ? '#B9570A'
                     : theme.textMuted
                 }
                 strokeWidth={isActive ? 2.2 : 1.8}
@@ -320,7 +320,7 @@ export function MobileBottomNav({
                 styles.mobileNavText,
                 {
                   color: isActive
-                    ? '#006FFD'
+                    ? '#B9570A'
                     : theme.textMuted,
                   fontWeight: isActive ? '700' : '500',
                 },

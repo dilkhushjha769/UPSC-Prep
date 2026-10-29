@@ -38,23 +38,23 @@ export function DailyQuestionGoalTracker({
   const percentage = Math.min(100, Math.round((solved / goal) * 100));
 
   // Color tokens matching the reference capsule design
-  const cardBg = isDark ? '#20232A' : '#FFFFFF';
-  const cardBorder = isDark ? '#2D3039' : '#EEF0F4';
-  const textPrimary = isDark ? '#FFFFFF' : '#111827';
-  const textSecondary = isDark ? '#9CA3AF' : '#6B7280';
-  const textMuted = isDark ? '#6B7280' : '#9CA3AF';
-  const trackBg = isDark ? '#2C2E38' : '#EEF1F6';
+  const cardBg = isDark ? '#1E2535' : '#FFFFFF';
+  const cardBorder = isDark ? '#262E40' : '#E9EDF9';
+  const textPrimary = isDark ? '#FFFFFF' : '#1C2433';
+  const textSecondary = isDark ? '#8892A6' : '#5F6B80';
+  const textMuted = isDark ? '#5F6B80' : '#8892A6';
+  const trackBg = isDark ? '#262E40' : '#E9EDF9';
 
   // Badge icon colors
   const badgeBg = isTargetAchieved
-    ? (isDark ? '#064E3B' : '#D1FAE5')
-    : (isDark ? '#1E2D4A' : '#9EBFF8');
+    ? (isDark ? '#16382A' : '#E3F1E8')
+    : (isDark ? '#262E40' : '#7C93D1');
 
   const badgeIconColor = isTargetAchieved
-    ? (isDark ? '#6EE7B7' : '#065F46')
-    : (isDark ? '#93C5FD' : '#1A2333');
+    ? (isDark ? '#3FA573' : '#1D5C3D')
+    : (isDark ? '#F2C9A3' : '#1E2535');
 
-  const fillBarColor = isTargetAchieved ? '#10B981' : PALETTE.highlight.primary;
+  const fillBarColor = isTargetAchieved ? '#26734D' : PALETTE.highlight.primary;
 
   const handleSaveGoal = async (newGoal: number) => {
     const valid = Math.max(1, Math.min(200, newGoal));
@@ -138,7 +138,7 @@ export function DailyQuestionGoalTracker({
               style={[
                 styles.percentageText,
                 {
-                  color: isTargetAchieved ? '#10B981' : textPrimary,
+                  color: isTargetAchieved ? '#26734D' : textPrimary,
                   fontSize: isMobile ? 19 : 21,
                 },
               ]}>
@@ -196,8 +196,8 @@ export function DailyQuestionGoalTracker({
             style={[
               styles.modalCard,
               {
-                backgroundColor: isDark ? '#20232A' : '#FFFFFF',
-                borderColor: isDark ? '#383A42' : '#E5E7EB',
+                backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
+                borderColor: isDark ? '#333D52' : '#EAE5DC',
               },
             ]}>
             <View style={styles.modalHeaderRow}>
@@ -240,8 +240,8 @@ export function DailyQuestionGoalTracker({
                             borderColor: PALETTE.highlight.primary,
                           }
                         : {
-                            backgroundColor: isDark ? '#282A33' : '#F3F4F6',
-                            borderColor: isDark ? '#3D3F4A' : '#E5E7EB',
+                            backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+                            borderColor: isDark ? '#333D52' : '#EAE5DC',
                           },
                     ]}>
                     <Text
@@ -274,8 +274,8 @@ export function DailyQuestionGoalTracker({
                 style={[
                   styles.customInput,
                   {
-                    backgroundColor: isDark ? '#282A33' : '#F9FAFB',
-                    borderColor: isDark ? '#3D3F4A' : '#D1D5DB',
+                    backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                    borderColor: isDark ? '#333D52' : '#DDD6CA',
                     color: textPrimary,
                   },
                 ]}

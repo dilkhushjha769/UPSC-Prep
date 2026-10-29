@@ -81,43 +81,43 @@ export function EditorialNewsCard({
     const c = categoryLabel.toLowerCase();
     if (c.includes('polity')) {
       return {
-        bg: isDark ? 'rgba(67, 56, 202, 0.22)' : '#EEF2FF',
-        text: isDark ? '#93C5FD' : '#4338CA',
-        border: isDark ? 'rgba(67, 56, 202, 0.4)' : '#E0E7FF',
+        bg: isDark ? 'rgba(67, 56, 202, 0.22)' : '#E9EDF9',
+        text: isDark ? '#F2C9A3' : '#3D5A99',
+        border: isDark ? 'rgba(67, 56, 202, 0.4)' : '#CBD3EB',
       };
     }
     if (c.includes('economy')) {
       return {
-        bg: isDark ? 'rgba(6, 95, 70, 0.22)' : '#ECFDF5',
-        text: isDark ? '#6EE7B7' : '#065F46',
-        border: isDark ? 'rgba(6, 95, 70, 0.4)' : '#D1FAE5',
+        bg: isDark ? 'rgba(6, 95, 70, 0.22)' : '#E3F1E8',
+        text: isDark ? '#3FA573' : '#1D5C3D',
+        border: isDark ? 'rgba(6, 95, 70, 0.4)' : '#E3F1E8',
       };
     }
     if (c.includes('environment')) {
       return {
-        bg: isDark ? 'rgba(146, 64, 14, 0.22)' : '#FEF3C7',
-        text: isDark ? '#FCD34D' : '#92400E',
-        border: isDark ? 'rgba(146, 64, 14, 0.4)' : '#FDE68A',
+        bg: isDark ? 'rgba(146, 64, 14, 0.22)' : '#FCEBDD',
+        text: isDark ? '#D9822B' : '#6B3A12',
+        border: isDark ? 'rgba(146, 64, 14, 0.4)' : '#F2D2A8',
       };
     }
     if (c.includes('science') || c.includes('tech')) {
       return {
-        bg: isDark ? 'rgba(107, 33, 168, 0.22)' : '#F3E8FF',
-        text: isDark ? '#D8B4FE' : '#6B21A8',
-        border: isDark ? 'rgba(107, 33, 168, 0.4)' : '#E9D5FF',
+        bg: isDark ? 'rgba(107, 33, 168, 0.22)' : '#E9EDF9',
+        text: isDark ? '#CBD3EB' : '#3D5A99',
+        border: isDark ? 'rgba(107, 33, 168, 0.4)' : '#CBD3EB',
       };
     }
     if (c.includes('international')) {
       return {
-        bg: isDark ? 'rgba(3, 105, 161, 0.22)' : '#E0F2FE',
-        text: isDark ? '#7DD3FC' : '#0369A1',
-        border: isDark ? 'rgba(3, 105, 161, 0.4)' : '#BAE6FD',
+        bg: isDark ? 'rgba(3, 105, 161, 0.22)' : '#E9EDF9',
+        text: isDark ? '#3FA573' : '#34508F',
+        border: isDark ? 'rgba(3, 105, 161, 0.4)' : '#F2C9A3',
       };
     }
     return {
-      bg: isDark ? '#1F2937' : '#F3F4F6',
-      text: isDark ? '#D1D5DB' : '#374151',
-      border: isDark ? '#374151' : '#E5E7EB',
+      bg: isDark ? '#1C2433' : '#F0EDE6',
+      text: isDark ? '#DDD6CA' : '#333D52',
+      border: isDark ? '#333D52' : '#EAE5DC',
     };
   }, [categoryLabel, isDark]);
 
@@ -241,8 +241,8 @@ export function EditorialNewsCard({
           >
             <Bookmark
               size={17}
-              color={isBookmarked ? '#A84319' : isDark ? '#9CA3AF' : '#4B5563'}
-              fill={isBookmarked ? '#A84319' : 'none'}
+              color={isBookmarked ? '#B9570A' : isDark ? '#8892A6' : '#4A5568'}
+              fill={isBookmarked ? '#B9570A' : 'none'}
               strokeWidth={2}
             />
           </Pressable>
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#EAE5DC',
     paddingHorizontal: 22,
     paddingTop: 20,
     paddingBottom: 20,
@@ -286,8 +286,8 @@ const styles = StyleSheet.create({
     }),
   },
   cardDark: {
-    backgroundColor: '#161B22',
-    borderColor: '#30363D',
+    backgroundColor: '#151A25',
+    borderColor: '#333D52',
   },
   topMetaRow: {
     flexDirection: 'row',
@@ -309,16 +309,16 @@ const styles = StyleSheet.create({
   },
   metaInfoText: {
     fontSize: 13,
-    color: '#6B7280',
+    color: '#5F6B80',
     fontWeight: '500',
   },
   metaInfoTextDark: {
-    color: '#9CA3AF',
+    color: '#8892A6',
   },
   titleText: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#111827',
+    color: '#1C2433',
     lineHeight: 27,
     fontFamily: Platform.select({
       ios: 'Georgia',
@@ -329,7 +329,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   titleTextDark: {
-    color: '#F9FAFB',
+    color: '#FAF9F6',
   },
   whyItMattersContainer: {
     marginBottom: 16,
@@ -337,17 +337,17 @@ const styles = StyleSheet.create({
   whyItMattersBody: {
     fontSize: 14.5,
     lineHeight: 22,
-    color: '#4B5563',
+    color: '#4A5568',
   },
   whyItMattersBodyDark: {
-    color: '#D1D5DB',
+    color: '#DDD6CA',
   },
   whyItMattersLead: {
     fontWeight: '700',
-    color: '#1F2937',
+    color: '#1C2433',
   },
   whyItMattersLeadDark: {
-    color: '#F3F4F6',
+    color: '#F0EDE6',
   },
   footerRow: {
     flexDirection: 'row',
@@ -355,22 +355,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 14,
     borderTopWidth: 1,
-    borderTopColor: '#F3F4F6',
+    borderTopColor: '#F0EDE6',
   },
   usefulForText: {
     fontSize: 13.5,
-    color: '#6B7280',
+    color: '#5F6B80',
     fontWeight: '400',
   },
   usefulForTextDark: {
-    color: '#9CA3AF',
+    color: '#8892A6',
   },
   usefulForHighlight: {
-    color: '#1F2937',
+    color: '#1C2433',
     fontWeight: '600',
   },
   usefulForHighlightDark: {
-    color: '#E5E7EB',
+    color: '#EAE5DC',
   },
   actionsRow: {
     flexDirection: 'row',
@@ -382,21 +382,21 @@ const styles = StyleSheet.create({
     height: 38,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#EAE5DC',
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
   },
   bookmarkBtnDark: {
-    backgroundColor: '#21262D',
-    borderColor: '#30363D',
+    backgroundColor: '#1E2535',
+    borderColor: '#333D52',
   },
   bookmarkBtnActive: {
-    borderColor: '#FDBA74',
-    backgroundColor: '#FFF7ED',
+    borderColor: '#D9822B',
+    backgroundColor: '#FCEBDD',
   },
   readSummaryBtn: {
-    backgroundColor: '#17202A',
+    backgroundColor: '#151A25',
     paddingHorizontal: 16,
     height: 38,
     borderRadius: 8,
@@ -404,7 +404,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   readSummaryBtnDark: {
-    backgroundColor: '#F3F4F6',
+    backgroundColor: '#F0EDE6',
   },
   readSummaryBtnPressed: {
     opacity: 0.85,

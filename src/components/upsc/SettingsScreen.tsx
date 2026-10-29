@@ -57,7 +57,7 @@ function PrimaryToggleSwitch({
         width: 44,
         height: 24,
         borderRadius: 12,
-        backgroundColor: value ? TOGGLE_ACTIVE_COLOR : isDark ? '#2D3039' : '#D1D5DB',
+        backgroundColor: value ? TOGGLE_ACTIVE_COLOR : isDark ? '#262E40' : '#DDD6CA',
         justifyContent: 'center',
         paddingHorizontal: 2,
       }}>
@@ -213,13 +213,13 @@ export function SettingsScreen({
             onPress={onOpenFocusSettings || onOpenNotificationSettings}
             style={[styles.listRow, dividerStyle]}>
             <View style={styles.rowLeftGroup}>
-              <Shield size={16} color="#10B981" strokeWidth={2} />
+              <Shield size={16} color="#26734D" strokeWidth={2} />
               <Text style={[styles.rowLabel, { color: theme.textPrimary }]}>
                 Exam Focus Mode
               </Text>
             </View>
             <View style={styles.rowRightGroup}>
-              <Text style={[styles.rowValue, { color: '#10B981' }]}>
+              <Text style={[styles.rowValue, { color: '#26734D' }]}>
                 Apps & sound
               </Text>
               <ChevronRight size={15} color={theme.textMuted} />
@@ -334,8 +334,8 @@ export function SettingsScreen({
             onPress={handleResetData}
             style={[styles.listRow, dividerStyle]}>
             <View style={styles.rowLeftGroup}>
-              <RotateCcw size={16} color={isDark ? '#F87171' : '#DC2626'} strokeWidth={2} />
-              <Text style={[styles.rowLabel, { color: isDark ? '#F87171' : '#DC2626' }]}>
+              <RotateCcw size={16} color={isDark ? '#E0675B' : '#B42318'} strokeWidth={2} />
+              <Text style={[styles.rowLabel, { color: isDark ? '#E0675B' : '#B42318' }]}>
                 Reset Study Data to Defaults
               </Text>
             </View>

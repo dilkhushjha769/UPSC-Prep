@@ -165,8 +165,8 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
 
           {!isSubmitted ? (
             <View style={styles.timerPill}>
-              <Timer size={13} color={timeLeft < 60 ? '#EF4444' : theme.textPrimary} strokeWidth={2} />
-              <Text style={[styles.timerText, timeLeft < 60 && { color: '#EF4444' }]}>
+              <Timer size={13} color={timeLeft < 60 ? '#B42318' : theme.textPrimary} strokeWidth={2} />
+              <Text style={[styles.timerText, timeLeft < 60 && { color: '#B42318' }]}>
                 {formatTime(timeLeft)}
               </Text>
             </View>
@@ -265,7 +265,7 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
             {/* Scorecard */}
             <View style={styles.scoreCard}>
               <View style={styles.scoreIconCircle}>
-                <Award size={32} color={isDark ? '#FFFFFF' : '#0F172A'} strokeWidth={2} />
+                <Award size={32} color={isDark ? '#FFFFFF' : '#1C2433'} strokeWidth={2} />
               </View>
               <Text style={styles.scoreTitle}>Quiz Completed</Text>
               <Text style={styles.scoreValue}>
@@ -281,7 +281,7 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
                   <Text style={styles.statLabel}>Correct</Text>
                 </View>
                 <View style={styles.statBox}>
-                  <Text style={[styles.statNum, { color: '#EF4444' }]}>{incorrectCount}</Text>
+                  <Text style={[styles.statNum, { color: '#B42318' }]}>{incorrectCount}</Text>
                   <Text style={styles.statLabel}>Incorrect</Text>
                 </View>
                 <View style={styles.statBox}>
@@ -306,7 +306,7 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
                     <View style={styles.reviewStatusBadge}>
                       {isCorrect ? (
                         <View style={styles.correctBadge}>
-                          <CheckCircle2 size={13} color="#10B981" strokeWidth={2.2} />
+                          <CheckCircle2 size={13} color="#26734D" strokeWidth={2.2} />
                           <Text style={styles.correctText}>Correct (+2.0)</Text>
                         </View>
                       ) : isSkipped ? (
@@ -316,7 +316,7 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
                         </View>
                       ) : (
                         <View style={styles.incorrectBadge}>
-                          <XCircle size={13} color="#EF4444" strokeWidth={2.2} />
+                          <XCircle size={13} color="#B42318" strokeWidth={2.2} />
                           <Text style={styles.incorrectText}>Incorrect (-0.66)</Text>
                         </View>
                       )}
@@ -343,8 +343,8 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
                           <Text
                             style={[
                               styles.reviewOptionKey,
-                              isCorrectAnswer && { color: '#10B981' },
-                              isUserPicked && !isCorrectAnswer && { color: '#EF4444' },
+                              isCorrectAnswer && { color: '#26734D' },
+                              isUserPicked && !isCorrectAnswer && { color: '#B42318' },
                             ]}
                           >
                             {opt.key}.
@@ -517,7 +517,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     },
     optionCardSelected: {
       borderColor: theme.textPrimary,
-      backgroundColor: isDark ? '#1C202B' : '#F1F5F9',
+      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
     },
     optionKeyBadge: {
       width: 28,
@@ -595,7 +595,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       color: theme.buttonPrimaryText,
     },
     submitBtn: {
-      backgroundColor: '#10B981',
+      backgroundColor: '#26734D',
       paddingHorizontal: 18,
       paddingVertical: 8,
       borderRadius: 8,
@@ -699,7 +699,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: 4,
-      backgroundColor: isDark ? 'rgba(16, 185, 129, 0.15)' : '#D1FAE5',
+      backgroundColor: isDark ? 'rgba(38, 115, 77, 0.15)' : '#E3F1E8',
       paddingHorizontal: 8,
       paddingVertical: 3,
       borderRadius: 5,
@@ -707,7 +707,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     correctText: {
       fontSize: 10.5,
       fontWeight: '700',
-      color: '#10B981',
+      color: '#26734D',
     },
     skippedBadge: {
       flexDirection: 'row',
@@ -727,7 +727,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: 4,
-      backgroundColor: isDark ? 'rgba(239, 68, 68, 0.15)' : '#FEE2E2',
+      backgroundColor: isDark ? 'rgba(180, 35, 24, 0.15)' : '#FBE4E1',
       paddingHorizontal: 8,
       paddingVertical: 3,
       borderRadius: 5,
@@ -735,7 +735,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     incorrectText: {
       fontSize: 10.5,
       fontWeight: '700',
-      color: '#EF4444',
+      color: '#B42318',
     },
     reviewQText: {
       fontSize: 13.5,
@@ -754,14 +754,14 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       gap: 8,
     },
     reviewOptionCorrect: {
-      backgroundColor: isDark ? 'rgba(16, 185, 129, 0.12)' : '#ECFDF5',
+      backgroundColor: isDark ? 'rgba(38, 115, 77, 0.12)' : '#E3F1E8',
       borderWidth: 1,
-      borderColor: '#10B981',
+      borderColor: '#26734D',
     },
     reviewOptionWrong: {
-      backgroundColor: isDark ? 'rgba(239, 68, 68, 0.12)' : '#FEF2F2',
+      backgroundColor: isDark ? 'rgba(180, 35, 24, 0.12)' : '#FBE4E1',
       borderWidth: 1,
-      borderColor: '#EF4444',
+      borderColor: '#B42318',
     },
     reviewOptionKey: {
       fontSize: 12,
@@ -779,7 +779,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       padding: 12,
       borderRadius: 8,
       borderLeftWidth: 3,
-      borderLeftColor: isDark ? '#FFFFFF' : '#0F172A',
+      borderLeftColor: isDark ? '#FFFFFF' : '#1C2433',
       gap: 6,
       marginTop: 4,
     },

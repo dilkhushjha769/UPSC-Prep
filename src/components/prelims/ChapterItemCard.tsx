@@ -26,7 +26,7 @@ export function ChapterItemCard({
   serialNumber,
   isDark = true,
   solvedCount = 0,
-  subjectColor = '#2F80ED',
+  subjectColor = '#B9570A',
   onPress,
 }: ChapterItemCardProps) {
   const { width: windowWidth } = useWindowDimensions();
@@ -46,19 +46,19 @@ export function ChapterItemCard({
   const percentage = totalQs > 0 ? Math.min(100, Math.round((solvedCount / totalQs) * 100)) : 0;
 
   const colors = {
-    cardBg: isDark ? '#25272D' : '#FFFFFF',
-    cardBorder: isDark ? '#35373F' : '#E8E9F1',
-    serialBg: isDark ? '#2A2C33' : '#F8F9FE',
-    serialBorder: isDark ? '#35373F' : '#E8E9F1',
-    serialText: isDark ? '#A7ABB5' : '#71727A',
-    textPrimary: isDark ? '#F5F5F7' : '#1F2024',
-    textSecondary: isDark ? '#A7ABB5' : '#71727A',
-    progressTrack: isDark ? '#343740' : '#E8E9F1',
-    divider: isDark ? '#30323A' : '#E8E9F1',
-    weightageBg: isDark ? '#2A2C33' : '#F8F9FE',
-    weightageBorder: isDark ? '#35373F' : '#E8E9F1',
-    chevron: isDark ? '#71727A' : '#9CA3AF',
-    pressedBg: isDark ? '#2B2D35' : '#F1F3F9',
+    cardBg: isDark ? '#1E2535' : '#FFFFFF',
+    cardBorder: isDark ? '#333D52' : '#EAE5DC',
+    serialBg: isDark ? '#1E2535' : '#FAF9F6',
+    serialBorder: isDark ? '#333D52' : '#EAE5DC',
+    serialText: isDark ? '#A4ADBF' : '#7A8499',
+    textPrimary: isDark ? '#F2EFE8' : '#1C2433',
+    textSecondary: isDark ? '#A4ADBF' : '#7A8499',
+    progressTrack: isDark ? '#262E40' : '#EAE5DC',
+    divider: isDark ? '#262E40' : '#EAE5DC',
+    weightageBg: isDark ? '#1E2535' : '#FAF9F6',
+    weightageBorder: isDark ? '#333D52' : '#EAE5DC',
+    chevron: isDark ? '#7A8499' : '#8892A6',
+    pressedBg: isDark ? '#262E40' : '#E9EDF9',
   };
 
   if (isMobile) {

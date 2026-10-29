@@ -8,8 +8,8 @@ interface BlueTextureBackgroundProps {
 
 /**
  * Constant, clean base background matching the Figma design system:
- * - Dark mode: Constant #1F2024 (Neutral Dark) with no blue shading or gradients
- * - Light mode: Constant #F8F9FE (Neutral Light Surface)
+ * - Dark mode: Flat navy-charcoal surface (see designTokens.ts) with no shading or gradients
+ * - Light mode: Constant #FAF9F6 (Neutral Light Surface)
  */
 export function BlueTextureBackground({ isDark = false }: BlueTextureBackgroundProps) {
   const bgColor = isDark ? PALETTE.neutral.dark.darkest : PALETTE.neutral.light.surface;

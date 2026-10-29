@@ -14,7 +14,7 @@ export function PrimaryToggle({
   onValueChange,
   isDark = false,
   disabled = false,
-  activeTrackColor = '#006FFD',
+  activeTrackColor = '#B9570A',
 }: PrimaryToggleProps) {
   return (
     <Pressable
@@ -28,8 +28,8 @@ export function PrimaryToggle({
           backgroundColor: value
             ? activeTrackColor
             : isDark
-            ? '#3A3D47'
-            : '#D1D5DB',
+            ? '#333D52'
+            : '#DDD6CA',
           opacity: disabled ? 0.45 : 1,
         },
       ]}>

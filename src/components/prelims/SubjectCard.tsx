@@ -39,7 +39,7 @@ export function SubjectCard({ subject, serialNumber, onPress, isLast }: SubjectC
             <Text
               style={[
                 styles.masteryText,
-                { color: mastery >= 70 ? '#10B981' : '#006FFD' },
+                { color: mastery >= 70 ? '#26734D' : '#B9570A' },
               ]}>
               {mastery}%
             </Text>
@@ -50,7 +50,7 @@ export function SubjectCard({ subject, serialNumber, onPress, isLast }: SubjectC
                 styles.progressFill,
                 {
                   width: `${mastery}%`,
-                  backgroundColor: mastery >= 70 ? '#10B981' : '#006FFD',
+                  backgroundColor: mastery >= 70 ? '#26734D' : '#B9570A',
                 },
               ]}
             />

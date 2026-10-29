@@ -392,10 +392,10 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     modalCard: {
       width: '100%',
       maxWidth: 420,
-      backgroundColor: isDark ? '#141414' : '#FFFFFF',
+      backgroundColor: isDark ? '#151A25' : '#FFFFFF',
       borderRadius: 12,
       borderWidth: 1,
-      borderColor: isDark ? '#2A2A2A' : '#E5E5E5',
+      borderColor: isDark ? '#1E2535' : '#EAE5DC',
       padding: 20,
       shadowColor: '#000000',
       shadowOffset: { width: 0, height: 10 },
@@ -422,7 +422,7 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       width: 34,
       height: 34,
       borderRadius: 8,
-      backgroundColor: isDark ? '#1E1E1E' : '#F5F5F5',
+      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
       justifyContent: 'center',
       alignItems: 'center',
       borderWidth: 1,
@@ -455,7 +455,7 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingVertical: 5,
       paddingHorizontal: 10,
       borderRadius: 6,
-      backgroundColor: isDark ? '#1C1C1C' : '#F0F0F0',
+      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
       borderWidth: 1,
       borderColor: theme.cardBorder,
     },
@@ -479,7 +479,7 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingVertical: 10,
       paddingHorizontal: 6,
       marginBottom: 8,
-      backgroundColor: isDark ? '#181818' : '#FAFAFA',
+      backgroundColor: isDark ? '#151A25' : '#FAF9F6',
       borderRadius: 8,
       borderWidth: 1,
       borderColor: theme.cardBorder,
@@ -487,7 +487,7 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     navArrowBtn: {
       padding: 6,
       borderRadius: 6,
-      backgroundColor: isDark ? '#222222' : '#EEEEEE',
+      backgroundColor: isDark ? '#1E2535' : '#EAE5DC',
     },
     navArrowDisabled: {
       opacity: 0.25,
@@ -558,7 +558,7 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       width: 4,
       height: 4,
       borderRadius: 2,
-      backgroundColor: '#10B981', // subtle green dot for curated
+      backgroundColor: '#26734D', // subtle green dot for curated
       position: 'absolute',
       bottom: 4,
     },
@@ -590,7 +590,7 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       width: 6,
       height: 6,
       borderRadius: 3,
-      backgroundColor: '#10B981',
+      backgroundColor: '#26734D',
     },
     legendDotSelected: {
       width: 6,

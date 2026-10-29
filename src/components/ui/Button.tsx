@@ -9,15 +9,16 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { PALETTE, Typography } from '@/constants/colors';
+import { Typography } from '@/constants/colors';
+import { getTokens } from '@/constants/designTokens';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'tertiary';
+export type ButtonVariant = 'primary' | 'accent' | 'secondary' | 'tertiary';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export interface ButtonProps {
   /** Button title or label text */
   title?: string;
-  /** Visual variant from Figma style guide: primary (solid), secondary (outline), tertiary (text-only) */
+  /** primary (navy), accent (burnt orange, use sparingly), secondary (neutral bordered), tertiary (text-only) */
   variant?: ButtonVariant;
   /** Size variant */
   size?: ButtonSize;
@@ -58,66 +59,38 @@ export function Button({
   textStyle,
   children,
 }: ButtonProps) {
-  // Size-specific paddings & font sizes matching Figma specs
+  const t = getTokens(isDark);
+
+  // Heights: sm 36, md 44, lg 48. Radius 10-12.
   const sizeStyles = {
-    sm: {
-      paddingVertical: 8,
-      paddingHorizontal: 14,
-      borderRadius: 10,
-      fontSize: 12,
-      gap: 6,
-    },
-    md: {
-      paddingVertical: 12,
-      paddingHorizontal: 20,
-      borderRadius: 12,
-      fontSize: 14,
-      gap: 8,
-    },
-    lg: {
-      paddingVertical: 15,
-      paddingHorizontal: 24,
-      borderRadius: 14,
-      fontSize: 16,
-      gap: 10,
-    },
+    sm: { minHeight: 36, paddingHorizontal: 14, borderRadius: 10, fontSize: 13, gap: 6 },
+    md: { minHeight: 44, paddingHorizontal: 20, borderRadius: 12, fontSize: 14, gap: 8 },
+    lg: { minHeight: 48, paddingHorizontal: 24, borderRadius: 12, fontSize: 15, gap: 10 },
   }[size];
 
-  // Variant styling matching the Figma "CONTROL Button" style sheet
+  const inactive = disabled || loading;
   let containerStyle: ViewStyle = {};
-  let textColor = '#FFFFFF';
+  let textColor = t.primaryForeground;
 
-  if (variant === 'primary') {
-    // Primary: Solid blue #006FFD with white text
+  if (variant === 'primary' || variant === 'accent') {
+    const solid = variant === 'primary' ? t.primary : t.accent;
+    const fg = variant === 'primary' ? t.primaryForeground : t.accentForeground;
     containerStyle = {
-      backgroundColor: disabled ? (isDark ? '#3A3D46' : '#C5C6CC') : PALETTE.highlight.primary,
+      backgroundColor: disabled ? t.disabledBackground : solid,
       borderWidth: 0,
     };
-    textColor = '#FFFFFF';
+    textColor = disabled ? t.disabledForeground : fg;
   } else if (variant === 'secondary') {
-    // Secondary: Outline with #006FFD border, transparent background, blue text
     containerStyle = {
-      backgroundColor: 'transparent',
-      borderWidth: 1.5,
-      borderColor: disabled
-        ? (isDark ? '#494A50' : '#D4D6DD')
-        : (isDark ? '#2897FF' : PALETTE.highlight.primary),
+      backgroundColor: disabled ? t.disabledBackground : t.surface,
+      borderWidth: 1,
+      borderColor: t.border,
     };
-    textColor = disabled
-      ? (isDark ? '#71727A' : '#8F9098')
-      : (isDark ? '#6FBAFF' : PALETTE.highlight.primary);
-  } else if (variant === 'tertiary') {
-    // Tertiary: Text-only, no border, transparent background, blue text
-    containerStyle = {
-      backgroundColor: 'transparent',
-      borderWidth: 0,
-      paddingHorizontal: 8,
-    };
-    textColor = disabled
-      ? (isDark ? '#71727A' : '#8F9098')
-      : (isDark ? '#6FBAFF' : PALETTE.highlight.primary);
+    textColor = disabled ? t.disabledForeground : t.foreground;
+  } else {
+    containerStyle = { backgroundColor: 'transparent', borderWidth: 0, paddingHorizontal: 8 };
+    textColor = disabled ? t.disabledForeground : t.foreground;
   }
-
   return (
     <Pressable
       onPress={onPress}
@@ -125,12 +98,12 @@ export function Button({
       style={({ pressed }) => [
         styles.base,
         {
-          paddingVertical: sizeStyles.paddingVertical,
+          minHeight: sizeStyles.minHeight,
           paddingHorizontal: sizeStyles.paddingHorizontal,
           borderRadius: sizeStyles.borderRadius,
           gap: sizeStyles.gap,
           width: fullWidth ? '100%' : 'auto',
-          opacity: pressed ? 0.78 : disabled ? 0.6 : 1,
+          opacity: pressed ? 0.85 : 1,
         },
         containerStyle,
         style,
@@ -176,7 +149,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: Typography.fontFamily,
-    fontWeight: '700',
+    fontWeight: '600',
     textAlign: 'center',
     letterSpacing: -0.1,
   },

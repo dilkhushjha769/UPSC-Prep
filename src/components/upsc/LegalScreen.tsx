@@ -77,7 +77,7 @@ export function LegalScreen({
             styles.segmentButton,
             activeSegment === 'privacy' && [
               styles.segmentActive,
-              { backgroundColor: isDark ? '#FFFFFF' : '#0F172A' },
+              { backgroundColor: isDark ? '#FFFFFF' : '#1C2433' },
             ],
           ]}>
           <Text
@@ -87,7 +87,7 @@ export function LegalScreen({
                 color:
                   activeSegment === 'privacy'
                     ? isDark
-                      ? '#09090B'
+                      ? '#151A25'
                       : '#FFFFFF'
                     : theme.textMuted,
               },
@@ -103,7 +103,7 @@ export function LegalScreen({
             styles.segmentButton,
             activeSegment === 'terms' && [
               styles.segmentActive,
-              { backgroundColor: isDark ? '#FFFFFF' : '#0F172A' },
+              { backgroundColor: isDark ? '#FFFFFF' : '#1C2433' },
             ],
           ]}>
           <Text
@@ -113,7 +113,7 @@ export function LegalScreen({
                 color:
                   activeSegment === 'terms'
                     ? isDark
-                      ? '#09090B'
+                      ? '#151A25'
                       : '#FFFFFF'
                     : theme.textMuted,
               },

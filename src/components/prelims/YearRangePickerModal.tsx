@@ -30,17 +30,17 @@ export function YearRangePickerModal({
   onClose,
 }: YearRangePickerModalProps) {
   const colors = {
-    dialogBg: isDark ? '#25272D' : '#FFFFFF',
-    dialogBorder: isDark ? '#35373F' : '#E8E9F1',
-    headerBorder: isDark ? '#35373F' : '#E8E9F1',
-    iconBg: isDark ? '#2A2C33' : '#F8F9FE',
-    iconBorder: isDark ? '#35373F' : '#E8E9F1',
-    textPrimary: isDark ? '#F5F5F7' : '#1F2024',
-    textSecondary: isDark ? '#A7ABB5' : '#71727A',
-    rowBg: isDark ? '#2A2C33' : '#F8F9FE',
-    rowBorder: isDark ? '#35373F' : '#E8E9F1',
-    chipBg: isDark ? '#2A2C33' : '#F8F9FE',
-    chipBorder: isDark ? '#35373F' : '#E8E9F1',
+    dialogBg: isDark ? '#1E2535' : '#FFFFFF',
+    dialogBorder: isDark ? '#333D52' : '#EAE5DC',
+    headerBorder: isDark ? '#333D52' : '#EAE5DC',
+    iconBg: isDark ? '#1E2535' : '#FAF9F6',
+    iconBorder: isDark ? '#333D52' : '#EAE5DC',
+    textPrimary: isDark ? '#F2EFE8' : '#1C2433',
+    textSecondary: isDark ? '#A4ADBF' : '#7A8499',
+    rowBg: isDark ? '#1E2535' : '#FAF9F6',
+    rowBorder: isDark ? '#333D52' : '#EAE5DC',
+    chipBg: isDark ? '#1E2535' : '#FAF9F6',
+    chipBorder: isDark ? '#333D52' : '#EAE5DC',
   };
   const isGS1 = paper === 'gs1';
   const years = isGS1
@@ -85,7 +85,7 @@ export function YearRangePickerModal({
               onPress={onClose}
               accessibilityLabel="Close year picker"
             >
-              <X size={16} color="#A7ABB5" strokeWidth={2.2} />
+              <X size={16} color="#A4ADBF" strokeWidth={2.2} />
             </Pressable>
           </View>
 
@@ -99,7 +99,7 @@ export function YearRangePickerModal({
                   key={preset.key}
                   style={({ pressed }) => [
                     styles.rowItem,
-                    { backgroundColor: isSelected ? (isDark ? '#152843' : '#EAF2FF') : colors.rowBg, borderColor: isSelected ? '#0D6EFD' : colors.rowBorder },
+                    { backgroundColor: isSelected ? (isDark ? '#262E40' : '#FCEBDD') : colors.rowBg, borderColor: isSelected ? '#B9570A' : colors.rowBorder },
                     pressed && styles.pressed,
                   ]}
                   onPress={() => {
@@ -108,12 +108,12 @@ export function YearRangePickerModal({
                   }}
                 >
                   <View style={styles.rowInfo}>
-                    <Text style={[styles.rowLabel, { color: isSelected ? '#0D6EFD' : colors.textPrimary }]}>
+                    <Text style={[styles.rowLabel, { color: isSelected ? '#B9570A' : colors.textPrimary }]}>
                       {preset.label}
                     </Text>
                     <Text style={[styles.rowSub, { color: colors.textSecondary }]}>{preset.sub}</Text>
                   </View>
-                  {isSelected && <Check size={18} color="#0D6EFD" strokeWidth={2.5} />}
+                  {isSelected && <Check size={18} color="#B9570A" strokeWidth={2.5} />}
                 </Pressable>
               );
             })}
@@ -128,7 +128,7 @@ export function YearRangePickerModal({
                     key={yr}
                     style={({ pressed }) => [
                       styles.yearChip,
-                      { backgroundColor: isSelected ? '#0D6EFD' : colors.chipBg, borderColor: isSelected ? '#0D6EFD' : colors.chipBorder },
+                      { backgroundColor: isSelected ? '#B9570A' : colors.chipBg, borderColor: isSelected ? '#B9570A' : colors.chipBorder },
                       pressed && styles.pressed,
                     ]}
                     onPress={() => {
@@ -162,9 +162,9 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 440,
     maxHeight: '85%',
-    backgroundColor: '#25272D',
+    backgroundColor: '#1E2535',
     borderWidth: 1,
-    borderColor: '#35373F',
+    borderColor: '#333D52',
     borderRadius: 14,
     padding: 18,
     ...Platform.select({
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingBottom: 14,
     borderBottomWidth: 1,
-    borderBottomColor: '#35373F',
+    borderBottomColor: '#333D52',
   },
   headerLeft: {
     flexDirection: 'row',
@@ -189,21 +189,21 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 8,
-    backgroundColor: '#2A2C33',
+    backgroundColor: '#1E2535',
     borderWidth: 1,
-    borderColor: '#35373F',
+    borderColor: '#333D52',
     alignItems: 'center',
     justifyContent: 'center',
   },
   title: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#F5F5F7',
+    color: '#F2EFE8',
     letterSpacing: -0.2,
   },
   subtitle: {
     fontSize: 12,
-    color: '#A7ABB5',
+    color: '#A4ADBF',
     fontWeight: '500',
     marginTop: 1,
   },
@@ -211,9 +211,9 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 8,
-    backgroundColor: '#2A2C33',
+    backgroundColor: '#1E2535',
     borderWidth: 1,
-    borderColor: '#35373F',
+    borderColor: '#333D52',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#A7ABB5',
+    color: '#A4ADBF',
     letterSpacing: 0.8,
     marginBottom: 8,
   },
@@ -237,11 +237,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'transparent',
     marginBottom: 4,
-    backgroundColor: '#202227',
+    backgroundColor: '#1E2535',
   },
   rowItemActive: {
-    backgroundColor: '#1E293B',
-    borderColor: '#0D6EFD',
+    backgroundColor: '#1C2433',
+    borderColor: '#B9570A',
   },
   rowInfo: {
     flex: 1,
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
   rowLabel: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#F5F5F7',
+    color: '#F2EFE8',
   },
   rowLabelActive: {
     color: '#FFFFFF',
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
   },
   rowSub: {
     fontSize: 12,
-    color: '#A7ABB5',
+    color: '#A4ADBF',
     marginTop: 2,
   },
   yearsGrid: {
@@ -272,20 +272,20 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingVertical: 10,
     borderRadius: 8,
-    backgroundColor: '#202227',
+    backgroundColor: '#1E2535',
     borderWidth: 1,
-    borderColor: '#35373F',
+    borderColor: '#333D52',
     alignItems: 'center',
     justifyContent: 'center',
   },
   yearChipActive: {
-    backgroundColor: '#0D6EFD',
-    borderColor: '#0D6EFD',
+    backgroundColor: '#B9570A',
+    borderColor: '#B9570A',
   },
   yearChipText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#F5F5F7',
+    color: '#F2EFE8',
   },
   yearChipTextActive: {
     color: '#FFFFFF',

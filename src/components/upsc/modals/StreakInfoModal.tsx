@@ -37,7 +37,7 @@ export function StreakInfoModal({ isDark }: StreakInfoModalProps) {
       title: 'Current Day Active Streak Preservation',
       desc: 'If you completed yesterday and today is currently in progress, your active streak is fully preserved throughout today until midnight.',
       icon: Flame,
-      color: '#EF4444',
+      color: '#B42318',
     },
     {
       title: 'Longest Streak Never Resets',
@@ -76,7 +76,7 @@ export function StreakInfoModal({ isDark }: StreakInfoModalProps) {
           ]}>
           <View style={styles.header}>
             <View style={styles.headerTitleRow}>
-              <Flame size={18} color="#D97706" fill="#FBBF24" />
+              <Flame size={18} color="#A65A0A" fill="#D9822B" />
               <Text style={[styles.headerTitle, { color: colors.textPrimary }]}>
                 UPSC Streak System Rules
               </Text>
@@ -100,14 +100,14 @@ export function StreakInfoModal({ isDark }: StreakInfoModalProps) {
                     style={[
                       styles.ruleCard,
                       {
-                        backgroundColor: isDark ? '#1C1B2A' : '#FBFBFE',
+                        backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
                         borderColor: colors.cardBorderSubtle,
                       },
                     ]}>
                     <View
                       style={[
                         styles.iconCircle,
-                        { backgroundColor: isDark ? '#262238' : '#FFEDE0' },
+                        { backgroundColor: isDark ? '#262E40' : '#FCEBDD' },
                       ]}>
                       <Icon size={16} color={rule.color} />
                     </View>

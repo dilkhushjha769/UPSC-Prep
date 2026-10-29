@@ -31,7 +31,7 @@ export function PrelimsReadinessCard({ onTrendInsightsPress }: PrelimsReadinessC
           style={({ pressed }) => [styles.infoPill, pressed && styles.pressed]}
           onPress={onTrendInsightsPress}
         >
-          <Ionicons name="analytics-outline" size={14} color="#FF5500" />
+          <Ionicons name="analytics-outline" size={14} color="#B9570A" />
           <Text style={styles.infoPillText}>Decade Trend</Text>
         </Pressable>
       </View>
@@ -41,8 +41,8 @@ export function PrelimsReadinessCard({ onTrendInsightsPress }: PrelimsReadinessC
         <Svg width={size} height={size} style={styles.svg}>
           <Defs>
             <LinearGradient id="purpleGrad" x1="0" y1="0" x2="1" y2="1">
-              <Stop offset="0%" stopColor="#8C65F7" />
-              <Stop offset="100%" stopColor="#EA4E00" />
+              <Stop offset="0%" stopColor="#7C93D1" />
+              <Stop offset="100%" stopColor="#7C93D1" />
             </LinearGradient>
           </Defs>
           {/* Background Track Circle */}
@@ -50,7 +50,7 @@ export function PrelimsReadinessCard({ onTrendInsightsPress }: PrelimsReadinessC
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            stroke="#F0EAFB"
+            stroke="#E9EDF9"
             strokeWidth={strokeWidth}
             fill="none"
             strokeLinecap="round"
@@ -85,9 +85,9 @@ export function PrelimsReadinessCard({ onTrendInsightsPress }: PrelimsReadinessC
       {/* 3 Macro Pills (Matching the exact Protein, Carbs, Fat pills in the reference image!) */}
       <View style={styles.macroPillsRow}>
         {/* Polity Pill */}
-        <View style={[styles.macroPill, { backgroundColor: '#FFF7ED', borderColor: '#FFEDD5' }]}>
+        <View style={[styles.macroPill, { backgroundColor: '#FCEBDD', borderColor: '#F2C9A3' }]}>
           <View style={styles.macroPillHeader}>
-            <View style={[styles.miniDot, { backgroundColor: '#EA580C' }]} />
+            <View style={[styles.miniDot, { backgroundColor: '#B9570A' }]} />
             <Text style={styles.macroPillValue}>78%</Text>
           </View>
           <Text style={styles.macroPillLabel}>Polity</Text>
@@ -95,9 +95,9 @@ export function PrelimsReadinessCard({ onTrendInsightsPress }: PrelimsReadinessC
         </View>
 
         {/* Economy Pill */}
-        <View style={[styles.macroPill, { backgroundColor: '#FFEDE0', borderColor: '#E9D5FF' }]}>
+        <View style={[styles.macroPill, { backgroundColor: '#FCEBDD', borderColor: '#CBD3EB' }]}>
           <View style={styles.macroPillHeader}>
-            <View style={[styles.miniDot, { backgroundColor: '#FF5500' }]} />
+            <View style={[styles.miniDot, { backgroundColor: '#B9570A' }]} />
             <Text style={styles.macroPillValue}>72%</Text>
           </View>
           <Text style={styles.macroPillLabel}>Economy</Text>
@@ -105,9 +105,9 @@ export function PrelimsReadinessCard({ onTrendInsightsPress }: PrelimsReadinessC
         </View>
 
         {/* History Pill */}
-        <View style={[styles.macroPill, { backgroundColor: '#ECFDF5', borderColor: '#A7F3D0' }]}>
+        <View style={[styles.macroPill, { backgroundColor: '#E3F1E8', borderColor: '#BFDECB' }]}>
           <View style={styles.macroPillHeader}>
-            <View style={[styles.miniDot, { backgroundColor: '#059669' }]} />
+            <View style={[styles.miniDot, { backgroundColor: '#26734D' }]} />
             <Text style={styles.macroPillValue}>65%</Text>
           </View>
           <Text style={styles.macroPillLabel}>History</Text>
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: '#FFEDE0',
+    backgroundColor: '#FCEBDD',
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 16,
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   infoPillText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#FF5500',
+    color: '#B9570A',
   },
   gaugeContainer: {
     alignItems: 'center',
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   },
   readinessBadge: {
     marginTop: 6,
-    backgroundColor: '#ECFDF5',
+    backgroundColor: '#E3F1E8',
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 12,
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   readinessBadgeText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#059669',
+    color: '#26734D',
   },
   macroPillsRow: {
     flexDirection: 'row',

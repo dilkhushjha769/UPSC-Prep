@@ -169,17 +169,17 @@ export function SubjectPracticeReviewScreen({
   };
 
   // Color tokens matching the reference design:
-  // Light: Pure white surface (#FFFFFF), crisp border (#EAEDF2), high contrast text (#111827).
-  // Dark: Deep charcoal surface (#12151D), subtle border (rgba(255,255,255,0.08)), crisp text (#FFFFFF).
-  const pageBg = isDark ? '#0A0D14' : '#F8FAFC';
-  const cardBg = isDark ? '#12151D' : '#FFFFFF';
-  const cardBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : '#EAEDF2';
-  const optionNeutralBg = isDark ? '#181C26' : '#FFFFFF';
-  const optionNeutralBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : '#E5E7EB';
-  const dividerColor = isDark ? 'rgba(255, 255, 255, 0.08)' : '#EAEDF2';
-  const textPrimary = isDark ? '#FFFFFF' : '#111827';
-  const textSecondary = isDark ? '#9CA3AF' : '#4B5563';
-  const textMuted = isDark ? '#6B7280' : '#6B7280';
+  // Light: Pure white surface (#FFFFFF), crisp border (#F0EDE6), high contrast text (#1C2433).
+  // Dark: Deep charcoal surface (#151A25), subtle border (rgba(255,255,255,0.08)), crisp text (#FFFFFF).
+  const pageBg = isDark ? '#151A25' : '#FAF9F6';
+  const cardBg = isDark ? '#151A25' : '#FFFFFF';
+  const cardBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6';
+  const optionNeutralBg = isDark ? '#1E2535' : '#FFFFFF';
+  const optionNeutralBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : '#EAE5DC';
+  const dividerColor = isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6';
+  const textPrimary = isDark ? '#FFFFFF' : '#1C2433';
+  const textSecondary = isDark ? '#8892A6' : '#4A5568';
+  const textMuted = isDark ? '#5F6B80' : '#5F6B80';
   const primaryBlue = GLOBAL_PRIMARY_BLUE;
 
   // Aggregate metrics
@@ -243,7 +243,7 @@ export function SubjectPracticeReviewScreen({
               styles.backButton,
               Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
               {
-                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F3F4F6',
+                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F0EDE6',
                 borderColor: cardBorder,
               },
             ]}>
@@ -270,14 +270,14 @@ export function SubjectPracticeReviewScreen({
                 styles.iconActionBtn,
                 Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
-                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F3F4F6',
+                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F0EDE6',
                   borderColor: cardBorder,
                 },
               ]}>
               {isDark ? (
-                <Sun size={15} color="#F59E0B" strokeWidth={2.4} />
+                <Sun size={15} color="#A65A0A" strokeWidth={2.4} />
               ) : (
-                <Moon size={15} color="#6366F1" strokeWidth={2.4} />
+                <Moon size={15} color="#7C93D1" strokeWidth={2.4} />
               )}
             </TouchableOpacity>
           )}
@@ -333,7 +333,7 @@ export function SubjectPracticeReviewScreen({
                           ? primaryBlue
                           : isDark
                           ? 'rgba(255, 255, 255, 0.05)'
-                          : '#F3F4F6',
+                          : '#F0EDE6',
                         borderColor: isActive ? primaryBlue : cardBorder,
                       },
                     ]}>
@@ -415,43 +415,43 @@ export function SubjectPracticeReviewScreen({
                         isCorrect
                           ? {
                               backgroundColor: isDark
-                                ? 'rgba(16, 185, 129, 0.12)'
-                                : '#F0FDF4',
+                                ? 'rgba(38, 115, 77, 0.12)'
+                                : '#E3F1E8',
                               borderColor: isDark
-                                ? 'rgba(16, 185, 129, 0.3)'
-                                : '#BBF7D0',
+                                ? 'rgba(38, 115, 77, 0.3)'
+                                : '#BFDECB',
                             }
                           : isIncorrect
                           ? {
                               backgroundColor: isDark
-                                ? 'rgba(239, 68, 68, 0.12)'
-                                : '#FEF2F2',
+                                ? 'rgba(180, 35, 24, 0.12)'
+                                : '#FBE4E1',
                               borderColor: isDark
-                                ? 'rgba(239, 68, 68, 0.3)'
-                                : '#FECACA',
+                                ? 'rgba(180, 35, 24, 0.3)'
+                                : '#F3C4BF',
                             }
                           : {
                               backgroundColor: isDark
                                 ? 'rgba(255, 255, 255, 0.06)'
-                                : '#F3F4F6',
+                                : '#F0EDE6',
                               borderColor: isDark
                                 ? 'rgba(255, 255, 255, 0.1)'
-                                : '#E5E7EB',
+                                : '#EAE5DC',
                             },
                       ]}>
                       {isCorrect ? (
-                        <CheckCircle2 size={12} color="#10B981" strokeWidth={2.4} />
+                        <CheckCircle2 size={12} color="#26734D" strokeWidth={2.4} />
                       ) : isIncorrect ? (
-                        <XCircle size={12} color="#EF4444" strokeWidth={2.4} />
+                        <XCircle size={12} color="#B42318" strokeWidth={2.4} />
                       ) : null}
                       <Text
                         style={[
                           styles.answerStatusBadgeText,
                           {
                             color: isCorrect
-                              ? '#10B981'
+                              ? '#26734D'
                               : isIncorrect
-                              ? '#EF4444'
+                              ? '#B42318'
                               : textMuted,
                           },
                         ]}>
@@ -496,23 +496,23 @@ export function SubjectPracticeReviewScreen({
 
                       let rowBg = optionNeutralBg;
                       let rowBorder = optionNeutralBorder;
-                      let markerBg = isDark ? 'rgba(255, 255, 255, 0.08)' : '#F3F4F6';
-                      let markerText = isDark ? '#9CA3AF' : '#4B5563';
+                      let markerBg = isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6';
+                      let markerText = isDark ? '#8892A6' : '#4A5568';
                       let showCorrectLabel = false;
                       let showIncorrectLabel = false;
 
                       if (isOptionCorrect) {
                         // Correct Answer Style (matches reference image Option B)
-                        rowBg = isDark ? 'rgba(16, 185, 129, 0.08)' : '#F0FDF4';
-                        rowBorder = isDark ? 'rgba(16, 185, 129, 0.45)' : '#86EFAC';
-                        markerBg = '#10B981';
+                        rowBg = isDark ? 'rgba(38, 115, 77, 0.08)' : '#E3F1E8';
+                        rowBorder = isDark ? 'rgba(38, 115, 77, 0.45)' : '#3FA573';
+                        markerBg = '#26734D';
                         markerText = '#FFFFFF';
                         showCorrectLabel = true;
                       } else if (isUserSelected && !isOptionCorrect) {
                         // User's Incorrect Choice
-                        rowBg = isDark ? 'rgba(239, 68, 68, 0.08)' : '#FEF2F2';
-                        rowBorder = isDark ? 'rgba(239, 68, 68, 0.45)' : '#FECACA';
-                        markerBg = '#EF4444';
+                        rowBg = isDark ? 'rgba(180, 35, 24, 0.08)' : '#FBE4E1';
+                        rowBorder = isDark ? 'rgba(180, 35, 24, 0.45)' : '#F3C4BF';
+                        markerBg = '#B42318';
                         markerText = '#FFFFFF';
                         showIncorrectLabel = true;
                       }
@@ -553,7 +553,7 @@ export function SubjectPracticeReviewScreen({
                             {/* Correct Answer Label */}
                             {showCorrectLabel && (
                               <View style={styles.optionSubStatusRow}>
-                                <CheckCircle2 size={13} color="#10B981" strokeWidth={2.4} />
+                                <CheckCircle2 size={13} color="#26734D" strokeWidth={2.4} />
                                 <Text style={styles.correctAnswerLabelText}>
                                   Correct answer
                                 </Text>
@@ -563,7 +563,7 @@ export function SubjectPracticeReviewScreen({
                             {/* User's Incorrect Selection Label */}
                             {showIncorrectLabel && (
                               <View style={styles.optionSubStatusRow}>
-                                <XCircle size={13} color="#EF4444" strokeWidth={2.4} />
+                                <XCircle size={13} color="#B42318" strokeWidth={2.4} />
                                 <Text style={styles.incorrectAnswerLabelText}>
                                   Your answer
                                 </Text>
@@ -589,8 +589,8 @@ export function SubjectPracticeReviewScreen({
                         accessibilityLabel="Bookmark Question">
                         <Bookmark
                           size={16}
-                          color={bookmarkedIds[q.id] ? '#10B981' : textMuted}
-                          fill={bookmarkedIds[q.id] ? '#10B981' : 'transparent'}
+                          color={bookmarkedIds[q.id] ? '#26734D' : textMuted}
+                          fill={bookmarkedIds[q.id] ? '#26734D' : 'transparent'}
                           strokeWidth={2}
                         />
                       </TouchableOpacity>
@@ -608,7 +608,7 @@ export function SubjectPracticeReviewScreen({
                                 {
                                   backgroundColor: isDark
                                     ? 'rgba(255, 255, 255, 0.08)'
-                                    : '#F3F4F6',
+                                    : '#F0EDE6',
                                 },
                               ]}>
                               <Text style={[styles.stepBadgeText, { color: textPrimary }]}>
@@ -640,19 +640,19 @@ export function SubjectPracticeReviewScreen({
                         styles.conclusionBox,
                         {
                           backgroundColor: isDark
-                            ? 'rgba(16, 185, 129, 0.1)'
-                            : '#F0FDF4',
+                            ? 'rgba(38, 115, 77, 0.1)'
+                            : '#E3F1E8',
                           borderColor: isDark
-                            ? 'rgba(16, 185, 129, 0.25)'
-                            : '#BBF7D0',
+                            ? 'rgba(38, 115, 77, 0.25)'
+                            : '#BFDECB',
                         },
                       ]}>
                       <View style={styles.conclusionTopRow}>
-                        <Lightbulb size={18} color="#10B981" strokeWidth={2.4} />
+                        <Lightbulb size={18} color="#26734D" strokeWidth={2.4} />
                         <Text
                           style={[
                             styles.conclusionTitleText,
-                            { color: isDark ? '#34D399' : '#059669' },
+                            { color: isDark ? '#3FA573' : '#26734D' },
                           ]}>
                           Conclusion
                         </Text>
@@ -949,12 +949,12 @@ const styles = StyleSheet.create({
   correctAnswerLabelText: {
     fontSize: 11.5,
     fontWeight: '700',
-    color: '#10B981',
+    color: '#26734D',
   },
   incorrectAnswerLabelText: {
     fontSize: 11.5,
     fontWeight: '700',
-    color: '#EF4444',
+    color: '#B42318',
   },
   // Explanation Section
   explanationSection: {
@@ -1035,7 +1035,7 @@ const styles = StyleSheet.create({
   finalHighlightText: {
     fontSize: 13.5,
     fontWeight: '700',
-    color: '#10B981',
+    color: '#26734D',
     marginTop: 2,
   },
   // Quiet Footer Row

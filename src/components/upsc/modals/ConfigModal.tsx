@@ -84,7 +84,7 @@ export function ConfigModal({ isDark }: ConfigModalProps) {
               style={[
                 styles.input,
                 {
-                  backgroundColor: isDark ? '#1C1B2A' : '#F8FAFC',
+                  backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },
@@ -103,7 +103,7 @@ export function ConfigModal({ isDark }: ConfigModalProps) {
               style={[
                 styles.input,
                 {
-                  backgroundColor: isDark ? '#1C1B2A' : '#F8FAFC',
+                  backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },
@@ -122,7 +122,7 @@ export function ConfigModal({ isDark }: ConfigModalProps) {
               style={[
                 styles.input,
                 {
-                  backgroundColor: isDark ? '#1C1B2A' : '#F8FAFC',
+                  backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },
@@ -142,7 +142,7 @@ export function ConfigModal({ isDark }: ConfigModalProps) {
               style={[
                 styles.input,
                 {
-                  backgroundColor: isDark ? '#1C1B2A' : '#F8FAFC',
+                  backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },
@@ -162,7 +162,7 @@ export function ConfigModal({ isDark }: ConfigModalProps) {
               style={[
                 styles.input,
                 {
-                  backgroundColor: isDark ? '#1C1B2A' : '#F8FAFC',
+                  backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },

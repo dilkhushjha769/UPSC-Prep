@@ -41,17 +41,17 @@ export function SubjectProgressRow({
   onPress,
 }: SubjectProgressRowProps) {
   const colors = {
-    cardBg: isDark ? '#25272D' : '#FFFFFF',
-    cardBorder: isDark ? '#35373F' : '#E8E9F1',
-    serialBg: isDark ? '#2A2C33' : '#F8F9FE',
-    serialBorder: isDark ? '#35373F' : '#E8E9F1',
-    serialText: isDark ? '#A7ABB5' : '#71727A',
-    textPrimary: isDark ? '#F5F5F7' : '#1F2024',
-    textSecondary: isDark ? '#A7ABB5' : '#71727A',
-    progressTrack: isDark ? '#343740' : '#E8E9F1',
-    divider: isDark ? '#30323A' : '#E8E9F1',
-    chevron: isDark ? '#71727A' : '#9CA3AF',
-    pressedBg: isDark ? '#2B2D35' : '#F1F3F9',
+    cardBg: isDark ? '#1E2535' : '#FFFFFF',
+    cardBorder: isDark ? '#333D52' : '#EAE5DC',
+    serialBg: isDark ? '#1E2535' : '#FAF9F6',
+    serialBorder: isDark ? '#333D52' : '#EAE5DC',
+    serialText: isDark ? '#A4ADBF' : '#7A8499',
+    textPrimary: isDark ? '#F2EFE8' : '#1C2433',
+    textSecondary: isDark ? '#A4ADBF' : '#7A8499',
+    progressTrack: isDark ? '#262E40' : '#EAE5DC',
+    divider: isDark ? '#262E40' : '#EAE5DC',
+    chevron: isDark ? '#7A8499' : '#8892A6',
+    pressedBg: isDark ? '#262E40' : '#E9EDF9',
   };
   const { width: windowWidth } = useWindowDimensions();
   const [containerWidth, setContainerWidth] = useState<number>(0);
@@ -74,36 +74,36 @@ export function SubjectProgressRow({
     switch (subject.id) {
       // GS1 Subjects
       case 'history_culture':
-        return { icon: Landmark, color: '#E06A62', bg: '#E06A62' };
+        return { icon: Landmark, color: '#E0675B', bg: '#E0675B' };
       case 'geography':
-        return { icon: Globe, color: '#2F80ED', bg: '#2F80ED' };
+        return { icon: Globe, color: '#B9570A', bg: '#B9570A' };
       case 'polity_governance':
-        return { icon: Scale, color: '#9B51E0', bg: '#9B51E0' };
+        return { icon: Scale, color: '#5B6B99', bg: '#5B6B99' };
       case 'economy':
-        return { icon: ChartNoAxesCombined, color: '#F2994A', bg: '#F2994A' };
+        return { icon: ChartNoAxesCombined, color: '#D9822B', bg: '#D9822B' };
       case 'environment_ecology':
-        return { icon: Leaf, color: '#35C98A', bg: '#35C98A' };
+        return { icon: Leaf, color: '#3FA573', bg: '#3FA573' };
       case 'science_tech':
       case 'science_technology':
-        return { icon: FlaskConical, color: '#2D9CDB', bg: '#2D9CDB' };
+        return { icon: FlaskConical, color: '#3D5A99', bg: '#3D5A99' };
       case 'current_affairs_misc':
-        return { icon: Newspaper, color: '#8257E6', bg: '#8257E6' };
+        return { icon: Newspaper, color: '#7C93D1', bg: '#7C93D1' };
 
       // CSAT Subjects
       case 'csat_reading_comprehension':
       case 'csat_reading_comp':
-        return { icon: BookOpen, color: '#2F80ED', bg: '#2F80ED' };
+        return { icon: BookOpen, color: '#B9570A', bg: '#B9570A' };
       case 'csat_reasoning':
       case 'csat_logical_reasoning':
-        return { icon: Scale, color: '#9B51E0', bg: '#9B51E0' };
+        return { icon: Scale, color: '#5B6B99', bg: '#5B6B99' };
       case 'csat_quant_numeracy':
       case 'csat_quantitative_aptitude':
-        return { icon: ChartNoAxesCombined, color: '#F2994A', bg: '#F2994A' };
+        return { icon: ChartNoAxesCombined, color: '#D9822B', bg: '#D9822B' };
       case 'csat_data_interpretation':
-        return { icon: Layers, color: '#35C98A', bg: '#35C98A' };
+        return { icon: Layers, color: '#3FA573', bg: '#3FA573' };
 
       default:
-        return { icon: BookOpen, color: '#2F80ED', bg: '#2F80ED' };
+        return { icon: BookOpen, color: '#B9570A', bg: '#B9570A' };
     }
   }, [subject.id]);
 
@@ -243,9 +243,9 @@ const styles = StyleSheet.create({
   cardRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#25272D',
+    backgroundColor: '#1E2535',
     borderWidth: 1,
-    borderColor: '#35373F',
+    borderColor: '#333D52',
     borderRadius: 12,
     paddingVertical: 14,
     paddingHorizontal: 16,
@@ -253,9 +253,9 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   cardRowMobile: {
-    backgroundColor: '#25272D',
+    backgroundColor: '#1E2535',
     borderWidth: 1,
-    borderColor: '#35373F',
+    borderColor: '#333D52',
     borderRadius: 12,
     padding: 14,
     marginBottom: 10,
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 8,
     borderTopWidth: 1,
-    borderTopColor: '#30323A',
+    borderTopColor: '#262E40',
     gap: 12,
   },
   mobileProgressGroup: {
@@ -288,16 +288,16 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 8,
-    backgroundColor: '#2A2C33',
+    backgroundColor: '#1E2535',
     borderWidth: 1,
-    borderColor: '#35373F',
+    borderColor: '#333D52',
     alignItems: 'center',
     justifyContent: 'center',
   },
   serialText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#A7ABB5',
+    color: '#A4ADBF',
     letterSpacing: -0.2,
   },
   iconTile: {
@@ -314,13 +314,13 @@ const styles = StyleSheet.create({
   subjectTitle: {
     fontSize: 15,
     fontWeight: '700',
-    color: '#F5F5F7',
+    color: '#F2EFE8',
     letterSpacing: -0.2,
     marginBottom: 2,
   },
   subjectSubtitle: {
     fontSize: 12,
-    color: '#A7ABB5',
+    color: '#A4ADBF',
     fontWeight: '500',
   },
   progressSection: {
@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 7,
     borderRadius: 4,
-    backgroundColor: '#343740',
+    backgroundColor: '#262E40',
     overflow: 'hidden',
   },
   progressFill: {
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
   percentText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#F5F5F7',
+    color: '#F2EFE8',
     minWidth: 36,
     textAlign: 'right',
   },
@@ -358,13 +358,13 @@ const styles = StyleSheet.create({
   solvedRatio: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#F5F5F7',
+    color: '#F2EFE8',
     letterSpacing: -0.2,
   },
   solvedLabel: {
     fontSize: 11,
     fontWeight: '500',
-    color: '#A7ABB5',
+    color: '#A4ADBF',
   },
   solvedGroup: {
     flexDirection: 'row',
@@ -376,10 +376,10 @@ const styles = StyleSheet.create({
   },
   solvedCount: {
     fontWeight: '700',
-    color: '#F5F5F7',
+    color: '#F2EFE8',
   },
   solvedTotal: {
-    color: '#A7ABB5',
+    color: '#A4ADBF',
     fontWeight: '500',
   },
   chevronBox: {
@@ -390,7 +390,7 @@ const styles = StyleSheet.create({
   },
   pressed: {
     opacity: 0.88,
-    backgroundColor: '#2B2D35',
+    backgroundColor: '#262E40',
   },
 });
 

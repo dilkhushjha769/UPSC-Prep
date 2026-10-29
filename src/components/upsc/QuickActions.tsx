@@ -47,8 +47,8 @@ export function QuickActions({ isDark }: QuickActionsProps) {
       title: 'Add Study Task',
       subtitle: 'Schedule target',
       icon: PlusCircle,
-      color: '#FF5500',
-      bgColor: isDark ? '#1C203A' : '#EEF2FF',
+      color: '#B9570A',
+      bgColor: isDark ? '#1E2535' : '#E9EDF9',
       onPress: () => setIsAddTaskModalOpen(true),
     },
     {
@@ -57,7 +57,7 @@ export function QuickActions({ isDark }: QuickActionsProps) {
       subtitle: 'Prelims quiz',
       icon: FileQuestion,
       color: colors.accentEmerald,
-      bgColor: isDark ? '#162822' : '#ECFDF5',
+      bgColor: isDark ? '#16382A' : '#E3F1E8',
       onPress: () => setIsMCQModalOpen(true),
     },
     {
@@ -66,7 +66,7 @@ export function QuickActions({ isDark }: QuickActionsProps) {
       subtitle: 'Editorial note',
       icon: Newspaper,
       color: colors.accentSky,
-      bgColor: isDark ? '#132838' : '#F0F9FF',
+      bgColor: isDark ? '#1E2535' : '#E9EDF9',
       onPress: () => recordArticleRead(),
     },
     {
@@ -75,7 +75,7 @@ export function QuickActions({ isDark }: QuickActionsProps) {
       subtitle: 'Draft 150w prompt',
       icon: PenLine,
       color: colors.accentPink,
-      bgColor: isDark ? '#2E1928' : '#FDF2F8',
+      bgColor: isDark ? '#1E2535' : '#E9EDF9',
       onPress: () => setIsMainsModalOpen(true),
     },
     {
@@ -84,7 +84,7 @@ export function QuickActions({ isDark }: QuickActionsProps) {
       subtitle: 'View past logs',
       icon: History,
       color: colors.accentAmber,
-      bgColor: isDark ? '#2D2517' : '#FFFBEB',
+      bgColor: isDark ? '#2A1D12' : '#FCEBDD',
       onPress: () => setIsHistoryModalOpen(true),
     },
   ];

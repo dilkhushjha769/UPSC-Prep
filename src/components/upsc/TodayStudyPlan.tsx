@@ -106,14 +106,14 @@ export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
             const subjectStyle =
               (task.subject && SUBJECT_COLORS[task.subject]) || SUBJECT_COLORS.Polity;
 
-            let priorityBg = isDark ? '#1A2130' : '#F1F5F9';
+            let priorityBg = isDark ? '#1E2535' : '#F0EDE6';
             let priorityText = colors.textSecondary;
             if (task.priority === 'High') {
-              priorityBg = isDark ? '#3D1E24' : '#FEE2E2';
-              priorityText = '#DC2626';
+              priorityBg = isDark ? '#3D1B18' : '#FBE4E1';
+              priorityText = '#B42318';
             } else if (task.priority === 'Medium') {
-              priorityBg = isDark ? '#3A2E1A' : '#FEF3C7';
-              priorityText = '#D97706';
+              priorityBg = isDark ? '#2A1D12' : '#FCEBDD';
+              priorityText = '#A65A0A';
             }
 
             return (
@@ -122,11 +122,11 @@ export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
                 style={[
                   styles.taskItem,
                   {
-                    backgroundColor: isDark ? '#1C1B2B' : '#FBFBFE',
+                    backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
                     borderColor: task.completed
                       ? isDark
-                        ? '#26332E'
-                        : '#DCFCE7'
+                        ? '#16382A'
+                        : '#E3F1E8'
                       : colors.cardBorderSubtle,
                   },
                 ]}>
@@ -158,7 +158,7 @@ export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
                       style={[
                         styles.subjectBadge,
                         {
-                          backgroundColor: isDark ? '#28233C' : subjectStyle.bg,
+                          backgroundColor: isDark ? '#262E40' : subjectStyle.bg,
                           borderColor: subjectStyle.border,
                         },
                       ]}>
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 20,
     marginBottom: 24,
-    shadowColor: '#FF5500',
+    shadowColor: '#B9570A',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
     shadowRadius: 12,
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 13,
     paddingVertical: 7,
     borderRadius: 14,
-    shadowColor: '#FF5500',
+    shadowColor: '#B9570A',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,

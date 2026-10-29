@@ -22,12 +22,12 @@ interface ExamReadinessCardProps {
 
 /** Prelims: Exam Question Paper with Target Reticle Check */
 function PrelimsIllustration({ isDark }: { isDark: boolean }) {
-  const stroke = isDark ? '#FF8A3D' : '#1F1612';
-  const paperFill = isDark ? '#E85A0C' : '#BAE6FD';
-  const lineStroke = isDark ? '#FFFFFF' : '#1F1612';
-  const targetBg = isDark ? '#1F1612' : '#FFFFFF';
-  const targetBorder = isDark ? '#FF8A3D' : '#1F1612';
-  const targetDot = isDark ? '#FF8A3D' : '#E85A0C';
+  const stroke = isDark ? '#D9822B' : '#2A1D12';
+  const paperFill = isDark ? '#B9570A' : '#F2C9A3';
+  const lineStroke = isDark ? '#FFFFFF' : '#2A1D12';
+  const targetBg = isDark ? '#2A1D12' : '#FFFFFF';
+  const targetBorder = isDark ? '#D9822B' : '#2A1D12';
+  const targetDot = isDark ? '#D9822B' : '#B9570A';
 
   return (
     <Svg width="36" height="36" viewBox="0 0 36 36" fill="none">
@@ -58,9 +58,9 @@ function PrelimsIllustration({ isDark }: { isDark: boolean }) {
 
 /** Mains: Checklist Clipboard with Angled Pen (Exact match to User Reference Image 1) */
 function MainsIllustration({ isDark }: { isDark: boolean }) {
-  const stroke = isDark ? '#FFF8F2' : '#1F1612';
-  const accent = isDark ? '#C084FC' : '#FF6A13';
-  const penBody = isDark ? '#FF8A3D' : '#FFC9A3';
+  const stroke = isDark ? '#FCEBDD' : '#2A1D12';
+  const accent = isDark ? '#7C93D1' : '#B9570A';
+  const penBody = isDark ? '#D9822B' : '#F2C9A3';
 
   return (
     <Svg width="36" height="36" viewBox="0 0 36 36" fill="none">
@@ -122,7 +122,7 @@ function MainsIllustration({ isDark }: { isDark: boolean }) {
         <Line x1="-3.5" y1="-2.5" x2="3.5" y2="-2.5" stroke={stroke} strokeWidth="1.6" />
         <Path
           d="M -2.5 4 L 0 9 L 2.5 4 Z"
-          fill={isDark ? '#FFF8F2' : stroke}
+          fill={isDark ? '#FCEBDD' : stroke}
           stroke={stroke}
           strokeWidth="1.6"
           strokeLinejoin="round"
@@ -134,18 +134,18 @@ function MainsIllustration({ isDark }: { isDark: boolean }) {
 
 /** Mock Tests: Question Paper with Overlapping Stopwatch Timer (Exact match to User Reference Image 2) */
 function MockTestIllustration({ isDark }: { isDark: boolean }) {
-  const paperBg = isDark ? '#1F242F' : '#FBEFE5';
-  const paperBorder = isDark ? '#333D4F' : '#D9C7B8';
-  const foldBg = isDark ? '#2D3545' : '#D9C7B8';
-  const headerFill = isDark ? '#374151' : '#D9C7B8';
-  const textLineFill = isDark ? '#4B5563' : '#D9C7B8';
-  const blueBox = isDark ? '#FF8A3D' : '#E85A0C';
-  const amberBox = isDark ? '#FBBF24' : '#F59E0B';
+  const paperBg = isDark ? '#1E2535' : '#FCEBDD';
+  const paperBorder = isDark ? '#333D52' : '#DDD6CA';
+  const foldBg = isDark ? '#262E40' : '#DDD6CA';
+  const headerFill = isDark ? '#333D52' : '#DDD6CA';
+  const textLineFill = isDark ? '#4A5568' : '#DDD6CA';
+  const blueBox = isDark ? '#D9822B' : '#B9570A';
+  const amberBox = isDark ? '#D9822B' : '#A65A0A';
 
-  const clockBody = isDark ? '#F59E0B' : '#F6C15C';
-  const clockBorder = isDark ? '#FBBF24' : '#D97706';
-  const crownColor = isDark ? '#FBBF24' : '#B45309';
-  const tickColor = isDark ? '#78350F' : '#D97706';
+  const clockBody = isDark ? '#A65A0A' : '#D9822B';
+  const clockBorder = isDark ? '#D9822B' : '#A65A0A';
+  const crownColor = isDark ? '#D9822B' : '#A65A0A';
+  const tickColor = isDark ? '#6B3A08' : '#A65A0A';
   const handColor = '#FFFFFF';
 
   return (
@@ -236,10 +236,10 @@ export function ExamReadinessCard({ isDark, onOpenPrelims }: ExamReadinessCardPr
       title: 'Prelims',
       subtitle: 'Real Exam Pattern & MCQs',
       illustration: PrelimsIllustration,
-      badgeBg: isDark ? 'rgba(0, 111, 253, 0.16)' : '#EAF2FF',
-      badgeBorder: isDark ? '#385885' : '#B4DBFF',
-      borderHover: '#006FFD',
-      glow: 'rgba(0, 111, 253, 0.2)',
+      badgeBg: isDark ? 'rgba(185, 87, 10, 0.16)' : '#FCEBDD',
+      badgeBorder: isDark ? '#6B3A12' : '#F2C9A3',
+      borderHover: '#B9570A',
+      glow: 'rgba(28, 36, 51, 0.10)',
       onPress: () => (onOpenPrelims ? onOpenPrelims() : setIsMCQModalOpen(true)),
     },
     {
@@ -247,10 +247,10 @@ export function ExamReadinessCard({ isDark, onOpenPrelims }: ExamReadinessCardPr
       title: 'Mains',
       subtitle: 'Answer Writing & Models',
       illustration: MainsIllustration,
-      badgeBg: isDark ? 'rgba(40, 151, 255, 0.14)' : '#EAF2FF',
-      badgeBorder: isDark ? '#385885' : '#B4DBFF',
-      borderHover: '#2897FF',
-      glow: 'rgba(40, 151, 255, 0.18)',
+      badgeBg: isDark ? 'rgba(185, 87, 10, 0.16)' : '#FCEBDD',
+      badgeBorder: isDark ? '#6B3A12' : '#F2C9A3',
+      borderHover: '#B9570A',
+      glow: 'rgba(28, 36, 51, 0.10)',
       onPress: () => setIsMainsModalOpen(true),
     },
     {
@@ -258,10 +258,10 @@ export function ExamReadinessCard({ isDark, onOpenPrelims }: ExamReadinessCardPr
       title: 'Mock Tests',
       subtitle: 'Smart Performance Analysis',
       illustration: MockTestIllustration,
-      badgeBg: isDark ? 'rgba(111, 186, 255, 0.14)' : '#EAF2FF',
-      badgeBorder: isDark ? '#385885' : '#B4DBFF',
-      borderHover: '#6FBAFF',
-      glow: 'rgba(111, 186, 255, 0.18)',
+      badgeBg: isDark ? 'rgba(185, 87, 10, 0.16)' : '#FCEBDD',
+      badgeBorder: isDark ? '#6B3A12' : '#F2C9A3',
+      borderHover: '#B9570A',
+      glow: 'rgba(28, 36, 51, 0.10)',
       onPress: () => setIsMCQModalOpen(true),
     },
   ];
@@ -307,8 +307,8 @@ export function ExamReadinessCard({ isDark, onOpenPrelims }: ExamReadinessCardPr
                   transition: 'all 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
                 } as object),
                 isHovered && Platform.OS === 'web' && ({
-                  transform: [{ translateY: -3 }],
-                  boxShadow: `0 8px 24px ${item.glow}`,
+                  transform: [{ translateY: -2 }],
+                  boxShadow: `0 4px 12px ${item.glow}`,
                 } as object),
               ]}>
               {/* Refined Squircle Icon Badge */}

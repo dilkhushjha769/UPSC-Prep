@@ -444,10 +444,10 @@ export function YearWiseTrendGraph({
                 ]}
               >
                 {previousYearComparison.type === 'increase' && (
-                  <TrendingUp size={10} color="#059669" strokeWidth={2.4} />
+                  <TrendingUp size={10} color="#26734D" strokeWidth={2.4} />
                 )}
                 {previousYearComparison.type === 'decrease' && (
-                  <TrendingDown size={10} color="#DC2626" strokeWidth={2.4} />
+                  <TrendingDown size={10} color="#B42318" strokeWidth={2.4} />
                 )}
                 <Text
                   style={[
@@ -537,7 +537,7 @@ function getStyles(theme: PrelimsThemeType) {
       paddingHorizontal: 6,
       paddingVertical: 1.5,
       borderRadius: 5,
-      backgroundColor: isDark ? '#262A36' : '#F1F5F9',
+      backgroundColor: isDark ? '#262E40' : '#F0EDE6',
       borderColor: theme.colors.borderSubtle,
       borderWidth: 1,
     },
@@ -553,7 +553,7 @@ function getStyles(theme: PrelimsThemeType) {
     },
     rangeSelectorPills: {
       flexDirection: 'row',
-      backgroundColor: isDark ? '#1C2029' : '#F1F5F9',
+      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
       borderColor: theme.colors.borderSubtle,
       borderWidth: 1,
       borderRadius: 7,
@@ -566,7 +566,7 @@ function getStyles(theme: PrelimsThemeType) {
       borderRadius: 5,
     },
     rangePillBtnActive: {
-      backgroundColor: isDark ? '#323746' : '#FFFFFF',
+      backgroundColor: isDark ? '#262E40' : '#FFFFFF',
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 1 },
       shadowOpacity: 0.15,
@@ -613,7 +613,7 @@ function getStyles(theme: PrelimsThemeType) {
       width: 4,
       height: 4,
       borderRadius: 2,
-      backgroundColor: isDark ? '#F59E0B' : '#D97706',
+      backgroundColor: isDark ? '#A65A0A' : '#A65A0A',
       marginBottom: 2,
     },
     barCountText: {
@@ -631,7 +631,7 @@ function getStyles(theme: PrelimsThemeType) {
       fontWeight: '900',
     },
     barCountTextPeak: {
-      color: isDark ? '#FBBF24' : '#D97706',
+      color: isDark ? '#D9822B' : '#A65A0A',
       fontWeight: '800',
     },
     barCanvas: {
@@ -641,7 +641,7 @@ function getStyles(theme: PrelimsThemeType) {
     },
     barPill: {
       width: 13,
-      backgroundColor: isDark ? '#3A4050' : '#CBD5E1',
+      backgroundColor: isDark ? '#333D52' : '#DDD6CA',
       borderTopLeftRadius: 4,
       borderTopRightRadius: 4,
       borderBottomLeftRadius: 2,
@@ -650,7 +650,7 @@ function getStyles(theme: PrelimsThemeType) {
     barPillZero: {
       width: 10,
       height: 3,
-      backgroundColor: isDark ? '#2E3342' : '#E2E8F0',
+      backgroundColor: isDark ? '#262E40' : '#EAE5DC',
       borderRadius: 2,
     },
     barPillSelected: {
@@ -663,17 +663,17 @@ function getStyles(theme: PrelimsThemeType) {
       elevation: 2,
     },
     barPillPeak: {
-      backgroundColor: isDark ? '#D97706' : '#B45309',
+      backgroundColor: isDark ? '#A65A0A' : '#A65A0A',
       borderTopLeftRadius: 4,
       borderTopRightRadius: 4,
     },
     barPillHovered: {
-      backgroundColor: isDark ? '#4B5563' : '#94A3B8',
+      backgroundColor: isDark ? '#4A5568' : '#7A8499',
     },
     baselineSegment: {
       width: '100%',
       height: 1.5,
-      backgroundColor: isDark ? '#2E3342' : '#E2E8F0',
+      backgroundColor: isDark ? '#262E40' : '#EAE5DC',
       marginVertical: 3,
     },
     baselineSegmentActive: {
@@ -690,15 +690,15 @@ function getStyles(theme: PrelimsThemeType) {
       fontWeight: '900',
     },
     yearLabelTextPeak: {
-      color: isDark ? '#FBBF24' : '#B45309',
+      color: isDark ? '#D9822B' : '#A65A0A',
       fontWeight: '800',
     },
     actionStrip: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      backgroundColor: isDark ? '#1C202B' : '#F8FAFC',
-      borderColor: isDark ? '#2C3140' : '#E2E8F0',
+      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+      borderColor: isDark ? '#262E40' : '#EAE5DC',
       borderWidth: 1,
       borderRadius: 10,
       paddingVertical: 8,
@@ -718,18 +718,18 @@ function getStyles(theme: PrelimsThemeType) {
       color: theme.colors.textPrimary,
     },
     countBadge: {
-      backgroundColor: isDark ? '#262C3A' : '#FFEDE0',
+      backgroundColor: isDark ? '#262E40' : '#FCEBDD',
       paddingHorizontal: 7,
       paddingVertical: 2,
       borderRadius: 5,
     },
     countBadgeZero: {
-      backgroundColor: isDark ? '#232733' : '#F1F5F9',
+      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
     },
     countBadgeText: {
       fontSize: 10.5,
       fontWeight: '700',
-      color: isDark ? '#FFC9A3' : '#EA4E00',
+      color: isDark ? '#F2C9A3' : '#B9570A',
     },
     countBadgeTextZero: {
       color: theme.colors.textMuted,
@@ -743,23 +743,23 @@ function getStyles(theme: PrelimsThemeType) {
       borderRadius: 5,
     },
     yoyBadgeIncrease: {
-      backgroundColor: isDark ? 'rgba(5, 150, 105, 0.15)' : '#DCFCE7',
+      backgroundColor: isDark ? 'rgba(5, 150, 105, 0.15)' : '#E3F1E8',
     },
     yoyBadgeDecrease: {
-      backgroundColor: isDark ? 'rgba(220, 38, 38, 0.15)' : '#FEE2E2',
+      backgroundColor: isDark ? 'rgba(220, 38, 38, 0.15)' : '#FBE4E1',
     },
     yoyBadgeNeutral: {
-      backgroundColor: isDark ? '#232733' : '#F1F5F9',
+      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
     },
     yoyBadgeText: {
       fontSize: 9.5,
       fontWeight: '700',
     },
     yoyBadgeTextIncrease: {
-      color: isDark ? '#34D399' : '#059669',
+      color: isDark ? '#3FA573' : '#26734D',
     },
     yoyBadgeTextDecrease: {
-      color: isDark ? '#F87171' : '#DC2626',
+      color: isDark ? '#E0675B' : '#B42318',
     },
     yoyBadgeTextNeutral: {
       color: theme.colors.textMuted,
@@ -774,8 +774,8 @@ function getStyles(theme: PrelimsThemeType) {
       gap: 6,
     },
     practiceBtnCompactZero: {
-      backgroundColor: isDark ? '#262A36' : '#F1F5F9',
-      borderColor: isDark ? '#313746' : '#CBD5E1',
+      backgroundColor: isDark ? '#262E40' : '#F0EDE6',
+      borderColor: isDark ? '#262E40' : '#DDD6CA',
       borderWidth: 1,
     },
     practiceBtnText: {
@@ -815,7 +815,7 @@ function getStyles(theme: PrelimsThemeType) {
       color: theme.colors.darkButtonText,
     },
     skeletonBar: {
-      backgroundColor: isDark ? '#262A36' : '#E2E8F0',
+      backgroundColor: isDark ? '#262E40' : '#EAE5DC',
       borderRadius: 4,
     },
   });

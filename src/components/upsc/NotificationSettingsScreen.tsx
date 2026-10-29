@@ -68,19 +68,19 @@ export function NotificationSettingsScreen({
     }, 450);
   };
 
-  const cardBg = isDark ? '#141824' : '#FFFFFF';
+  const cardBg = isDark ? '#1E2535' : '#FFFFFF';
   const cardBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)';
   const dividerColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.05)';
 
 
   return (
-    <View style={[styles.container, { backgroundColor: isDark ? '#0C0F17' : '#F8FAFC' }]}>
+    <View style={[styles.container, { backgroundColor: isDark ? '#151A25' : '#FAF9F6' }]}>
       {/* Header matching design reference: Back arrow on left, Centered Title, Blue 'Save' link on right */}
       <View
         style={[
           styles.headerBar,
           {
-            backgroundColor: isDark ? '#0C0F17' : '#F8FAFC',
+            backgroundColor: isDark ? '#151A25' : '#FAF9F6',
             borderBottomColor: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.05)',
           },
         ]}>
@@ -100,7 +100,7 @@ export function NotificationSettingsScreen({
           activeOpacity={0.7}
           onPress={handleSave}
           style={styles.saveButton}>
-          <Text style={[styles.saveText, { color: isSaved ? '#10B981' : '#2563EB' }]}>
+          <Text style={[styles.saveText, { color: isSaved ? '#26734D' : '#B9570A' }]}>
             {isSaved ? 'Saved' : 'Save'}
           </Text>
         </TouchableOpacity>
@@ -136,7 +136,7 @@ export function NotificationSettingsScreen({
                 value={prefs.studyReminders}
                 onValueChange={() => handleToggle('studyReminders')}
                 isDark={isDark}
-                activeTrackColor="#006FFD"
+                activeTrackColor="#B9570A"
               />
             </View>
 
@@ -153,7 +153,7 @@ export function NotificationSettingsScreen({
                 value={prefs.streakAlerts}
                 onValueChange={() => handleToggle('streakAlerts')}
                 isDark={isDark}
-                activeTrackColor="#006FFD"
+                activeTrackColor="#B9570A"
               />
             </View>
 
@@ -170,7 +170,7 @@ export function NotificationSettingsScreen({
                 value={prefs.currentAffairsDigest}
                 onValueChange={() => handleToggle('currentAffairsDigest')}
                 isDark={isDark}
-                activeTrackColor="#006FFD"
+                activeTrackColor="#B9570A"
               />
             </View>
 
@@ -187,7 +187,7 @@ export function NotificationSettingsScreen({
                 value={prefs.mockTestAnnouncements}
                 onValueChange={() => handleToggle('mockTestAnnouncements')}
                 isDark={isDark}
-                activeTrackColor="#006FFD"
+                activeTrackColor="#B9570A"
               />
             </View>
           </View>
@@ -216,7 +216,7 @@ export function NotificationSettingsScreen({
                 value={prefs.soundEnabled}
                 onValueChange={() => handleToggle('soundEnabled')}
                 isDark={isDark}
-                activeTrackColor="#006FFD"
+                activeTrackColor="#B9570A"
               />
             </View>
 
@@ -233,7 +233,7 @@ export function NotificationSettingsScreen({
                 value={prefs.vibrationEnabled}
                 onValueChange={() => handleToggle('vibrationEnabled')}
                 isDark={isDark}
-                activeTrackColor="#006FFD"
+                activeTrackColor="#B9570A"
               />
             </View>
           </View>
@@ -262,7 +262,7 @@ export function NotificationSettingsScreen({
                 value={prefs.quietHoursEnabled}
                 onValueChange={() => handleToggle('quietHoursEnabled')}
                 isDark={isDark}
-                activeTrackColor="#006FFD"
+                activeTrackColor="#B9570A"
               />
             </View>
           </View>

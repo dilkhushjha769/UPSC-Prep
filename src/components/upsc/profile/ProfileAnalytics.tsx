@@ -210,10 +210,10 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
   const circumference = 2 * Math.PI * donutRadius; // ~282.74
 
   const timeShares = [
-    { label: 'GS Core (Papers 1-4)', share: 0.45, hours: '18.5h', color: isDark ? '#FFFFFF' : '#0F172A' },
-    { label: 'Optional Subject', share: 0.25, hours: '10.2h', color: isDark ? '#A1A1AA' : '#475569' },
-    { label: 'Current Affairs & Editorials', share: 0.18, hours: '7.5h', color: isDark ? '#71717A' : '#94A3B8' },
-    { label: 'CSAT & Mains Practice', share: 0.12, hours: '5.0h', color: isDark ? '#3F3F46' : '#CBD5E1' },
+    { label: 'GS Core (Papers 1-4)', share: 0.45, hours: '18.5h', color: isDark ? '#FFFFFF' : '#1C2433' },
+    { label: 'Optional Subject', share: 0.25, hours: '10.2h', color: isDark ? '#8892A6' : '#4A5568' },
+    { label: 'Current Affairs & Editorials', share: 0.18, hours: '7.5h', color: isDark ? '#7A8499' : '#7A8499' },
+    { label: 'CSAT & Mains Practice', share: 0.12, hours: '5.0h', color: isDark ? '#333D52' : '#DDD6CA' },
   ];
 
   let accumulatedShare = 0;
@@ -279,7 +279,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
               styles.kpiCard,
               isMobile && { minWidth: '47%', flexBasis: '47%' },
               {
-                backgroundColor: isDark ? '#141416' : '#F8FAFC',
+                backgroundColor: isDark ? '#151A25' : '#FAF9F6',
                 borderColor: theme.cardBorder,
               },
             ]}>
@@ -297,7 +297,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
               styles.kpiCard,
               isMobile && { minWidth: '47%', flexBasis: '47%' },
               {
-                backgroundColor: isDark ? '#141416' : '#F8FAFC',
+                backgroundColor: isDark ? '#151A25' : '#FAF9F6',
                 borderColor: theme.cardBorder,
               },
             ]}>
@@ -315,7 +315,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
               styles.kpiCard,
               isMobile && { minWidth: '47%', flexBasis: '47%' },
               {
-                backgroundColor: isDark ? '#141416' : '#F8FAFC',
+                backgroundColor: isDark ? '#151A25' : '#FAF9F6',
                 borderColor: theme.cardBorder,
               },
             ]}>
@@ -333,7 +333,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
               styles.kpiCard,
               isMobile && { minWidth: '47%', flexBasis: '47%' },
               {
-                backgroundColor: isDark ? '#141416' : '#F8FAFC',
+                backgroundColor: isDark ? '#151A25' : '#FAF9F6',
                 borderColor: theme.cardBorder,
               },
             ]}>
@@ -352,7 +352,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
           style={[
             styles.syncBanner,
             {
-              backgroundColor: isDark ? '#141416' : '#F1F5F9',
+              backgroundColor: isDark ? '#151A25' : '#F0EDE6',
               borderColor: theme.cardBorder,
             },
           ]}>
@@ -392,7 +392,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
             style={[
               styles.modeSwitcher,
               {
-                backgroundColor: isDark ? '#141416' : '#F1F5F9',
+                backgroundColor: isDark ? '#151A25' : '#F0EDE6',
                 borderColor: theme.cardBorder,
               },
             ]}>
@@ -463,7 +463,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
                     <Polygon
                       points={ringPoints}
                       fill="none"
-                      stroke={isDark ? '#262933' : '#E2E8F0'}
+                      stroke={isDark ? '#262E40' : '#EAE5DC'}
                       strokeWidth={1}
                       strokeDasharray={lvl === 1.0 ? 'none' : '3, 3'}
                     />
@@ -481,7 +481,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
                       y1={radarCenter}
                       x2={pt.x}
                       y2={pt.y}
-                      stroke={isDark ? '#2B2F3A' : '#CBD5E1'}
+                      stroke={isDark ? '#262E40' : '#DDD6CA'}
                       strokeWidth={1}
                     />
                   </G>
@@ -545,7 +545,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
                 <View
                   style={[
                     styles.barColumnTrack,
-                    { backgroundColor: isDark ? '#1C1F28' : '#E2E8F0' },
+                    { backgroundColor: isDark ? '#1E2535' : '#EAE5DC' },
                   ]}>
                   <View
                     style={[
@@ -590,7 +590,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
             style={[
               styles.cutoffBadge,
               {
-                backgroundColor: isDark ? '#20242E' : '#F1F5F9',
+                backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
                 borderColor: theme.cardBorder,
               },
             ]}>
@@ -605,7 +605,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
           style={[
             styles.mockStatusBanner,
             {
-              backgroundColor: isDark ? '#141416' : '#F8FAFC',
+              backgroundColor: isDark ? '#151A25' : '#FAF9F6',
               borderColor: theme.cardBorder,
             },
           ]}>
@@ -640,7 +640,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
                 <Stop
                   offset="100%"
                   stopColor={theme.textPrimary}
-                  stopOpacity={0.0}
+                  stopOpacity={isDark ? 0.35 : 0.25}
                 />
               </LinearGradient>
             </Defs>
@@ -659,7 +659,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
                     y1={y}
                     x2={trendPadLeft + trendPlotWidth}
                     y2={y}
-                    stroke={isCutoff ? (isDark ? '#52525B' : '#94A3B8') : (isDark ? '#262933' : '#E2E8F0')}
+                    stroke={isCutoff ? (isDark ? '#5F6B80' : '#7A8499') : (isDark ? '#262E40' : '#EAE5DC')}
                     strokeWidth={isCutoff ? 1.5 : 1}
                     strokeDasharray={isCutoff ? '4, 4' : 'none'}
                   />
@@ -749,8 +749,8 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
                     backgroundColor: isSelected
                       ? theme.buttonPrimaryBg
                       : isDark
-                      ? '#141416'
-                      : '#F1F5F9',
+                      ? '#151A25'
+                      : '#F0EDE6',
                     borderColor: isSelected ? theme.buttonPrimaryBg : theme.cardBorder,
                   },
                 ]}>
@@ -809,7 +809,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
                   <View
                     style={[
                       styles.weeklyBarTrack,
-                      { backgroundColor: isDark ? '#1C1F28' : '#E2E8F0' },
+                      { backgroundColor: isDark ? '#1E2535' : '#EAE5DC' },
                     ]}>
                     <View
                       style={[
@@ -819,8 +819,8 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
                           backgroundColor: metGoal
                             ? theme.textPrimary
                             : isDark
-                            ? '#52525B'
-                            : '#94A3B8',
+                            ? '#5F6B80'
+                            : '#7A8499',
                         },
                       ]}
                     />
@@ -954,7 +954,7 @@ export function ProfileAnalytics({ isDark }: ProfileAnalyticsProps) {
                 styles.mainsStepCard,
                 isMobile && { minWidth: '47%', flexBasis: '47%' },
                 {
-                  backgroundColor: isDark ? '#141416' : '#F8FAFC',
+                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                 },
               ]}>

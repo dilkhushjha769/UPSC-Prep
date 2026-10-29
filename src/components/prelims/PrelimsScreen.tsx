@@ -321,11 +321,11 @@ function PrelimsScreenContent({
   };
 
   return (
-    <View style={[styles.safeArea, { backgroundColor: isDark ? '#1F2024' : '#F8F9FE' }]}>
+    <View style={[styles.safeArea, { backgroundColor: isDark ? '#1C2433' : '#FAF9F6' }]}>
       <StatusBar style={isDark ? 'light' : 'dark'} />
 
       <ScrollView
-        style={[styles.scrollView, { backgroundColor: isDark ? '#1F2024' : '#F8F9FE' }]}
+        style={[styles.scrollView, { backgroundColor: isDark ? '#1C2433' : '#FAF9F6' }]}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
@@ -353,9 +353,9 @@ function PrelimsScreenContent({
                     styles.paperTabBtn,
                     {
                       backgroundColor:
-                        selectedPaperTab === 'gs1' ? '#0D6EFD' : isDark ? '#26282E' : '#FFFFFF',
+                        selectedPaperTab === 'gs1' ? '#B9570A' : isDark ? '#1E2535' : '#FFFFFF',
                       borderColor:
-                        selectedPaperTab === 'gs1' ? '#0D6EFD' : isDark ? '#35373F' : '#E8E9F1',
+                        selectedPaperTab === 'gs1' ? '#B9570A' : isDark ? '#333D52' : '#EAE5DC',
                     },
                     pressed && styles.tabPressed,
                   ]}
@@ -366,7 +366,7 @@ function PrelimsScreenContent({
                   <Text
                     style={[
                       styles.paperTabText,
-                      { color: selectedPaperTab === 'gs1' ? '#FFFFFF' : isDark ? '#A7ABB5' : '#71727A' },
+                      { color: selectedPaperTab === 'gs1' ? '#FFFFFF' : isDark ? '#A4ADBF' : '#7A8499' },
                       selectedPaperTab === 'gs1' && styles.paperTabTextActive,
                     ]}
                   >
@@ -379,9 +379,9 @@ function PrelimsScreenContent({
                     styles.paperTabBtn,
                     {
                       backgroundColor:
-                        selectedPaperTab === 'gs2' ? '#0D6EFD' : isDark ? '#26282E' : '#FFFFFF',
+                        selectedPaperTab === 'gs2' ? '#B9570A' : isDark ? '#1E2535' : '#FFFFFF',
                       borderColor:
-                        selectedPaperTab === 'gs2' ? '#0D6EFD' : isDark ? '#35373F' : '#E8E9F1',
+                        selectedPaperTab === 'gs2' ? '#B9570A' : isDark ? '#333D52' : '#EAE5DC',
                     },
                     pressed && styles.tabPressed,
                   ]}
@@ -392,7 +392,7 @@ function PrelimsScreenContent({
                   <Text
                     style={[
                       styles.paperTabText,
-                      { color: selectedPaperTab === 'gs2' ? '#FFFFFF' : isDark ? '#A7ABB5' : '#71727A' },
+                      { color: selectedPaperTab === 'gs2' ? '#FFFFFF' : isDark ? '#A4ADBF' : '#7A8499' },
                       selectedPaperTab === 'gs2' && styles.paperTabTextActive,
                     ]}
                   >
@@ -416,10 +416,10 @@ function PrelimsScreenContent({
 
               {/* Section Header: Subject-wise Progress */}
               <View style={styles.sectionHeaderRow}>
-                <Text style={[styles.sectionHeaderTitle, { color: isDark ? '#F5F5F7' : '#1F2024' }]}>
+                <Text style={[styles.sectionHeaderTitle, { color: isDark ? '#F2EFE8' : '#1C2433' }]}>
                   Subject-wise Progress
                 </Text>
-                <Text style={[styles.sectionHeaderCount, { color: isDark ? '#A7ABB5' : '#71727A' }]}>
+                <Text style={[styles.sectionHeaderCount, { color: isDark ? '#A4ADBF' : '#7A8499' }]}>
                   {filteredSubjects.length} Subjects • {totalVerifiedQuestions.toLocaleString()} Qs
                 </Text>
               </View>
@@ -430,8 +430,8 @@ function PrelimsScreenContent({
                   style={[
                     styles.emptyStateCard,
                     {
-                      backgroundColor: isDark ? '#25272D' : '#FFFFFF',
-                      borderColor: isDark ? '#35373F' : '#E8E9F1',
+                      backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
+                      borderColor: isDark ? '#333D52' : '#EAE5DC',
                     },
                   ]}
                 >
@@ -439,17 +439,17 @@ function PrelimsScreenContent({
                     style={[
                       styles.emptyIconBadge,
                       {
-                        backgroundColor: isDark ? '#202227' : '#F8F9FE',
-                        borderColor: isDark ? '#35373F' : '#E8E9F1',
+                        backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                        borderColor: isDark ? '#333D52' : '#EAE5DC',
                       },
                     ]}
                   >
-                    <Search size={22} color={isDark ? '#A7ABB5' : '#71727A'} strokeWidth={2} />
+                    <Search size={22} color={isDark ? '#A4ADBF' : '#7A8499'} strokeWidth={2} />
                   </View>
-                  <Text style={[styles.emptyTitle, { color: isDark ? '#F5F5F7' : '#1F2024' }]}>
+                  <Text style={[styles.emptyTitle, { color: isDark ? '#F2EFE8' : '#1C2433' }]}>
                     No matching topics found
                   </Text>
-                  <Text style={[styles.emptySubtitle, { color: isDark ? '#A7ABB5' : '#71727A' }]}>
+                  <Text style={[styles.emptySubtitle, { color: isDark ? '#A4ADBF' : '#7A8499' }]}>
                     No subjects or chapters match &ldquo;{searchQuery}&rdquo;. Try another keyword like
                     &ldquo;Polity&rdquo;, &ldquo;Monetary&rdquo;, or &ldquo;Climate&rdquo;.
                   </Text>
@@ -457,14 +457,14 @@ function PrelimsScreenContent({
                     style={({ pressed }) => [
                       styles.clearSearchBtn,
                       {
-                        backgroundColor: isDark ? '#26282E' : '#F8F9FE',
-                        borderColor: isDark ? '#35373F' : '#E8E9F1',
+                        backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                        borderColor: isDark ? '#333D52' : '#EAE5DC',
                       },
                       pressed && styles.tabPressed,
                     ]}
                     onPress={() => setSearchQuery('')}
                   >
-                    <Text style={[styles.clearSearchText, { color: isDark ? '#F5F5F7' : '#1F2024' }]}>
+                    <Text style={[styles.clearSearchText, { color: isDark ? '#F2EFE8' : '#1C2433' }]}>
                       Clear Search
                     </Text>
                   </Pressable>
@@ -597,18 +597,18 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderRadius: 8,
-    backgroundColor: '#26282E',
+    backgroundColor: '#1E2535',
     borderWidth: 1,
-    borderColor: '#35373F',
+    borderColor: '#333D52',
   },
   paperTabBtnActive: {
-    backgroundColor: '#0D6EFD', // Primary action blue
-    borderColor: '#0D6EFD',
+    backgroundColor: '#B9570A', // Primary action blue
+    borderColor: '#B9570A',
   },
   paperTabText: {
     fontSize: 12.5,
     fontWeight: '600',
-    color: '#A7ABB5',
+    color: '#A4ADBF',
     letterSpacing: -0.1,
   },
   paperTabTextActive: {
@@ -628,22 +628,22 @@ const styles = StyleSheet.create({
   sectionHeaderTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#F5F5F7',
+    color: '#F2EFE8',
     letterSpacing: -0.2,
   },
   sectionHeaderCount: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#A7ABB5',
+    color: '#A4ADBF',
   },
   subjectsList: {
     paddingHorizontal: 20,
   },
   emptyStateCard: {
     marginHorizontal: 20,
-    backgroundColor: '#25272D',
+    backgroundColor: '#1E2535',
     borderWidth: 1,
-    borderColor: '#35373F',
+    borderColor: '#333D52',
     borderRadius: 14,
     padding: 32,
     alignItems: 'center',
@@ -653,9 +653,9 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 12,
-    backgroundColor: '#202227',
+    backgroundColor: '#1E2535',
     borderWidth: 1,
-    borderColor: '#35373F',
+    borderColor: '#333D52',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 14,
@@ -663,12 +663,12 @@ const styles = StyleSheet.create({
   emptyTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#F5F5F7',
+    color: '#F2EFE8',
     marginBottom: 6,
   },
   emptySubtitle: {
     fontSize: 13,
-    color: '#A7ABB5',
+    color: '#A4ADBF',
     textAlign: 'center',
     lineHeight: 19,
     maxWidth: 380,
@@ -678,13 +678,13 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     paddingHorizontal: 16,
     borderRadius: 8,
-    backgroundColor: '#26282E',
+    backgroundColor: '#1E2535',
     borderWidth: 1,
-    borderColor: '#35373F',
+    borderColor: '#333D52',
   },
   clearSearchText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#F5F5F7',
+    color: '#F2EFE8',
   },
 });

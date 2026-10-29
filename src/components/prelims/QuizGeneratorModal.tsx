@@ -434,7 +434,7 @@ const getStyles = (theme: PrelimsThemeType) => StyleSheet.create({
   },
   optionCardActive: {
     borderColor: theme.colors.textPrimary,
-    backgroundColor: '#1E293B',
+    backgroundColor: '#1C2433',
   },
   optionCardHeader: {
     flexDirection: 'row',

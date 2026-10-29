@@ -151,46 +151,46 @@ export function CalendarDropdown({
   const theme = useMemo(() => {
     if (isDark) {
       return {
-        cardBg: PALETTE.neutral.dark.darkest, // #1F2024
-        cardBorder: PALETTE.neutral.dark.textMuted, // #494A50
-        divider: PALETTE.neutral.dark.surface, // #2F3036
+        cardBg: PALETTE.neutral.dark.darkest, // #1C2433
+        cardBorder: PALETTE.neutral.dark.textMuted, // #333D52
+        divider: PALETTE.neutral.dark.surface, // #1E2535
         titleText: PALETTE.neutral.light.lightest, // #FFFFFF
         arrowColor: PALETTE.neutral.light.lightest, // #FFFFFF
-        arrowHoverBg: PALETTE.neutral.dark.surface, // #2F3036
-        weekdayText: PALETTE.neutral.dark.textSecondary, // #71727A
+        arrowHoverBg: PALETTE.neutral.dark.surface, // #1E2535
+        weekdayText: PALETTE.neutral.dark.textSecondary, // #7A8499
         dayText: PALETTE.neutral.light.lightest, // #FFFFFF
-        dayTextDisabled: PALETTE.neutral.dark.textMuted, // #494A50
-        todayBg: PALETTE.neutral.dark.surface, // #2F3036
+        dayTextDisabled: PALETTE.neutral.dark.textMuted, // #333D52
+        todayBg: PALETTE.neutral.dark.surface, // #1E2535
         todayText: PALETTE.neutral.light.lightest, // #FFFFFF
-        selectedBg: PALETTE.highlight.primary, // #006FFD
+        selectedBg: PALETTE.highlight.primary, // #B9570A
         selectedText: PALETTE.neutral.light.lightest, // #FFFFFF
-        curatedDot: PALETTE.highlight.tint80, // #2897FF
-        completedDot: PALETTE.support.success.medium, // #3AC0A0
-        pillBg: PALETTE.neutral.dark.surface, // #2F3036
-        pillBorder: PALETTE.neutral.dark.textMuted, // #494A50
-        pillText: PALETTE.neutral.light.muted, // #C5C6CC
+        curatedDot: PALETTE.highlight.tint80, // #D9822B
+        completedDot: PALETTE.support.success.medium, // #3FA573
+        pillBg: PALETTE.neutral.dark.surface, // #1E2535
+        pillBorder: PALETTE.neutral.dark.textMuted, // #333D52
+        pillText: PALETTE.neutral.light.muted, // #C9CFDB
       };
     }
 
     return {
       cardBg: PALETTE.neutral.light.lightest, // #FFFFFF
-      cardBorder: PALETTE.neutral.light.borderSubtle, // #E8E9F1
-      divider: PALETTE.neutral.light.borderSubtle, // #E8E9F1
-      titleText: PALETTE.neutral.dark.darkest, // #1F2024
-      arrowColor: PALETTE.neutral.dark.textSecondary, // #71727A
-      arrowHoverBg: PALETTE.neutral.light.surface, // #F8F9FE
-      weekdayText: PALETTE.neutral.dark.textSecondary, // #71727A
-      dayText: PALETTE.neutral.dark.darkest, // #1F2024
-      dayTextDisabled: PALETTE.neutral.light.muted, // #C5C6CC
-      todayBg: PALETTE.highlight.tint20, // #EAF2FF
-      todayText: PALETTE.highlight.primary, // #006FFD
-      selectedBg: PALETTE.highlight.primary, // #006FFD
+      cardBorder: PALETTE.neutral.light.borderSubtle, // #EAE5DC
+      divider: PALETTE.neutral.light.borderSubtle, // #EAE5DC
+      titleText: PALETTE.neutral.dark.darkest, // #1C2433
+      arrowColor: PALETTE.neutral.dark.textSecondary, // #7A8499
+      arrowHoverBg: PALETTE.neutral.light.surface, // #FAF9F6
+      weekdayText: PALETTE.neutral.dark.textSecondary, // #7A8499
+      dayText: PALETTE.neutral.dark.darkest, // #1C2433
+      dayTextDisabled: PALETTE.neutral.light.muted, // #C9CFDB
+      todayBg: PALETTE.highlight.tint20, // #FCEBDD
+      todayText: PALETTE.highlight.primary, // #B9570A
+      selectedBg: PALETTE.highlight.primary, // #B9570A
       selectedText: PALETTE.neutral.light.lightest, // #FFFFFF
-      curatedDot: PALETTE.highlight.primary, // #006FFD
-      completedDot: PALETTE.support.success.medium, // #3AC0A0
-      pillBg: PALETTE.neutral.light.surface, // #F8F9FE
-      pillBorder: PALETTE.neutral.light.borderSubtle, // #E8E9F1
-      pillText: PALETTE.neutral.dark.textSecondary, // #71727A
+      curatedDot: PALETTE.highlight.primary, // #B9570A
+      completedDot: PALETTE.support.success.medium, // #3FA573
+      pillBg: PALETTE.neutral.light.surface, // #FAF9F6
+      pillBorder: PALETTE.neutral.light.borderSubtle, // #EAE5DC
+      pillText: PALETTE.neutral.dark.textSecondary, // #7A8499
     };
   }, [isDark]);
 

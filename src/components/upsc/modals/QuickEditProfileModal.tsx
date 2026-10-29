@@ -103,7 +103,7 @@ function QuickEditProfileForm({
         styles.card,
         {
           backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-          borderColor: isDark ? '#383A42' : '#E8E9F1',
+          borderColor: isDark ? '#333D52' : '#EAE5DC',
         },
       ]}
       onPress={(e) => {
@@ -126,8 +126,8 @@ function QuickEditProfileForm({
           style={[
             styles.closeBtn,
             {
-              backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F4F5F9',
-              borderColor: isDark ? '#383A42' : '#E8E9F1',
+              backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6',
+              borderColor: isDark ? '#333D52' : '#EAE5DC',
             },
           ]}>
           <X size={16} color={theme.textPrimary} />
@@ -154,7 +154,7 @@ function QuickEditProfileForm({
                 styles.avatarCircle,
                 {
                   backgroundColor: PALETTE.highlight.primary,
-                  borderColor: isDark ? '#383A42' : '#E8E9F1',
+                  borderColor: isDark ? '#333D52' : '#EAE5DC',
                 },
               ]}>
               {avatarUri ? (
@@ -185,7 +185,7 @@ function QuickEditProfileForm({
               size="sm"
               title={avatarUri ? 'Change Photo' : 'Upload Photo'}
               isDark={isDark}
-              leftIcon={<Camera size={13} color={isDark ? '#6FBAFF' : PALETTE.highlight.primary} />}
+              leftIcon={<Camera size={13} color={isDark ? '#E8A25E' : PALETTE.highlight.primary} />}
               onPress={handlePickPhoto}
             />
             {Boolean(avatarUri) && (
@@ -215,8 +215,8 @@ function QuickEditProfileForm({
             style={[
               styles.textInput,
               {
-                backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#F8F9FE',
-                borderColor: isDark ? '#383A42' : '#E8E9F1',
+                backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#FAF9F6',
+                borderColor: isDark ? '#333D52' : '#EAE5DC',
                 color: theme.textPrimary,
               },
             ]}
@@ -310,12 +310,12 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   errorBox: {
-    backgroundColor: 'rgba(239, 68, 68, 0.12)',
+    backgroundColor: 'rgba(180, 35, 24, 0.12)',
     padding: 10,
     borderRadius: 10,
   },
   errorText: {
-    color: '#EF4444',
+    color: '#B42318',
     fontSize: 12,
     fontWeight: '600',
     fontFamily: Typography.fontFamily,

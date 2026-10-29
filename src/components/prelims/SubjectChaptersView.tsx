@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { FONT_FAMILY } from '@/constants/designTokens';
 import {
   Platform,
   Pressable,
@@ -66,47 +67,47 @@ export function SubjectChaptersView({
   const { icon: SubjectIconComponent, color: subjectAccentColor } = useMemo(() => {
     switch (subject.id) {
       case 'history_culture':
-        return { icon: Landmark, color: '#E06A62' };
+        return { icon: Landmark, color: '#E0675B' };
       case 'geography':
-        return { icon: Globe, color: '#2F80ED' };
+        return { icon: Globe, color: '#B9570A' };
       case 'polity_governance':
-        return { icon: Scale, color: '#9B51E0' };
+        return { icon: Scale, color: '#5B6B99' };
       case 'economy':
-        return { icon: ChartNoAxesCombined, color: '#F2994A' };
+        return { icon: ChartNoAxesCombined, color: '#D9822B' };
       case 'environment_ecology':
-        return { icon: Leaf, color: '#35C98A' };
+        return { icon: Leaf, color: '#3FA573' };
       case 'science_tech':
       case 'science_technology':
-        return { icon: FlaskConical, color: '#2D9CDB' };
+        return { icon: FlaskConical, color: '#3D5A99' };
       case 'current_affairs_misc':
-        return { icon: Newspaper, color: '#8257E6' };
+        return { icon: Newspaper, color: '#7C93D1' };
       case 'csat_reading_comprehension':
       case 'csat_reading_comp':
-        return { icon: BookOpen, color: '#2F80ED' };
+        return { icon: BookOpen, color: '#B9570A' };
       case 'csat_reasoning':
       case 'csat_logical_reasoning':
-        return { icon: Scale, color: '#9B51E0' };
+        return { icon: Scale, color: '#5B6B99' };
       case 'csat_quant_numeracy':
       case 'csat_quantitative_aptitude':
-        return { icon: ChartNoAxesCombined, color: '#F2994A' };
+        return { icon: ChartNoAxesCombined, color: '#D9822B' };
       case 'csat_data_interpretation':
-        return { icon: Layers, color: '#35C98A' };
+        return { icon: Layers, color: '#3FA573' };
       default:
-        return { icon: BookOpen, color: '#2F80ED' };
+        return { icon: BookOpen, color: '#B9570A' };
     }
   }, [subject.id]);
 
   const colors = {
-    controlBg: isDark ? '#26282E' : '#FFFFFF',
-    controlBorder: isDark ? '#35373F' : '#E8E9F1',
-    cardBg: isDark ? '#25272D' : '#FFFFFF',
-    cardBorder: isDark ? '#35373F' : '#E8E9F1',
-    textPrimary: isDark ? '#F5F5F7' : '#1F2024',
-    textSecondary: isDark ? '#A7ABB5' : '#71727A',
-    progressTrack: isDark ? '#343740' : '#E8E9F1',
-    divider: isDark ? '#30323A' : '#E8E9F1',
-    paperBadgeBg: isDark ? '#162338' : '#EAF2FF',
-    paperBadgeText: isDark ? '#6FBAFF' : '#0D6EFD',
+    controlBg: isDark ? '#1E2535' : '#FFFFFF',
+    controlBorder: isDark ? '#333D52' : '#EAE5DC',
+    cardBg: isDark ? '#1E2535' : '#FFFFFF',
+    cardBorder: isDark ? '#333D52' : '#EAE5DC',
+    textPrimary: isDark ? '#F2EFE8' : '#1C2433',
+    textSecondary: isDark ? '#A4ADBF' : '#7A8499',
+    progressTrack: isDark ? '#262E40' : '#EAE5DC',
+    divider: isDark ? '#262E40' : '#EAE5DC',
+    paperBadgeBg: isDark ? '#1E2535' : '#FCEBDD',
+    paperBadgeText: isDark ? '#E8A25E' : '#B9570A',
   };
 
   return (
@@ -157,12 +158,12 @@ export function SubjectChaptersView({
                 Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
                   backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                  borderColor: isDark ? '#383A42' : '#F0F1F5',
+                  borderColor: isDark ? '#333D52' : '#F0EDE6',
                 },
               ]}
             >
               {isDark ? (
-                <Sun size={17} color="#FBBF24" strokeWidth={2.2} />
+                <Sun size={17} color="#D9822B" strokeWidth={2.2} />
               ) : (
                 <Moon size={17} color={PALETTE.highlight.primary} strokeWidth={2.2} />
               )}
@@ -305,7 +306,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 7,
-    backgroundColor: '#0D6EFD',
+    backgroundColor: '#B9570A',
     paddingVertical: 9,
     paddingHorizontal: 16,
     borderRadius: 8,
@@ -375,6 +376,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   heroSubjectTitle: {
+    fontFamily: FONT_FAMILY.serif,
     fontSize: 22,
     fontWeight: '800',
     letterSpacing: -0.5,

@@ -49,19 +49,19 @@ function PremiumAlarmClockIcon({ size = 22 }: { size?: number }) {
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="alarmGrad" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#F87171" />
-          <Stop offset="1" stopColor="#EF4444" />
+          <Stop offset="0" stopColor="#E0675B" />
+          <Stop offset="1" stopColor="#E0675B" />
         </LinearGradient>
       </Defs>
       {/* Top Left Bell */}
       <Path
         d="M4.5 4.5C3.8 5.2 3.2 6.1 2.8 7.1L4.8 7.9C5.1 7.2 5.5 6.5 6 6L4.5 4.5Z"
-        fill="#DC2626"
+        fill="#B42318"
       />
       {/* Top Right Bell */}
       <Path
         d="M19.5 4.5L18 6C18.5 6.5 18.9 7.2 19.2 7.9L21.2 7.1C20.8 6.1 20.2 5.2 19.5 4.5Z"
-        fill="#DC2626"
+        fill="#B42318"
       />
       {/* Clock Face Circle */}
       <Circle cx="12" cy="13" r="7.5" fill="url(#alarmGrad)" />
@@ -87,7 +87,7 @@ function PremiumAlarmClockIcon({ size = 22 }: { size?: number }) {
       {/* Bottom Feet */}
       <Path
         d="M6 19.5L4.5 21M18 19.5L19.5 21"
-        stroke="#DC2626"
+        stroke="#B42318"
         strokeWidth={2}
         strokeLinecap="round"
       />
@@ -101,8 +101,8 @@ function PremiumInfoBadgeIcon({ size = 22 }: { size?: number }) {
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="infoGrad" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#34D399" />
-          <Stop offset="1" stopColor="#10B981" />
+          <Stop offset="0" stopColor="#3FA573" />
+          <Stop offset="1" stopColor="#3FA573" />
         </LinearGradient>
       </Defs>
       {/* Solid Disc */}
@@ -127,8 +127,8 @@ function PremiumBookAssignmentIcon({ size = 22 }: { size?: number }) {
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="bookGrad" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#3A2D25" />
-          <Stop offset="1" stopColor="#2B2019" />
+          <Stop offset="0" stopColor="#2A1D12" />
+          <Stop offset="1" stopColor="#2A1D12" />
         </LinearGradient>
       </Defs>
       {/* Left Page (Curved 3D appearance) */}
@@ -142,7 +142,7 @@ function PremiumBookAssignmentIcon({ size = 22 }: { size?: number }) {
         fill="url(#bookGrad)"
       />
       {/* Spine Gap & Highlights */}
-      <Path d="M12 6.5V18.5" stroke="#4F4036" strokeWidth={1.2} />
+      <Path d="M12 6.5V18.5" stroke="#6B3A12" strokeWidth={1.2} />
       {/* White Page Ridge Accents */}
       <Path
         d="M7 9C8.5 8.7 10 9 11 9.6M7 12C8.5 11.7 10 12 11 12.6"
@@ -168,8 +168,8 @@ function PremiumAudioMicIcon({ size = 22 }: { size?: number }) {
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="micGrad" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#FBBF24" />
-          <Stop offset="1" stopColor="#F59E0B" />
+          <Stop offset="0" stopColor="#D9822B" />
+          <Stop offset="1" stopColor="#D9822B" />
         </LinearGradient>
       </Defs>
       {/* Mic Rounded Capsule Body */}
@@ -177,7 +177,7 @@ function PremiumAudioMicIcon({ size = 22 }: { size?: number }) {
       {/* Capsule Horizontal Acoustic Slits */}
       <Path
         d="M10 7.5H14M10 10H14"
-        stroke="#B45309"
+        stroke="#A65A0A"
         strokeOpacity={0.5}
         strokeWidth={1.1}
         strokeLinecap="round"
@@ -185,12 +185,12 @@ function PremiumAudioMicIcon({ size = 22 }: { size?: number }) {
       {/* Cradle Arc */}
       <Path
         d="M6 10.5C6 14 8.7 16.5 12 16.5C15.3 16.5 18 14 18 10.5"
-        stroke="#D97706"
+        stroke="#A65A0A"
         strokeWidth={2}
         strokeLinecap="round"
       />
       {/* Stem & Stand Base */}
-      <Path d="M12 16.5V19.5M8.5 19.5H15.5" stroke="#D97706" strokeWidth={2} strokeLinecap="round" />
+      <Path d="M12 16.5V19.5M8.5 19.5H15.5" stroke="#A65A0A" strokeWidth={2} strokeLinecap="round" />
     </Svg>
   );
 }
@@ -201,14 +201,14 @@ function PremiumRoyalBellIcon({ size = 22 }: { size?: number }) {
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="bellGrad" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#FF8A3D" />
-          <Stop offset="1" stopColor="#FF6A13" />
+          <Stop offset="0" stopColor="#D9822B" />
+          <Stop offset="1" stopColor="#D9822B" />
         </LinearGradient>
       </Defs>
       {/* Top Suspension Loop */}
       <Path
         d="M12 3.5C11.2 3.5 10.5 4.1 10.5 5H13.5C13.5 4.1 12.8 3.5 12 3.5Z"
-        fill="#E85A0C"
+        fill="#B9570A"
       />
       {/* Main Flared Bell Body */}
       <Path
@@ -218,7 +218,7 @@ function PremiumRoyalBellIcon({ size = 22 }: { size?: number }) {
       {/* Bottom Clapper */}
       <Path
         d="M10.2 17.5C10.5 18.8 11.2 19.5 12 19.5C12.8 19.5 13.5 18.8 13.8 17.5H10.2Z"
-        fill="#C94A06"
+        fill="#B9570A"
       />
     </Svg>
   );
@@ -230,12 +230,12 @@ function PremiumStreakFlameIcon({ size = 22 }: { size?: number }) {
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="outerFlame" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#FB923C" />
-          <Stop offset="1" stopColor="#EA580C" />
+          <Stop offset="0" stopColor="#B9570A" />
+          <Stop offset="1" stopColor="#B9570A" />
         </LinearGradient>
         <LinearGradient id="innerFlame" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#FEF08A" />
-          <Stop offset="1" stopColor="#FACC15" />
+          <Stop offset="0" stopColor="#D9822B" />
+          <Stop offset="1" stopColor="#D9822B" />
         </LinearGradient>
       </Defs>
       {/* Outer Flame Shell */}
@@ -258,8 +258,8 @@ function PremiumTrophyAwardIcon({ size = 22 }: { size?: number }) {
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="trophyGrad" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#FFAA70" />
-          <Stop offset="1" stopColor="#FF6A13" />
+          <Stop offset="0" stopColor="#D9822B" />
+          <Stop offset="1" stopColor="#D9822B" />
         </LinearGradient>
       </Defs>
       {/* Trophy Goblet Cup */}
@@ -270,20 +270,20 @@ function PremiumTrophyAwardIcon({ size = 22 }: { size?: number }) {
       {/* Left Handle */}
       <Path
         d="M7 5.5H5C4.2 5.5 3.5 6.2 3.5 7C3.5 8.8 5 10 7 10"
-        stroke="#C94A06"
+        stroke="#B9570A"
         strokeWidth={1.8}
         strokeLinecap="round"
       />
       {/* Right Handle */}
       <Path
         d="M17 5.5H19C19.8 5.5 20.5 6.2 20.5 7C20.5 8.8 19 10 17 10"
-        stroke="#C94A06"
+        stroke="#B9570A"
         strokeWidth={1.8}
         strokeLinecap="round"
       />
       {/* Stem & Solid Weighted Pedestal Base */}
-      <Path d="M12 15V18" stroke="#C94A06" strokeWidth={2.4} strokeLinecap="round" />
-      <Path d="M8 18.5H16V20.5H8V18.5Z" fill="#A63D05" />
+      <Path d="M12 15V18" stroke="#B9570A" strokeWidth={2.4} strokeLinecap="round" />
+      <Path d="M8 18.5H16V20.5H8V18.5Z" fill="#B9570A" />
     </Svg>
   );
 }
@@ -329,8 +329,8 @@ export function NotificationsScreen({
       time: '5:52 PM',
       period: 'Today',
       iconRenderer: (size) => <PremiumAlarmClockIcon size={size} />,
-      iconBgLight: '#FEE2E2',
-      iconBgDark: 'rgba(239, 68, 68, 0.16)',
+      iconBgLight: '#FBE4E1',
+      iconBgDark: 'rgba(180, 35, 24, 0.16)',
       isRead: false,
     },
     {
@@ -340,8 +340,8 @@ export function NotificationsScreen({
       time: '4:30 PM',
       period: 'Today',
       iconRenderer: (size) => <PremiumInfoBadgeIcon size={size} />,
-      iconBgLight: '#D1FAE5',
-      iconBgDark: 'rgba(16, 185, 129, 0.16)',
+      iconBgLight: '#E3F1E8',
+      iconBgDark: 'rgba(38, 115, 77, 0.16)',
       isRead: false,
     },
     {
@@ -351,7 +351,7 @@ export function NotificationsScreen({
       time: '2:15 PM',
       period: 'Today',
       iconRenderer: (size) => <PremiumBookAssignmentIcon size={size} />,
-      iconBgLight: '#F0E2D5',
+      iconBgLight: '#F2C9A3',
       iconBgDark: 'rgba(163, 148, 136, 0.16)',
       isRead: false,
     },
@@ -362,8 +362,8 @@ export function NotificationsScreen({
       time: '11:20 AM',
       period: 'Today',
       iconRenderer: (size) => <PremiumAudioMicIcon size={size} />,
-      iconBgLight: '#FEF3C7',
-      iconBgDark: 'rgba(245, 158, 11, 0.16)',
+      iconBgLight: '#FCEBDD',
+      iconBgDark: 'rgba(166, 90, 10, 0.16)',
       isRead: true,
     },
     {
@@ -373,7 +373,7 @@ export function NotificationsScreen({
       time: 'Yesterday, 8:10 PM',
       period: 'Yesterday',
       iconRenderer: (size) => <PremiumRoyalBellIcon size={size} />,
-      iconBgLight: '#FFEBDB',
+      iconBgLight: '#F2C9A3',
       iconBgDark: 'rgba(255, 106, 19, 0.16)',
       isRead: true,
     },
@@ -384,7 +384,7 @@ export function NotificationsScreen({
       time: 'Yesterday, 9:40 PM',
       period: 'Yesterday',
       iconRenderer: (size) => <PremiumStreakFlameIcon size={size} />,
-      iconBgLight: '#FFEDD5',
+      iconBgLight: '#F2C9A3',
       iconBgDark: 'rgba(249, 115, 22, 0.16)',
       isRead: true,
     },
@@ -395,7 +395,7 @@ export function NotificationsScreen({
       time: '2 days ago',
       period: 'Earlier',
       iconRenderer: (size) => <PremiumTrophyAwardIcon size={size} />,
-      iconBgLight: '#FFEDE0',
+      iconBgLight: '#FCEBDD',
       iconBgDark: 'rgba(255, 138, 61, 0.16)',
       isRead: true,
     },
@@ -457,7 +457,7 @@ export function NotificationsScreen({
             styles.backButton,
             Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
             {
-              backgroundColor: isDark ? 'rgba(255,255,255,0.08)' : '#FBEFE5',
+              backgroundColor: isDark ? 'rgba(255,255,255,0.08)' : '#FCEBDD',
               borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.05)',
             },
           ]}>
@@ -496,9 +496,9 @@ export function NotificationsScreen({
                 },
               ]}>
               {isDark ? (
-                <Sun size={17} color="#FBBF24" strokeWidth={2.3} />
+                <Sun size={17} color="#D9822B" strokeWidth={2.3} />
               ) : (
-                <Moon size={17} color="#E85A0C" strokeWidth={2.3} />
+                <Moon size={17} color="#B9570A" strokeWidth={2.3} />
               )}
             </TouchableOpacity>
           )}
@@ -512,7 +512,7 @@ export function NotificationsScreen({
                 styles.headerActionBtn,
                 Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
-                  backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#FBEFE5',
+                  backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#FCEBDD',
                   borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
                 },
               ]}>
@@ -529,7 +529,7 @@ export function NotificationsScreen({
                 styles.headerActionBtn,
                 Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
-                  backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#FBEFE5',
+                  backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#FCEBDD',
                   borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
                 },
               ]}>
@@ -551,7 +551,7 @@ export function NotificationsScreen({
               styles.headerActionBtn,
               Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
               {
-                backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#FBEFE5',
+                backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#FCEBDD',
                 borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
               },
             ]}>
@@ -586,15 +586,15 @@ export function NotificationsScreen({
                     ? [
                         styles.filterPillActive,
                         {
-                          backgroundColor: isDark ? '#FFF8F2' : '#1F1612',
-                          borderColor: isDark ? '#FFF8F2' : '#1F1612',
+                          backgroundColor: isDark ? '#FCEBDD' : '#2A1D12',
+                          borderColor: isDark ? '#FCEBDD' : '#2A1D12',
                         },
                       ]
                     : [
                         styles.filterPillInactive,
                         {
-                          backgroundColor: isDark ? '#241A12' : '#FBEFE5',
-                          borderColor: isDark ? '#33261C' : '#F0E2D5',
+                          backgroundColor: isDark ? '#2A1D12' : '#FCEBDD',
+                          borderColor: isDark ? '#2A1D12' : '#F2C9A3',
                         },
                       ],
                 ]}>
@@ -604,7 +604,7 @@ export function NotificationsScreen({
                     {
                       color: isActive
                         ? isDark
-                          ? '#1F1612'
+                          ? '#2A1D12'
                           : '#FFFFFF'
                         : theme.textSecondary,
                       fontWeight: isActive ? '700' : '500',
@@ -677,7 +677,7 @@ export function NotificationsScreen({
                           <View
                             style={[
                               styles.unreadDot,
-                              { backgroundColor: '#FF6A13' },
+                              { backgroundColor: '#B9570A' },
                             ]}
                           />
                         )}
@@ -723,7 +723,7 @@ export function NotificationsScreen({
                       style={[
                         styles.inlineMenuPopup,
                         {
-                          backgroundColor: isDark ? '#2A1E15' : '#FFFFFF',
+                          backgroundColor: isDark ? '#2A1D12' : '#FFFFFF',
                           borderColor: theme.cardBorder,
                         },
                       ]}>
@@ -742,8 +742,8 @@ export function NotificationsScreen({
                         activeOpacity={0.7}
                         onPress={() => handleDeleteItem(item.id)}
                         style={styles.menuActionItem}>
-                        <Trash2 size={14} color="#EF4444" />
-                        <Text style={[styles.menuActionText, { color: '#EF4444' }]}>
+                        <Trash2 size={14} color="#B42318" />
+                        <Text style={[styles.menuActionText, { color: '#B42318' }]}>
                           Delete
                         </Text>
                       </TouchableOpacity>
@@ -764,14 +764,14 @@ export function NotificationsScreen({
                   {
                     backgroundColor: isDark
                       ? 'rgba(255, 255, 255, 0.04)'
-                      : '#FBEFE5',
+                      : '#FCEBDD',
                   },
                 ]}>
                 <View
                   style={[
                     styles.emptySpeechBubble,
                     {
-                      backgroundColor: isDark ? '#263048' : '#D9C7B8',
+                      backgroundColor: isDark ? '#262E40' : '#DDD6CA',
                     },
                   ]}>
                   <View style={styles.emptyBubbleDots}>
@@ -832,14 +832,14 @@ export function NotificationsScreen({
                 styles.confirmIconCircle,
                 {
                   backgroundColor: isDark
-                    ? 'rgba(239, 68, 68, 0.16)'
-                    : '#FEE2E2',
+                    ? 'rgba(180, 35, 24, 0.16)'
+                    : '#FBE4E1',
                   borderColor: isDark
-                    ? 'rgba(239, 68, 68, 0.3)'
-                    : '#FCA5A5',
+                    ? 'rgba(180, 35, 24, 0.3)'
+                    : '#F3C4BF',
                 },
               ]}>
-              <Trash2 size={24} color="#EF4444" strokeWidth={2.2} />
+              <Trash2 size={24} color="#B42318" strokeWidth={2.2} />
             </View>
 
             <Text style={[styles.confirmTitle, { color: theme.textPrimary }]}>
@@ -860,7 +860,7 @@ export function NotificationsScreen({
                   {
                     backgroundColor: isDark
                       ? 'rgba(255, 255, 255, 0.08)'
-                      : '#FBEFE5',
+                      : '#FCEBDD',
                     borderColor: theme.cardBorder,
                   },
                 ]}>
@@ -1096,7 +1096,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 24,
     borderRadius: 12,
-    backgroundColor: '#F43F5E',
+    backgroundColor: '#B42318',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -1183,10 +1183,10 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 12,
     borderRadius: 12,
-    backgroundColor: '#EF4444',
+    backgroundColor: '#B42318',
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#EF4444',
+    shadowColor: '#B42318',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 6,

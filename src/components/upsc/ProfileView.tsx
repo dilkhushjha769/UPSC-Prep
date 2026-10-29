@@ -100,8 +100,8 @@ function PrimaryToggle({
         styles.primaryToggleTrack,
         {
           backgroundColor: value
-            ? PALETTE.highlight.primary // #006FFD (Primary Blue)
-            : (isDark ? '#2D3039' : '#D1D5DB'),
+            ? PALETTE.highlight.primary // #B9570A (Primary Blue)
+            : (isDark ? '#262E40' : '#DDD6CA'),
         },
       ]}>
       <View
@@ -131,7 +131,7 @@ export function ProfileView({
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const isDesktop = width >= 768;
 
-  const primaryBlue = PALETTE.highlight.primary; // #006FFD
+  const primaryBlue = PALETTE.highlight.primary; // #B9570A
 
   // Active full-screen flow state
   const [currentScreen, setCurrentScreen] = useState<SubScreen>('main');
@@ -143,7 +143,7 @@ export function ProfileView({
   const [activeEditField, setActiveEditField] = useState<EditableFieldType | null>(null);
   const [tempValue, setTempValue] = useState<string>('');
 
-  // Preference Toggles (uses Primary Blue #006FFD)
+  // Preference Toggles (uses Primary Blue #B9570A)
   const [studyReminders, setStudyReminders] = useState<boolean>(
     config.notificationPreferences?.studyReminders ?? true
   );
@@ -174,12 +174,12 @@ export function ProfileView({
       .toUpperCase() || 'DJ';
 
   // Theme tokens
-  const cardBg = isDark ? '#20232A' : '#FFFFFF';
-  const cardBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : '#EAEDF2';
+  const cardBg = isDark ? '#1E2535' : '#FFFFFF';
+  const cardBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6';
   const dividerColor = isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.06)';
-  const textPrimary = isDark ? '#FFFFFF' : '#111827';
-  const textSecondary = isDark ? '#9CA3AF' : '#4B5563';
-  const textMuted = isDark ? '#6B7280' : '#9CA3AF';
+  const textPrimary = isDark ? '#FFFFFF' : '#1C2433';
+  const textSecondary = isDark ? '#8892A6' : '#4A5568';
+  const textMuted = isDark ? '#5F6B80' : '#8892A6';
 
   // Handler for Interactive Field Edit Modal
   const openFieldEditor = (field: EditableFieldType) => {
@@ -420,9 +420,9 @@ export function ProfileView({
                 },
               ]}>
               {isDark ? (
-                <Sun size={16} color="#F59E0B" strokeWidth={2.4} />
+                <Sun size={16} color="#A65A0A" strokeWidth={2.4} />
               ) : (
-                <Moon size={16} color="#6366F1" strokeWidth={2.4} />
+                <Moon size={16} color="#7C93D1" strokeWidth={2.4} />
               )}
             </TouchableOpacity>
           )}
@@ -439,7 +439,7 @@ export function ProfileView({
                 borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.06)',
               },
             ]}>
-            <Settings size={16} color={isDark ? '#9CA3AF' : '#6B7280'} strokeWidth={2.2} />
+            <Settings size={16} color={isDark ? '#8892A6' : '#5F6B80'} strokeWidth={2.2} />
           </TouchableOpacity>
         </View>
       </View>
@@ -475,7 +475,7 @@ export function ProfileView({
               style={[
                 styles.avatarCircle,
                 {
-                  backgroundColor: isDark ? '#181C26' : '#F1F3F7',
+                  backgroundColor: isDark ? '#1E2535' : '#E9EDF9',
                   borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
                 },
               ]}>
@@ -521,14 +521,14 @@ export function ProfileView({
                 style={[
                   styles.tagPill,
                   {
-                    backgroundColor: isDark ? 'rgba(0, 111, 253, 0.15)' : '#EFF6FF',
-                    borderColor: isDark ? 'rgba(0, 111, 253, 0.3)' : '#BFDBFE',
+                    backgroundColor: isDark ? 'rgba(185, 87, 10, 0.15)' : '#E9EDF9',
+                    borderColor: isDark ? 'rgba(185, 87, 10, 0.3)' : '#CBD3EB',
                   },
                 ]}>
                 <Text
                   style={[
                     styles.tagPillText,
-                    { color: isDark ? '#93C5FD' : '#1D4ED8' },
+                    { color: isDark ? '#F2C9A3' : '#974606' },
                   ]}>
                   UPSC {displayYear}
                 </Text>
@@ -538,8 +538,8 @@ export function ProfileView({
                 style={[
                   styles.tagPill,
                   {
-                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F3F4F6',
-                    borderColor: isDark ? '#383A44' : '#E5E7EB',
+                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F0EDE6',
+                    borderColor: isDark ? '#333D52' : '#EAE5DC',
                   },
                 ]}>
                 <Text style={[styles.tagPillText, { color: textSecondary }]}>
@@ -556,7 +556,7 @@ export function ProfileView({
             style={[
               styles.editProfileBtn,
               {
-                backgroundColor: primaryBlue, // Solid Primary Blue #006FFD
+                backgroundColor: primaryBlue, // Solid Primary Blue #B9570A
               },
             ]}>
             <Edit3 size={12} color="#FFFFFF" strokeWidth={2.4} />
@@ -569,8 +569,8 @@ export function ProfileView({
           style={[
             styles.segmentedTabsWrap,
             {
-              backgroundColor: isDark ? '#191B22' : '#EFF1F5',
-              borderColor: isDark ? '#2D3039' : '#E2E5EC',
+              backgroundColor: isDark ? '#1E2535' : '#E9EDF9',
+              borderColor: isDark ? '#262E40' : '#CBD3EB',
             },
           ]}>
           {[
@@ -925,8 +925,8 @@ export function ProfileView({
             style={[
               styles.modalCard,
               {
-                backgroundColor: isDark ? '#20232A' : '#FFFFFF',
-                borderColor: isDark ? '#383A42' : '#E5E7EB',
+                backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
+                borderColor: isDark ? '#333D52' : '#EAE5DC',
               },
             ]}>
             {/* Modal Header */}
@@ -977,7 +977,7 @@ export function ProfileView({
                         styles.chipOption,
                         isSelected
                           ? { backgroundColor: primaryBlue, borderColor: primaryBlue }
-                          : { backgroundColor: isDark ? '#282A33' : '#F3F4F6', borderColor: isDark ? '#3D3F4A' : '#E5E7EB' },
+                          : { backgroundColor: isDark ? '#1E2535' : '#F0EDE6', borderColor: isDark ? '#333D52' : '#EAE5DC' },
                       ]}>
                       <Text
                         style={[
@@ -1023,7 +1023,7 @@ export function ProfileView({
                           styles.chipOption,
                           isSelected
                             ? { backgroundColor: primaryBlue, borderColor: primaryBlue }
-                            : { backgroundColor: isDark ? '#282A33' : '#F3F4F6', borderColor: isDark ? '#3D3F4A' : '#E5E7EB' },
+                            : { backgroundColor: isDark ? '#1E2535' : '#F0EDE6', borderColor: isDark ? '#333D52' : '#EAE5DC' },
                         ]}>
                         <Text
                           style={[
@@ -1048,8 +1048,8 @@ export function ProfileView({
                   style={[
                     styles.modalInput,
                     {
-                      backgroundColor: isDark ? '#282A33' : '#F9FAFB',
-                      borderColor: isDark ? '#3D3F4A' : '#D1D5DB',
+                      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                      borderColor: isDark ? '#333D52' : '#DDD6CA',
                       color: textPrimary,
                     },
                   ]}
@@ -1074,7 +1074,7 @@ export function ProfileView({
                         styles.chipOption,
                         isSelected
                           ? { backgroundColor: primaryBlue, borderColor: primaryBlue }
-                          : { backgroundColor: isDark ? '#282A33' : '#F3F4F6', borderColor: isDark ? '#3D3F4A' : '#E5E7EB' },
+                          : { backgroundColor: isDark ? '#1E2535' : '#F0EDE6', borderColor: isDark ? '#333D52' : '#EAE5DC' },
                       ]}>
                       <Text
                         style={[
@@ -1109,7 +1109,7 @@ export function ProfileView({
                         styles.chipOption,
                         isSelected
                           ? { backgroundColor: primaryBlue, borderColor: primaryBlue }
-                          : { backgroundColor: isDark ? '#282A33' : '#F3F4F6', borderColor: isDark ? '#3D3F4A' : '#E5E7EB' },
+                          : { backgroundColor: isDark ? '#1E2535' : '#F0EDE6', borderColor: isDark ? '#333D52' : '#EAE5DC' },
                       ]}>
                       <Text
                         style={[
@@ -1149,7 +1149,7 @@ export function ProfileView({
                         styles.stageOptionBtn,
                         isSelected
                           ? { backgroundColor: primaryBlue, borderColor: primaryBlue }
-                          : { backgroundColor: isDark ? '#282A33' : '#F3F4F6', borderColor: isDark ? '#3D3F4A' : '#E5E7EB' },
+                          : { backgroundColor: isDark ? '#1E2535' : '#F0EDE6', borderColor: isDark ? '#333D52' : '#EAE5DC' },
                       ]}>
                       <Text
                         style={[
@@ -1179,8 +1179,8 @@ export function ProfileView({
                   style={[
                     styles.modalInput,
                     {
-                      backgroundColor: isDark ? '#282A33' : '#F9FAFB',
-                      borderColor: isDark ? '#3D3F4A' : '#D1D5DB',
+                      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                      borderColor: isDark ? '#333D52' : '#DDD6CA',
                       color: textPrimary,
                     },
                   ]}
@@ -1208,8 +1208,8 @@ export function ProfileView({
                       style={[
                         styles.chipOptionSmall,
                         {
-                          backgroundColor: isDark ? '#282A33' : '#F3F4F6',
-                          borderColor: isDark ? '#3D3F4A' : '#E5E7EB',
+                          backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+                          borderColor: isDark ? '#333D52' : '#EAE5DC',
                         },
                       ]}>
                       <Text style={[styles.chipOptionTextSmall, { color: textPrimary }]}>
@@ -1378,7 +1378,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 7,
     borderRadius: 9,
-    shadowColor: '#006FFD',
+    shadowColor: '#B9570A',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,

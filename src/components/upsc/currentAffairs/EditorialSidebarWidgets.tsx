@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#EAE5DC',
     padding: 20,
     ...Platform.select({
       web: {
@@ -136,47 +136,47 @@ const styles = StyleSheet.create({
     }),
   },
   cardDark: {
-    backgroundColor: '#161B22',
-    borderColor: '#30363D',
+    backgroundColor: '#151A25',
+    borderColor: '#333D52',
   },
   widgetTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#111827',
+    color: '#1C2433',
     marginBottom: 14,
   },
   widgetTitleDark: {
-    color: '#F9FAFB',
+    color: '#FAF9F6',
   },
   progressTrack: {
     height: 8,
     borderRadius: 999,
-    backgroundColor: '#F3ECE7',
+    backgroundColor: '#F2C9A3',
     overflow: 'hidden',
     marginBottom: 10,
   },
   progressTrackDark: {
-    backgroundColor: '#21262D',
+    backgroundColor: '#1E2535',
   },
   progressFill: {
     height: '100%',
-    backgroundColor: '#A84319',
+    backgroundColor: '#B9570A',
     borderRadius: 999,
   },
   progressSubtext: {
     fontSize: 13,
-    color: '#6B7280',
+    color: '#5F6B80',
     fontWeight: '500',
   },
   progressSubtextDark: {
-    color: '#9CA3AF',
+    color: '#8892A6',
   },
   quizCard: {
-    backgroundColor: '#17202A',
+    backgroundColor: '#151A25',
     borderRadius: 14,
     padding: 20,
     borderWidth: 1,
-    borderColor: '#1E293B',
+    borderColor: '#1C2433',
     ...Platform.select({
       web: {
         boxShadow: '0 4px 12px rgba(17, 24, 39, 0.12)',
@@ -187,8 +187,8 @@ const styles = StyleSheet.create({
     }),
   },
   quizCardDark: {
-    backgroundColor: '#0F141C',
-    borderColor: '#30363D',
+    backgroundColor: '#151A25',
+    borderColor: '#333D52',
   },
   quizTitle: {
     fontSize: 17,
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   },
   quizSubtitle: {
     fontSize: 13.5,
-    color: '#9CA3AF',
+    color: '#8892A6',
     lineHeight: 19,
     marginBottom: 16,
   },
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     transform: [{ scale: 0.98 }],
   },
   quizBtnText: {
-    color: '#17202A',
+    color: '#151A25',
     fontSize: 14,
     fontWeight: '700',
   },
@@ -226,27 +226,27 @@ const styles = StyleSheet.create({
   },
   savedItemDivider: {
     borderTopWidth: 1,
-    borderTopColor: '#F3F4F6',
+    borderTopColor: '#F0EDE6',
   },
   savedItemPressed: {
     opacity: 0.7,
   },
   savedItemText: {
     fontSize: 14,
-    color: '#1F2937',
+    color: '#1C2433',
     lineHeight: 20,
     fontWeight: '500',
   },
   savedItemTextDark: {
-    color: '#E5E7EB',
+    color: '#EAE5DC',
   },
   emptySavedText: {
     fontSize: 13,
-    color: '#9CA3AF',
+    color: '#8892A6',
     lineHeight: 19,
     fontStyle: 'italic',
   },
   emptySavedTextDark: {
-    color: '#6B7280',
+    color: '#5F6B80',
   },
 });

@@ -108,7 +108,7 @@ export function ProfilePersonalDetails({
                 style={[
                   styles.verifiedBadge,
                   {
-                    backgroundColor: isDark ? '#1C2028' : '#F1F5F9',
+                    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
                     borderColor: theme.cardBorder,
                   },
                 ]}>
@@ -137,7 +137,7 @@ export function ProfilePersonalDetails({
             style={[
               styles.editBtn,
               {
-                backgroundColor: isDark ? '#1E222B' : '#F1F5F9',
+                backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
                 borderColor: theme.cardBorder,
               },
             ]}>
@@ -179,7 +179,7 @@ export function ProfilePersonalDetails({
                   styles.detailCell,
                   isNarrow ? styles.cellFull : styles.cellHalf,
                 ]}>
-                <Text style={[styles.fieldLabel, { color: isDark ? '#8E95A5' : '#64748B' }]}>
+                <Text style={[styles.fieldLabel, { color: isDark ? '#5F6B80' : '#5F6B80' }]}>
                   {item.label}
                 </Text>
                 <Text
@@ -200,7 +200,7 @@ export function ProfilePersonalDetails({
         style={[
           styles.switchBanner,
           {
-            backgroundColor: isDark ? '#141416' : '#F8FAFC',
+            backgroundColor: isDark ? '#151A25' : '#FAF9F6',
             borderColor: theme.cardBorder,
           },
         ]}>

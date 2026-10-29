@@ -88,7 +88,7 @@ export function StudyHistoryModal({ isDark }: StudyHistoryModalProps) {
               style={[
                 styles.searchBar,
                 {
-                  backgroundColor: isDark ? '#1C1B2A' : '#F8FAFC',
+                  backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                 },
               ]}>
@@ -132,11 +132,11 @@ export function StudyHistoryModal({ isDark }: StudyHistoryModalProps) {
                       styles.filterChip,
                       {
                         backgroundColor: isSelected
-                          ? isDark ? '#FFFFFF' : '#09090B'
-                          : isDark ? '#1C1B2A' : '#F1F5F9',
+                          ? isDark ? '#FFFFFF' : '#151A25'
+                          : isDark ? '#1E2535' : '#F0EDE6',
                         borderColor: isSelected
-                          ? isDark ? '#FFFFFF' : '#09090B'
-                          : isDark ? '#2D3444' : '#E2E8F0',
+                          ? isDark ? '#FFFFFF' : '#151A25'
+                          : isDark ? '#262E40' : '#EAE5DC',
                       },
                     ]}>
                     <Text
@@ -144,7 +144,7 @@ export function StudyHistoryModal({ isDark }: StudyHistoryModalProps) {
                         styles.filterChipText,
                         {
                           color: isSelected
-                            ? isDark ? '#09090B' : '#FFFFFF'
+                            ? isDark ? '#151A25' : '#FFFFFF'
                             : colors.textSecondary,
                           fontWeight: isSelected ? '700' : '500',
                         },
@@ -178,7 +178,7 @@ export function StudyHistoryModal({ isDark }: StudyHistoryModalProps) {
                       style={[
                         styles.sessionCard,
                         {
-                          backgroundColor: isDark ? '#1B1A28' : '#FBFBFE',
+                          backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
                           borderColor: colors.cardBorderSubtle,
                         },
                       ]}>
@@ -189,7 +189,7 @@ export function StudyHistoryModal({ isDark }: StudyHistoryModalProps) {
                               styles.subjectBadge,
                               {
                                 backgroundColor: isDark
-                                  ? '#27203A'
+                                  ? '#262E40'
                                   : subjectStyle.bg,
                                 borderColor: subjectStyle.border,
                               },
@@ -272,7 +272,7 @@ export function StudyHistoryModal({ isDark }: StudyHistoryModalProps) {
                         <TouchableOpacity
                           onPress={() => deleteSession(session.id)}
                           style={styles.deleteBtn}>
-                          <Trash2 size={13} color="#EF4444" />
+                          <Trash2 size={13} color="#B42318" />
                           <Text style={styles.deleteBtnText}>Delete Log</Text>
                         </TouchableOpacity>
                       </View>
@@ -430,7 +430,7 @@ const styles = StyleSheet.create({
   deleteBtnText: {
     fontSize: 11,
     fontWeight: '600',
-    color: '#EF4444',
+    color: '#B42318',
   },
   emptyContainer: {
     padding: 24,
@@ -476,7 +476,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
   },
   interruptedBadge: {
-    backgroundColor: 'rgba(239, 68, 68, 0.12)',
+    backgroundColor: 'rgba(180, 35, 24, 0.12)',
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 6,
@@ -484,7 +484,7 @@ const styles = StyleSheet.create({
   interruptedBadgeText: {
     fontSize: 9,
     fontWeight: '700',
-    color: '#EF4444',
+    color: '#B42318',
   },
   metaRow: {
     flexDirection: 'row',
@@ -501,6 +501,6 @@ const styles = StyleSheet.create({
   metaTagText: {
     fontSize: 10,
     fontWeight: '600',
-    color: '#888888',
+    color: '#5F6B80',
   },
 });

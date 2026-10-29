@@ -1,7 +1,14 @@
 import { Subject, Chapter, PYQQuestion, ChapterShortNoteItem } from '@/types/prelims';
-import { PRELIMS_CSAT_SUBJECTS, CSAT_SHORT_NOTES_MAP } from './csatData';
+import { PRELIMS_CSAT_SUBJECTS as LEGACY_CSAT_SUBJECTS, CSAT_SHORT_NOTES_MAP } from './csatData';
+import {
+  ALL_CLASSIFIED_PYQS,
+  CANONICAL_ALL_SUBJECTS,
+  CANONICAL_CSAT_SUBJECTS,
+  CANONICAL_GS1_SUBJECTS,
+  SUBJECT_LEGACY_ALIAS_MAP,
+} from './questionBankRepository';
 
-export const PRELIMS_GS1_SUBJECTS: Subject[] = [
+export const LEGACY_GS1_SUBJECTS: Subject[] = [
   {
     id: 'polity',
     title: 'Indian Polity & Governance',
@@ -1484,120 +1491,30 @@ export const PRELIMS_GS1_SUBJECTS: Subject[] = [
   },
 ];
 
-export { PRELIMS_CSAT_SUBJECTS };
+export const PRELIMS_GS1_SUBJECTS: Subject[] = CANONICAL_GS1_SUBJECTS;
+export const PRELIMS_CSAT_SUBJECTS: Subject[] = CANONICAL_CSAT_SUBJECTS;
+export const PRELIMS_SUBJECTS: Subject[] = CANONICAL_ALL_SUBJECTS;
 
-export const PRELIMS_SUBJECTS: Subject[] = [
-  ...PRELIMS_GS1_SUBJECTS.map((s) => ({ ...s, paper: 'GS1' as const })),
-  ...PRELIMS_CSAT_SUBJECTS,
+export const LEGACY_STATIC_PYQS: PYQQuestion[] = [
+  ...LEGACY_GS1_SUBJECTS.flatMap((s) => s.chapters.flatMap((c) => c.pyqs)),
+  ...LEGACY_CSAT_SUBJECTS.flatMap((s) => s.chapters.flatMap((c) => c.pyqs)),
 ];
 
-export const ALL_PYQS: PYQQuestion[] = PRELIMS_SUBJECTS.flatMap((s) =>
-  s.chapters.flatMap((c) => c.pyqs)
-);
+export const ALL_PYQS: PYQQuestion[] = ALL_CLASSIFIED_PYQS;
 
 /**
- * Returns authentic PYQs for a chapter. If none are explicitly hardcoded,
- * dynamically generates realistic UPSC-standard PYQs based on chapter's recurring topics and trend data.
+ * Returns authentic classified UPSC Prelims PYQs for a chapter/topic.
  */
 export function getChapterQuestions(chapter: Chapter): PYQQuestion[] {
   if (chapter.pyqs && chapter.pyqs.length > 0) {
     return chapter.pyqs;
   }
-
-  // Generate realistic UPSC standard questions from recurring topics
-  const topics = chapter.recurringTopics;
-  const generated: PYQQuestion[] = [
-    {
-      id: `${chapter.id}-gen-1`,
-      year: 2023,
-      subjectId: chapter.subjectId,
-      chapterId: chapter.id,
-      chapterName: chapter.title,
-      questionText: `With reference to "${topics[0] || chapter.title}", consider the following statements:\n1. It is a legally enforceable right under the constitutional framework.\n2. The institutional guidelines are framed directly under statutory rules.\n\nWhich of the statements given above is/are correct?`,
-      options: [
-        { key: 'A', text: '1 only' },
-        { key: 'B', text: '2 only' },
-        { key: 'C', text: 'Both 1 and 2' },
-        { key: 'D', text: 'Neither 1 nor 2' },
-      ],
-      correctAnswer: 'B',
-      explanation: {
-        officialAnswer: 'Option (B) is correct.',
-        coreConcept: topics[0] || chapter.title,
-        detailedAnalysis: [
-          `Regarding statement 1: The provision operates as a guiding principle rather than an absolute enforceable mandate unless specifically backed by legislation.`,
-          `Regarding statement 2: The statutory framework empowers the designated authority to formulate operational and regulatory guidelines.`,
-        ],
-        eliminationTechnique:
-          'Identify whether the doctrine is absolute or conditional. Conditional doctrines in administrative law rarely confer automatic legal enforceability.',
-        upscTrendNote: `Core recurring theme in ${chapter.title}.`,
-      },
-      difficulty: 'Medium',
-      tags: [chapter.title, 'UPSC 2023', 'High Yield'],
-    },
-    {
-      id: `${chapter.id}-gen-2`,
-      year: 2022,
-      subjectId: chapter.subjectId,
-      chapterId: chapter.id,
-      chapterName: chapter.title,
-      questionText: `Consider the following statements regarding "${topics[1] || chapter.title}":\n1. It applies uniformly to all States and Union Territories without exception.\n2. Prior presidential recommendation is mandatory before any modification.\n\nWhich of the statements given above is/are correct?`,
-      options: [
-        { key: 'A', text: '1 only' },
-        { key: 'B', text: '2 only' },
-        { key: 'C', text: 'Both 1 and 2' },
-        { key: 'D', text: 'Neither 1 nor 2' },
-      ],
-      correctAnswer: 'D',
-      explanation: {
-        officialAnswer: 'Option (D) is correct.',
-        coreConcept: topics[1] || chapter.title,
-        detailedAnalysis: [
-          'Statement 1 is incorrect: Special constitutional provisions (5th/6th Schedule, Article 371 series) create exemptions.',
-          'Statement 2 is incorrect: No prior presidential recommendation is stipulated under ordinary legislative rules.',
-        ],
-        eliminationTechnique:
-          'Beware of absolute qualifiers: "uniformly to all without exception". India’s asymmetric federalism routinely provides state-specific dispensations.',
-        upscTrendNote: 'Classic UPSC trap involving extreme statements.',
-      },
-      difficulty: 'Medium',
-      tags: [chapter.title, 'UPSC 2022'],
-    },
-    {
-      id: `${chapter.id}-gen-3`,
-      year: 2021,
-      subjectId: chapter.subjectId,
-      chapterId: chapter.id,
-      chapterName: chapter.title,
-      questionText: `In India, which one of the following is the primary objective of provisions relating to "${topics[2] || chapter.title}"?\n\n(a) To ensure centralized fiscal control over regional units\n(b) To safeguard decentralized institutional autonomy and administrative efficacy\n(c) To eliminate private stakeholder participation\n(d) To establish permanent judicial oversight over routine executive actions`,
-      options: [
-        { key: 'A', text: 'To ensure centralized fiscal control over regional units' },
-        { key: 'B', text: 'To safeguard decentralized institutional autonomy and administrative efficacy' },
-        { key: 'C', text: 'To eliminate private stakeholder participation' },
-        { key: 'D', text: 'To establish permanent judicial oversight over routine executive actions' },
-      ],
-      correctAnswer: 'B',
-      explanation: {
-        officialAnswer: 'Option (B) is correct.',
-        coreConcept: topics[2] || chapter.title,
-        detailedAnalysis: [
-          'The underlying objective is to promote democratic decentralization, operational autonomy, and responsive public administration.',
-          'Options A, C, and D are contrary to modern constitutional and administrative jurisprudence.',
-        ],
-        eliminationTechnique:
-          'Constitutional and administrative objectives in democratic setups inherently promote institutional autonomy rather than unchecked centralization.',
-        upscTrendNote: 'Conceptual objective questions are heavily favored by UPSC Prelims examiners.',
-      },
-      difficulty: 'Easy',
-      tags: [chapter.title, 'UPSC 2021'],
-    },
-  ];
-
-  return generated;
+  return ALL_CLASSIFIED_PYQS.filter((q) => q.chapterId === chapter.id);
 }
 
 export function getAllQuestionsForSubject(subjectId: string): PYQQuestion[] {
-  const subject = PRELIMS_SUBJECTS.find((s) => s.id === subjectId);
+  const resolvedId = SUBJECT_LEGACY_ALIAS_MAP[subjectId] || subjectId;
+  const subject = PRELIMS_SUBJECTS.find((s) => s.id === resolvedId || s.id === subjectId);
   if (!subject) return [];
   return subject.chapters.flatMap((c) => getChapterQuestions(c));
 }

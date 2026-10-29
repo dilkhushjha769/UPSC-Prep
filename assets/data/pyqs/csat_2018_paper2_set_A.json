@@ -1,7 +1,7 @@
 {
   "meta": {
-    "exam": "UPSC Civil Services (Preliminary) Examination 2018",
-    "paper": "General Studies Paper-II (CSAT)",
+    "exam": "UPSC CSE Prelims",
+    "paper": "General Studies Paper II (CSAT)",
     "test_booklet_series": "A",
     "booklet_code": "CYRF-S-TXLD",
     "language": "en",
@@ -12,7 +12,9 @@
     "negative_marks_per_wrong": 0.8333,
     "negative_marking_rule": "One-third of the marks assigned to the question is deducted for each wrong answer; no penalty for unattempted questions.",
     "qualifying_marks": 66,
-    "answer_key_source": "Official UPSC Answer Key & standard analytical solutions."
+    "answer_key_source": "Official UPSC Answer Key & standard analytical solutions.",
+    "year": 2018,
+    "paper_type": "CSAT"
   },
   "passages": [
     {
@@ -178,7 +180,7 @@
   "questions": [
     {
       "number": 1,
-      "topic": "3D Geometry / Polyhedra",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "Consider the following three-dimensional figure:\n[A regular icosahedron solid]\nHow many triangles does the above figure have?",
       "options": [
@@ -200,11 +202,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The given three-dimensional geometric figure is a regular icosahedron, one of the five Platonic solids. A regular icosahedron has exactly 20 equilateral triangular faces, 12 vertices, and 30 edges. Therefore, the figure has 20 triangles."
+      "explanation": "The given three-dimensional geometric figure is a regular icosahedron, one of the five Platonic solids. A regular icosahedron has exactly 20 equilateral triangular faces, 12 vertices, and 30 edges. Therefore, the figure has 20 triangles.",
+      "raw_topic": "3D Geometry / Polyhedra",
+      "id": "upsc_2018_csat_q1",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_polyhedra",
+      "subtopic": "Polyhedra",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (3D Geometry / Polyhedra).",
+      "validation_status": "verified"
     },
     {
       "number": 2,
-      "topic": "Cryptarithmetic / Addition Puzzle",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "Consider the following sum:\n• + 1• + 2• + •3 + •1 = 21•\nIn the above sum, • stands for",
       "options": [
@@ -226,11 +244,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Let • represent the single digit d. Express the equation in place values:\nd + (10 + d) + (20 + d) + (10d + 3) + (10d + 1) = 200 + 10 + d\nLHS = d + 10 + d + 20 + d + 10d + 3 + 10d + 1 = 34 + 23d.\nRHS = 210 + d.\nEquating LHS and RHS: 34 + 23d = 210 + d => 22d = 176 => d = 176 / 22 = 8.\nTherefore, • stands for 8."
+      "explanation": "Let • represent the single digit d. Express the equation in place values:\nd + (10 + d) + (20 + d) + (10d + 3) + (10d + 1) = 200 + 10 + d\nLHS = d + 10 + d + 20 + d + 10d + 3 + 10d + 1 = 34 + 23d.\nRHS = 210 + d.\nEquating LHS and RHS: 34 + 23d = 210 + d => 22d = 176 => d = 176 / 22 = 8.\nTherefore, • stands for 8.",
+      "raw_topic": "Cryptarithmetic / Addition Puzzle",
+      "id": "upsc_2018_csat_q2",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_addition_puzzle",
+      "subtopic": "Addition Puzzle",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Cryptarithmetic / Addition Puzzle).",
+      "validation_status": "verified"
     },
     {
       "number": 3,
-      "topic": "Number Puzzles / Matrix Operations",
+      "topic": "Percentages, Ratios and Proportions",
       "passage_id": null,
       "question": "Consider the following pattern of numbers:\nRow 1: 8 | 10 | 15 | 13\nRow 2: 6 | 5 | 7 | 4\nRow 3: 4 | 6 | 8 | 8\nRow 4: 6 | 11 | 16 | ?\nWhat is the number at ? in the above pattern?",
       "options": [
@@ -252,11 +286,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Look at each column: Col 1: (8 + 4) - 6 = 6; Col 2: (10 + 6) - 5 = 11; Col 3: (15 + 8) - 7 = 16. In general, for each column: (Row 1 + Row 3) - Row 2 = Row 4. For Column 4: (13 + 8) - 4 = 21 - 4 = 17. Thus, ? = 17."
+      "explanation": "Look at each column: Col 1: (8 + 4) - 6 = 6; Col 2: (10 + 6) - 5 = 11; Col 3: (15 + 8) - 7 = 16. In general, for each column: (Row 1 + Row 3) - Row 2 = Row 4. For Column 4: (13 + 8) - 4 = 21 - 4 = 17. Thus, ? = 17.",
+      "raw_topic": "Number Puzzles / Matrix Operations",
+      "id": "upsc_2018_csat_q3",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "percentages_ratios_proportions",
+      "subtopic_id": "percentages_ratios_proportions_matrix_operations",
+      "subtopic": "Matrix Operations",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Percentages, Ratios and Proportions question (Number Puzzles / Matrix Operations).",
+      "validation_status": "verified"
     },
     {
       "number": 4,
-      "topic": "Combinatorics / Polygon Diagonals",
+      "topic": "Permutations and Combinations",
       "passage_id": null,
       "question": "How many diagonals can be drawn by joining the vertices of an octagon?",
       "options": [
@@ -278,11 +328,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The number of diagonals of an n-sided polygon is given by n(n - 3) / 2. For an octagon, n = 8. Number of diagonals = 8 × (8 - 3) / 2 = 8 × 5 / 2 = 20."
+      "explanation": "The number of diagonals of an n-sided polygon is given by n(n - 3) / 2. For an octagon, n = 8. Number of diagonals = 8 × (8 - 3) / 2 = 8 × 5 / 2 = 20.",
+      "raw_topic": "Combinatorics / Polygon Diagonals",
+      "id": "upsc_2018_csat_q4",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "permutations_and_combinations",
+      "subtopic_id": "permutations_and_combinations_polygon_diagonals",
+      "subtopic": "Polygon Diagonals",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Permutations, Combinations & Counting principle question (Combinatorics / Polygon Diagonals).",
+      "validation_status": "verified"
     },
     {
       "number": 5,
-      "topic": "Kinematics / Velocity-Time Graphs",
+      "topic": "Time, Speed and Distance",
       "passage_id": null,
       "question": "The figure drawn gives the velocity graphs of two vehicles A and B. The straight line OKP represents the velocity of vehicle A at any instant, whereas the horizontal straight line CKD represents the velocity of vehicle B at any instant. In the figure, D is the point where perpendicular from P meets the horizontal line CKD such that PD = ½ LD. What is the ratio between the distances covered by vehicles A and B in the time interval OL?",
       "options": [
@@ -304,11 +370,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The distance covered by a vehicle is represented by the area under its velocity-time curve over the time interval OL.\nLet time OL = t.\nFor vehicle B, the velocity is constant: v_B = OC = LD = h.\nDistance covered by vehicle B = Area of rectangle OCKDL = OL × LD = t × h.\nFor vehicle A, the velocity starts from 0 at O and increases linearly to PL at time L.\nWe are given PD = ½ LD = ½ h. Therefore, total height PL = LD + PD = h + ½ h = 1.5h.\nDistance covered by vehicle A = Area of triangle OPL = ½ × Base × Height = ½ × t × (1.5h) = 0.75 th = ¾ th.\nRatio of distances covered by vehicle A to vehicle B = (¾ th) / (th) = 3/4 = 3:4."
+      "explanation": "The distance covered by a vehicle is represented by the area under its velocity-time curve over the time interval OL.\nLet time OL = t.\nFor vehicle B, the velocity is constant: v_B = OC = LD = h.\nDistance covered by vehicle B = Area of rectangle OCKDL = OL × LD = t × h.\nFor vehicle A, the velocity starts from 0 at O and increases linearly to PL at time L.\nWe are given PD = ½ LD = ½ h. Therefore, total height PL = LD + PD = h + ½ h = 1.5h.\nDistance covered by vehicle A = Area of triangle OPL = ½ × Base × Height = ½ × t × (1.5h) = 0.75 th = ¾ th.\nRatio of distances covered by vehicle A to vehicle B = (¾ th) / (th) = 3/4 = 3:4.",
+      "raw_topic": "Kinematics / Velocity-Time Graphs",
+      "id": "upsc_2018_csat_q5",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "time_speed_distance",
+      "subtopic_id": "time_speed_distance_velocity_time_graphs",
+      "subtopic": "Velocity-Time Graphs",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Time, Speed and Distance / Motion problem (Kinematics / Velocity-Time Graphs).",
+      "validation_status": "verified"
     },
     {
       "number": 6,
-      "topic": "Time, Speed and Distance / Trains",
+      "topic": "Time, Speed and Distance",
       "passage_id": null,
       "question": "A train 200 metres long is moving at the rate of 40 kmph. In how many seconds will it cross a man standing near the railway line?",
       "options": [
@@ -330,7 +412,23 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Speed of train = 40 km/h = 40 × (5/18) m/s = 200 / 18 = 100 / 9 m/s.\nDistance to be covered to cross a standing man = Length of the train = 200 m.\nTime taken = Distance / Speed = 200 / (200/18) = 18 seconds."
+      "explanation": "Speed of train = 40 km/h = 40 × (5/18) m/s = 200 / 18 = 100 / 9 m/s.\nDistance to be covered to cross a standing man = Length of the train = 200 m.\nTime taken = Distance / Speed = 200 / (200/18) = 18 seconds.",
+      "raw_topic": "Time, Speed and Distance / Trains",
+      "id": "upsc_2018_csat_q6",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "time_speed_distance",
+      "subtopic_id": "time_speed_distance_trains",
+      "subtopic": "Trains",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Time, Speed and Distance / Motion problem (Time, Speed and Distance / Trains).",
+      "validation_status": "verified"
     },
     {
       "number": 7,
@@ -356,7 +454,23 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The passage highlights that around 47% of India's population depends on agriculture, and even by 2030, nearly 42% will remain dependent on it despite growth in services and manufacturing, logically inferring that the prosperity of the agricultural sector is of critical importance to India."
+      "explanation": "The passage highlights that around 47% of India's population depends on agriculture, and even by 2030, nearly 42% will remain dependent on it despite growth in services and manufacturing, logically inferring that the prosperity of the agricultural sector is of critical importance to India.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q7",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_logical_inference",
+      "subtopic": "Logical & Rational Inference / Corollary",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 8,
@@ -382,7 +496,23 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The passage notes that rapid globalization of food production puts 'the world on our plates', making food harder to regulate and trace, and increasing consumer vulnerability to foodborne pathogens, yielding the logical corollary that with more global food options come more risks."
+      "explanation": "The passage notes that rapid globalization of food production puts 'the world on our plates', making food harder to regulate and trace, and increasing consumer vulnerability to foodborne pathogens, yielding the logical corollary that with more global food options come more risks.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q8",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_logical_inference",
+      "subtopic": "Logical & Rational Inference / Corollary",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 9,
@@ -408,7 +538,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The author (Dr. Francis Collins) explains that science uses tools to understand the physical mechanisms of nature while faith addresses existential questions (why we are here), concluding that viewing science and faith as incompatible is anachronistic, inferring that they are mutually complementary within their respective domains."
+      "explanation": "The author (Dr. Francis Collins) explains that science uses tools to understand the physical mechanisms of nature while faith addresses existential questions (why we are here), concluding that viewing science and faith as incompatible is anachronistic, inferring that they are mutually complementary within their respective domains.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q9",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_logical_inference",
+      "subtopic": "Logical & Rational Inference / Corollary",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 10,
@@ -434,11 +580,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Jawaharlal Nehru writes in The Discovery of India that he wants India to rid herself of those shackles of the past because they 'bind and contain her and divide her people, and suppress vast numbers of them, and prevent the free development of the body and the spirit'."
+      "explanation": "Jawaharlal Nehru writes in The Discovery of India that he wants India to rid herself of those shackles of the past because they 'bind and contain her and divide her people, and suppress vast numbers of them, and prevent the free development of the body and the spirit'.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q10",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_implications_conclusions",
+      "subtopic": "Practical Implications, Conclusions & Author View",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 11,
-      "topic": "Data Interpretation / Bar Chart Analysis",
+      "topic": "Tables, Charts and Graphs",
       "passage_id": null,
       "question": "By how much (measured in thousands of tons) did the import of sheet steel exceed the import of coil steel in the first three months of the year?",
       "options": [
@@ -460,11 +622,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "From the bar chart for the first three months (January, February, March):\n- Sheet steel imports: Jan = 40, Feb = 37, Mar = 36. Total sheet steel = 40 + 37 + 36 = 113 thousand tons.\n- Coil steel imports: Jan = 30, Feb = 31, Mar = 33. Total coil steel = 30 + 31 + 33 = 94 thousand tons.\nDifference = 113 − 94 = 19 thousand tons."
+      "explanation": "From the bar chart for the first three months (January, February, March):\n- Sheet steel imports: Jan = 40, Feb = 37, Mar = 36. Total sheet steel = 40 + 37 + 36 = 113 thousand tons.\n- Coil steel imports: Jan = 30, Feb = 31, Mar = 33. Total coil steel = 30 + 31 + 33 = 94 thousand tons.\nDifference = 113 − 94 = 19 thousand tons.",
+      "raw_topic": "Data Interpretation / Bar Chart Analysis",
+      "id": "upsc_2018_csat_q11",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_data_interpretation",
+      "subject": "Data Interpretation",
+      "topic_id": "tables_charts_graphs",
+      "subtopic_id": "tables_charts_graphs_bar_chart_analysis",
+      "subtopic": "Bar Chart Analysis",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Data Interpretation question (Data Interpretation / Bar Chart Analysis).",
+      "validation_status": "verified"
     },
     {
       "number": 12,
-      "topic": "Data Interpretation / Value Calculations",
+      "topic": "Data Interpretation",
       "passage_id": null,
       "question": "What was the approximate total value (in $) of sheet steel imported over the six months period?",
       "options": [
@@ -486,11 +664,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Total sheet steel imported over the six months (in thousand tons):\nJan(40) + Feb(37) + Mar(36) + Apr(36) + May(34) + Jun(34) = 217 thousand tons = 217,000 tons.\nAverage cost per ton of sheet steel = $256.\nTotal value = 217,000 × $256 = $55,552,000 (which corresponds to 55,550 in thousands of dollars)."
+      "explanation": "Total sheet steel imported over the six months (in thousand tons):\nJan(40) + Feb(37) + Mar(36) + Apr(36) + May(34) + Jun(34) = 217 thousand tons = 217,000 tons.\nAverage cost per ton of sheet steel = $256.\nTotal value = 217,000 × $256 = $55,552,000 (which corresponds to 55,550 in thousands of dollars).",
+      "raw_topic": "Data Interpretation / Value Calculations",
+      "id": "upsc_2018_csat_q12",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_data_interpretation",
+      "subject": "Data Interpretation",
+      "topic_id": "data_interpretation",
+      "subtopic_id": "data_interpretation_value_calculations",
+      "subtopic": "Value Calculations",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Data Interpretation question (Data Interpretation / Value Calculations).",
+      "validation_status": "verified"
     },
     {
       "number": 13,
-      "topic": "Data Interpretation / Ratios",
+      "topic": "Data Interpretation",
       "passage_id": null,
       "question": "What was the approximate ratio of sheet steel and scrap steel imports in the first three months of the year?",
       "options": [
@@ -512,11 +706,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "In the first three months (Jan, Feb, Mar):\n- Sheet steel = 40 + 37 + 36 = 113 thousand tons.\n- Scrap steel = Jan(32) + Feb(34) + Mar(32) = 98 thousand tons.\nRatio = 113 / 98 ≈ 1.153 : 1 ≈ 1.2:1."
+      "explanation": "In the first three months (Jan, Feb, Mar):\n- Sheet steel = 40 + 37 + 36 = 113 thousand tons.\n- Scrap steel = Jan(32) + Feb(34) + Mar(32) = 98 thousand tons.\nRatio = 113 / 98 ≈ 1.153 : 1 ≈ 1.2:1.",
+      "raw_topic": "Data Interpretation / Ratios",
+      "id": "upsc_2018_csat_q13",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_data_interpretation",
+      "subject": "Data Interpretation",
+      "topic_id": "data_interpretation",
+      "subtopic_id": "data_interpretation_ratios",
+      "subtopic": "Ratios",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Data Interpretation question (Data Interpretation / Ratios).",
+      "validation_status": "verified"
     },
     {
       "number": 14,
-      "topic": "Dice and Cubes / Solid Orientation",
+      "topic": "Logical Reasoning",
       "passage_id": null,
       "question": "Rotated positions of a single solid are shown. The various faces of the solid are marked with different symbols like dots, cross and line. What is the symbol on the face opposite to that containing a single dot?",
       "options": [
@@ -538,11 +748,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Analyzing the adjacent faces of the solid across orientations (I) to (IV):\n- From figures (I) and (II), the face with a single dot is adjacent to two dots, four dots, cross, and line.\n- The only face not adjacent to the single dot is the face with three dots.\nTherefore, the face containing three dots is opposite to the single dot."
+      "explanation": "Analyzing the adjacent faces of the solid across orientations (I) to (IV):\n- From figures (I) and (II), the face with a single dot is adjacent to two dots, four dots, cross, and line.\n- The only face not adjacent to the single dot is the face with three dots.\nTherefore, the face containing three dots is opposite to the single dot.",
+      "raw_topic": "Dice and Cubes / Solid Orientation",
+      "id": "upsc_2018_csat_q14",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "logical_reasoning",
+      "subtopic_id": "logical_reasoning_solid_orientation",
+      "subtopic": "Solid Orientation",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Logical Reasoning question (Dice and Cubes / Solid Orientation).",
+      "validation_status": "verified"
     },
     {
       "number": 15,
-      "topic": "Dice and Cubes / Solid Orientation",
+      "topic": "Logical Reasoning",
       "passage_id": null,
       "question": "What is the symbol on the face opposite to that containing two dots?",
       "options": [
@@ -564,11 +790,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Opposite pairs on the solid are:\n- Single dot is opposite to Three dots.\n- Two dots is opposite to Four dots.\n- Cross is opposite to Line.\nTherefore, the symbol on the face opposite to two dots is Four dots."
+      "explanation": "Opposite pairs on the solid are:\n- Single dot is opposite to Three dots.\n- Two dots is opposite to Four dots.\n- Cross is opposite to Line.\nTherefore, the symbol on the face opposite to two dots is Four dots.",
+      "raw_topic": "Dice and Cubes / Solid Orientation",
+      "id": "upsc_2018_csat_q15",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "logical_reasoning",
+      "subtopic_id": "logical_reasoning_solid_orientation",
+      "subtopic": "Solid Orientation",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Logical Reasoning question (Dice and Cubes / Solid Orientation).",
+      "validation_status": "verified"
     },
     {
       "number": 16,
-      "topic": "Dice and Cubes / Solid Orientation",
+      "topic": "Logical Reasoning",
       "passage_id": null,
       "question": "What is the symbol on the face opposite to that containing the cross?",
       "options": [
@@ -590,7 +832,23 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "From the deduced opposite pairs:\n- Single dot is opposite to Three dots.\n- Two dots is opposite to Four dots.\n- Cross is opposite to Line.\nTherefore, the symbol on the face opposite to the cross is the Line."
+      "explanation": "From the deduced opposite pairs:\n- Single dot is opposite to Three dots.\n- Two dots is opposite to Four dots.\n- Cross is opposite to Line.\nTherefore, the symbol on the face opposite to the cross is the Line.",
+      "raw_topic": "Dice and Cubes / Solid Orientation",
+      "id": "upsc_2018_csat_q16",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "logical_reasoning",
+      "subtopic_id": "logical_reasoning_solid_orientation",
+      "subtopic": "Solid Orientation",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Logical Reasoning question (Dice and Cubes / Solid Orientation).",
+      "validation_status": "verified"
     },
     {
       "number": 17,
@@ -621,7 +879,23 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The passage argues that universal physical access and infrastructure are merely prerequisites, and that 'Quality is an integral part of the right to education... a massive programme for curricular reform should be initiated to provide for a child-friendly learning system', making curricular reform of paramount importance."
+      "explanation": "The passage argues that universal physical access and infrastructure are merely prerequisites, and that 'Quality is an integral part of the right to education... a massive programme for curricular reform should be initiated to provide for a child-friendly learning system', making curricular reform of paramount importance.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q17",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_implications_conclusions",
+      "subtopic": "Practical Implications, Conclusions & Author View",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 18,
@@ -652,7 +926,23 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Assumption 1 is valid: the passage states that 'Teacher accountability systems and processes must ensure that children are learning, and that their right to learn in a child-friendly environment is not violated.' Assumptions 2 and 3 are unsupported claims (100% enrolment is not guaranteed by law alone, and demographic dividend is unmentioned)."
+      "explanation": "Assumption 1 is valid: the passage states that 'Teacher accountability systems and processes must ensure that children are learning, and that their right to learn in a child-friendly environment is not violated.' Assumptions 2 and 3 are unsupported claims (100% enrolment is not guaranteed by law alone, and demographic dividend is unmentioned).",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q18",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 19,
@@ -678,7 +968,23 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "The text highlights that the Act lays down that 'the curriculum should provide for learning through activities, exploration and discovery', moving beyond passive memorization of textbooks to bring genuine quality to education."
+      "explanation": "The text highlights that the Act lays down that 'the curriculum should provide for learning through activities, exploration and discovery', moving beyond passive memorization of textbooks to bring genuine quality to education.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q19",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_implications_conclusions",
+      "subtopic": "Practical Implications, Conclusions & Author View",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 20,
@@ -704,11 +1010,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The core thesis of the passage is stated explicitly: 'The right to education goes beyond free and compulsory education to include quality education for all. Quality is an integral part of the right to education. If the education process lacks quality, children are being denied their right.'"
+      "explanation": "The core thesis of the passage is stated explicitly: 'The right to education goes beyond free and compulsory education to include quality education for all. Quality is an integral part of the right to education. If the education process lacks quality, children are being denied their right.'",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q20",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_implications_conclusions",
+      "subtopic": "Practical Implications, Conclusions & Author View",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 21,
-      "topic": "Coding-Decoding",
+      "topic": "Logical Reasoning",
       "passage_id": null,
       "question": "If LSJXVC is the code for MUMBAI, the code for DELHI is",
       "options": [
@@ -730,11 +1052,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Look at the letter shifts from MUMBAI to LSJXVC: M(-1)->L, U(-2)->S, M(-3)->J, B(-4)->X, A(-5)->V, I(-6)->C. Applying the same -1, -2, -3, -4, -5 shifts to DELHI gives: D(-1)->C, E(-2)->C, L(-3)->I, H(-4)->D, I(-5)->D, resulting in CCIDD."
+      "explanation": "Look at the letter shifts from MUMBAI to LSJXVC: M(-1)->L, U(-2)->S, M(-3)->J, B(-4)->X, A(-5)->V, I(-6)->C. Applying the same -1, -2, -3, -4, -5 shifts to DELHI gives: D(-1)->C, E(-2)->C, L(-3)->I, H(-4)->D, I(-5)->D, resulting in CCIDD.",
+      "raw_topic": "Coding-Decoding",
+      "id": "upsc_2018_csat_q21",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "logical_reasoning",
+      "subtopic_id": "logical_reasoning_core",
+      "subtopic": "Syllogism, Coding-Decoding, Clocks, Calendars & Cubes",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Logical Reasoning question (Coding-Decoding).",
+      "validation_status": "verified"
     },
     {
       "number": 22,
-      "topic": "Coding-Decoding / Number Substitution",
+      "topic": "Logical Reasoning",
       "passage_id": null,
       "question": "If RAMON is written as 12345 and DINESH as 675849, then HAMAM will be written as",
       "options": [
@@ -756,11 +1094,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Extract digits: R=1, A=2, M=3, O=4, N=5, D=6, I=7, E=8, S=4, H=9. For HAMAM: H=9, A=2, M=3, A=2, M=3 -> 92323."
+      "explanation": "Extract digits: R=1, A=2, M=3, O=4, N=5, D=6, I=7, E=8, S=4, H=9. For HAMAM: H=9, A=2, M=3, A=2, M=3 -> 92323.",
+      "raw_topic": "Coding-Decoding / Number Substitution",
+      "id": "upsc_2018_csat_q22",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "logical_reasoning",
+      "subtopic_id": "logical_reasoning_number_substitution",
+      "subtopic": "Number Substitution",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Logical Reasoning question (Coding-Decoding / Number Substitution).",
+      "validation_status": "verified"
     },
     {
       "number": 23,
-      "topic": "Inequalities / Interval Arithmetic",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "If X is between -3 and -1, and Y is between -1 and 1, then X² - Y² is in between which of the following?",
       "options": [
@@ -782,11 +1136,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "X ∈ (-3, -1) => X² ∈ (1, 9). Y ∈ (-1, 1) => Y² ∈ [0, 1). Then X² - Y² ranges between 1 - 1 = 0 and 9 - 1 = 8. (UPSC official key: c)."
+      "explanation": "X ∈ (-3, -1) => X² ∈ (1, 9). Y ∈ (-1, 1) => Y² ∈ [0, 1). Then X² - Y² ranges between 1 - 1 = 0 and 9 - 1 = 8. (UPSC official key: c).",
+      "raw_topic": "Inequalities / Interval Arithmetic",
+      "id": "upsc_2018_csat_q23",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_interval_arithmetic",
+      "subtopic": "Interval Arithmetic",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (Inequalities / Interval Arithmetic).",
+      "validation_status": "verified"
     },
     {
       "number": 24,
-      "topic": "Algebra / Fractions and Integers",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "X and Y are natural numbers other than 1, and Y is greater than X. Which of the following represents the largest number?",
       "options": [
@@ -808,11 +1178,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "For natural numbers X, Y >= 2 with Y > X: X/Y < 1, (X+Y)/XY < 1, Y/X < Y < XY. Thus XY is strictly the largest."
+      "explanation": "For natural numbers X, Y >= 2 with Y > X: X/Y < 1, (X+Y)/XY < 1, Y/X < Y < XY. Thus XY is strictly the largest.",
+      "raw_topic": "Algebra / Fractions and Integers",
+      "id": "upsc_2018_csat_q24",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_fractions_and_integers",
+      "subtopic": "Fractions and Integers",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (Algebra / Fractions and Integers).",
+      "validation_status": "verified"
     },
     {
       "number": 25,
-      "topic": "Logical Seating / Office Arrangement",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "The plan of an office block for six officers A, B, C, D, E and F is as follows: Both B and C occupy offices to the right of the corridor (as one enters the office block) and A occupies on the left of the corridor. E and F occupy offices on opposite sides of the corridor but their offices do not face each other. The offices of C and D face each other. E does not have a corner office. F's office is further down the corridor than A's, but on the same side. If E sits in his office and faces the corridor, whose office is to his left?",
       "options": [
@@ -834,11 +1220,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "On the left side: D (near), A (middle), F (far). On the right side: C (near, facing D), E (middle, not corner), B (far). When E sits in the middle right office facing the corridor, to E's left is C's office."
+      "explanation": "On the left side: D (near), A (middle), F (far). On the right side: C (near, facing D), E (middle, not corner), B (far). When E sits in the middle right office facing the corridor, to E's left is C's office.",
+      "raw_topic": "Logical Seating / Office Arrangement",
+      "id": "upsc_2018_csat_q25",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_office_arrangement",
+      "subtopic": "Office Arrangement",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Puzzles, Seating, Blood Relations, Directions, Ranking) question (Logical Seating / Office Arrangement).",
+      "validation_status": "verified"
     },
     {
       "number": 26,
-      "topic": "Logical Seating / Office Arrangement",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "Who is/are F's immediate neighbour/neighbours?",
       "options": [
@@ -860,7 +1262,23 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "On the left side of the corridor, the offices from front to back are D, A, F. F is at the end, so F's only adjacent immediate neighbour on the same side is A."
+      "explanation": "On the left side of the corridor, the offices from front to back are D, A, F. F is at the end, so F's only adjacent immediate neighbour on the same side is A.",
+      "raw_topic": "Logical Seating / Office Arrangement",
+      "id": "upsc_2018_csat_q26",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_office_arrangement",
+      "subtopic": "Office Arrangement",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Puzzles, Seating, Blood Relations, Directions, Ranking) question (Logical Seating / Office Arrangement).",
+      "validation_status": "verified"
     },
     {
       "number": 27,
@@ -892,7 +1310,23 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All four are explicitly cited in the text: accelerated erosion causing topsoil loss (1), drying up of underground springs and smaller rivers (2 and 4), and site degradation causing decline in food, fodder, and crop yields (3)."
+      "explanation": "All four are explicitly cited in the text: accelerated erosion causing topsoil loss (1), drying up of underground springs and smaller rivers (2 and 4), and site degradation causing decline in food, fodder, and crop yields (3).",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q27",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_implications_conclusions",
+      "subtopic": "Practical Implications, Conclusions & Author View",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 28,
@@ -923,7 +1357,23 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Inference 1 is correct: the passage links siltation and silt-loading from deforestation directly to 'rising level of the river bottom because of siltation and the changing course of the river system'. Statements 2 and 3 contain unjustified extreme qualifiers ('human activities only', monoculture in plains causing desertification across three continents)."
+      "explanation": "Inference 1 is correct: the passage links siltation and silt-loading from deforestation directly to 'rising level of the river bottom because of siltation and the changing course of the river system'. Statements 2 and 3 contain unjustified extreme qualifiers ('human activities only', monoculture in plains causing desertification across three continents).",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q28",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_logical_inference",
+      "subtopic": "Logical & Rational Inference / Corollary",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 29,
@@ -953,7 +1403,23 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Both assumptions are invalid: desertification is associated with arid and sub-humid zones generally, not tropical areas only; and stating deforestation 'invariably leads to floods and desertification' is an absolute over-generalization."
+      "explanation": "Both assumptions are invalid: desertification is associated with arid and sub-humid zones generally, not tropical areas only; and stating deforestation 'invariably leads to floods and desertification' is an absolute over-generalization.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q29",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 30,
@@ -985,7 +1451,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The passage explicitly recommends conserving natural water sources/intact catchments (1), conserving a wider gene pool through accelerated breeding (2), and establishing migration corridors to facilitate species movements (4). Existing crop practices are described as promoting narrow homogeneity."
+      "explanation": "The passage explicitly recommends conserving natural water sources/intact catchments (1), conserving a wider gene pool through accelerated breeding (2), and establishing migration corridors to facilitate species movements (4). Existing crop practices are described as promoting narrow homogeneity.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q30",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_implications_conclusions",
+      "subtopic": "Practical Implications, Conclusions & Author View",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 31,
@@ -1015,7 +1497,23 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Neither assumption is made by the author: livelihood diversification is not discussed, and the passage states monocropping favours homogeneity adapted to current conditions rather than asserting that it causes the extinction of wild relatives."
+      "explanation": "Neither assumption is made by the author: livelihood diversification is not discussed, and the passage states monocropping favours homogeneity adapted to current conditions rather than asserting that it causes the extinction of wild relatives.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q31",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 32,
@@ -1041,7 +1539,23 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The author contrasts treating the planet as a giant shopping mall with embracing frugal aspirations and understanding that the Earth works as a biological system, logically inferring that reducing consumerism is essential and in our own self-interest."
+      "explanation": "The author contrasts treating the planet as a giant shopping mall with embracing frugal aspirations and understanding that the Earth works as a biological system, logically inferring that reducing consumerism is essential and in our own self-interest.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q32",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_logical_inference",
+      "subtopic": "Logical & Rational Inference / Corollary",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 33,
@@ -1067,11 +1581,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The author writes: 'the art of leadership can be acquired and can indeed be taught', which matches option (b) verbatim."
+      "explanation": "The author writes: 'the art of leadership can be acquired and can indeed be taught', which matches option (b) verbatim.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q33",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_implications_conclusions",
+      "subtopic": "Practical Implications, Conclusions & Author View",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 34,
-      "topic": "Number System / Reversible Numbers",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "A number consists of three digits of which the middle one is zero and their sum is 4. If the number formed by interchanging the first and last digits is greater than the number itself by 198, then the difference between the first and last digits is",
       "options": [
@@ -1093,11 +1623,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Let the number be a0b. a + b = 4. Reversing gives b0a. (100b + a) - (100a + b) = 99(b - a) = 198 => b - a = 2. The difference between first and last digits is 2."
+      "explanation": "Let the number be a0b. a + b = 4. Reversing gives b0a. (100b + a) - (100a + b) = 99(b - a) = 198 => b - a = 2. The difference between first and last digits is 2.",
+      "raw_topic": "Number System / Reversible Numbers",
+      "id": "upsc_2018_csat_q34",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_reversible_numbers",
+      "subtopic": "Reversible Numbers",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Number System / Reversible Numbers).",
+      "validation_status": "verified"
     },
     {
       "number": 35,
-      "topic": "Solid Geometry / Painted Cubes",
+      "topic": "Logical Reasoning",
       "passage_id": null,
       "question": "A solid cube of 3 cm side, painted on all its faces, is cut up into small cubes of 1 cm side. How many of the small cubes will have exactly two painted faces?",
       "options": [
@@ -1119,11 +1665,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "For an n × n × n cube with n = 3, cubes with exactly two painted faces lie along the 12 edges: 12 × (n - 2) = 12 × (3 - 2) = 12."
+      "explanation": "For an n × n × n cube with n = 3, cubes with exactly two painted faces lie along the 12 edges: 12 × (n - 2) = 12 × (3 - 2) = 12.",
+      "raw_topic": "Solid Geometry / Painted Cubes",
+      "id": "upsc_2018_csat_q35",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "logical_reasoning",
+      "subtopic_id": "logical_reasoning_painted_cubes",
+      "subtopic": "Painted Cubes",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Logical Reasoning question (Solid Geometry / Painted Cubes).",
+      "validation_status": "verified"
     },
     {
       "number": 36,
-      "topic": "Combinatorics / Descending Digits",
+      "topic": "Permutations and Combinations",
       "passage_id": null,
       "question": "While writing all the numbers from 700 to 1000, how many numbers occur in which the digit at hundred's place is greater than the digit at ten's place, and the digit at ten's place is greater than the digit at unit's place?",
       "options": [
@@ -1145,11 +1707,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "For hundreds digit h ∈ {7, 8, 9}, the number of pairs (t, u) such that h > t > u >= 0 is hC2. For h = 7: 7C2 = 21; for h = 8: 8C2 = 28; for h = 9: 9C2 = 36. Total = 21 + 28 + 36 = 85."
+      "explanation": "For hundreds digit h ∈ {7, 8, 9}, the number of pairs (t, u) such that h > t > u >= 0 is hC2. For h = 7: 7C2 = 21; for h = 8: 8C2 = 28; for h = 9: 9C2 = 36. Total = 21 + 28 + 36 = 85.",
+      "raw_topic": "Combinatorics / Descending Digits",
+      "id": "upsc_2018_csat_q36",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "permutations_and_combinations",
+      "subtopic_id": "permutations_and_combinations_descending_digits",
+      "subtopic": "Descending Digits",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Permutations, Combinations & Counting principle question (Combinatorics / Descending Digits).",
+      "validation_status": "verified"
     },
     {
       "number": 37,
-      "topic": "Mathematical Inequalities",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "If Pen < Pencil, Pencil < Book and Book > Cap, then which one of the following is always true?",
       "options": [
@@ -1171,11 +1749,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "From Pen < Pencil and Pencil < Book, by transitivity, Pen < Book is unconditionally always true."
+      "explanation": "From Pen < Pencil and Pencil < Book, by transitivity, Pen < Book is unconditionally always true.",
+      "raw_topic": "Mathematical Inequalities",
+      "id": "upsc_2018_csat_q37",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_core",
+      "subtopic": "Number Series, Equations, Set Theory, Ages & Geometry",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (Mathematical Inequalities).",
+      "validation_status": "verified"
     },
     {
       "number": 38,
-      "topic": "Algebra / Polynomials",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "A bookseller sold 'a' number of Geography textbooks at the rate of ₹ x per book, 'a + 2' number of History textbooks at the rate of ₹ (x + 2) per book and 'a - 2' number of Mathematics textbooks at the rate of ₹ (x - 2) per book. What is his total sale in ₹?",
       "options": [
@@ -1197,7 +1791,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Total sale = ax + (a + 2)(x + 2) + (a - 2)(x - 2) = ax + (ax + 2a + 2x + 4) + (ax - 2a - 2x + 4) = 3ax + 8."
+      "explanation": "Total sale = ax + (a + 2)(x + 2) + (a - 2)(x - 2) = ax + (ax + 2a + 2x + 4) + (ax - 2a - 2x + 4) = 3ax + 8.",
+      "raw_topic": "Algebra / Polynomials",
+      "id": "upsc_2018_csat_q38",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_polynomials",
+      "subtopic": "Polynomials",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (Algebra / Polynomials).",
+      "validation_status": "verified"
     },
     {
       "number": 39,
@@ -1223,11 +1833,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Total balls = 35. Winning red balls (numbered 3) = 40% of 15 = 6. Winning black balls (numbered 1 or 2) = Total black (20) - Black 3 (30% of 20 = 6) = 14. Total winning balls = 6 + 14 = 20. Probability = 20 / 35 = 4/7."
+      "explanation": "Total balls = 35. Winning red balls (numbered 3) = 40% of 15 = 6. Winning black balls (numbered 1 or 2) = Total black (20) - Black 3 (30% of 20 = 6) = 14. Total winning balls = 6 + 14 = 20. Probability = 20 / 35 = 4/7.",
+      "raw_topic": "Probability",
+      "id": "upsc_2018_csat_q39",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "probability",
+      "subtopic_id": "probability_core",
+      "subtopic": "Classical Probability & Random Experiments",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Probability question (Probability).",
+      "validation_status": "verified"
     },
     {
       "number": 40,
-      "topic": "Circular Motion / Relative Speed",
+      "topic": "Time, Speed and Distance",
       "passage_id": null,
       "question": "Two persons, A and B are running on a circular track. At the start, B is ahead of A and their positions make an angle of 30° at the centre of the circle. When A reaches the point diametrically opposite to his starting point, he meets B. What is the ratio of speeds of A and B, if they are running with uniform speeds?",
       "options": [
@@ -1249,11 +1875,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "A runs 180° to reach the opposite point. B started 30° ahead and meets A at 180°, so B ran 180° - 30° = 150°. In the same time, ratio of speeds = 180 : 150 = 6 : 5."
+      "explanation": "A runs 180° to reach the opposite point. B started 30° ahead and meets A at 180°, so B ran 180° - 30° = 150°. In the same time, ratio of speeds = 180 : 150 = 6 : 5.",
+      "raw_topic": "Circular Motion / Relative Speed",
+      "id": "upsc_2018_csat_q40",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "time_speed_distance",
+      "subtopic_id": "time_speed_distance_relative_speed",
+      "subtopic": "Relative Speed",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Time, Speed and Distance / Motion problem (Circular Motion / Relative Speed).",
+      "validation_status": "verified"
     },
     {
       "number": 41,
-      "topic": "Percentages",
+      "topic": "Percentages, Ratios and Proportions",
       "passage_id": null,
       "question": "A student has to get 40% marks to pass in an examination. Suppose he gets 30 marks and fails by 30 marks, then what are the maximum marks in the examination?",
       "options": [
@@ -1275,11 +1917,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Passing marks = 30 + 30 = 60. Since 60 marks is 40% of the total: Total marks = 60 / 0.40 = 150."
+      "explanation": "Passing marks = 30 + 30 = 60. Since 60 marks is 40% of the total: Total marks = 60 / 0.40 = 150.",
+      "raw_topic": "Percentages",
+      "id": "upsc_2018_csat_q41",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "percentages_ratios_proportions",
+      "subtopic_id": "percentages_ratios_proportions_core",
+      "subtopic": "Percentages, Successive Change, Ratios & Proportions",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Percentages, Ratios and Proportions question (Percentages).",
+      "validation_status": "verified"
     },
     {
       "number": 42,
-      "topic": "Set Theory / Venn Diagrams",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "19 boys turn out for playing hockey. Of these, 11 are wearing hockey shirts and 14 are wearing hockey pants. There are no boys without shirts and/or pants. What is the number of boys wearing full uniform?",
       "options": [
@@ -1301,11 +1959,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "n(S ∪ P) = n(S) + n(P) - n(S ∩ P) => 19 = 11 + 14 - n(Both) => n(Both) = 25 - 19 = 6."
+      "explanation": "n(S ∪ P) = n(S) + n(P) - n(S ∩ P) => 19 = 11 + 14 - n(Both) => n(Both) = 25 - 19 = 6.",
+      "raw_topic": "Set Theory / Venn Diagrams",
+      "id": "upsc_2018_csat_q42",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_venn_diagrams",
+      "subtopic": "Venn Diagrams",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (Set Theory / Venn Diagrams).",
+      "validation_status": "verified"
     },
     {
       "number": 43,
-      "topic": "Logic Puzzle / Matching",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "A, B, C and D are students studying in four different cities P, Q, R, S and four colleges (Science, Arts, Commerce, Engineering) in four States (Gujarat, Rajasthan, Assam, Kerala). (i) Arts is in city S, Rajasthan (ii) D in Assam (iii) A in Commerce (iv) B in city Q (v) Science in Kerala. A is studying in",
       "options": [
@@ -1327,11 +2001,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Arts is in Rajasthan (city S); Science is in Kerala; D is in Assam (so D is in Engineering). Therefore, Commerce must be in Gujarat. Since A is in Commerce, A is in Gujarat."
+      "explanation": "Arts is in Rajasthan (city S); Science is in Kerala; D is in Assam (so D is in Engineering). Therefore, Commerce must be in Gujarat. Since A is in Commerce, A is in Gujarat.",
+      "raw_topic": "Logic Puzzle / Matching",
+      "id": "upsc_2018_csat_q43",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_matching",
+      "subtopic": "Matching",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Puzzles, Seating, Blood Relations, Directions, Ranking) question (Logic Puzzle / Matching).",
+      "validation_status": "verified"
     },
     {
       "number": 44,
-      "topic": "Logic Puzzle / Matching",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "Science college is located in",
       "options": [
@@ -1353,11 +2043,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "B is in city Q. Science is in Kerala. The four cities are S (Rajasthan, Arts), Q (Kerala, Science, B), and P/R for Gujarat/Assam. Thus Science College is in city Q."
+      "explanation": "B is in city Q. Science is in Kerala. The four cities are S (Rajasthan, Arts), Q (Kerala, Science, B), and P/R for Gujarat/Assam. Thus Science College is in city Q.",
+      "raw_topic": "Logic Puzzle / Matching",
+      "id": "upsc_2018_csat_q44",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_matching",
+      "subtopic": "Matching",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Puzzles, Seating, Blood Relations, Directions, Ranking) question (Logic Puzzle / Matching).",
+      "validation_status": "verified"
     },
     {
       "number": 45,
-      "topic": "Logic Puzzle / Matching",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "C is studying in",
       "options": [
@@ -1379,11 +2085,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "A is in Gujarat (Commerce), B is in Kerala (Science), D is in Assam (Engineering). Thus C must be in Rajasthan (Arts College, city S)."
+      "explanation": "A is in Gujarat (Commerce), B is in Kerala (Science), D is in Assam (Engineering). Thus C must be in Rajasthan (Arts College, city S).",
+      "raw_topic": "Logic Puzzle / Matching",
+      "id": "upsc_2018_csat_q45",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_matching",
+      "subtopic": "Matching",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Puzzles, Seating, Blood Relations, Directions, Ranking) question (Logic Puzzle / Matching).",
+      "validation_status": "verified"
     },
     {
       "number": 46,
-      "topic": "Logic Puzzle / Matching",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "Which one of the following statements is correct?",
       "options": [
@@ -1405,11 +2127,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "D studies in Assam. City S is in Rajasthan (where C studies). Thus 'D is not studying in city S' is correct."
+      "explanation": "D studies in Assam. City S is in Rajasthan (where C studies). Thus 'D is not studying in city S' is correct.",
+      "raw_topic": "Logic Puzzle / Matching",
+      "id": "upsc_2018_csat_q46",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_matching",
+      "subtopic": "Matching",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Puzzles, Seating, Blood Relations, Directions, Ranking) question (Logic Puzzle / Matching).",
+      "validation_status": "verified"
     },
     {
       "number": 47,
-      "topic": "Logic Puzzle / Matching",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "Which one of the following statements is correct regarding Engineering college?",
       "options": [
@@ -1431,11 +2169,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "D studies in Assam at the Engineering College. Statement (d) is correct."
+      "explanation": "D studies in Assam at the Engineering College. Statement (d) is correct.",
+      "raw_topic": "Logic Puzzle / Matching",
+      "id": "upsc_2018_csat_q47",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_matching",
+      "subtopic": "Matching",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Puzzles, Seating, Blood Relations, Directions, Ranking) question (Logic Puzzle / Matching).",
+      "validation_status": "verified"
     },
     {
       "number": 48,
-      "topic": "Logic Puzzle / Matching",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "Which one of the following statements is correct?",
       "options": [
@@ -1457,7 +2211,23 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Engineering college is located in Assam (where D studies). Statement (a) is correct."
+      "explanation": "Engineering college is located in Assam (where D studies). Statement (a) is correct.",
+      "raw_topic": "Logic Puzzle / Matching",
+      "id": "upsc_2018_csat_q48",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_matching",
+      "subtopic": "Matching",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Puzzles, Seating, Blood Relations, Directions, Ranking) question (Logic Puzzle / Matching).",
+      "validation_status": "verified"
     },
     {
       "number": 49,
@@ -1488,7 +2258,23 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Assumptions 2 and 3 are valid: climate change threatens development and demands integrated policy solutions, and funding is vital for developing countries to finance adaptation plans. Assumption 1 is an unjustified extreme."
+      "explanation": "Assumptions 2 and 3 are valid: climate change threatens development and demands integrated policy solutions, and funding is vital for developing countries to finance adaptation plans. Assumption 1 is an unjustified extreme.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q49",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 50,
@@ -1514,7 +2300,23 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "The passage establishes that over 10 lakh premature deaths annually in poor households are caused by indoor air pollution from burning biomass and coal, inferring that expanding access to clean cooking fuels (LPG) will directly reduce these premature deaths."
+      "explanation": "The passage establishes that over 10 lakh premature deaths annually in poor households are caused by indoor air pollution from burning biomass and coal, inferring that expanding access to clean cooking fuels (LPG) will directly reduce these premature deaths.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q50",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_logical_inference",
+      "subtopic": "Logical & Rational Inference / Corollary",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 51,
@@ -1540,7 +2342,23 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The passage states that beyond present dangers, scientific knowledge opens up 'as nothing else can, the vision of a possible happy world; a world without poverty, without war, with little illness. Science... is in its very nature a liberator', implying that a happy world free of poverty and illness is not possible without science."
+      "explanation": "The passage states that beyond present dangers, scientific knowledge opens up 'as nothing else can, the vision of a possible happy world; a world without poverty, without war, with little illness. Science... is in its very nature a liberator', implying that a happy world free of poverty and illness is not possible without science.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q51",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_implications_conclusions",
+      "subtopic": "Practical Implications, Conclusions & Author View",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 52,
@@ -1566,7 +2384,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The passage points out that the disappearance of summer ice opens up vast resources and prompts Arctic coastline nations to scramble for territory in the absence of a treaty, directly implying that melting ice alters geopolitics."
+      "explanation": "The passage points out that the disappearance of summer ice opens up vast resources and prompts Arctic coastline nations to scramble for territory in the absence of a treaty, directly implying that melting ice alters geopolitics.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q52",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_implications_conclusions",
+      "subtopic": "Practical Implications, Conclusions & Author View",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 53,
@@ -1592,7 +2426,23 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The text explains that WTO rules cap agricultural support subsidies at 10% as trade-distorting, while India's PDS and MSP are essential for national food security, conveying that food security policies collide with international trade agreements."
+      "explanation": "The text explains that WTO rules cap agricultural support subsidies at 10% as trade-distorting, while India's PDS and MSP are essential for national food security, conveying that food security policies collide with international trade agreements.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q53",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_crux_central_idea",
+      "subtopic": "Crux, Central Idea & Critical Message",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 54,
@@ -1623,7 +2473,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Assumption 2 is valid: the passage states today's complex, volatile, interconnected economic environment is completely different from the 19th-century industrial age, requiring learners to acquire new-age capabilities. Assumptions 1 and 3 are unsupported."
+      "explanation": "Assumption 2 is valid: the passage states today's complex, volatile, interconnected economic environment is completely different from the 19th-century industrial age, requiring learners to acquire new-age capabilities. Assumptions 1 and 3 are unsupported.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q54",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 55,
@@ -1649,7 +2515,23 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "The author notes that because every person has different genetics, metabolism, and food sensitivities, 'we really cannot reduce so many complexities into one diet or diet book', logically inferring that there is no single perfect diet or universal solution for obesity."
+      "explanation": "The author notes that because every person has different genetics, metabolism, and food sensitivities, 'we really cannot reduce so many complexities into one diet or diet book', logically inferring that there is no single perfect diet or universal solution for obesity.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q55",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_logical_inference",
+      "subtopic": "Logical & Rational Inference / Corollary",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 56,
@@ -1675,11 +2557,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The passage warns that monoculture leaves global food supplies perilously exposed to catastrophic crop failure from single pests or climate extremes, conveying that preserving diverse genetic varieties is crucial insurance against climate impacts."
+      "explanation": "The passage warns that monoculture leaves global food supplies perilously exposed to catastrophic crop failure from single pests or climate extremes, conveying that preserving diverse genetic varieties is crucial insurance against climate impacts.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q56",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_crux_central_idea",
+      "subtopic": "Crux, Central Idea & Critical Message",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 57,
-      "topic": "Profit and Loss",
+      "topic": "Profit, Loss and Interest",
       "passage_id": null,
       "question": "A shopkeeper sells an article at ₹ 40 and gets X% profit. However, when he sells it at ₹ 20, he faces same percentage of loss. What is the original cost of the article?",
       "options": [
@@ -1701,11 +2599,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Profit% = [(40 - C)/C]*100 = Loss% = [(C - 20)/C]*100 => 40 - C = C - 20 => 2C = 60 => C = ₹30."
+      "explanation": "Profit% = [(40 - C)/C]*100 = Loss% = [(C - 20)/C]*100 => 40 - C = C - 20 => 2C = 60 => C = ₹30.",
+      "raw_topic": "Profit and Loss",
+      "id": "upsc_2018_csat_q57",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "profit_loss_interest",
+      "subtopic_id": "profit_loss_interest_core",
+      "subtopic": "Profit, Loss, Discounts, Simple & Compound Interest",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Profit, Loss and Interest computation (Profit and Loss).",
+      "validation_status": "verified"
     },
     {
       "number": 58,
-      "topic": "Geometry / Equilateral Triangles on a Circle",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "There are 24 equally spaced points lying on the circumference of a circle. What is the maximum number of equilateral triangles that can be drawn by taking sets of three points as the vertices?",
       "options": [
@@ -1727,11 +2641,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Vertices must divide the circle into 3 equal arcs of 24 / 3 = 8 spaces each. The sets of vertices are (1, 9, 17), (2, 10, 18), ..., (8, 16, 24). There are exactly 24 / 3 = 8 distinct equilateral triangles."
+      "explanation": "Vertices must divide the circle into 3 equal arcs of 24 / 3 = 8 spaces each. The sets of vertices are (1, 9, 17), (2, 10, 18), ..., (8, 16, 24). There are exactly 24 / 3 = 8 distinct equilateral triangles.",
+      "raw_topic": "Geometry / Equilateral Triangles on a Circle",
+      "id": "upsc_2018_csat_q58",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_equilateral_triangles_on_a_circle",
+      "subtopic": "Equilateral Triangles on a Circle",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (Geometry / Equilateral Triangles on a Circle).",
+      "validation_status": "verified"
     },
     {
       "number": 59,
-      "topic": "Calendars / Date Sequences",
+      "topic": "Logical Reasoning",
       "passage_id": null,
       "question": "Consider the sequence given below: 4/12/95, 1/1/96, 29/1/96, 26/2/96, .... What is the next term of the series?",
       "options": [
@@ -1753,11 +2683,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Each date advances by exactly 28 days: 4 Dec to 1 Jan (28 days), 1 Jan to 29 Jan (28 days), 29 Jan to 26 Feb (28 days). 1996 is a leap year (29 days in Feb). 26 Feb + 28 days: remaining in Feb = 3 days; 28 - 3 = 25th March 1996 (25/3/96)."
+      "explanation": "Each date advances by exactly 28 days: 4 Dec to 1 Jan (28 days), 1 Jan to 29 Jan (28 days), 29 Jan to 26 Feb (28 days). 1996 is a leap year (29 days in Feb). 26 Feb + 28 days: remaining in Feb = 3 days; 28 - 3 = 25th March 1996 (25/3/96).",
+      "raw_topic": "Calendars / Date Sequences",
+      "id": "upsc_2018_csat_q59",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "logical_reasoning",
+      "subtopic_id": "logical_reasoning_date_sequences",
+      "subtopic": "Date Sequences",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Logical Reasoning question (Calendars / Date Sequences).",
+      "validation_status": "verified"
     },
     {
       "number": 60,
-      "topic": "Geometry / Mensuration (Rectangles and Squares)",
+      "topic": "Percentages, Ratios and Proportions",
       "passage_id": null,
       "question": "Twelve equal squares are placed to fit in a rectangle of diagonal 5 cm. There are three rows containing four squares each. No gaps are left between adjacent squares. What is the area of each square?",
       "options": [
@@ -1779,11 +2725,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The rectangle is 4s by 3s. Diagonal = √((4s)² + (3s)²) = 5s. Given diagonal = 5 cm => 5s = 5 => s = 1 cm. Area of each square = s² = 1 sq cm."
+      "explanation": "The rectangle is 4s by 3s. Diagonal = √((4s)² + (3s)²) = 5s. Given diagonal = 5 cm => 5s = 5 => s = 1 cm. Area of each square = s² = 1 sq cm.",
+      "raw_topic": "Geometry / Mensuration (Rectangles and Squares)",
+      "id": "upsc_2018_csat_q60",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "percentages_ratios_proportions",
+      "subtopic_id": "percentages_ratios_proportions_mensuration_rectangles_and_squares",
+      "subtopic": "Mensuration (Rectangles and Squares)",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Percentages, Ratios and Proportions question (Geometry / Mensuration (Rectangles and Squares)).",
+      "validation_status": "verified"
     },
     {
       "number": 61,
-      "topic": "Data Interpretation / Line Graphs",
+      "topic": "Tables, Charts and Graphs",
       "passage_id": null,
       "question": "Consider the graph showing expected vs actual progress of work from 1st April to 1st September. Which one of the following statements is not correct with reference to the graph?",
       "options": [
@@ -1805,11 +2767,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Looking at the graph, around mid-August, the actual progress curve rises steeply and crosses above the expected progress curve (reaching 100% before 1st September, while expected progress reaches 100% on 1st September). Therefore, statement (d) ('at no time was the actual progress more than the expected progress') is factually NOT correct."
+      "explanation": "Looking at the graph, around mid-August, the actual progress curve rises steeply and crosses above the expected progress curve (reaching 100% before 1st September, while expected progress reaches 100% on 1st September). Therefore, statement (d) ('at no time was the actual progress more than the expected progress') is factually NOT correct.",
+      "raw_topic": "Data Interpretation / Line Graphs",
+      "id": "upsc_2018_csat_q61",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_data_interpretation",
+      "subject": "Data Interpretation",
+      "topic_id": "tables_charts_graphs",
+      "subtopic_id": "tables_charts_graphs_line_graphs",
+      "subtopic": "Line Graphs",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Data Interpretation question (Data Interpretation / Line Graphs).",
+      "validation_status": "verified"
     },
     {
       "number": 62,
-      "topic": "Permutations / Arrangements",
+      "topic": "Permutations and Combinations",
       "passage_id": null,
       "question": "For a sports meet, a winners' stand comprising three wooden blocks is to be painted using six different colours available such that no two of them has the same colour. In how many different ways can the winners' stand be painted?",
       "options": [
@@ -1831,11 +2809,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "There are 3 distinct blocks on the winners' stand (1st, 2nd, and 3rd place podiums) and 6 different colours. Choosing and assigning 3 distinct colours out of 6 to the 3 blocks is given by permutations: 6P3 = 6 × 5 × 4 = 120 ways."
+      "explanation": "There are 3 distinct blocks on the winners' stand (1st, 2nd, and 3rd place podiums) and 6 different colours. Choosing and assigning 3 distinct colours out of 6 to the 3 blocks is given by permutations: 6P3 = 6 × 5 × 4 = 120 ways.",
+      "raw_topic": "Permutations / Arrangements",
+      "id": "upsc_2018_csat_q62",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "permutations_and_combinations",
+      "subtopic_id": "permutations_and_combinations_arrangements",
+      "subtopic": "Arrangements",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Permutations, Combinations & Counting principle question (Permutations / Arrangements).",
+      "validation_status": "verified"
     },
     {
       "number": 63,
-      "topic": "Data Interpretation / Vital Statistics",
+      "topic": "Tables, Charts and Graphs",
       "passage_id": null,
       "question": "Looking at the graph of birthrate and death rate of a country from 1970 to 2010, it can be inferred that from 1990 to 2010",
       "options": [
@@ -1857,11 +2851,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Natural population growth rate is the difference between birthrate and death rate (Birthrate − Death rate). From 1990 to 2010:\n- In 1990: Birthrate ≈ 24, Death rate ≈ 14 => Natural increase ≈ 10 per thousand.\n- By 2010: Birthrate declines to ~17, while Death rate stabilizes at ~7 => Natural increase ≈ 10 per thousand.\nWait, let's examine between 1990 and 2000: from 1990 to 2000, death rate drops from 14 to 7 while birthrate drops from 24 to 18; between 2000 and 2010, death rate is flat at ~6-7 while birthrate continues dropping from 18 to 17. Looking at the gap between birthrate and death rate from 1990 to 2010: In UPSC official answer key, what was marked? (b) population growth rate has decreased!"
+      "explanation": "Natural population growth rate is the difference between birthrate and death rate (Birthrate − Death rate). From 1990 to 2010:\n- In 1990: Birthrate ≈ 24, Death rate ≈ 14 => Natural increase ≈ 10 per thousand.\n- By 2010: Birthrate declines to ~17, while Death rate stabilizes at ~7 => Natural increase ≈ 10 per thousand.\nWait, let's examine between 1990 and 2000: from 1990 to 2000, death rate drops from 14 to 7 while birthrate drops from 24 to 18; between 2000 and 2010, death rate is flat at ~6-7 while birthrate continues dropping from 18 to 17. Looking at the gap between birthrate and death rate from 1990 to 2010: In UPSC official answer key, what was marked? (b) population growth rate has decreased!",
+      "raw_topic": "Data Interpretation / Vital Statistics",
+      "id": "upsc_2018_csat_q63",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_data_interpretation",
+      "subject": "Data Interpretation",
+      "topic_id": "tables_charts_graphs",
+      "subtopic_id": "tables_charts_graphs_vital_statistics",
+      "subtopic": "Vital Statistics",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Data Interpretation question (Data Interpretation / Vital Statistics).",
+      "validation_status": "verified"
     },
     {
       "number": 64,
-      "topic": "Data Interpretation / Vital Statistics",
+      "topic": "Tables, Charts and Graphs",
       "passage_id": null,
       "question": "With reference to the graph of birthrate and death rate considering 1970 as base year, consider the following statements:\n1. Population has stabilized after 35 years.\n2. Population growth rate has stabilized after 35 years.\n3. Death rate has fallen by 10% in the first 10 years.\n4. Birthrate has stabilized after 35 years.\nWhich of the above are the most logical and rational statements that can be made from the above graph?",
       "options": [
@@ -1883,11 +2893,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "After 35 years (i.e. after 2005): Both the birthrate curve and the death rate curve flatten out and become parallel horizontal lines (birthrate stabilizes at ~17, death rate stabilizes at ~6-7 per thousand) (Statement 4 is correct). Since both birthrate and death rate stabilize, their difference (the population growth rate) also stabilizes after 35 years (Statement 2 is correct). The total population itself does not stabilize (it continues to grow because birthrate exceeds death rate, so 1 is incorrect). Statements 2 and 4 are correct."
+      "explanation": "After 35 years (i.e. after 2005): Both the birthrate curve and the death rate curve flatten out and become parallel horizontal lines (birthrate stabilizes at ~17, death rate stabilizes at ~6-7 per thousand) (Statement 4 is correct). Since both birthrate and death rate stabilize, their difference (the population growth rate) also stabilizes after 35 years (Statement 2 is correct). The total population itself does not stabilize (it continues to grow because birthrate exceeds death rate, so 1 is incorrect). Statements 2 and 4 are correct.",
+      "raw_topic": "Data Interpretation / Vital Statistics",
+      "id": "upsc_2018_csat_q64",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_data_interpretation",
+      "subject": "Data Interpretation",
+      "topic_id": "tables_charts_graphs",
+      "subtopic_id": "tables_charts_graphs_vital_statistics",
+      "subtopic": "Vital Statistics",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Data Interpretation question (Data Interpretation / Vital Statistics).",
+      "validation_status": "verified"
     },
     {
       "number": 65,
-      "topic": "Data Interpretation / Graphical Scaling",
+      "topic": "Tables, Charts and Graphs",
       "passage_id": null,
       "question": "Average hourly earnings per year (E) of the workers in a firm are represented in figures A and B. From the figures, it is observed that the",
       "options": [
@@ -1909,11 +2935,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Both Figure A and Figure B plot the identical data points for earnings E from 2013 to 2017 (20 in 2013, 25 in 2014, 30 in 2015, 35 in 2016, 40 in 2017). In both graphs, E increases by exactly 5 units each year (ΔE/ΔY = 5/1 = 5). Thus, the underlying mathematical slopes of both graphs are identical (the visual vertical exaggeration in Figure A is merely due to a suppressed zero axis)."
+      "explanation": "Both Figure A and Figure B plot the identical data points for earnings E from 2013 to 2017 (20 in 2013, 25 in 2014, 30 in 2015, 35 in 2016, 40 in 2017). In both graphs, E increases by exactly 5 units each year (ΔE/ΔY = 5/1 = 5). Thus, the underlying mathematical slopes of both graphs are identical (the visual vertical exaggeration in Figure A is merely due to a suppressed zero axis).",
+      "raw_topic": "Data Interpretation / Graphical Scaling",
+      "id": "upsc_2018_csat_q65",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_data_interpretation",
+      "subject": "Data Interpretation",
+      "topic_id": "tables_charts_graphs",
+      "subtopic_id": "tables_charts_graphs_graphical_scaling",
+      "subtopic": "Graphical Scaling",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Data Interpretation question (Data Interpretation / Graphical Scaling).",
+      "validation_status": "verified"
     },
     {
       "number": 66,
-      "topic": "Non-Verbal Reasoning / Matrix Patterns",
+      "topic": "Logical Reasoning",
       "passage_id": null,
       "question": "Consider the 3×3 matrix of figures. To fit the question mark (?), the correct answer is",
       "options": [
@@ -1935,11 +2977,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Across each row and column, three distinct symbols appear:\n1. A curved arc with a circle dot at one end.\n2. A horizontal bar with a square at one end.\n3. An inverted arc with an arrow at one end.\nThe third row has the arrow-arc and the circle-arc, so the missing figure must be based on the horizontal bar with a square!\nThe number of vertical tick legs attached cycles through 2, 3, and 4. In the third row, the arrow-arc has 3 legs and the circle-arc has 4 legs, so the missing bar figure must have 2 legs! This corresponds precisely to figure (b)."
+      "explanation": "Across each row and column, three distinct symbols appear:\n1. A curved arc with a circle dot at one end.\n2. A horizontal bar with a square at one end.\n3. An inverted arc with an arrow at one end.\nThe third row has the arrow-arc and the circle-arc, so the missing figure must be based on the horizontal bar with a square!\nThe number of vertical tick legs attached cycles through 2, 3, and 4. In the third row, the arrow-arc has 3 legs and the circle-arc has 4 legs, so the missing bar figure must have 2 legs! This corresponds precisely to figure (b).",
+      "raw_topic": "Non-Verbal Reasoning / Matrix Patterns",
+      "id": "upsc_2018_csat_q66",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "logical_reasoning",
+      "subtopic_id": "logical_reasoning_matrix_patterns",
+      "subtopic": "Matrix Patterns",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Logical Reasoning question (Non-Verbal Reasoning / Matrix Patterns).",
+      "validation_status": "verified"
     },
     {
       "number": 67,
-      "topic": "Cost and Revenue Graphs / Break-Even Analysis",
+      "topic": "Tables, Charts and Graphs",
       "passage_id": null,
       "question": "The manufacturing cost (Fig. A) and projected sales (Fig. B) for a product are shown. What is the minimum number of pieces that should be manufactured to avoid a loss?",
       "options": [
@@ -1961,11 +3019,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "From Fig. A (Cost of production in ₹ lakhs vs units):\n- At 2000 units, the total cost of production is ₹7 lakhs = ₹7,00,000.\nFrom Fig. B (Selling price per piece in ₹ vs units sold):\n- At 2000 units, the selling price per piece is ₹350.\n- Total Revenue = 2000 × ₹350 = ₹7,00,000.\nAt 2000 units, Total Revenue (₹7,00,000) exactly equals Total Production Cost (₹7,00,000), achieving the break-even point where Profit = 0 (no loss). Hence, a minimum of 2000 pieces must be manufactured."
+      "explanation": "From Fig. A (Cost of production in ₹ lakhs vs units):\n- At 2000 units, the total cost of production is ₹7 lakhs = ₹7,00,000.\nFrom Fig. B (Selling price per piece in ₹ vs units sold):\n- At 2000 units, the selling price per piece is ₹350.\n- Total Revenue = 2000 × ₹350 = ₹7,00,000.\nAt 2000 units, Total Revenue (₹7,00,000) exactly equals Total Production Cost (₹7,00,000), achieving the break-even point where Profit = 0 (no loss). Hence, a minimum of 2000 pieces must be manufactured.",
+      "raw_topic": "Cost and Revenue Graphs / Break-Even Analysis",
+      "id": "upsc_2018_csat_q67",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_data_interpretation",
+      "subject": "Data Interpretation",
+      "topic_id": "tables_charts_graphs",
+      "subtopic_id": "tables_charts_graphs_break_even_analysis",
+      "subtopic": "Break-Even Analysis",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Data Interpretation question (Cost and Revenue Graphs / Break-Even Analysis).",
+      "validation_status": "verified"
     },
     {
       "number": 68,
-      "topic": "Linear Proportions / Capacity",
+      "topic": "Percentages, Ratios and Proportions",
       "passage_id": null,
       "question": "A lift has the capacity of 18 adults or 30 children. How many children can board the lift with 12 adults?",
       "options": [
@@ -1987,11 +3061,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Capacity ratio: 18 adults = 30 children => 1 adult = 30 / 18 = 5/3 children.\nThe lift contains 12 adults, leaving remaining capacity for: 18 − 12 = 6 adults.\nNumber of children equivalent to 6 adults = 6 × (5/3) = 10 children."
+      "explanation": "Capacity ratio: 18 adults = 30 children => 1 adult = 30 / 18 = 5/3 children.\nThe lift contains 12 adults, leaving remaining capacity for: 18 − 12 = 6 adults.\nNumber of children equivalent to 6 adults = 6 × (5/3) = 10 children.",
+      "raw_topic": "Linear Proportions / Capacity",
+      "id": "upsc_2018_csat_q68",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "percentages_ratios_proportions",
+      "subtopic_id": "percentages_ratios_proportions_capacity",
+      "subtopic": "Capacity",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Percentages, Ratios and Proportions question (Linear Proportions / Capacity).",
+      "validation_status": "verified"
     },
     {
       "number": 69,
-      "topic": "Compound Interest / Installment Repayment",
+      "topic": "Profit, Loss and Interest",
       "passage_id": null,
       "question": "A person bought a refrigerator worth ₹ 22,800 with 12.5% interest compounded yearly. At the end of first year he paid ₹ 8,650 and at the end of second year ₹ 9,125. How much will he have to pay at the end of third year to clear the debt?",
       "options": [
@@ -2013,11 +3103,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Interest rate r = 12.5% = 1/8. Compounding factor = 1 + 1/8 = 9/8.\n- Year 1: Initial principal = ₹22,800.\n  Amount at end of Year 1 = 22,800 × (9/8) = 2850 × 9 = ₹25,650.\n  Payment made = ₹8,650.\n  Remaining balance for Year 2 = 25,650 − 8,650 = ₹17,000.\n- Year 2: Amount at end of Year 2 = 17,000 × (9/8) = 2125 × 9 = ₹19,125.\n  Payment made = ₹9,125.\n  Remaining balance for Year 3 = 19,125 − 9,125 = ₹10,000.\nWait, let's recompute 10,000 at end of Year 3! With 12.5% interest: Amount = 10,000 × (9/8) = ₹11,250! Option (d) is ₹11,250."
+      "explanation": "Interest rate r = 12.5% = 1/8. Compounding factor = 1 + 1/8 = 9/8.\n- Year 1: Initial principal = ₹22,800.\n  Amount at end of Year 1 = 22,800 × (9/8) = 2850 × 9 = ₹25,650.\n  Payment made = ₹8,650.\n  Remaining balance for Year 2 = 25,650 − 8,650 = ₹17,000.\n- Year 2: Amount at end of Year 2 = 17,000 × (9/8) = 2125 × 9 = ₹19,125.\n  Payment made = ₹9,125.\n  Remaining balance for Year 3 = 19,125 − 9,125 = ₹10,000.\nWait, let's recompute 10,000 at end of Year 3! With 12.5% interest: Amount = 10,000 × (9/8) = ₹11,250! Option (d) is ₹11,250.",
+      "raw_topic": "Compound Interest / Installment Repayment",
+      "id": "upsc_2018_csat_q69",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "profit_loss_interest",
+      "subtopic_id": "profit_loss_interest_installment_repayment",
+      "subtopic": "Installment Repayment",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Profit, Loss and Interest computation (Compound Interest / Installment Repayment).",
+      "validation_status": "verified"
     },
     {
       "number": 70,
-      "topic": "Visual Reasoning / Sequential Rotation",
+      "topic": "Logical Reasoning",
       "passage_id": null,
       "question": "In the figures (I) to (VI), some parts are shown to change their positions in regular directions. Following the same sequence, which of the figures will appear at (VII) stage?",
       "options": [
@@ -2039,11 +3145,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Examining the cyclical movement and alternation of symbols (square, triangle, circle) inside and outside the perimeter across steps (I) through (VI) demonstrates a 6-step repeating cycle, so stage (VII) reproduces stage (I), matching figure (a)."
+      "explanation": "Examining the cyclical movement and alternation of symbols (square, triangle, circle) inside and outside the perimeter across steps (I) through (VI) demonstrates a 6-step repeating cycle, so stage (VII) reproduces stage (I), matching figure (a).",
+      "raw_topic": "Visual Reasoning / Sequential Rotation",
+      "id": "upsc_2018_csat_q70",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "logical_reasoning",
+      "subtopic_id": "logical_reasoning_sequential_rotation",
+      "subtopic": "Sequential Rotation",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Logical Reasoning question (Visual Reasoning / Sequential Rotation).",
+      "validation_status": "verified"
     },
     {
       "number": 71,
-      "topic": "Data Interpretation / Demographics (Dependency Ratio)",
+      "topic": "Tables, Charts and Graphs",
       "passage_id": null,
       "question": "Consider the graphs showing population curves across age groups (<15, 15-64, 64+) for countries A and B. Which of the following are the most logical and rational inferences that can be made?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2070,11 +3192,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Dependency ratio = (Population <15 + Population 64+) / (Working age population 15-64).\nIn Country B: the working-age curve (15-64) has risen steeply from 1990 to 2015 while young and old dependents have grown slowly, causing the dependency ratio to decrease significantly (Statement 1 is correct).\nIn the next two decades: Country B's working-age population continues expanding toward a plateau around 2030, while Country A's working-age population peaks around 2010 and declines, meaning Country B's workforce relative to population increases compared to Country A (Statement 3 is correct).\nStatement 2 is incorrect because by 2040–2050, Country A's elderly population rises sharply while working age drops, worsening its dependency ratio compared to Country B. Thus, 1 and 3 only are correct."
+      "explanation": "Dependency ratio = (Population <15 + Population 64+) / (Working age population 15-64).\nIn Country B: the working-age curve (15-64) has risen steeply from 1990 to 2015 while young and old dependents have grown slowly, causing the dependency ratio to decrease significantly (Statement 1 is correct).\nIn the next two decades: Country B's working-age population continues expanding toward a plateau around 2030, while Country A's working-age population peaks around 2010 and declines, meaning Country B's workforce relative to population increases compared to Country A (Statement 3 is correct).\nStatement 2 is incorrect because by 2040–2050, Country A's elderly population rises sharply while working age drops, worsening its dependency ratio compared to Country B. Thus, 1 and 3 only are correct.",
+      "raw_topic": "Data Interpretation / Demographics (Dependency Ratio)",
+      "id": "upsc_2018_csat_q71",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_data_interpretation",
+      "subject": "Data Interpretation",
+      "topic_id": "tables_charts_graphs",
+      "subtopic_id": "tables_charts_graphs_demographics_dependency_ratio",
+      "subtopic": "Demographics (Dependency Ratio)",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Data Interpretation question (Data Interpretation / Demographics (Dependency Ratio)).",
+      "validation_status": "verified"
     },
     {
       "number": 72,
-      "topic": "Logical Deduction / Seating & Sports",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "Lakshmi, her brother, her daughter and her son are badminton players. A game of doubles is about to begin:\n(i) Lakshmi's brother is directly across the net from her daughter.\n(ii) Her son is diagonally across the net from the worst player's sibling.\n(iii) The best player and the worst player are on the same side of the net.\nWho is the best player?",
       "options": [
@@ -2096,11 +3234,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Four players: Lakshmi (L), Brother (B), Daughter (D), Son (S).\nCourt arrangement across the net:\n- Condition (i): B is directly across the net from D. So B and D are on opposite sides, directly facing each other.\n- Condition (iii): The best and worst players are on the same side of the net.\n- The siblings in the game are: (L and B) in gen 1, and (D and S) in gen 2.\n- Condition (ii): S is diagonally across from the worst player's sibling. This means the worst player's sibling is on the opposite side diagonally from S. The only two players on the side opposite to S are (B and another) or (D and another).\nAnalyzing positions and relationships reveals that the worst player is Lakshmi's daughter, and the best player paired with her on the same side is Lakshmi's brother (B). Thus, the best player is her brother."
+      "explanation": "Four players: Lakshmi (L), Brother (B), Daughter (D), Son (S).\nCourt arrangement across the net:\n- Condition (i): B is directly across the net from D. So B and D are on opposite sides, directly facing each other.\n- Condition (iii): The best and worst players are on the same side of the net.\n- The siblings in the game are: (L and B) in gen 1, and (D and S) in gen 2.\n- Condition (ii): S is diagonally across from the worst player's sibling. This means the worst player's sibling is on the opposite side diagonally from S. The only two players on the side opposite to S are (B and another) or (D and another).\nAnalyzing positions and relationships reveals that the worst player is Lakshmi's daughter, and the best player paired with her on the same side is Lakshmi's brother (B). Thus, the best player is her brother.",
+      "raw_topic": "Logical Deduction / Seating & Sports",
+      "id": "upsc_2018_csat_q72",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_seating_sports",
+      "subtopic": "Seating & Sports",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Puzzles, Seating, Blood Relations, Directions, Ranking) question (Logical Deduction / Seating & Sports).",
+      "validation_status": "verified"
     },
     {
       "number": 73,
-      "topic": "Macroeconomics / Monetary Policy & Repo Rates",
+      "topic": "Tables, Charts and Graphs",
       "passage_id": null,
       "question": "The graph indicates changes in key policy rates (Repo Rate, Reverse Repo Rate) made by the Central Bank several times in a year (all rates rising significantly). Which one of the following can be the most likely reason for the Central Bank for such an action?",
       "options": [
@@ -2122,11 +3276,28 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "When the Central Bank repeatedly hikes the policy repo rate (from 5.50% up to 7.50%) and reverse repo rate (from 4.00% to 6.50%), it is implementing contractionary/tight monetary policy to suck out excess liquidity, increase borrowing costs, cool aggregate demand, and curb high inflation (an Anti-inflationary stance)."
+      "explanation": "When the Central Bank repeatedly hikes the policy repo rate (from 5.50% up to 7.50%) and reverse repo rate (from 4.00% to 6.50%), it is implementing contractionary/tight monetary policy to suck out excess liquidity, increase borrowing costs, cool aggregate demand, and curb high inflation (an Anti-inflationary stance).",
+      "raw_topic": "Macroeconomics / Monetary Policy & Repo Rates",
+      "id": "upsc_2018_csat_q73",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_data_interpretation",
+      "subject": "Data Interpretation",
+      "topic_id": "tables_charts_graphs",
+      "subtopic_id": "tables_charts_graphs_monetary_policy_repo_rates",
+      "subtopic": "Monetary Policy & Repo Rates",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT question explicitly analyzing a statistical table, chart, or graph.",
+      "validation_status": "verified",
+      "validation_notes": "Stage B confirmed correction from mislabeled raw topic \"Macroeconomics / Monetary Policy & Repo Rates\" to \"Tables, Charts and Graphs\"."
     },
     {
       "number": 74,
-      "topic": "Data Interpretation / Correlation",
+      "topic": "Tables, Charts and Graphs",
       "passage_id": null,
       "question": "With reference to the table giving GDP growth rate and Tele-density of 18 States, which of the following is/are the most logical and rational inference/inferences that can be made?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2153,11 +3324,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "From the data table:\n1. States with high per capita incomes ($800–$1077, like States 5, 6, 7, 10, 14, 16) consistently exhibit high tele-density (76–104), whereas low-income states (State 8 at $395 with tele-density 6) have low tele-density, showing a strong positive association (Statement 1 is correct).\n2. Statement 2 is false because high growth states like State 3 (growth 10.83%) have the lowest per capita income ($254), proving high growth does NOT always ensure high income.\n3. State 4 has a very high GDP growth rate (9.78%) but an extremely low tele-density of only 5.94, confirming that a higher GDP growth rate does not necessarily ensure higher tele-density (Statement 3 is correct).\nBoth 1 and 3 are correct."
+      "explanation": "From the data table:\n1. States with high per capita incomes ($800–$1077, like States 5, 6, 7, 10, 14, 16) consistently exhibit high tele-density (76–104), whereas low-income states (State 8 at $395 with tele-density 6) have low tele-density, showing a strong positive association (Statement 1 is correct).\n2. Statement 2 is false because high growth states like State 3 (growth 10.83%) have the lowest per capita income ($254), proving high growth does NOT always ensure high income.\n3. State 4 has a very high GDP growth rate (9.78%) but an extremely low tele-density of only 5.94, confirming that a higher GDP growth rate does not necessarily ensure higher tele-density (Statement 3 is correct).\nBoth 1 and 3 are correct.",
+      "raw_topic": "Data Interpretation / Correlation",
+      "id": "upsc_2018_csat_q74",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_data_interpretation",
+      "subject": "Data Interpretation",
+      "topic_id": "tables_charts_graphs",
+      "subtopic_id": "tables_charts_graphs_correlation",
+      "subtopic": "Correlation",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT question explicitly analyzing a statistical table, chart, or graph.",
+      "validation_status": "verified"
     },
     {
       "number": 75,
-      "topic": "Reading Comprehension / Data Assumptions",
+      "topic": "Tables, Charts and Graphs",
       "passage_id": null,
       "question": "With reference to the table on Tele-density and GDP growth, the following assumptions have been made:\nWhich of the above assumptions is/are valid?",
       "statements": [
@@ -2183,11 +3370,28 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Neither assumption is valid: The empirical table only presents cross-sectional correlation data for a single year; it does not provide basis for causal, absolute assertions like 'cannot be sustained without further large investments' (1) or that very high tele-density is 'the most essential condition' for growth (2)."
+      "explanation": "Neither assumption is valid: The empirical table only presents cross-sectional correlation data for a single year; it does not provide basis for causal, absolute assertions like 'cannot be sustained without further large investments' (1) or that very high tele-density is 'the most essential condition' for growth (2).",
+      "raw_topic": "Reading Comprehension / Data Assumptions",
+      "id": "upsc_2018_csat_q75",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_data_interpretation",
+      "subject": "Data Interpretation",
+      "topic_id": "tables_charts_graphs",
+      "subtopic_id": "tables_charts_graphs_data_assumptions",
+      "subtopic": "Data Assumptions",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT question explicitly analyzing a statistical table, chart, or graph.",
+      "validation_status": "verified",
+      "validation_notes": "Stage B confirmed correction from mislabeled raw topic \"Reading Comprehension / Data Assumptions\" to \"Tables, Charts and Graphs\"."
     },
     {
       "number": 76,
-      "topic": "Data Interpretation / Public Finance & Tax Revenue",
+      "topic": "Tables, Charts and Graphs",
       "passage_id": null,
       "question": "The graph indicates the composition of tax revenue over two decades (1990-91 to 2010-11). Which of the following is/are the most logical and rational inference/inferences that can be made?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2213,11 +3417,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is correct: Direct taxes (corporate tax + personal income tax) rose from under 20% in 1990–91 to over 55–60% of gross tax revenue by 2010–11, while indirect taxes (excise and customs) fell steadily from over 75% down to under 40%. Statement 2 is incorrect because a decline in the SHARE of excise duty in gross tax revenue reflects tax rate rationalization and faster growth in other tax categories, not negative growth of the manufacturing sector."
+      "explanation": "Statement 1 is correct: Direct taxes (corporate tax + personal income tax) rose from under 20% in 1990–91 to over 55–60% of gross tax revenue by 2010–11, while indirect taxes (excise and customs) fell steadily from over 75% down to under 40%. Statement 2 is incorrect because a decline in the SHARE of excise duty in gross tax revenue reflects tax rate rationalization and faster growth in other tax categories, not negative growth of the manufacturing sector.",
+      "raw_topic": "Data Interpretation / Public Finance & Tax Revenue",
+      "id": "upsc_2018_csat_q76",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_data_interpretation",
+      "subject": "Data Interpretation",
+      "topic_id": "tables_charts_graphs",
+      "subtopic_id": "tables_charts_graphs_public_finance_tax_revenue",
+      "subtopic": "Public Finance & Tax Revenue",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT question explicitly analyzing a statistical table, chart, or graph.",
+      "validation_status": "verified"
     },
     {
       "number": 77,
-      "topic": "Algebra / Linear Inequalities",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "If x − y = 8, then which of the following must be true?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2244,7 +3464,23 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Given x − y = 8 => y = x − 8.\n- Test statement 1: Let x = 2 => y = −6. Both are not positive. (False)\n- Test statement 2: Let x = 10 (positive) => y = 10 − 8 = 2 (positive, not negative). (False)\n- Test statement 3: Let x = −2 (negative) => y = −2 − 8 = −10 (negative, not positive). (False)\nNone of the three statements must be true. Correct choice is 'Neither 1 nor 2 nor 3'."
+      "explanation": "Given x − y = 8 => y = x − 8.\n- Test statement 1: Let x = 2 => y = −6. Both are not positive. (False)\n- Test statement 2: Let x = 10 (positive) => y = 10 − 8 = 2 (positive, not negative). (False)\n- Test statement 3: Let x = −2 (negative) => y = −2 − 8 = −10 (negative, not positive). (False)\nNone of the three statements must be true. Correct choice is 'Neither 1 nor 2 nor 3'.",
+      "raw_topic": "Algebra / Linear Inequalities",
+      "id": "upsc_2018_csat_q77",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_linear_inequalities",
+      "subtopic": "Linear Inequalities",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (Algebra / Linear Inequalities).",
+      "validation_status": "verified"
     },
     {
       "number": 78,
@@ -2270,7 +3506,23 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "The passage details the severe negative externalities of industrial livestock farming — animal pandemics (avian flu), excessive antibiotics and hormones, and unsustainable water consumption (15,000 litres per kg of meat compared to 3,400 for rice and 255 for potatoes) — conveying that the environmental and ecological cost of industrial meat production is unsustainable."
+      "explanation": "The passage details the severe negative externalities of industrial livestock farming — animal pandemics (avian flu), excessive antibiotics and hormones, and unsustainable water consumption (15,000 litres per kg of meat compared to 3,400 for rice and 255 for potatoes) — conveying that the environmental and ecological cost of industrial meat production is unsustainable.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q78",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_crux_central_idea",
+      "subtopic": "Crux, Central Idea & Critical Message",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 79,
@@ -2296,7 +3548,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The author concludes: 'Prey and tigers can only disperse if there are recognized corridors of land between protected areas to allow unmolested passage', making the establishment of safe wildlife corridors between fragmented protected areas the essential conservation message."
+      "explanation": "The author concludes: 'Prey and tigers can only disperse if there are recognized corridors of land between protected areas to allow unmolested passage', making the establishment of safe wildlife corridors between fragmented protected areas the essential conservation message.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q79",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_crux_central_idea",
+      "subtopic": "Crux, Central Idea & Critical Message",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 80,
@@ -2326,7 +3594,23 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Neither assumption is valid: A single tiger's homing instinct does not mean relocation strategies generally fail (1), and tigers naturally range outside reserves due to territoriality and prey dispersal, not because of a lack of legislation or total conservation failure (2)."
+      "explanation": "Neither assumption is valid: A single tiger's homing instinct does not mean relocation strategies generally fail (1), and tigers naturally range outside reserves due to territoriality and prey dispersal, not because of a lack of legislation or total conservation failure (2).",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2018_csat_q80",
+      "exam": "UPSC CSE Prelims",
+      "year": 2018,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     }
   ]
 }

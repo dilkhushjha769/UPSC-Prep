@@ -12,7 +12,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   X,
   Zap,
-  Check,
   CheckCircle2,
   XCircle,
   ChevronLeft,
@@ -22,6 +21,7 @@ import {
   BookOpen,
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
+import { EditorialExplanationView } from '@/components/common/EditorialExplanationView';
 import { DailyEventItem } from '@/data/currentAffairsData';
 import {
   EventRecallQuestion,
@@ -357,33 +357,13 @@ function DailyRecallContent({
 
               {/* Active Recall Explanation (Revealed when answered) */}
               {selectedAnswers[currentIndex] && (
-                <View style={styles.explanationBox}>
-                  <View style={styles.explanationHeader}>
-                    {selectedAnswers[currentIndex] === currentQuestion.correctAnswer ? (
-                      <View style={styles.feedbackSuccessBadge}>
-                        <Check size={12} color="#059669" strokeWidth={2.5} />
-                        <Text style={styles.feedbackSuccessText}>Accurate Recall! 🎯</Text>
-                      </View>
-                    ) : (
-                      <View style={styles.feedbackMistakeBadge}>
-                        <X size={12} color="#DC2626" strokeWidth={2.5} />
-                        <Text style={styles.feedbackMistakeText}>Key Learning Point 💡</Text>
-                      </View>
-                    )}
-                    <Text style={styles.correctKeyLabel}>
-                      Correct: <Text style={styles.correctKeyBold}>Option {currentQuestion.correctAnswer}</Text>
-                    </Text>
-                  </View>
-
-                  <Text style={styles.explanationBody}>{currentQuestion.explanation}</Text>
-
-                  {currentQuestion.syllabusRelevance && (
-                    <View style={styles.syllabusBox}>
-                      <Text style={styles.syllabusLabel}>UPSC Syllabus Linkage:</Text>
-                      <Text style={styles.syllabusText}>{currentQuestion.syllabusRelevance}</Text>
-                    </View>
-                  )}
-                </View>
+                <EditorialExplanationView
+                  isDark={isDark}
+                  correctAnswer={currentQuestion.correctAnswer}
+                  explanationText={currentQuestion.explanation}
+                  syllabusRelevance={currentQuestion.syllabusRelevance}
+                  source={currentQuestion.topicTag}
+                />
               )}
             </View>
           ) : (

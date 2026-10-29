@@ -17,6 +17,7 @@ const STORAGE_KEYS = {
   CONFIG: '@upsc_study_config_v1',
   METRICS: '@upsc_study_metrics_v1',
   ACTIVE_FOCUS_SESSION: '@upsc_active_focus_session_v1',
+  DAILY_QUESTIONS: '@upsc_daily_questions_v1',
 };
 
 export const DEFAULT_CONFIG: UserStudyConfig = {
@@ -34,6 +35,7 @@ export const DEFAULT_CONFIG: UserStudyConfig = {
   targetExamDate: '2027-05-23', // Target UPSC Prelims 2027
   examPhase: 'UPSC CSE 2027 • Prelims & Mains',
   dailyGoalMinutes: 360, // 6 hours
+  dailyQuestionsGoal: 20, // 20 questions daily target
   qualifyingStreakMinutes: 60, // 60 minutes minimum for qualifying streak day
   gsTargetMinutes: 210, // 3.5 hours
   caTargetMinutes: 90, // 1.5 hours
@@ -55,6 +57,8 @@ export const DEFAULT_CONFIG: UserStudyConfig = {
     soundEnabled: true,
     vibrationEnabled: true,
     quietHoursEnabled: false,
+    focusModeDuringTests: true,
+    androidDndRequested: false,
   },
 };
 
@@ -445,6 +449,62 @@ export class StudyStorageService {
   /**
    * Clears persisted active focus session
    */
+  /**
+   * Daily Questions Tracking (4-Step Milestones)
+   */
+  static async getDailyQuestionsMap(): Promise<Record<string, number>> {
+    try {
+      const raw = await AsyncStorage.getItem(STORAGE_KEYS.DAILY_QUESTIONS);
+      if (raw) return JSON.parse(raw);
+      const initial: Record<string, number> = {
+        [getLocalDateString()]: 6,
+      };
+      await AsyncStorage.setItem(STORAGE_KEYS.DAILY_QUESTIONS, JSON.stringify(initial));
+      return initial;
+    } catch {
+      return {};
+    }
+  }
+
+  static async getTodayQuestionsSolved(todayStr: string = getLocalDateString()): Promise<number> {
+    try {
+      const map = await this.getDailyQuestionsMap();
+      return map[todayStr] ?? 0;
+    } catch {
+      return 0;
+    }
+  }
+
+  static async recordQuestionsSolved(
+    count: number,
+    dateStr: string = getLocalDateString()
+  ): Promise<number> {
+    try {
+      const map = await this.getDailyQuestionsMap();
+      const current = map[dateStr] ?? 0;
+      const updatedCount = Math.max(0, current + count);
+      map[dateStr] = updatedCount;
+      await AsyncStorage.setItem(STORAGE_KEYS.DAILY_QUESTIONS, JSON.stringify(map));
+      return updatedCount;
+    } catch {
+      return 0;
+    }
+  }
+
+  static async setTodayQuestionsSolved(
+    count: number,
+    dateStr: string = getLocalDateString()
+  ): Promise<number> {
+    try {
+      const map = await this.getDailyQuestionsMap();
+      map[dateStr] = Math.max(0, count);
+      await AsyncStorage.setItem(STORAGE_KEYS.DAILY_QUESTIONS, JSON.stringify(map));
+      return map[dateStr];
+    } catch {
+      return 0;
+    }
+  }
+
   static async clearActiveFocusSession(): Promise<void> {
     try {
       await AsyncStorage.removeItem(STORAGE_KEYS.ACTIVE_FOCUS_SESSION);

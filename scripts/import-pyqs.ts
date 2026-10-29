@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { createClient } from '@supabase/supabase-js';
+import { UPSC_PRELIMS_TAXONOMY } from '../src/constants/upscTaxonomy';
 
 // Auto-load .env
 const envPath = path.resolve(__dirname, '../.env');
@@ -44,7 +45,18 @@ export interface RawQuestion {
   question_hi?: string;
   text?: string;
   topic?: string;
+  raw_topic?: string;
+  subject_id?: string;
   subject?: string;
+  topic_id?: string;
+  subtopic_id?: string;
+  subtopic?: string;
+  secondary_tags?: string[];
+  classification_confidence?: number;
+  confidence_band?: 'High' | 'Medium' | 'Low';
+  classification_rationale?: string;
+  validation_status?: 'verified' | 'verified_cross_tagged' | 'needs_review';
+  validation_notes?: string;
   chapter?: string;
   category?: string;
   passage_id?: string | null;
@@ -52,6 +64,12 @@ export interface RawQuestion {
   statements?: string[];
   table?: any;
   table_data?: any;
+  list_i_title?: string;
+  list_i?: string[];
+  list_ii_title?: string;
+  list_ii?: string[];
+  directions?: string;
+  string?: string;
   options?: RawOption[] | Record<string, string> | string[];
   correct_option?: string;
   correct_answer?: string;
@@ -64,7 +82,6 @@ export interface RawQuestion {
   question_image?: string | null;
   image_url?: string | null;
   verification_note?: string;
-  directions?: string;
   year?: number;
   paper?: string;
   paper_type?: string;
@@ -87,16 +104,6 @@ export interface RawExamMeta {
   [key: string]: any;
 }
 
-export interface RawExamFile {
-  meta?: RawExamMeta;
-  exam?: string;
-  year?: number;
-  paper?: string;
-  paper_type?: string;
-  passages?: RawPassage[];
-  questions?: RawQuestion[];
-}
-
 export interface FileReport {
   fileName: string;
   filePath: string;
@@ -116,39 +123,6 @@ export interface ImportReport {
   totalUpdated: number;
   totalSkipped: number;
   fileReports: FileReport[];
-}
-
-function resolveTaxonomy(rawTopic?: string, rawSubject?: string, paperType?: string): { subject: string; topic: string } {
-  if (rawSubject && rawTopic) {
-    return { subject: rawSubject.trim(), topic: rawTopic.trim() };
-  }
-
-  const topicStr = (rawTopic || rawSubject || 'General').trim();
-  if (topicStr.includes('/')) {
-    const parts = topicStr.split('/').map((s) => s.trim());
-    const primary = parts[0];
-    const secondary = parts.slice(1).join(' / ');
-    return { subject: primary, topic: secondary || primary };
-  }
-
-  if (paperType === 'CSAT') {
-    const lower = topicStr.toLowerCase();
-    if (lower.includes('comprehension')) {
-      return { subject: 'Reading Comprehension', topic: topicStr };
-    }
-    if (
-      lower.includes('reasoning') ||
-      lower.includes('data') ||
-      lower.includes('syllogism') ||
-      lower.includes('puzzle') ||
-      lower.includes('coding')
-    ) {
-      return { subject: 'Logical Reasoning', topic: topicStr };
-    }
-    return { subject: 'Quantitative Aptitude', topic: topicStr };
-  }
-
-  return { subject: topicStr, topic: topicStr };
 }
 
 function normalizeOptions(rawOptions: any): { id: string; text: string }[] | null {
@@ -193,10 +167,37 @@ export async function runPYQImport(): Promise<ImportReport> {
 
   const supabase = createClient(supabaseUrl, supabaseKey);
 
-  // Search in both folders: pyqs_to_import (priority) and pyqs
+  // Sync canonical taxonomy tables if they exist
+  try {
+    const subjectRows = UPSC_PRELIMS_TAXONOMY.map((s, idx) => ({
+      id: s.id,
+      paper_type: s.paper,
+      paper_name: s.paperName,
+      name: s.name,
+      short_name: s.shortName,
+      display_order: idx + 1,
+    }));
+    await supabase.from('upsc_subjects').upsert(subjectRows, { onConflict: 'id' });
+
+    const topicRows = UPSC_PRELIMS_TAXONOMY.flatMap((s) =>
+      s.topics.map((t, idx) => ({
+        id: t.id,
+        subject_id: s.id,
+        paper_type: s.paper,
+        code: t.code,
+        name: t.name,
+        description: t.description,
+        display_order: idx + 1,
+      }))
+    );
+    await supabase.from('upsc_topics').upsert(topicRows, { onConflict: 'id' });
+  } catch {
+    // Non-fatal if canonical taxonomy migration hasn't been executed yet
+  }
+
   const targetDirs = [
-    path.resolve(__dirname, '../assets/data/pyqs_to_import'),
     path.resolve(__dirname, '../assets/data/pyqs'),
+    path.resolve(__dirname, '../assets/data/pyqs_to_import'),
   ];
 
   const seenFileNames = new Set<string>();
@@ -223,7 +224,7 @@ export async function runPYQImport(): Promise<ImportReport> {
   };
 
   if (foundFiles.length === 0) {
-    console.log('No JSON files found in assets/data/pyqs_to_import or assets/data/pyqs');
+    console.log('No JSON files found in assets/data/pyqs or assets/data/pyqs_to_import');
     return report;
   }
 
@@ -237,10 +238,9 @@ export async function runPYQImport(): Promise<ImportReport> {
       continue;
     }
 
-    // Determine questions array and metadata
     let questionsList: RawQuestion[] = [];
     let meta: RawExamMeta = {};
-    let passagesMap = new Map<string, string>();
+    const passagesMap = new Map<string, string>();
 
     if (Array.isArray(rawContent)) {
       questionsList = rawContent;
@@ -262,19 +262,21 @@ export async function runPYQImport(): Promise<ImportReport> {
       }
     }
 
-    // Detect year
     let year = meta.year;
     if (!year) {
       const yearMatch = fileName.match(/20\d{2}/) || (meta.exam && meta.exam.match(/20\d{2}/));
       year = yearMatch ? parseInt(yearMatch[0], 10) : 2025;
     }
 
-    // Detect paper type
-    const paperStr = (meta.paper || meta.paper_type || fileName).toLowerCase();
-    const isCsat = paperStr.includes('csat') || paperStr.includes('paper2') || paperStr.includes('paper-2') || paperStr.includes('paper-ii');
+    // Accurate paper detection: check meta.paper_type / meta.paper first, then paper2 in fileName
+    const isCsat =
+      meta.paper_type === 'CSAT' ||
+      Boolean(meta.paper && meta.paper.toLowerCase().includes('csat')) ||
+      Boolean(meta.paper && meta.paper.toLowerCase().includes('paper-ii')) ||
+      fileName.toLowerCase().includes('paper2');
     const paperType = isCsat ? 'CSAT' : 'GS1';
-    const paperName = meta.paper || (isCsat ? 'General Studies Paper-II (CSAT)' : 'General Studies Paper-I');
-    const examName = meta.exam || 'UPSC CSE';
+    const paperName = meta.paper || (isCsat ? 'General Studies Paper II (CSAT)' : 'General Studies Paper I');
+    const examName = meta.exam || 'UPSC CSE Prelims';
 
     const fileReport: FileReport = {
       fileName,
@@ -324,7 +326,9 @@ export async function runPYQImport(): Promise<ImportReport> {
         return;
       }
 
-      const { subject, topic } = resolveTaxonomy(q.topic || q.category, q.subject, paperType);
+      const subject = q.subject || (paperType === 'CSAT' ? 'Quantitative Aptitude and Basic Numeracy' : 'General Studies');
+      const topic = q.topic || 'General';
+      const subtopic = q.subtopic || topic;
 
       let passageText = q.passage_text || null;
       if (!passageText) {
@@ -336,7 +340,14 @@ export async function runPYQImport(): Promise<ImportReport> {
       }
 
       const statements = Array.isArray(q.statements) ? q.statements : [];
-      const tableData = q.table_data || q.table || null;
+      let tableData = q.table_data || q.table || null;
+      if (!tableData && Array.isArray(q.list_i) && Array.isArray(q.list_ii)) {
+        tableData = {
+          headers: [q.list_i_title || 'List I', q.list_ii_title || 'List II'],
+          rows: q.list_i.map((item, i) => [item, q.list_ii?.[i] || '']),
+        };
+      }
+
       const explanationEn = (q.explanation || q.explanation_en || q.solution || '').trim() || null;
       const explanationHi = (q.explanation_hi || '').trim() || null;
       const imageUrl = q.question_image || q.image_url || null;
@@ -350,12 +361,25 @@ export async function runPYQImport(): Promise<ImportReport> {
       const fingerprint = crypto.createHash('sha256').update(fingerprintInput).digest('hex');
 
       const metadata = {
+        external_id: q.id || `upsc_${qYear}_${qPaperType.toLowerCase()}_q${qNum}`,
+        subject_id: q.subject_id || null,
+        topic_id: q.topic_id || null,
+        subtopic_id: q.subtopic_id || null,
+        subtopic: subtopic,
+        raw_topic: q.raw_topic || q.topic || null,
+        secondary_tags: q.secondary_tags || [],
+        classification_confidence: q.classification_confidence ?? 0.95,
+        confidence_band: q.confidence_band || 'High',
+        classification_rationale: q.classification_rationale || null,
+        validation_status: q.validation_status || 'verified',
+        validation_notes: q.validation_notes || null,
         test_booklet_series: meta.test_booklet_series || null,
         booklet_code: meta.booklet_code || null,
         marks_per_correct: meta.marks_per_correct || (qPaperType === 'CSAT' ? 2.5 : 2.0),
         negative_marks_per_wrong: meta.negative_marks_per_wrong || (qPaperType === 'CSAT' ? 0.8333 : 0.6667),
         verification_note: q.verification_note || null,
         directions: q.directions || null,
+        sequence_string: q.string || null,
         source_file: fileName,
       };
 
@@ -383,7 +407,6 @@ export async function runPYQImport(): Promise<ImportReport> {
       });
     });
 
-    // Batch upsert in chunks of 50
     const chunkSize = 50;
     for (let i = 0; i < rowsToUpsert.length; i += chunkSize) {
       const chunk = rowsToUpsert.slice(i, i + chunkSize);
@@ -408,7 +431,6 @@ export async function runPYQImport(): Promise<ImportReport> {
   return report;
 }
 
-// Direct CLI invocation
 if (require.main === module) {
   console.log('Starting UPSC PYQ Question Ingestion...');
   runPYQImport()

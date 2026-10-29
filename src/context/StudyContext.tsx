@@ -116,6 +116,13 @@ interface StudyContextType {
   recordMainsAnswer: (subject: UPSCSubject, topic: string, durationMinutes: number) => Promise<void>;
   recordArticleRead: () => Promise<void>;
 
+  // Daily Questions Goal & Tracking (4-Step Milestones)
+  dailyQuestionsGoal: number;
+  todayQuestionsSolved: number;
+  updateDailyQuestionsGoal: (goal: number) => Promise<void>;
+  logDailyQuestionsSolved: (count: number) => Promise<void>;
+  setTodayQuestionsSolvedDirect: (count: number) => Promise<void>;
+
   // Config actions
   updateConfig: (partial: Partial<UserStudyConfig>) => Promise<void>;
   resetToDefaults: () => Promise<void>;
@@ -151,6 +158,7 @@ export function StudyProvider({ children }: { children: React.ReactNode }) {
   const [tasks, setTasks] = useState<StudyTask[]>(() => generateSeedTasks());
   const [config, setConfig] = useState<UserStudyConfig>(DEFAULT_CONFIG);
   const [metrics, setMetrics] = useState<UPSCPreparationMetrics>(DEFAULT_METRICS);
+  const [todayQuestionsSolved, setTodayQuestionsSolved] = useState<number>(6);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Active Focus Session State (Timestamp-backed)
@@ -187,17 +195,19 @@ export function StudyProvider({ children }: { children: React.ReactNode }) {
   // Load all initial data and restore active session if available
   const refreshAllData = useCallback(async () => {
     try {
-      const [s, t, c, m, storedFocus] = await Promise.all([
+      const [s, t, c, m, storedFocus, q] = await Promise.all([
         StudyStorageService.getSessions(),
         StudyStorageService.getTasks(),
         StudyStorageService.getConfig(),
         StudyStorageService.getMetrics(),
         StudyStorageService.getActiveFocusSession(),
+        StudyStorageService.getTodayQuestionsSolved(),
       ]);
       setSessions(s);
       setTasks(t);
       setConfig(c);
       setMetrics(m);
+      setTodayQuestionsSolved(q);
       if (storedFocus && (storedFocus.status === 'running' || storedFocus.status === 'paused')) {
         setActiveSession(storedFocus);
       }
@@ -216,8 +226,9 @@ export function StudyProvider({ children }: { children: React.ReactNode }) {
       StudyStorageService.getConfig(),
       StudyStorageService.getMetrics(),
       StudyStorageService.getActiveFocusSession(),
+      StudyStorageService.getTodayQuestionsSolved(),
     ])
-      .then(([s, t, c, m, storedFocus]) => {
+      .then(([s, t, c, m, storedFocus, q]) => {
         if (active) {
           setSessions(s);
           setTasks(t);
@@ -699,6 +710,10 @@ export function StudyProvider({ children }: { children: React.ReactNode }) {
       });
       setMetrics(updated);
 
+      // Track in daily questions
+      const updatedTodaySolved = await StudyStorageService.recordQuestionsSolved(attempted, todayStr);
+      setTodayQuestionsSolved(updatedTodaySolved);
+
       // Log session
       await logManualSession(
         'Polity',
@@ -751,6 +766,37 @@ export function StudyProvider({ children }: { children: React.ReactNode }) {
     setConfig(updated);
   }, []);
 
+  // Daily Questions Goal & Tracking (4 Steps)
+  const dailyQuestionsGoal = config.dailyQuestionsGoal || 20;
+
+  const updateDailyQuestionsGoal = useCallback(
+    async (goal: number) => {
+      const safeGoal = Math.max(4, Math.round(goal));
+      await updateConfig({ dailyQuestionsGoal: safeGoal });
+    },
+    [updateConfig]
+  );
+
+  const logDailyQuestionsSolved = useCallback(
+    async (count: number) => {
+      const updated = await StudyStorageService.recordQuestionsSolved(count, todayStr);
+      setTodayQuestionsSolved(updated);
+      const updatedMetrics = await StudyStorageService.updateMetrics({
+        mcqsAttempted: metrics.mcqsAttempted + count,
+      });
+      setMetrics(updatedMetrics);
+    },
+    [metrics.mcqsAttempted, todayStr]
+  );
+
+  const setTodayQuestionsSolvedDirect = useCallback(
+    async (count: number) => {
+      const updated = await StudyStorageService.setTodayQuestionsSolved(count, todayStr);
+      setTodayQuestionsSolved(updated);
+    },
+    [todayStr]
+  );
+
   const resetToDefaults = useCallback(async () => {
     await StudyStorageService.resetAllData();
     ambientSoundManager.stop();
@@ -795,6 +841,12 @@ export function StudyProvider({ children }: { children: React.ReactNode }) {
     recordMCQSession,
     recordMainsAnswer,
     recordArticleRead,
+
+    dailyQuestionsGoal,
+    todayQuestionsSolved,
+    updateDailyQuestionsGoal,
+    logDailyQuestionsSolved,
+    setTodayQuestionsSolvedDirect,
 
     updateConfig,
     resetToDefaults,

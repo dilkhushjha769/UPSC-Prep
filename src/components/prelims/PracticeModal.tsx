@@ -1,4 +1,5 @@
 import {
+  AlertTriangle,
   ArrowLeft,
   ArrowRight,
   Bookmark,
@@ -11,7 +12,6 @@ import {
   HelpCircle,
   Lightbulb,
   ListFilter,
-  ShieldCheck,
   X,
   XCircle,
   RotateCcw,
@@ -20,10 +20,14 @@ import { PYQQuestion, Chapter } from '@/types/prelims';
 import { PrelimsThemeType, usePrelimsTheme } from '@/constants/prelimsTheme';
 import { useStudy } from '@/context/StudyContext';
 import { BookmarkStorageService } from '@/services/bookmarkStorage';
+import { QuestionHistoryService } from '@/services/questionHistoryService';
+import { practiceSoundService } from '@/services/practiceSoundService';
+import { PracticeSoundSettingsButton } from '@/components/prelims/PracticeSoundSettingsButton';
 import { StatusBar } from 'expo-status-bar';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useCallback } from 'react';
 import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
 import {
+  BackHandler,
   Modal,
   Platform,
   Pressable,
@@ -49,6 +53,7 @@ interface PracticeModalProps {
   chapter: Chapter | null;
   questions: PYQQuestion[];
   initialYearFilter?: YearFilter;
+  initialQuestionIndex?: number;
   onClose: () => void;
 }
 
@@ -57,6 +62,7 @@ export function PracticeModal({
   chapter,
   questions,
   initialYearFilter,
+  initialQuestionIndex,
   onClose,
 }: PracticeModalProps) {
   const { recordMCQSession } = useStudy();
@@ -64,10 +70,49 @@ export function PracticeModal({
   const styles = useMemo(() => getStyles(theme), [theme]);
   // viewMode: 'list' shows all questions in a vertical list
   // 'attempt' opens the selected question to attempt with options
-  const [viewMode, setViewMode] = useState<'list' | 'attempt'>('list');
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [viewMode, setViewMode] = useState<'list' | 'attempt'>(
+    initialQuestionIndex !== undefined ? 'attempt' : 'list'
+  );
+  const [currentIndex, setCurrentIndex] = useState(initialQuestionIndex ?? 0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
   const [bookmarkedIds, setBookmarkedIds] = useState<Record<string, boolean>>({});
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
+  const answeredCount = Object.keys(selectedAnswers).length;
+
+  const handleRequestExit = useCallback(() => {
+    setShowExitConfirm(true);
+  }, []);
+
+  useEffect(() => {
+    if (!visible) return;
+    const onBackPress = () => {
+      if (showExitConfirm) {
+        setShowExitConfirm(false);
+        return true;
+      }
+      handleRequestExit();
+      return true;
+    };
+    const sub = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    return () => sub.remove();
+  }, [visible, showExitConfirm, handleRequestExit]);
+
+  const [prevModalKey, setPrevModalKey] = useState<string>(
+    `${visible}-${chapter?.id ?? ''}-${initialQuestionIndex ?? 'list'}`
+  );
+  const currentModalKey = `${visible}-${chapter?.id ?? ''}-${initialQuestionIndex ?? 'list'}`;
+  if (currentModalKey !== prevModalKey) {
+    setPrevModalKey(currentModalKey);
+    if (visible) {
+      if (initialQuestionIndex !== undefined) {
+        setCurrentIndex(initialQuestionIndex);
+        setViewMode('attempt');
+      } else {
+        setCurrentIndex(0);
+        setViewMode('list');
+      }
+    }
+  }
 
   useEffect(() => {
     BookmarkStorageService.getBookmarkedIds().then((ids) => {
@@ -118,8 +163,6 @@ export function PracticeModal({
   const currentQ = questions[currentIndex] || questions[0];
   const selectedOpt = selectedAnswers[currentIndex];
   const hasAnswered = selectedOpt !== undefined;
-
-  const answeredCount = Object.keys(selectedAnswers).length;
 
   // Compute status indices
   const solvedIndices = new Set(
@@ -204,6 +247,24 @@ export function PracticeModal({
     }));
     const isCorrect = key === currentQ.correctAnswer;
     void recordMCQSession(1, isCorrect ? 1 : 0);
+    void practiceSoundService.playFeedback(isCorrect);
+    void QuestionHistoryService.recordPracticeAttempt({
+      questionId: currentQ.id,
+      source: 'practice',
+      sourceTitle: chapter?.title || 'Prelims Practice',
+      questionNumber: currentQ.questionNumber,
+      questionText: currentQ.questionText,
+      options: currentQ.options.map((o) => ({ id: o.key, text: o.text })),
+      selectedAnswer: key,
+      correctAnswer: currentQ.correctAnswer,
+      isCorrect,
+      status: isCorrect ? 'correct' : 'incorrect',
+      timeSpentSeconds: 15,
+      subject: currentQ.subjectName || currentQ.subjectId || 'General Studies',
+      topic: currentQ.chapterName || currentQ.chapterId,
+      explanation: currentQ.explanation?.officialAnswer,
+      dateStr: new Date().toISOString().split('T')[0],
+    });
   };
 
   const handleToggleBookmark = async () => {
@@ -289,16 +350,19 @@ export function PracticeModal({
             <View style={styles.topNavBar}>
               <Pressable
                 style={({ pressed }) => [styles.backBtnPill, pressed && styles.pressed]}
-                onPress={onClose}
+                onPress={handleRequestExit}
               >
                 <ArrowLeft size={16} color={theme.colors.textPrimary} strokeWidth={2.2} />
                 <Text style={styles.backBtnText}>Exit Practice</Text>
               </Pressable>
 
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+              <PracticeSoundSettingsButton isDark={theme.isDark} />
               <View style={styles.progressPill}>
                 <Text style={styles.progressPillText}>
                   {answeredCount}/{questions.length} Solved
                 </Text>
+              </View>
               </View>
             </View>
 
@@ -922,9 +986,9 @@ export function PracticeModal({
             <View style={styles.attemptTopBar}>
               <Pressable
                 style={({ pressed }) => [styles.attemptBackBtn, pressed && styles.pressed]}
-                onPress={() => setViewMode('list')}
+                onPress={handleRequestExit}
                 accessibilityRole="button"
-                accessibilityLabel="Back to questions list"
+                accessibilityLabel="Go back"
               >
                 <ArrowLeft size={16} color={theme.colors.textPrimary} strokeWidth={2.2} />
               </Pressable>
@@ -941,16 +1005,7 @@ export function PracticeModal({
               </View>
 
               <View style={styles.attemptTopRight}>
-                {/* Quick List Toggle */}
-                <Pressable
-                  style={({ pressed }) => [styles.attemptListBtn, pressed && styles.pressed]}
-                  onPress={() => setViewMode('list')}
-                  accessibilityRole="button"
-                  accessibilityLabel="View All Questions"
-                >
-                  <ListFilter size={14} color={theme.colors.textPrimary} strokeWidth={2.2} />
-                  <Text style={styles.attemptListBtnText}>List</Text>
-                </Pressable>
+
 
                 {/* Bookmark Icon/Pill */}
                 <Pressable
@@ -969,15 +1024,8 @@ export function PracticeModal({
                     fill={isBookmarked ? '#F59E0B' : 'none'}
                     strokeWidth={2}
                   />
-                  <Text
-                    style={[
-                      styles.attemptBookmarkBtnText,
-                      isBookmarked && styles.attemptBookmarkBtnTextActive,
-                    ]}
-                  >
-                    {isBookmarked ? 'Saved' : 'Save'}
-                  </Text>
                 </Pressable>
+                <PracticeSoundSettingsButton isDark={theme.isDark} />
               </View>
 
               {/* Thin progress track along top bar bottom */}
@@ -1035,7 +1083,9 @@ export function PracticeModal({
 
               {/* Options Section */}
               <View style={styles.optionsSection}>
-                <Text style={styles.optionsSectionHeading}>Select Your Answer:</Text>
+                <Text style={styles.optionsSectionHeading}>
+                  {hasAnswered ? 'Answer Options & Review:' : 'Select Your Answer:'}
+                </Text>
                 {currentQ.options.map((opt) => {
                   const isSelected = selectedOpt === opt.key;
                   const isCorrect = opt.key === currentQ.correctAnswer;
@@ -1043,16 +1093,20 @@ export function PracticeModal({
                   let optCardStyle: any = styles.optionItemDefault;
                   let keyBoxStyle: any = styles.keyBoxDefault;
                   let keyTextStyle: any = styles.keyTextDefault;
+                  let showCorrectBadge = false;
+                  let showIncorrectBadge = false;
 
                   if (hasAnswered) {
                     if (isCorrect) {
                       optCardStyle = styles.optionItemCorrect;
                       keyBoxStyle = styles.keyBoxCorrect;
                       keyTextStyle = styles.keyTextCorrect;
+                      showCorrectBadge = true;
                     } else if (isSelected && !isCorrect) {
                       optCardStyle = styles.optionItemIncorrect;
                       keyBoxStyle = styles.keyBoxIncorrect;
                       keyTextStyle = styles.keyTextIncorrect;
+                      showIncorrectBadge = true;
                     }
                   } else if (isSelected) {
                     optCardStyle = styles.optionItemSelected;
@@ -1074,13 +1128,21 @@ export function PracticeModal({
                       <View style={[styles.keyBoxBase, keyBoxStyle]}>
                         <Text style={[styles.keyTextBase, keyTextStyle]}>{opt.key}</Text>
                       </View>
-                      <Text style={styles.optionContentText}>{opt.text}</Text>
-                      {hasAnswered && isCorrect && (
-                        <CheckCircle2 size={18} color="#10B981" strokeWidth={2.2} />
-                      )}
-                      {hasAnswered && isSelected && !isCorrect && (
-                        <XCircle size={18} color="#EF4444" strokeWidth={2.2} />
-                      )}
+                      <View style={styles.optionContentCol}>
+                        <Text style={styles.optionContentText}>{opt.text}</Text>
+                        {showCorrectBadge && (
+                          <View style={styles.optionSubStatusRow}>
+                            <CheckCircle2 size={13} color="#10B981" strokeWidth={2.4} />
+                            <Text style={styles.correctAnswerLabelText}>Correct answer</Text>
+                          </View>
+                        )}
+                        {showIncorrectBadge && (
+                          <View style={styles.optionSubStatusRow}>
+                            <XCircle size={13} color="#EF4444" strokeWidth={2.4} />
+                            <Text style={styles.incorrectAnswerLabelText}>Your answer</Text>
+                          </View>
+                        )}
+                      </View>
                     </Pressable>
                   );
                 })}
@@ -1090,48 +1152,65 @@ export function PracticeModal({
               {hasAnswered && (
                 <View style={styles.solutionContainer}>
                   <View style={styles.solutionHeader}>
-                    <View style={styles.solutionBadge}>
-                      <ShieldCheck size={14} color={theme.isDark ? '#FF8A3D' : '#FF5500'} strokeWidth={2.2} />
-                      <Text style={styles.solutionBadgeText}>Official UPSC Key</Text>
-                    </View>
-                    <Text style={styles.officialKeyText}>
-                      Correct Answer: ({currentQ.correctAnswer})
-                    </Text>
+                    <Text style={styles.solutionHeaderTitle}>Explanation</Text>
                   </View>
 
-                  {/* Core Concept */}
+                  {/* Step 1: Core Concept */}
                   {currentQ.explanation?.coreConcept ? (
-                    <View style={styles.solutionBlock}>
-                      <View style={styles.solutionBlockTitleRow}>
-                        <Lightbulb size={14} color="#F59E0B" strokeWidth={2.2} />
-                        <Text style={styles.solutionBlockTitle}>Core Concept</Text>
+                    <View style={styles.stepItemRow}>
+                      <View style={styles.stepBadgeCircle}>
+                        <Text style={styles.stepBadgeText}>1</Text>
                       </View>
-                      <Text style={styles.solutionBlockText}>
-                        {currentQ.explanation.coreConcept}
-                      </Text>
-                    </View>
-                  ) : null}
-
-                  {/* Detailed Explanation */}
-                  {currentQ.explanation?.detailedAnalysis ? (
-                    <View style={styles.solutionBlock}>
-                      <Text style={styles.solutionBlockTitle}>Detailed Explanation</Text>
-                      {currentQ.explanation.detailedAnalysis.map((line, lIdx) => (
-                        <Text key={lIdx} style={styles.solutionBlockText}>
-                          {line}
+                      <View style={styles.stepContentCol}>
+                        <Text style={styles.stepTitleText}>Core Concept</Text>
+                        <Text style={styles.stepBodyText}>
+                          {currentQ.explanation.coreConcept}
                         </Text>
-                      ))}
+                      </View>
                     </View>
                   ) : null}
 
-                  {/* Elimination Trick */}
-                  {currentQ.explanation?.eliminationTechnique ? (
-                    <View style={styles.eliminationBlock}>
+                  {/* Step 2: Detailed Explanation */}
+                  {currentQ.explanation?.detailedAnalysis && currentQ.explanation.detailedAnalysis.length > 0 ? (
+                    <View style={styles.stepItemRow}>
+                      <View style={styles.stepBadgeCircle}>
+                        <Text style={styles.stepBadgeText}>2</Text>
+                      </View>
+                      <View style={styles.stepContentCol}>
+                        <Text style={styles.stepTitleText}>Detailed Analysis</Text>
+                        {currentQ.explanation.detailedAnalysis.map((line, lIdx) => (
+                          <Text key={lIdx} style={styles.stepBodyLine}>
+                            {line}
+                          </Text>
+                        ))}
+                      </View>
+                    </View>
+                  ) : null}
+
+                  {/* Conclusion / Examiner Elimination Strategy Box */}
+                  <View style={styles.eliminationBlock}>
+                    <View style={styles.eliminationTitleRow}>
+                      <Lightbulb size={16} color="#10B981" strokeWidth={2.2} />
                       <Text style={styles.eliminationTitle}>
-                        Examiner Elimination Strategy:
+                        {currentQ.explanation?.eliminationTechnique
+                          ? 'Examiner Elimination Strategy'
+                          : 'Conclusion'}
                       </Text>
+                    </View>
+                    {currentQ.explanation?.eliminationTechnique ? (
                       <Text style={styles.eliminationText}>
                         {currentQ.explanation.eliminationTechnique}
+                      </Text>
+                    ) : null}
+
+                  </View>
+
+                  {/* UPSC Trend Insight (if present) */}
+                  {currentQ.explanation?.upscTrendNote ? (
+                    <View style={styles.trendInsightRow}>
+                      <Text style={styles.trendInsightLabel}>UPSC Trend Insight: </Text>
+                      <Text style={styles.trendInsightText}>
+                        {currentQ.explanation.upscTrendNote}
                       </Text>
                     </View>
                   ) : null}
@@ -1166,19 +1245,7 @@ export function PracticeModal({
                 </Text>
               </Pressable>
 
-              <Pressable
-                style={({ pressed }) => [styles.navBtnListToggle, pressed && styles.pressed]}
-                onPress={() => setViewMode('list')}
-                accessibilityRole="button"
-                accessibilityLabel="View question list"
-              >
-                <ListFilter size={14} color={theme.colors.textSecondary} strokeWidth={2.2} />
-                <Text style={styles.navBtnListToggleText}>
-                  {!isFilteringActive
-                    ? 'Questions List'
-                    : `Filtered (${filteredQuestions.length})`}
-                </Text>
-              </Pressable>
+
 
               <Pressable
                 style={({ pressed }) => [
@@ -1208,6 +1275,40 @@ export function PracticeModal({
             </View>
           </View>
         )}
+
+        {/* Exit Confirmation Dialog */}
+        {showExitConfirm && (
+          <View style={styles.exitModalOverlay}>
+            <View style={styles.exitModalCard}>
+              <View style={styles.exitModalIconWrap}>
+                <AlertTriangle size={26} color="#F59E0B" strokeWidth={2.2} />
+              </View>
+              <Text style={styles.exitModalTitle}>Exit Practice Session?</Text>
+              <Text style={styles.exitModalDesc}>
+                {answeredCount > 0
+                  ? `You have answered ${answeredCount} question${answeredCount === 1 ? '' : 's'} in this session. Are you sure you want to exit?`
+                  : 'Are you sure you want to quit this practice session?'}
+              </Text>
+              <View style={styles.exitModalBtnRow}>
+                <Pressable
+                  style={({ pressed }) => [styles.exitModalStayBtn, pressed && styles.pressed]}
+                  onPress={() => setShowExitConfirm(false)}
+                >
+                  <Text style={styles.exitModalStayText}>Continue Practice</Text>
+                </Pressable>
+                <Pressable
+                  style={({ pressed }) => [styles.exitModalLeaveBtn, pressed && styles.pressed]}
+                  onPress={() => {
+                    setShowExitConfirm(false);
+                    onClose();
+                  }}
+                >
+                  <Text style={styles.exitModalLeaveText}>Exit Now</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        )}
       </SafeAreaView>
     </Modal>
   );
@@ -1218,11 +1319,11 @@ const getStyles = (theme: PrelimsThemeType) => {
   return StyleSheet.create({
   fullScreenSafeArea: {
     flex: 1,
-    backgroundColor: isDark ? '#080A0E' : '#F8FAFC',
+    backgroundColor: isDark ? '#1F2024' : '#F8F9FE',
   },
   viewContainer: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: isDark ? '#1F2024' : '#F8F9FE',
   },
   topNavBar: {
     flexDirection: 'row',
@@ -1487,7 +1588,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     borderColor: theme.colors.borderSubtle,
   },
   filterPillActive: {
-    backgroundColor: theme.colors.darkButton,
+    backgroundColor: "#006FFD",
     borderColor: theme.colors.darkButton,
   },
   filterPillText: {
@@ -1496,7 +1597,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     color: theme.colors.textSecondary,
   },
   filterPillTextActive: {
-    color: theme.colors.darkButtonText,
+    color: "#FFFFFF",
   },
   rightDropdownsGroup: {
     flexDirection: 'row',
@@ -1839,60 +1940,53 @@ const getStyles = (theme: PrelimsThemeType) => {
   optionItemBase: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 14,
+    paddingVertical: 13,
+    paddingHorizontal: 14,
     borderRadius: 12,
-    borderWidth: 1.5,
+    borderWidth: 1,
     gap: 12,
   },
   optionItemDefault: {
-    backgroundColor: isDark ? '#191C25' : '#FFFFFF',
-    borderColor: theme.colors.borderCard,
+    backgroundColor: isDark ? '#141722' : '#FFFFFF',
+    borderColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#E5E7EB',
   },
   optionItemSelected: {
-    backgroundColor: isDark ? '#1E293B' : '#FFF5EE',
-    borderColor: isDark ? '#FF8A3D' : '#FF5500',
+    backgroundColor: isDark ? '#111E38' : '#EEF4FF',
+    borderColor: '#006FFD',
   },
   optionItemCorrect: {
-    backgroundColor: isDark ? '#064E3B28' : '#ECFDF5',
-    borderColor: '#10B981',
+    backgroundColor: isDark ? 'rgba(16, 185, 129, 0.08)' : '#F0FDF4',
+    borderColor: isDark ? 'rgba(16, 185, 129, 0.45)' : '#86EFAC',
   },
   optionItemIncorrect: {
-    backgroundColor: isDark ? '#450A0A28' : '#FEF2F2',
-    borderColor: '#EF4444',
+    backgroundColor: isDark ? 'rgba(239, 68, 68, 0.08)' : '#FEF2F2',
+    borderColor: isDark ? 'rgba(239, 68, 68, 0.45)' : '#FECACA',
   },
   keyBoxBase: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
   },
   keyBoxDefault: {
-    backgroundColor: isDark ? '#232836' : '#F1F5F9',
-    borderWidth: 1,
-    borderColor: theme.colors.borderSubtle,
+    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F3F4F6',
   },
   keyBoxSelected: {
-    backgroundColor: isDark ? '#FF8A3D' : '#FF5500',
-    borderWidth: 1,
-    borderColor: isDark ? '#FF8A3D' : '#FF5500',
+    backgroundColor: '#006FFD',
   },
   keyBoxCorrect: {
     backgroundColor: '#10B981',
-    borderWidth: 1,
-    borderColor: '#10B981',
   },
   keyBoxIncorrect: {
     backgroundColor: '#EF4444',
-    borderWidth: 1,
-    borderColor: '#EF4444',
   },
   keyTextBase: {
-    fontSize: 12,
+    fontSize: 12.5,
     fontWeight: '800',
   },
   keyTextDefault: {
-    color: theme.colors.textPrimary,
+    color: isDark ? '#9CA3AF' : '#4B5563',
   },
   keyTextSelected: {
     color: '#FFFFFF',
@@ -1903,88 +1997,161 @@ const getStyles = (theme: PrelimsThemeType) => {
   keyTextIncorrect: {
     color: '#FFFFFF',
   },
-  optionContentText: {
-    fontSize: 14,
-    color: theme.colors.textPrimary,
-    lineHeight: 20,
+  optionContentCol: {
     flex: 1,
+    gap: 3,
+  },
+  optionContentText: {
+    fontSize: 14.5,
+    color: theme.colors.textPrimary,
+    lineHeight: 21,
     fontWeight: '500',
   },
+  optionSubStatusRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    marginTop: 2,
+  },
+  correctAnswerLabelText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#10B981',
+  },
+  incorrectAnswerLabelText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#EF4444',
+  },
   solutionContainer: {
-    backgroundColor: isDark ? '#161922' : '#F8FAFC',
-    borderRadius: 12,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: theme.colors.borderSubtle,
-    borderLeftWidth: 3.5,
-    borderLeftColor: isDark ? '#FF8A3D' : '#FF5500',
-    gap: 14,
-    marginBottom: 20,
+    backgroundColor: 'transparent',
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: isDark ? 'rgba(255, 255, 255, 0.1)' : '#EAEDF2',
+    paddingTop: 18,
+    gap: 16,
+    marginBottom: 24,
   },
   solutionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingBottom: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.borderSubtle,
+    paddingBottom: 4,
+  },
+  solutionHeaderTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: theme.colors.textPrimary,
+    letterSpacing: -0.2,
   },
   solutionBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
+    paddingHorizontal: 9,
+    paddingVertical: 4,
+    borderRadius: 6,
+    backgroundColor: isDark ? 'rgba(16, 185, 129, 0.12)' : '#F0FDF4',
+    borderWidth: 1,
+    borderColor: isDark ? 'rgba(16, 185, 129, 0.3)' : '#BBF7D0',
   },
   solutionBadgeText: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: isDark ? '#FF8A3D' : '#FF5500',
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-  },
-  officialKeyText: {
-    fontSize: 13,
-    fontWeight: '800',
+    fontSize: 11.5,
+    fontWeight: '700',
     color: '#10B981',
   },
-  solutionBlock: {
-    gap: 6,
-  },
-  solutionBlockTitleRow: {
+  stepItemRow: {
     flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 12,
+  },
+  stepBadgeCircle: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F3F4F6',
     alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 1,
+  },
+  stepBadgeText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: theme.colors.textPrimary,
+  },
+  stepContentCol: {
+    flex: 1,
     gap: 6,
   },
-  solutionBlockTitle: {
-    fontSize: 12,
-    fontWeight: '800',
+  stepTitleText: {
+    fontSize: 13.5,
+    fontWeight: '700',
     color: theme.colors.textPrimary,
     letterSpacing: -0.1,
   },
-  solutionBlockText: {
-    fontSize: 13.5,
+  stepBodyText: {
+    fontSize: 14,
+    lineHeight: 22,
     color: theme.colors.textSecondary,
-    lineHeight: 21,
     fontWeight: '400',
   },
+  stepBodyLine: {
+    fontSize: 14,
+    lineHeight: 22,
+    color: theme.colors.textSecondary,
+    fontWeight: '400',
+    marginBottom: 4,
+  },
   eliminationBlock: {
-    backgroundColor: isDark ? '#261C3D' : '#FFF3EA',
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: isDark ? '#4C1D95' : '#FFD9BD',
-    padding: 12,
-    borderRadius: 8,
-    gap: 4,
+    borderColor: isDark ? 'rgba(16, 185, 129, 0.25)' : '#BBF7D0',
+    backgroundColor: isDark ? 'rgba(16, 185, 129, 0.08)' : '#F0FDF4',
+    padding: 14,
+    gap: 8,
+    marginTop: 4,
+  },
+  eliminationTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
   eliminationTitle: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: isDark ? '#FFC9A3' : '#EA4E00',
+    fontSize: 13.5,
+    fontWeight: '700',
+    color: '#10B981',
   },
   eliminationText: {
-    fontSize: 12.5,
-    color: isDark ? '#E9D5FF' : '#4C1D95',
-    lineHeight: 18.5,
+    fontSize: 13.5,
+    lineHeight: 21,
+    color: theme.colors.textPrimary,
+    fontWeight: '400',
   },
-  bottomNavDock: {
+  eliminationVerdictText: {
+    fontSize: 13.5,
+    fontWeight: '700',
+    color: '#10B981',
+    lineHeight: 20,
+  },
+  trendInsightRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.04)' : '#F8FAFC',
+    borderRadius: 8,
+    padding: 10,
+    gap: 4,
+  },
+  trendInsightLabel: {
+    fontSize: 11.5,
+    fontWeight: '700',
+    color: theme.colors.textPrimary,
+  },
+  trendInsightText: {
+    fontSize: 11.5,
+    lineHeight: 17,
+    color: theme.colors.textSecondary,
+    flex: 1,
+  },
+    bottomNavDock: {
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -2288,9 +2455,92 @@ const getStyles = (theme: PrelimsThemeType) => {
   popoverBadgeTextActive: {
     color: theme.colors.textPrimary,
   },
-  pressed: {
-    opacity: 0.85,
-    transform: [{ scale: 0.985 }],
-  },
-});
+    pressed: {
+      opacity: 0.85,
+      transform: [{ scale: 0.985 }],
+    },
+    exitModalOverlay: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(0,0,0,0.7)',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 20,
+      zIndex: 9999,
+    },
+    exitModalCard: {
+      backgroundColor: theme.colors.bgSurface,
+      borderRadius: 16,
+      padding: 24,
+      maxWidth: 420,
+      width: '100%',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 10 },
+      shadowOpacity: 0.3,
+      shadowRadius: 20,
+      elevation: 10,
+    },
+    exitModalIconWrap: {
+      width: 52,
+      height: 52,
+      borderRadius: 26,
+      backgroundColor: isDark ? 'rgba(245, 158, 11, 0.15)' : '#FEF3C7',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 14,
+    },
+    exitModalTitle: {
+      fontSize: 18,
+      fontWeight: '800',
+      color: theme.colors.textPrimary,
+      marginBottom: 8,
+      textAlign: 'center',
+    },
+    exitModalDesc: {
+      fontSize: 13.5,
+      color: theme.colors.textSecondary,
+      textAlign: 'center',
+      lineHeight: 20,
+      marginBottom: 20,
+    },
+    exitModalBtnRow: {
+      flexDirection: 'row',
+      gap: 12,
+      width: '100%',
+    },
+    exitModalStayBtn: {
+      flex: 1,
+      paddingVertical: 12,
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
+      backgroundColor: theme.colors.bgSurfaceMuted,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    exitModalStayText: {
+      fontSize: 13.5,
+      fontWeight: '700',
+      color: theme.colors.textPrimary,
+    },
+    exitModalLeaveBtn: {
+      flex: 1,
+      paddingVertical: 12,
+      borderRadius: 10,
+      backgroundColor: '#EF4444',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    exitModalLeaveText: {
+      fontSize: 13.5,
+      fontWeight: '700',
+      color: '#FFFFFF',
+    },
+  });
 };

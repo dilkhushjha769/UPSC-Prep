@@ -1,23 +1,25 @@
 {
   "meta": {
-    "exam": "UPSC Civil Services (Preliminary) Examination 2019",
-    "paper": "General Studies Paper-I",
+    "exam": "UPSC CSE Prelims",
+    "paper": "General Studies Paper I",
     "test_booklet_series": "A",
     "booklet_code": "BKL-F-GHP",
     "language": "en",
     "total_questions": 100,
     "duration_minutes": 120,
     "total_marks": 200,
-    "marks_per_correct": 2.0,
+    "marks_per_correct": 2,
     "negative_marks_per_wrong": 0.6667,
     "negative_marking_rule": "One-third of the marks assigned to the question is deducted for each wrong answer; no penalty for unattempted questions.",
-    "answer_key_source": "Official UPSC Answer Key & standard reference sources."
+    "answer_key_source": "Official UPSC Answer Key & standard reference sources.",
+    "year": 2019,
+    "paper_type": "GS1"
   },
   "passages": [],
   "questions": [
     {
       "number": 1,
-      "topic": "Medieval Indian History / Administration",
+      "topic": "Medieval Indian History",
       "passage_id": null,
       "question": "With reference to Mughal India, what is/are the difference/differences between Jagirdar and Zamindar?\nSelect the correct answer using the code given below.",
       "statements": [
@@ -43,11 +45,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Both statements are incorrect: 1. Jagirdars were assigned revenue rights from land (tankha jagirs) in lieu of their state military/administrative services and salaries; judicial and police duties in parganas/sarkars were handled by faujdars, amils, and qazis. Zamindars maintained armed retainers and had police/law-and-order duties within their zamindaris. 2. Jagir assignments were non-hereditary, non-permanent, and periodically transferable across the empire. Zamindari rights were hereditary property rights passed down generationally."
+      "explanation": "Both statements are incorrect: 1. Jagirdars were assigned revenue rights from land (tankha jagirs) in lieu of their state military/administrative services and salaries; judicial and police duties in parganas/sarkars were handled by faujdars, amils, and qazis. Zamindars maintained armed retainers and had police/law-and-order duties within their zamindaris. 2. Jagir assignments were non-hereditary, non-permanent, and periodically transferable across the empire. Zamindari rights were hereditary property rights passed down generationally.",
+      "raw_topic": "Medieval Indian History / Administration",
+      "id": "upsc_2019_gs1_q1",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "medieval_indian_history",
+      "subtopic_id": "medieval_indian_history_administration",
+      "subtopic": "Administration",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Medieval Indian History question (Medieval Indian History / Administration).",
+      "validation_status": "verified"
     },
     {
       "number": 2,
-      "topic": "Post-Independence India / Land Reforms",
+      "topic": "Modern Indian History",
       "passage_id": null,
       "question": "With reference to land reforms in independent India, which one of the following statements is correct?",
       "options": [
@@ -69,11 +87,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The core socio-economic objective of land reforms in independent India (encompassing abolition of intermediaries, tenancy reforms, and redistribution of surplus land) was social equity: providing agricultural land to landless agricultural labourers and marginal peasants."
+      "explanation": "The core socio-economic objective of land reforms in independent India (encompassing abolition of intermediaries, tenancy reforms, and redistribution of surplus land) was social equity: providing agricultural land to landless agricultural labourers and marginal peasants.",
+      "raw_topic": "Post-Independence India / Land Reforms",
+      "id": "upsc_2019_gs1_q2",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "modern_indian_history",
+      "subtopic_id": "modern_indian_history_land_reforms",
+      "subtopic": "Land Reforms",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Modern Indian History question on colonial policies, reforms, uprisings, or acts (Post-Independence India / Land Reforms).",
+      "validation_status": "verified"
     },
     {
       "number": 3,
-      "topic": "Reports and Indices / Global Competitiveness",
+      "topic": "International Organisations",
       "passage_id": null,
       "question": "The Global Competitiveness Report is published by the",
       "options": [
@@ -95,11 +129,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The Global Competitiveness Report (GCR) is an annual report published by the World Economic Forum (WEF), assessing countries on the Global Competitiveness Index across productivity and economic growth pillars."
+      "explanation": "The Global Competitiveness Report (GCR) is an annual report published by the World Economic Forum (WEF), assessing countries on the Global Competitiveness Index across productivity and economic growth pillars.",
+      "raw_topic": "Reports and Indices / Global Competitiveness",
+      "id": "upsc_2019_gs1_q3",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "international_organisations",
+      "subtopic_id": "international_organisations_global_competitiveness",
+      "subtopic": "Global Competitiveness",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs & IR question on International Organisations and Multilateral Groupings (Reports and Indices / Global Competitiveness).",
+      "validation_status": "verified"
     },
     {
       "number": 4,
-      "topic": "Modern Indian History / Constitutional Acts",
+      "topic": "Modern Indian History",
       "passage_id": null,
       "question": "Consider the following statements about 'the Charter Act of 1813':\nWhich of the statements given above are correct?",
       "statements": [
@@ -126,11 +176,29 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statements 1 and 2 are correct: The Charter Act of 1813 abolished the Company's commercial monopoly in India, opening Indian trade to all British merchants, while preserving its monopoly on trade in tea and trade with China (1), and formally asserted the constitutional sovereignty of the Crown over Company-held territories (2). Statement 3 is incorrect: Indian revenues remained under the control of the Company's Court of Directors supervised by the Board of Control; direct control of Indian revenues by the British Parliament was instituted only after the Government of India Act 1858."
+      "explanation": "Statements 1 and 2 are correct: The Charter Act of 1813 abolished the Company's commercial monopoly in India, opening Indian trade to all British merchants, while preserving its monopoly on trade in tea and trade with China (1), and formally asserted the constitutional sovereignty of the Crown over Company-held territories (2). Statement 3 is incorrect: Indian revenues remained under the control of the Company's Court of Directors supervised by the Board of Control; direct control of Indian revenues by the British Parliament was instituted only after the Government of India Act 1858.",
+      "raw_topic": "Modern Indian History / Constitutional Acts",
+      "id": "upsc_2019_gs1_q4",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "modern_indian_history",
+      "subtopic_id": "modern_indian_history_constitutional_acts",
+      "subtopic": "Constitutional Acts",
+      "secondary_tags": [
+        "Indian Polity and Governance"
+      ],
+      "classification_confidence": 0.88,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Modern Indian History question on colonial policies, reforms, uprisings, or acts (Modern Indian History / Constitutional Acts).",
+      "validation_status": "verified_cross_tagged"
     },
     {
       "number": 5,
-      "topic": "Modern Indian History / Swadeshi Movement",
+      "topic": "Indian National Movement",
       "passage_id": null,
       "question": "With reference to Swadeshi Movement, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -156,11 +224,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Both statements are correct: 1. The boycott of foreign goods gave an immense stimulus to Indian handloom weavers, textile mills, soap, and matches factories, reviving traditional artisanal crafts and indigenous enterprise. 2. In August 1906, the National Council of Education was set up by nationalist leaders (headed by Satish Chandra Mukherjee and Aurobindo Ghosh) to organize a system of national education on indigenous lines."
+      "explanation": "Both statements are correct: 1. The boycott of foreign goods gave an immense stimulus to Indian handloom weavers, textile mills, soap, and matches factories, reviving traditional artisanal crafts and indigenous enterprise. 2. In August 1906, the National Council of Education was set up by nationalist leaders (headed by Satish Chandra Mukherjee and Aurobindo Ghosh) to organize a system of national education on indigenous lines.",
+      "raw_topic": "Modern Indian History / Swadeshi Movement",
+      "id": "upsc_2019_gs1_q5",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "indian_national_movement",
+      "subtopic_id": "indian_national_movement_swadeshi_movement",
+      "subtopic": "Swadeshi Movement",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Modern History question on the Indian National Movement (Modern Indian History / Swadeshi Movement).",
+      "validation_status": "verified"
     },
     {
       "number": 6,
-      "topic": "Modern Indian History / Socio-Political Movements",
+      "topic": "Modern Indian History",
       "passage_id": null,
       "question": "Consider the following pairs:\nWhich of the pairs given above is/are correctly matched?",
       "table": {
@@ -206,11 +290,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All three pairs are correctly matched: 1. Mahatma Gandhi founded the All India Anti-Untouchability League (later Harijan Sevak Sangh) in 1932. 2. Swami Sahajanand Saraswati founded and presided over the All India Kisan Sabha at Lucknow in April 1936. 3. Periyar E. V. Ramaswami Naicker founded the Self-Respect Movement (Swayam Mariyadai Iyakkam) in Tamil Nadu in 1925."
+      "explanation": "All three pairs are correctly matched: 1. Mahatma Gandhi founded the All India Anti-Untouchability League (later Harijan Sevak Sangh) in 1932. 2. Swami Sahajanand Saraswati founded and presided over the All India Kisan Sabha at Lucknow in April 1936. 3. Periyar E. V. Ramaswami Naicker founded the Self-Respect Movement (Swayam Mariyadai Iyakkam) in Tamil Nadu in 1925.",
+      "raw_topic": "Modern Indian History / Socio-Political Movements",
+      "id": "upsc_2019_gs1_q6",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "modern_indian_history",
+      "subtopic_id": "modern_indian_history_socio_political_movements",
+      "subtopic": "Socio-Political Movements",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Modern Indian History question on colonial policies, reforms, uprisings, or acts (Modern Indian History / Socio-Political Movements).",
+      "validation_status": "verified"
     },
     {
       "number": 7,
-      "topic": "Ancient Indian History / Indus Valley Civilization",
+      "topic": "Ancient Indian History",
       "passage_id": null,
       "question": "Which one of the following is not a Harappan site?",
       "options": [
@@ -232,11 +332,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Sohgaura (in Gorakhpur district, Uttar Pradesh) is a Mauryan site famous for the Sohgaura copper plate inscription (the earliest known Mauryan epigraph mentioning famine-relief granaries), not an Indus Valley/Harappan site. Chanhudaro, Kot Diji (both in Sindh, Pakistan), and Desalpur (Gujarat) are well-known Harappan sites."
+      "explanation": "Sohgaura (in Gorakhpur district, Uttar Pradesh) is a Mauryan site famous for the Sohgaura copper plate inscription (the earliest known Mauryan epigraph mentioning famine-relief granaries), not an Indus Valley/Harappan site. Chanhudaro, Kot Diji (both in Sindh, Pakistan), and Desalpur (Gujarat) are well-known Harappan sites.",
+      "raw_topic": "Ancient Indian History / Indus Valley Civilization",
+      "id": "upsc_2019_gs1_q7",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "ancient_indian_history",
+      "subtopic_id": "ancient_indian_history_indus_valley_civilization",
+      "subtopic": "Indus Valley Civilization",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Ancient Indian History question (Ancient Indian History / Indus Valley Civilization).",
+      "validation_status": "verified"
     },
     {
       "number": 8,
-      "topic": "Ancient Indian History / Ashokan Inscriptions",
+      "topic": "Architecture, Sculpture and Painting",
       "passage_id": null,
       "question": "In which of the following relief sculpture inscriptions is 'Ranyo Ashoka' (King Ashoka) mentioned along with the stone portrait of Ashoka?",
       "options": [
@@ -258,11 +374,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Excavations at the Buddhist stupa site of Kanaganahalli (Sannati, Kalaburagi district, Karnataka) unearthed a carved stone relief slab depicting Emperor Ashoka seated with his queens, bearing the Brahmi label inscription 'Ranyo Ashoka' (King Ashoka)."
+      "explanation": "Excavations at the Buddhist stupa site of Kanaganahalli (Sannati, Kalaburagi district, Karnataka) unearthed a carved stone relief slab depicting Emperor Ashoka seated with his queens, bearing the Brahmi label inscription 'Ranyo Ashoka' (King Ashoka).",
+      "raw_topic": "Ancient Indian History / Ashokan Inscriptions",
+      "id": "upsc_2019_gs1_q8",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "architecture_sculpture_painting",
+      "subtopic_id": "architecture_sculpture_painting_ashokan_inscriptions",
+      "subtopic": "Ashokan Inscriptions",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 History & Culture question focusing on Architecture, Sculpture or Painting (Ancient Indian History / Ashokan Inscriptions).",
+      "validation_status": "verified"
     },
     {
       "number": 9,
-      "topic": "Ancient Indian History / Mahayana Buddhism",
+      "topic": "Art and Culture",
       "passage_id": null,
       "question": "Consider the following:\nWhich of the above is/are the feature/features of Mahayana Buddhism?",
       "statements": [
@@ -289,11 +421,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All three are foundational hallmarks of Mahayana Buddhism: 1. Deification of the Buddha as an eternal, transcendent divine being with three bodies (Trikaya). 2. Ideal of the compassionate Bodhisattva who delays their own nirvana to save all sentient beings. 3. Image making, veneration of Buddha/Bodhisattva statues, and elaborate liturgical rituals."
+      "explanation": "All three are foundational hallmarks of Mahayana Buddhism: 1. Deification of the Buddha as an eternal, transcendent divine being with three bodies (Trikaya). 2. Ideal of the compassionate Bodhisattva who delays their own nirvana to save all sentient beings. 3. Image making, veneration of Buddha/Bodhisattva statues, and elaborate liturgical rituals.",
+      "raw_topic": "Ancient Indian History / Mahayana Buddhism",
+      "id": "upsc_2019_gs1_q9",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "art_and_culture",
+      "subtopic_id": "art_and_culture_mahayana_buddhism",
+      "subtopic": "Mahayana Buddhism",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Art and Culture question covering religious/philosophical traditions or cultural heritage (Ancient Indian History / Mahayana Buddhism).",
+      "validation_status": "verified"
     },
     {
       "number": 10,
-      "topic": "Ancient Indian History / Social & Economic Life",
+      "topic": "Ancient Indian History",
       "passage_id": null,
       "question": "With reference to forced labour (Vishti) in India during the Gupta period, which one of the following statements is correct?",
       "options": [
@@ -315,11 +463,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "During the Gupta period, forced unpaid labour ('Vishti') was legally treated as a tax in kind paid by peasants and artisans to the State (or royal officers and religious beneficiaries), listed alongside traditional taxes like bhaga and bhoga in contemporary epigraphs."
+      "explanation": "During the Gupta period, forced unpaid labour ('Vishti') was legally treated as a tax in kind paid by peasants and artisans to the State (or royal officers and religious beneficiaries), listed alongside traditional taxes like bhaga and bhoga in contemporary epigraphs.",
+      "raw_topic": "Ancient Indian History / Social & Economic Life",
+      "id": "upsc_2019_gs1_q10",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "ancient_indian_history",
+      "subtopic_id": "ancient_indian_history_social_economic_life",
+      "subtopic": "Social & Economic Life",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Ancient Indian History question (Ancient Indian History / Social & Economic Life).",
+      "validation_status": "verified"
     },
     {
       "number": 11,
-      "topic": "Medieval Indian Art / Architecture",
+      "topic": "Architecture, Sculpture and Painting",
       "passage_id": null,
       "question": "Building 'Kalyaana Mandapas' was a notable feature in the temple construction in the kingdom of",
       "options": [
@@ -341,11 +505,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "In Vijayanagara temple architecture, the 'Kalyana Mandapa' was an elaborate, profusely carved open pillared pavilion intended for celebrating the divine wedding ceremonies of the deity and consort, characterized by intricately sculpted yali (mythical beast) monolithic pillars."
+      "explanation": "In Vijayanagara temple architecture, the 'Kalyana Mandapa' was an elaborate, profusely carved open pillared pavilion intended for celebrating the divine wedding ceremonies of the deity and consort, characterized by intricately sculpted yali (mythical beast) monolithic pillars.",
+      "raw_topic": "Medieval Indian Art / Architecture",
+      "id": "upsc_2019_gs1_q11",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "architecture_sculpture_painting",
+      "subtopic_id": "architecture_sculpture_painting_architecture",
+      "subtopic": "Architecture",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 History & Culture question focusing on Architecture, Sculpture or Painting (Medieval Indian Art / Architecture).",
+      "validation_status": "verified"
     },
     {
       "number": 12,
-      "topic": "Medieval Indian History / Administration",
+      "topic": "Medieval Indian History",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -372,11 +552,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is correct: In the Delhi Sultanate, the 'Amil' (or Amalguzar) was the executive officer in charge of assessing and collecting land revenue at the pargana level. Statement 2 is incorrect because the Iqta system was an institutional West Asian / Islamic administrative practice introduced into India from the Buyid and Seljuk empires. Statement 3 is incorrect because the post of 'Mir Bakshi' (head of the military department) was created during the Mughal Empire under Akbar (in the Sultanate, the military head was the Ariz-i-Mumalik)."
+      "explanation": "Statement 1 is correct: In the Delhi Sultanate, the 'Amil' (or Amalguzar) was the executive officer in charge of assessing and collecting land revenue at the pargana level. Statement 2 is incorrect because the Iqta system was an institutional West Asian / Islamic administrative practice introduced into India from the Buyid and Seljuk empires. Statement 3 is incorrect because the post of 'Mir Bakshi' (head of the military department) was created during the Mughal Empire under Akbar (in the Sultanate, the military head was the Ariz-i-Mumalik).",
+      "raw_topic": "Medieval Indian History / Administration",
+      "id": "upsc_2019_gs1_q12",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "medieval_indian_history",
+      "subtopic_id": "medieval_indian_history_administration",
+      "subtopic": "Administration",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Medieval Indian History question (Medieval Indian History / Administration).",
+      "validation_status": "verified"
     },
     {
       "number": 13,
-      "topic": "Medieval Indian History / Bhakti & Sufism",
+      "topic": "Art and Culture",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -402,11 +598,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Both statements are historically incorrect: 1. Nimbarkacharya (propounder of Dvaitadvaita) lived around the 12th–13th century, centuries before Mughal Emperor Akbar (r. 1556–1605). 2. Sant Kabir lived in the 15th century (c. 1398–1448/1518), whereas Shaikh Ahmad Sirhindi (Naqshbandi Sufi revivalist) lived much later in the late 16th and early 17th centuries (1564–1624)."
+      "explanation": "Both statements are historically incorrect: 1. Nimbarkacharya (propounder of Dvaitadvaita) lived around the 12th–13th century, centuries before Mughal Emperor Akbar (r. 1556–1605). 2. Sant Kabir lived in the 15th century (c. 1398–1448/1518), whereas Shaikh Ahmad Sirhindi (Naqshbandi Sufi revivalist) lived much later in the late 16th and early 17th centuries (1564–1624).",
+      "raw_topic": "Medieval Indian History / Bhakti & Sufism",
+      "id": "upsc_2019_gs1_q13",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "art_and_culture",
+      "subtopic_id": "art_and_culture_bhakti_sufism",
+      "subtopic": "Bhakti & Sufism",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Art and Culture question covering religious/philosophical traditions or cultural heritage (Medieval Indian History / Bhakti & Sufism).",
+      "validation_status": "verified"
     },
     {
       "number": 14,
-      "topic": "Modern Indian History / Gandhian Era",
+      "topic": "Indian National Movement",
       "passage_id": null,
       "question": "With reference to the British colonial rule in India, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -433,11 +645,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statements 1 and 3 are correct: Mahatma Gandhi led intense public campaigns in South Africa and India against the indentured labour (girmitiya) system, leading to its statutory abolition in 1917 (1), and following the Dandi March and Salt Satyagraha in 1930, the colonial government declared the INC and its Working Committee illegal organizations (3). Statement 2 is incorrect: At the Delhi War Conference called by Viceroy Chelmsford in 1918, Gandhiji actively supported the war recruitment resolution."
+      "explanation": "Statements 1 and 3 are correct: Mahatma Gandhi led intense public campaigns in South Africa and India against the indentured labour (girmitiya) system, leading to its statutory abolition in 1917 (1), and following the Dandi March and Salt Satyagraha in 1930, the colonial government declared the INC and its Working Committee illegal organizations (3). Statement 2 is incorrect: At the Delhi War Conference called by Viceroy Chelmsford in 1918, Gandhiji actively supported the war recruitment resolution.",
+      "raw_topic": "Modern Indian History / Gandhian Era",
+      "id": "upsc_2019_gs1_q14",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "indian_national_movement",
+      "subtopic_id": "indian_national_movement_gandhian_era",
+      "subtopic": "Gandhian Era",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Modern History question on the Indian National Movement (Modern Indian History / Gandhian Era).",
+      "validation_status": "verified"
     },
     {
       "number": 15,
-      "topic": "Modern Indian History / Leaders & Offices",
+      "topic": "Modern Indian History",
       "passage_id": null,
       "question": "With reference to Indian National Movement, consider the following pairs:\nWhich of the pairs given above is/are correctly matched?",
       "table": {
@@ -483,11 +711,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All three pairs are correctly matched: 1. Sir Tej Bahadur Sapru served as a prominent leader and President of the National Liberal Federation of India. 2. K. C. Neogy was an elected member of the Constituent Assembly of India (and later Chairman of the First Finance Commission). 3. Puran Chand (P.C.) Joshi served as the first General Secretary of the Communist Party of India (CPI) from 1935 to 1947."
+      "explanation": "All three pairs are correctly matched: 1. Sir Tej Bahadur Sapru served as a prominent leader and President of the National Liberal Federation of India. 2. K. C. Neogy was an elected member of the Constituent Assembly of India (and later Chairman of the First Finance Commission). 3. Puran Chand (P.C.) Joshi served as the first General Secretary of the Communist Party of India (CPI) from 1935 to 1947.",
+      "raw_topic": "Modern Indian History / Leaders & Offices",
+      "id": "upsc_2019_gs1_q15",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "modern_indian_history",
+      "subtopic_id": "modern_indian_history_leaders_offices",
+      "subtopic": "Leaders & Offices",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Modern Indian History question on colonial policies, reforms, uprisings, or acts (Modern Indian History / Leaders & Offices).",
+      "validation_status": "verified"
     },
     {
       "number": 16,
-      "topic": "Medieval Indian Culture / Music",
+      "topic": "Literature, Music and Dance",
       "passage_id": null,
       "question": "With reference to Mian Tansen, which one of the following statements is not correct?",
       "options": [
@@ -509,11 +753,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement (a) is incorrect: The title 'Tansen' was conferred upon him by Raja Vikramjit / Raja Ramchandra Singh of Rewa (Bandhavgarh), his earlier patron, prior to his arrival at Akbar's imperial court. Akbar conferred upon him the title 'Mian'. Statements (b), (c), and (d) (inventor of Darbari Kanada, Miyan ki Todi, etc.) are all correct."
+      "explanation": "Statement (a) is incorrect: The title 'Tansen' was conferred upon him by Raja Vikramjit / Raja Ramchandra Singh of Rewa (Bandhavgarh), his earlier patron, prior to his arrival at Akbar's imperial court. Akbar conferred upon him the title 'Mian'. Statements (b), (c), and (d) (inventor of Darbari Kanada, Miyan ki Todi, etc.) are all correct.",
+      "raw_topic": "Medieval Indian Culture / Music",
+      "id": "upsc_2019_gs1_q16",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "literature_music_dance",
+      "subtopic_id": "literature_music_dance_music",
+      "subtopic": "Music",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 History & Culture question on Literature, Music or Dance (Medieval Indian Culture / Music).",
+      "validation_status": "verified"
     },
     {
       "number": 17,
-      "topic": "Medieval Indian Art / Mughal Painting",
+      "topic": "Architecture, Sculpture and Painting",
       "passage_id": null,
       "question": "Who among the following Mughal Emperors shifted emphasis from illustrated manuscripts to album and individual portrait?",
       "options": [
@@ -535,11 +795,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Mughal Emperor Jahangir shifted the artistic focus of the royal atelier away from large-scale illustrated historical narrative manuscripts (favored by Akbar) toward individualized portraits, flora and fauna studies (by Ustad Mansur), and lavishly bound miniature albums (muraqqas)."
+      "explanation": "Mughal Emperor Jahangir shifted the artistic focus of the royal atelier away from large-scale illustrated historical narrative manuscripts (favored by Akbar) toward individualized portraits, flora and fauna studies (by Ustad Mansur), and lavishly bound miniature albums (muraqqas).",
+      "raw_topic": "Medieval Indian Art / Mughal Painting",
+      "id": "upsc_2019_gs1_q17",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "architecture_sculpture_painting",
+      "subtopic_id": "architecture_sculpture_painting_mughal_painting",
+      "subtopic": "Mughal Painting",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 History & Culture question focusing on Architecture, Sculpture or Painting (Medieval Indian Art / Mughal Painting).",
+      "validation_status": "verified"
     },
     {
       "number": 18,
-      "topic": "Indian Geography / National Parks & Biomes",
+      "topic": "Indian Geography",
       "passage_id": null,
       "question": "Which one of the following National Parks lies completely in the temperate alpine zone?",
       "options": [
@@ -561,11 +837,29 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "The Valley of Flowers National Park in the Chamoli district of Uttarakhand lies at an altitude ranging from 3,200 m to 6,714 m in the Western Himalayas, situated entirely within the temperate to sub-alpine and alpine zones. Manas is tropical, Namdapha spans tropical to alpine, and Neora Valley is subtropical to temperate."
+      "explanation": "The Valley of Flowers National Park in the Chamoli district of Uttarakhand lies at an altitude ranging from 3,200 m to 6,714 m in the Western Himalayas, situated entirely within the temperate to sub-alpine and alpine zones. Manas is tropical, Namdapha spans tropical to alpine, and Neora Valley is subtropical to temperate.",
+      "raw_topic": "Indian Geography / National Parks & Biomes",
+      "id": "upsc_2019_gs1_q18",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "indian_geography",
+      "subtopic_id": "indian_geography_national_parks_biomes",
+      "subtopic": "National Parks & Biomes",
+      "secondary_tags": [
+        "Environment and Ecology"
+      ],
+      "classification_confidence": 0.88,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Indian Geography question on Indian physiography, rivers, or lakes (Indian Geography / National Parks & Biomes).",
+      "validation_status": "verified_cross_tagged"
     },
     {
       "number": 19,
-      "topic": "Government Initiatives / Innovation",
+      "topic": "Government Initiatives",
       "passage_id": null,
       "question": "Atal Innovation Mission is set up under the",
       "options": [
@@ -587,11 +881,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The Atal Innovation Mission (AIM), encompassing initiatives like Atal Tinkering Labs (ATLs) and Atal Incubation Centres (AICs), is a flagship initiative launched by NITI Aayog to foster innovation and entrepreneurship nationwide."
+      "explanation": "The Atal Innovation Mission (AIM), encompassing initiatives like Atal Tinkering Labs (ATLs) and Atal Incubation Centres (AICs), is a flagship initiative launched by NITI Aayog to foster innovation and entrepreneurship nationwide.",
+      "raw_topic": "Government Initiatives / Innovation",
+      "id": "upsc_2019_gs1_q19",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "government_initiatives",
+      "subtopic_id": "government_initiatives_innovation",
+      "subtopic": "Innovation",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs question on Government Policies, Initiatives & Standards (Government Initiatives / Innovation).",
+      "validation_status": "verified"
     },
     {
       "number": 20,
-      "topic": "Physical Geography / Earth Movements & Solstice",
+      "topic": "Physical Geography",
       "passage_id": null,
       "question": "On 21st June, the Sun",
       "options": [
@@ -613,11 +923,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "On June 21 (the Summer Solstice in the Northern Hemisphere), the Northern Hemisphere is tilted at its maximum angle toward the Sun (declination 23.5° N). Regions on and north of the Arctic Circle (66.5° N) experience 24 hours of continuous daylight, where the Sun does not set below the horizon (Midnight Sun)."
+      "explanation": "On June 21 (the Summer Solstice in the Northern Hemisphere), the Northern Hemisphere is tilted at its maximum angle toward the Sun (declination 23.5° N). Regions on and north of the Arctic Circle (66.5° N) experience 24 hours of continuous daylight, where the Sun does not set below the horizon (Midnight Sun).",
+      "raw_topic": "Physical Geography / Earth Movements & Solstice",
+      "id": "upsc_2019_gs1_q20",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "physical_geography",
+      "subtopic_id": "physical_geography_earth_movements_solstice",
+      "subtopic": "Earth Movements & Solstice",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Physical Geography question (Physical Geography / Earth Movements & Solstice).",
+      "validation_status": "verified"
     },
     {
       "number": 21,
-      "topic": "Agricultural History / Plant Domestication",
+      "topic": "Ancient Indian History",
       "passage_id": null,
       "question": "Which one of the following groups of plants was domesticated in the 'New World' and introduced into the 'Old World'?",
       "options": [
@@ -639,11 +965,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "As part of the Columbian Exchange following 1492, Tobacco (Nicotiana tabacum), Cocoa (Theobroma cacao), and Rubber (Hevea brasiliensis) were native to the Americas ('New World') and introduced into Eurasia and Africa ('Old World'). Sugarcane, wheat, and coffee were Old World domesticates."
+      "explanation": "As part of the Columbian Exchange following 1492, Tobacco (Nicotiana tabacum), Cocoa (Theobroma cacao), and Rubber (Hevea brasiliensis) were native to the Americas ('New World') and introduced into Eurasia and Africa ('Old World'). Sugarcane, wheat, and coffee were Old World domesticates.",
+      "raw_topic": "Agricultural History / Plant Domestication",
+      "id": "upsc_2019_gs1_q21",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "history_culture",
+      "subject": "History and Culture",
+      "topic_id": "ancient_indian_history",
+      "subtopic_id": "ancient_indian_history_plant_domestication",
+      "subtopic": "Plant Domestication",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Ancient Indian History question (Agricultural History / Plant Domestication).",
+      "validation_status": "verified"
     },
     {
       "number": 22,
-      "topic": "Wildlife / Endemic Fauna",
+      "topic": "Species and Conservation",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -670,11 +1012,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is correct: The Asiatic Lion (Panthera leo persica) survives in the wild only in and around the Gir National Park and surrounding Saurashtra region of Gujarat, India. Statements 2 and 3 are incorrect: The wild Bactrian (double-humped) camel (Camelus ferus) is native to the cold desert steppes of Mongolia and northwest China (in India, only a small domesticated herd lives in Nubra Valley). The Greater One-Horned Rhinoceros is native to both India (Assam, West Bengal) and Nepal (Chitwan National Park)."
+      "explanation": "Statement 1 is correct: The Asiatic Lion (Panthera leo persica) survives in the wild only in and around the Gir National Park and surrounding Saurashtra region of Gujarat, India. Statements 2 and 3 are incorrect: The wild Bactrian (double-humped) camel (Camelus ferus) is native to the cold desert steppes of Mongolia and northwest China (in India, only a small domesticated herd lives in Nubra Valley). The Greater One-Horned Rhinoceros is native to both India (Assam, West Bengal) and Nepal (Chitwan National Park).",
+      "raw_topic": "Wildlife / Endemic Fauna",
+      "id": "upsc_2019_gs1_q22",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "species_and_conservation",
+      "subtopic_id": "species_and_conservation_endemic_fauna",
+      "subtopic": "Endemic Fauna",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Wildlife Species, Animal Behaviour & Conservation (Wildlife / Endemic Fauna).",
+      "validation_status": "verified"
     },
     {
       "number": 23,
-      "topic": "Indian Geography / Heritage Places & Rivers",
+      "topic": "Indian Geography",
       "passage_id": null,
       "question": "Consider the following pairs:\nWhich of the pairs given above are correctly matched?",
       "table": {
@@ -720,11 +1078,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Pair 1 is correctly matched: Pandharpur (famed for the Vitthal-Rukmini temple in Maharashtra) lies on the banks of the Bhima River, which is locally called Chandrabhaga due to its crescent shape. Pair 2 is correctly matched: Tiruchirappalli in Tamil Nadu lies along the Cauvery River. Pair 3 is incorrectly matched: Hampi (capital of Vijayanagara) is situated on the banks of the Tungabhadra River, not the Malaprabha River."
+      "explanation": "Pair 1 is correctly matched: Pandharpur (famed for the Vitthal-Rukmini temple in Maharashtra) lies on the banks of the Bhima River, which is locally called Chandrabhaga due to its crescent shape. Pair 2 is correctly matched: Tiruchirappalli in Tamil Nadu lies along the Cauvery River. Pair 3 is incorrectly matched: Hampi (capital of Vijayanagara) is situated on the banks of the Tungabhadra River, not the Malaprabha River.",
+      "raw_topic": "Indian Geography / Heritage Places & Rivers",
+      "id": "upsc_2019_gs1_q23",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "indian_geography",
+      "subtopic_id": "indian_geography_heritage_places_rivers",
+      "subtopic": "Heritage Places & Rivers",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Indian Geography question on Indian physiography, rivers, or lakes (Indian Geography / Heritage Places & Rivers).",
+      "validation_status": "verified"
     },
     {
       "number": 24,
-      "topic": "Indian Economy / Poverty Estimation",
+      "topic": "Employment and Poverty",
       "passage_id": null,
       "question": "In a given year in India, official poverty lines are higher in some States than in others because",
       "options": [
@@ -746,11 +1120,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "According to the Tendulkar and Rangarajan Committee poverty estimation methodologies, state-specific poverty lines are derived using Fisher price indices to adjust for inter-state cost of living differences (price levels of the representative consumption basket vary significantly across States)."
+      "explanation": "According to the Tendulkar and Rangarajan Committee poverty estimation methodologies, state-specific poverty lines are derived using Fisher price indices to adjust for inter-state cost of living differences (price levels of the representative consumption basket vary significantly across States).",
+      "raw_topic": "Indian Economy / Poverty Estimation",
+      "id": "upsc_2019_gs1_q24",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "employment_and_poverty",
+      "subtopic_id": "employment_and_poverty_poverty_estimation",
+      "subtopic": "Poverty Estimation",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Employment, Labour & Poverty (Indian Economy / Poverty Estimation).",
+      "validation_status": "verified"
     },
     {
       "number": 25,
-      "topic": "Climate Science / Geoengineering",
+      "topic": "Climate Change",
       "passage_id": null,
       "question": "In the context of which of the following do some scientists suggest the use of cirrus cloud thinning technique and the injection of sulphate aerosol into stratosphere?",
       "options": [
@@ -772,11 +1162,29 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Stratospheric sulfate aerosol injection (Solar Radiation Management to reflect incoming sunlight) and cirrus cloud thinning (allowing more outgoing terrestrial longwave infrared radiation to escape to space) are theoretical solar geoengineering techniques proposed to counteract and reduce anthropogenic global warming."
+      "explanation": "Stratospheric sulfate aerosol injection (Solar Radiation Management to reflect incoming sunlight) and cirrus cloud thinning (allowing more outgoing terrestrial longwave infrared radiation to escape to space) are theoretical solar geoengineering techniques proposed to counteract and reduce anthropogenic global warming.",
+      "raw_topic": "Climate Science / Geoengineering",
+      "id": "upsc_2019_gs1_q25",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "climate_change",
+      "subtopic_id": "climate_change_geoengineering",
+      "subtopic": "Geoengineering",
+      "secondary_tags": [
+        "Science and Technology"
+      ],
+      "classification_confidence": 0.86,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Environment question on Climate Change, GHGs & Carbon Cycle (Climate Science / Geoengineering).",
+      "validation_status": "verified"
     },
     {
       "number": 26,
-      "topic": "Waste Management / Waste-to-Energy",
+      "topic": "Pollution",
       "passage_id": null,
       "question": "In the context of which one of the following are the terms 'pyrolysis and plasma gasification' mentioned?",
       "options": [
@@ -798,11 +1206,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Pyrolysis (thermal decomposition of organic material in the complete absence of oxygen) and Plasma Gasification (high-temperature thermal breakdown using plasma torches) are advanced thermal technologies used in Waste-to-Energy (WtE) systems to convert municipal solid waste and hazardous waste into syngas and electricity."
+      "explanation": "Pyrolysis (thermal decomposition of organic material in the complete absence of oxygen) and Plasma Gasification (high-temperature thermal breakdown using plasma torches) are advanced thermal technologies used in Waste-to-Energy (WtE) systems to convert municipal solid waste and hazardous waste into syngas and electricity.",
+      "raw_topic": "Waste Management / Waste-to-Energy",
+      "id": "upsc_2019_gs1_q26",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "pollution",
+      "subtopic_id": "pollution_waste_to_energy",
+      "subtopic": "Waste-to-Energy",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Pollution, Waste Management, or Bioremediation (Waste Management / Waste-to-Energy).",
+      "validation_status": "verified"
     },
     {
       "number": 27,
-      "topic": "Environment / Biosphere Reserves",
+      "topic": "Protected Areas",
       "passage_id": null,
       "question": "Which of the following are in Agasthyamala Biosphere Reserve?",
       "options": [
@@ -824,11 +1248,29 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The Agasthyamala Biosphere Reserve (straddling Kerala and Tamil Nadu in the Southern Western Ghats) encompasses Shendurney Wildlife Sanctuary, Peppara Wildlife Sanctuary, Neyyar Wildlife Sanctuary (in Kerala), and Kalakad Mundanthurai Tiger Reserve (in Tamil Nadu)."
+      "explanation": "The Agasthyamala Biosphere Reserve (straddling Kerala and Tamil Nadu in the Southern Western Ghats) encompasses Shendurney Wildlife Sanctuary, Peppara Wildlife Sanctuary, Neyyar Wildlife Sanctuary (in Kerala), and Kalakad Mundanthurai Tiger Reserve (in Tamil Nadu).",
+      "raw_topic": "Environment / Biosphere Reserves",
+      "id": "upsc_2019_gs1_q27",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "protected_areas",
+      "subtopic_id": "protected_areas_biosphere_reserves",
+      "subtopic": "Biosphere Reserves",
+      "secondary_tags": [
+        "Geography"
+      ],
+      "classification_confidence": 0.88,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Environment question on Protected Areas (National Parks, Reserves, Ramsar Wetlands) (Environment / Biosphere Reserves).",
+      "validation_status": "verified_cross_tagged"
     },
     {
       "number": 28,
-      "topic": "Wildlife / Animal Physiology",
+      "topic": "Species and Conservation",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -856,11 +1298,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All four statements are correct: 1. Green sea turtles (Chelonia mydas) are primarily herbivorous, feeding on seagrasses and algae. 2. Many fish species (e.g., parrotfish, surgeonfish, grass carp) are herbivores. 3. Sirenians (Dugongs and Manatees) are marine mammals that are completely herbivorous, grazing on seagrass. 4. Several snake species (e.g., green anaconda, common garter snake, vipers) are ovoviviparous/viviparous, giving birth to live young."
+      "explanation": "All four statements are correct: 1. Green sea turtles (Chelonia mydas) are primarily herbivorous, feeding on seagrasses and algae. 2. Many fish species (e.g., parrotfish, surgeonfish, grass carp) are herbivores. 3. Sirenians (Dugongs and Manatees) are marine mammals that are completely herbivorous, grazing on seagrass. 4. Several snake species (e.g., green anaconda, common garter snake, vipers) are ovoviviparous/viviparous, giving birth to live young.",
+      "raw_topic": "Wildlife / Animal Physiology",
+      "id": "upsc_2019_gs1_q28",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "species_and_conservation",
+      "subtopic_id": "species_and_conservation_animal_physiology",
+      "subtopic": "Animal Physiology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Wildlife Species, Animal Behaviour & Conservation (Wildlife / Animal Physiology).",
+      "validation_status": "verified"
     },
     {
       "number": 29,
-      "topic": "Wildlife / Habitats in India",
+      "topic": "Species and Conservation",
       "passage_id": null,
       "question": "Consider the following pairs:\nWhich of the pairs given above are correctly matched?",
       "table": {
@@ -906,11 +1364,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Pair 1 is correctly matched: The Blue-finned Mahseer (Tor khudree) is indigenous to the Cauvery, Krishna, and other south Indian rivers. Pair 2 is incorrectly matched: Irrawaddy Dolphins are coastal marine/brackish-water mammals found in Chilika Lake and the Sundarbans (the Gangetic Dolphin and Gharial live in the Chambal River). Pair 3 is correctly matched: The Rusty-spotted Cat (Prionailurus rubiginosus), one of the world's smallest wild cats, is found in the deciduous forests of the Eastern Ghats and central India. Thus, 1 and 3 only are correctly matched."
+      "explanation": "Pair 1 is correctly matched: The Blue-finned Mahseer (Tor khudree) is indigenous to the Cauvery, Krishna, and other south Indian rivers. Pair 2 is incorrectly matched: Irrawaddy Dolphins are coastal marine/brackish-water mammals found in Chilika Lake and the Sundarbans (the Gangetic Dolphin and Gharial live in the Chambal River). Pair 3 is correctly matched: The Rusty-spotted Cat (Prionailurus rubiginosus), one of the world's smallest wild cats, is found in the deciduous forests of the Eastern Ghats and central India. Thus, 1 and 3 only are correctly matched.",
+      "raw_topic": "Wildlife / Habitats in India",
+      "id": "upsc_2019_gs1_q29",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "species_and_conservation",
+      "subtopic_id": "species_and_conservation_habitats_in_india",
+      "subtopic": "Habitats in India",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Wildlife Species, Animal Behaviour & Conservation (Wildlife / Habitats in India).",
+      "validation_status": "verified"
     },
     {
       "number": 30,
-      "topic": "Environment / Marine Pollution",
+      "topic": "Pollution",
       "passage_id": null,
       "question": "Why is there a great concern about the 'microbeads' that are released into environment?",
       "options": [
@@ -932,11 +1406,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Microbeads are manufactured solid plastic particles of less than 1 mm widely used in exfoliating cosmetics and toothpastes. They escape municipal wastewater filtration systems, flow into oceans, absorb toxic chemical pollutants, and are ingested by marine organisms, causing severe harm to marine food webs and ecosystems."
+      "explanation": "Microbeads are manufactured solid plastic particles of less than 1 mm widely used in exfoliating cosmetics and toothpastes. They escape municipal wastewater filtration systems, flow into oceans, absorb toxic chemical pollutants, and are ingested by marine organisms, causing severe harm to marine food webs and ecosystems.",
+      "raw_topic": "Environment / Marine Pollution",
+      "id": "upsc_2019_gs1_q30",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "pollution",
+      "subtopic_id": "pollution_marine_pollution",
+      "subtopic": "Marine Pollution",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Pollution, Waste Management, or Bioremediation (Environment / Marine Pollution).",
+      "validation_status": "verified"
     },
     {
       "number": 31,
-      "topic": "Economic Botany / Sustainable Fibres",
+      "topic": "Biodiversity",
       "passage_id": null,
       "question": "Recently, there was a growing awareness in our country about the importance of Himalayan nettle (Girardinia diversifolia) because it is found to be a sustainable source of",
       "options": [
@@ -958,11 +1448,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Himalayan nettle (Girardinia diversifolia, locally known as Allo) is a wild fibre-yielding plant native to the Himalayan region whose bark yields strong, durable, lustrous, high-quality natural bast fibres suitable for textiles, apparel, and eco-friendly handicrafts."
+      "explanation": "Himalayan nettle (Girardinia diversifolia, locally known as Allo) is a wild fibre-yielding plant native to the Himalayan region whose bark yields strong, durable, lustrous, high-quality natural bast fibres suitable for textiles, apparel, and eco-friendly handicrafts.",
+      "raw_topic": "Economic Botany / Sustainable Fibres",
+      "id": "upsc_2019_gs1_q31",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "biodiversity",
+      "subtopic_id": "biodiversity_sustainable_fibres",
+      "subtopic": "Sustainable Fibres",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Biodiversity, Invasive Species & Flora (Economic Botany / Sustainable Fibres).",
+      "validation_status": "verified"
     },
     {
       "number": 32,
-      "topic": "Space Technology / Remote Sensing",
+      "topic": "Space Technology",
       "passage_id": null,
       "question": "For the measurement/estimation of which of the following are satellite images/remote sensing data used?\nSelect the correct answer using the code given below.",
       "statements": [
@@ -989,11 +1495,29 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All three applications are operational in modern earth observation: Multispectral NDVI sensors measure vegetative chlorophyll content (1); spectroscopic remote sensing satellites (e.g. TROPOMI) track atmospheric methane plumes and GHG fluxes over paddy fields (2); and thermal infrared sensors (e.g. MODIS, Landsat TIRS) compute Land Surface Temperature (LST) (3)."
+      "explanation": "All three applications are operational in modern earth observation: Multispectral NDVI sensors measure vegetative chlorophyll content (1); spectroscopic remote sensing satellites (e.g. TROPOMI) track atmospheric methane plumes and GHG fluxes over paddy fields (2); and thermal infrared sensors (e.g. MODIS, Landsat TIRS) compute Land Surface Temperature (LST) (3).",
+      "raw_topic": "Space Technology / Remote Sensing",
+      "id": "upsc_2019_gs1_q32",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "space_technology",
+      "subtopic_id": "space_technology_remote_sensing",
+      "subtopic": "Remote Sensing",
+      "secondary_tags": [
+        "Environment and Ecology"
+      ],
+      "classification_confidence": 0.88,
+      "confidence_band": "Medium",
+      "classification_rationale": "GS1 Science & Tech question on Space Technology, Satellites, or Astrophysics (Space Technology / Remote Sensing).",
+      "validation_status": "verified_cross_tagged"
     },
     {
       "number": 33,
-      "topic": "Indian Geography / Forest Cover Statistics",
+      "topic": "Indian Geography",
       "passage_id": null,
       "question": "Consider the following States:\n1. Chhattisgarh\n2. Madhya Pradesh\n3. Maharashtra\n4. Odisha\nWith reference to the States mentioned above, in terms of percentage of forest cover to the total area of State, which one of the following is the correct ascending order?",
       "options": [
@@ -1015,11 +1539,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "According to the India State of Forest Report (ISFR): Forest cover as a percentage of total geographical area: Maharashtra: ~16.5% (lowest, 3); Madhya Pradesh: ~25.1% (2); Odisha: ~33.2% (4); Chhattisgarh: ~41.1% (highest, 1). The correct ascending order (lowest to highest) is: Maharashtra (3) < Madhya Pradesh (2) < Odisha (4) < Chhattisgarh (1), i.e., 3 - 2 - 4 - 1."
+      "explanation": "According to the India State of Forest Report (ISFR): Forest cover as a percentage of total geographical area: Maharashtra: ~16.5% (lowest, 3); Madhya Pradesh: ~25.1% (2); Odisha: ~33.2% (4); Chhattisgarh: ~41.1% (highest, 1). The correct ascending order (lowest to highest) is: Maharashtra (3) < Madhya Pradesh (2) < Odisha (4) < Chhattisgarh (1), i.e., 3 - 2 - 4 - 1.",
+      "raw_topic": "Indian Geography / Forest Cover Statistics",
+      "id": "upsc_2019_gs1_q33",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "indian_geography",
+      "subtopic_id": "indian_geography_forest_cover_statistics",
+      "subtopic": "Forest Cover Statistics",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Indian Geography question on Indian physiography, rivers, or lakes (Indian Geography / Forest Cover Statistics).",
+      "validation_status": "verified"
     },
     {
       "number": 34,
-      "topic": "Earth Sciences / Methane Hydrate",
+      "topic": "Physics in Everyday Life",
       "passage_id": null,
       "question": "Which of the following statements are correct about the deposits of 'methane hydrate'?\nSelect the correct answer using the code given below.",
       "statements": [
@@ -1046,11 +1586,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All three statements are correct: 1. Methane hydrates (clathrates) are stable only under low temperature and high pressure; rising ocean temperatures can destabilize them, releasing potent methane gas into the atmosphere (clathrate gun hypothesis). 2. Vast deposits are locked beneath polar permafrost in Arctic tundra and within continental margin marine sediments. 3. Atmospheric methane has an atmospheric lifetime of about 10–12 years, after which it oxidizes via hydroxyl radicals into carbon dioxide and water."
+      "explanation": "All three statements are correct: 1. Methane hydrates (clathrates) are stable only under low temperature and high pressure; rising ocean temperatures can destabilize them, releasing potent methane gas into the atmosphere (clathrate gun hypothesis). 2. Vast deposits are locked beneath polar permafrost in Arctic tundra and within continental margin marine sediments. 3. Atmospheric methane has an atmospheric lifetime of about 10–12 years, after which it oxidizes via hydroxyl radicals into carbon dioxide and water.",
+      "raw_topic": "Earth Sciences / Methane Hydrate",
+      "id": "upsc_2019_gs1_q34",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "physics_in_everyday_life",
+      "subtopic_id": "physics_in_everyday_life_methane_hydrate",
+      "subtopic": "Methane Hydrate",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Physics in Everyday Life & Nuclear Energy (Earth Sciences / Methane Hydrate).",
+      "validation_status": "verified"
     },
     {
       "number": 35,
-      "topic": "Environment / Biomass Burning Emissions",
+      "topic": "Renewable Energy",
       "passage_id": null,
       "question": "Consider the following:\nWhich of the above are released into atmosphere due to the burning of crop/biomass residue?",
       "statements": [
@@ -1078,11 +1634,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Biomass and stubble combustion releases carbon monoxide (1), unburned hydrocarbons/methane (2), and sulfur dioxide (4) directly. It also emits nitrogen oxides (NOx) and volatile organic compounds (VOCs) which photochemically react in ambient air to form ground-level ozone (3). (UPSC official key: d)."
+      "explanation": "Biomass and stubble combustion releases carbon monoxide (1), unburned hydrocarbons/methane (2), and sulfur dioxide (4) directly. It also emits nitrogen oxides (NOx) and volatile organic compounds (VOCs) which photochemically react in ambient air to form ground-level ozone (3). (UPSC official key: d).",
+      "raw_topic": "Environment / Biomass Burning Emissions",
+      "id": "upsc_2019_gs1_q35",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "renewable_energy",
+      "subtopic_id": "renewable_energy_biomass_burning_emissions",
+      "subtopic": "Biomass Burning Emissions",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Renewable Energy & Clean Fuels (Environment / Biomass Burning Emissions).",
+      "validation_status": "verified"
     },
     {
       "number": 36,
-      "topic": "World Geography / Marginal Seas & Borders",
+      "topic": "Mapping and Places in News",
       "passage_id": null,
       "question": "Consider the following pairs:\nWhich of the pairs given above are correctly matched?",
       "table": {
@@ -1138,11 +1710,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Pair 1 is correctly matched: Albania borders the Adriatic Sea. Pair 2 is incorrectly matched: Croatia borders the Adriatic Sea, not the Black Sea. Pair 3 is correctly matched: Kazakhstan borders the northeast shore of the Caspian Sea. Pair 4 is correctly matched: Morocco borders the western Mediterranean Sea. Pair 5 is incorrectly matched: Syria borders the Mediterranean Sea, not the Red Sea. Thus, 1, 3, and 4 only are correctly matched."
+      "explanation": "Pair 1 is correctly matched: Albania borders the Adriatic Sea. Pair 2 is incorrectly matched: Croatia borders the Adriatic Sea, not the Black Sea. Pair 3 is correctly matched: Kazakhstan borders the northeast shore of the Caspian Sea. Pair 4 is correctly matched: Morocco borders the western Mediterranean Sea. Pair 5 is incorrectly matched: Syria borders the Mediterranean Sea, not the Red Sea. Thus, 1, 3, and 4 only are correctly matched.",
+      "raw_topic": "World Geography / Marginal Seas & Borders",
+      "id": "upsc_2019_gs1_q36",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "mapping_and_places_in_news",
+      "subtopic_id": "mapping_and_places_in_news_marginal_seas_borders",
+      "subtopic": "Marginal Seas & Borders",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on World Mapping, Borders & Places in News (World Geography / Marginal Seas & Borders).",
+      "validation_status": "verified"
     },
     {
       "number": 37,
-      "topic": "Agriculture / Global Trade",
+      "topic": "Agriculture and Food Management",
       "passage_id": null,
       "question": "Among the following, which one is the largest exporter of rice in the world in the last five years?",
       "options": [
@@ -1164,11 +1752,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "India has consistently been the world's largest exporter of rice over the last decade, accounting for over 35–40% of global rice trade (exporting both basmati and non-basmati rice to over 100 countries), ahead of Thailand and Vietnam."
+      "explanation": "India has consistently been the world's largest exporter of rice over the last decade, accounting for over 35–40% of global rice trade (exporting both basmati and non-basmati rice to over 100 countries), ahead of Thailand and Vietnam.",
+      "raw_topic": "Agriculture / Global Trade",
+      "id": "upsc_2019_gs1_q37",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "agriculture_and_food_management",
+      "subtopic_id": "agriculture_and_food_management_global_trade",
+      "subtopic": "Global Trade",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy & Agriculture question on cropping systems, MSP, PDS, or agri-inputs (Agriculture / Global Trade).",
+      "validation_status": "verified"
     },
     {
       "number": 38,
-      "topic": "Indian Geography / Glaciers & Rivers",
+      "topic": "Indian Geography",
       "passage_id": null,
       "question": "Consider the following pairs:\nWhich of the pairs given above are correctly matched?",
       "table": {
@@ -1224,11 +1828,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Pair 1 is correct: Bandarpunch glacier (Uttarakhand) is the source of the Yamuna River. Pair 2 is correct: Bara Shigri glacier (Lahaul, HP) feeds the Chandra River (headstream of Chenab). Pair 3 is incorrect: Milam glacier (Kumaon) feeds the Goriganga River (Mandakini originates from Chorabari glacier near Kedarnath). Pair 4 is correct: Siachen glacier feeds the Nubra River. Pair 5 is incorrect: Zemu glacier (Sikkim) is the source of the Teesta River (not Manas). Thus, 1, 2, and 4 are correctly matched."
+      "explanation": "Pair 1 is correct: Bandarpunch glacier (Uttarakhand) is the source of the Yamuna River. Pair 2 is correct: Bara Shigri glacier (Lahaul, HP) feeds the Chandra River (headstream of Chenab). Pair 3 is incorrect: Milam glacier (Kumaon) feeds the Goriganga River (Mandakini originates from Chorabari glacier near Kedarnath). Pair 4 is correct: Siachen glacier feeds the Nubra River. Pair 5 is incorrect: Zemu glacier (Sikkim) is the source of the Teesta River (not Manas). Thus, 1, 2, and 4 are correctly matched.",
+      "raw_topic": "Indian Geography / Glaciers & Rivers",
+      "id": "upsc_2019_gs1_q38",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "indian_geography",
+      "subtopic_id": "indian_geography_glaciers_rivers",
+      "subtopic": "Glaciers & Rivers",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Indian Geography question on Indian physiography, rivers, or lakes (Indian Geography / Glaciers & Rivers).",
+      "validation_status": "verified"
     },
     {
       "number": 39,
-      "topic": "Environment / Hazardous Chemicals",
+      "topic": "Pollution",
       "passage_id": null,
       "question": "In India, the use of carbofuran, methyl parathion, phorate and triazophos is viewed with apprehension. These chemicals are used as",
       "options": [
@@ -1250,11 +1870,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Carbofuran, methyl parathion, phorate, and triazophos are highly toxic organophosphate and carbamate broad-spectrum chemical pesticides and insecticides used in agriculture, known for extreme toxicity to birds, honeybees, and human nervous systems."
+      "explanation": "Carbofuran, methyl parathion, phorate, and triazophos are highly toxic organophosphate and carbamate broad-spectrum chemical pesticides and insecticides used in agriculture, known for extreme toxicity to birds, honeybees, and human nervous systems.",
+      "raw_topic": "Environment / Hazardous Chemicals",
+      "id": "upsc_2019_gs1_q39",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "pollution",
+      "subtopic_id": "pollution_hazardous_chemicals",
+      "subtopic": "Hazardous Chemicals",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Pollution, Waste Management, or Bioremediation (Environment / Hazardous Chemicals).",
+      "validation_status": "verified"
     },
     {
       "number": 40,
-      "topic": "Environment / Wetland Conservation Rules",
+      "topic": "Protected Areas",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1281,11 +1917,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statement 3 is correct: Under Rule 2(1)(x) of the Wetlands Rules 2010, the definition of wetland includes its zone of influence or drainage/catchment area as demarcated by the wetland authority. Statement 1 is incorrect because the Ramsar Convention does not mandate conservation of 'all' wetlands in a territory (contracting parties commit to designated Ramsar Sites and promoting general wise use). Statement 2 is incorrect because the Wetlands Rules were enacted under the statutory power of the Environment (Protection) Act, 1986. (UPSC official key: c)."
+      "explanation": "Statement 3 is correct: Under Rule 2(1)(x) of the Wetlands Rules 2010, the definition of wetland includes its zone of influence or drainage/catchment area as demarcated by the wetland authority. Statement 1 is incorrect because the Ramsar Convention does not mandate conservation of 'all' wetlands in a territory (contracting parties commit to designated Ramsar Sites and promoting general wise use). Statement 2 is incorrect because the Wetlands Rules were enacted under the statutory power of the Environment (Protection) Act, 1986. (UPSC official key: c).",
+      "raw_topic": "Environment / Wetland Conservation Rules",
+      "id": "upsc_2019_gs1_q40",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "protected_areas",
+      "subtopic_id": "protected_areas_wetland_conservation_rules",
+      "subtopic": "Wetland Conservation Rules",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Protected Areas (National Parks, Reserves, Ramsar Wetlands) (Environment / Wetland Conservation Rules).",
+      "validation_status": "verified"
     },
     {
       "number": 41,
-      "topic": "Environment / Agricultural Nitrogen Emissions",
+      "topic": "Ecosystems",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1312,11 +1964,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "All three statements are correct: Synthetic nitrogen fertilizer application and manure decomposition in agricultural soils emit nitrous oxide (N2O) and nitric oxide (NO) via nitrification/denitrification (1); cattle urine and livestock manure excretion volatilize significant amounts of ammonia (NH3) (2); and poultry manure/litter is rich in uric acid and reactive nitrogen compounds (3)."
+      "explanation": "All three statements are correct: Synthetic nitrogen fertilizer application and manure decomposition in agricultural soils emit nitrous oxide (N2O) and nitric oxide (NO) via nitrification/denitrification (1); cattle urine and livestock manure excretion volatilize significant amounts of ammonia (NH3) (2); and poultry manure/litter is rich in uric acid and reactive nitrogen compounds (3).",
+      "raw_topic": "Environment / Agricultural Nitrogen Emissions",
+      "id": "upsc_2019_gs1_q41",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "ecosystems",
+      "subtopic_id": "ecosystems_agricultural_nitrogen_emissions",
+      "subtopic": "Agricultural Nitrogen Emissions",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Ecosystems, Trophic Dynamics & Adaptations (Environment / Agricultural Nitrogen Emissions).",
+      "validation_status": "verified"
     },
     {
       "number": 42,
-      "topic": "Indian Geography / Reservoirs",
+      "topic": "Indian Geography",
       "passage_id": null,
       "question": "What is common to the places known as Aliyar, Isapur and Kangsabati?",
       "options": [
@@ -1338,11 +2006,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Aliyar (in Coimbatore, Tamil Nadu), Isapur (on the Penganga River in Maharashtra), and Kangsabati (Mukutmanipur dam in West Bengal) are all prominent irrigation dams and water reservoirs."
+      "explanation": "Aliyar (in Coimbatore, Tamil Nadu), Isapur (on the Penganga River in Maharashtra), and Kangsabati (Mukutmanipur dam in West Bengal) are all prominent irrigation dams and water reservoirs.",
+      "raw_topic": "Indian Geography / Reservoirs",
+      "id": "upsc_2019_gs1_q42",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "indian_geography",
+      "subtopic_id": "indian_geography_reservoirs",
+      "subtopic": "Reservoirs",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Indian Geography question on Indian physiography, rivers, or lakes (Indian Geography / Reservoirs).",
+      "validation_status": "verified"
     },
     {
       "number": 43,
-      "topic": "Energy / Clean Transport Fuels",
+      "topic": "Renewable Energy",
       "passage_id": null,
       "question": "In the context of proposals to the use of hydrogen-enriched CNG (H-CNG) as fuel for buses in public transport, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1370,11 +2054,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statements 2 and 3 are correct: H-CNG blends (typically 18% to 20% / one-fifth hydrogen by volume) improve engine thermal efficiency and reduce CO2, hydrocarbon, and CO emissions by up to 70% (2 and 3). Statement 1 is incorrect because it reduces, but does not completely eliminate, carbon monoxide. Statement 4 is incorrect because producing hydrogen and blending it makes H-CNG more expensive than regular compressed natural gas."
+      "explanation": "Statements 2 and 3 are correct: H-CNG blends (typically 18% to 20% / one-fifth hydrogen by volume) improve engine thermal efficiency and reduce CO2, hydrocarbon, and CO emissions by up to 70% (2 and 3). Statement 1 is incorrect because it reduces, but does not completely eliminate, carbon monoxide. Statement 4 is incorrect because producing hydrogen and blending it makes H-CNG more expensive than regular compressed natural gas.",
+      "raw_topic": "Energy / Clean Transport Fuels",
+      "id": "upsc_2019_gs1_q43",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "renewable_energy",
+      "subtopic_id": "renewable_energy_clean_transport_fuels",
+      "subtopic": "Clean Transport Fuels",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Renewable Energy & Clean Fuels (Energy / Clean Transport Fuels).",
+      "validation_status": "verified"
     },
     {
       "number": 44,
-      "topic": "Physical Geography / Meteorology",
+      "topic": "Climatology",
       "passage_id": null,
       "question": "Why are dewdrops not formed on a cloudy night?",
       "options": [
@@ -1396,11 +2096,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Dew forms on calm, clear nights when terrestrial longwave radiation escapes freely into space, cooling the ground surface down below the dew point temperature. On cloudy nights, clouds act as a thermal blanket, absorbing and reflecting back the Earth's outgoing infrared radiation, preventing the surface from cooling sufficiently to condense water vapor."
+      "explanation": "Dew forms on calm, clear nights when terrestrial longwave radiation escapes freely into space, cooling the ground surface down below the dew point temperature. On cloudy nights, clouds act as a thermal blanket, absorbing and reflecting back the Earth's outgoing infrared radiation, preventing the surface from cooling sufficiently to condense water vapor.",
+      "raw_topic": "Physical Geography / Meteorology",
+      "id": "upsc_2019_gs1_q44",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "climatology",
+      "subtopic_id": "climatology_meteorology",
+      "subtopic": "Meteorology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Climatology & Atmospheric Processes (Physical Geography / Meteorology).",
+      "validation_status": "verified"
     },
     {
       "number": 45,
-      "topic": "Indian Polity / Constitutional Amendments",
+      "topic": "Prime Minister and Council of Ministers",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1426,11 +2142,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 2 is correct: In the Fourth Judges Case (2015), the Supreme Court struck down the 99th Constitutional Amendment Act and the National Judicial Appointments Commission (NJAC) Act as unconstitutional for violating the independence of the judiciary (a basic feature). Statement 1 is incorrect: It was the 39th Amendment (1975), not the 44th Amendment, that placed the election of the Prime Minister beyond judicial review (which the 44th Amendment in 1978 subsequently repealed)."
+      "explanation": "Statement 2 is correct: In the Fourth Judges Case (2015), the Supreme Court struck down the 99th Constitutional Amendment Act and the National Judicial Appointments Commission (NJAC) Act as unconstitutional for violating the independence of the judiciary (a basic feature). Statement 1 is incorrect: It was the 39th Amendment (1975), not the 44th Amendment, that placed the election of the Prime Minister beyond judicial review (which the 44th Amendment in 1978 subsequently repealed).",
+      "raw_topic": "Indian Polity / Constitutional Amendments",
+      "id": "upsc_2019_gs1_q45",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "prime_minister_and_council_of_ministers",
+      "subtopic_id": "prime_minister_and_council_of_ministers_constitutional_amendments",
+      "subtopic": "Constitutional Amendments",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Prime Minister & Council of Ministers (Indian Polity / Constitutional Amendments).",
+      "validation_status": "verified"
     },
     {
       "number": 46,
-      "topic": "Indian Polity / Judicial Impeachment",
+      "topic": "Parliament",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1458,11 +2190,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statements 3 and 4 are correct: The Judges (Inquiry) Act, 1968 regulates the investigation procedure into misbehaviour or incapacity (3), and Article 124(4) mandates a special majority in each House (majority of total membership and at least 2/3 of members present and voting) (4). Statement 1 is incorrect: The Speaker/Chairman has discretion under Section 3 of the 1968 Act to admit or refuse to admit the motion. Statement 2 is incorrect: The Constitution does not define or give details of what constitutes 'incapacity and proved misbehaviour'."
+      "explanation": "Statements 3 and 4 are correct: The Judges (Inquiry) Act, 1968 regulates the investigation procedure into misbehaviour or incapacity (3), and Article 124(4) mandates a special majority in each House (majority of total membership and at least 2/3 of members present and voting) (4). Statement 1 is incorrect: The Speaker/Chairman has discretion under Section 3 of the 1968 Act to admit or refuse to admit the motion. Statement 2 is incorrect: The Constitution does not define or give details of what constitutes 'incapacity and proved misbehaviour'.",
+      "raw_topic": "Indian Polity / Judicial Impeachment",
+      "id": "upsc_2019_gs1_q46",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "parliament",
+      "subtopic_id": "parliament_judicial_impeachment",
+      "subtopic": "Judicial Impeachment",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Parliament, Legislative Procedures, or Committees (Indian Polity / Judicial Impeachment).",
+      "validation_status": "verified"
     },
     {
       "number": 47,
-      "topic": "Indian Polity / Ninth Schedule",
+      "topic": "Prime Minister and Council of Ministers",
       "passage_id": null,
       "question": "The Ninth Schedule was introduced in the Constitution of India during the prime ministership of",
       "options": [
@@ -1484,11 +2232,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The Ninth Schedule (along with Article 31B to protect land reform laws from judicial review on fundamental rights grounds) was added to the Constitution by the 1st Constitutional Amendment Act, 1951 during the tenure of Prime Minister Jawaharlal Nehru."
+      "explanation": "The Ninth Schedule (along with Article 31B to protect land reform laws from judicial review on fundamental rights grounds) was added to the Constitution by the 1st Constitutional Amendment Act, 1951 during the tenure of Prime Minister Jawaharlal Nehru.",
+      "raw_topic": "Indian Polity / Ninth Schedule",
+      "id": "upsc_2019_gs1_q47",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "prime_minister_and_council_of_ministers",
+      "subtopic_id": "prime_minister_and_council_of_ministers_ninth_schedule",
+      "subtopic": "Ninth Schedule",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Prime Minister & Council of Ministers (Indian Polity / Ninth Schedule).",
+      "validation_status": "verified"
     },
     {
       "number": 48,
-      "topic": "Indian Economy / Coal Sector",
+      "topic": "Infrastructure",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1515,11 +2279,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is correct: The coal industry was nationalized in two phases (coking coal in 1971–72 and non-coking coal in 1973) under the Coal Mines (Nationalisation) Act during the prime ministership of Indira Gandhi. Statement 2 is incorrect: Coal blocks are allocated through competitive transparent electronic auctions, not on a lottery basis. Statement 3 is incorrect: India remains heavily reliant on coal imports (importing over 200 million tonnes annually, especially coking coal)."
+      "explanation": "Statement 1 is correct: The coal industry was nationalized in two phases (coking coal in 1971–72 and non-coking coal in 1973) under the Coal Mines (Nationalisation) Act during the prime ministership of Indira Gandhi. Statement 2 is incorrect: Coal blocks are allocated through competitive transparent electronic auctions, not on a lottery basis. Statement 3 is incorrect: India remains heavily reliant on coal imports (importing over 200 million tonnes annually, especially coking coal).",
+      "raw_topic": "Indian Economy / Coal Sector",
+      "id": "upsc_2019_gs1_q48",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "infrastructure",
+      "subtopic_id": "infrastructure_coal_sector",
+      "subtopic": "Coal Sector",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Infrastructure, Energy & Transport (Indian Economy / Coal Sector).",
+      "validation_status": "verified"
     },
     {
       "number": 49,
-      "topic": "Indian Polity / Office of Profit",
+      "topic": "Elections and Representation",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1546,11 +2326,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statements 1 and 2 are correct: The Parliament (Prevention of Disqualification) Act, 1959 lists statutory exemptions shielding specific offices from disqualification under Article 102(1)(a) (1), and the Act has been amended five times (in 1993, 1999, 2000, 2006, and 2013) (2). Statement 3 is incorrect: The Constitution of India mentions 'Office of Profit' in Articles 102 and 191 but nowhere defines the term; its meaning has evolved through judicial rulings."
+      "explanation": "Statements 1 and 2 are correct: The Parliament (Prevention of Disqualification) Act, 1959 lists statutory exemptions shielding specific offices from disqualification under Article 102(1)(a) (1), and the Act has been amended five times (in 1993, 1999, 2000, 2006, and 2013) (2). Statement 3 is incorrect: The Constitution of India mentions 'Office of Profit' in Articles 102 and 191 but nowhere defines the term; its meaning has evolved through judicial rulings.",
+      "raw_topic": "Indian Polity / Office of Profit",
+      "id": "upsc_2019_gs1_q49",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "elections_and_representation",
+      "subtopic_id": "elections_and_representation_office_of_profit",
+      "subtopic": "Office of Profit",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Elections, Representation, or Anti-Defection (Indian Polity / Office of Profit).",
+      "validation_status": "verified"
     },
     {
       "number": 50,
-      "topic": "Indian Polity / Fifth Schedule",
+      "topic": "Federalism and Centre-State Relations",
       "passage_id": null,
       "question": "Under which Schedule of the Constitution of India can the transfer of tribal land to private parties for mining be declared null and void?",
       "options": [
@@ -1572,11 +2368,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "In the landmark Samatha v. State of Andhra Pradesh (1997) judgment, the Supreme Court ruled that under the Fifth Schedule of the Constitution, all leases of tribal land in Scheduled Areas granted to private companies for mining or industrial purposes are null and void."
+      "explanation": "In the landmark Samatha v. State of Andhra Pradesh (1997) judgment, the Supreme Court ruled that under the Fifth Schedule of the Constitution, all leases of tribal land in Scheduled Areas granted to private companies for mining or industrial purposes are null and void.",
+      "raw_topic": "Indian Polity / Fifth Schedule",
+      "id": "upsc_2019_gs1_q50",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "federalism_and_centre_state_relations",
+      "subtopic_id": "federalism_and_centre_state_relations_fifth_schedule",
+      "subtopic": "Fifth Schedule",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Federalism, Centre-State Relations, or 5th/6th Schedules (Indian Polity / Fifth Schedule).",
+      "validation_status": "verified"
     },
     {
       "number": 51,
-      "topic": "Indian Polity / Tribal Welfare (PVTGs)",
+      "topic": "Governance and Public Policy",
       "passage_id": null,
       "question": "Consider the following statements about Particularly Vulnerable Tribal Groups (PVTGs) in India:\nWhich of the statements given above are correct?",
       "statements": [
@@ -1604,11 +2416,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statements 1, 2, and 4 are correct: There are 75 officially notified PVTGs across 18 States and the Union Territory of Andaman and Nicobar Islands (1); criteria include pre-agricultural technology, stagnant/declining population, low literacy, and economic backwardness (2); and Irular (Tamil Nadu/Kerala) and Konda Reddi (Andhra Pradesh/Telangana) are recognized PVTGs (4). Statement 3 is incorrect because there are 75 (not 95) PVTGs."
+      "explanation": "Statements 1, 2, and 4 are correct: There are 75 officially notified PVTGs across 18 States and the Union Territory of Andaman and Nicobar Islands (1); criteria include pre-agricultural technology, stagnant/declining population, low literacy, and economic backwardness (2); and Irular (Tamil Nadu/Kerala) and Konda Reddi (Andhra Pradesh/Telangana) are recognized PVTGs (4). Statement 3 is incorrect because there are 75 (not 95) PVTGs.",
+      "raw_topic": "Indian Polity / Tribal Welfare (PVTGs)",
+      "id": "upsc_2019_gs1_q51",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "governance_and_public_policy",
+      "subtopic_id": "governance_and_public_policy_tribal_welfare_pvtgs",
+      "subtopic": "Tribal Welfare (PVTGs)",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Governance, Public Policy & Welfare Legislation question (Indian Polity / Tribal Welfare (PVTGs)).",
+      "validation_status": "verified"
     },
     {
       "number": 52,
-      "topic": "Indian Polity / Supreme Court Powers",
+      "topic": "Fundamental Rights and Duties",
       "passage_id": null,
       "question": "With reference to the Constitution of India, prohibitions or limitations or provisions contained in ordinary laws cannot act as prohibitions or limitations on the constitutional powers under Article 142. It could mean which one of the following?",
       "options": [
@@ -1630,11 +2458,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Article 142(1) confers plenary power upon the Supreme Court to pass any decree or order necessary for doing 'complete justice' in any cause or matter pending before it. In Union Carbide (1991) and Supreme Court Bar Association (1998), the Court ruled that statutory provisions or prohibitions in ordinary parliamentary acts cannot restrict or fetter this constitutional power."
+      "explanation": "Article 142(1) confers plenary power upon the Supreme Court to pass any decree or order necessary for doing 'complete justice' in any cause or matter pending before it. In Union Carbide (1991) and Supreme Court Bar Association (1998), the Court ruled that statutory provisions or prohibitions in ordinary parliamentary acts cannot restrict or fetter this constitutional power.",
+      "raw_topic": "Indian Polity / Supreme Court Powers",
+      "id": "upsc_2019_gs1_q52",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "fundamental_rights_and_duties",
+      "subtopic_id": "fundamental_rights_and_duties_supreme_court_powers",
+      "subtopic": "Supreme Court Powers",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Fundamental Rights, Writs, or Fundamental Duties (Indian Polity / Supreme Court Powers).",
+      "validation_status": "verified"
     },
     {
       "number": 53,
-      "topic": "Indian Polity / State Legislature",
+      "topic": "Preamble and Constitutional Features",
       "passage_id": null,
       "question": "With reference to the Legislative Assembly of a State in India, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1660,11 +2504,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is correct: Under Article 176(1), the Governor addresses the Legislative Assembly (or both Houses assembled together) at the commencement of the first session after each general election and at the commencement of the first session of each year. Statement 2 is incorrect: Under Article 208, a State Legislature makes its own rules of procedure; there is no constitutional mandate that it automatically follows Lok Sabha rules in the absence of a specific state rule."
+      "explanation": "Statement 1 is correct: Under Article 176(1), the Governor addresses the Legislative Assembly (or both Houses assembled together) at the commencement of the first session after each general election and at the commencement of the first session of each year. Statement 2 is incorrect: Under Article 208, a State Legislature makes its own rules of procedure; there is no constitutional mandate that it automatically follows Lok Sabha rules in the absence of a specific state rule.",
+      "raw_topic": "Indian Polity / State Legislature",
+      "id": "upsc_2019_gs1_q53",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "preamble_and_constitutional_features",
+      "subtopic_id": "preamble_and_constitutional_features_state_legislature",
+      "subtopic": "State Legislature",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Preamble, Basic Structure, or Constitutional Philosophy (Indian Polity / State Legislature).",
+      "validation_status": "verified"
     },
     {
       "number": 54,
-      "topic": "International Organizations / UN Conventions",
+      "topic": "International Organisations",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -1692,11 +2552,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statements 2 and 4 are correct: UNCAC (adopted in 2003) is the first legally binding universal anti-corruption instrument (2), and UNODC acts as the secretariat and operational lead for implementing both UNCAC and UNTOC (4). Statement 1 is incorrect because the Smuggling of Migrants Protocol is a protocol to UNTOC (Transnational Organized Crime), not UNCAC. Statement 3 is incorrect because Asset Recovery (Chapter V) is a unique hallmark of UNCAC, not UNTOC."
+      "explanation": "Statements 2 and 4 are correct: UNCAC (adopted in 2003) is the first legally binding universal anti-corruption instrument (2), and UNODC acts as the secretariat and operational lead for implementing both UNCAC and UNTOC (4). Statement 1 is incorrect because the Smuggling of Migrants Protocol is a protocol to UNTOC (Transnational Organized Crime), not UNCAC. Statement 3 is incorrect because Asset Recovery (Chapter V) is a unique hallmark of UNCAC, not UNTOC.",
+      "raw_topic": "International Organizations / UN Conventions",
+      "id": "upsc_2019_gs1_q54",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "international_organisations",
+      "subtopic_id": "international_organisations_un_conventions",
+      "subtopic": "UN Conventions",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs & IR question on International Organisations and Multilateral Groupings (International Organizations / UN Conventions).",
+      "validation_status": "verified"
     },
     {
       "number": 55,
-      "topic": "Environmental Law / Forest Rights & Bamboo",
+      "topic": "Environmental Laws and Institutions",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1723,11 +2599,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statements 2 and 3 are correct: Section 2(i) of the Forest Rights Act, 2006 specifically includes bamboo in the statutory definition of Minor Forest Produce (MFP) (2), and Section 3(1)(c) vests right of ownership, access to collect, use, and dispose of MFP with forest-dwelling communities (3). Statement 1 is incorrect: The Indian Forest (Amendment) Act, 2017 removed bamboo grown in NON-FOREST areas from the definition of a tree to encourage agroforestry; bamboo grown in forest areas remains classified as a forest tree under the IFA."
+      "explanation": "Statements 2 and 3 are correct: Section 2(i) of the Forest Rights Act, 2006 specifically includes bamboo in the statutory definition of Minor Forest Produce (MFP) (2), and Section 3(1)(c) vests right of ownership, access to collect, use, and dispose of MFP with forest-dwelling communities (3). Statement 1 is incorrect: The Indian Forest (Amendment) Act, 2017 removed bamboo grown in NON-FOREST areas from the definition of a tree to encourage agroforestry; bamboo grown in forest areas remains classified as a forest tree under the IFA.",
+      "raw_topic": "Environmental Law / Forest Rights & Bamboo",
+      "id": "upsc_2019_gs1_q55",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "environmental_laws_and_institutions",
+      "subtopic_id": "environmental_laws_and_institutions_forest_rights_bamboo",
+      "subtopic": "Forest Rights & Bamboo",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Environmental Laws, Committees, and Statutory Institutions (Environmental Law / Forest Rights & Bamboo).",
+      "validation_status": "verified"
     },
     {
       "number": 56,
-      "topic": "Indian Polity / Fundamental Rights",
+      "topic": "Fundamental Rights and Duties",
       "passage_id": null,
       "question": "Which Article of the Constitution of India safeguards one's right to marry the person of one's choice?",
       "options": [
@@ -1749,11 +2641,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "In Shafin Jahan v. Asokan K.M. (the Hadiya case, 2018) and Shakti Vahini (2018), the Supreme Court held that the right to marry a person of one's choice is an integral aspect of the Right to Life and Personal Liberty guaranteed under Article 21 of the Constitution."
+      "explanation": "In Shafin Jahan v. Asokan K.M. (the Hadiya case, 2018) and Shakti Vahini (2018), the Supreme Court held that the right to marry a person of one's choice is an integral aspect of the Right to Life and Personal Liberty guaranteed under Article 21 of the Constitution.",
+      "raw_topic": "Indian Polity / Fundamental Rights",
+      "id": "upsc_2019_gs1_q56",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "fundamental_rights_and_duties",
+      "subtopic_id": "fundamental_rights_and_duties_fundamental_rights",
+      "subtopic": "Fundamental Rights",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Fundamental Rights, Writs, or Fundamental Duties (Indian Polity / Fundamental Rights).",
+      "validation_status": "verified"
     },
     {
       "number": 57,
-      "topic": "Intellectual Property Rights",
+      "topic": "Government Initiatives",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1780,11 +2688,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statement 3 is correct: Under Section 3(j) of the Patents Act, 1970, plants and animals in whole or any part thereof including seeds, varieties and species and essentially biological processes are non-patentable subject matter (plant varieties are protected separately under the PPV&FR Act, 2001). Statement 1 is incorrect as biological processes to create seeds cannot be patented. Statement 2 was incorrect at the time of the 2019 exam (the IPAB existed in 2019 and was only abolished later in 2021 via the Tribunals Reforms Act). (UPSC official key: c)."
+      "explanation": "Statement 3 is correct: Under Section 3(j) of the Patents Act, 1970, plants and animals in whole or any part thereof including seeds, varieties and species and essentially biological processes are non-patentable subject matter (plant varieties are protected separately under the PPV&FR Act, 2001). Statement 1 is incorrect as biological processes to create seeds cannot be patented. Statement 2 was incorrect at the time of the 2019 exam (the IPAB existed in 2019 and was only abolished later in 2021 via the Tribunals Reforms Act). (UPSC official key: c).",
+      "raw_topic": "Intellectual Property Rights",
+      "id": "upsc_2019_gs1_q57",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "government_initiatives",
+      "subtopic_id": "government_initiatives_core",
+      "subtopic": "National Missions, Portals & Policy Initiatives",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs question on Government Policies, Initiatives & Standards (Intellectual Property Rights).",
+      "validation_status": "verified"
     },
     {
       "number": 58,
-      "topic": "Environmental Law / Environment Protection Act",
+      "topic": "Environmental Laws and Institutions",
       "passage_id": null,
       "question": "Consider the following statements:\nThe Environment Protection Act, 1986 empowers the Government of India to\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1810,11 +2734,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 2 is correct: Section 3(2)(iv) of the Environment (Protection) Act, 1986 explicitly empowers the Central Government to lay down standards for emission or discharge of environmental pollutants from various sources. Statement 1 is incorrect: The parent Act does not mention public participation (public hearings were introduced later under delegated secondary legislation through the Environmental Impact Assessment - EIA Notifications issued under the EPA rules). (UPSC official key: b)."
+      "explanation": "Statement 2 is correct: Section 3(2)(iv) of the Environment (Protection) Act, 1986 explicitly empowers the Central Government to lay down standards for emission or discharge of environmental pollutants from various sources. Statement 1 is incorrect: The parent Act does not mention public participation (public hearings were introduced later under delegated secondary legislation through the Environmental Impact Assessment - EIA Notifications issued under the EPA rules). (UPSC official key: b).",
+      "raw_topic": "Environmental Law / Environment Protection Act",
+      "id": "upsc_2019_gs1_q58",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "environmental_laws_and_institutions",
+      "subtopic_id": "environmental_laws_and_institutions_environment_protection_act",
+      "subtopic": "Environment Protection Act",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Environmental Laws, Committees, and Statutory Institutions (Environmental Law / Environment Protection Act).",
+      "validation_status": "verified"
     },
     {
       "number": 59,
-      "topic": "Environmental Law / Solid Waste Rules",
+      "topic": "Environmental Laws and Institutions",
       "passage_id": null,
       "question": "As per the Solid Waste Management Rules, 2016 in India, which one of the following statements is correct?",
       "options": [
@@ -1836,11 +2776,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statement (c) is correct: Schedule I of the Solid Waste Management Rules, 2016 specifies exact, elaborate scientific criteria and buffer zones for site selection of sanitary landfills and waste processing facilities. Statement (a) is incorrect because waste is segregated into three streams (biodegradable, non-biodegradable, and domestic hazardous). Statement (b) is incorrect because the rules apply to census towns, notified industrial townships, railway stations, and religious places."
+      "explanation": "Statement (c) is correct: Schedule I of the Solid Waste Management Rules, 2016 specifies exact, elaborate scientific criteria and buffer zones for site selection of sanitary landfills and waste processing facilities. Statement (a) is incorrect because waste is segregated into three streams (biodegradable, non-biodegradable, and domestic hazardous). Statement (b) is incorrect because the rules apply to census towns, notified industrial townships, railway stations, and religious places.",
+      "raw_topic": "Environmental Law / Solid Waste Rules",
+      "id": "upsc_2019_gs1_q59",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "environmental_laws_and_institutions",
+      "subtopic_id": "environmental_laws_and_institutions_solid_waste_rules",
+      "subtopic": "Solid Waste Rules",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Environmental Laws, Committees, and Statutory Institutions (Environmental Law / Solid Waste Rules).",
+      "validation_status": "verified"
     },
     {
       "number": 60,
-      "topic": "Labour Laws / Fixed-Term Employment",
+      "topic": "Employment and Poverty",
       "passage_id": null,
       "question": "Consider the following statements:\nAs per the Industrial Employment (Standing Orders) Central (Amendment) Rules, 2018\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1866,11 +2822,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Both statements are correct: 1. The 2018 amendment extended fixed-term employment across all industrial sectors, allowing employers to hire workers for specific contract durations without having to pay retrenchment compensation upon contract expiry (making layoffs easier). 2. Under the standing orders schedule, no notice of termination of employment is required in the case of a temporary workman or upon expiry of a fixed-term contract."
+      "explanation": "Both statements are correct: 1. The 2018 amendment extended fixed-term employment across all industrial sectors, allowing employers to hire workers for specific contract durations without having to pay retrenchment compensation upon contract expiry (making layoffs easier). 2. Under the standing orders schedule, no notice of termination of employment is required in the case of a temporary workman or upon expiry of a fixed-term contract.",
+      "raw_topic": "Labour Laws / Fixed-Term Employment",
+      "id": "upsc_2019_gs1_q60",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "employment_and_poverty",
+      "subtopic_id": "employment_and_poverty_fixed_term_employment",
+      "subtopic": "Fixed-Term Employment",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Employment, Labour & Poverty (Labour Laws / Fixed-Term Employment).",
+      "validation_status": "verified"
     },
     {
       "number": 61,
-      "topic": "Banking / Priority Sector Lending",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "The Service Area Approach was implemented under the purview of",
       "options": [
@@ -1892,11 +2864,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The Service Area Approach (SAA) was introduced in April 1989 as an operational modification of the Lead Bank Scheme to streamline rural lending, under which designated commercial and RRB bank branches were assigned specific command areas of contiguous villages."
+      "explanation": "The Service Area Approach (SAA) was introduced in April 1989 as an operational modification of the Lead Bank Scheme to streamline rural lending, under which designated commercial and RRB bank branches were assigned specific command areas of contiguous villages.",
+      "raw_topic": "Banking / Priority Sector Lending",
+      "id": "upsc_2019_gs1_q61",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_priority_sector_lending",
+      "subtopic": "Priority Sector Lending",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Banking / Priority Sector Lending).",
+      "validation_status": "verified"
     },
     {
       "number": 62,
-      "topic": "Economic Geography / Mining Regulations",
+      "topic": "Resources and Industries",
       "passage_id": null,
       "question": "With reference to the management of minor minerals in India, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1923,11 +2911,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statements 1 and 3 are correct: Sand is statutory defined as a 'minor mineral' under Section 3(e) of the MMDR Act, 1957 (1), and Section 23C empowers State Governments to make rules for preventing illegal mining, transportation, and storage of minor minerals (3). Statement 2 is incorrect because Section 15 of the MMDR Act specifically delegates the power to make rules for the grant of quarry leases and mining concessions for minor minerals entirely to State Governments."
+      "explanation": "Statements 1 and 3 are correct: Sand is statutory defined as a 'minor mineral' under Section 3(e) of the MMDR Act, 1957 (1), and Section 23C empowers State Governments to make rules for preventing illegal mining, transportation, and storage of minor minerals (3). Statement 2 is incorrect because Section 15 of the MMDR Act specifically delegates the power to make rules for the grant of quarry leases and mining concessions for minor minerals entirely to State Governments.",
+      "raw_topic": "Economic Geography / Mining Regulations",
+      "id": "upsc_2019_gs1_q62",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "resources_and_industries",
+      "subtopic_id": "resources_and_industries_mining_regulations",
+      "subtopic": "Mining Regulations",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Mineral/Energy Resources and Industries (Economic Geography / Mining Regulations).",
+      "validation_status": "verified"
     },
     {
       "number": 63,
-      "topic": "Indian Economy / External Debt",
+      "topic": "External Sector and Balance of Payments",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -1953,11 +2957,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Both statements are incorrect: 1. Non-government commercial borrowings (ECBs, trade credit, NRI deposits) constitute the bulk (over 80%) of India's total external debt; sovereign/governmental debt accounts for less than 20%. 2. While the US dollar is the largest currency component (~50%), India's external debt is also denominated in Indian rupees, SDRs, Japanese yen, and Euros."
+      "explanation": "Both statements are incorrect: 1. Non-government commercial borrowings (ECBs, trade credit, NRI deposits) constitute the bulk (over 80%) of India's total external debt; sovereign/governmental debt accounts for less than 20%. 2. While the US dollar is the largest currency component (~50%), India's external debt is also denominated in Indian rupees, SDRs, Japanese yen, and Euros.",
+      "raw_topic": "Indian Economy / External Debt",
+      "id": "upsc_2019_gs1_q63",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "external_sector_and_balance_of_payments",
+      "subtopic_id": "external_sector_and_balance_of_payments_external_debt",
+      "subtopic": "External Debt",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on External Sector, Balance of Payments, Exchange Rate & Trade (Indian Economy / External Debt).",
+      "validation_status": "verified"
     },
     {
       "number": 64,
-      "topic": "Banking / Commercial Bank Balance Sheet",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "Which of the following is not included in the assets of a commercial bank in India?",
       "options": [
@@ -1979,11 +2999,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Deposits (demand and time deposits) collected from customers represent obligations that the bank owes to its depositors, classifying them as liabilities on a commercial bank's balance sheet. Loans/advances, investments in government securities, and money at call and short notice are assets."
+      "explanation": "Deposits (demand and time deposits) collected from customers represent obligations that the bank owes to its depositors, classifying them as liabilities on a commercial bank's balance sheet. Loans/advances, investments in government securities, and money at call and short notice are assets.",
+      "raw_topic": "Banking / Commercial Bank Balance Sheet",
+      "id": "upsc_2019_gs1_q64",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_commercial_bank_balance_sheet",
+      "subtopic": "Commercial Bank Balance Sheet",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Banking / Commercial Bank Balance Sheet).",
+      "validation_status": "verified"
     },
     {
       "number": 65,
-      "topic": "Macroeconomics / Currency Stability",
+      "topic": "External Sector and Balance of Payments",
       "passage_id": null,
       "question": "In the context of India, which of the following factors is/are contributor/contributors to reducing the risk of a currency crisis?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2010,11 +3046,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Foreign exchange inflows from IT service exports (1) and private remittances from overseas Indians (3) build forex reserves, finance the trade deficit, and stabilize the balance of payments. Increasing government fiscal expenditure (2) typically widens twin deficits and fuels inflation, worsening currency crisis risks."
+      "explanation": "Foreign exchange inflows from IT service exports (1) and private remittances from overseas Indians (3) build forex reserves, finance the trade deficit, and stabilize the balance of payments. Increasing government fiscal expenditure (2) typically widens twin deficits and fuels inflation, worsening currency crisis risks.",
+      "raw_topic": "Macroeconomics / Currency Stability",
+      "id": "upsc_2019_gs1_q65",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "external_sector_and_balance_of_payments",
+      "subtopic_id": "external_sector_and_balance_of_payments_currency_stability",
+      "subtopic": "Currency Stability",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on External Sector, Balance of Payments, Exchange Rate & Trade (Macroeconomics / Currency Stability).",
+      "validation_status": "verified"
     },
     {
       "number": 66,
-      "topic": "Indian Polity / Governor Office",
+      "topic": "President and Vice-President",
       "passage_id": null,
       "question": "Which one of the following suggested that the Governor should be an eminent person from outside the State and should be a detached figure without intense political links or should not have taken part in politics in the recent past?",
       "options": [
@@ -2036,11 +3088,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The Sarkaria Commission on Centre-State Relations (1983–1988) recommended that the Governor should be an eminent person from outside the State, a detached figure without active involvement in local politics, and one who has not taken an active part in politics in the recent past."
+      "explanation": "The Sarkaria Commission on Centre-State Relations (1983–1988) recommended that the Governor should be an eminent person from outside the State, a detached figure without active involvement in local politics, and one who has not taken an active part in politics in the recent past.",
+      "raw_topic": "Indian Polity / Governor Office",
+      "id": "upsc_2019_gs1_q66",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "president_and_vice_president",
+      "subtopic_id": "president_and_vice_president_governor_office",
+      "subtopic": "Governor Office",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on President, Vice-President, or Governor (Indian Polity / Governor Office).",
+      "validation_status": "verified"
     },
     {
       "number": 67,
-      "topic": "Financial Markets / Offshore Derivatives",
+      "topic": "Money and Financial Markets",
       "passage_id": null,
       "question": "Which of the following is issued by registered foreign portfolio investors to overseas investors who want to be part of the Indian stock market without registering themselves directly?",
       "options": [
@@ -2062,11 +3130,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Participatory Notes (P-Notes or PNs) are offshore derivative instruments (ODIs) issued by registered Foreign Portfolio Investors (FPIs) to overseas high-net-worth investors, enabling them to invest in Indian securities without directly registering with SEBI."
+      "explanation": "Participatory Notes (P-Notes or PNs) are offshore derivative instruments (ODIs) issued by registered Foreign Portfolio Investors (FPIs) to overseas high-net-worth investors, enabling them to invest in Indian securities without directly registering with SEBI.",
+      "raw_topic": "Financial Markets / Offshore Derivatives",
+      "id": "upsc_2019_gs1_q67",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "money_and_financial_markets",
+      "subtopic_id": "money_and_financial_markets_offshore_derivatives",
+      "subtopic": "Offshore Derivatives",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Money and Financial Markets (Financial Markets / Offshore Derivatives).",
+      "validation_status": "verified"
     },
     {
       "number": 68,
-      "topic": "Environment / CAMPA Act",
+      "topic": "Environmental Laws and Institutions",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2092,11 +3176,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is correct: The Compensatory Afforestation Fund Act, 2016 creates a National Authority at the Centre and State Authorities in each State/UT. Statement 2 is incorrect: The CAF Act, 2016 does not make local community or Gram Sabha public participation mandatory in executing compensatory afforestation programmes."
+      "explanation": "Statement 1 is correct: The Compensatory Afforestation Fund Act, 2016 creates a National Authority at the Centre and State Authorities in each State/UT. Statement 2 is incorrect: The CAF Act, 2016 does not make local community or Gram Sabha public participation mandatory in executing compensatory afforestation programmes.",
+      "raw_topic": "Environment / CAMPA Act",
+      "id": "upsc_2019_gs1_q68",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "environmental_laws_and_institutions",
+      "subtopic_id": "environmental_laws_and_institutions_campa_act",
+      "subtopic": "CAMPA Act",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Environmental Laws, Committees, and Statutory Institutions (Environment / CAMPA Act).",
+      "validation_status": "verified"
     },
     {
       "number": 69,
-      "topic": "Indian Polity / Regulatory Oversight",
+      "topic": "Constitutional Bodies",
       "passage_id": null,
       "question": "In India, which of the following review the independent regulators in sectors like telecommunications, insurance, electricity, etc.?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2125,11 +3225,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Independent statutory regulators (TRAI, IRDAI, CERC, etc.) submit annual reports to Parliament, where Parliamentary Department-Related Standing Committees and parliamentary Ad Hoc Committees review their performance, finances, and functioning. The Finance Commission and NITI Aayog do not review sector regulators."
+      "explanation": "Independent statutory regulators (TRAI, IRDAI, CERC, etc.) submit annual reports to Parliament, where Parliamentary Department-Related Standing Committees and parliamentary Ad Hoc Committees review their performance, finances, and functioning. The Finance Commission and NITI Aayog do not review sector regulators.",
+      "raw_topic": "Indian Polity / Regulatory Oversight",
+      "id": "upsc_2019_gs1_q69",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "constitutional_bodies",
+      "subtopic_id": "constitutional_bodies_regulatory_oversight",
+      "subtopic": "Regulatory Oversight",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Constitutional Bodies (Indian Polity / Regulatory Oversight).",
+      "validation_status": "verified"
     },
     {
       "number": 70,
-      "topic": "Economic Planning / Five-Year Plans",
+      "topic": "National Income and Economic Growth",
       "passage_id": null,
       "question": "With reference to India's Five-Year Plans, which of the following statements is/are correct?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2156,11 +3272,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statements 1 and 2 are correct: The Second Plan (Mahalanobis model) emphasized import-substitution industrialization in basic and heavy capital goods (1), and the Fourth Plan aimed at 'growth with stability' and combating concentration of economic wealth via MRTP and bank nationalization (2). Statement 3 is incorrect: The financial sector was integrated as a formal planned component much later (Ninth/Tenth Plans), not in the Fifth Plan."
+      "explanation": "Statements 1 and 2 are correct: The Second Plan (Mahalanobis model) emphasized import-substitution industrialization in basic and heavy capital goods (1), and the Fourth Plan aimed at 'growth with stability' and combating concentration of economic wealth via MRTP and bank nationalization (2). Statement 3 is incorrect: The financial sector was integrated as a formal planned component much later (Ninth/Tenth Plans), not in the Fifth Plan.",
+      "raw_topic": "Economic Planning / Five-Year Plans",
+      "id": "upsc_2019_gs1_q70",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "national_income_and_economic_growth",
+      "subtopic_id": "national_income_and_economic_growth_five_year_plans",
+      "subtopic": "Five-Year Plans",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on National Income, GDP & Economic Growth (Economic Planning / Five-Year Plans).",
+      "validation_status": "verified"
     },
     {
       "number": 71,
-      "topic": "International Financial Institutions / AIIB",
+      "topic": "National Income and Economic Growth",
       "passage_id": null,
       "question": "With reference to Asian Infrastructure Investment Bank (AIIB), consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2187,11 +3319,29 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is correct: The AIIB has over 100 approved member nations. Statement 2 is incorrect: China is the largest shareholder (~26.6% voting power), while India is the second-largest (~7.6%). Statement 3 is incorrect: AIIB includes non-regional members from outside Asia (e.g., UK, Germany, Canada, France, Australia)."
+      "explanation": "Statement 1 is correct: The AIIB has over 100 approved member nations. Statement 2 is incorrect: China is the largest shareholder (~26.6% voting power), while India is the second-largest (~7.6%). Statement 3 is incorrect: AIIB includes non-regional members from outside Asia (e.g., UK, Germany, Canada, France, Australia).",
+      "raw_topic": "International Financial Institutions / AIIB",
+      "id": "upsc_2019_gs1_q71",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "national_income_and_economic_growth",
+      "subtopic_id": "national_income_and_economic_growth_aiib",
+      "subtopic": "AIIB",
+      "secondary_tags": [
+        "International Relations"
+      ],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on National Income, GDP & Economic Growth (International Financial Institutions / AIIB).",
+      "validation_status": "verified"
     },
     {
       "number": 72,
-      "topic": "Banking / Stressed Assets Resolution",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "What was the purpose of Inter-Creditor Agreement signed by Indian banks and financial institutions recently?",
       "options": [
@@ -2213,11 +3363,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Under the Sashakt committee recommendations in 2018, Indian banks signed the Inter-Creditor Agreement (ICA) to ensure coordinated and expeditious time-bound resolution of stressed consortium loan accounts of ₹50 crore and above."
+      "explanation": "Under the Sashakt committee recommendations in 2018, Indian banks signed the Inter-Creditor Agreement (ICA) to ensure coordinated and expeditious time-bound resolution of stressed consortium loan accounts of ₹50 crore and above.",
+      "raw_topic": "Banking / Stressed Assets Resolution",
+      "id": "upsc_2019_gs1_q72",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_stressed_assets_resolution",
+      "subtopic": "Stressed Assets Resolution",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Banking / Stressed Assets Resolution).",
+      "validation_status": "verified"
     },
     {
       "number": 73,
-      "topic": "Banking Governance / Appointments",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "The Chairmen of public sector banks are selected by the",
       "options": [
@@ -2239,11 +3405,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The Banks Board Bureau (BBB, now replaced by the Financial Services Institutions Bureau - FSIB) was constituted as an autonomous body to recommend the selection and appointment of whole-time directors and non-executive chairpersons of Public Sector Banks."
+      "explanation": "The Banks Board Bureau (BBB, now replaced by the Financial Services Institutions Bureau - FSIB) was constituted as an autonomous body to recommend the selection and appointment of whole-time directors and non-executive chairpersons of Public Sector Banks.",
+      "raw_topic": "Banking Governance / Appointments",
+      "id": "upsc_2019_gs1_q73",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_appointments",
+      "subtopic": "Appointments",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Banking Governance / Appointments).",
+      "validation_status": "verified"
     },
     {
       "number": 74,
-      "topic": "Energy / Petroleum Regulation",
+      "topic": "Resources and Industries",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -2270,11 +3452,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statements 2 and 3 are correct: Under the PNGRB Act, 2006, the Board ensures fair trade, open access, and competitive downstream natural gas markets (2), and Section 30 mandates that appeals against PNGRB orders lie before the Appellate Tribunal for Electricity (APTEL) (3). Statement 1 is incorrect: Earlier statutory regulators existed (e.g. SEBI in 1992, TRAI in 1997, CERC in 1998)."
+      "explanation": "Statements 2 and 3 are correct: Under the PNGRB Act, 2006, the Board ensures fair trade, open access, and competitive downstream natural gas markets (2), and Section 30 mandates that appeals against PNGRB orders lie before the Appellate Tribunal for Electricity (APTEL) (3). Statement 1 is incorrect: Earlier statutory regulators existed (e.g. SEBI in 1992, TRAI in 1997, CERC in 1998).",
+      "raw_topic": "Energy / Petroleum Regulation",
+      "id": "upsc_2019_gs1_q74",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "geography",
+      "subject": "Geography",
+      "topic_id": "resources_and_industries",
+      "subtopic_id": "resources_and_industries_petroleum_regulation",
+      "subtopic": "Petroleum Regulation",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Geography question on Mineral/Energy Resources and Industries (Energy / Petroleum Regulation).",
+      "validation_status": "verified"
     },
     {
       "number": 75,
-      "topic": "Telecommunications / Cellular Networks",
+      "topic": "Biology and Human Health",
       "passage_id": null,
       "question": "With reference to communication technologies, what is/are the difference/differences between LTE (Long-Term Evolution) and VoLTE (Voice over Long-Term Evolution)?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2300,11 +3498,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Both statements are incorrect: 1. Both LTE and VoLTE are 4G standards (not 3G). 2. LTE is a 4G data packet technology where voice calls fall back to 2G/3G circuits (CSFB), while VoLTE is an IP Multimedia Subsystem (IMS) standard transmitting both high-definition packetized voice and data concurrently over 4G."
+      "explanation": "Both statements are incorrect: 1. Both LTE and VoLTE are 4G standards (not 3G). 2. LTE is a 4G data packet technology where voice calls fall back to 2G/3G circuits (CSFB), while VoLTE is an IP Multimedia Subsystem (IMS) standard transmitting both high-definition packetized voice and data concurrently over 4G.",
+      "raw_topic": "Telecommunications / Cellular Networks",
+      "id": "upsc_2019_gs1_q75",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "biology_and_human_health",
+      "subtopic_id": "biology_and_human_health_cellular_networks",
+      "subtopic": "Cellular Networks",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Biology, Infectious Diseases, Vaccines & Human Health (Telecommunications / Cellular Networks).",
+      "validation_status": "verified"
     },
     {
       "number": 76,
-      "topic": "Social Legislation / Labour Rights",
+      "topic": "Governance and Public Policy",
       "passage_id": null,
       "question": "Which of the following statements is/are correct regarding the Maternity Benefit (Amendment) Act, 2017?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2331,11 +3545,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Statement 3 is correct: For women with two or more surviving children, paid maternity leave is restricted to 12 weeks (instead of 26 weeks). Statement 1 is incorrect: Out of 26 weeks total leave, up to 8 weeks (not 3 months / 12 weeks) can precede expected delivery. Statement 2 is incorrect: Establishments with crèches must permit four visits a day (not six)."
+      "explanation": "Statement 3 is correct: For women with two or more surviving children, paid maternity leave is restricted to 12 weeks (instead of 26 weeks). Statement 1 is incorrect: Out of 26 weeks total leave, up to 8 weeks (not 3 months / 12 weeks) can precede expected delivery. Statement 2 is incorrect: Establishments with crèches must permit four visits a day (not six).",
+      "raw_topic": "Social Legislation / Labour Rights",
+      "id": "upsc_2019_gs1_q76",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "governance_and_public_policy",
+      "subtopic_id": "governance_and_public_policy_labour_rights",
+      "subtopic": "Labour Rights",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Governance, Public Policy & Welfare Legislation question (Social Legislation / Labour Rights).",
+      "validation_status": "verified"
     },
     {
       "number": 77,
-      "topic": "Economic Reports / Ease of Doing Business",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "Which one of the following is not a sub-index of the World Bank's Ease of Doing Business Index?",
       "options": [
@@ -2357,11 +3587,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The World Bank's Ease of Doing Business Index assessed 10 indicators: Starting a business, Dealing with construction permits, Getting electricity, Registering property, Getting credit, Protecting minority investors, Paying taxes, Trading across borders, Enforcing contracts, and Resolving insolvency. 'Maintenance of law and order' was not a sub-index."
+      "explanation": "The World Bank's Ease of Doing Business Index assessed 10 indicators: Starting a business, Dealing with construction permits, Getting electricity, Registering property, Getting credit, Protecting minority investors, Paying taxes, Trading across borders, Enforcing contracts, and Resolving insolvency. 'Maintenance of law and order' was not a sub-index.",
+      "raw_topic": "Economic Reports / Ease of Doing Business",
+      "id": "upsc_2019_gs1_q77",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_ease_of_doing_business",
+      "subtopic": "Ease of Doing Business",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Economic Reports / Ease of Doing Business).",
+      "validation_status": "verified"
     },
     {
       "number": 78,
-      "topic": "Environmental Law / Waste Management",
+      "topic": "Environmental Laws and Institutions",
       "passage_id": null,
       "question": "In India, 'extended producer responsibility' was introduced as an important feature in which of the following?",
       "options": [
@@ -2383,11 +3629,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Extended Producer Responsibility (EPR) — mandating manufacturers and producers to finance and organize the collection and recycling of end-of-life products — was formally introduced in India under the e-Waste (Management and Handling) Rules, 2011."
+      "explanation": "Extended Producer Responsibility (EPR) — mandating manufacturers and producers to finance and organize the collection and recycling of end-of-life products — was formally introduced in India under the e-Waste (Management and Handling) Rules, 2011.",
+      "raw_topic": "Environmental Law / Waste Management",
+      "id": "upsc_2019_gs1_q78",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "environment_ecology",
+      "subject": "Environment and Ecology",
+      "topic_id": "environmental_laws_and_institutions",
+      "subtopic_id": "environmental_laws_and_institutions_waste_management",
+      "subtopic": "Waste Management",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Environment question on Environmental Laws, Committees, and Statutory Institutions (Environmental Law / Waste Management).",
+      "validation_status": "verified"
     },
     {
       "number": 79,
-      "topic": "Public Distribution / Food Security",
+      "topic": "Agriculture and Food Management",
       "passage_id": null,
       "question": "The economic cost of food grains to the Food Corporation of India is Minimum Support Price and bonus (if any) paid to the farmers plus",
       "options": [
@@ -2409,11 +3671,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The economic cost of foodgrains incurred by the Food Corporation of India (FCI) consists of three components: MSP (including bonus), Procurement Incidentals (mandi charges, statutory levies, bagging, handling), and Distribution Cost (freight, storage, transit losses, interest)."
+      "explanation": "The economic cost of foodgrains incurred by the Food Corporation of India (FCI) consists of three components: MSP (including bonus), Procurement Incidentals (mandi charges, statutory levies, bagging, handling), and Distribution Cost (freight, storage, transit losses, interest).",
+      "raw_topic": "Public Distribution / Food Security",
+      "id": "upsc_2019_gs1_q79",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "agriculture_and_food_management",
+      "subtopic_id": "agriculture_and_food_management_food_security",
+      "subtopic": "Food Security",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy & Agriculture question on cropping systems, MSP, PDS, or agri-inputs (Public Distribution / Food Security).",
+      "validation_status": "verified"
     },
     {
       "number": 80,
-      "topic": "Sociology & Economics / Social Capital",
+      "topic": "Employment and Poverty",
       "passage_id": null,
       "question": "In the context of any country, which one of the following would be considered as part of its social capital?",
       "options": [
@@ -2435,11 +3713,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "In social sciences, 'social capital' refers to the shared networks, norms, civic reciprocity, social cohesion, and mutual trust within a society that facilitate coordinated collective action for mutual benefit."
+      "explanation": "In social sciences, 'social capital' refers to the shared networks, norms, civic reciprocity, social cohesion, and mutual trust within a society that facilitate coordinated collective action for mutual benefit.",
+      "raw_topic": "Sociology & Economics / Social Capital",
+      "id": "upsc_2019_gs1_q80",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "employment_and_poverty",
+      "subtopic_id": "employment_and_poverty_social_capital",
+      "subtopic": "Social Capital",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Employment, Labour & Poverty (Sociology & Economics / Social Capital).",
+      "validation_status": "verified"
     },
     {
       "number": 81,
-      "topic": "Indian Polity / Judiciary",
+      "topic": "Judiciary",
       "passage_id": null,
       "question": "With reference to the Constitution of India, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2465,11 +3759,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Both statements are incorrect: 1. Under Article 226, High Courts possess full jurisdiction to examine and strike down Central Parliamentary legislation if it violates the Constitution. 2. Under the Basic Structure doctrine (Kesavananda Bharati, 1973; Minerva Mills, 1980), the Supreme Court can invalidate any constitutional amendment that violates the basic features of the Constitution."
+      "explanation": "Both statements are incorrect: 1. Under Article 226, High Courts possess full jurisdiction to examine and strike down Central Parliamentary legislation if it violates the Constitution. 2. Under the Basic Structure doctrine (Kesavananda Bharati, 1973; Minerva Mills, 1980), the Supreme Court can invalidate any constitutional amendment that violates the basic features of the Constitution.",
+      "raw_topic": "Indian Polity / Judiciary",
+      "id": "upsc_2019_gs1_q81",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "judiciary",
+      "subtopic_id": "judiciary_judiciary",
+      "subtopic": "Judiciary",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Judiciary, Courts, or Legal System (Indian Polity / Judiciary).",
+      "validation_status": "verified"
     },
     {
       "number": 82,
-      "topic": "Macroeconomics / Purchasing Power Parity",
+      "topic": "Infrastructure",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2495,11 +3805,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is correct: PPP exchange rates equalize the purchasing power of different currencies by comparing the cost of an identical representative basket of consumer goods and services (law of one price). Statement 2 is incorrect because in terms of GDP at PPP, India is the third-largest economy in the world (behind China and the USA), not the sixth-largest."
+      "explanation": "Statement 1 is correct: PPP exchange rates equalize the purchasing power of different currencies by comparing the cost of an identical representative basket of consumer goods and services (law of one price). Statement 2 is incorrect because in terms of GDP at PPP, India is the third-largest economy in the world (behind China and the USA), not the sixth-largest.",
+      "raw_topic": "Macroeconomics / Purchasing Power Parity",
+      "id": "upsc_2019_gs1_q82",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "infrastructure",
+      "subtopic_id": "infrastructure_purchasing_power_parity",
+      "subtopic": "Purchasing Power Parity",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Infrastructure, Energy & Transport (Macroeconomics / Purchasing Power Parity).",
+      "validation_status": "verified"
     },
     {
       "number": 83,
-      "topic": "Agriculture / Crop Acreage Trends",
+      "topic": "Agriculture and Food Management",
       "passage_id": null,
       "question": "With reference to the cultivation of Kharif crops in India in the last five years, consider the following statements:\nWhich of the statements given above are correct?",
       "statements": [
@@ -2527,11 +3853,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statements 1 and 3 are correct: Rice commands the single largest kharif cropped area in India (~44 million hectares) (1); and cotton acreage (~12 million ha) is significantly larger than sugarcane acreage (~5 million ha) (3). Statement 2 is incorrect because oilseeds coverage is much higher than jowar. Statement 4 is incorrect because sugarcane acreage has fluctuated rather than steadily decreased."
+      "explanation": "Statements 1 and 3 are correct: Rice commands the single largest kharif cropped area in India (~44 million hectares) (1); and cotton acreage (~12 million ha) is significantly larger than sugarcane acreage (~5 million ha) (3). Statement 2 is incorrect because oilseeds coverage is much higher than jowar. Statement 4 is incorrect because sugarcane acreage has fluctuated rather than steadily decreased.",
+      "raw_topic": "Agriculture / Crop Acreage Trends",
+      "id": "upsc_2019_gs1_q83",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "agriculture_and_food_management",
+      "subtopic_id": "agriculture_and_food_management_crop_acreage_trends",
+      "subtopic": "Crop Acreage Trends",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy & Agriculture question on cropping systems, MSP, PDS, or agri-inputs (Agriculture / Crop Acreage Trends).",
+      "validation_status": "verified"
     },
     {
       "number": 84,
-      "topic": "Agriculture / Agricultural Imports",
+      "topic": "Agriculture and Food Management",
       "passage_id": null,
       "question": "Among the agricultural commodities imported by India, which one of the following accounts for the highest imports in terms of value in the last five years?",
       "options": [
@@ -2553,11 +3895,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Edible vegetable oils (palm oil, soybean oil, sunflower oil) constitute the single largest agricultural import item of India by value, accounting for over 50% of total agricultural import expenditure."
+      "explanation": "Edible vegetable oils (palm oil, soybean oil, sunflower oil) constitute the single largest agricultural import item of India by value, accounting for over 50% of total agricultural import expenditure.",
+      "raw_topic": "Agriculture / Agricultural Imports",
+      "id": "upsc_2019_gs1_q84",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "agriculture_and_food_management",
+      "subtopic_id": "agriculture_and_food_management_agricultural_imports",
+      "subtopic": "Agricultural Imports",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy & Agriculture question on cropping systems, MSP, PDS, or agri-inputs (Agriculture / Agricultural Imports).",
+      "validation_status": "verified"
     },
     {
       "number": 85,
-      "topic": "Political Theory / Concept of Liberty",
+      "topic": "Preamble and Constitutional Features",
       "passage_id": null,
       "question": "In the context of polity, which one of the following would you accept as the most appropriate definition of liberty?",
       "options": [
@@ -2579,11 +3937,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "While negative liberty is described as the absence of external restraint, in democratic political philosophy (positive liberty), the most comprehensive and appropriate definition of liberty is the provision of enabling conditions and opportunities for an individual to develop their human potential and personality fully."
+      "explanation": "While negative liberty is described as the absence of external restraint, in democratic political philosophy (positive liberty), the most comprehensive and appropriate definition of liberty is the provision of enabling conditions and opportunities for an individual to develop their human potential and personality fully.",
+      "raw_topic": "Political Theory / Concept of Liberty",
+      "id": "upsc_2019_gs1_q85",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "preamble_and_constitutional_features",
+      "subtopic_id": "preamble_and_constitutional_features_concept_of_liberty",
+      "subtopic": "Concept of Liberty",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Polity question on Preamble, Basic Structure, or Constitutional Philosophy (Political Theory / Concept of Liberty).",
+      "validation_status": "verified"
     },
     {
       "number": 86,
-      "topic": "Monetary Economics / Currency Defense",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "Which one of the following is not the most likely measure the Government/RBI takes to stop the slide of Indian rupee?",
       "options": [
@@ -2605,11 +3979,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "An expansionary monetary policy (cutting interest rates and increasing domestic money supply) causes domestic capital outflows, worsens inflation, and accelerates rupee depreciation. To arrest currency slide, central banks follow a contractionary/tight monetary policy (hiking rates) alongside encouraging capital inflows."
+      "explanation": "An expansionary monetary policy (cutting interest rates and increasing domestic money supply) causes domestic capital outflows, worsens inflation, and accelerates rupee depreciation. To arrest currency slide, central banks follow a contractionary/tight monetary policy (hiking rates) alongside encouraging capital inflows.",
+      "raw_topic": "Monetary Economics / Currency Defense",
+      "id": "upsc_2019_gs1_q86",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_currency_defense",
+      "subtopic": "Currency Defense",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Monetary Economics / Currency Defense).",
+      "validation_status": "verified"
     },
     {
       "number": 87,
-      "topic": "FinTech / Data Localization",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "Consider the following statements:\nThe Reserve Bank of India's recent directives relating to 'Storage of Payment System Data', popularly known as data diktat, command the payment system providers that\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2636,11 +4026,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement 1 is correct: The RBI's April 2018 directive mandated that all payment system operators store the complete, end-to-end data of domestic transactions in systems located solely in India. Statements 2 and 3 are incorrect: Payment operators need not be public sector entities (private and foreign fintechs are permitted), and audit reports are submitted to the RBI via empaneled CERT-In auditors, not to the CAG."
+      "explanation": "Statement 1 is correct: The RBI's April 2018 directive mandated that all payment system operators store the complete, end-to-end data of domestic transactions in systems located solely in India. Statements 2 and 3 are incorrect: Payment operators need not be public sector entities (private and foreign fintechs are permitted), and audit reports are submitted to the RBI via empaneled CERT-In auditors, not to the CAG.",
+      "raw_topic": "FinTech / Data Localization",
+      "id": "upsc_2019_gs1_q87",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_data_localization",
+      "subtopic": "Data Localization",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (FinTech / Data Localization).",
+      "validation_status": "verified"
     },
     {
       "number": 88,
-      "topic": "Data Protection / International Law",
+      "topic": "Governance and Public Policy",
       "passage_id": null,
       "question": "Which of the following adopted a law on data protection and privacy for its citizens known as 'General Data Protection Regulation' in April 2016 and started implementation of it from 25th May, 2018?",
       "options": [
@@ -2662,11 +4068,29 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The General Data Protection Regulation (GDPR) is a comprehensive landmark data protection and privacy regulation adopted by the European Union (EU) and applicable from 25 May 2018."
+      "explanation": "The General Data Protection Regulation (GDPR) is a comprehensive landmark data protection and privacy regulation adopted by the European Union (EU) and applicable from 25 May 2018.",
+      "raw_topic": "Data Protection / International Law",
+      "id": "upsc_2019_gs1_q88",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "polity_governance",
+      "subject": "Indian Polity and Governance",
+      "topic_id": "governance_and_public_policy",
+      "subtopic_id": "governance_and_public_policy_international_law",
+      "subtopic": "International Law",
+      "secondary_tags": [
+        "International Relations"
+      ],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Governance, Public Policy & Welfare Legislation question (Data Protection / International Law).",
+      "validation_status": "verified"
     },
     {
       "number": 89,
-      "topic": "International Relations / Nuclear Cooperation",
+      "topic": "National and International Developments",
       "passage_id": null,
       "question": "Recently, India signed a deal known as 'Action Plan for Prioritization and Implementation of Cooperation Areas in the Nuclear Field' with which of the following countries?",
       "options": [
@@ -2688,11 +4112,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "During the 19th India-Russia Annual Bilateral Summit in New Delhi in October 2018, India and Russia signed the 'Action Plan for Prioritization and Implementation of Cooperation Areas in the Nuclear Field' to construct additional reactors at Kudankulam and collaborate on third-country projects."
+      "explanation": "During the 19th India-Russia Annual Bilateral Summit in New Delhi in October 2018, India and Russia signed the 'Action Plan for Prioritization and Implementation of Cooperation Areas in the Nuclear Field' to construct additional reactors at Kudankulam and collaborate on third-country projects.",
+      "raw_topic": "International Relations / Nuclear Cooperation",
+      "id": "upsc_2019_gs1_q89",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "current_affairs_misc",
+      "subject": "Current Affairs and Miscellaneous",
+      "topic_id": "national_and_international_developments",
+      "subtopic_id": "national_and_international_developments_nuclear_cooperation",
+      "subtopic": "Nuclear Cooperation",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Current Affairs & International Relations question (International Relations / Nuclear Cooperation).",
+      "validation_status": "verified"
     },
     {
       "number": 90,
-      "topic": "Macroeconomics / Money Multiplier",
+      "topic": "Banking and Monetary Policy",
       "passage_id": null,
       "question": "The money multiplier in an economy increases with which one of the following?",
       "options": [
@@ -2714,11 +4154,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The money multiplier is given by (1 + c) / (c + r). An increase in the banking habit reduces the public's currency-deposit ratio (c), as people hold less cash and deposit more funds into the commercial banking system, enabling banks to create more credit and raising the money multiplier."
+      "explanation": "The money multiplier is given by (1 + c) / (c + r). An increase in the banking habit reduces the public's currency-deposit ratio (c), as people hold less cash and deposit more funds into the commercial banking system, enabling banks to create more credit and raising the money multiplier.",
+      "raw_topic": "Macroeconomics / Money Multiplier",
+      "id": "upsc_2019_gs1_q90",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "economy",
+      "subject": "Economy",
+      "topic_id": "banking_and_monetary_policy",
+      "subtopic_id": "banking_and_monetary_policy_money_multiplier",
+      "subtopic": "Money Multiplier",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Economy question on Banking, RBI & Monetary Policy (Macroeconomics / Money Multiplier).",
+      "validation_status": "verified"
     },
     {
       "number": 91,
-      "topic": "Emerging Technologies / AR vs VR",
+      "topic": "Information Technology and AI",
       "passage_id": null,
       "question": "In the context of digital technologies for entertainment, consider the following statements:\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2746,11 +4202,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statements 3 and 4 are correct: Augmented Reality (AR) overlays digital sensory information onto the user's real physical surroundings (e.g. via smartphone screen/camera) (3); while Virtual Reality (VR) shuts out the physical world and immerses the user in an artificial digital simulation (4). Statements 1 and 2 are incorrect because their definitions are swapped."
+      "explanation": "Statements 3 and 4 are correct: Augmented Reality (AR) overlays digital sensory information onto the user's real physical surroundings (e.g. via smartphone screen/camera) (3); while Virtual Reality (VR) shuts out the physical world and immerses the user in an artificial digital simulation (4). Statements 1 and 2 are incorrect because their definitions are swapped.",
+      "raw_topic": "Emerging Technologies / AR vs VR",
+      "id": "upsc_2019_gs1_q91",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "information_technology_and_ai",
+      "subtopic_id": "information_technology_and_ai_ar_vs_vr",
+      "subtopic": "AR vs VR",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on IT, AI, Telecom, Blockchain, or Cybersecurity (Emerging Technologies / AR vs VR).",
+      "validation_status": "verified"
     },
     {
       "number": 92,
-      "topic": "Human Evolution / Paleontology",
+      "topic": "Biology and Human Health",
       "passage_id": null,
       "question": "The word 'Denisovan' is sometimes mentioned in media in reference to",
       "options": [
@@ -2772,11 +4244,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Denisovans are an extinct species or subspecies of archaic humans who lived across Asia during the Lower and Middle Paleolithic, identified from fossil remains discovered in Denisova Cave in Siberia."
+      "explanation": "Denisovans are an extinct species or subspecies of archaic humans who lived across Asia during the Lower and Middle Paleolithic, identified from fossil remains discovered in Denisova Cave in Siberia.",
+      "raw_topic": "Human Evolution / Paleontology",
+      "id": "upsc_2019_gs1_q92",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "biology_and_human_health",
+      "subtopic_id": "biology_and_human_health_paleontology",
+      "subtopic": "Paleontology",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Biology, Infectious Diseases, Vaccines & Human Health (Human Evolution / Paleontology).",
+      "validation_status": "verified"
     },
     {
       "number": 93,
-      "topic": "Biotechnology / Recombinant DNA & Chromosomes",
+      "topic": "Biotechnology",
       "passage_id": null,
       "question": "With reference to the recent developments in science, which one of the following statements is not correct?",
       "options": [
@@ -2798,11 +4286,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Statement (a) is incorrect: While synthetic biologists have assembled synthetic genomes within single species (such as Craig Venter's synthetic bacterial and yeast chromosomes), functional synthetic chromosomes cannot be formed by arbitrarily splicing disparate segments of DNA across different species. Statements (b), (c) (via PCR), and (d) (via tissue culture) are all standard biotechnological procedures."
+      "explanation": "Statement (a) is incorrect: While synthetic biologists have assembled synthetic genomes within single species (such as Craig Venter's synthetic bacterial and yeast chromosomes), functional synthetic chromosomes cannot be formed by arbitrarily splicing disparate segments of DNA across different species. Statements (b), (c) (via PCR), and (d) (via tissue culture) are all standard biotechnological procedures.",
+      "raw_topic": "Biotechnology / Recombinant DNA & Chromosomes",
+      "id": "upsc_2019_gs1_q93",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "biotechnology",
+      "subtopic_id": "biotechnology_recombinant_dna_chromosomes",
+      "subtopic": "Recombinant DNA & Chromosomes",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Biotechnology, Genetics & Gene Editing (Biotechnology / Recombinant DNA & Chromosomes).",
+      "validation_status": "verified"
     },
     {
       "number": 94,
-      "topic": "Cybersecurity / Digital Signatures",
+      "topic": "Information Technology and AI",
       "passage_id": null,
       "question": "Consider the following statements:\nA digital signature is\nWhich of the statements given above is/are correct?",
       "statements": [
@@ -2829,11 +4333,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Under the Information Technology Act, 2000: Statement 3 is the precise technical definition of a digital signature — an asymmetric cryptographic method of authenticating electronic records that guarantees non-repudiation and integrity (ensuring contents have not been altered). Statements 1 and 2 describe a 'Digital Signature Certificate' (DSC) or digital identity token, not the digital signature mechanism itself. (UPSC official key: c)."
+      "explanation": "Under the Information Technology Act, 2000: Statement 3 is the precise technical definition of a digital signature — an asymmetric cryptographic method of authenticating electronic records that guarantees non-repudiation and integrity (ensuring contents have not been altered). Statements 1 and 2 describe a 'Digital Signature Certificate' (DSC) or digital identity token, not the digital signature mechanism itself. (UPSC official key: c).",
+      "raw_topic": "Cybersecurity / Digital Signatures",
+      "id": "upsc_2019_gs1_q94",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "information_technology_and_ai",
+      "subtopic_id": "information_technology_and_ai_digital_signatures",
+      "subtopic": "Digital Signatures",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on IT, AI, Telecom, Blockchain, or Cybersecurity (Cybersecurity / Digital Signatures).",
+      "validation_status": "verified"
     },
     {
       "number": 95,
-      "topic": "Emerging Technologies / Wearables",
+      "topic": "Information Technology and AI",
       "passage_id": null,
       "question": "In the context of wearable technology, which of the following tasks is/are accomplished by wearable devices?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2860,11 +4380,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Modern wearable devices accomplish all three tasks: Smartwatches and fitness trackers track GPS real-time location (1), utilize accelerometers and photoplethysmography sensors to monitor sleep stages (2), and digital hearing aids / bone conduction wearables assist individuals with hearing impairments (3)."
+      "explanation": "Modern wearable devices accomplish all three tasks: Smartwatches and fitness trackers track GPS real-time location (1), utilize accelerometers and photoplethysmography sensors to monitor sleep stages (2), and digital hearing aids / bone conduction wearables assist individuals with hearing impairments (3).",
+      "raw_topic": "Emerging Technologies / Wearables",
+      "id": "upsc_2019_gs1_q95",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "information_technology_and_ai",
+      "subtopic_id": "information_technology_and_ai_wearables",
+      "subtopic": "Wearables",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on IT, AI, Telecom, Blockchain, or Cybersecurity (Emerging Technologies / Wearables).",
+      "validation_status": "verified"
     },
     {
       "number": 96,
-      "topic": "Biotechnology / RNA Interference",
+      "topic": "Biotechnology",
       "passage_id": null,
       "question": "'RNA interference (RNAi)' technology has gained popularity in the last few years. Why?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2892,11 +4428,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "RNA interference (RNAi) is a post-transcriptional gene silencing biological mechanism triggered by double-stranded RNA: It is used to design targeted gene silencing therapeutics (1); inhibits oncogenes to develop cancer therapies (2); and engineers pathogen-resistant transgenic crops (e.g. nematode and virus-resistant crops) (4). It is not used for hormone replacement therapy (which supplements deficient hormones directly)."
+      "explanation": "RNA interference (RNAi) is a post-transcriptional gene silencing biological mechanism triggered by double-stranded RNA: It is used to design targeted gene silencing therapeutics (1); inhibits oncogenes to develop cancer therapies (2); and engineers pathogen-resistant transgenic crops (e.g. nematode and virus-resistant crops) (4). It is not used for hormone replacement therapy (which supplements deficient hormones directly).",
+      "raw_topic": "Biotechnology / RNA Interference",
+      "id": "upsc_2019_gs1_q96",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "biotechnology",
+      "subtopic_id": "biotechnology_rna_interference",
+      "subtopic": "RNA Interference",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Biotechnology, Genetics & Gene Editing (Biotechnology / RNA Interference).",
+      "validation_status": "verified"
     },
     {
       "number": 97,
-      "topic": "Astrophysics / Gravitational Waves",
+      "topic": "Space Technology",
       "passage_id": null,
       "question": "Recently, scientists observed the merger of giant 'blackholes' billions of light-years away from the Earth. What is the significance of this observation?",
       "options": [
@@ -2918,11 +4470,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The observation of merging binary black holes by the LIGO and Virgo laser interferometers detected gravitational waves — ripples in the fabric of spacetime predicted by Albert Einstein's General Theory of Relativity."
+      "explanation": "The observation of merging binary black holes by the LIGO and Virgo laser interferometers detected gravitational waves — ripples in the fabric of spacetime predicted by Albert Einstein's General Theory of Relativity.",
+      "raw_topic": "Astrophysics / Gravitational Waves",
+      "id": "upsc_2019_gs1_q97",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "space_technology",
+      "subtopic_id": "space_technology_gravitational_waves",
+      "subtopic": "Gravitational Waves",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Space Technology, Satellites, or Astrophysics (Astrophysics / Gravitational Waves).",
+      "validation_status": "verified"
     },
     {
       "number": 98,
-      "topic": "Microbiology / Antimicrobial Resistance",
+      "topic": "Biology and Human Health",
       "passage_id": null,
       "question": "Which of the following are the reasons for the occurrence of multi-drug resistance in microbial pathogens in India?\nSelect the correct answer using the code given below:",
       "statements": [
@@ -2950,11 +4518,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Antimicrobial resistance (AMR) occurs in microbial pathogens (bacteria), not in the human genome: Major causes are improper/incomplete courses and over-prescription of antibiotics in humans (2), and extensive non-therapeutic prophylactic use of antibiotics as growth promoters in animal husbandry and poultry (3). Human genetic predisposition does not induce resistance in external bacteria."
+      "explanation": "Antimicrobial resistance (AMR) occurs in microbial pathogens (bacteria), not in the human genome: Major causes are improper/incomplete courses and over-prescription of antibiotics in humans (2), and extensive non-therapeutic prophylactic use of antibiotics as growth promoters in animal husbandry and poultry (3). Human genetic predisposition does not induce resistance in external bacteria.",
+      "raw_topic": "Microbiology / Antimicrobial Resistance",
+      "id": "upsc_2019_gs1_q98",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "biology_and_human_health",
+      "subtopic_id": "biology_and_human_health_antimicrobial_resistance",
+      "subtopic": "Antimicrobial Resistance",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Biology, Infectious Diseases, Vaccines & Human Health (Microbiology / Antimicrobial Resistance).",
+      "validation_status": "verified"
     },
     {
       "number": 99,
-      "topic": "Biotechnology / CRISPR-Cas9",
+      "topic": "Biotechnology",
       "passage_id": null,
       "question": "What is Cas9 protein that is often mentioned in news?",
       "options": [
@@ -2976,11 +4560,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Cas9 (CRISPR-associated protein 9) is an RNA-guided endonuclease enzyme that acts as a precise pair of 'molecular scissors', cutting double-stranded DNA at targeted sequences for gene editing."
+      "explanation": "Cas9 (CRISPR-associated protein 9) is an RNA-guided endonuclease enzyme that acts as a precise pair of 'molecular scissors', cutting double-stranded DNA at targeted sequences for gene editing.",
+      "raw_topic": "Biotechnology / CRISPR-Cas9",
+      "id": "upsc_2019_gs1_q99",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "biotechnology",
+      "subtopic_id": "biotechnology_crispr_cas9",
+      "subtopic": "CRISPR-Cas9",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Biotechnology, Genetics & Gene Editing (Biotechnology / CRISPR-Cas9).",
+      "validation_status": "verified"
     },
     {
       "number": 100,
-      "topic": "Health & Diseases / Hepatitis Viruses",
+      "topic": "Biology and Human Health",
       "passage_id": null,
       "question": "Which one of the following statements is not correct?",
       "options": [
@@ -3002,7 +4602,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement (b) is incorrect: Safe and effective preventive vaccines have existed for Hepatitis B since 1982; in contrast, there is currently NO approved vaccine for Hepatitis C. Statements (a), (c), and (d) are all factually correct."
+      "explanation": "Statement (b) is incorrect: Safe and effective preventive vaccines have existed for Hepatitis B since 1982; in contrast, there is currently NO approved vaccine for Hepatitis C. Statements (a), (c), and (d) are all factually correct.",
+      "raw_topic": "Health & Diseases / Hepatitis Viruses",
+      "id": "upsc_2019_gs1_q100",
+      "exam": "UPSC CSE Prelims",
+      "year": 2019,
+      "paper": "General Studies Paper I",
+      "paper_type": "GS1",
+      "subject_id": "science_technology",
+      "subject": "Science and Technology",
+      "topic_id": "biology_and_human_health",
+      "subtopic_id": "biology_and_human_health_hepatitis_viruses",
+      "subtopic": "Hepatitis Viruses",
+      "secondary_tags": [],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "GS1 Science & Tech question on Biology, Infectious Diseases, Vaccines & Human Health (Health & Diseases / Hepatitis Viruses).",
+      "validation_status": "verified"
     }
   ]
 }

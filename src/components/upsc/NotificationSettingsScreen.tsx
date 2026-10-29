@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Platform,
   ScrollView,
   StyleSheet,
   Switch,
@@ -11,8 +10,11 @@ import {
 } from 'react-native';
 import { ChevronLeft } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
+import { PALETTE } from '@/constants/colors';
 import { useStudy } from '@/context/StudyContext';
 import { NotificationPreferences } from '@/types/study';
+import { examFocusService } from '@/services/examFocusService';
+import { Platform } from 'react-native';
 
 interface NotificationSettingsScreenProps {
   isDark: boolean;
@@ -36,6 +38,8 @@ export function NotificationSettingsScreen({
     soundEnabled: true,
     vibrationEnabled: true,
     quietHoursEnabled: false,
+    focusModeDuringTests: true,
+    androidDndRequested: false,
     ...config.notificationPreferences,
   };
 
@@ -54,6 +58,10 @@ export function NotificationSettingsScreen({
     await updateConfig({
       notificationPreferences: prefs,
     });
+    await examFocusService.setEnabledByUser(prefs.focusModeDuringTests ?? true);
+    if (prefs.androidDndRequested !== undefined) {
+      await examFocusService.setSystemDndRequested(prefs.androidDndRequested);
+    }
     setIsSaved(true);
     setTimeout(() => {
       onBack();
@@ -64,16 +72,10 @@ export function NotificationSettingsScreen({
   const cardBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)';
   const dividerColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.05)';
 
-  // Switch styling: pure black on light theme, clean crisp white on dark theme
+  // Switch styling: Clean Primary Blue (#006FFD) with crisp white thumb (no teal or green tint)
   const switchTrackColor = {
-    false: isDark ? '#272F45' : '#E2E8F0',
-    true: isDark ? '#FFFFFF' : '#000000',
-  };
-  const switchThumbColor = (val: boolean) => {
-    if (Platform.OS === 'android') {
-      return val ? (isDark ? '#000000' : '#FFFFFF') : (isDark ? '#94A3B8' : '#FFFFFF');
-    }
-    return val ? (isDark ? '#09090B' : '#FFFFFF') : '#FFFFFF';
+    false: isDark ? '#2D313A' : '#D1D5DB',
+    true: '#006FFD',
   };
 
   return (
@@ -115,109 +117,178 @@ export function NotificationSettingsScreen({
           isDesktop && styles.desktopScrollBody,
         ]}
         showsVerticalScrollIndicator={false}>
-        {/* GROUP 1: Updates & Promotion */}
+        
+        {/* GROUP 1: Study & Target Alerts */}
         <View style={styles.groupContainer}>
           <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>
-            Updates & Announcements
+            Study & Target Alerts
           </Text>
           <Text style={[styles.sectionSubtitle, { color: theme.textMuted }]}>
-            Be the first to know about new syllabus features, exam notifications and editorials.
+            Personalized notifications to keep your preparation streak and study milestones on track.
           </Text>
 
           <View style={[styles.roundedCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <View style={[styles.rowItem, { borderBottomColor: dividerColor, borderBottomWidth: StyleSheet.hairlineWidth }]}>
-              <Text style={[styles.rowLabel, { color: theme.textPrimary }]}>
-                Emails
-              </Text>
-              <Switch
-                value={prefs.currentAffairsDigest}
-                onValueChange={() => handleToggle('currentAffairsDigest')}
-                trackColor={switchTrackColor}
-                thumbColor={switchThumbColor(prefs.currentAffairsDigest)}
-              />
-            </View>
-
-            <View style={[styles.rowItem, { borderBottomColor: dividerColor, borderBottomWidth: StyleSheet.hairlineWidth }]}>
-              <Text style={[styles.rowLabel, { color: theme.textPrimary }]}>
-                Editorial Summaries
-              </Text>
+              <View style={{ flex: 1, paddingRight: 10 }}>
+                <Text style={[styles.rowLabel, { color: theme.textPrimary }]}>
+                  Daily Study Reminders
+                </Text>
+                <Text style={{ fontSize: 11.5, color: theme.textMuted, marginTop: 2 }}>
+                  Scheduled alerts for daily study goals and revision targets
+                </Text>
+              </View>
               <Switch
                 value={prefs.studyReminders}
                 onValueChange={() => handleToggle('studyReminders')}
                 trackColor={switchTrackColor}
-                thumbColor={switchThumbColor(prefs.studyReminders)}
+                thumbColor="#FFFFFF"
+                // @ts-ignore
+                activeThumbColor="#FFFFFF"
+                activeTrackColor="#006FFD"
               />
             </View>
 
-            <View style={styles.rowItem}>
-              <Text style={[styles.rowLabel, { color: theme.textPrimary }]}>
-                PYQ & Mock Tests
-              </Text>
-              <Switch
-                value={prefs.mockTestAnnouncements}
-                onValueChange={() => handleToggle('mockTestAnnouncements')}
-                trackColor={switchTrackColor}
-                thumbColor={switchThumbColor(prefs.mockTestAnnouncements)}
-              />
-            </View>
-          </View>
-        </View>
-
-        {/* GROUP 2: Reminders */}
-        <View style={styles.groupContainer}>
-          <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>
-            Reminders
-          </Text>
-          <Text style={[styles.sectionSubtitle, { color: theme.textMuted }]}>
-            Get daily reminders about your study targets, streak status, revision reviews and tests.
-          </Text>
-
-          <View style={[styles.roundedCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <View style={[styles.rowItem, { borderBottomColor: dividerColor, borderBottomWidth: StyleSheet.hairlineWidth }]}>
-              <Text style={[styles.rowLabel, { color: theme.textPrimary }]}>
-                Daily Study Target
-              </Text>
-              <Switch
-                value={prefs.soundEnabled}
-                onValueChange={() => handleToggle('soundEnabled')}
-                trackColor={switchTrackColor}
-                thumbColor={switchThumbColor(prefs.soundEnabled)}
-              />
-            </View>
-
-            <View style={styles.rowItem}>
-              <Text style={[styles.rowLabel, { color: theme.textPrimary }]}>
-                Streak Protection Alert
-              </Text>
+              <View style={{ flex: 1, paddingRight: 10 }}>
+                <Text style={[styles.rowLabel, { color: theme.textPrimary }]}>
+                  Streak Protection Alerts
+                </Text>
+                <Text style={{ fontSize: 11.5, color: theme.textMuted, marginTop: 2 }}>
+                  Warnings before midnight if your qualifying study streak is at risk
+                </Text>
+              </View>
               <Switch
                 value={prefs.streakAlerts}
                 onValueChange={() => handleToggle('streakAlerts')}
                 trackColor={switchTrackColor}
-                thumbColor={switchThumbColor(prefs.streakAlerts)}
+                thumbColor="#FFFFFF"
+                // @ts-ignore
+                activeThumbColor="#FFFFFF"
+                activeTrackColor="#006FFD"
+              />
+            </View>
+
+            <View style={[styles.rowItem, { borderBottomColor: dividerColor, borderBottomWidth: StyleSheet.hairlineWidth }]}>
+              <View style={{ flex: 1, paddingRight: 10 }}>
+                <Text style={[styles.rowLabel, { color: theme.textPrimary }]}>
+                  Daily Current Affairs Digest
+                </Text>
+                <Text style={{ fontSize: 11.5, color: theme.textMuted, marginTop: 2 }}>
+                  Morning editorial synthesis, key events and daily drill release
+                </Text>
+              </View>
+              <Switch
+                value={prefs.currentAffairsDigest}
+                onValueChange={() => handleToggle('currentAffairsDigest')}
+                trackColor={switchTrackColor}
+                thumbColor="#FFFFFF"
+                // @ts-ignore
+                activeThumbColor="#FFFFFF"
+                activeTrackColor="#006FFD"
+              />
+            </View>
+
+            <View style={styles.rowItem}>
+              <View style={{ flex: 1, paddingRight: 10 }}>
+                <Text style={[styles.rowLabel, { color: theme.textPrimary }]}>
+                  Mock Tests & Leaderboard
+                </Text>
+                <Text style={{ fontSize: 11.5, color: theme.textMuted, marginTop: 2 }}>
+                  Weekly All-India mocks, scorecards and rank updates
+                </Text>
+              </View>
+              <Switch
+                value={prefs.mockTestAnnouncements}
+                onValueChange={() => handleToggle('mockTestAnnouncements')}
+                trackColor={switchTrackColor}
+                thumbColor="#FFFFFF"
+                // @ts-ignore
+                activeThumbColor="#FFFFFF"
+                activeTrackColor="#006FFD"
               />
             </View>
           </View>
         </View>
 
-        {/* GROUP 3: Account Notification */}
+        {/* GROUP 2: Sound & Vibration Settings */}
         <View style={styles.groupContainer}>
           <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>
-            Account Notification
+            Sound & Vibration
           </Text>
           <Text style={[styles.sectionSubtitle, { color: theme.textMuted }]}>
-            For important notifications on preparation backups, cloud sync summaries and test scorecards.
+            Manage sound effects and haptic vibration for notifications and study timers.
+          </Text>
+
+          <View style={[styles.roundedCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
+            <View style={[styles.rowItem, { borderBottomColor: dividerColor, borderBottomWidth: StyleSheet.hairlineWidth }]}>
+              <View style={{ flex: 1, paddingRight: 10 }}>
+                <Text style={[styles.rowLabel, { color: theme.textPrimary }]}>
+                  Notification Sounds
+                </Text>
+                <Text style={{ fontSize: 11.5, color: theme.textMuted, marginTop: 2 }}>
+                  Audible tones for study reminders and break timers
+                </Text>
+              </View>
+              <Switch
+                value={prefs.soundEnabled}
+                onValueChange={() => handleToggle('soundEnabled')}
+                trackColor={switchTrackColor}
+                thumbColor="#FFFFFF"
+                // @ts-ignore
+                activeThumbColor="#FFFFFF"
+                activeTrackColor="#006FFD"
+              />
+            </View>
+
+            <View style={styles.rowItem}>
+              <View style={{ flex: 1, paddingRight: 10 }}>
+                <Text style={[styles.rowLabel, { color: theme.textPrimary }]}>
+                  Haptic Vibration
+                </Text>
+                <Text style={{ fontSize: 11.5, color: theme.textMuted, marginTop: 2 }}>
+                  Tactile feedback on answer selection and time alerts
+                </Text>
+              </View>
+              <Switch
+                value={prefs.vibrationEnabled}
+                onValueChange={() => handleToggle('vibrationEnabled')}
+                trackColor={switchTrackColor}
+                thumbColor="#FFFFFF"
+                // @ts-ignore
+                activeThumbColor="#FFFFFF"
+                activeTrackColor="#006FFD"
+              />
+            </View>
+          </View>
+        </View>
+
+        {/* GROUP 3: Quiet Hours & Delivery Mode */}
+        <View style={styles.groupContainer}>
+          <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>
+            Delivery & Quiet Hours
+          </Text>
+          <Text style={[styles.sectionSubtitle, { color: theme.textMuted }]}>
+            Restrict notifications during night-time to ensure uninterrupted sleep.
           </Text>
 
           <View style={[styles.roundedCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <View style={styles.rowItem}>
-              <Text style={[styles.rowLabel, { color: theme.textPrimary }]}>
-                Push Notification
-              </Text>
+              <View style={{ flex: 1, paddingRight: 10 }}>
+                <Text style={[styles.rowLabel, { color: theme.textPrimary }]}>
+                  Quiet Hours (11:00 PM – 6:00 AM)
+                </Text>
+                <Text style={{ fontSize: 11.5, color: theme.textMuted, marginTop: 2 }}>
+                  Mutes all non-critical notifications during sleep hours
+                </Text>
+              </View>
               <Switch
-                value={!prefs.quietHoursEnabled}
+                value={prefs.quietHoursEnabled}
                 onValueChange={() => handleToggle('quietHoursEnabled')}
                 trackColor={switchTrackColor}
-                thumbColor={switchThumbColor(!prefs.quietHoursEnabled)}
+                thumbColor="#FFFFFF"
+                // @ts-ignore
+                activeThumbColor="#FFFFFF"
+                activeTrackColor="#006FFD"
               />
             </View>
           </View>

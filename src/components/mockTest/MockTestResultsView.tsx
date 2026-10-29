@@ -19,6 +19,7 @@ import {
 } from '@/components/common/LucideIcons';
 import { BW_THEME } from '@/constants/bwTheme';
 import { MockTestQuestionRecord, MockTestRecord, MockTestResponseRecord } from '@/types/mockTest';
+import { EditorialExplanationView } from '@/components/common/EditorialExplanationView';
 
 interface MockTestResultsViewProps {
   test: MockTestRecord;
@@ -348,10 +349,13 @@ export function MockTestResultsView({
                     </Pressable>
 
                     {isExpanded && (
-                      <View style={[styles.explanationContent, { backgroundColor: isDark ? '#121622' : '#FFFFFF', borderColor: theme.divider }]}>
-                        <Text style={[styles.explanationBody, { color: theme.textSecondary }]}>
-                          {snap.explanation_en}
-                        </Text>
+                      <View style={{ marginTop: 10 }}>
+                        <EditorialExplanationView
+                          isDark={isDark}
+                          correctAnswer={snap.correct_answer}
+                          explanationText={snap.explanation_en}
+                          showHeaderBadge={false}
+                        />
                       </View>
                     )}
                   </View>

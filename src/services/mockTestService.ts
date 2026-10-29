@@ -10,33 +10,39 @@ import {
   PaperType,
   QuestionRecord,
 } from '@/types/mockTest';
+import {
+  ALL_QUESTION_RECORDS,
+  CANONICAL_ALL_SUBJECTS,
+  getAvailableYearsForFilter,
+} from '@/data/questionBankRepository';
 
 const FALLBACK_AVAILABLE_FILTERS: AvailableFiltersData = {
-  years: [2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016],
-  subjects: [
-    { name: 'Polity & Governance', count: 180, paperType: 'GS1' },
-    { name: 'Economy & Development', count: 195, paperType: 'GS1' },
-    { name: 'Environment & Ecology', count: 210, paperType: 'GS1' },
-    { name: 'History & Culture', count: 220, paperType: 'GS1' },
-    { name: 'Geography', count: 170, paperType: 'GS1' },
-    { name: 'Science & Technology', count: 160, paperType: 'GS1' },
-    { name: 'Current Affairs & IR', count: 140, paperType: 'GS1' },
-    { name: 'Reading Comprehension', count: 270, paperType: 'CSAT' },
-    { name: 'Quantitative Aptitude', count: 180, paperType: 'CSAT' },
-    { name: 'Reasoning & Analytical Ability', count: 150, paperType: 'CSAT' },
-  ],
-  topicsBySubject: {
-    'Polity & Governance': ['Preamble & Fundamental Rights', 'Parliament & State Legislatures', 'Judiciary', 'Constitutional Bodies'],
-    'Economy & Development': ['Fiscal Policy & Budget', 'Banking & Monetary Policy', 'External Sector', 'Agriculture'],
-    'Environment & Ecology': ['Biodiversity & Conservation', 'Climate Change & Treaties', 'Protected Areas', 'Pollution & Waste'],
-    'History & Culture': ['Ancient History', 'Medieval History', 'Modern Freedom Struggle', 'Art & Architecture'],
-    'Geography': ['Physical Geography', 'Indian Geography', 'Climatology & Oceanography', 'Economic Geography'],
-    'Science & Technology': ['Space Tech', 'Defense & Nuclear', 'Biotech & Health', 'IT & Emerging Tech'],
-    'Reading Comprehension': ['Passage Inference', 'Critical Reasoning', 'Main Idea'],
-    'Quantitative Aptitude': ['Number Systems', 'Percentages & Ratios', 'Permutation & Combination', 'Time & Work'],
-    'Reasoning & Analytical Ability': ['Syllogism', 'Puzzles & Seating Arrangement', 'Data Sufficiency'],
-  },
+  years: getAvailableYearsForFilter('ALL'),
+  subjects: CANONICAL_ALL_SUBJECTS.map((s) => ({
+    name: s.title,
+    count: s.totalQuestions10Yrs,
+    paperType: s.paper === 'GS2' ? 'CSAT' : 'GS1',
+  })),
+  topicsBySubject: Object.fromEntries(
+    CANONICAL_ALL_SUBJECTS.map((s) => [s.title, s.chapters.map((c) => c.title)])
+  ),
 };
+
+function filterLocalQuestionRecords(filters: MockTestFilterConfig): QuestionRecord[] {
+  return ALL_QUESTION_RECORDS.filter((q) => {
+    if (filters.paperType !== 'ALL' && q.paper_type !== filters.paperType) return false;
+    if (filters.selectedYears && filters.selectedYears.length > 0 && !filters.selectedYears.includes(q.year)) {
+      return false;
+    }
+    if (filters.selectedSubjects && filters.selectedSubjects.length > 0 && !filters.selectedSubjects.includes(q.subject)) {
+      return false;
+    }
+    if (filters.selectedTopics && filters.selectedTopics.length > 0 && !filters.selectedTopics.includes(q.topic)) {
+      return false;
+    }
+    return true;
+  });
+}
 
 export class MockTestService {
   /**
@@ -222,15 +228,14 @@ export class MockTestService {
       }
 
       const { count, error } = await query;
-      if (error) {
-        console.warn('Could not fetch question count from Supabase, using fallback:', error?.message || error);
-        return 100;
+      if (error || count === null || count === 0) {
+        return filterLocalQuestionRecords(filters).length;
       }
 
-      return count || 0;
+      return count;
     } catch (err: any) {
-      console.warn('getMatchingQuestionCount exception, using fallback count:', err?.message || err);
-      return 100;
+      console.warn('getMatchingQuestionCount exception, using local repository count:', err?.message || err);
+      return filterLocalQuestionRecords(filters).length;
     }
   }
 

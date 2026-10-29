@@ -13,7 +13,6 @@ import {
   Bell,
   ChevronDown,
   ChevronUp,
-  FileText,
   Moon,
   Plus,
   Sun,
@@ -22,9 +21,10 @@ import { PALETTE, SemanticColors, Typography } from '@/constants/colors';
 import { useStudy } from '@/context/StudyContext';
 import { ExamReadinessCard } from './ExamReadinessCard';
 import { PrelimsCountdownCard } from './PrelimsCountdownCard';
+import { DailyQuestionGoalTracker } from './DailyQuestionGoalTracker';
 import { StreakCalendarModal } from './modals/StreakCalendarModal';
 import { QuickEditProfileModal } from './modals/QuickEditProfileModal';
-import { WeeklyCalendar, Button } from '@/components/ui';
+import { WeeklyCalendar, Button, ProgressBar } from '@/components/ui';
 import { TaskCard, TaskFormModal } from '@/components/tasks';
 
 interface CleanStreakDashboardProps {
@@ -76,9 +76,8 @@ export function CleanStreakDashboard({
   const [selectedDate, setSelectedDate] = useState<string>(todayKey);
   const [isStreakCalendarModalOpen, setIsStreakCalendarModalOpen] = useState(false);
 
-  // Space-saving toggles for home screen tasks & notes
+  // Space-saving toggle for home screen tasks section
   const [isTasksSectionExpanded, setIsTasksSectionExpanded] = useState<boolean>(true);
-  const [showTaskNotes, setShowTaskNotes] = useState<boolean>(true);
 
   // User name for header matching reference "Hello, Roam"
   const userGreetingName = useMemo(() => {
@@ -108,6 +107,14 @@ export function CleanStreakDashboard({
       .sort((a, b) => (a.startTime || '').localeCompare(b.startTime || ''));
   }, [tasks, selectedDate]);
 
+  const completedTasksCount = useMemo(() => {
+    return selectedDateTasks.filter((t) => t.completed).length;
+  }, [selectedDateTasks]);
+
+  const tasksProgressPct = selectedDateTasks.length > 0
+    ? Math.min(100, (completedTasksCount / selectedDateTasks.length) * 100)
+    : 0;
+
   const formatLongDate = (dateStr?: string) => {
     if (!dateStr) return '';
     const [year, month, day] = dateStr.split('-').map(Number);
@@ -133,9 +140,9 @@ export function CleanStreakDashboard({
         {/* Left: Avatar & Greeting ("Hello, Roam" / "Level Up") */}
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => setIsQuickEditOpen(true)}
+          onPress={() => (onOpenProfile ? onOpenProfile() : setIsQuickEditOpen(true))}
           style={styles.headerProfileGroup}
-          accessibilityLabel="Update profile photo and name">
+          accessibilityLabel="Open Profile">
           {config.avatarUri ? (
             <Image
               source={{ uri: config.avatarUri }}
@@ -221,7 +228,15 @@ export function CleanStreakDashboard({
       </View>
 
       {/* ========================================================= */}
-      {/* 2. UPSC PRELIMS COUNTDOWN TIMER BANNER                   */}
+      {/* 2. DAILY QUESTIONS GOAL TRACKER (4-STEP MILESTONES & XP)   */}
+      {/* ========================================================= */}
+      <DailyQuestionGoalTracker
+        isDark={isDark}
+        onOpenPractice={onOpenPrelims}
+      />
+
+      {/* ========================================================= */}
+      {/* 3. UPSC PRELIMS COUNTDOWN TIMER BANNER                   */}
       {/* ========================================================= */}
       <PrelimsCountdownCard isDark={isDark} onOpenPrelims={onOpenPrelims} />
 
@@ -286,41 +301,6 @@ export function CleanStreakDashboard({
           </TouchableOpacity>
 
           <View style={styles.headerControlsInline}>
-            {/* Notes content toggle (toggles task descriptions so it doesn't take all space) */}
-            {selectedDateTasks.length > 0 && isTasksSectionExpanded && (
-              <TouchableOpacity
-                activeOpacity={0.7}
-                onPress={() => setShowTaskNotes((prev) => !prev)}
-                style={[
-                  styles.toggleNotesBtn,
-                  {
-                    backgroundColor: showTaskNotes
-                      ? (isDark ? 'rgba(0, 111, 253, 0.16)' : '#EFF6FF')
-                      : (isDark ? '#26282E' : '#F4F5F8'),
-                    borderColor: showTaskNotes
-                      ? (isDark ? 'rgba(0, 111, 253, 0.4)' : '#BFDBFE')
-                      : (isDark ? '#3D3F47' : '#E2E4EB'),
-                  },
-                ]}
-                accessibilityLabel="Toggle task notes">
-                <FileText
-                  size={11}
-                  color={showTaskNotes ? (isDark ? '#6FBAFF' : '#006FFD') : theme.textSecondary}
-                  strokeWidth={2}
-                />
-                <Text
-                  style={[
-                    styles.toggleNotesText,
-                    {
-                      color: showTaskNotes ? (isDark ? '#6FBAFF' : '#006FFD') : theme.textSecondary,
-                      fontWeight: showTaskNotes ? '700' : '600',
-                    },
-                  ]}>
-                  {showTaskNotes ? 'Notes' : 'Compact'}
-                </Text>
-              </TouchableOpacity>
-            )}
-
             {Boolean(onOpenTasks) && (
               <Button
                 variant="tertiary"
@@ -345,12 +325,28 @@ export function CleanStreakDashboard({
         {isTasksSectionExpanded ? (
           selectedDateTasks.length > 0 ? (
             <View style={styles.tasksListGap}>
+              <View style={styles.taskProgressBarContainer}>
+                <View style={styles.taskProgressBarHeader}>
+                  <Text style={[styles.taskProgressBarLabel, { color: theme.textSecondary }]}>
+                    Daily Completion
+                  </Text>
+                  <Text style={[styles.taskProgressBarValue, { color: tasksProgressPct === 100 ? '#10B981' : theme.textPrimary }]}>
+                    {completedTasksCount} of {selectedDateTasks.length} tasks ({Math.round(tasksProgressPct)}%)
+                  </Text>
+                </View>
+                <ProgressBar
+                  progress={tasksProgressPct}
+                  height={3}
+                  fillColor={tasksProgressPct === 100 ? '#10B981' : PALETTE.highlight.primary}
+                  trackColor={isDark ? 'rgba(255, 255, 255, 0.08)' : '#E8E9F1'}
+                  borderRadius={2}
+                />
+              </View>
               {selectedDateTasks.map((task) => (
                 <TaskCard
                   key={task.id}
                   task={task}
                   isDark={isDark}
-                  showNotes={showTaskNotes}
                   onToggleComplete={(id) => toggleTask(id)}
                   onDelete={(id) => deleteTask(id)}
                 />
@@ -534,16 +530,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 14,
+    gap: 8,
   },
   cleanDetailHeaderLeft: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 7,
+    flexShrink: 1,
   },
   cleanDateTitle: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '700',
     fontFamily: Typography.fontFamily,
+    letterSpacing: -0.2,
   },
   cleanTodayBadge: {
     paddingHorizontal: 7,
@@ -569,27 +568,35 @@ const styles = StyleSheet.create({
   headerControlsInline: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 6,
+    flexShrink: 0,
   },
   tasksListGap: {
     gap: 8,
   },
+  taskProgressBarContainer: {
+    paddingVertical: 4,
+    marginBottom: 6,
+    gap: 4,
+  },
+  taskProgressBarHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  taskProgressBarLabel: {
+    fontSize: 11,
+    fontFamily: Typography.fontFamily,
+    fontWeight: '500',
+  },
+  taskProgressBarValue: {
+    fontSize: 11,
+    fontFamily: Typography.fontFamily,
+    fontWeight: '700',
+  },
   chevronToggleBtn: {
     padding: 2,
     marginLeft: 2,
-  },
-  toggleNotesBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 5,
-    borderRadius: 8,
-    borderWidth: 1,
-  },
-  toggleNotesText: {
-    fontSize: 11,
-    fontFamily: Typography.fontFamily,
   },
   collapsedPromptRow: {
     paddingTop: 8,

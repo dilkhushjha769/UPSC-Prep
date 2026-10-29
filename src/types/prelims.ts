@@ -1,4 +1,6 @@
 export type DifficultyLevel = 'Easy' | 'Medium' | 'Hard';
+export type ConfidenceBand = 'High' | 'Medium' | 'Low';
+export type ValidationStatus = 'verified' | 'verified_cross_tagged' | 'needs_review';
 
 export interface YearTrend {
   year: number;
@@ -8,9 +10,16 @@ export interface YearTrend {
 export interface PYQQuestion {
   id: string;
   year: number;
+  paper?: 'GS1' | 'GS2';
+  questionNumber?: number;
   subjectId: string;
+  subjectName?: string;
   chapterId: string;
   chapterName: string;
+  subtopicId?: string;
+  subtopicName?: string;
+  rawTopic?: string;
+  passageText?: string | null;
   questionText: string;
   options: {
     key: 'A' | 'B' | 'C' | 'D';
@@ -26,6 +35,13 @@ export interface PYQQuestion {
   };
   difficulty: DifficultyLevel;
   tags: string[];
+  secondaryTags?: string[];
+  confidence?: number;
+  confidenceBand?: ConfidenceBand;
+  classificationRationale?: string;
+  validationStatus?: ValidationStatus;
+  validationNotes?: string | null;
+  verificationNote?: string | null;
 }
 
 export interface ChapterShortNoteItem {
@@ -33,17 +49,24 @@ export interface ChapterShortNoteItem {
   points: string[];
 }
 
+export interface SubtopicSummary {
+  id: string;
+  name: string;
+  count: number;
+}
+
 export interface Chapter {
   id: string;
   subjectId: string;
   title: string;
   code: string;
-  weightagePercent: number; // e.g. 18.2%
-  totalQuestions10Yrs: number; // e.g. 34 questions
+  weightagePercent: number;
+  totalQuestions10Yrs: number;
   isHighYield: boolean;
-  yearTrends: YearTrend[]; // 2015 - 2024
+  yearTrends: YearTrend[];
   trendSummary: string;
   recurringTopics: string[];
+  subtopics?: SubtopicSummary[];
   shortNotes?: ChapterShortNoteItem[];
   pyqs: PYQQuestion[];
 }
@@ -52,23 +75,23 @@ export interface Subject {
   id: string;
   title: string;
   shortTitle: string;
-  iconName: string; // Ionicons name
-  accentColor: string; // e.g. '#8C65F7'
-  lightBg: string; // e.g. '#FFEDE0'
-  weightageInGS1: number; // e.g. 15.5%
-  totalQuestions10Yrs: number; // e.g. 152
-  masteredPercent: number; // e.g. 74%
+  iconName: string;
+  accentColor: string;
+  lightBg: string;
+  weightageInGS1: number;
+  totalQuestions10Yrs: number;
+  masteredPercent: number;
   chapters: Chapter[];
   paper?: 'GS1' | 'GS2';
 }
 
 export interface QuizConfig {
   title: string;
-  subjectId?: string; // empty means all subjects
+  subjectId?: string;
   chapterId?: string;
   questionCount: number;
   durationMinutes: number;
-  yearRange: 'all' | 'recent5'; // all (2015-2024) or recent5 (2020-2024)
+  yearRange: 'all' | 'recent5';
   difficulty: 'all' | 'medium-hard';
   negativeMarking: boolean;
 }
@@ -87,7 +110,7 @@ export interface QuizResult {
   correct: number;
   incorrect: number;
   unattempted: number;
-  score: number; // +2 for correct, -0.66 for incorrect
+  score: number;
   maxScore: number;
   accuracy: number;
   timeTakenSeconds: number;

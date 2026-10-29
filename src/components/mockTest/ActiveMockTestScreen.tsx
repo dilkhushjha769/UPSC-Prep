@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import {
+  BackHandler,
   View,
   Text,
   StyleSheet,
@@ -13,6 +14,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Clock } from 'lucide-react-native';
 import {
+  AlertTriangle,
   ArrowLeft,
   ArrowRight,
   Bookmark,
@@ -20,12 +22,16 @@ import {
   RotateCcw,
   BookOpen,
   LayoutGrid,
+  XCircle,
 } from '@/components/common/LucideIcons';
 import { BW_THEME } from '@/constants/bwTheme';
 import { MockTestService } from '@/services/mockTestService';
 import { MockTestQuestionRecord, MockTestRecord, MockTestResponseRecord } from '@/types/mockTest';
 import { MockTestQuestionPalette } from './MockTestQuestionPalette';
 import { MockTestResultsView } from './MockTestResultsView';
+import { ProgressBar } from '@/components/ui';
+import { EditorialExplanationView } from '@/components/common/EditorialExplanationView';
+import { examFocusService } from '@/services/examFocusService';
 
 interface ActiveMockTestScreenProps {
   testId: string;
@@ -57,6 +63,28 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
 
   // Completed results view
   const [isCompleted, setIsCompleted] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
+
+  const handleRequestClose = useCallback(() => {
+    if (isCompleted) {
+      onClose();
+      return;
+    }
+    setShowExitConfirm(true);
+  }, [isCompleted, onClose]);
+
+  useEffect(() => {
+    const onBackPress = () => {
+      if (showExitConfirm) {
+        setShowExitConfirm(false);
+        return true;
+      }
+      handleRequestClose();
+      return true;
+    };
+    const sub = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    return () => sub.remove();
+  }, [showExitConfirm, handleRequestClose]);
 
   // Timer state
   const [secondsRemaining, setSecondsRemaining] = useState<number | null>(null);
@@ -64,6 +92,18 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
 
   // Autosave status indicator
   const [saveStatus, setSaveStatus] = useState<'saved' | 'saving' | 'error'>('saved');
+
+
+  // Exam Focus Mode - Activate during mock test, restore when submitted or completed
+  useEffect(() => {
+    if (!loading && !isCompleted && test) {
+      const sessionId = `mock-test-${test.id}`;
+      examFocusService.activateFocusMode(sessionId, test.test_title);
+      return () => {
+        examFocusService.deactivateFocusMode(sessionId);
+      };
+    }
+  }, [loading, isCompleted, test]);
 
   // Initialize start time on mount
   useEffect(() => {
@@ -328,7 +368,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
       {/* 1. Header Bar */}
       <View style={[styles.headerBar, { backgroundColor: theme.cardBg, borderBottomColor: theme.cardBorder }]}>
         <View style={styles.headerLeft}>
-          <Pressable onPress={onClose} style={[styles.exitBtn, { backgroundColor: theme.activeBg }]}>
+          <Pressable onPress={handleRequestClose} style={[styles.exitBtn, { backgroundColor: theme.activeBg }]}>
             <ArrowLeft size={16} color={theme.textPrimary} />
           </Pressable>
           <View>
@@ -395,6 +435,34 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
         </View>
       </View>
 
+      {/* Progress Bar: Answered Questions vs Total */}
+      {questions.length > 0 && (
+        <View
+          style={[
+            styles.testProgressBanner,
+            {
+              backgroundColor: isDark ? '#10141E' : '#F8FAFC',
+              borderBottomColor: theme.cardBorder,
+            },
+          ]}>
+          <View style={styles.testProgressInfoRow}>
+            <Text style={[styles.testProgressLabel, { color: theme.textSecondary }]}>
+              Progress: <Text style={{ color: theme.textPrimary, fontWeight: '700' }}>{submitStats.answered}</Text> of {questions.length} answered
+            </Text>
+            <Text style={[styles.testProgressValue, { color: '#006FFD', fontWeight: '700' }]}>
+              {Math.min(100, Math.round((submitStats.answered / questions.length) * 100))}%
+            </Text>
+          </View>
+          <ProgressBar
+            progress={Math.min(100, (submitStats.answered / questions.length) * 100)}
+            height={3}
+            fillColor="#006FFD"
+            trackColor={isDark ? 'rgba(255, 255, 255, 0.08)' : '#E2E8F0'}
+            borderRadius={2}
+          />
+        </View>
+      )}
+
       {/* 2. Main Workspace Layout */}
       <View style={styles.mainWorkspace}>
         {/* Left / Center Question Scroll Area */}
@@ -453,6 +521,36 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
             <View style={styles.optionsContainer}>
               {snap.options.map((opt) => {
                 const isSelected = currentResponse?.selected_answer?.toUpperCase() === opt.id.toUpperCase();
+                const isCorrect = snap.correct_answer?.toUpperCase() === opt.id.toUpperCase();
+                const showFeedback = isPracticeMode && Boolean(currentResponse?.selected_answer);
+
+                let rowBg = isDark ? '#0A0D14' : '#FFFFFF';
+                let rowBorder = theme.divider;
+                let circleBg = isDark ? '#1C2438' : '#F1F5F9';
+                let circleTextColor = theme.textPrimary;
+                let showCorrectBadge = false;
+                let showIncorrectBadge = false;
+
+                if (showFeedback) {
+                  if (isCorrect) {
+                    rowBg = isDark ? 'rgba(16, 185, 129, 0.08)' : '#F0FDF4';
+                    rowBorder = isDark ? 'rgba(16, 185, 129, 0.45)' : '#86EFAC';
+                    circleBg = '#10B981';
+                    circleTextColor = '#FFFFFF';
+                    showCorrectBadge = true;
+                  } else if (isSelected && !isCorrect) {
+                    rowBg = isDark ? 'rgba(239, 68, 68, 0.08)' : '#FEF2F2';
+                    rowBorder = isDark ? 'rgba(239, 68, 68, 0.45)' : '#FECACA';
+                    circleBg = '#EF4444';
+                    circleTextColor = '#FFFFFF';
+                    showIncorrectBadge = true;
+                  }
+                } else if (isSelected) {
+                  rowBg = isDark ? '#111E38' : '#EEF4FF';
+                  rowBorder = '#006FFD';
+                  circleBg = '#006FFD';
+                  circleTextColor = '#FFFFFF';
+                }
 
                 return (
                   <Pressable
@@ -461,30 +559,44 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
                     style={[
                       styles.optionCard,
                       {
-                        backgroundColor: isSelected ? (isDark ? '#1E293B' : '#FFF5EE') : isDark ? '#0A0D14' : '#FFFFFF',
-                        borderColor: isSelected ? theme.buttonPrimaryBg : theme.divider,
-                        borderWidth: isSelected ? 2 : 1,
+                        backgroundColor: rowBg,
+                        borderColor: rowBorder,
+                        borderWidth: isSelected || (showFeedback && isCorrect) ? 1.5 : 1,
                       },
                     ]}>
                     <View
                       style={[
                         styles.optionCircle,
                         {
-                          backgroundColor: isSelected ? theme.buttonPrimaryBg : isDark ? '#1C2438' : '#F1F5F9',
-                          borderColor: isSelected ? theme.buttonPrimaryBg : theme.divider,
+                          backgroundColor: circleBg,
+                          borderColor: circleBg,
                         },
                       ]}>
                       <Text
                         style={[
                           styles.optionCircleText,
-                          { color: isSelected ? theme.buttonPrimaryText : theme.textPrimary },
+                          { color: circleTextColor },
                         ]}>
                         {opt.id}
                       </Text>
                     </View>
-                    <Text style={[styles.optionBodyText, { color: theme.textPrimary, fontWeight: isSelected ? '600' : '400' }]}>
-                      {opt.text}
-                    </Text>
+                    <View style={{ flex: 1, gap: 3 }}>
+                      <Text style={[styles.optionBodyText, { color: theme.textPrimary, fontWeight: isSelected ? '600' : '400' }]}>
+                        {opt.text}
+                      </Text>
+                      {showCorrectBadge && (
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 2 }}>
+                          <CheckCircle2 size={13} color="#10B981" strokeWidth={2.4} />
+                          <Text style={{ fontSize: 12, fontWeight: '700', color: '#10B981' }}>Correct answer</Text>
+                        </View>
+                      )}
+                      {showIncorrectBadge && (
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 2 }}>
+                          <XCircle size={13} color="#EF4444" strokeWidth={2.4} />
+                          <Text style={{ fontSize: 12, fontWeight: '700', color: '#EF4444' }}>Your answer</Text>
+                        </View>
+                      )}
+                    </View>
                   </Pressable>
                 );
               })}
@@ -492,17 +604,11 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
 
             {/* Practice Mode immediate solution review */}
             {isPracticeMode && currentResponse?.selected_answer && snap.explanation_en && (
-              <View style={[styles.practiceExplanationBox, { backgroundColor: isDark ? '#1C263D' : '#FFF5EE', borderColor: theme.divider }]}>
-                <View style={styles.practiceHeader}>
-                  <CheckCircle2 size={16} color="#10B981" />
-                  <Text style={[styles.practiceSolutionTitle, { color: theme.textPrimary }]}>
-                    Correct Answer: Option {snap.correct_answer}
-                  </Text>
-                </View>
-                <Text style={[styles.practiceExplanationBody, { color: theme.textSecondary }]}>
-                  {snap.explanation_en}
-                </Text>
-              </View>
+              <EditorialExplanationView
+                isDark={isDark}
+                correctAnswer={snap.correct_answer}
+                explanationText={language === 'hi' && snap.explanation_hi ? snap.explanation_hi : snap.explanation_en}
+              />
             )}
           </View>
         </ScrollView>
@@ -595,6 +701,38 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
               onClose={() => setPaletteVisible(false)}
               isDark={isDark}
             />
+          </View>
+        </View>
+      </Modal>
+
+      {/* Leave Test Confirmation Dialog */}
+      <Modal visible={showExitConfirm} animationType="fade" transparent onRequestClose={() => setShowExitConfirm(false)}>
+        <View style={styles.confirmModalOverlay}>
+          <View style={[styles.confirmModalCard, { backgroundColor: theme.cardBg, borderColor: theme.cardBorder }]}>
+            <View style={{ width: 48, height: 48, borderRadius: 24, backgroundColor: 'rgba(239, 68, 68, 0.12)', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
+              <AlertTriangle size={24} color="#EF4444" strokeWidth={2.2} />
+            </View>
+            <Text style={[styles.confirmModalTitle, { color: theme.textPrimary }]}>Leave Test Session?</Text>
+            <Text style={[styles.confirmModalDesc, { color: theme.textSecondary }]}>
+              Are you sure you want to exit? Your answered responses will not be finalized or scored until you submit.
+            </Text>
+
+            <View style={styles.confirmModalActions}>
+              <Pressable
+                onPress={() => setShowExitConfirm(false)}
+                style={[styles.cancelBtn, { borderColor: theme.divider }]}>
+                <Text style={[styles.cancelBtnText, { color: theme.textPrimary }]}>Resume Test</Text>
+              </Pressable>
+
+              <Pressable
+                onPress={() => {
+                  setShowExitConfirm(false);
+                  onClose();
+                }}
+                style={[styles.confirmSubmitBtn, { backgroundColor: '#EF4444' }]}>
+                <Text style={styles.confirmSubmitBtnText}>Quit & Exit</Text>
+              </Pressable>
+            </View>
           </View>
         </View>
       </Modal>
@@ -739,6 +877,23 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 13,
     fontWeight: '700',
+  },
+  testProgressBanner: {
+    paddingHorizontal: 16,
+    paddingVertical: 7,
+    borderBottomWidth: 1,
+    gap: 4,
+  },
+  testProgressInfoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  testProgressLabel: {
+    fontSize: 11.5,
+  },
+  testProgressValue: {
+    fontSize: 11.5,
   },
   mainWorkspace: {
     flex: 1,

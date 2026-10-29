@@ -4,7 +4,6 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Switch,
   Text,
   TouchableOpacity,
   useWindowDimensions,
@@ -25,6 +24,7 @@ import {
   Sun,
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
+import { TOGGLE_ACTIVE_COLOR } from '@/constants/colors';
 import { useStudy } from '@/context/StudyContext';
 
 interface SettingsScreenProps {
@@ -34,7 +34,49 @@ interface SettingsScreenProps {
   onOpenPrivacy: () => void;
   onOpenTerms: () => void;
   onOpenNotificationSettings?: () => void;
+  onOpenFocusSettings?: () => void;
   onNavigateToNotifications?: () => void;
+}
+
+function PrimaryToggleSwitch({
+  value,
+  onValueChange,
+  isDark,
+}: {
+  value: boolean;
+  onValueChange: (val: boolean) => void;
+  isDark: boolean;
+}) {
+  return (
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => onValueChange(!value)}
+      accessibilityRole="switch"
+      accessibilityState={{ checked: value }}
+      style={{
+        width: 44,
+        height: 24,
+        borderRadius: 12,
+        backgroundColor: value ? TOGGLE_ACTIVE_COLOR : isDark ? '#2D3039' : '#D1D5DB',
+        justifyContent: 'center',
+        paddingHorizontal: 2,
+      }}>
+      <View
+        style={{
+          width: 20,
+          height: 20,
+          borderRadius: 10,
+          backgroundColor: '#FFFFFF',
+          transform: [{ translateX: value ? 20 : 0 }],
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 1 },
+          shadowOpacity: 0.2,
+          shadowRadius: 2,
+          elevation: 2,
+        }}
+      />
+    </TouchableOpacity>
+  );
 }
 
 export function SettingsScreen({
@@ -44,6 +86,7 @@ export function SettingsScreen({
   onOpenPrivacy,
   onOpenTerms,
   onOpenNotificationSettings,
+  onOpenFocusSettings,
   onNavigateToNotifications,
 }: SettingsScreenProps) {
   const { resetToDefaults } = useStudy();
@@ -132,11 +175,10 @@ export function SettingsScreen({
                 Dark Mode
               </Text>
             </View>
-            <Switch
+            <PrimaryToggleSwitch
               value={isDark}
               onValueChange={() => onToggleTheme?.()}
-              trackColor={{ false: isDark ? '#272F45' : '#E2E8F0', true: isDark ? '#FFFFFF' : '#000000' }}
-              thumbColor={Platform.OS === 'android' ? (isDark ? '#000000' : '#FFFFFF') : '#FFFFFF'}
+              isDark={isDark}
             />
           </View>
         </View>
@@ -165,6 +207,24 @@ export function SettingsScreen({
             </View>
           </TouchableOpacity>
 
+
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={onOpenFocusSettings || onOpenNotificationSettings}
+            style={[styles.listRow, dividerStyle]}>
+            <View style={styles.rowLeftGroup}>
+              <Shield size={16} color="#10B981" strokeWidth={2} />
+              <Text style={[styles.rowLabel, { color: theme.textPrimary }]}>
+                Exam Focus Mode
+              </Text>
+            </View>
+            <View style={styles.rowRightGroup}>
+              <Text style={[styles.rowValue, { color: '#10B981' }]}>
+                Apps & sound
+              </Text>
+              <ChevronRight size={15} color={theme.textMuted} />
+            </View>
+          </TouchableOpacity>
           <View style={[styles.listRow, dividerStyle]}>
             <View style={styles.rowLeftGroup}>
               <Database size={16} color={theme.textSecondary} strokeWidth={2} />
@@ -172,11 +232,10 @@ export function SettingsScreen({
                 Cloud & Offline Sync
               </Text>
             </View>
-            <Switch
+            <PrimaryToggleSwitch
               value={offlineSync}
               onValueChange={setOfflineSync}
-              trackColor={{ false: isDark ? '#272F45' : '#E2E8F0', true: isDark ? '#FFFFFF' : '#000000' }}
-              thumbColor={Platform.OS === 'android' ? (isDark ? '#000000' : '#FFFFFF') : '#FFFFFF'}
+              isDark={isDark}
             />
           </View>
         </View>

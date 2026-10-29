@@ -10,11 +10,13 @@ import {
 import {
   Award,
   FileQuestion,
+  Lightbulb,
   X,
 } from 'lucide-react-native';
 import { useStudy } from '@/context/StudyContext';
 import { UPSC_THEME } from '@/constants/themeColors';
 import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
+import { QuestionHistoryService } from '@/services/questionHistoryService';
 
 interface Question {
   id: number;
@@ -133,6 +135,42 @@ export function MCQPracticeModal({ isDark }: MCQPracticeModalProps) {
   const handleSubmit = async () => {
     setShowResults(true);
     await recordMCQSession(UPSC_QUESTIONS.length, correctCount);
+
+    // Record individual question attempts to QuestionHistoryService
+    try {
+      const optionLetters = ['A', 'B', 'C', 'D'];
+      const todayDateStr = new Date().toISOString().slice(0, 10);
+      for (const q of UPSC_QUESTIONS) {
+        const choiceIdx = selectedAnswers[q.id];
+        const hasAns = choiceIdx !== undefined;
+        const isCorr = hasAns && choiceIdx === q.correctIndex;
+        const optLetter = hasAns ? optionLetters[choiceIdx] || 'A' : null;
+        const correctLetter = optionLetters[q.correctIndex] || 'A';
+
+        await QuestionHistoryService.recordPracticeAttempt({
+          questionId: `mcq_drill_${q.id}`,
+          source: 'practice',
+          sourceTitle: 'UPSC Prelims Daily MCQ Drill',
+          questionNumber: q.id,
+          questionText: q.question,
+          options: q.options.map((optText, oIdx) => ({
+            id: optionLetters[oIdx] || String(oIdx + 1),
+            text: optText,
+          })),
+          selectedAnswer: optLetter,
+          correctAnswer: correctLetter,
+          isCorrect: isCorr,
+          status: !hasAns ? 'unanswered' : isCorr ? 'correct' : 'incorrect',
+          timeSpentSeconds: 35,
+          subject: q.subject,
+          topic: 'Daily Prelims Drill',
+          explanation: q.explanation,
+          dateStr: todayDateStr,
+        });
+      }
+    } catch (e) {
+      console.warn('Could not record question history from practice modal:', e);
+    }
   };
 
   const handleReset = () => {
@@ -296,21 +334,24 @@ export function MCQPracticeModal({ isDark }: MCQPracticeModalProps) {
                         style={[
                           styles.explanationBox,
                           {
-                            backgroundColor: isDark ? '#242038' : '#F4F0FD',
-                            borderColor: colors.cardBorder,
+                            backgroundColor: isDark ? 'rgba(16, 185, 129, 0.08)' : '#F0FDF4',
+                            borderColor: isDark ? 'rgba(16, 185, 129, 0.25)' : '#BBF7D0',
                           },
                         ]}>
-                        <Text
-                          style={[
-                            styles.explanationTitle,
-                            { color: colors.primary },
-                          ]}>
-                          UPSC Key & Explanation:
-                        </Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                          <Lightbulb size={15} color="#10B981" />
+                          <Text
+                            style={[
+                              styles.explanationTitle,
+                              { color: '#10B981', fontWeight: '700' },
+                            ]}>
+                            Official UPSC Key & Explanation:
+                          </Text>
+                        </View>
                         <Text
                           style={[
                             styles.explanationText,
-                            { color: colors.textSecondary },
+                            { color: colors.textPrimary, lineHeight: 21 },
                           ]}>
                           {q.explanation}
                         </Text>

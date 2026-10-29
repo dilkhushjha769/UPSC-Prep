@@ -1,7 +1,7 @@
 {
   "meta": {
-    "exam": "UPSC Civil Services (Preliminary) Examination 2020",
-    "paper": "General Studies Paper-II (CSAT)",
+    "exam": "UPSC CSE Prelims",
+    "paper": "General Studies Paper II (CSAT)",
     "test_booklet_series": "A",
     "booklet_code": "HGY-D-LKUV",
     "language": "en",
@@ -12,7 +12,9 @@
     "negative_marks_per_wrong": 0.8333,
     "negative_marking_rule": "One-third of the marks assigned to the question is deducted for each wrong answer; no penalty for unattempted questions.",
     "qualifying_marks": 66,
-    "answer_key_source": "Official UPSC Answer Key & standard analytical solutions."
+    "answer_key_source": "Official UPSC Answer Key & standard analytical solutions.",
+    "year": 2020,
+    "paper_type": "CSAT"
   },
   "passages": [
     {
@@ -206,7 +208,23 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "The author concludes that India needs 24 million jobs, and while e-commerce can fill at best half, 'only those sectors that drive domestic demand such as health and education can comfortably fill the other half'. Health and education constitute the social sector, implying that increased public spending in these sectors is imperative for large-scale job creation."
+      "explanation": "The author concludes that India needs 24 million jobs, and while e-commerce can fill at best half, 'only those sectors that drive domestic demand such as health and education can comfortably fill the other half'. Health and education constitute the social sector, implying that increased public spending in these sectors is imperative for large-scale job creation.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q1",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_implications_conclusions",
+      "subtopic": "Practical Implications, Conclusions & Author View",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 2,
@@ -237,7 +255,23 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Assumption 1 is valid: the passage states the state must actively guarantee security against private obstruction, requiring regulatory institutional mechanisms. Assumption 2 is valid: the text explicitly states the state must 'actively ensure that private parties are not able to block' substantive rights. Assumption 3 is an extreme, pessimistic claim not supported by the passage."
+      "explanation": "Assumption 1 is valid: the passage states the state must actively guarantee security against private obstruction, requiring regulatory institutional mechanisms. Assumption 2 is valid: the text explicitly states the state must 'actively ensure that private parties are not able to block' substantive rights. Assumption 3 is an extreme, pessimistic claim not supported by the passage.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q2",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 3,
@@ -263,7 +297,23 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The author points out that water is treated merely as a commodity and engineered for supply augmentation, ignoring that it is an integral component of natural ecosystems, logically inferring that wetlands must be reinforced and protected as ecological systems rather than just open extractive taps."
+      "explanation": "The author points out that water is treated merely as a commodity and engineered for supply augmentation, ignoring that it is an integral component of natural ecosystems, logically inferring that wetlands must be reinforced and protected as ecological systems rather than just open extractive taps.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q3",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_logical_inference",
+      "subtopic": "Logical & Rational Inference / Corollary",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 4,
@@ -289,7 +339,23 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The author begins by emphasizing that 'asset allocation is the most important investment decision we will ever make' and observes that while no asset is risk-free, all extreme risks will not manifest simultaneously. The direct recommendation is proper asset diversification (distributing wealth across diverse asset classes) to mitigate overall portfolio risk."
+      "explanation": "The author begins by emphasizing that 'asset allocation is the most important investment decision we will ever make' and observes that while no asset is risk-free, all extreme risks will not manifest simultaneously. The direct recommendation is proper asset diversification (distributing wealth across diverse asset classes) to mitigate overall portfolio risk.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q4",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_implications_conclusions",
+      "subtopic": "Practical Implications, Conclusions & Author View",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 5,
@@ -321,7 +387,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Assumption 1 is valid: multi-trait GM crops will be the future norm, showing biotechnology regulation must continuously evolve. Assumption 3 is valid: the text explicitly demands 'taking into account various aspects, including socio-economic impacts'. Assumptions 2 and 4 are unsupported extrapolations (public participation and political executive involvement are not discussed)."
+      "explanation": "Assumption 1 is valid: multi-trait GM crops will be the future norm, showing biotechnology regulation must continuously evolve. Assumption 3 is valid: the text explicitly demands 'taking into account various aspects, including socio-economic impacts'. Assumptions 2 and 4 are unsupported extrapolations (public participation and political executive involvement are not discussed).",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q5",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 6,
@@ -347,11 +429,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The passage argues that biotechnology's role and regulation 'cannot be understood solely in the context of the current generation of GM crops' and highlights its vital future potential for multi-trait engineering and climate change adaptation."
+      "explanation": "The passage argues that biotechnology's role and regulation 'cannot be understood solely in the context of the current generation of GM crops' and highlights its vital future potential for multi-trait engineering and climate change adaptation.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q6",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_crux_central_idea",
+      "subtopic": "Crux, Central Idea & Critical Message",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 7,
-      "topic": "Number System / Number of Zeroes",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "How many zeroes are there at the end of the following product?\n1 × 5 × 10 × 15 × 20 × 25 × 30 × 35 × 40 × 45 × 50 × 55 × 60",
       "options": [
@@ -373,11 +471,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The number of trailing zeroes is determined by min(power of 2, power of 5). Since 5 occurs in every single term, powers of 5 far exceed powers of 2. We only need to count the exponent of 2 in the product:\n- 10 = 2¹ × 5 -> one 2\n- 20 = 2² × 5 -> two 2s\n- 30 = 2¹ × 15 -> one 2\n- 40 = 2³ × 5 -> three 2s\n- 50 = 2¹ × 25 -> one 2\n- 60 = 2² × 15 -> two 2s\nTotal powers of 2 = 1 + 2 + 1 + 3 + 1 + 2 = 10.\nTherefore, there are exactly 10 zeroes at the end of the product."
+      "explanation": "The number of trailing zeroes is determined by min(power of 2, power of 5). Since 5 occurs in every single term, powers of 5 far exceed powers of 2. We only need to count the exponent of 2 in the product:\n- 10 = 2¹ × 5 -> one 2\n- 20 = 2² × 5 -> two 2s\n- 30 = 2¹ × 15 -> one 2\n- 40 = 2³ × 5 -> three 2s\n- 50 = 2¹ × 25 -> one 2\n- 60 = 2² × 15 -> two 2s\nTotal powers of 2 = 1 + 2 + 1 + 3 + 1 + 2 = 10.\nTherefore, there are exactly 10 zeroes at the end of the product.",
+      "raw_topic": "Number System / Number of Zeroes",
+      "id": "upsc_2020_csat_q7",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_number_of_zeroes",
+      "subtopic": "Number of Zeroes",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Number System / Number of Zeroes).",
+      "validation_status": "verified"
     },
     {
       "number": 8,
-      "topic": "Number System / Divisibility",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "Let XYZ be a three-digit number, where (X + Y + Z) is not a multiple of 3. Then (XYZ + YZX + ZXY) is not divisible by",
       "options": [
@@ -399,11 +513,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "In place values:\nXYZ = 100X + 10Y + Z\nYZX = 100Y + 10Z + X\nZXY = 100Z + 10X + Y\nSum = 111X + 111Y + 111Z = 111(X + Y + Z).\nFactoring 111 gives 3 × 37:\nSum = 3 × 37 × (X + Y + Z).\nThus, the sum is always divisible by 3, by 37, and by (X + Y + Z). Since (X + Y + Z) is explicitly NOT a multiple of 3, the sum has only a single factor of 3 and therefore CANNOT be divisible by 9."
+      "explanation": "In place values:\nXYZ = 100X + 10Y + Z\nYZX = 100Y + 10Z + X\nZXY = 100Z + 10X + Y\nSum = 111X + 111Y + 111Z = 111(X + Y + Z).\nFactoring 111 gives 3 × 37:\nSum = 3 × 37 × (X + Y + Z).\nThus, the sum is always divisible by 3, by 37, and by (X + Y + Z). Since (X + Y + Z) is explicitly NOT a multiple of 3, the sum has only a single factor of 3 and therefore CANNOT be divisible by 9.",
+      "raw_topic": "Number System / Divisibility",
+      "id": "upsc_2020_csat_q8",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_divisibility",
+      "subtopic": "Divisibility",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Number System / Divisibility).",
+      "validation_status": "verified"
     },
     {
       "number": 9,
-      "topic": "Algebra / Basic Equations",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "Let p, q, r and s be natural numbers such that\np − 2016 = q + 2017 = r − 2018 = s + 2019\nWhich one of the following is the largest natural number?",
       "options": [
@@ -425,11 +555,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Let the common constant value be k.\nThen:\np = k + 2016\nq = k − 2017\nr = k + 2018\ns = k − 2019\nComparing these values for any positive k:\nr = k + 2018 is clearly the largest among p, q, r, and s."
+      "explanation": "Let the common constant value be k.\nThen:\np = k + 2016\nq = k − 2017\nr = k + 2018\ns = k − 2019\nComparing these values for any positive k:\nr = k + 2018 is clearly the largest among p, q, r, and s.",
+      "raw_topic": "Algebra / Basic Equations",
+      "id": "upsc_2020_csat_q9",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_basic_equations",
+      "subtopic": "Basic Equations",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (Algebra / Basic Equations).",
+      "validation_status": "verified"
     },
     {
       "number": 10,
-      "topic": "Number System / Prime Numbers",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "How many five-digit prime numbers can be obtained by using all the digits 1, 2, 3, 4 and 5 without repetition of digits?",
       "options": [
@@ -451,11 +597,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Any five-digit number formed by using all the digits 1, 2, 3, 4, 5 without repetition has the sum of its digits equal to:\n1 + 2 + 3 + 4 + 5 = 15.\nSince 15 is divisible by 3, by the divisibility rule of 3, every such number is divisible by 3 and strictly greater than 3. Thus, every such five-digit number is composite, and zero prime numbers can be obtained."
+      "explanation": "Any five-digit number formed by using all the digits 1, 2, 3, 4, 5 without repetition has the sum of its digits equal to:\n1 + 2 + 3 + 4 + 5 = 15.\nSince 15 is divisible by 3, by the divisibility rule of 3, every such number is divisible by 3 and strictly greater than 3. Thus, every such five-digit number is composite, and zero prime numbers can be obtained.",
+      "raw_topic": "Number System / Prime Numbers",
+      "id": "upsc_2020_csat_q10",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_prime_numbers",
+      "subtopic": "Prime Numbers",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Number System / Prime Numbers).",
+      "validation_status": "verified"
     },
     {
       "number": 11,
-      "topic": "Cryptarithmetic / Puzzles",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "In the sum\n⊗ + 1⊗ + 5⊗ + ⊗⊗ + ⊗1 = 1⊗⊗\nfor which digit does the symbol ⊗ stand?",
       "options": [
@@ -477,11 +639,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Let x denote the single digit represented by ⊗.\nIn place values:\n- ⊗ = x\n- 1⊗ = 10 + x\n- 5⊗ = 50 + x\n- ⊗⊗ = 10x + x = 11x\n- ⊗1 = 10x + 1\n- 1⊗⊗ = 100 + 10x + x = 100 + 11x\nSum LHS = x + (10 + x) + (50 + x) + 11x + (10x + 1) = 61 + 24x.\nRHS = 100 + 11x.\nEquating LHS and RHS: 61 + 24x = 100 + 11x => 13x = 39 => x = 3."
+      "explanation": "Let x denote the single digit represented by ⊗.\nIn place values:\n- ⊗ = x\n- 1⊗ = 10 + x\n- 5⊗ = 50 + x\n- ⊗⊗ = 10x + x = 11x\n- ⊗1 = 10x + 1\n- 1⊗⊗ = 100 + 10x + x = 100 + 11x\nSum LHS = x + (10 + x) + (50 + x) + 11x + (10x + 1) = 61 + 24x.\nRHS = 100 + 11x.\nEquating LHS and RHS: 61 + 24x = 100 + 11x => 13x = 39 => x = 3.",
+      "raw_topic": "Cryptarithmetic / Puzzles",
+      "id": "upsc_2020_csat_q11",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_puzzles",
+      "subtopic": "Puzzles",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Cryptarithmetic / Puzzles).",
+      "validation_status": "verified"
     },
     {
       "number": 12,
-      "topic": "Number System / GCD",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "If you have two straight sticks of length 7.5 feet and 3.25 feet, what is the minimum length can you measure?",
       "options": [
@@ -503,11 +681,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "By Bézout's Identity, using two lengths a and b additively and subtractively, the minimum positive length that can be measured is their Greatest Common Divisor, gcd(a, b).\nConvert to inches or quarter-feet:\n7.5 feet = 750/100 = 30/4 feet = 30 × 0.25 feet.\n3.25 feet = 325/100 = 13/4 feet = 13 × 0.25 feet.\ngcd(7.5, 3.25) = gcd(30/4, 13/4) = gcd(30, 13) / 4 = 1 / 4 = 0.25 foot."
+      "explanation": "By Bézout's Identity, using two lengths a and b additively and subtractively, the minimum positive length that can be measured is their Greatest Common Divisor, gcd(a, b).\nConvert to inches or quarter-feet:\n7.5 feet = 750/100 = 30/4 feet = 30 × 0.25 feet.\n3.25 feet = 325/100 = 13/4 feet = 13 × 0.25 feet.\ngcd(7.5, 3.25) = gcd(30/4, 13/4) = gcd(30, 13) / 4 = 1 / 4 = 0.25 foot.",
+      "raw_topic": "Number System / GCD",
+      "id": "upsc_2020_csat_q12",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_gcd",
+      "subtopic": "GCD",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Number System / GCD).",
+      "validation_status": "verified"
     },
     {
       "number": 13,
-      "topic": "Number Series / Prime Numbers",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "A simple mathematical operation in each number of the sequence 14, 18, 20, 24, 30, 32, ... results in a sequence with respect to prime numbers. Which one of the following is the next number in the sequence?",
       "options": [
@@ -529,11 +723,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Notice that subtracting 1 or adding something reveals prime numbers:\n14 − 1 = 13 (prime)\n18 − 1 = 17 (prime)\n20 − 1 = 19 (prime)\n24 − 1 = 23 (prime)\n30 − 1 = 29 (prime)\n32 − 1 = 31 (prime)\nThe primes are consecutive prime numbers: 13, 17, 19, 23, 29, 31.\nThe next prime number after 31 is 37.\nTherefore, the next number in the sequence is 37 + 1 = 38."
+      "explanation": "Notice that subtracting 1 or adding something reveals prime numbers:\n14 − 1 = 13 (prime)\n18 − 1 = 17 (prime)\n20 − 1 = 19 (prime)\n24 − 1 = 23 (prime)\n30 − 1 = 29 (prime)\n32 − 1 = 31 (prime)\nThe primes are consecutive prime numbers: 13, 17, 19, 23, 29, 31.\nThe next prime number after 31 is 37.\nTherefore, the next number in the sequence is 37 + 1 = 38.",
+      "raw_topic": "Number Series / Prime Numbers",
+      "id": "upsc_2020_csat_q13",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_prime_numbers",
+      "subtopic": "Prime Numbers",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Number Series / Prime Numbers).",
+      "validation_status": "verified"
     },
     {
       "number": 14,
-      "topic": "Arithmetic Progression / Sum of Integers",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "One page is torn from a booklet whose pages are numbered in the usual manner starting from the first page as 1. The sum of the numbers on the remaining pages is 195. The torn page contains which of the following numbers?",
       "options": [
@@ -555,11 +765,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "A single torn leaf/page has an odd number on the front and the next consecutive even number on the back: (2k - 1) and 2k. Their sum is (4k - 1).\nLet total pages in the booklet be n. Sum of all n pages = n(n + 1) / 2.\nRemaining sum = n(n + 1)/2 − (4k - 1) = 195 => n(n + 1)/2 > 195.\nFor n = 19: 19 × 20 / 2 = 190 < 195 (too small).\nFor n = 20: 20 × 21 / 2 = 210.\nSum of torn numbers = 210 − 195 = 15.\nConsecutive page numbers on opposite sides of a leaf summing to 15 are 7 and 8 (since 7 + 8 = 15, with 7 odd and 8 even)."
+      "explanation": "A single torn leaf/page has an odd number on the front and the next consecutive even number on the back: (2k - 1) and 2k. Their sum is (4k - 1).\nLet total pages in the booklet be n. Sum of all n pages = n(n + 1) / 2.\nRemaining sum = n(n + 1)/2 − (4k - 1) = 195 => n(n + 1)/2 > 195.\nFor n = 19: 19 × 20 / 2 = 190 < 195 (too small).\nFor n = 20: 20 × 21 / 2 = 210.\nSum of torn numbers = 210 − 195 = 15.\nConsecutive page numbers on opposite sides of a leaf summing to 15 are 7 and 8 (since 7 + 8 = 15, with 7 odd and 8 even).",
+      "raw_topic": "Arithmetic Progression / Sum of Integers",
+      "id": "upsc_2020_csat_q14",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_sum_of_integers",
+      "subtopic": "Sum of Integers",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (Arithmetic Progression / Sum of Integers).",
+      "validation_status": "verified"
     },
     {
       "number": 15,
-      "topic": "Letter Patterns",
+      "topic": "Logical Reasoning",
       "passage_id": null,
       "question": "Consider the following arrangement that has some missing letters:\nabab_b_bcb_dcdcded_d\nThe missing letters which complete the arrangement are",
       "options": [
@@ -581,11 +807,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Divide the sequence into symmetric repeating segments:\nababa / bcbcb / cdcdc / deded\nNotice each segment is a 5-letter alternating palindrome: 'ababa', 'bcbcb', 'cdcdc', 'deded'.\nFill in the blanks: abab[a] b[c]bcb [c]dcdcded[e]d.\nThe inserted letters are a, c, c, e."
+      "explanation": "Divide the sequence into symmetric repeating segments:\nababa / bcbcb / cdcdc / deded\nNotice each segment is a 5-letter alternating palindrome: 'ababa', 'bcbcb', 'cdcdc', 'deded'.\nFill in the blanks: abab[a] b[c]bcb [c]dcdcded[e]d.\nThe inserted letters are a, c, c, e.",
+      "raw_topic": "Letter Patterns",
+      "id": "upsc_2020_csat_q15",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "logical_reasoning",
+      "subtopic_id": "logical_reasoning_core",
+      "subtopic": "Syllogism, Coding-Decoding, Clocks, Calendars & Cubes",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Logical Reasoning question (Letter Patterns).",
+      "validation_status": "verified"
     },
     {
       "number": 16,
-      "topic": "Cryptarithmetic",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "Let A3BC and DE2F be four-digit numbers where each letter represents a different digit greater than 3. If the sum of the numbers is 15902, then what is the difference between the values of A and D?",
       "options": [
@@ -607,11 +849,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "A3BC + DE2F = 15902. Available digits are from {4, 5, 6, 7, 8, 9} (distinct and > 3).\nLooking at column sums from right to left:\n- Units: C + F must end in 2. Since C, F > 3, C + F = 12 (carry 1).\n- Tens: B + 2 + 1 (carry) = 10 => B + 3 = 10 => B = 7 (carry 1).\n- Hundreds: 3 + E + 1 (carry) = 9 => E = 5 (no carry).\n- Thousands: A + D = 15.\nAvailable digits from {4, 5, 6, 7, 8, 9} not yet used: B=7 and E=5 are used. Remaining digits are {4, 6, 8, 9}.\nFrom {4, 6, 8, 9}, pairs summing to 12 for (C, F): 4 + 8 = 12 => {C, F} = {4, 8}.\nRemaining digits for {A, D} are {6, 9}. Indeed 6 + 9 = 15!\nTherefore, {A, D} = {6, 9} in some order.\nDifference |A - D| = |9 - 6| = 3."
+      "explanation": "A3BC + DE2F = 15902. Available digits are from {4, 5, 6, 7, 8, 9} (distinct and > 3).\nLooking at column sums from right to left:\n- Units: C + F must end in 2. Since C, F > 3, C + F = 12 (carry 1).\n- Tens: B + 2 + 1 (carry) = 10 => B + 3 = 10 => B = 7 (carry 1).\n- Hundreds: 3 + E + 1 (carry) = 9 => E = 5 (no carry).\n- Thousands: A + D = 15.\nAvailable digits from {4, 5, 6, 7, 8, 9} not yet used: B=7 and E=5 are used. Remaining digits are {4, 6, 8, 9}.\nFrom {4, 6, 8, 9}, pairs summing to 12 for (C, F): 4 + 8 = 12 => {C, F} = {4, 8}.\nRemaining digits for {A, D} are {6, 9}. Indeed 6 + 9 = 15!\nTherefore, {A, D} = {6, 9} in some order.\nDifference |A - D| = |9 - 6| = 3.",
+      "raw_topic": "Cryptarithmetic",
+      "id": "upsc_2020_csat_q16",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_core",
+      "subtopic": "Divisibility, Remainders, Unit Digits, Factors & Primes",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Cryptarithmetic).",
+      "validation_status": "verified"
     },
     {
       "number": 17,
-      "topic": "Data Sufficiency",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "Two Statements S1 and S2 are given below followed by a Question:\nS1: There are not more than two figures on any page of a 51-page book.\nS2: There is at least one figure on every page.\nQuestion: Are there more than 100 figures in that book?\nWhich one of the following is correct in respect of the above Statements and the Question?",
       "options": [
@@ -633,11 +891,29 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "From S1: Figures per page <= 2. Total figures <= 51 × 2 = 102. (Could be 50, 100, 101, or 102). Insufficient.\nFrom S2: Figures per page >= 1. Total figures >= 51. (Could be 60 or 200). Insufficient.\nCombining S1 and S2: Total figures range from 51 to 102. The total could be 90 (not more than 100) or 102 (more than 100). Thus, a definite 'Yes' or 'No' cannot be reached even using both statements together."
+      "explanation": "From S1: Figures per page <= 2. Total figures <= 51 × 2 = 102. (Could be 50, 100, 101, or 102). Insufficient.\nFrom S2: Figures per page >= 1. Total figures >= 51. (Could be 60 or 200). Insufficient.\nCombining S1 and S2: Total figures range from 51 to 102. The total could be 90 (not more than 100) or 102 (more than 100). Thus, a definite 'Yes' or 'No' cannot be reached even using both statements together.",
+      "raw_topic": "Data Sufficiency",
+      "id": "upsc_2020_csat_q17",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_core",
+      "subtopic": "Data Sufficiency, Seating, Blood Relations & Puzzles",
+      "secondary_tags": [
+        "Data Sufficiency"
+      ],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Data Sufficiency) question (Data Sufficiency).",
+      "validation_status": "verified"
     },
     {
       "number": 18,
-      "topic": "Averages / Weighted Mean",
+      "topic": "Averages and Mixtures",
       "passage_id": null,
       "question": "Consider the following data:\n[Category | Average marks in English | Average marks in Hindi]\nGirls: English = 9, Hindi = 8\nBoys: English = 8, Hindi = 7\nOverall average marks: English = 8.8, Hindi = x\nWhat is the value of x in the above table?",
       "options": [
@@ -659,11 +935,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Let G be the number of girls and B be the number of boys.\nIn English: (9G + 8B) / (G + B) = 8.8 => 9G + 8B = 8.8G + 8.8B => 0.2G = 0.8B => G / B = 4 / 1.\nNow calculate the overall average in Hindi (x):\nx = (8G + 7B) / (G + B) = [8(4) + 7(1)] / [4 + 1] = (32 + 7) / 5 = 39 / 5 = 7.8."
+      "explanation": "Let G be the number of girls and B be the number of boys.\nIn English: (9G + 8B) / (G + B) = 8.8 => 9G + 8B = 8.8G + 8.8B => 0.2G = 0.8B => G / B = 4 / 1.\nNow calculate the overall average in Hindi (x):\nx = (8G + 7B) / (G + B) = [8(4) + 7(1)] / [4 + 1] = (32 + 7) / 5 = 39 / 5 = 7.8.",
+      "raw_topic": "Averages / Weighted Mean",
+      "id": "upsc_2020_csat_q18",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "averages_and_mixtures",
+      "subtopic_id": "averages_and_mixtures_weighted_mean",
+      "subtopic": "Weighted Mean",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Averages, Mixtures & Alligation problem (Averages / Weighted Mean).",
+      "validation_status": "verified"
     },
     {
       "number": 19,
-      "topic": "Family Tree / Blood Relations",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "A family of two generations consisting of six members P, Q, R, S, T and U has three males and three females. There are two married couples and two unmarried siblings. U is P's daughter and Q is R's mother-in-law. T is an unmarried male and S is a male. Which one of the following is correct?",
       "options": [
@@ -685,11 +977,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "There are 3 males and 3 females across 2 generations. Two married couples + two unmarried siblings. T is an unmarried male, U is female (P's daughter) and unmarried sibling to T (generation 2). P and S are males; Q and R are females (with R married to S, and Q married to P). Since Q is R's mother-in-law, Q is generation 1 and R is generation 2 married to Q's son S. Thus, R is S's wife."
+      "explanation": "There are 3 males and 3 females across 2 generations. Two married couples + two unmarried siblings. T is an unmarried male, U is female (P's daughter) and unmarried sibling to T (generation 2). P and S are males; Q and R are females (with R married to S, and Q married to P). Since Q is R's mother-in-law, Q is generation 1 and R is generation 2 married to Q's son S. Thus, R is S's wife.",
+      "raw_topic": "Family Tree / Blood Relations",
+      "id": "upsc_2020_csat_q19",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_blood_relations",
+      "subtopic": "Blood Relations",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Puzzles, Seating, Blood Relations, Directions, Ranking) question (Family Tree / Blood Relations).",
+      "validation_status": "verified"
     },
     {
       "number": 20,
-      "topic": "Calendars",
+      "topic": "Logical Reasoning",
       "passage_id": null,
       "question": "If in a particular year 12th January is a Sunday, then which one of the following is correct?",
       "options": [
@@ -711,7 +1019,23 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Count days from 12 January to 12 July:\nIn a leap year (February has 29 days):\n- Remaining days in Jan: 31 − 12 = 19 days ≡ 5 (mod 7)\n- Feb: 29 days ≡ 1\n- Mar: 31 days ≡ 3\n- Apr: 30 days ≡ 2\n- May: 31 days ≡ 3\n- Jun: 30 days ≡ 2\n- Jul up to 12th: 12 days ≡ 5\nTotal odd days = 5 + 1 + 3 + 2 + 3 + 2 + 5 = 21 ≡ 0 (mod 7).\nSince the number of odd days is exactly 0, 12th July falls on the exact same day of the week as 12th January, which is Sunday! Thus, '12th July is a Sunday if the year is a leap year' is correct."
+      "explanation": "Count days from 12 January to 12 July:\nIn a leap year (February has 29 days):\n- Remaining days in Jan: 31 − 12 = 19 days ≡ 5 (mod 7)\n- Feb: 29 days ≡ 1\n- Mar: 31 days ≡ 3\n- Apr: 30 days ≡ 2\n- May: 31 days ≡ 3\n- Jun: 30 days ≡ 2\n- Jul up to 12th: 12 days ≡ 5\nTotal odd days = 5 + 1 + 3 + 2 + 3 + 2 + 5 = 21 ≡ 0 (mod 7).\nSince the number of odd days is exactly 0, 12th July falls on the exact same day of the week as 12th January, which is Sunday! Thus, '12th July is a Sunday if the year is a leap year' is correct.",
+      "raw_topic": "Calendars",
+      "id": "upsc_2020_csat_q20",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "logical_reasoning",
+      "subtopic_id": "logical_reasoning_core",
+      "subtopic": "Syllogism, Coding-Decoding, Clocks, Calendars & Cubes",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Logical Reasoning question (Calendars).",
+      "validation_status": "verified"
     },
     {
       "number": 21,
@@ -744,7 +1068,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Assumption 1 is valid: the passage asserts that foreign investment is structurally volatile across sectors and regions and cannot bear the responsibility of employment generation. Assumption 3 is valid: since foreign private investment is volatile and footloose, domestic private investment must be fortified. Assumption 5 is valid: the passage concludes that physical and human capital in India may prove inadequate for technology diffusion without public investment in human capabilities (education/health)."
+      "explanation": "Assumption 1 is valid: the passage asserts that foreign investment is structurally volatile across sectors and regions and cannot bear the responsibility of employment generation. Assumption 3 is valid: since foreign private investment is volatile and footloose, domestic private investment must be fortified. Assumption 5 is valid: the passage concludes that physical and human capital in India may prove inadequate for technology diffusion without public investment in human capabilities (education/health).",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q21",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 22,
@@ -777,7 +1117,23 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The passage highlights the stark spatial and temporal asymmetry where vast monsoon river waters flow unutilized into the sea while millions suffer drought, and states that 'the need for holding rainwater in reservoirs, for subsequently releasing it for use over the year, is a necessity'. This directly implies river inter-linking (1) and building storage reservoirs/canals (2)."
+      "explanation": "The passage highlights the stark spatial and temporal asymmetry where vast monsoon river waters flow unutilized into the sea while millions suffer drought, and states that 'the need for holding rainwater in reservoirs, for subsequently releasing it for use over the year, is a necessity'. This directly implies river inter-linking (1) and building storage reservoirs/canals (2).",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q22",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_implications_conclusions",
+      "subtopic": "Practical Implications, Conclusions & Author View",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 23,
@@ -808,7 +1164,23 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Assumption 3 is valid: the passage argues that when individuals enjoy economic freedom (such as retaining returns from higher earnings), they are motivated to invest in education, positively building human capital. Assumptions 1 and 2 make extreme, unstated causal claims ('invariably translate', 'ensures economic freedom')."
+      "explanation": "Assumption 3 is valid: the passage argues that when individuals enjoy economic freedom (such as retaining returns from higher earnings), they are motivated to invest in education, positively building human capital. Assumptions 1 and 2 make extreme, unstated causal claims ('invariably translate', 'ensures economic freedom').",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q23",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 24,
@@ -834,7 +1206,23 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "The author notes that sustainable delivery of potable water and sewage treatment requires heavy infrastructure investment, concluding that our cities are not rich enough to provide water for free, conveying that urban local bodies must establish financing mechanisms and recover costs via user fees."
+      "explanation": "The author notes that sustainable delivery of potable water and sewage treatment requires heavy infrastructure investment, concluding that our cities are not rich enough to provide water for free, conveying that urban local bodies must establish financing mechanisms and recover costs via user fees.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q24",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_crux_central_idea",
+      "subtopic": "Crux, Central Idea & Critical Message",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 25,
@@ -864,7 +1252,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Assumption 2 is valid because sustainable water delivery requires collecting, treating, piping, AND building sewerage infrastructure and sewage treatment plants to protect natural water bodies. Assumption 1 is invalid because non-rich cities can also ensure delivery if appropriate financing mechanisms (user charges) are instituted."
+      "explanation": "Assumption 2 is valid because sustainable water delivery requires collecting, treating, piping, AND building sewerage infrastructure and sewage treatment plants to protect natural water bodies. Assumption 1 is invalid because non-rich cities can also ensure delivery if appropriate financing mechanisms (user charges) are instituted.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q25",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 26,
@@ -896,7 +1300,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Assumption 2 is valid: the passage demonstrates that when relative prices shifted in favour of agriculture, private investment surged by over 50%. Assumption 4 is valid: rising global agricultural prices changed the domestic price scenario and catalyzed rapid rural poverty reduction between 2005 and 2012. Assumptions 1 and 3 are either refuted by China/Vietnam or unmentioned."
+      "explanation": "Assumption 2 is valid: the passage demonstrates that when relative prices shifted in favour of agriculture, private investment surged by over 50%. Assumption 4 is valid: rising global agricultural prices changed the domestic price scenario and catalyzed rapid rural poverty reduction between 2005 and 2012. Assumptions 1 and 3 are either refuted by China/Vietnam or unmentioned.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q26",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 27,
@@ -922,11 +1342,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "The text demonstrates that when farm wages rose and agricultural GDP grew at 4.1%, poverty fell at an unprecedented rate, proving that robust, inclusive agricultural growth is the primary driver of rapid poverty reduction."
+      "explanation": "The text demonstrates that when farm wages rose and agricultural GDP grew at 4.1%, poverty fell at an unprecedented rate, proving that robust, inclusive agricultural growth is the primary driver of rapid poverty reduction.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q27",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_crux_central_idea",
+      "subtopic": "Crux, Central Idea & Critical Message",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 28,
-      "topic": "Data Sufficiency / Order and Ranking",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "Two Statements S1 and S2 are given below with regard to four numbers P, Q, R and S followed by a Question:\nS1: R is greater than P as well as Q.\nS2: S is not the largest one.\nQuestion: Among four numbers P, Q, R and S, which one is the largest?\nWhich one of the following is correct in respect of the above Statements and the Question?",
       "options": [
@@ -948,11 +1384,29 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "We need to find the largest among {P, Q, R, S}.\nFrom S1: R > P and R > Q. Neither P nor Q is the largest. But S could be greater than R. Insufficient alone.\nFrom S2: S is not the largest. Insufficient alone.\nCombining S1 and S2: Neither P nor Q can be the largest (from S1), and S cannot be the largest (from S2). Thus, the only remaining candidate who must be the largest is R! Both statements together are sufficient."
+      "explanation": "We need to find the largest among {P, Q, R, S}.\nFrom S1: R > P and R > Q. Neither P nor Q is the largest. But S could be greater than R. Insufficient alone.\nFrom S2: S is not the largest. Insufficient alone.\nCombining S1 and S2: Neither P nor Q can be the largest (from S1), and S cannot be the largest (from S2). Thus, the only remaining candidate who must be the largest is R! Both statements together are sufficient.",
+      "raw_topic": "Data Sufficiency / Order and Ranking",
+      "id": "upsc_2020_csat_q28",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_order_and_ranking",
+      "subtopic": "Order and Ranking",
+      "secondary_tags": [
+        "Data Sufficiency"
+      ],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Data Sufficiency) question (Data Sufficiency / Order and Ranking).",
+      "validation_status": "verified"
     },
     {
       "number": 29,
-      "topic": "Data Sufficiency / Prime Numbers",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "Two Statements S1 and S2 are given below followed by a Question:\nS1: n is a prime number.\nS2: n leaves a remainder of 1 when divided by 4.\nQuestion: If n is a unique natural number between 10 and 20, then what is n?\nWhich one of the following is correct in respect of the above Statements and the Question?",
       "options": [
@@ -974,11 +1428,30 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Natural numbers strictly between 10 and 20 are {11, 12, 13, 14, 15, 16, 17, 18, 19}.\nFrom S1: n is prime ∈ {11, 13, 17, 19}. Insufficient.\nFrom S2: n ≡ 1 (mod 4) ∈ {13, 17}. Insufficient.\nCombining S1 and S2: n must be a prime that leaves remainder 1 when divided by 4. Both 13 (4 × 3 + 1) and 17 (4 × 4 + 1) satisfy both conditions! Since there are two valid solutions (13 and 17), n is not unique. Both statements together are not sufficient."
+      "explanation": "Natural numbers strictly between 10 and 20 are {11, 12, 13, 14, 15, 16, 17, 18, 19}.\nFrom S1: n is prime ∈ {11, 13, 17, 19}. Insufficient.\nFrom S2: n ≡ 1 (mod 4) ∈ {13, 17}. Insufficient.\nCombining S1 and S2: n must be a prime that leaves remainder 1 when divided by 4. Both 13 (4 × 3 + 1) and 17 (4 × 4 + 1) satisfy both conditions! Since there are two valid solutions (13 and 17), n is not unique. Both statements together are not sufficient.",
+      "raw_topic": "Data Sufficiency / Prime Numbers",
+      "id": "upsc_2020_csat_q29",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_prime_numbers",
+      "subtopic": "Prime Numbers",
+      "secondary_tags": [
+        "Data Sufficiency",
+        "Number Systems"
+      ],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Data Sufficiency) question (Data Sufficiency / Prime Numbers).",
+      "validation_status": "verified"
     },
     {
       "number": 30,
-      "topic": "Data Sufficiency / System of Equations",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "Two Statements S1 and S2 are given below with regard to two numbers followed by a Question:\nS1: Their product is 21.\nS2: Their sum is 10.\nQuestion: What are the two numbers?\nWhich one of the following is correct in respect of the above Statements and the Question?",
       "options": [
@@ -1000,11 +1473,29 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Let the two numbers be x and y.\nFrom S1: xy = 21 (infinite pairs in real numbers; even in integers could be 1 and 21, or 3 and 7). Insufficient.\nFrom S2: x + y = 10 (infinite pairs). Insufficient.\nCombining S1 and S2: x and y are the roots of t² − 10t + 21 = 0 => (t − 3)(t − 7) = 0 => t = 3, 7. The two numbers are uniquely determined as the set {3, 7}. Both statements together are sufficient."
+      "explanation": "Let the two numbers be x and y.\nFrom S1: xy = 21 (infinite pairs in real numbers; even in integers could be 1 and 21, or 3 and 7). Insufficient.\nFrom S2: x + y = 10 (infinite pairs). Insufficient.\nCombining S1 and S2: x and y are the roots of t² − 10t + 21 = 0 => (t − 3)(t − 7) = 0 => t = 3, 7. The two numbers are uniquely determined as the set {3, 7}. Both statements together are sufficient.",
+      "raw_topic": "Data Sufficiency / System of Equations",
+      "id": "upsc_2020_csat_q30",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_system_of_equations",
+      "subtopic": "System of Equations",
+      "secondary_tags": [
+        "Data Sufficiency"
+      ],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Data Sufficiency) question (Data Sufficiency / System of Equations).",
+      "validation_status": "verified"
     },
     {
       "number": 31,
-      "topic": "Direction and Distance",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "A man walks down the backside of his house straight 25 metres, then turns to the right and walks 50 metres again; then he turns towards left and again walks 25 metres. If his house faces to the East, what is his direction from the starting point?",
       "options": [
@@ -1026,11 +1517,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "The house faces East (+x direction). The backside of the house is West (−x direction).\n1. From the origin (0, 0), walking straight out the backside for 25 m moves West -> (−25, 0).\n2. Facing West, turning to the right means turning North (+y direction) and walking 50 m -> reaches (−25, 50).\n3. Facing North, turning towards left means turning West (−x direction) and walking 25 m -> reaches (−25 − 25, 50) = (−50, 50).\nRelative to the starting point (0, 0), the position (−50, 50) is in the North-West direction."
+      "explanation": "The house faces East (+x direction). The backside of the house is West (−x direction).\n1. From the origin (0, 0), walking straight out the backside for 25 m moves West -> (−25, 0).\n2. Facing West, turning to the right means turning North (+y direction) and walking 50 m -> reaches (−25, 50).\n3. Facing North, turning towards left means turning West (−x direction) and walking 25 m -> reaches (−25 − 25, 50) = (−50, 50).\nRelative to the starting point (0, 0), the position (−50, 50) is in the North-West direction.",
+      "raw_topic": "Direction and Distance",
+      "id": "upsc_2020_csat_q31",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_core",
+      "subtopic": "Data Sufficiency, Seating, Blood Relations & Puzzles",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Puzzles, Seating, Blood Relations, Directions, Ranking) question (Direction and Distance).",
+      "validation_status": "verified"
     },
     {
       "number": 32,
-      "topic": "Syllogism / Logical Deduction",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "Two Statements are given followed by two Conclusions:\nStatements:\nAll numbers are divisible by 2.\nAll numbers are divisible by 3.\nConclusion-I: All numbers are divisible by 6.\nConclusion-II: All numbers are divisible by 4.\nWhich of the above Conclusions logically follows/follow from the two given Statements?",
       "options": [
@@ -1052,11 +1559,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "If a number is divisible by both 2 and 3, and since gcd(2, 3) = 1, it must be divisible by LCM(2, 3) = 6. Therefore, Conclusion-I ('All numbers are divisible by 6') logically and necessarily follows. Divisibility by 2 and 3 does not guarantee divisibility by 4 (for instance, 6 and 18 are not divisible by 4). Hence, only Conclusion-I follows."
+      "explanation": "If a number is divisible by both 2 and 3, and since gcd(2, 3) = 1, it must be divisible by LCM(2, 3) = 6. Therefore, Conclusion-I ('All numbers are divisible by 6') logically and necessarily follows. Divisibility by 2 and 3 does not guarantee divisibility by 4 (for instance, 6 and 18 are not divisible by 4). Hence, only Conclusion-I follows.",
+      "raw_topic": "Syllogism / Logical Deduction",
+      "id": "upsc_2020_csat_q32",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_logical_deduction",
+      "subtopic": "Logical Deduction",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Syllogism / Logical Deduction).",
+      "validation_status": "verified"
     },
     {
       "number": 33,
-      "topic": "Syllogism",
+      "topic": "Logical Reasoning",
       "passage_id": null,
       "question": "Two Statements are given followed by two Conclusions:\nStatements:\nAll cats are dogs.\nAll cats are black.\nConclusion-I: All dogs are black.\nConclusion-II: Some dogs are not black.\nWhich of the above Conclusions logically follows/follow from the two given Statements, disregarding commonly known facts?",
       "options": [
@@ -1078,11 +1601,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Premises: All Cats are Dogs (Cats ⊆ Dogs); All Cats are Black (Cats ⊆ Black). From these premises, we know that the subset of Dogs that are Cats are Black (i.e., 'Some dogs are black'). However, we have no information about Dogs that are not Cats — they may all be Black, or some may not be Black. Thus, neither Conclusion-I ('All dogs are black') nor Conclusion-II ('Some dogs are not black') definitely follows. Neither follows."
+      "explanation": "Premises: All Cats are Dogs (Cats ⊆ Dogs); All Cats are Black (Cats ⊆ Black). From these premises, we know that the subset of Dogs that are Cats are Black (i.e., 'Some dogs are black'). However, we have no information about Dogs that are not Cats — they may all be Black, or some may not be Black. Thus, neither Conclusion-I ('All dogs are black') nor Conclusion-II ('Some dogs are not black') definitely follows. Neither follows.",
+      "raw_topic": "Syllogism",
+      "id": "upsc_2020_csat_q33",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "logical_reasoning",
+      "subtopic_id": "logical_reasoning_core",
+      "subtopic": "Syllogism, Coding-Decoding, Clocks, Calendars & Cubes",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Logical Reasoning question (Syllogism).",
+      "validation_status": "verified"
     },
     {
       "number": 34,
-      "topic": "Sequence and Pattern Counting",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "Consider the following sequence of numbers:\n5 1 4 7 3 9 8 5 7 2 6 3 1 5 8 6 3 8 5 2 2 4 3 4 9 6\nHow many odd numbers are followed by the odd number in the above sequence?",
       "options": [
@@ -1104,11 +1643,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "We search for consecutive pairs (Odd, Odd) in the sequence:\nIndex positions of odd numbers followed by odd numbers:\n1. 5 -> followed by 1 (Pair: 5, 1) [1]\n2. 7 -> followed by 3 (Pair: 7, 3) [2]\n3. 3 -> followed by 9 (Pair: 3, 9) [3]\n4. 5 -> followed by 7 (Pair: 5, 7) [4]\n5. 3 -> followed by 1 (Pair: 3, 1) [5]\n6. 1 -> followed by 5 (Pair: 1, 5) [6]\nCheck the remaining pairs:\n- 3 followed by 8 (even)\n- 5 followed by 2 (even)\n- 3 followed by 4 (even)\n- 9 followed by 6 (even)\nTotal count of odd numbers followed by an odd number = 6."
+      "explanation": "We search for consecutive pairs (Odd, Odd) in the sequence:\nIndex positions of odd numbers followed by odd numbers:\n1. 5 -> followed by 1 (Pair: 5, 1) [1]\n2. 7 -> followed by 3 (Pair: 7, 3) [2]\n3. 3 -> followed by 9 (Pair: 3, 9) [3]\n4. 5 -> followed by 7 (Pair: 5, 7) [4]\n5. 3 -> followed by 1 (Pair: 3, 1) [5]\n6. 1 -> followed by 5 (Pair: 1, 5) [6]\nCheck the remaining pairs:\n- 3 followed by 8 (even)\n- 5 followed by 2 (even)\n- 3 followed by 4 (even)\n- 9 followed by 6 (even)\nTotal count of odd numbers followed by an odd number = 6.",
+      "raw_topic": "Sequence and Pattern Counting",
+      "id": "upsc_2020_csat_q34",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_core",
+      "subtopic": "Number Series, Equations, Set Theory, Ages & Geometry",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (Sequence and Pattern Counting).",
+      "validation_status": "verified"
     },
     {
       "number": 35,
-      "topic": "Order and Ranking",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "A is 16th from the left end in a row of boys and V is 18th from the right end. G is 11th from A towards the right and 3rd from V towards the right end. How many boys are there in the row?",
       "options": [
@@ -1130,11 +1685,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Position of A from the left = 16.\nG is 11th to the right of A => Position of G from the left = 16 + 11 = 27.\nV is 18th from the right end.\nG is 3rd from V towards the right end (i.e. G is 3 positions closer to the right end than V) => Position of G from the right end = 18 − 3 = 15.\nNow we know both the left-end and right-end positions of G:\nTotal boys in the row = (Position from left) + (Position from right) − 1 = 27 + 15 − 1 = 41."
+      "explanation": "Position of A from the left = 16.\nG is 11th to the right of A => Position of G from the left = 16 + 11 = 27.\nV is 18th from the right end.\nG is 3rd from V towards the right end (i.e. G is 3 positions closer to the right end than V) => Position of G from the right end = 18 − 3 = 15.\nNow we know both the left-end and right-end positions of G:\nTotal boys in the row = (Position from left) + (Position from right) − 1 = 27 + 15 − 1 = 41.",
+      "raw_topic": "Order and Ranking",
+      "id": "upsc_2020_csat_q35",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_core",
+      "subtopic": "Data Sufficiency, Seating, Blood Relations & Puzzles",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Puzzles, Seating, Blood Relations, Directions, Ranking) question (Order and Ranking).",
+      "validation_status": "verified"
     },
     {
       "number": 36,
-      "topic": "Data Sufficiency / Ranking",
+      "topic": "Analytical Reasoning",
       "passage_id": null,
       "question": "Three Statements S1, S2 and S3 are given below followed by a Question:\nS1: C is younger than D, but older than A and B.\nS2: D is the oldest.\nS3: A is older than B.\nQuestion: Who among A, B, C and D is the youngest?\nWhich one of the following is correct in respect of the above Statements and the Question?",
       "options": [
@@ -1156,11 +1727,29 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "From S1: D > C > A and D > C > B. This establishes that both D and C are older than A and B, so the youngest must be either A or B. But S1 alone does not determine whether A or B is younger.\nFrom S3: A is older than B (A > B).\nCombining S1 and S3: D > C > A > B. Thus, B is definitively the youngest! Therefore, S1 and S3 together are sufficient to answer the Question."
+      "explanation": "From S1: D > C > A and D > C > B. This establishes that both D and C are older than A and B, so the youngest must be either A or B. But S1 alone does not determine whether A or B is younger.\nFrom S3: A is older than B (A > B).\nCombining S1 and S3: D > C > A > B. Thus, B is definitively the youngest! Therefore, S1 and S3 together are sufficient to answer the Question.",
+      "raw_topic": "Data Sufficiency / Ranking",
+      "id": "upsc_2020_csat_q36",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "analytical_reasoning",
+      "subtopic_id": "analytical_reasoning_ranking",
+      "subtopic": "Ranking",
+      "secondary_tags": [
+        "Data Sufficiency"
+      ],
+      "classification_confidence": 0.94,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Analytical Reasoning (Data Sufficiency) question (Data Sufficiency / Ranking).",
+      "validation_status": "verified"
     },
     {
       "number": 37,
-      "topic": "Number Counting",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "How many integers are there between 1 and 100 which have 4 as a digit but are not divisible by 4?",
       "options": [
@@ -1182,11 +1771,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "List all integers between 1 and 100 containing the digit 4:\nUnits digit is 4: 4, 14, 24, 34, 44, 54, 64, 74, 84, 94 (10 numbers).\nTens digit is 4: 40, 41, 42, 43, 44, 45, 46, 47, 48, 49 (10 numbers).\nUnion of all numbers containing digit 4 (19 numbers):\n4, 14, 24, 34, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 54, 64, 74, 84, 94.\nIdentify which of these are divisible by 4:\n4, 24, 40, 44, 48, 64, 84 (7 numbers).\nNumbers containing 4 but NOT divisible by 4:\n19 − 7 = 12 numbers (namely: 14, 34, 41, 42, 43, 45, 46, 47, 49, 54, 74, 94)."
+      "explanation": "List all integers between 1 and 100 containing the digit 4:\nUnits digit is 4: 4, 14, 24, 34, 44, 54, 64, 74, 84, 94 (10 numbers).\nTens digit is 4: 40, 41, 42, 43, 44, 45, 46, 47, 48, 49 (10 numbers).\nUnion of all numbers containing digit 4 (19 numbers):\n4, 14, 24, 34, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 54, 64, 74, 84, 94.\nIdentify which of these are divisible by 4:\n4, 24, 40, 44, 48, 64, 84 (7 numbers).\nNumbers containing 4 but NOT divisible by 4:\n19 − 7 = 12 numbers (namely: 14, 34, 41, 42, 43, 45, 46, 47, 49, 54, 74, 94).",
+      "raw_topic": "Number Counting",
+      "id": "upsc_2020_csat_q37",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_core",
+      "subtopic": "Divisibility, Remainders, Unit Digits, Factors & Primes",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Number Counting).",
+      "validation_status": "verified"
     },
     {
       "number": 38,
-      "topic": "Geometry / Mensuration and Proportions",
+      "topic": "Percentages, Ratios and Proportions",
       "passage_id": null,
       "question": "Let x, y be the volumes; m, n be the masses of two metallic cubes P and Q respectively. Each side of Q is two times that of P and mass of Q is two times that of P. Let u = m/x and v = n/y. Which one of the following is correct?",
       "options": [
@@ -1208,11 +1813,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Let side of cube P = s. Then side of cube Q = 2s.\nVolume of P: x = s³.\nVolume of Q: y = (2s)³ = 8s³ = 8x.\nMass of Q: n = 2m.\nDensities:\nu = m / x\nv = n / y = (2m) / (8x) = (1/4) (m / x) = (1/4) u.\nTherefore, u = 4v."
+      "explanation": "Let side of cube P = s. Then side of cube Q = 2s.\nVolume of P: x = s³.\nVolume of Q: y = (2s)³ = 8s³ = 8x.\nMass of Q: n = 2m.\nDensities:\nu = m / x\nv = n / y = (2m) / (8x) = (1/4) (m / x) = (1/4) u.\nTherefore, u = 4v.",
+      "raw_topic": "Geometry / Mensuration and Proportions",
+      "id": "upsc_2020_csat_q38",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "percentages_ratios_proportions",
+      "subtopic_id": "percentages_ratios_proportions_mensuration_and_proportions",
+      "subtopic": "Mensuration and Proportions",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Percentages, Ratios and Proportions question (Geometry / Mensuration and Proportions).",
+      "validation_status": "verified"
     },
     {
       "number": 39,
-      "topic": "Averages / Linear Equations",
+      "topic": "Averages and Mixtures",
       "passage_id": null,
       "question": "The average age of a teacher and three students is 20 years. If all the three students are of same age and the difference between the age of the teacher and each student is 20 years, then what is the age of the teacher?",
       "options": [
@@ -1234,11 +1855,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Let the age of each student be s. The teacher's age is T = s + 20.\nSum of ages of 1 teacher and 3 students = 4 × 20 = 80 years.\nT + 3s = 80 => (s + 20) + 3s = 80 => 4s + 20 = 80 => 4s = 60 => s = 15 years.\nTeacher's age T = 15 + 20 = 35 years."
+      "explanation": "Let the age of each student be s. The teacher's age is T = s + 20.\nSum of ages of 1 teacher and 3 students = 4 × 20 = 80 years.\nT + 3s = 80 => (s + 20) + 3s = 80 => 4s + 20 = 80 => 4s = 60 => s = 15 years.\nTeacher's age T = 15 + 20 = 35 years.",
+      "raw_topic": "Averages / Linear Equations",
+      "id": "upsc_2020_csat_q39",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "averages_and_mixtures",
+      "subtopic_id": "averages_and_mixtures_linear_equations",
+      "subtopic": "Linear Equations",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Averages, Mixtures & Alligation problem (Averages / Linear Equations).",
+      "validation_status": "verified"
     },
     {
       "number": 40,
-      "topic": "Profit and Loss",
+      "topic": "Profit, Loss and Interest",
       "passage_id": null,
       "question": "A person bought a car and sold it for ₹ 3,00,000. If he incurred a loss of 20%, then how much did he spend to buy the car?",
       "options": [
@@ -1260,7 +1897,23 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Selling Price (SP) = ₹3,00,000. Loss = 20% of Cost Price (CP).\nSP = CP × (1 − 0.20) = 0.80 × CP.\nCP = SP / 0.80 = 3,00,000 / 0.80 = ₹3,75,000."
+      "explanation": "Selling Price (SP) = ₹3,00,000. Loss = 20% of Cost Price (CP).\nSP = CP × (1 − 0.20) = 0.80 × CP.\nCP = SP / 0.80 = 3,00,000 / 0.80 = ₹3,75,000.",
+      "raw_topic": "Profit and Loss",
+      "id": "upsc_2020_csat_q40",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "profit_loss_interest",
+      "subtopic_id": "profit_loss_interest_core",
+      "subtopic": "Profit, Loss, Discounts, Simple & Compound Interest",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Profit, Loss and Interest computation (Profit and Loss).",
+      "validation_status": "verified"
     },
     {
       "number": 41,
@@ -1286,7 +1939,23 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "The passage details how relying almost exclusively on a single variety of potato ('Lumper') with genetic frailty caused catastrophic vulnerability when a blight fungus struck, illustrating the danger of genetic monoculture and relying on a homogeneous food source."
+      "explanation": "The passage details how relying almost exclusively on a single variety of potato ('Lumper') with genetic frailty caused catastrophic vulnerability when a blight fungus struck, illustrating the danger of genetic monoculture and relying on a homogeneous food source.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q41",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_crux_central_idea",
+      "subtopic": "Crux, Central Idea & Critical Message",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 42,
@@ -1319,7 +1988,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "To combat childhood stunting and under-five mortality, global public health frameworks prescribe delayed marriage/first pregnancy (2), early/exclusive breastfeeding (3), clean drinking water and sanitation (WASH) to prevent enteropathy (4), and routine childhood vaccination against diarrhoeal and respiratory infections (5)."
+      "explanation": "To combat childhood stunting and under-five mortality, global public health frameworks prescribe delayed marriage/first pregnancy (2), early/exclusive breastfeeding (3), clean drinking water and sanitation (WASH) to prevent enteropathy (4), and routine childhood vaccination against diarrhoeal and respiratory infections (5).",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q42",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_implications_conclusions",
+      "subtopic": "Practical Implications, Conclusions & Author View",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 43,
@@ -1352,7 +2037,23 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Inference 2 is valid: unlike paddy straw which farmers burn, Arhar straw is ploughed back, avoiding smoke pollution. Inference 3 is valid: the text states Arhar straw is green and decomposes rapidly when ploughed back, enriching soil organic matter. Inferences 1, 4, and 5 make unjustified or extreme leaps."
+      "explanation": "Inference 2 is valid: unlike paddy straw which farmers burn, Arhar straw is ploughed back, avoiding smoke pollution. Inference 3 is valid: the text states Arhar straw is green and decomposes rapidly when ploughed back, enriching soil organic matter. Inferences 1, 4, and 5 make unjustified or extreme leaps.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q43",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_logical_inference",
+      "subtopic": "Logical & Rational Inference / Corollary",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 44,
@@ -1383,7 +2084,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Assumption 2 is valid: the passage cites the internationally accepted rule curve practice that water levels must be kept below full capacity before and during the monsoon so that flood cushions exist. Assumption 1 is an over-attribution ('over-dependence on hydropower projects'), and Assumption 3 is unstated."
+      "explanation": "Assumption 2 is valid: the passage cites the internationally accepted rule curve practice that water levels must be kept below full capacity before and during the monsoon so that flood cushions exist. Assumption 1 is an over-attribution ('over-dependence on hydropower projects'), and Assumption 3 is unstated.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q44",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 45,
@@ -1413,7 +2130,23 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Inference 1 is directly supported: the passage argues that economic liberalization suffered from limitations in conception and left deep crises in agriculture, infrastructure, and education, necessitating a fundamental rethinking and redefinition of the State's economic role. Inference 2 generalizes social sector implementation beyond the scope of the passage."
+      "explanation": "Inference 1 is directly supported: the passage argues that economic liberalization suffered from limitations in conception and left deep crises in agriculture, infrastructure, and education, necessitating a fundamental rethinking and redefinition of the State's economic role. Inference 2 generalizes social sector implementation beyond the scope of the passage.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q45",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_logical_inference",
+      "subtopic": "Logical & Rational Inference / Corollary",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 46,
@@ -1443,11 +2176,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Neither assumption is made by the author. The passage specifically critiques liberalization for producing 'jobless growth, persistent poverty and rising inequality', directly challenging the assumption that economic liberalization automatically resolves poverty or creates sufficient employment."
+      "explanation": "Neither assumption is made by the author. The passage specifically critiques liberalization for producing 'jobless growth, persistent poverty and rising inequality', directly challenging the assumption that economic liberalization automatically resolves poverty or creates sufficient employment.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q46",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 47,
-      "topic": "Percentages / Successive Discounts & Tax",
+      "topic": "Percentages, Ratios and Proportions",
       "passage_id": null,
       "question": "A shop owner offers the following discount options on an article to a customer:\n1. Successive discounts of 10% and 20%, and then pay a service tax of 10%\n2. Successive discounts of 20% and 10%, and then pay a service tax of 10%\n3. Pay a service tax of 10% first, then successive discounts of 20% and 10%\nWhich one of the following is correct?",
       "options": [
@@ -1469,11 +2218,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Let original price be P.\n- Option 1: Final Price = P × (1 − 0.10) × (1 − 0.20) × (1 + 0.10) = P × 0.9 × 0.8 × 1.1 = 0.792P.\n- Option 2: Final Price = P × (1 − 0.20) × (1 − 0.10) × (1 + 0.10) = P × 0.8 × 0.9 × 1.1 = 0.792P.\n- Option 3: Final Price = P × (1 + 0.10) × (1 − 0.20) × (1 − 0.10) = P × 1.1 × 0.8 × 0.9 = 0.792P.\nSince multiplication of real numbers is commutative, all three options result in the exact same final price (0.792P). All options are equally good for the customer."
+      "explanation": "Let original price be P.\n- Option 1: Final Price = P × (1 − 0.10) × (1 − 0.20) × (1 + 0.10) = P × 0.9 × 0.8 × 1.1 = 0.792P.\n- Option 2: Final Price = P × (1 − 0.20) × (1 − 0.10) × (1 + 0.10) = P × 0.8 × 0.9 × 1.1 = 0.792P.\n- Option 3: Final Price = P × (1 + 0.10) × (1 − 0.20) × (1 − 0.10) = P × 1.1 × 0.8 × 0.9 = 0.792P.\nSince multiplication of real numbers is commutative, all three options result in the exact same final price (0.792P). All options are equally good for the customer.",
+      "raw_topic": "Percentages / Successive Discounts & Tax",
+      "id": "upsc_2020_csat_q47",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "percentages_ratios_proportions",
+      "subtopic_id": "percentages_ratios_proportions_successive_discounts_tax",
+      "subtopic": "Successive Discounts & Tax",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Percentages, Ratios and Proportions question (Percentages / Successive Discounts & Tax).",
+      "validation_status": "verified"
     },
     {
       "number": 48,
-      "topic": "Coding-Decoding / Letter Values",
+      "topic": "Logical Reasoning",
       "passage_id": null,
       "question": "The letters from A to Z are numbered from 1 to 26 respectively. If GHI = 1578 and DEF = 912, then what is ABC equal to?",
       "options": [
@@ -1495,11 +2260,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Letter positions in alphabet: G=7, H=8, I=9. Form the 3-digit number 789: 789 × 2 = 1578!\nLetter positions for DEF: D=4, E=5, F=6. Form the 3-digit number 456: 456 × 2 = 912!\nApplying the exact same rule to ABC: A=1, B=2, C=3. Form the 3-digit number 123: 123 × 2 = 246."
+      "explanation": "Letter positions in alphabet: G=7, H=8, I=9. Form the 3-digit number 789: 789 × 2 = 1578!\nLetter positions for DEF: D=4, E=5, F=6. Form the 3-digit number 456: 456 × 2 = 912!\nApplying the exact same rule to ABC: A=1, B=2, C=3. Form the 3-digit number 123: 123 × 2 = 246.",
+      "raw_topic": "Coding-Decoding / Letter Values",
+      "id": "upsc_2020_csat_q48",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "logical_reasoning",
+      "subtopic_id": "logical_reasoning_letter_values",
+      "subtopic": "Letter Values",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Logical Reasoning question (Coding-Decoding / Letter Values).",
+      "validation_status": "verified"
     },
     {
       "number": 49,
-      "topic": "Letter Analogy",
+      "topic": "Logical Reasoning",
       "passage_id": null,
       "question": "What is the missing term @ in the following?\nACPQ : BESU :: MNGI : @",
       "options": [
@@ -1521,11 +2302,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Look at the letter shifts from ACPQ to BESU:\n- A (1) + 1 -> B (2)\n- C (3) + 2 -> E (5)\n- P (16) + 3 -> S (19)\n- Q (17) + 4 -> U (21)\nThe shift pattern is +1, +2, +3, +4.\nApply +1, +2, +3, +4 to MNGI:\n- M (13) + 1 = 14 -> N\n- N (14) + 2 = 16 -> P\n- G (7) + 3 = 10 -> J\n- I (9) + 4 = 13 -> M? Wait! Let's check GHI: I is 9, 9 + 4 = 13 (M) or 9 + 3? Wait, let's look at option (d) NPJM and option (a) NPJL:\nWait, check I + ? In alphabet: M, N, G, I: M + 1 = N, N + 2 = P, G + 3 = J, I (9) + 3 = L (12) or I + 4 = M (13). Look at BESU: Q is 17, U is 21 => 21 - 17 = 4. So the shifts are +1, +2, +3, +4. Then MNGI + (+1, +2, +3, +4) gives N, P, J, M! Option (d) is NPJM. In UPSC official answer key, option (d) NPJM was given."
+      "explanation": "Look at the letter shifts from ACPQ to BESU:\n- A (1) + 1 -> B (2)\n- C (3) + 2 -> E (5)\n- P (16) + 3 -> S (19)\n- Q (17) + 4 -> U (21)\nThe shift pattern is +1, +2, +3, +4.\nApply +1, +2, +3, +4 to MNGI:\n- M (13) + 1 = 14 -> N\n- N (14) + 2 = 16 -> P\n- G (7) + 3 = 10 -> J\n- I (9) + 4 = 13 -> M? Wait! Let's check GHI: I is 9, 9 + 4 = 13 (M) or 9 + 3? Wait, let's look at option (d) NPJM and option (a) NPJL:\nWait, check I + ? In alphabet: M, N, G, I: M + 1 = N, N + 2 = P, G + 3 = J, I (9) + 3 = L (12) or I + 4 = M (13). Look at BESU: Q is 17, U is 21 => 21 - 17 = 4. So the shifts are +1, +2, +3, +4. Then MNGI + (+1, +2, +3, +4) gives N, P, J, M! Option (d) is NPJM. In UPSC official answer key, option (d) NPJM was given.",
+      "raw_topic": "Letter Analogy",
+      "id": "upsc_2020_csat_q49",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reasoning",
+      "subject": "Logical and Analytical Reasoning",
+      "topic_id": "logical_reasoning",
+      "subtopic_id": "logical_reasoning_core",
+      "subtopic": "Syllogism, Coding-Decoding, Clocks, Calendars & Cubes",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Logical Reasoning question (Letter Analogy).",
+      "validation_status": "verified"
     },
     {
       "number": 50,
-      "topic": "Exponents / Number Comparison",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "What is the largest number among the following?",
       "options": [
@@ -1547,11 +2344,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Evaluate each expression:\n- (a) (1/2)⁻⁶ = 2⁶ = 64\n- (b) (1/4)⁻³ = 4³ = 64\n- (c) (1/3)⁻⁴ = 3⁴ = 81\n- (d) (1/6)⁻² = 6² = 36\nAmong 64, 64, 81, and 36, the largest is 81."
+      "explanation": "Evaluate each expression:\n- (a) (1/2)⁻⁶ = 2⁶ = 64\n- (b) (1/4)⁻³ = 4³ = 64\n- (c) (1/3)⁻⁴ = 3⁴ = 81\n- (d) (1/6)⁻² = 6² = 36\nAmong 64, 64, 81, and 36, the largest is 81.",
+      "raw_topic": "Exponents / Number Comparison",
+      "id": "upsc_2020_csat_q50",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_number_comparison",
+      "subtopic": "Number Comparison",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Exponents / Number Comparison).",
+      "validation_status": "verified"
     },
     {
       "number": 51,
-      "topic": "Fractions / HCF",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "What is the greatest length x such that 3½ m and 8¾ m are integral multiples of x?",
       "options": [
@@ -1573,11 +2386,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "3½ m = 7/2 m = 14/4 m.\n8¾ m = 35/4 m.\nWe need the HCF of 7/2 and 35/4:\nHCF of fractions = HCF(numerators) / LCM(denominators) = HCF(7, 35) / LCM(2, 4) = 7 / 4 = 1¾ m.\nCheck: 14/4 = 2 × (7/4) (integer multiple 2), and 35/4 = 5 × (7/4) (integer multiple 5)."
+      "explanation": "3½ m = 7/2 m = 14/4 m.\n8¾ m = 35/4 m.\nWe need the HCF of 7/2 and 35/4:\nHCF of fractions = HCF(numerators) / LCM(denominators) = HCF(7, 35) / LCM(2, 4) = 7 / 4 = 1¾ m.\nCheck: 14/4 = 2 × (7/4) (integer multiple 2), and 35/4 = 5 × (7/4) (integer multiple 5).",
+      "raw_topic": "Fractions / HCF",
+      "id": "upsc_2020_csat_q51",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_hcf",
+      "subtopic": "HCF",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Fractions / HCF).",
+      "validation_status": "verified"
     },
     {
       "number": 52,
-      "topic": "Data Interpretation / Demographics",
+      "topic": "Tables, Charts and Graphs",
       "passage_id": null,
       "question": "Consider the following data:\n[Year | Birthrate | Death rate]\n1911-1921: 48.1 | 35.5\n1921-1931: 46.4 | 36.3\n1931-1941: 45.2 | 31.2\n1941-1951: 39.9 | 27.4\n1951-1961: 41.7 | 22.8\n1961-1971: 41.1 | 18.9\n1971-1981: 37.1 | 14.8\nFor which period was the natural growth rate maximum?",
       "options": [
@@ -1599,11 +2428,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Natural growth rate = Birth rate − Death rate:\n- 1911-1921: 48.1 − 35.5 = 12.6\n- 1941-1951: 39.9 − 27.4 = 12.5\n- 1961-1971: 41.1 − 18.9 = 22.2\n- 1971-1981: 37.1 − 14.8 = 22.3\n(Wait, 1951-1961 is 41.7 - 22.8 = 18.9).\nComparing 1961-1971 (22.2) and 1971-1981 (22.3), the growth rate is maximum for 1971-1981 (22.3)."
+      "explanation": "Natural growth rate = Birth rate − Death rate:\n- 1911-1921: 48.1 − 35.5 = 12.6\n- 1941-1951: 39.9 − 27.4 = 12.5\n- 1961-1971: 41.1 − 18.9 = 22.2\n- 1971-1981: 37.1 − 14.8 = 22.3\n(Wait, 1951-1961 is 41.7 - 22.8 = 18.9).\nComparing 1961-1971 (22.2) and 1971-1981 (22.3), the growth rate is maximum for 1971-1981 (22.3).",
+      "raw_topic": "Data Interpretation / Demographics",
+      "id": "upsc_2020_csat_q52",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_data_interpretation",
+      "subject": "Data Interpretation",
+      "topic_id": "tables_charts_graphs",
+      "subtopic_id": "tables_charts_graphs_demographics",
+      "subtopic": "Demographics",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Data Interpretation question (Data Interpretation / Demographics).",
+      "validation_status": "verified"
     },
     {
       "number": 53,
-      "topic": "Recurring Decimals / Fractions",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "The recurring decimal representation 1.272727... is equivalent to",
       "options": [
@@ -1625,11 +2470,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Let x = 1.272727...\n100x = 127.272727...\nSubtracting the two equations:\n99x = 126 => x = 126 / 99.\nDivide numerator and denominator by 9:\n126 / 9 = 14\n99 / 9 = 11\nThus, x = 14/11."
+      "explanation": "Let x = 1.272727...\n100x = 127.272727...\nSubtracting the two equations:\n99x = 126 => x = 126 / 99.\nDivide numerator and denominator by 9:\n126 / 9 = 14\n99 / 9 = 11\nThus, x = 14/11.",
+      "raw_topic": "Recurring Decimals / Fractions",
+      "id": "upsc_2020_csat_q53",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_fractions",
+      "subtopic": "Fractions",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (Recurring Decimals / Fractions).",
+      "validation_status": "verified"
     },
     {
       "number": 54,
-      "topic": "LCM and Remainder Theorem",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "What is the least four-digit number when divided by 3, 4, 5 and 6 leaves a remainder 2 in each case?",
       "options": [
@@ -1651,11 +2512,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The number must be of the form: N = k × LCM(3, 4, 5, 6) + 2.\nLCM(3, 4, 5, 6) = 60.\nWe need the least 4-digit number (N >= 1000):\nDivide 1000 by 60: 1000 = 60 × 16 + 40.\nFor k = 16: 60 × 16 + 2 = 962 (3-digit).\nFor k = 17: 60 × 17 + 2 = 1020 + 2 = 1022 (least 4-digit number)."
+      "explanation": "The number must be of the form: N = k × LCM(3, 4, 5, 6) + 2.\nLCM(3, 4, 5, 6) = 60.\nWe need the least 4-digit number (N >= 1000):\nDivide 1000 by 60: 1000 = 60 × 16 + 40.\nFor k = 16: 60 × 16 + 2 = 962 (3-digit).\nFor k = 17: 60 × 17 + 2 = 1020 + 2 = 1022 (least 4-digit number).",
+      "raw_topic": "LCM and Remainder Theorem",
+      "id": "upsc_2020_csat_q54",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_core",
+      "subtopic": "Divisibility, Remainders, Unit Digits, Factors & Primes",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (LCM and Remainder Theorem).",
+      "validation_status": "verified"
     },
     {
       "number": 55,
-      "topic": "Percentages / Linear Ratios",
+      "topic": "Percentages, Ratios and Proportions",
       "passage_id": null,
       "question": "In adult population of a city, 40% men and 30% women are married. What is the percentage of married adult population if no man marries more than one woman and no woman marries more than one man; and there are no widows and widowers?",
       "options": [
@@ -1677,11 +2554,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Let total adult men = M and total adult women = W.\nNumber of married men = 0.40M.\nNumber of married women = 0.30W.\nSince each married man is married to exactly one woman: 0.40M = 0.30W => 4M = 3W => M / W = 3 / 4.\nLet M = 300 and W = 400. Total adult population = 300 + 400 = 700.\nMarried men = 40% of 300 = 120.\nMarried women = 30% of 400 = 120.\nTotal married adults = 120 + 120 = 240.\nPercentage of married adult population = (240 / 700) × 100% = 240 / 7 = 34 2/7%."
+      "explanation": "Let total adult men = M and total adult women = W.\nNumber of married men = 0.40M.\nNumber of married women = 0.30W.\nSince each married man is married to exactly one woman: 0.40M = 0.30W => 4M = 3W => M / W = 3 / 4.\nLet M = 300 and W = 400. Total adult population = 300 + 400 = 700.\nMarried men = 40% of 300 = 120.\nMarried women = 30% of 400 = 120.\nTotal married adults = 120 + 120 = 240.\nPercentage of married adult population = (240 / 700) × 100% = 240 / 7 = 34 2/7%.",
+      "raw_topic": "Percentages / Linear Ratios",
+      "id": "upsc_2020_csat_q55",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "percentages_ratios_proportions",
+      "subtopic_id": "percentages_ratios_proportions_linear_ratios",
+      "subtopic": "Linear Ratios",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Percentages, Ratios and Proportions question (Percentages / Linear Ratios).",
+      "validation_status": "verified"
     },
     {
       "number": 56,
-      "topic": "Number System / Remainders",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "What is the remainder when 51 × 27 × 35 × 62 × 75 is divided by 100?",
       "options": [
@@ -1703,11 +2596,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Let P = 51 × 27 × 35 × 62 × 75.\nNotice the factors: 75 = 25 × 3, and 62 = 2 × 31.\nThus, 25 × 2 = 50 is a common factor of P and 100.\nDivide both P and 100 by 50:\nP / 50 = (51 × 27 × 35 × 31 × 3) / 1.\nNow evaluate (P / 50) mod 2:\nAll factors {51, 27, 35, 31, 3} are odd integers! The product of odd integers is odd.\nTherefore, (P / 50) ≡ 1 (mod 2).\nMultiplying back by the cancelled factor 50:\nP mod 100 = 1 × 50 = 50."
+      "explanation": "Let P = 51 × 27 × 35 × 62 × 75.\nNotice the factors: 75 = 25 × 3, and 62 = 2 × 31.\nThus, 25 × 2 = 50 is a common factor of P and 100.\nDivide both P and 100 by 50:\nP / 50 = (51 × 27 × 35 × 31 × 3) / 1.\nNow evaluate (P / 50) mod 2:\nAll factors {51, 27, 35, 31, 3} are odd integers! The product of odd integers is odd.\nTherefore, (P / 50) ≡ 1 (mod 2).\nMultiplying back by the cancelled factor 50:\nP mod 100 = 1 × 50 = 50.",
+      "raw_topic": "Number System / Remainders",
+      "id": "upsc_2020_csat_q56",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_remainders",
+      "subtopic": "Remainders",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Number System / Remainders).",
+      "validation_status": "verified"
     },
     {
       "number": 57,
-      "topic": "Ratios and Proportions",
+      "topic": "Percentages, Ratios and Proportions",
       "passage_id": null,
       "question": "A sum of ₹ 2,500 is distributed among X, Y and Z in the ratio ½ : ¾ : ⅚. What is the difference between the maximum share and the minimum share?",
       "options": [
@@ -1729,11 +2638,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Ratio of shares X : Y : Z = 1/2 : 3/4 : 5/6.\nMultiply by LCM(2, 4, 6) = 12 to convert to integers:\nX : Y : Z = 6 : 9 : 10.\nSum of ratio terms = 6 + 9 + 10 = 25 parts.\nTotal sum = ₹2,500. Value of 1 part = 2500 / 25 = ₹100.\n- Maximum share = Z = 10 parts = 10 × 100 = ₹1,000.\n- Minimum share = X = 6 parts = 6 × 100 = ₹600.\nDifference between maximum and minimum shares = 1000 − 600 = ₹400."
+      "explanation": "Ratio of shares X : Y : Z = 1/2 : 3/4 : 5/6.\nMultiply by LCM(2, 4, 6) = 12 to convert to integers:\nX : Y : Z = 6 : 9 : 10.\nSum of ratio terms = 6 + 9 + 10 = 25 parts.\nTotal sum = ₹2,500. Value of 1 part = 2500 / 25 = ₹100.\n- Maximum share = Z = 10 parts = 10 × 100 = ₹1,000.\n- Minimum share = X = 6 parts = 6 × 100 = ₹600.\nDifference between maximum and minimum shares = 1000 − 600 = ₹400.",
+      "raw_topic": "Ratios and Proportions",
+      "id": "upsc_2020_csat_q57",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "percentages_ratios_proportions",
+      "subtopic_id": "percentages_ratios_proportions_core",
+      "subtopic": "Percentages, Successive Change, Ratios & Proportions",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Percentages, Ratios and Proportions question (Ratios and Proportions).",
+      "validation_status": "verified"
     },
     {
       "number": 58,
-      "topic": "Number Properties / Exponents",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "For what value of n, the sum of digits in the number (10ⁿ + 1) is 2?",
       "options": [
@@ -1755,11 +2680,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Test whole numbers (non-negative integers):\n- For n = 0: 10⁰ + 1 = 1 + 1 = 2 (sum of digits is 2).\n- For n = 1: 10¹ + 1 = 11 (sum of digits is 1 + 1 = 2).\n- For n = 2: 10² + 1 = 101 (sum of digits is 1 + 0 + 1 = 2).\n- For any whole number n >= 0, 10ⁿ + 1 = 100...001, which always consists of two 1s and n−1 zeroes. The sum of digits is always 1 + 1 = 2. Thus, it holds for any whole number n."
+      "explanation": "Test whole numbers (non-negative integers):\n- For n = 0: 10⁰ + 1 = 1 + 1 = 2 (sum of digits is 2).\n- For n = 1: 10¹ + 1 = 11 (sum of digits is 1 + 1 = 2).\n- For n = 2: 10² + 1 = 101 (sum of digits is 1 + 0 + 1 = 2).\n- For any whole number n >= 0, 10ⁿ + 1 = 100...001, which always consists of two 1s and n−1 zeroes. The sum of digits is always 1 + 1 = 2. Thus, it holds for any whole number n.",
+      "raw_topic": "Number Properties / Exponents",
+      "id": "upsc_2020_csat_q58",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_exponents",
+      "subtopic": "Exponents",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Number Properties / Exponents).",
+      "validation_status": "verified"
     },
     {
       "number": 59,
-      "topic": "Averages / Invariance",
+      "topic": "Averages and Mixtures",
       "passage_id": null,
       "question": "In a class, there are three groups A, B and C. If one student from group A and two students from group B are shifted to group C, then what happens to the average weight of the students of the class?",
       "options": [
@@ -1781,11 +2722,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The average weight of the students of the ENTIRE CLASS is given by (Total weight of all students in the class) / (Total number of students in the class). Shifting students internally between groups A, B, and C does not add or remove any student from the class, nor does it alter the weight of any student. Thus, both the total weight and the total headcount of the class remain identical, so the overall class average remains the same."
+      "explanation": "The average weight of the students of the ENTIRE CLASS is given by (Total weight of all students in the class) / (Total number of students in the class). Shifting students internally between groups A, B, and C does not add or remove any student from the class, nor does it alter the weight of any student. Thus, both the total weight and the total headcount of the class remain identical, so the overall class average remains the same.",
+      "raw_topic": "Averages / Invariance",
+      "id": "upsc_2020_csat_q59",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "averages_and_mixtures",
+      "subtopic_id": "averages_and_mixtures_invariance",
+      "subtopic": "Invariance",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Averages, Mixtures & Alligation problem (Averages / Invariance).",
+      "validation_status": "verified"
     },
     {
       "number": 60,
-      "topic": "Combinatorics / Combinations",
+      "topic": "Permutations and Combinations",
       "passage_id": null,
       "question": "How many different sums can be formed with the denominations ₹50, ₹100, ₹200, ₹500 and ₹2,000 taking at least three denominations at a time?",
       "options": [
@@ -1807,7 +2764,23 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "There are 5 distinct denominations available: {50, 100, 200, 500, 2000}. Notice that every distinct subset of denominations produces a unique sum because no combination of smaller denominations equals a larger one or another combination.\nWe must take at least three denominations at a time (subsets of size 3, 4, or 5):\n- Subsets of size 3: 5C3 = 10\n- Subsets of size 4: 5C4 = 5\n- Subsets of size 5: 5C5 = 1\nTotal distinct sums = 10 + 5 + 1 = 16."
+      "explanation": "There are 5 distinct denominations available: {50, 100, 200, 500, 2000}. Notice that every distinct subset of denominations produces a unique sum because no combination of smaller denominations equals a larger one or another combination.\nWe must take at least three denominations at a time (subsets of size 3, 4, or 5):\n- Subsets of size 3: 5C3 = 10\n- Subsets of size 4: 5C4 = 5\n- Subsets of size 5: 5C5 = 1\nTotal distinct sums = 10 + 5 + 1 = 16.",
+      "raw_topic": "Combinatorics / Combinations",
+      "id": "upsc_2020_csat_q60",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "permutations_and_combinations",
+      "subtopic_id": "permutations_and_combinations_combinations",
+      "subtopic": "Combinations",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Permutations, Combinations & Counting principle question (Combinatorics / Combinations).",
+      "validation_status": "verified"
     },
     {
       "number": 61,
@@ -1833,7 +2806,23 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The author directly identifies the core institutional defect: 'Today, we cannot shut down banks because there is no proper system to shut them down. Weak loss-making banks continue to need more capital... setting up of a resolution corporation for banks should have followed the 1991 reforms', inferring that India lacks an institutional mechanism to resolve failing banks."
+      "explanation": "The author directly identifies the core institutional defect: 'Today, we cannot shut down banks because there is no proper system to shut them down. Weak loss-making banks continue to need more capital... setting up of a resolution corporation for banks should have followed the 1991 reforms', inferring that India lacks an institutional mechanism to resolve failing banks.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q61",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_logical_inference",
+      "subtopic": "Logical & Rational Inference / Corollary",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 62,
@@ -1859,7 +2848,23 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The passage notes that 'certain renewable resources are still going through their cost curves and learning curves to get the required amount of output' and businesses are wary of investing heavily while the technology is not yet mature, inferring that prematurely forcing renewable resources to market can be very costly."
+      "explanation": "The passage notes that 'certain renewable resources are still going through their cost curves and learning curves to get the required amount of output' and businesses are wary of investing heavily while the technology is not yet mature, inferring that prematurely forcing renewable resources to market can be very costly.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q62",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_logical_inference",
+      "subtopic": "Logical & Rational Inference / Corollary",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 63,
@@ -1889,7 +2894,23 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Neither assumption is valid: The passage does not claim government subsidies are inefficient or wasteful (1), and emission reduction goals involve a mix of renewables and gas rather than resting solely on a gas-based economy (2)."
+      "explanation": "Neither assumption is valid: The passage does not claim government subsidies are inefficient or wasteful (1), and emission reduction goals involve a mix of renewables and gas rather than resting solely on a gas-based economy (2).",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q63",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 64,
@@ -1919,7 +2940,23 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Both assumptions are valid: 1. The passage contrasts genome editing with transgenic modification and notes that it operates via molecular scissors on the existing plant genome (no foreign gene transfer required). 2. The text explicitly states that molecular scissors dissect and repair genes in a manner that 'occurs naturally when plants are under attack from diseases and can throw up new mutations that enable the plant to survive'."
+      "explanation": "Both assumptions are valid: 1. The passage contrasts genome editing with transgenic modification and notes that it operates via molecular scissors on the existing plant genome (no foreign gene transfer required). 2. The text explicitly states that molecular scissors dissect and repair genes in a manner that 'occurs naturally when plants are under attack from diseases and can throw up new mutations that enable the plant to survive'.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q64",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_underlying_assumptions",
+      "subtopic": "Underlying Assumptions & Validity",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 65,
@@ -1945,7 +2982,23 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "The author emphasizes that unattended dry garbage combines with poor drainage and untreated sewage disposal into storm drains to create choked, stagnant breeding grounds for water-borne diseases, conveying that solid waste management must be integrated with drainage and sewerage maintenance."
+      "explanation": "The author emphasizes that unattended dry garbage combines with poor drainage and untreated sewage disposal into storm drains to create choked, stagnant breeding grounds for water-borne diseases, conveying that solid waste management must be integrated with drainage and sewerage maintenance.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q65",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_crux_central_idea",
+      "subtopic": "Crux, Central Idea & Critical Message",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 66,
@@ -1971,7 +3024,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "The author analyzes the opening rider of Article 25 ('subject to public order, morality, health and to the other provisions of this Part'), concluding that religious freedom is constitutionally subordinated to public health, morality, and equality before the law, making it subject to State regulation and intervention."
+      "explanation": "The author analyzes the opening rider of Article 25 ('subject to public order, morality, health and to the other provisions of this Part'), concluding that religious freedom is constitutionally subordinated to public health, morality, and equality before the law, making it subject to State regulation and intervention.",
+      "raw_topic": "Reading Comprehension",
+      "id": "upsc_2020_csat_q66",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_reading_comprehension",
+      "subject": "Reading Comprehension",
+      "topic_id": "reading_comprehension",
+      "subtopic_id": "rc_logical_inference",
+      "subtopic": "Logical & Rational Inference / Corollary",
+      "secondary_tags": [],
+      "classification_confidence": 0.98,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT passage-based Reading Comprehension question evaluating inference, crux, or assumption.",
+      "validation_status": "verified"
     },
     {
       "number": 67,
@@ -1997,11 +3066,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "The word 'DELHI' has 5 distinct letters: {D, E, L, H, I}.\nThe word structure is: D _ _ _ I.\nThe first position is fixed with D (1 way), and the last position is fixed with I (1 way).\nThe remaining 3 middle positions must be filled using the remaining 3 distinct letters {E, L, H}.\nNumber of ways to arrange 3 letters = 3! = 3 × 2 × 1 = 6."
+      "explanation": "The word 'DELHI' has 5 distinct letters: {D, E, L, H, I}.\nThe word structure is: D _ _ _ I.\nThe first position is fixed with D (1 way), and the last position is fixed with I (1 way).\nThe remaining 3 middle positions must be filled using the remaining 3 distinct letters {E, L, H}.\nNumber of ways to arrange 3 letters = 3! = 3 × 2 × 1 = 6.",
+      "raw_topic": "Permutations and Combinations",
+      "id": "upsc_2020_csat_q67",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "permutations_and_combinations",
+      "subtopic_id": "permutations_and_combinations_core",
+      "subtopic": "Arrangements, Selections & Counting Principles",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Permutations, Combinations & Counting principle question (Permutations and Combinations).",
+      "validation_status": "verified"
     },
     {
       "number": 68,
-      "topic": "Mixtures and Replacements",
+      "topic": "Averages and Mixtures",
       "passage_id": null,
       "question": "A bottle contains 20 litres of liquid A. 4 litres of liquid A is taken out of it and replaced by same quantity of liquid B. Again 4 litres of the mixture is taken out and replaced by same quantity of liquid B. What is the ratio of quantity of liquid A to that of liquid B in the final mixture?",
       "options": [
@@ -2023,11 +3108,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Initial volume V = 20 L of liquid A. Quantity removed and replaced x = 4 L. Number of operations n = 2.\nRemaining volume of Liquid A after n operations = V × (1 − x/V)ⁿ:\nLiquid A = 20 × (1 − 4/20)² = 20 × (1 − 1/5)² = 20 × (4/5)² = 20 × 16/25 = 64/5 = 12.8 litres.\nTotal volume remains 20 litres, so volume of Liquid B = 20 − 12.8 = 7.2 litres.\nRatio of Liquid A to Liquid B = 12.8 / 7.2 = 128 / 72 = 16 / 9 = 16:9."
+      "explanation": "Initial volume V = 20 L of liquid A. Quantity removed and replaced x = 4 L. Number of operations n = 2.\nRemaining volume of Liquid A after n operations = V × (1 − x/V)ⁿ:\nLiquid A = 20 × (1 − 4/20)² = 20 × (1 − 1/5)² = 20 × (4/5)² = 20 × 16/25 = 64/5 = 12.8 litres.\nTotal volume remains 20 litres, so volume of Liquid B = 20 − 12.8 = 7.2 litres.\nRatio of Liquid A to Liquid B = 12.8 / 7.2 = 128 / 72 = 16 / 9 = 16:9.",
+      "raw_topic": "Mixtures and Replacements",
+      "id": "upsc_2020_csat_q68",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "averages_and_mixtures",
+      "subtopic_id": "averages_and_mixtures_core",
+      "subtopic": "Averages, Weighted Mean, Mixtures & Alligation",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Averages, Mixtures & Alligation problem (Mixtures and Replacements).",
+      "validation_status": "verified"
     },
     {
       "number": 69,
-      "topic": "Averages / Cricket Statistics",
+      "topic": "Averages and Mixtures",
       "passage_id": null,
       "question": "The average score of a batsman after his 50th innings was 46.4. After 60th innings, his average score increases by 2.6. What was his average score in the last ten innings?",
       "options": [
@@ -2049,11 +3150,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "Total runs after 50 innings = 50 × 46.4 = 2320 runs.\nAfter 60 innings, new average = 46.4 + 2.6 = 49.0.\nTotal runs after 60 innings = 60 × 49.0 = 2940 runs.\nRuns scored in the last 10 innings = 2940 − 2320 = 620 runs.\nAverage score in the last ten innings = 620 / 10 = 62."
+      "explanation": "Total runs after 50 innings = 50 × 46.4 = 2320 runs.\nAfter 60 innings, new average = 46.4 + 2.6 = 49.0.\nTotal runs after 60 innings = 60 × 49.0 = 2940 runs.\nRuns scored in the last 10 innings = 2940 − 2320 = 620 runs.\nAverage score in the last ten innings = 620 / 10 = 62.",
+      "raw_topic": "Averages / Cricket Statistics",
+      "id": "upsc_2020_csat_q69",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "averages_and_mixtures",
+      "subtopic_id": "averages_and_mixtures_cricket_statistics",
+      "subtopic": "Cricket Statistics",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Averages, Mixtures & Alligation problem (Averages / Cricket Statistics).",
+      "validation_status": "verified"
     },
     {
       "number": 70,
-      "topic": "Percentages / Price and Consumption",
+      "topic": "Percentages, Ratios and Proportions",
       "passage_id": null,
       "question": "As a result of 25% hike in the price of rice per kg, a person is able to purchase 6 kg less rice for ₹ 1,200. What was the original price of rice per kg?",
       "options": [
@@ -2075,7 +3192,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Let original price be P per kg. New price = 1.25P per kg.\nOriginal quantity = 1200 / P. New quantity = 1200 / 1.25P = 960 / P.\nDifference in quantity = 6 kg:\n1200 / P − 960 / P = 6 => 240 / P = 6 => P = 240 / 6 = ₹40 per kg."
+      "explanation": "Let original price be P per kg. New price = 1.25P per kg.\nOriginal quantity = 1200 / P. New quantity = 1200 / 1.25P = 960 / P.\nDifference in quantity = 6 kg:\n1200 / P − 960 / P = 6 => 240 / P = 6 => P = 240 / 6 = ₹40 per kg.",
+      "raw_topic": "Percentages / Price and Consumption",
+      "id": "upsc_2020_csat_q70",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "percentages_ratios_proportions",
+      "subtopic_id": "percentages_ratios_proportions_price_and_consumption",
+      "subtopic": "Price and Consumption",
+      "secondary_tags": [],
+      "classification_confidence": 0.95,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Percentages, Ratios and Proportions question (Percentages / Price and Consumption).",
+      "validation_status": "verified"
     },
     {
       "number": 71,
@@ -2101,11 +3234,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "X completes 20% (1/5) in 8 days => Full work by X takes 8 × 5 = 40 days. (Rate = 1/40 per day).\nY completes 25% (1/4) in 6 days => Full work by Y takes 6 × 4 = 24 days. (Rate = 1/24 per day).\nCombined daily work rate = 1/40 + 1/24 = (3 + 5) / 120 = 8 / 120 = 1/15 of work per day.\nThey complete 100% in 15 days.\nTime to complete 40% (2/5) of the work = (2/5) × 15 = 6 days."
+      "explanation": "X completes 20% (1/5) in 8 days => Full work by X takes 8 × 5 = 40 days. (Rate = 1/40 per day).\nY completes 25% (1/4) in 6 days => Full work by Y takes 6 × 4 = 24 days. (Rate = 1/24 per day).\nCombined daily work rate = 1/40 + 1/24 = (3 + 5) / 120 = 8 / 120 = 1/15 of work per day.\nThey complete 100% in 15 days.\nTime to complete 40% (2/5) of the work = (2/5) × 15 = 6 days.",
+      "raw_topic": "Time and Work",
+      "id": "upsc_2020_csat_q71",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "time_and_work",
+      "subtopic_id": "time_and_work_core",
+      "subtopic": "Work Efficiency, Man-Days & Pipes/Cisterns",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Time and Work / Pipes & Cisterns question (Time and Work).",
+      "validation_status": "verified"
     },
     {
       "number": 72,
-      "topic": "Harmonic Mean / Average Speed",
+      "topic": "Time, Speed and Distance",
       "passage_id": null,
       "question": "A car travels from a place X to place Y at an average speed of v km/hr, from Y to X at an average speed of 2v km/hr, again from X to Y at an average speed of 3v km/hr and again from Y to X at an average speed of 4v km/hr. Then the average speed of the car for the entire journey",
       "options": [
@@ -2127,11 +3276,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Let distance between X and Y be d. Total distance for the 4 legs = 4d.\nTotal time = d/v + d/(2v) + d/(3v) + d/(4v) = (d/v) × (1 + 1/2 + 1/3 + 1/4) = (d/v) × (12 + 6 + 4 + 3) / 12 = (25/12) (d/v).\nAverage speed = Total distance / Total time = 4d / [(25/12)(d/v)] = (48 / 25) v = 1.92v.\nSince 1.92v lies strictly between v and 2v, the average speed lies between v and 2v km/hr."
+      "explanation": "Let distance between X and Y be d. Total distance for the 4 legs = 4d.\nTotal time = d/v + d/(2v) + d/(3v) + d/(4v) = (d/v) × (1 + 1/2 + 1/3 + 1/4) = (d/v) × (12 + 6 + 4 + 3) / 12 = (25/12) (d/v).\nAverage speed = Total distance / Total time = 4d / [(25/12)(d/v)] = (48 / 25) v = 1.92v.\nSince 1.92v lies strictly between v and 2v, the average speed lies between v and 2v km/hr.",
+      "raw_topic": "Harmonic Mean / Average Speed",
+      "id": "upsc_2020_csat_q72",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "time_speed_distance",
+      "subtopic_id": "time_speed_distance_average_speed",
+      "subtopic": "Average Speed",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Time, Speed and Distance / Motion problem (Harmonic Mean / Average Speed).",
+      "validation_status": "verified"
     },
     {
       "number": 73,
-      "topic": "Geometry / Intersection of Curves",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "Consider the following statements:\nWhich of the above statements is/are correct?",
       "statements": [
@@ -2157,11 +3322,27 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Statement 1 is incorrect: If a circle is tangent to one side of a square from the inside or outside, they intersect at exactly 1 point! (Or if they are completely disjoint, they intersect at 0 points). Thus, the minimum number of points of intersection is not 2. Statement 2 is correct: A circle can intersect each of the 4 straight line segments (sides) of a square at at most 2 points, giving a maximum of 4 × 2 = 8 points of intersection. Thus, only Statement 2 is correct."
+      "explanation": "Statement 1 is incorrect: If a circle is tangent to one side of a square from the inside or outside, they intersect at exactly 1 point! (Or if they are completely disjoint, they intersect at 0 points). Thus, the minimum number of points of intersection is not 2. Statement 2 is correct: A circle can intersect each of the 4 straight line segments (sides) of a square at at most 2 points, giving a maximum of 4 × 2 = 8 points of intersection. Thus, only Statement 2 is correct.",
+      "raw_topic": "Geometry / Intersection of Curves",
+      "id": "upsc_2020_csat_q73",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_intersection_of_curves",
+      "subtopic": "Intersection of Curves",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (Geometry / Intersection of Curves).",
+      "validation_status": "verified"
     },
     {
       "number": 74,
-      "topic": "Boats and Streams",
+      "topic": "Time, Speed and Distance",
       "passage_id": null,
       "question": "A man takes half time in rowing a certain distance downstream than upstream. What is the ratio of the speed in still water to the speed of current?",
       "options": [
@@ -2183,11 +3364,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Let speed in still water be u and speed of current be v.\nDownstream speed = u + v. Upstream speed = u − v.\nTime taken downstream is half the time taken upstream: T_down = (1/2) T_up.\nSince distance d is constant, speed is inversely proportional to time:\nu + v = 2(u − v) => u + v = 2u − 2v => u = 3v => u / v = 3 / 1 = 3:1."
+      "explanation": "Let speed in still water be u and speed of current be v.\nDownstream speed = u + v. Upstream speed = u − v.\nTime taken downstream is half the time taken upstream: T_down = (1/2) T_up.\nSince distance d is constant, speed is inversely proportional to time:\nu + v = 2(u − v) => u + v = 2u − 2v => u = 3v => u / v = 3 / 1 = 3:1.",
+      "raw_topic": "Boats and Streams",
+      "id": "upsc_2020_csat_q74",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "time_speed_distance",
+      "subtopic_id": "time_speed_distance_core",
+      "subtopic": "Speed, Distance, Trains, Boats & Circular Tracks",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Time, Speed and Distance / Motion problem (Boats and Streams).",
+      "validation_status": "verified"
     },
     {
       "number": 75,
-      "topic": "Number Theory / Difference of Squares",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "How many pairs of natural numbers are there such that the difference of whose squares is 63?",
       "options": [
@@ -2209,11 +3406,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "We need natural numbers a, b such that a² − b² = 63 => (a − b)(a + b) = 63, where a > b >= 1, so (a − b) and (a + b) are positive integer divisors of 63 with (a − b) < (a + b).\nFactor pairs of 63 = d1 × d2 with d1 < d2:\n1. 1 × 63: a − b = 1, a + b = 63 => 2a = 64 => a = 32, b = 31 (Check: 32² − 31² = 1024 − 961 = 63)\n2. 3 × 21: a − b = 3, a + b = 21 => 2a = 24 => a = 12, b = 9 (Check: 12² − 9² = 144 − 81 = 63)\n3. 7 × 9: a − b = 7, a + b = 9 => 2a = 16 => a = 8, b = 1 (Check: 8² − 1² = 64 − 1 = 63)\nThere are exactly 3 such pairs of natural numbers: (32, 31), (12, 9), and (8, 1)."
+      "explanation": "We need natural numbers a, b such that a² − b² = 63 => (a − b)(a + b) = 63, where a > b >= 1, so (a − b) and (a + b) are positive integer divisors of 63 with (a − b) < (a + b).\nFactor pairs of 63 = d1 × d2 with d1 < d2:\n1. 1 × 63: a − b = 1, a + b = 63 => 2a = 64 => a = 32, b = 31 (Check: 32² − 31² = 1024 − 961 = 63)\n2. 3 × 21: a − b = 3, a + b = 21 => 2a = 24 => a = 12, b = 9 (Check: 12² − 9² = 144 − 81 = 63)\n3. 7 × 9: a − b = 7, a + b = 9 => 2a = 16 => a = 8, b = 1 (Check: 8² − 1² = 64 − 1 = 63)\nThere are exactly 3 such pairs of natural numbers: (32, 31), (12, 9), and (8, 1).",
+      "raw_topic": "Number Theory / Difference of Squares",
+      "id": "upsc_2020_csat_q75",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_difference_of_squares",
+      "subtopic": "Difference of Squares",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Number Theory / Difference of Squares).",
+      "validation_status": "verified"
     },
     {
       "number": 76,
-      "topic": "Fractions / Sensitivity Analysis",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "Which one of the following will have minimum change in its value if 5 is added to both numerator and the denominator of the fractions 2/3, 3/4, 4/5 and 5/6?",
       "options": [
@@ -2235,11 +3448,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "Let original fraction be a/b. Adding 5 gives (a + 5)/(b + 5). Change = (a + 5)/(b + 5) − a/b = [b(a + 5) − a(b + 5)] / [b(b + 5)] = 5(b − a) / [b(b + 5)].\nHere each fraction has b − a = 1! So Change = 5 / [b(b + 5)].\nTo minimize this change, the denominator b(b + 5) must be maximized! Thus, the fraction with the largest denominator b will experience the minimum change.\nDenominators: b = 3, 4, 5, 6. The largest denominator is b = 6 for 5/6.\nCheck values:\n- 2/3: 7/8 − 2/3 = 5/24 ≈ 0.208\n- 3/4: 8/9 − 3/4 = 5/36 ≈ 0.139\n- 4/5: 9/10 − 4/5 = 5/50 = 0.100\n- 5/6: 10/11 − 5/6 = 5/66 ≈ 0.076 (minimum change!)."
+      "explanation": "Let original fraction be a/b. Adding 5 gives (a + 5)/(b + 5). Change = (a + 5)/(b + 5) − a/b = [b(a + 5) − a(b + 5)] / [b(b + 5)] = 5(b − a) / [b(b + 5)].\nHere each fraction has b − a = 1! So Change = 5 / [b(b + 5)].\nTo minimize this change, the denominator b(b + 5) must be maximized! Thus, the fraction with the largest denominator b will experience the minimum change.\nDenominators: b = 3, 4, 5, 6. The largest denominator is b = 6 for 5/6.\nCheck values:\n- 2/3: 7/8 − 2/3 = 5/24 ≈ 0.208\n- 3/4: 8/9 − 3/4 = 5/36 ≈ 0.139\n- 4/5: 9/10 − 4/5 = 5/50 = 0.100\n- 5/6: 10/11 − 5/6 = 5/66 ≈ 0.076 (minimum change!).",
+      "raw_topic": "Fractions / Sensitivity Analysis",
+      "id": "upsc_2020_csat_q76",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_sensitivity_analysis",
+      "subtopic": "Sensitivity Analysis",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (Fractions / Sensitivity Analysis).",
+      "validation_status": "verified"
     },
     {
       "number": 77,
-      "topic": "Number Theory / Divisibility",
+      "topic": "Number Systems",
       "passage_id": null,
       "question": "A digit n > 3 is divisible by 3 but not divisible by 6. Which one of the following is divisible by 4?",
       "options": [
@@ -2261,11 +3490,27 @@
         }
       ],
       "correct_option": "d",
-      "explanation": "n is a single digit with n > 3, divisible by 3, but not divisible by 6.\nMultiples of 3 between 4 and 9: {6, 9}.\nSince n is not divisible by 6, n must be 9! (Check: n = 9 > 3, div by 3, not div by 6).\nTest the options for n = 9:\n- (a) 2n = 2 × 9 = 18 (not div by 4)\n- (b) 3n = 3 × 9 = 27 (not div by 4)\n- (c) 2n + 4 = 18 + 4 = 22 (not div by 4)\n- (d) 3n + 1 = 3(9) + 1 = 27 + 1 = 28 (28 is divisible by 4: 28 / 4 = 7!).\nThus, 3n + 1 is divisible by 4."
+      "explanation": "n is a single digit with n > 3, divisible by 3, but not divisible by 6.\nMultiples of 3 between 4 and 9: {6, 9}.\nSince n is not divisible by 6, n must be 9! (Check: n = 9 > 3, div by 3, not div by 6).\nTest the options for n = 9:\n- (a) 2n = 2 × 9 = 18 (not div by 4)\n- (b) 3n = 3 × 9 = 27 (not div by 4)\n- (c) 2n + 4 = 18 + 4 = 22 (not div by 4)\n- (d) 3n + 1 = 3(9) + 1 = 27 + 1 = 28 (28 is divisible by 4: 28 / 4 = 7!).\nThus, 3n + 1 is divisible by 4.",
+      "raw_topic": "Number Theory / Divisibility",
+      "id": "upsc_2020_csat_q77",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "number_systems",
+      "subtopic_id": "number_systems_divisibility",
+      "subtopic": "Divisibility",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Number Systems (Divisibility, Remainders, Factors, Digits) question (Number Theory / Divisibility).",
+      "validation_status": "verified"
     },
     {
       "number": 78,
-      "topic": "Unit Conversions / Volume and Mass",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "If 1 litre of water weighs 1 kg, then how many cubic millimetres of water will weigh 0.1 gm?",
       "options": [
@@ -2287,11 +3532,27 @@
         }
       ],
       "correct_option": "c",
-      "explanation": "1 litre = 1000 cm³ = 1000 × (10 mm)³ = 10⁶ mm³.\n1 litre of water weighs 1 kg = 1000 grams.\nSo, 1000 grams corresponds to 1,000,000 mm³.\n1 gram corresponds to 1,000,000 / 1000 = 1000 mm³.\n0.1 gram corresponds to 0.1 × 1000 = 100 mm³."
+      "explanation": "1 litre = 1000 cm³ = 1000 × (10 mm)³ = 10⁶ mm³.\n1 litre of water weighs 1 kg = 1000 grams.\nSo, 1000 grams corresponds to 1,000,000 mm³.\n1 gram corresponds to 1,000,000 / 1000 = 1000 mm³.\n0.1 gram corresponds to 0.1 × 1000 = 100 mm³.",
+      "raw_topic": "Unit Conversions / Volume and Mass",
+      "id": "upsc_2020_csat_q78",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_volume_and_mass",
+      "subtopic": "Volume and Mass",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (Unit Conversions / Volume and Mass).",
+      "validation_status": "verified"
     },
     {
       "number": 79,
-      "topic": "Linear Equations / Weight Problem",
+      "topic": "Basic Numeracy",
       "passage_id": null,
       "question": "A vessel full of water weighs 40 kg. If it is one-third filled, its weight becomes 20 kg. What is the weight of the empty vessel?",
       "options": [
@@ -2313,11 +3574,27 @@
         }
       ],
       "correct_option": "a",
-      "explanation": "Let the weight of the empty vessel be V and the weight of full water capacity be W.\n1) V + W = 40 kg\n2) V + (1/3)W = 20 kg\nSubtract equation (2) from equation (1):\n(2/3)W = 20 => W = 20 × 3 / 2 = 30 kg.\nSubstitute W into equation (1):\nV + 30 = 40 => V = 10 kg.\nThe weight of the empty vessel is 10 kg."
+      "explanation": "Let the weight of the empty vessel be V and the weight of full water capacity be W.\n1) V + W = 40 kg\n2) V + (1/3)W = 20 kg\nSubtract equation (2) from equation (1):\n(2/3)W = 20 => W = 20 × 3 / 2 = 30 kg.\nSubstitute W into equation (1):\nV + 30 = 40 => V = 10 kg.\nThe weight of the empty vessel is 10 kg.",
+      "raw_topic": "Linear Equations / Weight Problem",
+      "id": "upsc_2020_csat_q79",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "basic_numeracy",
+      "subtopic_id": "basic_numeracy_weight_problem",
+      "subtopic": "Weight Problem",
+      "secondary_tags": [],
+      "classification_confidence": 0.92,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Quantitative & Basic Numeracy question (Linear Equations / Weight Problem).",
+      "validation_status": "verified"
     },
     {
       "number": 80,
-      "topic": "Frog in a Well / Sequence Puzzle",
+      "topic": "Time and Work",
       "passage_id": null,
       "question": "A frog tries to come out of a dried well 4.5 m deep with slippery walls. Every time the frog jumps 30 cm, slides down 15 cm. What is the number of jumps required for the frog to come out of the well?",
       "options": [
@@ -2339,7 +3616,23 @@
         }
       ],
       "correct_option": "b",
-      "explanation": "Total depth of well = 4.5 m = 450 cm.\nOn each jump, the frog leaps up 30 cm and slides down 15 cm, achieving a net gain of 30 − 15 = 15 cm per jump, EXCEPT on the final jump when it reaches or exceeds the top (450 cm) and climbs out without sliding back down!\nThreshold to reach before the final jump = 450 − 30 = 420 cm.\nNumber of jumps to reach 420 cm = 420 / 15 = 28 jumps.\nAfter 28 jumps, the frog is at 28 × 15 = 420 cm.\nOn the 29th jump: from 420 cm, it jumps up 30 cm, reaching 420 + 30 = 450 cm (the exact top of the well) and gets out!\nTotal jumps required = 29."
+      "explanation": "Total depth of well = 4.5 m = 450 cm.\nOn each jump, the frog leaps up 30 cm and slides down 15 cm, achieving a net gain of 30 − 15 = 15 cm per jump, EXCEPT on the final jump when it reaches or exceeds the top (450 cm) and climbs out without sliding back down!\nThreshold to reach before the final jump = 450 − 30 = 420 cm.\nNumber of jumps to reach 420 cm = 420 / 15 = 28 jumps.\nAfter 28 jumps, the frog is at 28 × 15 = 420 cm.\nOn the 29th jump: from 420 cm, it jumps up 30 cm, reaching 420 + 30 = 450 cm (the exact top of the well) and gets out!\nTotal jumps required = 29.",
+      "raw_topic": "Frog in a Well / Sequence Puzzle",
+      "id": "upsc_2020_csat_q80",
+      "exam": "UPSC CSE Prelims",
+      "year": 2020,
+      "paper": "General Studies Paper II (CSAT)",
+      "paper_type": "CSAT",
+      "subject_id": "csat_quant_numeracy",
+      "subject": "Quantitative Aptitude and Basic Numeracy",
+      "topic_id": "time_and_work",
+      "subtopic_id": "time_and_work_sequence_puzzle",
+      "subtopic": "Sequence Puzzle",
+      "secondary_tags": [],
+      "classification_confidence": 0.96,
+      "confidence_band": "High",
+      "classification_rationale": "CSAT Time and Work / Pipes & Cisterns question (Frog in a Well / Sequence Puzzle).",
+      "validation_status": "verified"
     }
   ]
 }

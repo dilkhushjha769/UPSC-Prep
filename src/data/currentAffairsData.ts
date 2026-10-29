@@ -58,6 +58,7 @@ export const CANONICAL_CA_CATEGORIES: {
 
 export interface ImageProvenanceMetadata {
   imageUrl?: string;
+  readTime?: string;
   credit: string;
   sourceUrl: string;
   associatedArticleId?: string;
@@ -132,6 +133,7 @@ export interface DailyEventItem {
   sourceTier?: 'official' | 'agency' | 'editorial' | 'institution';
   date: string;
   dateKey?: string;
+  readTime?: string;
   publishedAt?: string;
   updatedAt?: string;
   relevanceScore?: number;
@@ -186,6 +188,7 @@ export interface CuratedArticle {
   sourceTier?: 'official' | 'agency' | 'editorial' | 'institution';
   date: string;
   dateKey?: string;
+  readTime?: string;
   publishedAt?: string;
   updatedAt?: string;
   category: string;
@@ -306,6 +309,141 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
     dayName: 'Thu',
     highlight: 'ASI Porunai Iron Age (1155 BCE) carbon dating, RBI Basel-III digital LCR norms & ISRO SCE-200 semi-cryogenic hot test.',
     events: [
+      {
+        id: 'ca_29_standing_committees',
+        category: 'Polity',
+        primaryCategory: 'Polity & Governance',
+        mainCategoryId: 'polity-governance',
+        subjectGroup: 'Polity & Governance',
+        subcategory: 'Constitution, Parliament and Judiciary',
+        paper: 'GS-II',
+        headline: 'How parliamentary standing committees scrutinise legislation',
+        source: 'The Hindu',
+        agencyId: 'hindu',
+        date: '29 Oct 2026',
+        dateKey: '2026-10-29',
+        readTime: '4 min read',
+        isMostImportant: true,
+        isPrelimsRelevant: true,
+        isMainsRelevant: true,
+        whyItMatters: 'Committees shape the quality of lawmaking. Revise their composition, powers and limits, and how referral of Bills works in practice.',
+        summary: '- **Parliamentary Standing Committees** serve as the crucible of detailed legislative scrutiny in the Indian parliamentary architecture.\n- They operate across party lines in camera, inviting public submissions and domain expert testimonies without executive whips.\n- A decline in the proportion of bills referred to committees (from over 70% in 14th/15th Lok Sabha to under 20% in recent years) impacts deliberative democracy.',
+        summaryBullets: [
+          'Committees shape the quality of lawmaking. Revise their composition, powers and limits, and how referral of Bills works in practice.',
+          'Departmentally Related Standing Committees (DRSCs) were established in 1993 and comprise 31 members (21 Lok Sabha, 10 Rajya Sabha).',
+          'Ministers cannot be nominated to standing committees, preserving legislative oversight of executive power.'
+        ],
+        bullets: [
+          'DRSCs scrutinise Demands for Grants of the concerned ministries without voting on cut motions.',
+          'Examine bills referred by the Chairman/Speaker and report within stipulated timelines.',
+          'Consider annual reports and national basic long-term policy documents.'
+        ],
+        prelimsFacts: [
+          'Departmentally Related Standing Committees (DRSCs) have 31 members: 21 from Lok Sabha and 10 from Rajya Sabha nominated by the Speaker and Chairman respectively.',
+          'A Minister cannot be nominated as a member of any Departmentally Related Standing Committee.',
+          'The recommendations of Standing Committees are advisory in nature and not binding on the Government.'
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 2: Parliament and State Legislatures — structure, functioning, conduct of business, powers & privileges and issues arising out of these.',
+          staticConnection: 'Article 105 (Powers & Privileges), Rules of Procedure of Lok Sabha & Rajya Sabha, Parliamentary Committees system.',
+          prelimsAngle: 'Membership formula, tenure (1 year), minister disqualification, advisory nature of reports.',
+          mainsDimensions: 'Decline in committee referrals, guillotine in budget passage, institutional reforms to mandate pre-legislative scrutiny.'
+        },
+        sources: [
+          { name: 'The Hindu', url: 'https://thehindu.com', date: '29 Oct 2026', type: 'Leading Daily' },
+          { name: 'Lok Sabha Secretariat', url: 'https://loksabha.nic.in', date: '29 Oct 2026', type: 'Official' }
+        ]
+      },
+      {
+        id: 'ca_29_monetary_policy',
+        category: 'Economy',
+        primaryCategory: 'Economy',
+        mainCategoryId: 'economy-environment-science',
+        subjectGroup: 'Economy',
+        subcategory: 'Banking, Finance and Monetary Policy',
+        paper: 'GS-III',
+        headline: 'Monetary policy transmission and inflation targeting',
+        source: 'Indian Express',
+        agencyId: 'express',
+        date: '29 Oct 2026',
+        dateKey: '2026-10-29',
+        readTime: '5 min read',
+        isMostImportant: true,
+        isPrelimsRelevant: true,
+        isMainsRelevant: true,
+        whyItMatters: 'Revise the repo rate mechanism, the flexible inflation targeting framework and the lag between policy rates and lending rates.',
+        summary: '- The **Reserve Bank of India (RBI)** monitors monetary policy transmission through the Marginal Cost of Funds-based Lending Rate (MCLR) and the External Benchmark Lending Rate (EBLR).\n- Under the **Flexible Inflation Targeting (FIT)** framework, the headline Consumer Price Index (CPI) target is 4% within a ±2% tolerance band (2% to 6%).\n- Transmission delays occur due to rigidity in bank deposit rate structures, high small-savings rates, and banking balance sheet health.',
+        summaryBullets: [
+          'Revise the repo rate mechanism, the flexible inflation targeting framework and the lag between policy rates and lending rates.',
+          'The 6-member Monetary Policy Committee (MPC) meets at least bimonthly under Section 45ZB of the RBI Act, 1934.',
+          'External Benchmark Lending Rates (EBLR) linked to the Repo rate or Treasury Bill yields have accelerated transmission to retail loans.'
+        ],
+        bullets: [
+          'Repo rate is the policy rate at which the RBI lends short-term funds to commercial banks against government securities under LAF.',
+          'MPC has 3 internal members from RBI and 3 external members nominated by the Central Government.',
+          'Governor has a casting vote in case of a tie.'
+        ],
+        prelimsFacts: [
+          'Monetary Policy Committee (MPC) is statutory under Section 45ZB of the RBI Act, 1934 (amended by Finance Act, 2016).',
+          'Target is CPI Combined (not WPI), set once every 5 years by the Government in consultation with RBI.',
+          'Each member has one vote; the Governor has a casting vote in case of a tie.'
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 3: Indian Economy and issues relating to planning, mobilization of resources, growth, development and employment.',
+          staticConnection: 'Section 45ZB of RBI Act, Urjit Patel Committee recommendations on Flexible Inflation Targeting, EBLR vs MCLR.',
+          prelimsAngle: 'Composition of MPC, CPI headline vs Core inflation, Repo vs Reverse Repo/SDF operations.',
+          mainsDimensions: 'Effectiveness of monetary policy transmission, food supply-side shocks vs demand management, coordination with fiscal policy.'
+        },
+        sources: [
+          { name: 'Indian Express', url: 'https://indianexpress.com', date: '29 Oct 2026', type: 'Leading Daily' },
+          { name: 'Reserve Bank of India (RBI)', url: 'https://rbi.org.in', date: '29 Oct 2026', type: 'Official' }
+        ]
+      },
+      {
+        id: 'ca_29_ramsar_wetlands',
+        category: 'Environment',
+        primaryCategory: 'Environment & Ecology',
+        mainCategoryId: 'economy-environment-science',
+        subjectGroup: 'Environment & Ecology',
+        subcategory: 'Biodiversity, Wildlife and Conservation',
+        paper: 'GS-III',
+        headline: 'Wetland conservation and the Ramsar Convention',
+        source: 'Press Information Bureau (PIB)',
+        agencyId: 'pib',
+        date: '29 Oct 2026',
+        dateKey: '2026-10-29',
+        readTime: '3 min read',
+        isMostImportant: true,
+        isPrelimsRelevant: true,
+        isMainsRelevant: false,
+        whyItMatters: 'Revise the Ramsar criteria, the wise-use principle and the domestic legal framework that protects wetlands.',
+        summary: '- **India** has augmented its network of Ramsar sites to **85 wetlands of international importance**, covering over 1.35 million hectares.\n- The **Ramsar Convention (1971)** promotes the "wise use" of all wetlands through local and national actions and international cooperation.\n- In India, wetlands are legally governed under the **Wetlands (Conservation and Management) Rules, 2017**, delegating state wetland authorities powers while prohibiting untreated sewage and industrial dumping.',
+        summaryBullets: [
+          'Revise the Ramsar criteria, the wise-use principle and the domestic legal framework that protects wetlands.',
+          'Montreux Record is a register of wetland sites where ecological character changes have occurred, are occurring, or are likely to occur.',
+          'Keoladeo National Park (Rajasthan) and Loktak Lake (Manipur) remain India\'s two sites on the Montreux Record (Chilika Lake was removed in 2002).'
+        ],
+        bullets: [
+          'Ramsar Convention was signed on 2 February 1971 in the Iranian city of Ramsar (celebrated as World Wetlands Day).',
+          'Tamil Nadu hosts the highest number of Ramsar sites in India (16 sites), followed by Uttar Pradesh (10 sites).',
+          'Wetlands Rules 2017 prohibit commercial reclamation, industries, waste dumping, and solid waste discharge.'
+        ],
+        prelimsFacts: [
+          'World Wetlands Day is celebrated on February 2 to commemorate the adoption of the Ramsar Convention in 1971.',
+          'Currently two Indian wetlands are on the Montreux Record: Keoladeo National Park (Rajasthan) and Loktak Lake (Manipur).',
+          'Chilika Lake was the first Indian site added to the Montreux Record and was successfully removed in 2002 after ecological restoration.'
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 3: Conservation, environmental pollution and degradation, environmental impact assessment.',
+          staticConnection: 'Ramsar Convention 1971, Wetlands Rules 2017, Montreux Record, Amrit Dharohar initiative.',
+          prelimsAngle: 'Ramsar criteria (9 criteria), Indian sites distribution, Montreux Record entries and exits.',
+          mainsDimensions: 'Ecosystem services of wetlands, urban flood mitigation, decentralized enforcement under 2017 Rules.'
+        },
+        sources: [
+          { name: 'Press Information Bureau (PIB)', url: 'https://pib.gov.in', date: '29 Oct 2026', type: 'Official' },
+          { name: 'MoEFCC', url: 'https://moef.gov.in', date: '29 Oct 2026', type: 'Official' }
+        ]
+      },
       {
         id: 'de_29_1',
         category: 'Polity',

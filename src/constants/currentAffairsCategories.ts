@@ -310,6 +310,47 @@ export const ALL_VALID_SUBCATEGORIES: string[] = ALL_SUBJECT_GROUPS.flatMap((g) 
   ...g.subcategories,
 ]);
 
+export const SIMPLIFIED_SUBCATEGORIES_MAP: Record<SubjectMainCategoryId, string[]> = {
+  'international-affairs': [
+    'India and Neighbourhood Relations',
+    'Global Relations, Geopolitics and Conflicts',
+    'International Organisations, Summits and Agreements',
+    'Global Economy, Trade and Climate Cooperation',
+  ],
+  'polity-governance': [
+    'Constitution, Parliament and Judiciary',
+    'Government Policies and Governance Reforms',
+    'Rights, Federalism and Constitutional Bodies',
+    'Elections, Administration and Internal Security',
+  ],
+  'economy-environment-science': [
+    'Banking, Finance and Monetary Policy',
+    'Growth, Budget, Taxation and Economic Indicators',
+    'Agriculture, Industry, Infrastructure and Employment',
+    'Trade, Investment and Economic Reports',
+    'Climate Change, Pollution and Environmental Policies',
+    'Biodiversity, Wildlife and Conservation',
+    'Renewable Energy and Sustainable Development',
+    'Environmental Reports, Agreements and Disasters',
+    'Space, Defence and Nuclear Technology',
+    'AI, Digital Technology and Emerging Technologies',
+    'Biotechnology, Health Research and Scientific Discoveries',
+    'Science Policy, Research Missions and Innovation',
+  ],
+  'reports-schemes-data': [
+    'Government Schemes and Programmes',
+    'National Reports, Surveys and Official Statistics',
+    'International Reports, Indices and Rankings',
+    'Social Development, Health, Education and Agriculture Data',
+  ],
+  'editorials-explainers': [
+    'Newspaper Editorials and Expert Opinions',
+    'Governance, Constitution and Public Policy',
+    'International Relations, Economy and Environment',
+    'Science, Society, Ethics and Mains Perspectives',
+  ],
+};
+
 export interface NormalizedCAClassification {
   mainCategoryId: SubjectMainCategoryId;
   mainCategoryTitle: string;

@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { Image } from 'expo-image';
 import {
   ArrowLeft,
   Check,
@@ -19,7 +18,6 @@ import {
   ChevronDown,
   ChevronRight,
   Filter,
-  Bookmark,
   Newspaper,
   BookOpen,
   Layers,
@@ -51,6 +49,7 @@ import { BW_THEME } from '@/constants/bwTheme';
 import { PALETTE } from '@/constants/colors';
 import { fetchLiveDailyNewsArticles, mapDailyEventToCuratedArticle } from '@/services/newsFeedService';
 import { CalendarDropdown } from './CalendarDropdown';
+import { EditorialNewsCard } from './EditorialNewsCard';
 
 interface FormatFeedModalProps {
   visible: boolean;
@@ -434,113 +433,20 @@ export function FormatFeedModal({
   };
 
   const renderEditorialRow = (item: CuratedArticle) => {
-    const bookmarked = savedItemIds.includes(item.id);
     return (
-      <Pressable
+      <EditorialNewsCard
         key={item.id}
-        style={({ pressed }) => [styles.editorialRow, pressed && styles.rowPressed]}
-        onPress={() => onSelectArticle(item)}
-      >
-        <View style={styles.editorialRowLeft}>
-          {/* Top Meta Line */}
-          <View style={styles.articleMetaLine}>
-            <Text style={styles.sourceLabelText} numberOfLines={1}>
-              {item.source}
-            </Text>
-            <Text style={styles.metaDot}>•</Text>
-            <Text style={styles.dateLabelText}>{item.date}</Text>
-            <View style={styles.gsBadgePill}>
-              <Text style={styles.gsBadgePillText}>{item.paper}</Text>
-            </View>
-            {item.isMostImportant && (
-              <View style={styles.importantBadgePill}>
-                <Text style={styles.importantBadgeText}>Most Important</Text>
-              </View>
-            )}
-          </View>
-
-          {/* Editorial Author vs AI Explainer Badge when in Editorials & Explainers */}
-          {(isEditorialsCategory || item.mainCategoryId === 'editorials-explainers') &&
-            item.editorialAuthor && (
-              <View style={styles.editorialAttributionRow}>
-                <Text style={styles.editorialAuthorBadgeText}>
-                  Editorial by {item.editorialAuthor} • AI UPSC Synthesis Included
-                </Text>
-              </View>
-            )}
-
-          {/* Headline */}
-          <Text style={styles.rowHeadlineText} numberOfLines={2}>
-            {item.title}
-          </Text>
-
-          {/* Concise 2-Line Excerpt */}
-          <Text style={styles.rowExcerptText} numberOfLines={2}>
-            {item.summary}
-          </Text>
-
-          {/* Bottom Row: Subject Group + Subcategory Tag + Bookmark + Read Link */}
-          <View style={styles.articleFooterLine}>
-            <View style={styles.taxonomyTagRow}>
-              {isDailyNews && item.subjectGroup && (
-                <View style={styles.subjectGroupBadge}>
-                  <Text style={styles.subjectGroupBadgeText}>{item.subjectGroup}</Text>
-                </View>
-              )}
-              <Text style={styles.topicTagText} numberOfLines={1}>
-                {item.subcategory || item.category}
-              </Text>
-            </View>
-
-            <View style={styles.articleActionsRight}>
-              <Pressable
-                style={styles.bookmarkIconBtn}
-                onPress={(e) => {
-                  e.stopPropagation();
-                  onToggleBookmark(item.id);
-                }}
-                hitSlop={8}
-                accessibilityLabel="Bookmark story"
-              >
-                <Bookmark
-                  size={14.5}
-                  color={bookmarked ? PALETTE.highlight.primary : theme.textMuted}
-                  fill={bookmarked ? PALETTE.highlight.primary : 'none'}
-                  strokeWidth={2}
-                />
-              </Pressable>
-
-              <View style={styles.readFullLink}>
-                <Text style={styles.readFullLinkText}>Read</Text>
-                <ChevronRight
-                  size={13}
-                  color={isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary}
-                  strokeWidth={2.3}
-                />
-              </View>
-            </View>
-          </View>
-        </View>
-
-        {item.imageUrl ? (
-          <View style={styles.rowThumbnailBox}>
-            <Image
-              source={{ uri: item.imageUrl }}
-              style={styles.rowThumbnailImage}
-              contentFit="cover"
-              transition={140}
-            />
-          </View>
-        ) : null}
-      </Pressable>
+        item={item as any}
+        isBookmarked={savedItemIds.includes(item.id)}
+        onToggleBookmark={onToggleBookmark}
+        onReadSummary={(art) => onSelectArticle(art as CuratedArticle)}
+        isDark={isDark}
+      />
     );
   };
 
   // For Economy, Environment & Science when viewing 'All', keep the 3 subject groups visually distinct!
   const showGroupedEESLayout = isEESCategory && selectedSubjectGroup === 'All';
-
-  const leadArticle = !showGroupedEESLayout ? filteredArticles[0] : undefined;
-  const feedArticles = !showGroupedEESLayout ? filteredArticles.slice(1) : filteredArticles;
 
   return (
     <Modal visible={visible} animationType="slide" transparent={false} onRequestClose={onClose}>
@@ -1016,122 +922,7 @@ export function FormatFeedModal({
                 );
               })
             ) : (
-              <>
-                {/* A. LEAD EDITORIAL STORY */}
-                {leadArticle && (
-                  <Pressable
-                    style={({ pressed }) => [styles.leadStoryCard, pressed && styles.rowPressed]}
-                    onPress={() => onSelectArticle(leadArticle)}
-                  >
-                    <View style={styles.leadStoryGrid}>
-                      <View style={styles.leadStoryTextCol}>
-                        {/* Meta Line: Source • Date • GS Paper */}
-                        <View style={styles.articleMetaLine}>
-                          <Text style={styles.sourceLabelText} numberOfLines={1}>
-                            {leadArticle.source}
-                          </Text>
-                          <Text style={styles.metaDot}>•</Text>
-                          <Text style={styles.dateLabelText}>{leadArticle.date}</Text>
-                          <View style={styles.gsBadgePill}>
-                            <Text style={styles.gsBadgePillText}>{leadArticle.paper}</Text>
-                          </View>
-                          {leadArticle.isMostImportant && (
-                            <View style={styles.importantBadgePill}>
-                              <Text style={styles.importantBadgeText}>Most Important</Text>
-                            </View>
-                          )}
-                        </View>
-
-                        {(isEditorialsCategory ||
-                          leadArticle.mainCategoryId === 'editorials-explainers') &&
-                          leadArticle.editorialAuthor && (
-                            <View style={styles.editorialAttributionRow}>
-                              <Text style={styles.editorialAuthorBadgeText}>
-                                Editorial by {leadArticle.editorialAuthor} • AI UPSC Synthesis Included
-                              </Text>
-                            </View>
-                          )}
-
-                        {/* Lead Headline */}
-                        <Text style={styles.leadHeadlineText}>{leadArticle.title}</Text>
-
-                        {/* Concise 2-3 Line Summary */}
-                        <Text style={styles.leadSummaryText} numberOfLines={3}>
-                          {leadArticle.summary}
-                        </Text>
-
-                        {/* Footer Action Line */}
-                        <View style={styles.articleFooterLine}>
-                          <View style={styles.taxonomyTagRow}>
-                            {isDailyNews && leadArticle.subjectGroup && (
-                              <View style={styles.subjectGroupBadge}>
-                                <Text style={styles.subjectGroupBadgeText}>
-                                  {leadArticle.subjectGroup}
-                                </Text>
-                              </View>
-                            )}
-                            <Text style={styles.topicTagText} numberOfLines={1}>
-                              {leadArticle.subcategory || leadArticle.category}
-                            </Text>
-                          </View>
-
-                          <View style={styles.articleActionsRight}>
-                            <Pressable
-                              style={styles.bookmarkIconBtn}
-                              onPress={(e) => {
-                                e.stopPropagation();
-                                onToggleBookmark(leadArticle.id);
-                              }}
-                              hitSlop={8}
-                              accessibilityLabel="Bookmark story"
-                            >
-                              <Bookmark
-                                size={15}
-                                color={
-                                  savedItemIds.includes(leadArticle.id)
-                                    ? PALETTE.highlight.primary
-                                    : theme.textMuted
-                                }
-                                fill={
-                                  savedItemIds.includes(leadArticle.id)
-                                    ? PALETTE.highlight.primary
-                                    : 'none'
-                                }
-                                strokeWidth={2}
-                              />
-                            </Pressable>
-
-                            <View style={styles.readFullLink}>
-                              <Text style={styles.readFullLinkText}>Full Analysis</Text>
-                              <ChevronRight
-                                size={14}
-                                color={
-                                  isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary
-                                }
-                                strokeWidth={2.4}
-                              />
-                            </View>
-                          </View>
-                        </View>
-                      </View>
-
-                      {leadArticle.imageUrl ? (
-                        <View style={styles.leadImageContainer}>
-                          <Image
-                            source={{ uri: leadArticle.imageUrl }}
-                            style={styles.leadImage}
-                            contentFit="cover"
-                            transition={160}
-                          />
-                        </View>
-                      ) : null}
-                    </View>
-                  </Pressable>
-                )}
-
-                {/* B. STREAMLINED EDITORIAL ROWS */}
-                {feedArticles.map(renderEditorialRow)}
-              </>
+              filteredArticles.map(renderEditorialRow)
             )}
           </View>
         </ScrollView>
@@ -1308,8 +1099,8 @@ const getStyles = (
       borderColor: 'transparent',
     },
     paperFilterChipActive: {
-      backgroundColor: isDark ? 'rgba(0, 111, 253, 0.15)' : PALETTE.highlight.tint20,
-      borderColor: isDark ? 'rgba(111, 186, 255, 0.3)' : PALETTE.highlight.tint40,
+      backgroundColor: '#A84319',
+      borderColor: '#A84319',
     },
     paperFilterChipText: {
       fontSize: 12,
@@ -1317,7 +1108,7 @@ const getStyles = (
       color: theme.textMuted,
     },
     paperFilterChipTextActive: {
-      color: isDark ? PALETTE.highlight.tint60 : PALETTE.highlight.primary,
+      color: '#FFFFFF',
       fontWeight: '700',
     },
     subcatFilterChip: {

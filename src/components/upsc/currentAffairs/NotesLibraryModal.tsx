@@ -106,7 +106,7 @@ export function NotesLibraryModal({
               style={[styles.tabBtn, activeTab === 'notes' && styles.tabBtnActive]}
               onPress={() => setActiveTab('notes')}
             >
-              <FileText size={14} color={activeTab === 'notes' ? (isDark ? '#000000' : '#FFFFFF') : theme.textSecondary} />
+              <FileText size={14} color={activeTab === 'notes' ? '#FFFFFF' : theme.textSecondary} />
               <Text style={[styles.tabBtnText, activeTab === 'notes' && styles.tabBtnTextActive]}>
                 Notes ({notes.length})
               </Text>
@@ -116,7 +116,7 @@ export function NotesLibraryModal({
               style={[styles.tabBtn, activeTab === 'library' && styles.tabBtnActive]}
               onPress={() => setActiveTab('library')}
             >
-              <Bookmark size={14} color={activeTab === 'library' ? (isDark ? '#000000' : '#FFFFFF') : theme.textSecondary} />
+              <Bookmark size={14} color={activeTab === 'library' ? '#FFFFFF' : theme.textSecondary} />
               <Text style={[styles.tabBtnText, activeTab === 'library' && styles.tabBtnTextActive]}>
                 My Library ({savedItemIds.length})
               </Text>
@@ -134,7 +134,7 @@ export function NotesLibraryModal({
                 <Text style={styles.sectionHeading}>Current Affairs Revision Notes</Text>
                 {!isAddingNote && (
                   <Pressable style={styles.addNoteTrigger} onPress={() => setIsAddingNote(true)}>
-                    <Plus size={14} color={isDark ? '#000000' : '#FFFFFF'} strokeWidth={2.2} />
+                    <Plus size={14} color="#FFFFFF" strokeWidth={2.2} />
                     <Text style={styles.addNoteTriggerText}>Add Note</Text>
                   </Pressable>
                 )}
@@ -248,17 +248,17 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     closeBtn: {
       width: 36,
       height: 36,
-      borderRadius: 8,
-      backgroundColor: theme.surfaceMuted,
+      borderRadius: 18,
+      backgroundColor: isDark ? '#2F3036' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: theme.borderSubtle,
+      borderColor: isDark ? '#383A42' : '#E8E9F1',
       alignItems: 'center',
       justifyContent: 'center',
     },
     tabSwitcher: {
       flexDirection: 'row',
-      backgroundColor: theme.surfaceMuted,
-      borderRadius: 8,
+      backgroundColor: isDark ? '#2F3036' : '#F8F9FE',
+      borderRadius: 10,
       padding: 3,
       gap: 4,
     },
@@ -266,20 +266,20 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: 6,
-      paddingHorizontal: 12,
-      paddingVertical: 6,
-      borderRadius: 6,
+      paddingHorizontal: 14,
+      paddingVertical: 7,
+      borderRadius: 8,
     },
     tabBtnActive: {
-      backgroundColor: isDark ? '#FFFFFF' : '#0F172A',
+      backgroundColor: '#006FFD',
     },
     tabBtnText: {
-      fontSize: 12,
+      fontSize: 12.5,
       fontWeight: '600',
       color: theme.textSecondary,
     },
     tabBtnTextActive: {
-      color: isDark ? '#000000' : '#FFFFFF',
+      color: '#FFFFFF',
       fontWeight: '700',
     },
     scrollArea: {
@@ -306,16 +306,16 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     addNoteTrigger: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 5,
-      backgroundColor: isDark ? '#FFFFFF' : '#0F172A',
-      paddingHorizontal: 12,
-      paddingVertical: 6,
-      borderRadius: 7,
+      gap: 6,
+      backgroundColor: '#006FFD',
+      paddingHorizontal: 14,
+      paddingVertical: 8,
+      borderRadius: 10,
     },
     addNoteTriggerText: {
-      fontSize: 11.5,
+      fontSize: 12.5,
       fontWeight: '700',
-      color: isDark ? '#000000' : '#FFFFFF',
+      color: '#FFFFFF',
     },
     newNoteCard: {
       backgroundColor: theme.cardBg,
@@ -360,25 +360,27 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       marginTop: 4,
     },
     cancelBtn: {
-      paddingHorizontal: 12,
-      paddingVertical: 7,
-      borderRadius: 6,
+      paddingHorizontal: 14,
+      paddingVertical: 8,
+      borderRadius: 10,
+      borderWidth: 1.5,
+      borderColor: isDark ? '#2897FF' : '#006FFD',
     },
     cancelBtnText: {
-      fontSize: 12,
-      color: theme.textMuted,
-      fontWeight: '600',
+      fontSize: 12.5,
+      color: isDark ? '#6FBAFF' : '#006FFD',
+      fontWeight: '700',
     },
     saveNoteBtn: {
-      backgroundColor: isDark ? '#FFFFFF' : '#0F172A',
+      backgroundColor: '#006FFD',
       paddingHorizontal: 14,
-      paddingVertical: 7,
-      borderRadius: 6,
+      paddingVertical: 8,
+      borderRadius: 10,
     },
     saveNoteBtnText: {
-      fontSize: 12,
+      fontSize: 12.5,
       fontWeight: '700',
-      color: isDark ? '#000000' : '#FFFFFF',
+      color: '#FFFFFF',
     },
     noteCard: {
       backgroundColor: theme.cardBg,

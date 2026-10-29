@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Animated,
   Easing,
@@ -48,8 +48,8 @@ export function ProgressBar({
   // Normalize progress (support 0..1 or 0..100)
   const normalizedProgress = Math.max(0, Math.min(1, progress > 1 ? progress / 100 : progress));
 
-  const animatedValue = useRef(new Animated.Value(normalizedProgress)).current;
-  const indeterminateAnim = useRef(new Animated.Value(0)).current;
+  const [animatedValue] = useState(() => new Animated.Value(normalizedProgress));
+  const [indeterminateAnim] = useState(() => new Animated.Value(0));
 
   // Handle determinate progress animation
   useEffect(() => {
@@ -196,7 +196,7 @@ export function SegmentedProgress({
   }
 
   // Wave animation for indeterminate mode
-  const pulseAnim = useRef(new Animated.Value(0)).current;
+  const [pulseAnim] = useState(() => new Animated.Value(0));
 
   useEffect(() => {
     if (indeterminate) {
@@ -300,8 +300,8 @@ export function CircularProgress({
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
 
-  const rotateAnim = useRef(new Animated.Value(0)).current;
-  const progressAnim = useRef(new Animated.Value(norm)).current;
+  const [rotateAnim] = useState(() => new Animated.Value(0));
+  const [progressAnim] = useState(() => new Animated.Value(norm));
 
   // Spinner rotation loop
   useEffect(() => {

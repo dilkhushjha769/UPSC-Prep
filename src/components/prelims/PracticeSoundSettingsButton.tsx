@@ -8,19 +8,18 @@ interface Props {
   isDark: boolean;
 }
 
-/** Grey gear button that opens a small sound-effects settings sheet. */
-export function PracticeSoundSettingsButton({ isDark }: Props) {
-  const [open, setOpen] = useState(false);
-  const [s, setS] = useState<PracticeSoundSettings>(practiceSoundService.getSettings());
+interface SoundRowProps {
+  label: string;
+  value: boolean;
+  onChange: (v: boolean) => void;
+  disabled?: boolean;
+  border: string;
+  text: string;
+  isDark: boolean;
+}
 
-  useEffect(() => practiceSoundService.subscribe(setS), []);
-
-  const grey = isDark ? '#9CA3AF' : '#6B7280';
-  const text = isDark ? '#F5F5F7' : '#0F172A';
-  const card = isDark ? '#1F2024' : '#FFFFFF';
-  const border = isDark ? '#35373F' : '#E2E8F0';
-
-  const Row = ({ label, value, onChange, disabled }: { label: string; value: boolean; onChange: (v: boolean) => void; disabled?: boolean }) => (
+function SoundRow({ label, value, onChange, disabled, border, text, isDark }: SoundRowProps) {
+  return (
     <View style={[styles.row, { borderColor: border, opacity: disabled ? 0.45 : 1 }]}>
       <Text style={[styles.rowLabel, { color: text }]}>{label}</Text>
       <PrimaryToggle
@@ -32,6 +31,19 @@ export function PracticeSoundSettingsButton({ isDark }: Props) {
       />
     </View>
   );
+}
+
+/** Grey gear button that opens a small sound-effects settings sheet. */
+export function PracticeSoundSettingsButton({ isDark }: Props) {
+  const [open, setOpen] = useState(false);
+  const [s, setS] = useState<PracticeSoundSettings>(practiceSoundService.getSettings());
+
+  useEffect(() => practiceSoundService.subscribe(setS), []);
+
+  const grey = isDark ? '#9CA3AF' : '#6B7280';
+  const text = isDark ? '#F5F5F7' : '#0F172A';
+  const card = isDark ? '#1F2024' : '#FFFFFF';
+  const border = isDark ? '#35373F' : '#E2E8F0';
 
   return (
     <>
@@ -56,9 +68,9 @@ export function PracticeSoundSettingsButton({ isDark }: Props) {
                 <X size={18} color={grey} strokeWidth={2.2} />
               </Pressable>
             </View>
-            <Row label="Sound effects" value={s.enabled} onChange={(v) => practiceSoundService.update({ enabled: v })} />
-            <Row label="Correct answer sound" value={s.correctSound} disabled={!s.enabled} onChange={(v) => practiceSoundService.update({ correctSound: v })} />
-            <Row label="Wrong answer sound" value={s.incorrectSound} disabled={!s.enabled} onChange={(v) => practiceSoundService.update({ incorrectSound: v })} />
+            <SoundRow label="Sound effects" value={s.enabled} onChange={(v) => practiceSoundService.update({ enabled: v })} border={border} text={text} isDark={isDark} />
+            <SoundRow label="Correct answer sound" value={s.correctSound} disabled={!s.enabled} onChange={(v) => practiceSoundService.update({ correctSound: v })} border={border} text={text} isDark={isDark} />
+            <SoundRow label="Wrong answer sound" value={s.incorrectSound} disabled={!s.enabled} onChange={(v) => practiceSoundService.update({ incorrectSound: v })} border={border} text={text} isDark={isDark} />
           </Pressable>
         </Pressable>
       </Modal>
@@ -75,4 +87,3 @@ const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 12, borderTopWidth: StyleSheet.hairlineWidth },
   rowLabel: { fontSize: 14, fontWeight: '600' },
 });
-

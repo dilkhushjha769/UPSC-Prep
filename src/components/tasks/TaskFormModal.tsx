@@ -50,15 +50,17 @@ export function TaskFormModal({
 
   const taskDate = initialDate || new Date().toISOString().split('T')[0];
 
-  useEffect(() => {
-    if (isOpen) {
-      setTitle('');
-      setDescription('');
-      setTime('');
-      setErrorMsg('');
-      setColorTag('green');
-    }
-  }, [isOpen]);
+  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
+  if (isOpen && !prevIsOpen) {
+    setPrevIsOpen(true);
+    setTitle('');
+    setDescription('');
+    setTime('');
+    setErrorMsg('');
+    setColorTag('green');
+  } else if (!isOpen && prevIsOpen) {
+    setPrevIsOpen(false);
+  }
 
   const handleSave = async () => {
     if (!title.trim()) {

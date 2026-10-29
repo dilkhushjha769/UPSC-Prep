@@ -1,5 +1,9 @@
+import { Button } from '@/components/ui/Button';
 import { BW_THEME } from '@/constants/bwTheme';
+import { PALETTE } from '@/constants/colors';
 import {
+  CACategoryStatusItem,
+  CAIngestionLogItem,
   CuratedArticle,
   DAILY_EVENTS_DATA,
   DailyEventItem,
@@ -7,22 +11,27 @@ import {
   FORMAT_CATEGORIES,
   FormatCategory,
   getDailyEventsSummary,
+  getTodayDateKey,
   MajorEvent,
   NEWS_AGENCIES,
   RECENT_MAJOR_EVENTS,
 } from '@/data/currentAffairsData';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
+  Activity,
   Bookmark,
   BookOpen,
   Calendar,
   CalendarDays,
   Check,
   ChevronDown,
+  ChevronRight,
   FileText,
   Filter,
+  Globe,
   Landmark,
   Layers,
+  Leaf,
   ListChecks,
   MessagesSquare,
   Newspaper,
@@ -31,6 +40,8 @@ import {
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Animated,
+  Easing,
+  Modal,
   PanResponder,
   Pressable,
   ScrollView,
@@ -39,6 +50,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
+import { Image } from 'expo-image';
 import { ArticleDetailModal } from './currentAffairs/ArticleDetailModal';
 import { CalendarDropdown } from './currentAffairs/CalendarDropdown';
 import { CAQuizModal } from './currentAffairs/CAQuizModal';
@@ -47,6 +59,13 @@ import { DailyRecallModal } from './currentAffairs/DailyRecallModal';
 import { FormatFeedModal } from './currentAffairs/FormatFeedModal';
 import { MonthlyRevisionModal } from './currentAffairs/MonthlyRevisionModal';
 import { NotesLibraryModal } from './currentAffairs/NotesLibraryModal';
+import { PipelineStatusModal } from './currentAffairs/PipelineStatusModal';
+import {
+  fetchCategoryStatuses,
+  fetchIngestionOperationalLogs,
+  fetchLiveNewsFromAgencies,
+  getCachedAuthenticNews,
+} from '@/services/newsFeedService';
 
 type DetailItem =
   | { type: 'event'; data: DailyEventItem }
@@ -74,8 +93,8 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
   };
   const isBookmarked = (id: string) => savedItemIds.includes(id);
 
-  // Selected date for Daily Events (defaults to today)
-  const [selectedDateKey, setSelectedDateKey] = useState<string>(DAILY_EVENTS_DATA[0].dateKey);
+  // Selected date for Daily Events (defaults to dynamic today)
+  const [selectedDateKey, setSelectedDateKey] = useState<string>(() => getTodayDateKey());
 
   // Slide state for Daily Event Summary inside container (one event at a time)
   const [activeEventIndex, setActiveEventIndex] = useState<number>(0);
@@ -127,7 +146,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
     if (calendarBtnRef.current) {
       calendarBtnRef.current.measureInWindow((x: number, y: number, btnWidth: number, btnHeight: number) => {
         const top = Math.max(120, y + btnHeight + 8);
-        const left = Math.max(12, Math.min(x, width - 296));
+        const left = Math.max(12, Math.min(x, width - 336));
         setCalendarDropdownPos({ top, left });
         setCalendarDropdownVisible(true);
       });
@@ -136,8 +155,38 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
     }
   };
 
-  // Selected News Agency Filter for Explore Current Affairs
+  // Selected News Agency Filter for Explore Current Affairs (Dropdown Menu)
   const [selectedAgencyId, setSelectedAgencyId] = useState<string>('all');
+  const [agencyDropdownVisible, setAgencyDropdownVisible] = useState<boolean>(false);
+  const [agencyDropdownPos, setAgencyDropdownPos] = useState<{ top: number; left: number }>({
+    top: 320,
+    left: 16,
+  });
+  const agencyBtnRef = useRef<React.ElementRef<typeof View>>(null);
+
+  const selectedAgency = useMemo(
+    () => NEWS_AGENCIES.find((a) => a.id === selectedAgencyId) || NEWS_AGENCIES[0],
+    [selectedAgencyId]
+  );
+
+  const handleToggleAgencyDropdown = () => {
+    if (agencyDropdownVisible) {
+      setAgencyDropdownVisible(false);
+      return;
+    }
+
+    if (agencyBtnRef.current) {
+      agencyBtnRef.current.measureInWindow((x: number, y: number, btnWidth: number, btnHeight: number) => {
+        const menuWidth = 220;
+        const top = Math.max(80, y + btnHeight + 6);
+        const left = Math.max(12, Math.min(x + btnWidth - menuWidth, width - menuWidth - 12));
+        setAgencyDropdownPos({ top, left });
+        setAgencyDropdownVisible(true);
+      });
+    } else {
+      setAgencyDropdownVisible(true);
+    }
+  };
 
   // Modals state
   const [quizModalVisible, setQuizModalVisible] = useState(false);
@@ -153,13 +202,135 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
   const [articleModalVisible, setArticleModalVisible] = useState(false);
 
   const [dailyRecallModalVisible, setDailyRecallModalVisible] = useState(false);
+  const [recallTargetEvent, setRecallTargetEvent] = useState<DailyEventItem | null>(null);
+  const [pipelineStatusModalVisible, setPipelineStatusModalVisible] = useState(false);
+
+  // Live authentic news state + operational telemetry from Supabase / verified snapshot
+  const [liveAgencyEvents, setLiveAgencyEvents] = useState<DailyEventItem[]>([]);
+  const [categoryStatuses, setCategoryStatuses] = useState<CACategoryStatusItem[]>([]);
+  const [ingestionLogs, setIngestionLogs] = useState<CAIngestionLogItem[]>([]);
+  const [isPipelineSyncing, setIsPipelineSyncing] = useState(false);
+
+  const loadPipelineData = useCallback(async (agencyId: string) => {
+    setIsPipelineSyncing(true);
+    try {
+      const [liveItems, statuses, logs] = await Promise.all([
+        fetchLiveNewsFromAgencies(agencyId),
+        fetchCategoryStatuses(),
+        fetchIngestionOperationalLogs(),
+      ]);
+      if (liveItems && liveItems.length > 0) {
+        setLiveAgencyEvents(liveItems);
+      }
+      if (statuses && statuses.length > 0) {
+        setCategoryStatuses(statuses);
+      }
+      if (logs && logs.length > 0) {
+        setIngestionLogs(logs);
+      }
+    } catch {
+      // Fallback to cached/pre-seeded items
+    } finally {
+      setIsPipelineSyncing(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+    void (async () => {
+      // 1. Load cached authentic news immediately for instant display
+      const cached = await getCachedAuthenticNews();
+      if (isMounted && cached && cached.length > 0) {
+        setLiveAgencyEvents(cached);
+      }
+
+      // 2. Fetch fresh verified news + category status + operational logs
+      if (isMounted) {
+        await loadPipelineData(selectedAgencyId);
+      }
+    })();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [selectedAgencyId, loadPipelineData]);
+
 
   // Active day data retrieved from data or dynamic fallback
   const activeDaySummary: DayEventsSummary = useMemo(() => {
     return getDailyEventsSummary(selectedDateKey);
   }, [selectedDateKey]);
 
-  const activeDailyEvents: DailyEventItem[] = activeDaySummary.events;
+  const isToday = selectedDateKey === getTodayDateKey() || selectedDateKey === DAILY_EVENTS_DATA[0].dateKey;
+
+  /**
+   * The Daily Brief strictly curates 3 to 7 most important must-know UPSC news items for the selected day.
+   * All remaining news items are available in Explore Current Affairs -> Daily News & Category Feeds.
+   */
+  const activeDailyEvents: DailyEventItem[] = useMemo(() => {
+    const baseEvents = activeDaySummary.events;
+
+    // Match live events belonging to the selected date (or today)
+    const dateMatchedLive = liveAgencyEvents.filter((item) => {
+      if (item.dateKey) return item.dateKey === selectedDateKey;
+      return isToday;
+    });
+
+    // Prioritize high-relevance UPSC stories (Official PIB/RBI/SC releases, UPSC Essentials, and stories with verified images)
+    const rankedLive = [...dateMatchedLive].sort((a, b) => {
+      const scoreA =
+        (a.relevanceScore || 0.8) +
+        (a.sourceTier === 'official' ? 0.25 : 0) +
+        (a.imageUrl ? 0.15 : 0);
+      const scoreB =
+        (b.relevanceScore || 0.8) +
+        (b.sourceTier === 'official' ? 0.25 : 0) +
+        (b.imageUrl ? 0.15 : 0);
+      return scoreB - scoreA;
+    });
+
+    let pool: DailyEventItem[] = [...baseEvents];
+
+    if (rankedLive.length > 0) {
+      const seen = new Set<string>();
+      const merged: DailyEventItem[] = [];
+      // Place curated must-know base events first, then top-ranked live stories up to 7 items
+      for (const item of [...baseEvents, ...rankedLive]) {
+        const key = item.headline.toLowerCase().slice(0, 32);
+        if (!seen.has(key)) {
+          seen.add(key);
+          merged.push(item);
+        }
+      }
+      pool = merged;
+    }
+
+    // Filter by selected agency if chosen
+    if (selectedAgencyId !== 'all') {
+      const agency = NEWS_AGENCIES.find((a) => a.id === selectedAgencyId);
+      if (agency?.matchKeyword) {
+        const kw = agency.matchKeyword.toLowerCase();
+        const matched = pool.filter(
+          (e) => e.agencyId === selectedAgencyId || e.source.toLowerCase().includes(kw)
+        );
+        if (matched.length >= 3) {
+          return matched.slice(0, 7);
+        }
+        // Ensure at least 3 items in The Daily Brief by supplementing from the day's top events
+        const supplemented = [...matched];
+        for (const item of pool) {
+          if (supplemented.length >= 3) break;
+          if (!supplemented.some((s) => s.id === item.id)) {
+            supplemented.push(item);
+          }
+        }
+        return supplemented.slice(0, 7);
+      }
+    }
+
+    // Enforce 3 to 7 most important UPSC events per day in The Daily Brief
+    return pool.slice(0, 7);
+  }, [activeDaySummary.events, isToday, liveAgencyEvents, selectedAgencyId, selectedDateKey]);
 
   // Safe active event item
   const currentDailyEvent: DailyEventItem | undefined =
@@ -190,6 +361,25 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
   // Card sliding animation values for mobile gestures & transitions
   const [translateX] = useState(() => new Animated.Value(0));
   const [cardOpacity] = useState(() => new Animated.Value(1));
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Prefetch event images into memory/disk cache so transitions and rendering are instant
+  useEffect(() => {
+    const eventUrls = activeDailyEvents
+      .map((e) => {
+        if (!e.imageUrl) return null;
+        try {
+          return decodeURI(e.imageUrl);
+        } catch {
+          return e.imageUrl;
+        }
+      })
+      .filter((url): url is string => Boolean(url));
+
+    if (eventUrls.length > 0) {
+      Image.prefetch(eventUrls);
+    }
+  }, [activeDailyEvents]);
 
   // Reset animations when date changes
   useEffect(() => {
@@ -199,38 +389,51 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
 
   const animateCardTransition = useCallback(
     (direction: 'next' | 'prev', callback: () => void) => {
-      const exitValue = direction === 'next' ? -220 : 220;
-      const enterValue = direction === 'next' ? 180 : -180;
+      if (isTransitioning) return;
+      setIsTransitioning(true);
 
+      const exitValue = direction === 'next' ? -42 : 42;
+      const enterValue = direction === 'next' ? 42 : -42;
+
+      // Phase 1: Smoothly fade and glide out to complete invisibility (0 opacity)
       Animated.parallel([
         Animated.timing(translateX, {
           toValue: exitValue,
-          duration: 120,
+          duration: 140,
+          easing: Easing.bezier(0.4, 0, 0.2, 1),
           useNativeDriver: true,
         }),
         Animated.timing(cardOpacity, {
-          toValue: 0.25,
-          duration: 120,
+          toValue: 0,
+          duration: 140,
+          easing: Easing.bezier(0.4, 0, 0.2, 1),
           useNativeDriver: true,
         }),
       ]).start(() => {
+        // Swap event data while card is completely invisible
         callback();
         translateX.setValue(enterValue);
+
+        // Phase 2: Smoothly glide and fade in to full visibility
         Animated.parallel([
           Animated.timing(translateX, {
             toValue: 0,
-            duration: 150,
+            duration: 180,
+            easing: Easing.bezier(0, 0, 0.2, 1),
             useNativeDriver: true,
           }),
           Animated.timing(cardOpacity, {
             toValue: 1,
-            duration: 150,
+            duration: 180,
+            easing: Easing.bezier(0, 0, 0.2, 1),
             useNativeDriver: true,
           }),
-        ]).start();
+        ]).start(() => {
+          setIsTransitioning(false);
+        });
       });
     },
-    [cardOpacity, translateX]
+    [cardOpacity, isTransitioning, translateX]
   );
 
   const handlePrevEvent = useCallback(() => {
@@ -313,6 +516,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
         },
         onPanResponderGrant: () => {
           setIsAutoPlayPaused(true);
+          cardOpacity.setValue(1);
           translateX.stopAnimation();
         },
         onPanResponderMove: (_, gestureState) => {
@@ -355,11 +559,12 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
           }
         },
       }),
-    [activeDailyEvents.length, activeEventIndex, handleNextEvent, handlePrevEvent, translateX]
+    [activeDailyEvents.length, activeEventIndex, cardOpacity, handleNextEvent, handlePrevEvent, translateX]
   );
 
   const renderFormatIcon = (iconName: string) => {
-    const iconProps = { size: 20, color: theme.textPrimary, strokeWidth: 1.8 };
+    const iconColor = isDark ? '#6FBAFF' : '#006FFD';
+    const iconProps = { size: 22, color: iconColor, strokeWidth: 2 };
     switch (iconName) {
       case 'Newspaper':
         return <Newspaper {...iconProps} />;
@@ -373,6 +578,10 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
         return <Landmark {...iconProps} />;
       case 'MessagesSquare':
         return <MessagesSquare {...iconProps} />;
+      case 'Globe':
+        return <Globe {...iconProps} />;
+      case 'Leaf':
+        return <Leaf {...iconProps} />;
       default:
         return <BookOpen {...iconProps} />;
     }
@@ -390,39 +599,66 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
         {/* 1. TOP HEADER - Current Affairs                          */}
         {/* ======================================================== */}
         <View style={styles.header}>
-          <View style={styles.titleBlock}>
+          <View style={styles.headerTopRow}>
             <Text style={styles.pageHeading}>Current Affairs</Text>
-            <Text style={styles.pageSubtitle}>
-              Decode Today. Prepare for Tomorrow.
-            </Text>
+
+            {/* Symbols only: Pipeline Health, Notes, and My Library */}
+            <View style={styles.headerActions}>
+              <Pressable
+                style={({ pressed }: any) => [
+                  styles.headerIconBtn,
+                  pressed && styles.cardPressed,
+                ]}
+                onPress={() => setPipelineStatusModalVisible(true)}
+                accessibilityLabel="Pipeline Operational Status"
+                accessibilityRole="button"
+                hitSlop={6}
+              >
+                <Activity
+                  size={16}
+                  color={isDark ? '#4ADE80' : '#059669'}
+                  strokeWidth={2}
+                />
+              </Pressable>
+
+              <Pressable
+                style={({ pressed }: any) => [
+                  styles.headerIconBtn,
+                  pressed && styles.cardPressed,
+                ]}
+                onPress={() => {
+                  setInitialNoteTitle('');
+                  setNotesLibraryInitialTab('notes');
+                  setNotesLibraryModalVisible(true);
+                }}
+                accessibilityLabel="Notes"
+                accessibilityRole="button"
+                hitSlop={6}
+              >
+                <FileText size={16} color={theme.textPrimary} strokeWidth={1.9} />
+              </Pressable>
+
+              <Pressable
+                style={({ pressed }: any) => [
+                  styles.headerIconBtn,
+                  pressed && styles.cardPressed,
+                ]}
+                onPress={() => {
+                  setNotesLibraryInitialTab('library');
+                  setNotesLibraryModalVisible(true);
+                }}
+                accessibilityLabel="My Library"
+                accessibilityRole="button"
+                hitSlop={6}
+              >
+                <Bookmark size={16} color={theme.textPrimary} strokeWidth={1.9} />
+              </Pressable>
+            </View>
           </View>
 
-          {/* Visually secondary header actions */}
-          <View style={styles.headerActions}>
-
-            <Pressable
-              style={styles.secondaryBtn}
-              onPress={() => {
-                setInitialNoteTitle('');
-                setNotesLibraryInitialTab('notes');
-                setNotesLibraryModalVisible(true);
-              }}
-            >
-              <FileText size={14} color={theme.textPrimary} strokeWidth={1.8} />
-              <Text style={styles.secondaryBtnText}>Notes</Text>
-            </Pressable>
-
-            <Pressable
-              style={styles.secondaryBtn}
-              onPress={() => {
-                setNotesLibraryInitialTab('library');
-                setNotesLibraryModalVisible(true);
-              }}
-            >
-              <Bookmark size={14} color={theme.textPrimary} strokeWidth={1.8} />
-              <Text style={styles.secondaryBtnText}>My Library</Text>
-            </Pressable>
-          </View>
+          <Text style={styles.pageSubtitle}>
+            Decode Today. Prepare for Tomorrow.
+          </Text>
         </View>
 
         {/* Divider Border between Current Affairs and Summary of Daily Events */}
@@ -443,6 +679,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                   <Pressable
                     style={({ pressed, hovered }: any) => [
                       styles.calendarDatePillBtn,
+                      calendarDropdownVisible && styles.calendarDatePillBtnOpen,
                       hovered && styles.calendarDatePillBtnHover,
                       pressed && styles.cardPressed,
                     ]}
@@ -450,13 +687,15 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                     accessibilityLabel={`Select date. Currently showing ${activeDaySummary.label}`}
                     accessibilityRole="button"
                   >
-                    <View style={styles.calendarIconCircle}>
-                      <Calendar size={14} color={isDark ? '#94A3B8' : '#64748B'} strokeWidth={2} />
-                    </View>
+                    <Calendar size={14} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2.2} />
                     <Text style={styles.calendarDatePillText}>
                       {activeDaySummary.label}
                     </Text>
-                    <ChevronDown size={13} color={isDark ? '#94A3B8' : '#64748B'} strokeWidth={2} />
+                    <ChevronDown
+                      size={13}
+                      color={calendarDropdownVisible ? '#006FFD' : (isDark ? '#8F9098' : '#71727A')}
+                      strokeWidth={2.2}
+                    />
                   </Pressable>
                 </View>
 
@@ -475,68 +714,43 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                 >
                   <Check
                     size={13}
-                    color={isCurrentDayRead ? '#FFFFFF' : (isDark ? '#64748B' : '#94A3B8')}
+                    color={isCurrentDayRead ? '#FFFFFF' : (isDark ? '#8F9098' : '#71727A')}
                     strokeWidth={2.8}
                   />
                 </Pressable>
               </View>
 
-              {/* Right Corner: Prominent Daily Quiz Button (Main Button) */}
-              <Pressable
-                style={({ pressed, hovered }: any) => [
-                  styles.prominentDailyQuizBtn,
-                  hovered && styles.prominentDailyQuizBtnHover,
-                  pressed && styles.cardPressed,
-                ]}
-                onPress={() => setDailyRecallModalVisible(true)}
-                accessibilityLabel="Open Daily Quiz with 10 questions"
-                accessibilityRole="button"
-              >
-                <ListChecks
-                  size={14}
-                  color={isDark ? '#090D16' : '#FFFFFF'}
-                  strokeWidth={2.2}
-                />
-                <Text style={styles.prominentDailyQuizBtnText}>
-                  Daily Quiz
-                </Text>
-                <View style={styles.prominentDailyQuizBadge}>
-                  <Text style={styles.prominentDailyQuizBadgeText}>
-                    10 Qs
-                  </Text>
-                </View>
-              </Pressable>
+              {/* Right Corner: Standard App Primary Button for Daily Quiz */}
+              <Button
+                variant="primary"
+                size="sm"
+                title="Daily Quiz"
+                isDark={isDark}
+                leftIcon={<ListChecks size={14} color="#FFFFFF" strokeWidth={2.2} />}
+                onPress={() => {
+                  setRecallTargetEvent(null);
+                  setDailyRecallModalVisible(true);
+                }}
+              />
             </View>
           ) : (
-            /* Mobile Layout: 2-Tier Clean Mobbin Hierarchy */
+            /* Mobile Layout: 2-Tier Clean Hierarchy */
             <View style={styles.mobileSummaryHeader}>
               {/* Row 1: The Daily Brief Title on Left + Daily Quiz Button on Right */}
               <View style={styles.mobileSummaryTopRow}>
                 <Text style={styles.summaryContainerHeading}>The Daily Brief</Text>
 
-                <Pressable
-                  style={({ pressed }: any) => [
-                    styles.prominentDailyQuizBtn,
-                    pressed && styles.cardPressed,
-                  ]}
-                  onPress={() => setDailyRecallModalVisible(true)}
-                  accessibilityLabel="Open Daily Quiz with 10 questions"
-                  accessibilityRole="button"
-                >
-                  <ListChecks
-                    size={13}
-                    color={isDark ? '#090D16' : '#FFFFFF'}
-                    strokeWidth={2.2}
-                  />
-                  <Text style={styles.prominentDailyQuizBtnText}>
-                    Daily Quiz
-                  </Text>
-                  <View style={styles.prominentDailyQuizBadge}>
-                    <Text style={styles.prominentDailyQuizBadgeText}>
-                      10 Qs
-                    </Text>
-                  </View>
-                </Pressable>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  title="Daily Quiz"
+                  isDark={isDark}
+                  leftIcon={<ListChecks size={13} color="#FFFFFF" strokeWidth={2.2} />}
+                  onPress={() => {
+                    setRecallTargetEvent(null);
+                    setDailyRecallModalVisible(true);
+                  }}
+                />
               </View>
 
               {/* Row 2: Date Selector on Left + Read Status on Right */}
@@ -546,19 +760,22 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                   <Pressable
                     style={({ pressed }: any) => [
                       styles.calendarDatePillBtn,
+                      calendarDropdownVisible && styles.calendarDatePillBtnOpen,
                       pressed && styles.cardPressed,
                     ]}
                     onPress={handleToggleCalendar}
                     accessibilityLabel={`Select date. Currently showing ${activeDaySummary.label}`}
                     accessibilityRole="button"
                   >
-                    <View style={styles.calendarIconCircle}>
-                      <Calendar size={13} color={isDark ? '#94A3B8' : '#64748B'} strokeWidth={2} />
-                    </View>
+                    <Calendar size={14} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2.2} />
                     <Text style={styles.calendarDatePillText}>
                       {activeDaySummary.label}
                     </Text>
-                    <ChevronDown size={12} color={isDark ? '#94A3B8' : '#64748B'} strokeWidth={2} />
+                    <ChevronDown
+                      size={13}
+                      color={calendarDropdownVisible ? '#006FFD' : (isDark ? '#8F9098' : '#71727A')}
+                      strokeWidth={2.2}
+                    />
                   </Pressable>
                 </View>
 
@@ -577,7 +794,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                 >
                   <Check
                     size={13}
-                    color={isCurrentDayRead ? '#FFFFFF' : (isDark ? '#64748B' : '#94A3B8')}
+                    color={isCurrentDayRead ? '#FFFFFF' : (isDark ? '#8F9098' : '#71727A')}
                     strokeWidth={2.8}
                   />
                 </Pressable>
@@ -618,7 +835,14 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                   onPrevEvent={handlePrevEvent}
                   onNextEvent={handleNextEvent}
                   onSelectEvent={handleSelectEvent}
-                  onOpenDailyRecall={() => setDailyRecallModalVisible(true)}
+                  onOpenDailyRecall={() => {
+                    setRecallTargetEvent(null);
+                    setDailyRecallModalVisible(true);
+                  }}
+                  onOpenEventRecall={(item) => {
+                    setRecallTargetEvent(item);
+                    setDailyRecallModalVisible(true);
+                  }}
                   hasPrevEvent={activeEventIndex > 0}
                   hasNextEvent={activeEventIndex < activeDailyEvents.length - 1}
                   eventIndex={activeEventIndex}
@@ -640,43 +864,32 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
           <View style={styles.sectionHeaderRow}>
             <View style={styles.sectionTitleBlock}>
               <Text style={styles.sectionHeading}>Explore Current Affairs</Text>
-              <Text style={styles.sectionMetaHint}>Browse by format</Text>
+              <Text style={styles.sectionMetaHint}>Browse by subject & comprehensive modules</Text>
             </View>
 
-            {/* News Agency Filter at Right Side */}
-            <View style={styles.agencyFilterWrapper}>
-              <View style={styles.agencyLabelBlock}>
-                <Filter size={12} color={theme.textMuted} strokeWidth={2} />
-                <Text style={styles.agencyLabelText}>Agency:</Text>
-              </View>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.agencyPillsList}
+            {/* News Agency Dropdown Menu Button at Right Side */}
+            <View ref={agencyBtnRef} collapsable={false}>
+              <Pressable
+                style={({ pressed, hovered }: any) => [
+                  styles.agencyDropdownBtn,
+                  agencyDropdownVisible && styles.agencyDropdownBtnOpen,
+                  hovered && styles.agencyDropdownBtnHover,
+                  pressed && styles.cardPressed,
+                ]}
+                onPress={handleToggleAgencyDropdown}
+                accessibilityRole="button"
+                accessibilityLabel={`Filter by agency. Currently selected: ${selectedAgency.name}`}
               >
-                {NEWS_AGENCIES.map((agency) => {
-                  const isSelected = selectedAgencyId === agency.id;
-                  return (
-                    <Pressable
-                      key={agency.id}
-                      style={[
-                        styles.agencyFilterChip,
-                        isSelected && styles.agencyFilterChipActive,
-                      ]}
-                      onPress={() => setSelectedAgencyId(agency.id)}
-                    >
-                      <Text
-                        style={[
-                          styles.agencyFilterChipText,
-                          isSelected && styles.agencyFilterChipTextActive,
-                        ]}
-                      >
-                        {agency.shortName}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </ScrollView>
+                <Filter size={13} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2.2} />
+                <Text style={styles.agencyDropdownBtnText} numberOfLines={1}>
+                  {selectedAgency.name}
+                </Text>
+                <ChevronDown
+                  size={13}
+                  color={agencyDropdownVisible ? '#006FFD' : (isDark ? '#8F9098' : '#71727A')}
+                  strokeWidth={2.2}
+                />
+              </Pressable>
             </View>
           </View>
 
@@ -684,14 +897,18 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
             {FORMAT_CATEGORIES.map((cat) => (
               <Pressable
                 key={cat.id}
-                style={({ pressed }) => [styles.formatCard, pressed && styles.cardPressed]}
+                style={({ pressed }) => [
+                  styles.formatCard,
+                  styles.formatCardDivider,
+                  pressed && styles.formatCardPressed,
+                ]}
                 onPress={() => handleOpenFormatModal(cat)}
               >
-                <View style={styles.formatCardIconBox}>
-                  {renderFormatIcon(cat.iconName)}
+                {renderFormatIcon(cat.iconName)}
+                <View style={styles.formatTextContent}>
+                  <Text style={styles.formatCardTitle}>{cat.title}</Text>
                 </View>
-                <Text style={styles.formatCardTitle}>{cat.title}</Text>
-                <Text style={styles.formatCardSubtitle}>{cat.subtitle}</Text>
+                <ChevronRight size={16} color={theme.textMuted} strokeWidth={2} />
               </Pressable>
             ))}
           </View>
@@ -700,7 +917,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
         {/* ======================================================== */}
         {/* 5. PRACTISE & REVISE                                     */}
         {/* ======================================================== */}
-        <View style={styles.secondarySection}>
+        <View style={styles.practiseSection}>
           <Text style={styles.sectionHeading}>Practise & Revise</Text>
 
           <View style={styles.reviseGrid}>
@@ -709,7 +926,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
               onPress={() => setQuizModalVisible(true)}
             >
               <View style={styles.reviseIconBox}>
-                <ListChecks size={20} color={theme.textPrimary} strokeWidth={1.8} />
+                <ListChecks size={20} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2} />
               </View>
               <Text style={styles.reviseCardTitle}>Daily Quiz</Text>
               <Text style={styles.reviseCardSubtitle}>Prelims MCQs with explanations.</Text>
@@ -720,7 +937,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
               onPress={() => setMonthlyModalVisible(true)}
             >
               <View style={styles.reviseIconBox}>
-                <CalendarDays size={20} color={theme.textPrimary} strokeWidth={1.8} />
+                <CalendarDays size={20} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2} />
               </View>
               <Text style={styles.reviseCardTitle}>Monthly Revision</Text>
               <Text style={styles.reviseCardSubtitle}>Monthly compilation, topic-wise recap and tests.</Text>
@@ -734,9 +951,13 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
       {/* ======================================================== */}
       <DailyRecallModal
         visible={dailyRecallModalVisible}
-        onClose={() => setDailyRecallModalVisible(false)}
+        onClose={() => {
+          setDailyRecallModalVisible(false);
+          setRecallTargetEvent(null);
+        }}
         dateKey={selectedDateKey}
         events={activeDailyEvents}
+        singleEvent={recallTargetEvent}
         isDark={isDark}
       />
 
@@ -770,6 +991,16 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
         isDark={isDark}
         isSaved={activeDetailItem ? isBookmarked(activeDetailItem.data.id) : false}
         onToggleSave={toggleBookmark}
+      />
+
+      <PipelineStatusModal
+        visible={pipelineStatusModalVisible}
+        onClose={() => setPipelineStatusModalVisible(false)}
+        isDark={isDark}
+        categoryStatuses={categoryStatuses}
+        ingestionLogs={ingestionLogs}
+        onTriggerRefresh={() => void loadPipelineData(selectedAgencyId)}
+        isRefreshing={isPipelineSyncing}
       />
 
       <NotesLibraryModal
@@ -820,6 +1051,68 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
         isDark={isDark}
         completedDates={readDates}
       />
+
+      {/* Agency Filter Dropdown Menu */}
+      {agencyDropdownVisible && (
+        <Modal
+          visible={agencyDropdownVisible}
+          transparent
+          animationType="fade"
+          onRequestClose={() => setAgencyDropdownVisible(false)}
+        >
+          <View style={styles.dropdownOverlay}>
+            <Pressable
+              style={styles.dropdownBackdrop}
+              onPress={() => setAgencyDropdownVisible(false)}
+            />
+            <View
+              style={[
+                styles.agencyDropdownMenu,
+                {
+                  top: agencyDropdownPos.top,
+                  left: agencyDropdownPos.left,
+                },
+              ]}
+            >
+              <Text style={styles.agencyDropdownHeader}>Filter by News Agency</Text>
+              {NEWS_AGENCIES.map((agency) => {
+                const isSelected = selectedAgencyId === agency.id;
+                return (
+                  <Pressable
+                    key={agency.id}
+                    style={({ pressed }) => [
+                      styles.agencyDropdownItem,
+                      isSelected && styles.agencyDropdownItemActive,
+                      pressed && styles.cardPressed,
+                    ]}
+                    onPress={() => {
+                      setSelectedAgencyId(agency.id);
+                      setActiveEventIndex(0);
+                      setAgencyDropdownVisible(false);
+                    }}
+                  >
+                    <Text
+                      style={[
+                        styles.agencyDropdownItemText,
+                        isSelected && styles.agencyDropdownItemTextActive,
+                      ]}
+                    >
+                      {agency.name}
+                    </Text>
+                    {isSelected && (
+                      <Check
+                        size={14}
+                        color={isDark ? '#6FBAFF' : '#006FFD'}
+                        strokeWidth={2.5}
+                      />
+                    )}
+                  </Pressable>
+                );
+              })}
+            </View>
+          </View>
+        </Modal>
+      )}
     </ScrollView>
   );
 }
@@ -847,25 +1140,24 @@ const getStyles = (
 
     /* 1. Header */
     header: {
-      flexDirection: isDesktop ? 'row' : 'column',
-      justifyContent: 'space-between',
-      alignItems: isDesktop ? 'center' : 'flex-start',
-      marginBottom: 24,
-      gap: 14,
+      marginBottom: 20,
     },
-    titleBlock: {
-      flex: 1,
+    headerTopRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 12,
+      marginBottom: 3,
     },
     pageHeading: {
-      fontSize: isDesktop ? 30 : 26,
+      fontSize: isDesktop ? 30 : 25,
       fontWeight: '700',
       color: theme.textPrimary,
       letterSpacing: -0.4,
-      marginBottom: 4,
     },
     pageSubtitle: {
-      fontSize: 14,
-      lineHeight: 20,
+      fontSize: 13.5,
+      lineHeight: 19,
       color: theme.textMuted,
     },
     headerActions: {
@@ -873,21 +1165,15 @@ const getStyles = (
       alignItems: 'center',
       gap: 8,
     },
-    secondaryBtn: {
-      flexDirection: 'row',
+    headerIconBtn: {
+      width: 38,
+      height: 38,
+      borderRadius: 19,
       alignItems: 'center',
-      gap: 6,
-      paddingHorizontal: 14,
-      paddingVertical: 7,
-      borderRadius: 8,
-      backgroundColor: theme.surfaceMuted,
+      justifyContent: 'center',
+      backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
       borderWidth: 1,
-      borderColor: theme.borderSubtle,
-    },
-    secondaryBtnText: {
-      fontSize: 13,
-      fontWeight: '600',
-      color: theme.textPrimary,
+      borderColor: isDark ? '#383A42' : '#F0F1F5',
     },
     headerDivider: {
       height: 1,
@@ -980,115 +1266,66 @@ const getStyles = (
     mobileSummarySubRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      borderTopLeftRadius: 8,
-      borderBottomLeftRadius: 8,
-      borderWidth: 1,
-      borderRightWidth: 0,
-      borderColor: isDark ? '#494A50' : '#D4D6DD',
-      backgroundColor: isDark ? '#2F3036' : '#FFFFFF',
-      overflow: 'hidden',
+      justifyContent: 'space-between',
+      gap: 10,
     },
 
-    /* Calendar Button with Today's Date */
+    /* Calendar Button with Today's Date (Matches WeeklyCalendar button style) */
     calendarDatePillBtn: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 7,
-      paddingLeft: 7,
-      paddingRight: 10,
-      paddingVertical: 5.5,
-      borderRadius: 8,
-      backgroundColor: isDark ? '#141E2D' : '#F8FAFC',
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      borderRadius: 10,
+      backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#233248' : '#E2E8F0',
+      borderColor: isDark ? '#383A42' : '#E8E9F1',
+    },
+    calendarDatePillBtnOpen: {
+      borderColor: PALETTE.highlight.primary,
+      backgroundColor: isDark ? '#383A42' : '#F8F9FE',
     },
     calendarDatePillBtnHover: {
-      backgroundColor: isDark ? '#1A273A' : '#F1F5F9',
-      borderColor: isDark ? '#334764' : '#CBD5E1',
-    },
-    calendarIconCircle: {
-      width: 22,
-      height: 22,
-      borderRadius: 5,
-      backgroundColor: isDark ? '#1E2D42' : '#F1F5F9',
-      alignItems: 'center',
-      justifyContent: 'center',
+      backgroundColor: isDark ? '#383A42' : '#F8F9FE',
+      borderColor: isDark ? '#494A50' : '#D4D6DD',
     },
     calendarDatePillText: {
-      fontSize: 12.5,
+      fontSize: 13,
       fontWeight: '600',
-      color: isDark ? '#E2E8F0' : '#1E293B',
-      letterSpacing: -0.15,
+      color: isDark ? '#FFFFFF' : '#1F2024',
+      letterSpacing: -0.1,
     },
 
-    /* Day Read Status Tick Mark Button */
+    /* Day Read Status Tick Mark Button (Matches app control button style) */
     dayReadTickBtn: {
-      width: 32,
-      height: 32,
-      borderRadius: 7,
+      width: 36,
+      height: 36,
+      borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: isDark ? '#141E2D' : '#F8FAFC',
+      backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#23334A' : '#E2E8F0',
+      borderColor: isDark ? '#383A42' : '#E8E9F1',
     },
     dayReadTickBtnActive: {
-      backgroundColor: isDark ? '#1E293B' : '#0F172A',
-      borderColor: isDark ? '#334155' : '#0F172A',
-    },
-
-    /* Prominent Daily Quiz Button (Real Main / Primary Button) */
-    prominentDailyQuizBtn: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 7.5,
-      paddingLeft: isDesktop ? 13 : 11,
-      paddingRight: isDesktop ? 11 : 9,
-      paddingVertical: isDesktop ? 7.5 : 6.5,
-      borderRadius: 8,
-      backgroundColor: isDark ? '#FFFFFF' : '#0F172A',
-      borderWidth: 1,
-      borderColor: isDark ? '#FFFFFF' : '#0F172A',
-      shadowColor: '#000000',
-      shadowOffset: { width: 0, height: 1.5 },
-      shadowOpacity: isDark ? 0.2 : 0.12,
-      shadowRadius: 3,
-      elevation: 2,
-    },
-    prominentDailyQuizBtnHover: {
-      backgroundColor: isDark ? '#E2E8F0' : '#1E293B',
-      borderColor: isDark ? '#E2E8F0' : '#1E293B',
-      transform: [{ translateY: -1 }],
-    },
-    prominentDailyQuizBtnText: {
-      fontSize: isDesktop ? 13 : 12,
-      fontWeight: '700',
-      color: isDark ? '#090D16' : '#FFFFFF',
-      letterSpacing: -0.15,
-    },
-    prominentDailyQuizBadge: {
-      paddingHorizontal: 5.5,
-      paddingVertical: 1.5,
-      borderRadius: 4,
-      backgroundColor: isDark ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.2)',
-    },
-    prominentDailyQuizBadgeText: {
-      fontSize: 10,
-      fontWeight: '700',
-      color: isDark ? '#090D16' : '#FFFFFF',
-      letterSpacing: 0.1,
+      backgroundColor: '#3AC0A0',
+      borderColor: '#3AC0A0',
     },
 
     /* Adaptive Interior Event Card Wrapper */
     eventCardOuterContainer: {
       width: '100%',
       position: 'relative',
+      minHeight: isDesktop ? 390 : 540,
     },
     eventCardLightWrapper: {
       width: '100%',
       borderRadius: 14,
       overflow: 'hidden',
       position: 'relative',
+      minHeight: isDesktop ? 390 : 540,
+      backgroundColor: isDark ? '#17191D' : 'transparent',
       ...(!isDark
         ? {
           shadowColor: '#0F172A',
@@ -1108,24 +1345,27 @@ const getStyles = (
       color: theme.textMuted,
     },
 
-
-
     /* 4 & 5. Secondary Sections */
     secondarySection: {
-      marginBottom: 36,
+      marginBottom: 32,
       paddingTop: 16,
       borderTopWidth: 1,
       borderTopColor: theme.cardBorder,
     },
+    practiseSection: {
+      marginBottom: 36,
+      paddingTop: 4,
+    },
     sectionHeaderRow: {
-      flexDirection: isDesktop ? 'row' : 'column',
+      flexDirection: 'row',
       justifyContent: 'space-between',
-      alignItems: isDesktop ? 'center' : 'flex-start',
+      alignItems: 'center',
       marginBottom: 16,
       gap: 12,
+      flexWrap: 'wrap',
     },
     sectionTitleBlock: {
-      flexShrink: 0,
+      flexShrink: 1,
     },
     sectionHeading: {
       fontSize: 18,
@@ -1138,78 +1378,120 @@ const getStyles = (
       fontSize: 12.5,
       color: theme.textMuted,
     },
-    agencyFilterWrapper: {
+    agencyDropdownBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 8,
-      maxWidth: isDesktop ? '60%' : '100%',
-    },
-    agencyLabelBlock: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 4,
-      paddingRight: 2,
-    },
-    agencyLabelText: {
-      fontSize: 12,
-      fontWeight: '600',
-      color: theme.textMuted,
-    },
-    agencyPillsList: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 6,
-      paddingVertical: 2,
-    },
-    agencyFilterChip: {
-      paddingHorizontal: 10,
-      paddingVertical: 5,
-      borderRadius: 7,
-      backgroundColor: theme.surfaceMuted,
+      gap: 7,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      borderRadius: 10,
+      backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
       borderWidth: 1,
-      borderColor: theme.borderSubtle,
+      borderColor: isDark ? '#383A42' : '#E8E9F1',
     },
-    agencyFilterChipActive: {
-      backgroundColor: isDark ? '#FFFFFF' : '#0F172A',
-      borderColor: isDark ? '#FFFFFF' : '#0F172A',
+    agencyDropdownBtnOpen: {
+      borderColor: PALETTE.highlight.primary,
+      backgroundColor: isDark ? '#383A42' : '#F8F9FE',
     },
-    agencyFilterChipText: {
-      fontSize: 11.5,
+    agencyDropdownBtnHover: {
+      backgroundColor: isDark ? '#383A42' : '#F8F9FE',
+      borderColor: isDark ? '#494A50' : '#D4D6DD',
+    },
+    agencyDropdownBtnText: {
+      fontSize: 13,
       fontWeight: '600',
-      color: theme.textSecondary,
+      color: isDark ? '#FFFFFF' : '#1F2024',
+      letterSpacing: -0.1,
     },
-    agencyFilterChipTextActive: {
-      color: isDark ? '#000000' : '#FFFFFF',
+    dropdownOverlay: {
+      flex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.35)',
+    },
+    dropdownBackdrop: {
+      ...StyleSheet.absoluteFill,
+    },
+    agencyDropdownMenu: {
+      position: 'absolute',
+      width: 220,
+      borderRadius: 16,
+      paddingVertical: 8,
+      paddingHorizontal: 6,
+      backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#FFFFFF',
+      borderWidth: 1,
+      borderColor: isDark ? PALETTE.neutral.dark.textMuted : '#E8E9F1',
+      shadowColor: '#000000',
+      shadowOffset: { width: 0, height: 8 },
+      shadowOpacity: 0.25,
+      shadowRadius: 16,
+      elevation: 10,
+    },
+    agencyDropdownHeader: {
+      fontSize: 11,
+      fontWeight: '700',
+      color: isDark ? '#8F9098' : '#71727A',
+      textTransform: 'uppercase',
+      letterSpacing: 0.5,
+      paddingHorizontal: 10,
+      paddingVertical: 6,
+    },
+    agencyDropdownItem: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 10,
+      paddingVertical: 9,
+      borderRadius: 10,
+    },
+    agencyDropdownItemActive: {
+      backgroundColor: isDark ? 'rgba(0, 111, 253, 0.14)' : '#EAF2FF',
+    },
+    agencyDropdownItemText: {
+      fontSize: 13.5,
+      fontWeight: '600',
+      color: isDark ? '#FFFFFF' : '#1F2024',
+    },
+    agencyDropdownItemTextActive: {
+      color: isDark ? '#6FBAFF' : '#006FFD',
+      fontWeight: '700',
     },
     formatGrid: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: 12,
+      justifyContent: 'space-between',
     },
     formatCard: {
-      width: isDesktop ? '48.8%' : '100%',
-      backgroundColor: theme.cardBg,
-      borderRadius: 12,
-      padding: 16,
-      borderWidth: 1,
-      borderColor: theme.cardBorder,
+      width: isDesktop ? '48.2%' : '100%',
+      backgroundColor: 'transparent',
+      paddingVertical: 15,
+      paddingHorizontal: 4,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 14,
+    },
+    formatCardDivider: {
+      borderBottomWidth: 1,
+      borderBottomColor: theme.cardBorder,
+    },
+    formatCardPressed: {
+      opacity: 0.7,
     },
     cardPressed: {
       opacity: 0.88,
     },
-    formatCardIconBox: {
-      marginBottom: 10,
+    formatTextContent: {
+      flex: 1,
+      justifyContent: 'center',
     },
     formatCardTitle: {
       fontSize: 15,
       fontWeight: '700',
       color: theme.textPrimary,
-      marginBottom: 4,
+      letterSpacing: -0.2,
     },
-    formatCardSubtitle: {
-      fontSize: 12.5,
-      lineHeight: 18,
-      color: theme.textMuted,
+    categoryLiveStatusDot: {
+      width: 6,
+      height: 6,
+      borderRadius: 3,
     },
     reviseGrid: {
       flexDirection: isDesktop ? 'row' : 'column',
@@ -1224,7 +1506,15 @@ const getStyles = (
       borderColor: theme.cardBorder,
     },
     reviseIconBox: {
-      marginBottom: 10,
+      width: 44,
+      height: 44,
+      borderRadius: 12,
+      backgroundColor: isDark ? 'rgba(0, 111, 253, 0.12)' : '#EAF2FF',
+      borderWidth: 1,
+      borderColor: isDark ? 'rgba(0, 111, 253, 0.25)' : '#B4DBFF',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 12,
     },
     reviseCardTitle: {
       fontSize: 15,

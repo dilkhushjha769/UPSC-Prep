@@ -20,7 +20,11 @@ export default function MockTestIndexScreen() {
   return (
     <View style={[styles.container, { backgroundColor: theme.bg }]}>
       <BlueTextureBackground isDark={isDark} />
-      <MockTestDashboard onStartTest={handleStartTest} isDark={isDark} />
+      <MockTestDashboard
+        onStartTest={handleStartTest}
+        onBack={() => router.back()}
+        isDark={isDark}
+      />
     </View>
   );
 }

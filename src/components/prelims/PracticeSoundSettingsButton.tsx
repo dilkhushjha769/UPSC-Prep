@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Pressable, StyleSheet, Switch, Text, View } from 'react-native';
+import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Settings, X } from 'lucide-react-native';
+import { PrimaryToggle } from '@/components/common/PrimaryToggle';
 import { practiceSoundService, PracticeSoundSettings } from '@/services/practiceSoundService';
 
 interface Props {
@@ -18,13 +19,17 @@ export function PracticeSoundSettingsButton({ isDark }: Props) {
   const text = isDark ? '#F5F5F7' : '#0F172A';
   const card = isDark ? '#1F2024' : '#FFFFFF';
   const border = isDark ? '#35373F' : '#E2E8F0';
-  const track = { false: isDark ? '#343740' : '#D1D5DB', true: '#0D6EFD' };
 
   const Row = ({ label, value, onChange, disabled }: { label: string; value: boolean; onChange: (v: boolean) => void; disabled?: boolean }) => (
     <View style={[styles.row, { borderColor: border, opacity: disabled ? 0.45 : 1 }]}>
       <Text style={[styles.rowLabel, { color: text }]}>{label}</Text>
-      <Switch value={value} onValueChange={onChange} disabled={disabled} trackColor={track} thumbColor="#FFFFFF" // @ts-ignore
-  activeThumbColor="#FFFFFF" activeTrackColor="#006FFD" />
+      <PrimaryToggle
+        value={value}
+        onValueChange={onChange}
+        disabled={disabled}
+        isDark={isDark}
+        activeTrackColor="#006FFD"
+      />
     </View>
   );
 

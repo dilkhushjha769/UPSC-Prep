@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
-  Switch,
   Text,
   TouchableOpacity,
   useWindowDimensions,
   View,
 } from 'react-native';
 import { ChevronLeft } from 'lucide-react-native';
+import { PrimaryToggle } from '@/components/common/PrimaryToggle';
 import { BW_THEME } from '@/constants/bwTheme';
 import { PALETTE } from '@/constants/colors';
 import { useStudy } from '@/context/StudyContext';
@@ -72,11 +72,6 @@ export function NotificationSettingsScreen({
   const cardBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)';
   const dividerColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.05)';
 
-  // Switch styling: Clean Primary Blue (#006FFD) with crisp white thumb (no teal or green tint)
-  const switchTrackColor = {
-    false: isDark ? '#2D313A' : '#D1D5DB',
-    true: '#006FFD',
-  };
 
   return (
     <View style={[styles.container, { backgroundColor: isDark ? '#0C0F17' : '#F8FAFC' }]}>
@@ -137,13 +132,10 @@ export function NotificationSettingsScreen({
                   Scheduled alerts for daily study goals and revision targets
                 </Text>
               </View>
-              <Switch
+              <PrimaryToggle
                 value={prefs.studyReminders}
                 onValueChange={() => handleToggle('studyReminders')}
-                trackColor={switchTrackColor}
-                thumbColor="#FFFFFF"
-                // @ts-ignore
-                activeThumbColor="#FFFFFF"
+                isDark={isDark}
                 activeTrackColor="#006FFD"
               />
             </View>
@@ -157,13 +149,10 @@ export function NotificationSettingsScreen({
                   Warnings before midnight if your qualifying study streak is at risk
                 </Text>
               </View>
-              <Switch
+              <PrimaryToggle
                 value={prefs.streakAlerts}
                 onValueChange={() => handleToggle('streakAlerts')}
-                trackColor={switchTrackColor}
-                thumbColor="#FFFFFF"
-                // @ts-ignore
-                activeThumbColor="#FFFFFF"
+                isDark={isDark}
                 activeTrackColor="#006FFD"
               />
             </View>
@@ -177,13 +166,10 @@ export function NotificationSettingsScreen({
                   Morning editorial synthesis, key events and daily drill release
                 </Text>
               </View>
-              <Switch
+              <PrimaryToggle
                 value={prefs.currentAffairsDigest}
                 onValueChange={() => handleToggle('currentAffairsDigest')}
-                trackColor={switchTrackColor}
-                thumbColor="#FFFFFF"
-                // @ts-ignore
-                activeThumbColor="#FFFFFF"
+                isDark={isDark}
                 activeTrackColor="#006FFD"
               />
             </View>
@@ -197,13 +183,10 @@ export function NotificationSettingsScreen({
                   Weekly All-India mocks, scorecards and rank updates
                 </Text>
               </View>
-              <Switch
+              <PrimaryToggle
                 value={prefs.mockTestAnnouncements}
                 onValueChange={() => handleToggle('mockTestAnnouncements')}
-                trackColor={switchTrackColor}
-                thumbColor="#FFFFFF"
-                // @ts-ignore
-                activeThumbColor="#FFFFFF"
+                isDark={isDark}
                 activeTrackColor="#006FFD"
               />
             </View>
@@ -229,13 +212,10 @@ export function NotificationSettingsScreen({
                   Audible tones for study reminders and break timers
                 </Text>
               </View>
-              <Switch
+              <PrimaryToggle
                 value={prefs.soundEnabled}
                 onValueChange={() => handleToggle('soundEnabled')}
-                trackColor={switchTrackColor}
-                thumbColor="#FFFFFF"
-                // @ts-ignore
-                activeThumbColor="#FFFFFF"
+                isDark={isDark}
                 activeTrackColor="#006FFD"
               />
             </View>
@@ -249,13 +229,10 @@ export function NotificationSettingsScreen({
                   Tactile feedback on answer selection and time alerts
                 </Text>
               </View>
-              <Switch
+              <PrimaryToggle
                 value={prefs.vibrationEnabled}
                 onValueChange={() => handleToggle('vibrationEnabled')}
-                trackColor={switchTrackColor}
-                thumbColor="#FFFFFF"
-                // @ts-ignore
-                activeThumbColor="#FFFFFF"
+                isDark={isDark}
                 activeTrackColor="#006FFD"
               />
             </View>
@@ -281,13 +258,10 @@ export function NotificationSettingsScreen({
                   Mutes all non-critical notifications during sleep hours
                 </Text>
               </View>
-              <Switch
+              <PrimaryToggle
                 value={prefs.quietHoursEnabled}
                 onValueChange={() => handleToggle('quietHoursEnabled')}
-                trackColor={switchTrackColor}
-                thumbColor="#FFFFFF"
-                // @ts-ignore
-                activeThumbColor="#FFFFFF"
+                isDark={isDark}
                 activeTrackColor="#006FFD"
               />
             </View>

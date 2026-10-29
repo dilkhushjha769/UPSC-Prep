@@ -7,10 +7,10 @@ import {
   Pressable,
   ActivityIndicator,
   Alert,
-  Switch,
   useWindowDimensions,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { PrimaryToggle } from '@/components/common/PrimaryToggle';
 import {
   ArrowLeft,
   ArrowRight,
@@ -816,14 +816,11 @@ export function MockTestDashboard({
                         : 'Each wrong answer costs 0.66 marks (one third of 2).'}
                     </Text>
                   </View>
-                  <Switch
+                  <PrimaryToggle
                     value={negativeMarkingEnabled}
                     onValueChange={setNegativeMarkingEnabled}
-                    trackColor={{
-                      false: isDark ? '#3E424E' : '#D1D5DB',
-                      true: colors.primary,
-                    }}
-                    thumbColor="#FFFFFF"
+                    isDark={isDark}
+                    activeTrackColor={colors.primary}
                   />
                 </View>
 
@@ -837,14 +834,11 @@ export function MockTestDashboard({
                       Mix the order so you cannot lean on the original sequence.
                     </Text>
                   </View>
-                  <Switch
+                  <PrimaryToggle
                     value={shuffleQuestions}
                     onValueChange={setShuffleQuestions}
-                    trackColor={{
-                      false: isDark ? '#3E424E' : '#D1D5DB',
-                      true: colors.primary,
-                    }}
-                    thumbColor="#FFFFFF"
+                    isDark={isDark}
+                    activeTrackColor={colors.primary}
                   />
                 </View>
 
@@ -860,15 +854,12 @@ export function MockTestDashboard({
                         : 'Available immediately upon choosing an answer.'}
                     </Text>
                   </View>
-                  <Switch
+                  <PrimaryToggle
                     disabled={testMode === 'full'}
                     value={instantExplanations}
                     onValueChange={setInstantExplanations}
-                    trackColor={{
-                      false: isDark ? '#3E424E' : '#D1D5DB',
-                      true: colors.primary,
-                    }}
-                    thumbColor="#FFFFFF"
+                    isDark={isDark}
+                    activeTrackColor={colors.primary}
                   />
                 </View>
               </View>

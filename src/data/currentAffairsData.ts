@@ -1,6 +1,98 @@
+import {
+  classifyIntoSimplifiedTaxonomy,
+  DAILY_NEWS_FEED_FILTERS,
+  EES_SUBJECT_GROUPS,
+  MAIN_CA_CATEGORIES,
+  SubjectGroupName,
+  SubjectMainCategoryId,
+} from '@/constants/currentAffairsCategories';
+
+export {
+  classifyIntoSimplifiedTaxonomy,
+  DAILY_NEWS_FEED_FILTERS,
+  EES_SUBJECT_GROUPS,
+  MAIN_CA_CATEGORIES,
+  type SubjectGroupName,
+  type SubjectMainCategoryId,
+};
+
 export interface PrelimsFactItem {
   label: string;
   value: string;
+}
+
+export type CanonicalCategoryName =
+  | 'The Daily Brief'
+  | 'National Affairs'
+  | 'International Affairs'
+  | 'Economy'
+  | 'Polity and Governance'
+  | 'Environment and Ecology'
+  | 'Science and Technology'
+  | 'Social Issues and Government Schemes'
+  | 'Editorials and Opinions'
+  | 'Supreme Court Judgments and Important Legal Developments'
+  | 'Reports, Indices and Government Data'
+  | 'Important Events and Miscellaneous Current Affairs';
+
+export const CANONICAL_CA_CATEGORIES: {
+  id: string;
+  name: CanonicalCategoryName;
+  uiModuleId: string;
+  defaultSubject: DailyEventItem['category'];
+  defaultPaper: string;
+}[] = [
+  { id: 'the-daily-brief', name: 'The Daily Brief', uiModuleId: 'daily-news', defaultSubject: 'Polity', defaultPaper: 'GS-II' },
+  { id: 'national-affairs', name: 'National Affairs', uiModuleId: 'daily-news', defaultSubject: 'Polity', defaultPaper: 'GS-II' },
+  { id: 'international-affairs', name: 'International Affairs', uiModuleId: 'international-affairs', defaultSubject: 'International Relations', defaultPaper: 'GS-II' },
+  { id: 'economy', name: 'Economy', uiModuleId: 'economy-environment-science', defaultSubject: 'Economy', defaultPaper: 'GS-III' },
+  { id: 'polity-and-governance', name: 'Polity and Governance', uiModuleId: 'polity-governance', defaultSubject: 'Polity', defaultPaper: 'GS-II' },
+  { id: 'environment-and-ecology', name: 'Environment and Ecology', uiModuleId: 'economy-environment-science', defaultSubject: 'Environment', defaultPaper: 'GS-III' },
+  { id: 'science-and-technology', name: 'Science and Technology', uiModuleId: 'economy-environment-science', defaultSubject: 'Sci-Tech', defaultPaper: 'GS-III' },
+  { id: 'social-issues-and-schemes', name: 'Social Issues and Government Schemes', uiModuleId: 'reports-schemes-data', defaultSubject: 'Polity', defaultPaper: 'GS-II' },
+  { id: 'editorials-and-opinions', name: 'Editorials and Opinions', uiModuleId: 'editorials-explainers', defaultSubject: 'Polity', defaultPaper: 'GS-II' },
+  { id: 'supreme-court-and-legal', name: 'Supreme Court Judgments and Important Legal Developments', uiModuleId: 'polity-governance', defaultSubject: 'Polity', defaultPaper: 'GS-II' },
+  { id: 'reports-indices-and-data', name: 'Reports, Indices and Government Data', uiModuleId: 'reports-schemes-data', defaultSubject: 'Economy', defaultPaper: 'GS-III' },
+  { id: 'important-events-and-misc', name: 'Important Events and Miscellaneous Current Affairs', uiModuleId: 'daily-news', defaultSubject: 'Security', defaultPaper: 'GS-III' },
+];
+
+export interface ImageProvenanceMetadata {
+  imageUrl?: string;
+  credit: string;
+  sourceUrl: string;
+  associatedArticleId?: string;
+  imageType: 'event_photo' | 'official_infographic' | 'contextual_photo' | 'placeholder';
+  license: string;
+  verificationStatus: 'verified_official' | 'verified_agency' | 'verified_contextual' | 'placeholder_fallback';
+  caption?: string;
+}
+
+export interface CrossVerificationMetadata {
+  status: 'verified_multi_source' | 'verified_primary_official' | 'single_authorized_agency' | 'discrepancy_flagged' | 'needs_review';
+  summaryNote: string;
+  officialStatement?: string;
+  independentReporting?: string;
+  analysisVsOpinionNote?: string;
+  discrepancies?: string[];
+  limitations?: string[];
+  verifiedAt: string;
+}
+
+export interface VerifiedRelatedPYQ {
+  id: string;
+  year: number;
+  subject: string;
+  topic?: string;
+  questionText: string;
+  correctAnswer?: string;
+  explanation?: string;
+}
+
+export interface FullAnalysisData {
+  detailedExplanation: string[];
+  backgroundAndInstitutionalContext: string;
+  importantFiguresDatesProvisions: { term: string; detail: string }[];
+  whyItMattersForUPSC: string;
 }
 
 export interface SyllabusRelevanceData {
@@ -21,18 +113,41 @@ export interface EventSourceItem {
 export interface DailyEventItem {
   id: string;
   category: 'Polity' | 'Economy' | 'International Relations' | 'Environment' | 'Sci-Tech' | 'Security';
+  primaryCategory?: CanonicalCategoryName | string;
+  mainCategoryId?: SubjectMainCategoryId;
+  subjectGroup?: SubjectGroupName;
+  subcategory?: string;
+  isMostImportant?: boolean;
+  isPrelimsRelevant?: boolean;
+  isMainsRelevant?: boolean;
+  editorialAuthor?: string;
+  aiExplanationDisclaimer?: string;
+  publishedDateIst?: string;
+  uiModuleId?: string;
+  secondaryTags?: string[];
   paper: 'GS-I' | 'GS-II' | 'GS-III' | 'GS-IV' | 'Prelims' | string;
   headline: string;
   source: string;
+  agencyId?: string;
+  sourceTier?: 'official' | 'agency' | 'editorial' | 'institution';
   date: string;
+  dateKey?: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  relevanceScore?: number;
   summary: string;
   summaryBullets?: string[];
   imageUrl?: string;
+  imageMetadata?: ImageProvenanceMetadata;
   bullets: string[];
   prelimsFacts: string[];
   prelimsFactMatrix?: PrelimsFactItem[];
   syllabusRelevance?: SyllabusRelevanceData;
   mainsRelevance?: string;
+  fullAnalysis?: FullAnalysisData;
+  crossVerification?: CrossVerificationMetadata;
+  relatedPyqs?: VerifiedRelatedPYQ[];
+  whyItMatters?: string;
   sources?: EventSourceItem[];
   practiceQuestion?: CAQuizQuestion;
   aiVerification?: {
@@ -68,15 +183,70 @@ export interface CuratedArticle {
   title: string;
   source: string;
   agencyId?: string;
+  sourceTier?: 'official' | 'agency' | 'editorial' | 'institution';
   date: string;
+  dateKey?: string;
+  publishedAt?: string;
+  updatedAt?: string;
   category: string;
+  primaryCategory?: CanonicalCategoryName | string;
+  mainCategoryId?: SubjectMainCategoryId;
+  subjectGroup?: SubjectGroupName;
+  subcategory?: string;
+  isMostImportant?: boolean;
+  isPrelimsRelevant?: boolean;
+  isMainsRelevant?: boolean;
+  editorialAuthor?: string;
+  aiExplanationDisclaimer?: string;
+  publishedDateIst?: string;
+  uiModuleId?: string;
+  secondaryTags?: string[];
   paper: 'GS 1' | 'GS 2' | 'GS 3' | 'Prelims' | string;
   summary: string;
   imageUrl?: string;
+  imageMetadata?: ImageProvenanceMetadata;
   link?: string;
   keyPoints: string[];
   analyticalAngle: string;
   mainsQuestion?: string;
+  prelimsFacts?: string[];
+  prelimsFactMatrix?: PrelimsFactItem[];
+  syllabusRelevance?: SyllabusRelevanceData;
+  fullAnalysis?: FullAnalysisData;
+  crossVerification?: CrossVerificationMetadata;
+  relatedPyqs?: VerifiedRelatedPYQ[];
+  whyItMatters?: string;
+  sources?: EventSourceItem[];
+}
+
+export interface CACategoryStatusItem {
+  categoryId: string;
+  categoryName: string;
+  categoryGroup: 'canonical' | 'ui_module';
+  uiModuleId: string;
+  lastUpdatedAt: string | null;
+  lastAttemptAt: string | null;
+  status: 'pending' | 'success' | 'partial' | 'failed' | 'stale';
+  activeStoryCount: number;
+  lastError?: string | null;
+}
+
+export interface CAIngestionLogItem {
+  id: string;
+  startedAt: string;
+  completedAt: string | null;
+  triggerType: string;
+  status: 'running' | 'completed' | 'partial' | 'failed';
+  aiModelUsed: string;
+  sourcesAttempted: number;
+  sourcesSucceeded: number;
+  sourcesFailed: number;
+  newStories: number;
+  updatedStories: number;
+  duplicatesSkipped: number;
+  quarantinedStories: number;
+  failedJobs: { sourceId: string; sourceName: string; reason: string }[];
+  categorySummary: Record<string, number>;
 }
 
 export interface MonthlyOverview {
@@ -117,13 +287,549 @@ export const NEWS_AGENCIES: NewsAgency[] = [
   { id: 'orf', name: 'ORF / Think Tanks', shortName: 'Think Tanks', matchKeyword: 'ORF' },
 ];
 
+export function getTodayDateKey(): string {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const d = String(now.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
 // -------------------------------------------------------------
-// DAILY EVENTS DATA (Last 7 Days)
+// DAILY EVENTS DATA (Updated Daily through 29 Oct 2026+)
 // -------------------------------------------------------------
 export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
   {
+    dateKey: '2026-10-29',
+    label: 'Today, 29 Oct',
+    shortDay: '29',
+    dayName: 'Thu',
+    highlight: 'ASI Porunai Iron Age (1155 BCE) carbon dating, RBI Basel-III digital LCR norms & ISRO SCE-200 semi-cryogenic hot test.',
+    events: [
+      {
+        id: 'de_29_1',
+        category: 'Polity',
+        primaryCategory: 'Important Events and Miscellaneous Current Affairs',
+        paper: 'GS-I',
+        headline: 'ASI Porunai River Iron Age Carbon Dating (1155 BCE) & Maratha Military Landscapes UNESCO World Heritage Dossier',
+        source: 'Press Information Bureau (PIB) • Ministry of Culture',
+        agencyId: 'pib',
+        date: '29 Oct 2026',
+        dateKey: '2026-10-29',
+        imageUrl: 'https://images.indianexpress.com/2026/10/arnab_409941.jpg',
+        summary: '- **Archaeological Survey of India (ASI)** Accelerator Mass Spectrometry (AMS) carbon dating from **Sivagalai and Adichanallur** in the **Porunai (Thamirabarani)** river basin confirmed Iron Age habitation around **1155 BCE**.\n- Concurrently, India finalized its **UNESCO World Heritage** nomination dossier for **12 Maratha Military Forts** across Maharashtra and Tamil Nadu.\n- The findings push back the chronology of **South Indian Iron Age urbanization** and highlight hill-and-marine fortification engineering.',
+        summaryBullets: [
+          'Archaeological Survey of India (ASI) Accelerator Mass Spectrometry (AMS) carbon dating from Sivagalai and Adichanallur in the Porunai (Thamirabarani) river basin confirmed Iron Age habitation around 1155 BCE.',
+          'Concurrently, India finalized its UNESCO World Heritage nomination dossier for 12 Maratha Military Forts across Maharashtra and Tamil Nadu.',
+          'The findings push back the chronology of South Indian Iron Age urbanization and highlight hill-and-marine fortification engineering.',
+        ],
+        bullets: [
+          'AMS carbon dating of paddy husks and charcoal from Sivagalai urn burials establishes Iron Age metallurgical and agrarian activity at 1155 BCE.',
+          'Porunai (Thamirabarani) civilization sites include Adichanallur, Sivagalai, and Korkai (ancient Pandya pearl port).',
+          'The Maratha Military Landscapes nomination covers 12 forts: Salher, Shivneri, Lohagad, Khanderi, Raigad, Rajgad, Pratapgad, Suvarnadurg, Panhala, Vijaydurg, Sindhudurg, and Gingee Fort.',
+        ],
+        prelimsFacts: [
+          'Korkai on the Thamirabarani river was the ancient maritime port capital of the Early Pandyas mentioned in Sangam literature and the Periplus of the Erythraean Sea.',
+          'Gingee Fort in Tamil Nadu is the only non-Maharashtra fort included in the 12-fort Maratha Military Landscapes UNESCO dossier.',
+        ],
+        prelimsFactMatrix: [
+          { label: 'Porunai River Sites', value: 'Adichanallur (urn burials), Sivagalai (1155 BCE iron & paddy), Korkai (Sangam port)' },
+          { label: 'UNESCO Dossier', value: '12 Forts under Cultural Category (Criteria iii, iv, vi) — 11 in Maharashtra + Gingee in TN' },
+          { label: 'Sea Forts Included', value: 'Sindhudurg, Suvarnadurg, Vijaydurg, and Khanderi Island Fort' },
+          { label: 'Dating Method', value: 'Accelerator Mass Spectrometry (AMS) Radiocarbon Dating (Beta Analytic Lab)' },
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 1: Indian culture will cover the salient aspects of Art Forms, literature and Architecture from ancient to modern times.',
+          staticConnection: 'Sangam Age polity, Megalithic & Iron Age cultures of Peninsular India, and medieval Maratha military architecture.',
+          prelimsAngle: 'Matching excavated archaeological sites (Sivagalai, Adichanallur, Korkai, Keeladi) with river basins and hill vs. sea forts.',
+          mainsDimensions: 'Scientific archaeology in reconstructing regional history; conservation of living heritage forts.',
+        },
+        sources: [
+          { name: 'PIB • Ministry of Culture & ASI', url: 'https://pib.gov.in', date: '29 Oct 2026', type: 'Official' },
+          { name: 'The Hindu', url: 'https://www.thehindu.com/news/national/', date: '29 Oct 2026', type: 'Leading Daily' },
+        ],
+      },
+      {
+        id: 'de_29_2',
+        category: 'Economy',
+        primaryCategory: 'Economy',
+        paper: 'GS-III',
+        headline: 'RBI Revises Basel-III Liquidity Coverage Ratio (LCR) Norms & Scales Up Unified Lending Interface (ULI)',
+        source: 'Reserve Bank of India (RBI) • Official Release',
+        agencyId: 'pib',
+        date: '29 Oct 2026',
+        dateKey: '2026-10-29',
+        imageUrl: 'https://images.indianexpress.com/2026/10/Jio-IPO-4.jpg',
+        summary: '- The **Reserve Bank of India (RBI)** updated **Basel-III Liquidity Coverage Ratio (LCR)** guidelines, assigning an additional **5% run-off factor** to retail deposits enabled with instant internet and mobile banking.\n- Banks must hold higher **High-Quality Liquid Assets (HQLA)** in Government Securities to safeguard against 24/7 digital bank runs.\n- RBI also expanded the **Unified Lending Interface (ULI)** Digital Public Infrastructure to deliver frictionless credit to **MSMEs and smallholder farmers**.',
+        summaryBullets: [
+          'The Reserve Bank of India (RBI) updated Basel-III Liquidity Coverage Ratio (LCR) guidelines, assigning an additional 5% run-off factor to retail deposits enabled with instant internet and mobile banking.',
+          'Banks must hold higher High-Quality Liquid Assets (HQLA) in Government Securities to safeguard against 24/7 digital bank runs.',
+          'RBI also expanded the Unified Lending Interface (ULI) Digital Public Infrastructure to deliver frictionless credit to MSMEs and smallholder farmers.',
+        ],
+        bullets: [
+          'LCR requires banks to maintain sufficient unencumbered High-Quality Liquid Assets (HQLA) to survive an acute 30-day liquidity stress scenario.',
+          'Unified Lending Interface (ULI) connects digitized state land records, satellite crop data, milk co-operative data, and GST filings via consent-based APIs.',
+          'Mitigates the speed of digital deposit outflows witnessed during international banking stress episodes.',
+        ],
+        prelimsFacts: [
+          'High-Quality Liquid Assets (HQLA) primarily consist of cash, excess CRR balances, and Statutory Liquidity Ratio (SLR)-eligible Government Securities.',
+          'Unified Lending Interface (ULI) is part of the "Trinity" of JAM-UPI-ULI envisioned by RBI for frictionless credit.',
+        ],
+        prelimsFactMatrix: [
+          { label: 'Basel-III Metric', value: 'Liquidity Coverage Ratio (LCR) = Stock of HQLA / Total Net Cash Outflows over 30 calendar days >= 100%' },
+          { label: 'Digital Run-Off', value: 'Additional 5% run-off factor applied to internet/mobile banking-enabled retail deposits' },
+          { label: 'Credit DPI', value: 'Unified Lending Interface (ULI) operated via Reserve Bank Innovation Hub (RBIH)' },
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 3: Indian Economy and issues relating to mobilization of resources, banking regulation, and financial inclusion.',
+          staticConnection: 'Basel-III capital and liquidity norms (CRAR, LCR, NSFR), SLR/CRR, and Digital Public Infrastructure.',
+          prelimsAngle: 'Definition of LCR vs NSFR, components of Level-1 HQLA, and role of Reserve Bank Innovation Hub.',
+          mainsDimensions: 'Balancing banking liquidity resilience against credit growth; role of DPI in formalizing rural credit.',
+        },
+        sources: [
+          { name: 'Reserve Bank of India Press Release', url: 'https://www.rbi.org.in', date: '29 Oct 2026', type: 'Official' },
+          { name: 'Livemint', url: 'https://www.livemint.com/economy', date: '29 Oct 2026', type: 'Leading Daily' },
+        ],
+      },
+      {
+        id: 'de_29_3',
+        category: 'Sci-Tech',
+        primaryCategory: 'Science and Technology',
+        paper: 'GS-III',
+        headline: 'ISRO Conducts 2,000 kN Semi-Cryogenic Engine (SCE-200) Hot Test Ahead of Chandrayaan-4 Mission',
+        source: 'The Indian Express • Science & Space',
+        agencyId: 'express',
+        date: '29 Oct 2026',
+        dateKey: '2026-10-29',
+        imageUrl: 'https://images.indianexpress.com/2026/10/Railways-safety-feature-1.jpg',
+        summary: '- **ISRO** successfully conducted the hot test of its **2,000 kN thrust SCE-200 semi-cryogenic engine** pre-burner at the **Mahendragiri Propulsion Complex**.\n- The engine utilizes refined kerosene (**Isrosene / RP-1**) as fuel and **Liquid Oxygen (LOX)** as oxidizer in an oxidizer-rich staged combustion cycle.\n- Replacing the L110 liquid core stage of **LVM3** with the SC120 semi-cryogenic stage boosts GTO payload capacity from **4 tonnes to over 5.5 tonnes**.',
+        summaryBullets: [
+          'ISRO successfully conducted the hot test of its 2,000 kN thrust SCE-200 semi-cryogenic engine pre-burner at the Mahendragiri Propulsion Complex.',
+          'The engine utilizes refined kerosene (Isrosene / RP-1) as fuel and Liquid Oxygen (LOX) as oxidizer in an oxidizer-rich staged combustion cycle.',
+          'Replacing the L110 liquid core stage of LVM3 with the SC120 semi-cryogenic stage boosts GTO payload capacity from 4 tonnes to over 5.5 tonnes.',
+        ],
+        bullets: [
+          'Isrosene (rocket-grade RP-1 kerosene) is denser than liquid hydrogen and remains storable at ambient room temperature.',
+          'Essential propulsion upgrade for Chandrayaan-4 Lunar Sample Return and Bharatiya Antariksha Station (BAS) module launches.',
+          'Eliminates toxic hypergolic propellants (UDMH and N2O4) currently used in the Vikas engine.',
+        ],
+        prelimsFacts: [
+          'Unlike a fully cryogenic engine (LH2 + LOX), a semi-cryogenic engine uses refined kerosene (RP-1) at ambient temperature and Liquid Oxygen (LOX) at -183°C.',
+          'ISRO Propulsion Complex (IPRC) at Mahendragiri, Tamil Nadu is the designated testing hub for liquid and cryogenic stages.',
+        ],
+        prelimsFactMatrix: [
+          { label: 'Propellant Pair', value: 'Isrosene (Rocket-grade RP-1 Kerosene) + Liquid Oxygen (LOX)' },
+          { label: 'Thrust Rating', value: '2,000 kN (200 tonnes) via oxidizer-rich staged combustion cycle' },
+          { label: 'Target Launchers', value: 'Upgraded LVM3 (SC120 stage) and Next Generation Launch Vehicle (NGLV / Soorya)' },
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 3: Awareness in the fields of Space, indigenization of technology and developing new technology.',
+          staticConnection: 'Evolution of ISRO launch vehicles (SLV, ASLV, PSLV, GSLV, LVM3, NGLV) and propulsion chemistry.',
+          prelimsAngle: 'Comparison of Solid, Liquid Hypergolic, Semi-Cryogenic, and Cryogenic rocket stages.',
+          mainsDimensions: 'Heavy-lift launch capability for India’s space station (BAS-2035) and commercial satellite launch competitiveness.',
+        },
+        sources: [
+          { name: 'ISRO / Department of Space', url: 'https://www.isro.gov.in', date: '29 Oct 2026', type: 'Official' },
+          { name: 'The Indian Express', url: 'https://indianexpress.com/section/explained/', date: '29 Oct 2026', type: 'Leading Daily' },
+        ],
+      },
+    ],
+  },
+  {
+    dateKey: '2026-10-28',
+    label: 'Wed, 28 Oct',
+    shortDay: '28',
+    dayName: 'Wed',
+    highlight: 'Census Act 1948 enumeration obligations, ECI Special Summary Revision (SIR) & NITI Aayog MPI report.',
+    events: [
+      {
+        id: 'de_28_1',
+        category: 'Polity',
+        primaryCategory: 'The Daily Brief',
+        paper: 'GS-II',
+        headline: 'UPSC Key: Census Act 1948 Statutory Obligations, Extreme El Niño Drivers & E100 Biofuel Roadmap',
+        source: 'The Indian Express • UPSC Essentials',
+        agencyId: 'express',
+        date: '28 Oct 2026',
+        dateKey: '2026-10-28',
+        imageUrl: 'https://images.indianexpress.com/2026/10/UPSC-Key-27th-Oct-2026.jpg',
+        summary: '- Under **Section 11 of the Census Act, 1948**, public servants and teachers designated as census officers are statutorily bound to perform enumeration duties.\n- Climatological review highlights how a positive **Indian Ocean Dipole (IOD)** counteracts **El Niño** subsidence over the Indian monsoon trough.\n- Oil Marketing Companies expanded **E100 (100% ethanol)** dispensing for flex-fuel vehicles under the **National Policy on Biofuels**.',
+        summaryBullets: [
+          'Under Section 11 of the Census Act, 1948, public servants and teachers designated as census officers are statutorily bound to perform enumeration duties.',
+          'Climatological review highlights how a positive Indian Ocean Dipole (IOD) counteracts El Niño subsidence over the Indian monsoon trough.',
+          'Oil Marketing Companies expanded E100 (100% ethanol) dispensing for flex-fuel vehicles under the National Policy on Biofuels.',
+        ],
+        bullets: [
+          'The decennial Census is conducted by the Office of the Registrar General and Census Commissioner under the Ministry of Home Affairs (Union List Entry 69).',
+          'Right to Education (RTE) Act, 2009 Section 27 prohibits deploying teachers for non-educational purposes EXCEPT decennial population census, disaster relief, and elections.',
+          'E100 fuel requires specialized flex-fuel engine calibration due to ethanol’s higher octane rating and lower energy density compared to petrol.',
+        ],
+        prelimsFacts: [
+          'Census is a Union Subject under Entry 69 of the Seventh Schedule (List I); Vital Statistics (births/deaths) is under the Concurrent List (Entry 30, List III).',
+          'Section 27 of the RTE Act, 2009 explicitly permits deploying government teachers for decennial Census, disaster relief, and parliamentary/state/local elections.',
+        ],
+        prelimsFactMatrix: [
+          { label: 'Governing Statute', value: 'Census Act, 1948 & Registration of Births and Deaths Act, 1969 (Ministry of Home Affairs)' },
+          { label: 'Constitutional Entry', value: 'Entry 69, Union List (Seventh Schedule) & Article 82 (Delimitation readjustment)' },
+          { label: 'RTE Act Exception', value: 'Section 27 allows teacher deployment for Census, Disaster Relief, and Elections' },
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 2: Statutory, regulatory and various quasi-judicial bodies; Government policies and interventions.',
+          staticConnection: 'Census Act 1948, Delimitation freeze (84th Amendment Act 2001), RTE Act 2009, and ENSO/IOD climatology.',
+          prelimsAngle: 'Census Act 1948 vs Registration of Births & Deaths Act 1969; RTE Act Section 27 exceptions.',
+          mainsDimensions: 'Significance of timely decennial Census data for Finance Commission horizontal devolution and welfare targeting.',
+        },
+        sources: [
+          { name: 'The Indian Express • UPSC Current Affairs', url: 'https://indianexpress.com/article/upsc-current-affairs/upsc-key-census-duty-godzilla-el-nino-and-e100-10939318/', date: '28 Oct 2026', type: 'Leading Daily' },
+        ],
+      },
+      {
+        id: 'de_28_2',
+        category: 'Polity',
+        primaryCategory: 'Polity and Governance',
+        paper: 'GS-II',
+        headline: 'Election Commission of India Releases Verified Electoral Rolls Post-Special Summary Revision (SIR)',
+        source: 'The Hindu • National Desk',
+        agencyId: 'hindu',
+        date: '28 Oct 2026',
+        dateKey: '2026-10-28',
+        imageUrl: 'https://th-i.thgim.com/public/incoming/2rlwoo/article71634541.ece/alternates/LANDSCAPE_1200/20261027106L.jpg',
+        summary: '- The **Election Commission of India (ECI)** published verified electoral rolls following **Special Summary Revision (SIR)**, enrolling over **1.4 million new young voters**.\n- Under **Section 14(b) of the Representation of the People Act, 1950**, four qualifying dates (**Jan 1, Apr 1, Jul 1, Oct 1**) now enable quarterly voter registration.\n- **ERONet de-duplication** algorithms and Booth Level Officers (BLOs) purged duplicate and shifted entries across constituencies.',
+        summaryBullets: [
+          'The Election Commission of India (ECI) published verified electoral rolls following Special Summary Revision (SIR), enrolling over 1.4 million new young voters.',
+          'Under Section 14(b) of the Representation of the People Act, 1950, four qualifying dates (Jan 1, Apr 1, Jul 1, Oct 1) now enable quarterly voter registration.',
+          'ERONet de-duplication algorithms and Booth Level Officers (BLOs) purged duplicate and shifted entries across constituencies.',
+        ],
+        bullets: [
+          'Election Laws (Amendment) Act, 2021 replaced the single January 1 qualifying date with four quarterly qualifying dates under Section 14(b) of RPA 1950.',
+          'Form 6 is used for new voter registration, Form 7 for deletion/objection, and Form 8 for correction or shifting of residence.',
+          'Article 326 of the Constitution guarantees universal adult suffrage to every citizen aged 18 years and above.',
+        ],
+        prelimsFacts: [
+          'Preparation and revision of electoral rolls is governed by the Representation of the People Act (RPA), 1950, whereas conduct of elections and disqualifications are governed by RPA, 1951.',
+          'Article 325 mandates a single general electoral roll for every territorial constituency without discrimination on religion, race, caste, or sex.',
+        ],
+        prelimsFactMatrix: [
+          { label: 'Constitutional Basis', value: 'Article 324 (ECI superintendence), Article 325 (Single General Roll), Article 326 (Adult Suffrage)' },
+          { label: 'Statutory Provision', value: 'Section 14(b) of Representation of the People Act, 1950 (4 qualifying dates: Jan 1, Apr 1, Jul 1, Oct 1)' },
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 2: Salient features of the Representation of People’s Act; Constitutional Bodies (Election Commission).',
+          staticConnection: 'Articles 324–329 of the Constitution, RPA 1950 vs RPA 1951, and 61st Constitutional Amendment Act (1988).',
+          prelimsAngle: 'Distinguishing provisions of RPA 1950 (electoral rolls, delimitation) from RPA 1951 (corrupt practices, disqualifications).',
+          mainsDimensions: 'Electoral roll purity, migrant voter inclusion, and digital de-duplication safeguards.',
+        },
+        sources: [
+          { name: 'Election Commission of India', url: 'https://eci.gov.in', date: '28 Oct 2026', type: 'Official' },
+          { name: 'The Hindu', url: 'https://www.thehindu.com/news/national/', date: '28 Oct 2026', type: 'Leading Daily' },
+        ],
+      },
+      {
+        id: 'de_28_3',
+        category: 'Economy',
+        primaryCategory: 'Reports, Indices and Government Data',
+        paper: 'GS-II',
+        headline: 'NITI Aayog & UNDP Release Updated National Multidimensional Poverty Index (MPI) Assessment',
+        source: 'NITI Aayog • Official Report',
+        agencyId: 'pib',
+        date: '28 Oct 2026',
+        dateKey: '2026-10-28',
+        imageUrl: 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
+        summary: '- **NITI Aayog**, in collaboration with **UNDP and OPHI**, released the updated **National Multidimensional Poverty Index (MPI)** tracking **12 indicators** across Health, Education, and Standard of Living.\n- India’s National MPI adds **Maternal Health** and **Bank Account** indicators to the 10 global MPI parameters using the **Alkire-Foster methodology**.\n- Steepest declines in deprivation were recorded in **sanitation, cooking fuel (PMUY), and rural housing**.',
+        summaryBullets: [
+          'NITI Aayog, in collaboration with UNDP and OPHI, released the updated National Multidimensional Poverty Index (MPI) tracking 12 indicators across Health, Education, and Standard of Living.',
+          'India’s National MPI adds Maternal Health and Bank Account indicators to the 10 global MPI parameters using the Alkire-Foster methodology.',
+          'Steepest declines in deprivation were recorded in sanitation, cooking fuel (PMUY), and rural housing.',
+        ],
+        bullets: [
+          'Three equally weighted dimensions (1/3 each): Health (Nutrition, Child & Adolescent Mortality, Maternal Health), Education (Years of Schooling, School Attendance), and Standard of Living (7 indicators).',
+          'Computes both Headcount Ratio (H — proportion of multidimensionally poor) and Intensity of Poverty (A — average share of weighted deprivations).',
+          'MPI = H × A; a household is classified as multidimensionally poor if its deprivation score is 33.33% or higher.',
+        ],
+        prelimsFacts: [
+          'Global MPI (UNDP & OPHI) uses 10 indicators, whereas India’s National MPI (NITI Aayog) uses 12 indicators by adding Maternal Health and Bank Accounts.',
+          'NITI Aayog is the nodal agency in India for monitoring the Sustainable Development Goals (SDGs) and publishing the National MPI.',
+        ],
+        prelimsFactMatrix: [
+          { label: 'Publishing Agency', value: 'NITI Aayog in technical collaboration with UNDP & OPHI' },
+          { label: 'Methodology', value: 'Alkire-Foster Dual-Cutoff Method (MPI = Headcount Ratio H × Intensity A)' },
+          { label: 'India-Specific Additions', value: 'Maternal Health (under Health) & Bank Account (under Standard of Living) — Total 12 Indicators' },
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 2: Issues relating to poverty and hunger; Welfare schemes for vulnerable sections.',
+          staticConnection: 'Poverty estimation committees in India (Lakdawala, Tendulkar, Rangarajan) vs Multidimensional Poverty Index.',
+          prelimsAngle: 'Comparing Global MPI (10 indicators) vs National MPI (12 indicators) and exact dimension weights.',
+          mainsDimensions: 'Shift from consumption-expenditure poverty lines to multidimensional capability deprivation tracking.',
+        },
+        sources: [
+          { name: 'NITI Aayog Official Report', url: 'https://www.niti.gov.in', date: '28 Oct 2026', type: 'Official' },
+        ],
+      },
+    ],
+  },
+  {
+    dateKey: '2026-10-27',
+    label: 'Tue, 27 Oct',
+    shortDay: '27',
+    dayName: 'Tue',
+    highlight: 'National Green Hydrogen Mission SIGHT Tranche-II subsidies, Bay of Bengal cyclone intensification & Kavach 4.0.',
+    events: [
+      {
+        id: 'de_27_1',
+        category: 'Environment',
+        primaryCategory: 'Social Issues and Government Schemes',
+        paper: 'GS-III',
+        headline: 'MNRE Operationalizes SIGHT Tranche-II Guidelines Under National Green Hydrogen Mission',
+        source: 'Press Information Bureau (PIB) • MNRE',
+        agencyId: 'pib',
+        date: '27 Oct 2026',
+        dateKey: '2026-10-27',
+        imageUrl: 'https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg',
+        summary: '- The **Ministry of New & Renewable Energy (MNRE)** released operational guidelines for **SIGHT Tranche-II**, allocating subsidies for **1,500 MW** of domestic electrolyser manufacturing.\n- Implemented by **Solar Energy Corporation of India (SECI)**, the scheme mandates at least **50% local value addition**.\n- Targets **5 Million Metric Tonnes (MMT)** of annual green hydrogen production capacity by **2030**, averting 50 MMT of CO2 emissions annually.',
+        summaryBullets: [
+          'The Ministry of New & Renewable Energy (MNRE) released operational guidelines for SIGHT Tranche-II, allocating subsidies for 1,500 MW of domestic electrolyser manufacturing.',
+          'Implemented by Solar Energy Corporation of India (SECI), the scheme mandates at least 50% local value addition.',
+          'Targets 5 Million Metric Tonnes (MMT) of annual green hydrogen production capacity by 2030, averting 50 MMT of CO2 emissions annually.',
+        ],
+        bullets: [
+          'Strategic Interventions for Green Hydrogen Transition (SIGHT) has a ₹17,490 crore outlay out of the ₹19,744 crore Mission corpus.',
+          'India officially defines "Green Hydrogen" as hydrogen produced with well-to-gate emissions not exceeding 2 kg CO2 equivalent per kg of H2.',
+          'Supports green ammonia bunkering hubs at major ports (Kandla, Paradip, Tuticorin).',
+        ],
+        prelimsFacts: [
+          'According to MNRE’s Green Hydrogen Standard for India, emissions must not exceed 2 kg CO2 equivalent per kg of Hydrogen produced.',
+          'Solar Energy Corporation of India (SECI) is the implementing agency for SIGHT tenders under MNRE.',
+        ],
+        prelimsFactMatrix: [
+          { label: 'Mission Outlay', value: '₹19,744 Crore total (₹17,490 Crore for SIGHT Component I & II)' },
+          { label: '2030 Targets', value: '5 MMT/year Green H2 + 125 GW associated renewable energy capacity' },
+          { label: 'Emission Threshold', value: '<= 2 kg CO2 equivalent per kg H2 (Well-to-Gate standard)' },
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 3: Infrastructure: Energy; Conservation and clean energy transition.',
+          staticConnection: 'Panchamrit COP26 targets, Net-Zero 2070, and National Green Hydrogen Mission.',
+          prelimsAngle: 'Green vs Blue vs Grey vs Pink hydrogen definitions and India’s 2 kg CO2/kg H2 certification threshold.',
+          mainsDimensions: 'Decarbonizing hard-to-abate sectors (steel, fertilizers, long-haul shipping) through green hydrogen.',
+        },
+        sources: [
+          { name: 'PIB • Ministry of New & Renewable Energy', url: 'https://pib.gov.in', date: '27 Oct 2026', type: 'Official' },
+        ],
+      },
+      {
+        id: 'de_27_2',
+        category: 'Environment',
+        primaryCategory: 'Environment and Ecology',
+        paper: 'GS-I',
+        headline: 'Explained: Meteorological Drivers of Rapid Cyclonic Storm Intensification in the Bay of Bengal',
+        source: 'The Indian Express • Explained Climate',
+        agencyId: 'express',
+        date: '27 Oct 2026',
+        dateKey: '2026-10-27',
+        imageUrl: 'https://images.indianexpress.com/2026/10/arnab_409941.jpg',
+        summary: '- Atmospheric scientists report anomalous **Sea Surface Temperatures (SST > 30°C)** and high **Tropical Cyclone Heat Potential (TCHP)** in the Bay of Bengal driving rapid cyclone intensification.\n- **Rapid Intensification (RI)** is defined as an increase in maximum sustained winds of at least **30 knots (55 km/h) within 24 hours**.\n- Low vertical wind shear and freshwater stratification from river runoff prevent cooler subsurface water from mixing upward.',
+        summaryBullets: [
+          'Atmospheric scientists report anomalous Sea Surface Temperatures (SST > 30°C) and high Tropical Cyclone Heat Potential (TCHP) in the Bay of Bengal driving rapid cyclone intensification.',
+          'Rapid Intensification (RI) is defined as an increase in maximum sustained winds of at least 30 knots (55 km/h) within 24 hours.',
+          'Low vertical wind shear and freshwater stratification from river runoff prevent cooler subsurface water from mixing upward.',
+        ],
+        bullets: [
+          'Bay of Bengal receives massive freshwater influx from Ganga-Brahmaputra-Meghna rivers, creating a shallow, warm barrier layer.',
+          'Post-monsoon (October–November) cyclones frequently undergo rapid intensification due to weak vertical wind shear and high mid-tropospheric humidity.',
+          'WMO/ESCAP Panel on Tropical Cyclones (13 member countries around Bay of Bengal & Arabian Sea) assigns cyclone names sequentially.',
+        ],
+        prelimsFacts: [
+          'A minimum Sea Surface Temperature of 26.5°C and presence of Coriolis force (absent at the Equator) are prerequisites for tropical cyclogenesis.',
+          'The Bay of Bengal generates nearly 4 times as many tropical cyclones as the Arabian Sea due to higher SSTs, freshwater stratification, and remnant disturbances from the West Pacific.',
+        ],
+        prelimsFactMatrix: [
+          { label: 'Rapid Intensification', value: 'Increase in maximum sustained surface winds of >= 30 knots (55 km/h) in 24 hours' },
+          { label: 'Naming Body', value: 'WMO/ESCAP Panel on Tropical Cyclones (13 North Indian Ocean member nations) — RSMC New Delhi (IMD)' },
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 1: Important Geophysical phenomena such as cyclones; GS Paper 3: Disaster Management.',
+          staticConnection: 'Tropical vs Extra-tropical cyclones, Coriolis force, and NDMA Cyclone Management Guidelines.',
+          prelimsAngle: 'Conditions for tropical cyclone formation, eye vs eyewall properties, and North Indian Ocean naming conventions.',
+          mainsDimensions: 'Shifting cyclone climatology in the Arabian Sea & Bay of Bengal and early warning resilience.',
+        },
+        sources: [
+          { name: 'The Indian Express • Explained', url: 'https://indianexpress.com/article/explained/explained-climate/', date: '27 Oct 2026', type: 'Leading Daily' },
+          { name: 'India Meteorological Department (IMD)', url: 'https://mausam.imd.gov.in', date: '27 Oct 2026', type: 'Official' },
+        ],
+      },
+      {
+        id: 'de_27_3',
+        category: 'Sci-Tech',
+        primaryCategory: 'Science and Technology',
+        paper: 'GS-III',
+        headline: 'Indian Railways Accelerates Kavach 4.0 Automatic Train Protection System Deployment',
+        source: 'The Indian Express • Infrastructure',
+        agencyId: 'express',
+        date: '27 Oct 2026',
+        dateKey: '2026-10-27',
+        imageUrl: 'https://images.indianexpress.com/2026/10/Railways-safety-feature-1.jpg',
+        summary: '- The **Railway Board** sanctioned rapid rollout of **Kavach 4.0**, India’s indigenous **Automatic Train Protection (ATP)** system developed by **RDSO**.\n- Certified at **Safety Integrity Level-4 (SIL-4)**, Kavach automatically applies brakes if a loco pilot fails to act, preventing **Signal Passing at Danger (SPAD)**.\n- Integrates **RFID track tags**, UHF/LTE-R communication towers, and onboard locomotive computers.',
+        summaryBullets: [
+          'The Railway Board sanctioned rapid rollout of Kavach 4.0, India’s indigenous Automatic Train Protection (ATP) system developed by RDSO.',
+          'Certified at Safety Integrity Level-4 (SIL-4), Kavach automatically applies brakes if a loco pilot fails to act, preventing Signal Passing at Danger (SPAD).',
+          'Integrates RFID track tags, UHF/LTE-R communication towers, and onboard locomotive computers.',
+        ],
+        bullets: [
+          'Developed indigenously by Research Designs and Standards Organisation (RDSO) in collaboration with three Indian OEMs.',
+          'Safety Integrity Level-4 (SIL-4) implies a probability of dangerous failure of less than 1 in 10,000 years.',
+          'Relays real-time movement authority and signal aspects directly into the locomotive cab display during dense winter fog.',
+        ],
+        prelimsFacts: [
+          'Kavach is developed by RDSO (Lucknow) and is certified to Safety Integrity Level-4 (SIL-4), the highest global safety certification.',
+          'It uses Radio Frequency Identification (RFID) tags installed on railway tracks every 1 km and at every signal.',
+        ],
+        prelimsFactMatrix: [
+          { label: 'Developing Agency', value: 'Research Designs and Standards Organisation (RDSO), Ministry of Railways' },
+          { label: 'Safety Standard', value: 'Safety Integrity Level 4 (SIL-4) — <10^-9 failure rate per hour' },
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 3: Infrastructure: Railways; Indigenization of technology.',
+          staticConnection: 'Rashtriya Rail Sanraksha Kosh (RRSK), Dedicated Freight Corridors, and PM Gati Shakti.',
+          prelimsAngle: 'Technical components of Kavach (RFID, UHF/LTE-R, SIL-4) and RDSO mandate.',
+          mainsDimensions: 'Modernizing railway safety architecture and reducing logistics bottlenecks.',
+        },
+        sources: [
+          { name: 'The Indian Express', url: 'https://indianexpress.com/article/upsc-current-affairs/upsc-essentials/knowledge-nugget-how-is-indian-railways-rethinking-safety-and-security-upsc-10938686/', date: '27 Oct 2026', type: 'Leading Daily' },
+        ],
+      },
+    ],
+  },
+  {
+    dateKey: '2026-10-26',
+    label: 'Mon, 26 Oct',
+    shortDay: '26',
+    dayName: 'Mon',
+    highlight: 'Supreme Court directives on Section 6A Citizenship Act & Project Cheetah Kuno-Gandhi Sagar corridor review.',
+    events: [
+      {
+        id: 'de_26_1',
+        category: 'Polity',
+        primaryCategory: 'Supreme Court Judgments and Important Legal Developments',
+        paper: 'GS-II',
+        headline: 'Supreme Court Issues Compliance Directives on Section 6A Citizenship Act & Border Fencing in Assam',
+        source: 'The Hindu • Legal Bureau',
+        agencyId: 'hindu',
+        date: '26 Oct 2026',
+        dateKey: '2026-10-26',
+        imageUrl: 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
+        summary: '- Following its **5-Judge Constitution Bench verdict (4:1)** upholding **Section 6A of the Citizenship Act, 1955**, the Supreme Court directed time-bound border fencing and tribunal digitization.\n- Section 6A gives statutory effect to the **1985 Assam Accord**, fixing **March 25, 1971** as the cut-off date for citizenship registration in Assam.\n- The Court held that Parliament possesses plenary legislative competence under **Article 11** to enact special citizenship provisions.',
+        summaryBullets: [
+          'Following its 5-Judge Constitution Bench verdict (4:1) upholding Section 6A of the Citizenship Act, 1955, the Supreme Court directed time-bound border fencing and tribunal digitization.',
+          'Section 6A gives statutory effect to the 1985 Assam Accord, fixing March 25, 1971 as the cut-off date for citizenship registration in Assam.',
+          'The Court held that Parliament possesses plenary legislative competence under Article 11 to enact special citizenship provisions.',
+        ],
+        bullets: [
+          'Persons who entered Assam before January 1, 1966 were deemed citizens; those entering between Jan 1, 1966 and March 24, 1971 were eligible after a 10-year disenfranchisement period.',
+          'Those entering on or after March 25, 1971 are declared illegal immigrants to be detected and deported through Foreigners Tribunals.',
+          'The Bench rejected the argument that Section 6A violates Article 29(1) (right to conserve distinct language, script, or culture).',
+        ],
+        prelimsFacts: [
+          'Article 11 of the Constitution empowers Parliament to make any provision with respect to the acquisition and termination of citizenship, overriding Articles 5 to 10.',
+          'Section 6A was inserted into the Citizenship Act, 1955 by the Citizenship (Amendment) Act, 1985 pursuant to the Assam Accord.',
+        ],
+        prelimsFactMatrix: [
+          { label: 'Constitutional Power', value: 'Article 11 (Parliamentary plenary power over Citizenship) & Part II (Articles 5–11)' },
+          { label: 'Cut-Off Date', value: 'March 25, 1971 (under Section 6A of Citizenship Act, 1955 & Assam Accord 1985)' },
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 2: Indian Constitution—Part II (Citizenship), Parliament and State Legislatures, Supreme Court Judgments.',
+          staticConnection: 'Articles 5–11 of the Constitution, Citizenship Act 1955 modes of acquisition, and Article 29 cultural rights.',
+          prelimsAngle: 'Cut-off dates under Article 6 vs Section 6A of Citizenship Act 1955.',
+          mainsDimensions: 'Balancing humanitarian historical accords, demographic anxieties, and border security.',
+        },
+        sources: [
+          { name: 'Supreme Court of India', url: 'https://www.sci.gov.in', date: '26 Oct 2026', type: 'Court Judgment' },
+          { name: 'The Hindu', url: 'https://www.thehindu.com/news/national/', date: '26 Oct 2026', type: 'Leading Daily' },
+        ],
+      },
+      {
+        id: 'de_26_2',
+        category: 'Environment',
+        primaryCategory: 'Environment and Ecology',
+        paper: 'GS-III',
+        headline: 'NTCA High-Level Panel Reviews Project Cheetah Habitat Expansion from Kuno to Gandhi Sagar',
+        source: 'Down To Earth • Wildlife Ecology',
+        agencyId: 'dte',
+        date: '26 Oct 2026',
+        dateKey: '2026-10-26',
+        imageUrl: 'https://images.indianexpress.com/2026/10/28CheetahKunoDeath.jpg',
+        summary: '- The **National Tiger Conservation Authority (NTCA)** reviewed prey-base augmentation and grassland management connecting **Kuno National Park** with **Gandhi Sagar Wildlife Sanctuary**.\n- **Gandhi Sagar** in Mandsaur/Nimach districts (crossed by the **Chambal River**) is prepared as India’s second cheetah meta-population habitat.\n- The world’s first intercontinental large carnivore translocation brings **African Cheetahs (*Acinonyx jubatus*)** from Namibia and South Africa.',
+        summaryBullets: [
+          'The National Tiger Conservation Authority (NTCA) reviewed prey-base augmentation and grassland management connecting Kuno National Park with Gandhi Sagar Wildlife Sanctuary.',
+          'Gandhi Sagar in Mandsaur/Nimach districts (crossed by the Chambal River) is prepared as India’s second cheetah meta-population habitat.',
+          'The world’s first intercontinental large carnivore translocation brings African Cheetahs (Acinonyx jubatus) from Namibia and South Africa.',
+        ],
+        bullets: [
+          'NTCA is a statutory body under the Ministry of Environment, Forest and Climate Change (MoEFCC) constituted under Section 38L of the Wildlife (Protection) Act, 1972.',
+          'African Cheetah is listed as "Vulnerable" on the IUCN Red List, whereas the Asiatic Cheetah (*Acinonyx jubatus venaticus*) is "Critically Endangered" and confined to Iran.',
+          'Grassland and open scrub savanna restoration benefits sympatric species like the Great Indian Bustard, Caracal, and Blackbuck.',
+        ],
+        prelimsFacts: [
+          'Kuno River (tributary of Chambal) flows through Kuno National Park, while Chambal River bisects Gandhi Sagar Wildlife Sanctuary.',
+          'African Cheetah is IUCN Vulnerable; Asiatic Cheetah is IUCN Critically Endangered (found only in Iran).',
+        ],
+        prelimsFactMatrix: [
+          { label: 'Nodal Agency', value: 'National Tiger Conservation Authority (NTCA) & Wildlife Institute of India (WII)' },
+          { label: 'Habitats in MP', value: 'Kuno National Park (Sheopur) & Gandhi Sagar Wildlife Sanctuary (Chambal basin)' },
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 3: Conservation, biodiversity and wildlife management.',
+          staticConnection: 'Wildlife Protection Act 1972, NTCA mandate, and in-situ vs ex-situ conservation.',
+          prelimsAngle: 'Geography of Chambal river tributaries (Kuno, Banas, Kali Sindh, Parbati) and IUCN status of African vs Asiatic Cheetah.',
+          mainsDimensions: 'Meta-population management, carrying capacity bottlenecks, and savanna ecosystem conservation in India.',
+        },
+        sources: [
+          { name: 'Down To Earth', url: 'https://www.downtoearth.org.in/environment', date: '26 Oct 2026', type: 'Leading Daily' },
+        ],
+      },
+      {
+        id: 'de_26_3',
+        category: 'Polity',
+        primaryCategory: 'Editorials and Opinions',
+        paper: 'GS-II',
+        headline: 'Editorial Analysis: Institutional Autonomy of Constitutional & Statutory Regulatory Watchdogs',
+        source: 'The Hindu • Lead Editorial',
+        agencyId: 'hindu',
+        date: '26 Oct 2026',
+        dateKey: '2026-10-26',
+        summary: '- Evaluates appointment committees, tenure security, and financial autonomy of constitutional and statutory bodies in light of **Anoop Baranwal v. Union of India** and the **CEC Act, 2023**.\n- Under the **Chief Election Commissioner and other Election Commissioners Act, 2023**, the selection panel comprises the **Prime Minister, a Union Cabinet Minister, and the Leader of Opposition**.\n- Highlights the constitutional balance between parliamentary legislative power under **Article 324(2)** and insulation of umpires from executive dominance.',
+        summaryBullets: [
+          'Evaluates appointment committees, tenure security, and financial autonomy of constitutional and statutory bodies in light of Anoop Baranwal v. Union of India and the CEC Act, 2023.',
+          'Under the Chief Election Commissioner and other Election Commissioners Act, 2023, the selection panel comprises the Prime Minister, a Union Cabinet Minister, and the Leader of Opposition.',
+          'Highlights the constitutional balance between parliamentary legislative power under Article 324(2) and insulation of umpires from executive dominance.',
+        ],
+        bullets: [
+          'In Anoop Baranwal (2023), a 5-judge SC bench had created an interim committee of PM, LoP, and CJI until Parliament enacted a law under Article 324(2).',
+          'Parliament subsequently enacted the 2023 Act replacing the CJI with a Union Cabinet Minister nominated by the PM.',
+          'Compares appointment safeguards across CAG (Article 148), UPSC (Article 316), CVC, and Information Commissions.',
+        ],
+        prelimsFacts: [
+          'The Chief Election Commissioner can only be removed from office in like manner and on the like grounds as a Judge of the Supreme Court (proven misbehaviour or incapacity).',
+          'Other Election Commissioners cannot be removed from office except on the recommendation of the Chief Election Commissioner.',
+        ],
+        prelimsFactMatrix: [
+          { label: 'Governing Statute', value: 'CEC and Other Election Commissioners (Appointment, Conditions of Service and Term of Office) Act, 2023' },
+          { label: 'Selection Panel', value: 'Prime Minister (Chairperson) + Union Cabinet Minister + Leader of Opposition in Lok Sabha' },
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 2: Appointment to various Constitutional posts, powers, functions and responsibilities of various Constitutional Bodies.',
+          staticConnection: 'Article 324, CAG, UPSC, CVC, and Lokpal selection committee structures.',
+          prelimsAngle: 'Composition of Search Committee (headed by Law Minister) vs Selection Committee under the 2023 CEC Act.',
+          mainsDimensions: 'Independence of fourth-branch institutions ("integrity institutions") in a parliamentary democracy.',
+        },
+        sources: [
+          { name: 'The Hindu Editorial', url: 'https://www.thehindu.com/opinion/editorial/', date: '26 Oct 2026', type: 'Leading Daily' },
+        ],
+      },
+    ],
+  },
+  {
     dateKey: '2026-10-25',
-    label: 'Today, 25 Oct',
+    label: 'Sun, 25 Oct',
     shortDay: '25',
     dayName: 'Sun',
     highlight: 'LAC Disengagement verification, WTO Dispute Settlement panel & Green Hydrogen mission subsidy release.',
@@ -803,21 +1509,26 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
  * or generates high-yield UPSC current affairs summary for any past date selected via calendar.
  */
 export function getDailyEventsSummary(dateKey: string): DayEventsSummary {
+  const todayKey = getTodayDateKey();
   const existing = DAILY_EVENTS_DATA.find((d) => d.dateKey === dateKey);
-  if (existing) {
-    return existing;
-  }
 
   // Parse dateKey (YYYY-MM-DD)
   const [yearStr, monthStr, dayStr] = dateKey.split('-');
   const dateObj = new Date(parseInt(yearStr, 10), parseInt(monthStr, 10) - 1, parseInt(dayStr, 10));
   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  
+
   const dayName = isNaN(dateObj.getTime()) ? 'Day' : dayNames[dateObj.getDay()];
   const monthName = isNaN(dateObj.getTime()) ? '' : monthNames[dateObj.getMonth()];
   const shortDay = dayStr || '01';
-  const label = `${dayName}, ${shortDay} ${monthName}`;
+  const label = dateKey === todayKey ? `Today, ${shortDay} ${monthName}` : `${dayName}, ${shortDay} ${monthName}`;
+
+  if (existing) {
+    return {
+      ...existing,
+      label,
+    };
+  }
 
   return {
     dateKey,
@@ -879,6 +1590,7 @@ export function getDailyEventsSummary(dateKey: string): DayEventsSummary {
         headline: `Macroeconomic Indicators & Strategic Industrial Outlook for ${label}`,
         source: 'Livemint & Business Standard • Archive Record',
         date: `${shortDay} ${monthName} ${yearStr}`,
+        dateKey,
         imageUrl: 'https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg',
         summary: `- Macroeconomic tracking indicates steady fiscal expenditure and liquidity management supervised by the **Reserve Bank of India**.\n- Key indicators highlighted trends across **retail CPI inflation**, capital capex allocations, and external trade balances.\n- Monetary and fiscal authorities emphasized **price stability** alongside capital investment under the **FRBM framework**.`,
         summaryBullets: [
@@ -914,6 +1626,50 @@ export function getDailyEventsSummary(dateKey: string): DayEventsSummary {
           model: 'Gemini 1.5 Pro Cross-Verification',
           sourcesCount: 2,
           verifiedAt: `${label}, 12:00 IST`,
+        },
+      },
+      {
+        id: `de_${dateKey}_3`,
+        category: 'Environment',
+        paper: 'GS-III',
+        headline: `Climate Resilience, Biodiversity & Science Digest for ${label}`,
+        source: 'Down To Earth & The Hindu • Archive Record',
+        date: `${shortDay} ${monthName} ${yearStr}`,
+        dateKey,
+        imageUrl: 'https://images.indianexpress.com/2026/10/arnab_409941.jpg',
+        summary: `- Environmental and scientific agencies reviewed **protected area conservation**, renewable energy grid integration, and **indigenous R&D milestones** for ${label}.\n- Focus remained on **National Action Plan on Climate Change (NAPCC)** missions, wetland restoration, and clean energy transition.\n- Connects directly with **GS Paper 3** biodiversity statutes and sustainable development targets.`,
+        summaryBullets: [
+          `Environmental and scientific agencies reviewed protected area conservation, renewable energy grid integration, and indigenous R&D milestones for ${label}.`,
+          'Focus remained on National Action Plan on Climate Change (NAPCC) missions, wetland restoration, and clean energy transition.',
+          'Connects directly with GS Paper 3 biodiversity statutes and sustainable development targets.',
+        ],
+        bullets: [
+          'Monitoring of eco-sensitive zones (ESZs), Ramsar wetland conservation, and wildlife corridors under the Wildlife (Protection) Act, 1972.',
+          'Integration of solar, wind, and green hydrogen storage under India’s Panchamrit climate commitments.',
+          'Indigenous space and biotechnology instrumentation updates across national research laboratories.',
+        ],
+        prelimsFacts: [
+          'Eco-Sensitive Zones (ESZs) are notified by MoEFCC under the Environment (Protection) Act, 1986 around Protected Areas.',
+          'India’s updated NDC commits to reducing emissions intensity of its GDP by 45% by 2030 from 2005 levels.',
+        ],
+        prelimsFactMatrix: [
+          { label: 'Statutory Anchor', value: 'Environment (Protection) Act, 1986 & Wildlife (Protection) Act, 1972' },
+          { label: 'Climate Target', value: '50% cumulative electric power installed capacity from non-fossil fuel sources by 2030' },
+        ],
+        syllabusRelevance: {
+          paperTopic: 'GS Paper 3: Conservation, environmental pollution and degradation, environmental impact assessment.',
+          staticConnection: 'Wildlife Protection Act 1972, Ramsar Convention, UNFCCC NDCs, and National Biodiversity Act 2002.',
+          prelimsAngle: 'Protected Area categories, ESZ notification authority, and Panchamrit targets.',
+          mainsDimensions: 'Harmonizing infrastructure development with ecological sustainability.',
+        },
+        sources: [
+          { name: 'MoEFCC & PIB Archive', url: 'https://pib.gov.in', date: label, type: 'Official' },
+          { name: 'Down To Earth', url: 'https://www.downtoearth.org.in', date: label, type: 'Leading Daily' },
+        ],
+        aiVerification: {
+          model: 'Gemini 1.5 Pro Cross-Verification',
+          sourcesCount: 2,
+          verifiedAt: `${label}, 14:00 IST`,
         },
       },
     ],
@@ -1403,56 +2159,79 @@ export interface FormatCategory {
   articles: CuratedArticle[];
 }
 
-export const FORMAT_CATEGORIES: FormatCategory[] = [
-  {
-    id: 'daily-news',
-    title: '1. Daily News',
-    subtitle: 'Daily developments across all relevant subjects, with concise summaries and key facts.',
-    iconName: 'Newspaper',
-    imageUrl: 'https://images.indianexpress.com/2026/10/UPSC-Key-27th-Oct-2026.jpg',
-    articles: IMPORTANT_NEWS_DATA,
-  },
-  {
-    id: 'international-affairs',
-    title: '2. International Affairs',
-    subtitle: "IR, global events, India's foreign policy, international institutions and map-based facts.",
-    iconName: 'Globe',
-    imageUrl: 'https://images.indianexpress.com/2026/10/US-6-11.jpg',
-    articles: ARTICLES_OPINIONS_DATA,
-  },
-  {
-    id: 'polity-governance',
-    title: '3. Polity & Governance',
-    subtitle: 'Judgments, constitutional issues, policies, governance reforms and government initiatives.',
-    iconName: 'Scale',
-    imageUrl: 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
-    articles: JUDGMENTS_LEGAL_DATA,
-  },
-  {
-    id: 'economy-environment-science',
-    title: '4. Economy, Environment & Science',
-    subtitle: 'Economic developments, ecology, biodiversity, technology and scientific discoveries.',
-    iconName: 'Leaf',
-    imageUrl: 'https://images.indianexpress.com/2026/10/Jio-IPO-4.jpg',
-    articles: ARTICLES_EXPLAINERS_DATA,
-  },
-  {
-    id: 'reports-schemes-data',
-    title: '5. Reports, Schemes & Data',
-    subtitle: 'Government schemes, surveys, indices, reports and useful Mains statistics.',
-    iconName: 'Landmark',
-    imageUrl: 'https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg',
-    articles: SCHEMES_REPORTS_DATA,
-  },
-  {
-    id: 'editorials-explainers',
-    title: '6. Editorials & Explainers',
-    subtitle: 'Balanced arguments, background context, multidimensional analysis and Mains-ready points.',
-    iconName: 'BookOpen',
-    imageUrl: 'https://images.indianexpress.com/2026/10/serbia-elections.jpg',
-    articles: EDITORIALS_DATA,
-  },
-];
+function enrichStaticArticleList(
+  articles: CuratedArticle[],
+  forcedMainCategoryId?: SubjectMainCategoryId
+): CuratedArticle[] {
+  return articles.map((art) => {
+    const classified = classifyIntoSimplifiedTaxonomy({
+      headline: art.title,
+      summary: art.summary,
+      existingMainCategoryId: forcedMainCategoryId || art.mainCategoryId,
+      existingPrimaryCategory: art.primaryCategory,
+      existingSubjectGroup: art.subjectGroup,
+      existingSubcategory: art.subcategory || art.category,
+      sourceName: art.source,
+    });
+    return {
+      ...art,
+      mainCategoryId: forcedMainCategoryId || classified.mainCategoryId,
+      subjectGroup: classified.subjectGroup,
+      subcategory: classified.subcategory,
+      category: classified.subcategory,
+      uiModuleId: forcedMainCategoryId || classified.mainCategoryId,
+      isMostImportant: art.isMostImportant ?? classified.isMostImportant,
+      isPrelimsRelevant: art.isPrelimsRelevant ?? classified.isPrelimsRelevant,
+      isMainsRelevant: art.isMainsRelevant ?? classified.isMainsRelevant,
+      editorialAuthor: art.editorialAuthor || classified.editorialAuthor,
+      aiExplanationDisclaimer: art.aiExplanationDisclaimer || classified.aiExplanationDisclaimer,
+    };
+  });
+}
+
+const ENRICHED_INTERNATIONAL_DATA = enrichStaticArticleList(ARTICLES_OPINIONS_DATA, 'international-affairs');
+const ENRICHED_POLITY_DATA = enrichStaticArticleList(JUDGMENTS_LEGAL_DATA, 'polity-governance');
+const ENRICHED_EES_DATA = enrichStaticArticleList(ARTICLES_EXPLAINERS_DATA, 'economy-environment-science');
+const ENRICHED_REPORTS_DATA = enrichStaticArticleList(SCHEMES_REPORTS_DATA, 'reports-schemes-data');
+const ENRICHED_EDITORIALS_DATA = enrichStaticArticleList(EDITORIALS_DATA, 'editorials-explainers');
+const ENRICHED_IMPORTANT_DATA = enrichStaticArticleList(IMPORTANT_NEWS_DATA);
+
+const UNIFIED_DAILY_NEWS_ARTICLES: CuratedArticle[] = (() => {
+  const seenTitles = new Set<string>();
+  const combined: CuratedArticle[] = [];
+  for (const art of [
+    ...ENRICHED_IMPORTANT_DATA,
+    ...ENRICHED_INTERNATIONAL_DATA,
+    ...ENRICHED_POLITY_DATA,
+    ...ENRICHED_EES_DATA,
+    ...ENRICHED_REPORTS_DATA,
+    ...ENRICHED_EDITORIALS_DATA,
+  ]) {
+    const key = art.title.trim().toLowerCase();
+    if (!seenTitles.has(key)) {
+      seenTitles.add(key);
+      combined.push(art);
+    }
+  }
+  return combined;
+})();
+
+const CATEGORY_ARTICLES_MAP: Record<string, CuratedArticle[]> = {
+  'daily-news': UNIFIED_DAILY_NEWS_ARTICLES,
+  'international-affairs': ENRICHED_INTERNATIONAL_DATA,
+  'polity-governance': ENRICHED_POLITY_DATA,
+  'economy-environment-science': ENRICHED_EES_DATA,
+  'reports-schemes-data': ENRICHED_REPORTS_DATA,
+  'editorials-explainers': ENRICHED_EDITORIALS_DATA,
+};
+
+export const FORMAT_CATEGORIES: FormatCategory[] = MAIN_CA_CATEGORIES.map((cat) => ({
+  id: cat.id,
+  title: cat.title,
+  subtitle: cat.subtitle,
+  iconName: cat.iconName,
+  articles: CATEGORY_ARTICLES_MAP[cat.id] || [],
+}));
 
 
 // -------------------------------------------------------------

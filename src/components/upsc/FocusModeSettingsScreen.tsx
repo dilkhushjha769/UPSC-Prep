@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Linking, Platform, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
+import { Linking, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ChevronLeft, ExternalLink, Check } from 'lucide-react-native';
+import { PrimaryToggle } from '@/components/common/PrimaryToggle';
 import { examFocusService } from '@/services/examFocusService';
 
 interface Props {
@@ -63,16 +64,13 @@ export function FocusModeSettingsScreen({ isDark, onBack }: Props) {
                 Mutes in-app reminders and sounds while a quiz or mock test is running.
               </Text>
             </View>
-            <Switch
+            <PrimaryToggle
               value={enabled}
               onValueChange={(v) => {
                 setEnabled(v);
                 void examFocusService.setEnabledByUser(v);
               }}
-              trackColor={track}
-              thumbColor="#FFFFFF"
-              // @ts-ignore
-              activeThumbColor="#FFFFFF"
+              isDark={isDark}
               activeTrackColor="#006FFD"
             />
           </View>

@@ -7,32 +7,38 @@ const connectionString =
   'postgresql://postgres.trodruvopmqnnkvghxye:Akash@aman10@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres';
 
 async function run() {
-  const sqlPath = path.resolve(__dirname, '../supabase/migrations/20261025000000_upsc_mock_test_system.sql');
-  const sql = fs.readFileSync(sqlPath, 'utf8');
+  const migrationsDir = path.resolve(__dirname, '../supabase/migrations');
+  const migrationFiles = fs
+    .readdirSync(migrationsDir)
+    .filter((f) => f.endsWith('.sql'))
+    .sort();
 
   console.log('Connecting to Supabase PostgreSQL at aws-0-ap-southeast-1.pooler.supabase.com...');
   const client = new Client({ connectionString });
 
   try {
     await client.connect();
-    console.log('Connected! Executing migration...');
-    await client.query(sql);
-    console.log('Migration executed successfully!');
+    console.log('Connected! Executing migrations...');
+    for (const file of migrationFiles) {
+      const sqlPath = path.join(migrationsDir, file);
+      const sql = fs.readFileSync(sqlPath, 'utf8');
+      console.log(` -> Applying ${file}...`);
+      await client.query(sql);
+    }
+    console.log('All migrations executed successfully!');
 
     // Verify created tables
     const res = await client.query(`
       SELECT table_name 
       FROM information_schema.tables 
       WHERE table_schema = 'public' 
-        AND table_name IN ('questions', 'mock_tests', 'mock_test_questions', 'mock_test_responses', 'user_question_attempts');
+        AND table_name IN (
+          'questions', 'mock_tests', 'mock_test_questions', 'mock_test_responses', 'user_question_attempts',
+          'ca_sources', 'ca_articles', 'ca_category_status', 'ca_ingestion_logs'
+        )
+      ORDER BY table_name;
     `);
     console.log('Verified created tables:', res.rows.map((r: any) => r.table_name));
-
-    // Verify function
-    const fnRes = await client.query(`
-      SELECT proname FROM pg_proc WHERE proname = 'submit_mock_test';
-    `);
-    console.log('Verified functions:', fnRes.rows.map((r: any) => r.proname));
 
     await client.end();
   } catch (err) {

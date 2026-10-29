@@ -5,23 +5,22 @@ import {
   StyleSheet,
   ScrollView,
   Pressable,
-  TextInput,
   ActivityIndicator,
   Alert,
-  Platform,
   useWindowDimensions,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
-  History,
-  Check,
-  ChevronRight,
+  ArrowLeft,
   ArrowRight,
-  X,
   Sun,
   Moon,
+  Clock,
+  BookOpen,
+  LayoutGrid,
+  ChevronDown,
 } from 'lucide-react-native';
-import { BW_THEME } from '@/constants/bwTheme';
+import { PrimaryToggle } from '@/components/common/PrimaryToggle';
 import { MockTestService } from '@/services/mockTestService';
 import {
   AvailableFiltersData,
@@ -33,251 +32,279 @@ import {
 import { TestHistoryModal } from './TestHistoryModal';
 import { SubjectTopicPickerModal } from './SubjectTopicPickerModal';
 
-export type MainTestType = 'pyq' | 'subject' | 'full_mock';
+export type MockScope = 'full' | 'subject';
 
 interface MockTestDashboardProps {
   onStartTest: (testId: string) => void;
   onToggleTheme?: () => void;
+  onBack?: () => void;
   isDark?: boolean;
 }
 
-const PREF_STORAGE_KEY = '@upsc_mock_test_v2_pref';
+const PREF_STORAGE_KEY = '@upsc_mock_test_v3_pref';
 
 export function MockTestDashboard({
   onStartTest,
   onToggleTheme,
-  isDark = true,
+  onBack,
+  isDark = false,
 }: MockTestDashboardProps) {
-  const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const { width } = useWindowDimensions();
-  const isDesktop = width >= 768;
+  const isWide = width >= 940;
+  const isMobile = width < 680;
 
-  // Active top-level mode: PYQ, Subject-wise, or Full Mock
-  const [activeTestType, setActiveTestType] = useState<MainTestType>('pyq');
-
-  // History modal
+  // Modals
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [completedTestsCount, setCompletedTestsCount] = useState(0);
-
-  // Subject & Topic picker modal
   const [showSubjectModal, setShowSubjectModal] = useState(false);
 
-  // Filters data loaded from database
+  // Available filters from backend
   const [filtersData, setFiltersData] = useState<AvailableFiltersData>({
-    years: [2026, 2025, 2024],
+    years: [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011],
     subjects: [],
     topicsBySubject: {},
   });
   const [loadingFilters, setLoadingFilters] = useState(false);
 
-  // Configuration state
+  // 1. Choose Paper: 'GS1' | 'CSAT'
   const [paperType, setPaperType] = useState<PaperType>('GS1');
-  const [selectedYear, setSelectedYear] = useState<number | 'all'>('all');
-  const [selectedSubject, setSelectedSubject] = useState<string>(''); // For subject mode
-  const [selectedTopic, setSelectedTopic] = useState<string>(''); // For topic drill-down
-  const [questionCount, setQuestionCount] = useState<number>(25);
-  const [customCountInput, setCustomCountInput] = useState<string>('');
-  const [isCustomCount, setIsCustomCount] = useState(false);
-  const [testMode, setTestMode] = useState<TestMode>('practice');
-  const [orderMode, setOrderMode] = useState<QuestionOrderMode>('random');
 
-  // Full mock test specific presets
-  const [fullMockPreset, setFullMockPreset] = useState<'pool' | number>('pool');
+  // 2. Select Years (multi-select, default to 2025, 2024, 2023 matching the design)
+  const [selectedYears, setSelectedYears] = useState<number[]>([2025, 2024, 2023]);
 
-  // Live count state
+  // 3. Pick Scope: 'full' (Full paper) | 'subject' (Subject-wise)
+  const [scope, setScope] = useState<MockScope>('full');
+  const [selectedSubject, setSelectedSubject] = useState<string>('');
+  const [selectedTopic, setSelectedTopic] = useState<string>('');
+
+  // 4. Set Mode & Toggles
+  const [testMode, setTestMode] = useState<TestMode>('full'); // 'full' = Timed exam, 'practice' = Practice
+  const [negativeMarkingEnabled, setNegativeMarkingEnabled] = useState<boolean>(true);
+  const [shuffleQuestions, setShuffleQuestions] = useState<boolean>(true);
+  const [instantExplanations, setInstantExplanations] = useState<boolean>(false);
+
+  // Matching questions count
   const [matchingCount, setMatchingCount] = useState<number>(0);
-  const [isCounting, setIsCounting] = useState(false);
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [isCounting, setIsCounting] = useState<boolean>(false);
+  const [isGenerating, setIsGenerating] = useState<boolean>(false);
 
-  // 1. Load preferences and initial data
+  // Unified theme colors: #006FFD across BOTH light and dark modes
+  const colors = useMemo(() => {
+    if (isDark) {
+      return {
+        bg: '#1F2024',
+        cardBg: '#2A2C34',
+        cardBorder: '#3E424F',
+        textPrimary: '#FFFFFF',
+        textSecondary: '#C5C6CC',
+        textMuted: '#8F9098',
+        primary: '#006FFD',
+        primaryDeep: '#0052CC',
+        primaryTint: 'rgba(0, 111, 253, 0.15)',
+        primaryBorder: '#006FFD',
+        buttonText: '#FFFFFF',
+        chipBg: '#23252E',
+        chipSelectedBg: '#006FFD',
+        chipSelectedText: '#FFFFFF',
+        metricBoxBg: '#21232B',
+        amberBadge: '#F59E0B',
+        stepBadgeBg: '#006FFD',
+        stepBadgeText: '#FFFFFF',
+        eyebrow: '#006FFD',
+      };
+    }
+    return {
+      bg: '#F8F9FE',
+      cardBg: '#FFFFFF',
+      cardBorder: '#E8E9F1',
+      textPrimary: '#1F2024',
+      textSecondary: '#494A50',
+      textMuted: '#71727A',
+      primary: '#006FFD',
+      primaryDeep: '#0052CC',
+      primaryTint: '#EAF2FF',
+      primaryBorder: '#006FFD',
+      buttonText: '#FFFFFF',
+      chipBg: '#F1F3F9',
+      chipSelectedBg: '#006FFD',
+      chipSelectedText: '#FFFFFF',
+      metricBoxBg: '#F4F7FC',
+      amberBadge: '#B45309',
+      stepBadgeBg: '#006FFD',
+      stepBadgeText: '#FFFFFF',
+      eyebrow: '#006FFD',
+    };
+  }, [isDark]);
+
+  const styles = useMemo(() => getStyles(colors, isWide, isMobile), [colors, isWide, isMobile]);
+
+  // Load initial stats & preferences
   useEffect(() => {
     let mounted = true;
-
-    async function initialize() {
+    async function init() {
       try {
         const [savedPref, stats] = await Promise.all([
           AsyncStorage.getItem(PREF_STORAGE_KEY),
           MockTestService.getSummaryStats(),
         ]);
-
         if (!mounted) return;
         setCompletedTestsCount(stats.completedTests);
-
         if (savedPref) {
           try {
-            const parsed = JSON.parse(savedPref);
-            if (parsed.testType) setActiveTestType(parsed.testType);
-            if (parsed.paperType) setPaperType(parsed.paperType);
-            if (parsed.questionCount) setQuestionCount(parsed.questionCount);
-            if (parsed.testMode) setTestMode(parsed.testMode);
+            const p = JSON.parse(savedPref);
+            if (p.paperType) setPaperType(p.paperType);
+            if (p.selectedYears && Array.isArray(p.selectedYears) && p.selectedYears.length > 0) {
+              setSelectedYears(p.selectedYears);
+            }
+            if (p.scope) setScope(p.scope);
+            if (p.testMode) setTestMode(p.testMode);
+            if (typeof p.negativeMarkingEnabled === 'boolean') {
+              setNegativeMarkingEnabled(p.negativeMarkingEnabled);
+            }
+            if (typeof p.shuffleQuestions === 'boolean') {
+              setShuffleQuestions(p.shuffleQuestions);
+            }
           } catch {}
         }
-      } catch (err) {
-        console.error('Failed to load initial preferences:', err);
+      } catch (e) {
+        console.error(e);
       }
     }
-
-    initialize();
+    init();
     return () => {
       mounted = false;
     };
   }, []);
 
-  // 2. Fetch available filters whenever paper type changes
+  // Fetch filter options when paper changes
   useEffect(() => {
     let mounted = true;
-
     MockTestService.getAvailableFilters(paperType).then((data) => {
       if (!mounted) return;
-      setFiltersData(data);
+      if (data.years && data.years.length > 0) {
+        setFiltersData(data);
+      }
       setLoadingFilters(false);
-
-      // In subject mode, if currently selected subject is not in the list, pick the top subject
       if (data.subjects.length > 0) {
         setSelectedSubject((prev) => {
-          if (prev && data.subjects.some((s) => s.name === prev)) {
-            return prev;
-          }
+          if (prev && data.subjects.some((s) => s.name === prev)) return prev;
           return data.subjects[0].name;
         });
       }
     });
-
     return () => {
       mounted = false;
     };
   }, [paperType]);
 
-  // Save preferences when primary choices change
-  const savePreferences = useCallback(
-    async (newType: MainTestType, newPaper: PaperType, newCount: number, newMode: TestMode) => {
-      try {
-        await AsyncStorage.setItem(
-          PREF_STORAGE_KEY,
-          JSON.stringify({
-            testType: newType,
-            paperType: newPaper,
-            questionCount: newCount,
-            testMode: newMode,
-          })
-        );
-      } catch {}
-    },
-    []
-  );
+  // Save preferences
+  const saveState = useCallback(async () => {
+    try {
+      await AsyncStorage.setItem(
+        PREF_STORAGE_KEY,
+        JSON.stringify({
+          paperType,
+          selectedYears,
+          scope,
+          testMode,
+          negativeMarkingEnabled,
+          shuffleQuestions,
+        })
+      );
+    } catch {}
+  }, [paperType, selectedYears, scope, testMode, negativeMarkingEnabled, shuffleQuestions]);
 
-  // Handle Main Test Type change
-  const handleTestTypeChange = (type: MainTestType) => {
-    setActiveTestType(type);
-    setSelectedTopic('');
+  useEffect(() => {
+    saveState();
+  }, [saveState]);
 
-    if (type === 'full_mock') {
-      const fullCount = paperType === 'CSAT' ? 80 : 100;
-      setQuestionCount(fullCount);
-      setTestMode('full');
-      setOrderMode('exam_order');
-      savePreferences(type, paperType, fullCount, 'full');
-    } else if (type === 'subject') {
-      const defaultSubCount = 25;
-      setQuestionCount(defaultSubCount);
-      setIsCustomCount(false);
-      savePreferences(type, paperType, defaultSubCount, testMode);
-    } else {
-      // PYQ mode
-      const defaultPyqCount = 25;
-      setQuestionCount(defaultPyqCount);
-      setIsCustomCount(false);
-      savePreferences(type, paperType, defaultPyqCount, testMode);
+  // Toggle year selection
+  const handleToggleYear = (year: number) => {
+    setSelectedYears((prev) => {
+      if (prev.includes(year)) {
+        if (prev.length === 1) return prev; // Keep at least one year
+        return prev.filter((y) => y !== year);
+      }
+      return [...prev, year].sort((a, b) => b - a);
+    });
+  };
+
+  const handleSelectAllYears = () => {
+    setSelectedYears([...filtersData.years].sort((a, b) => b - a));
+  };
+
+  const handleClearYears = () => {
+    if (filtersData.years.length > 0) {
+      setSelectedYears([filtersData.years[0]]);
     }
   };
 
-  // Handle Paper Type change
-  const handlePaperTypeChange = (pType: PaperType) => {
-    setPaperType(pType);
-    setSelectedTopic('');
-    setSelectedSubject('');
-    if (activeTestType === 'full_mock') {
-      const fullCount = pType === 'CSAT' ? 80 : 100;
-      setQuestionCount(fullCount);
-      savePreferences(activeTestType, pType, fullCount, testMode);
-    } else {
-      savePreferences(activeTestType, pType, questionCount, testMode);
+  // Compute question count & duration
+  const questionsPerPaper = paperType === 'CSAT' ? 80 : 100;
+  const totalCalculatedQuestions = useMemo(() => {
+    if (scope === 'subject') {
+      return matchingCount > 0 ? matchingCount : 25;
     }
-  };
+    return questionsPerPaper * (selectedYears.length || 1);
+  }, [scope, questionsPerPaper, selectedYears.length, matchingCount]);
 
-  // Construct effective filter query based on active test type
+  const effectiveDurationMinutes = useMemo(() => {
+    if (testMode === 'practice') return undefined;
+    return 120 * (selectedYears.length || 1);
+  }, [testMode, selectedYears.length]);
+
+  const durationDisplayString = useMemo(() => {
+    if (testMode === 'practice') return 'Self-paced';
+    return '2h 00m';
+  }, [testMode]);
+
+  // Negative marks value
+  const marksPerCorrect = paperType === 'CSAT' ? 2.5 : 2.0;
+  const negativeMarksValue = useMemo(() => {
+    if (!negativeMarkingEnabled) return 0;
+    return paperType === 'CSAT' ? 0.8333 : 0.6667;
+  }, [negativeMarkingEnabled, paperType]);
+
+  // Negative marking display string
+  const markingSummaryString = useMemo(() => {
+    if (!negativeMarkingEnabled) {
+      return paperType === 'CSAT' ? '+2.5 right, 0 wrong' : '+2 right, 0 wrong';
+    }
+    return paperType === 'CSAT' ? '+2.5 right, -0.83 wrong' : '+2 right, -0.66 wrong';
+  }, [negativeMarkingEnabled, paperType]);
+
+  // Filter configuration for querying database and launching test
   const currentFilterConfig: MockTestFilterConfig = useMemo(() => {
-    let years: number[] = [];
-    let subjects: string[] = [];
-    let topics: string[] = [];
-    let effectiveCount = questionCount;
-    let effectiveOrder = orderMode;
-    let effectiveMode = testMode;
-
-    const marksCorrect = paperType === 'CSAT' ? 2.5 : 2.0;
-    const marksNegative = paperType === 'CSAT' ? 0.8333 : 0.6667;
-
-    if (activeTestType === 'full_mock') {
-      effectiveCount = paperType === 'CSAT' ? 80 : 100;
-      if (fullMockPreset !== 'pool') {
-        years = [fullMockPreset];
-      }
-    } else if (activeTestType === 'subject') {
-      if (selectedSubject) {
-        subjects = [selectedSubject];
-      }
-      if (selectedTopic) {
-        topics = [selectedTopic];
-      }
-      if (selectedYear !== 'all') {
-        years = [selectedYear];
-      }
-    } else {
-      // PYQ mode
-      if (selectedYear !== 'all') {
-        years = [selectedYear];
-      }
-      if (selectedSubject) {
-        subjects = [selectedSubject];
-      }
-      if (selectedTopic) {
-        topics = [selectedTopic];
-      }
-    }
-
+    const order: QuestionOrderMode = shuffleQuestions ? 'random' : 'exam_order';
     return {
       paperType,
-      selectedYears: years,
-      selectedSubjects: subjects,
-      selectedTopics: topics,
-      questionCount: effectiveCount,
-      testMode: effectiveMode,
-      orderMode: effectiveOrder,
-      marksPerCorrect: marksCorrect,
-      negativeMarks: marksNegative,
-      timeLimitMinutes:
-        effectiveMode === 'full'
-          ? paperType === 'CSAT'
-            ? 120
-            : 120
-          : undefined,
+      selectedYears: selectedYears,
+      selectedSubjects: scope === 'subject' && selectedSubject ? [selectedSubject] : [],
+      selectedTopics: scope === 'subject' && selectedTopic ? [selectedTopic] : [],
+      questionCount: totalCalculatedQuestions,
+      testMode,
+      orderMode: order,
+      marksPerCorrect,
+      negativeMarks: negativeMarksValue,
+      timeLimitMinutes: effectiveDurationMinutes,
     };
   }, [
-    activeTestType,
     paperType,
-    selectedYear,
+    selectedYears,
+    scope,
     selectedSubject,
     selectedTopic,
-    questionCount,
+    totalCalculatedQuestions,
     testMode,
-    orderMode,
-    fullMockPreset,
+    shuffleQuestions,
+    marksPerCorrect,
+    negativeMarksValue,
+    effectiveDurationMinutes,
   ]);
 
-  // 3. Debounced question count query
+  // Query live matching questions
   useEffect(() => {
     let active = true;
-
     const timer = setTimeout(async () => {
       if (!active) return;
       setIsCounting(true);
@@ -290,7 +317,7 @@ export function MockTestDashboard({
       } catch {
         if (active) setIsCounting(false);
       }
-    }, 180);
+    }, 150);
 
     return () => {
       active = false;
@@ -298,79 +325,17 @@ export function MockTestDashboard({
     };
   }, [currentFilterConfig]);
 
-  // Question count presets: 10, 25, 50, 100, Custom
-  const countPresets = useMemo(() => {
-    if (activeTestType === 'full_mock') {
-      return paperType === 'CSAT' ? [80] : [100];
-    }
-    return [10, 25, 50, 100];
-  }, [activeTestType, paperType]);
-
-  const handleSelectCountPreset = (preset: number) => {
-    setIsCustomCount(false);
-    setCustomCountInput('');
-    setQuestionCount(preset);
-    savePreferences(activeTestType, paperType, preset, testMode);
-  };
-
-  const handleCustomCountSubmit = (text: string) => {
-    setCustomCountInput(text);
-    const parsed = parseInt(text.replace(/[^0-9]/g, ''), 10);
-    if (!isNaN(parsed) && parsed > 0) {
-      setQuestionCount(parsed);
-      savePreferences(activeTestType, paperType, parsed, testMode);
-    }
-  };
-
-  // Dynamic summary sentence
-  const dynamicSummary = useMemo(() => {
-    const qCountStr =
-      activeTestType === 'full_mock'
-        ? `${paperType === 'CSAT' ? 80 : 100} questions`
-        : `${Math.min(questionCount, matchingCount || questionCount)} questions`;
-
-    let subjectStr = '';
-    if (activeTestType === 'subject' && selectedSubject) {
-      subjectStr = selectedTopic ? `${selectedSubject} (${selectedTopic})` : selectedSubject;
-    } else if (selectedSubject) {
-      subjectStr = selectedSubject;
-    } else {
-      subjectStr = paperType === 'CSAT' ? 'CSAT Paper II' : 'GS Paper I';
-    }
-
-    let yearStr = '';
-    if (activeTestType === 'full_mock') {
-      yearStr = fullMockPreset === 'pool' ? 'Comprehensive Pool' : `Official ${fullMockPreset}`;
-    } else {
-      yearStr = selectedYear === 'all' ? 'All available years' : `Year ${selectedYear}`;
-    }
-
-    const modeStr = testMode === 'full' ? 'Timed Exam' : 'Practice Mode';
-
-    return `${qCountStr} · ${subjectStr} · ${yearStr} · ${modeStr}`;
-  }, [
-    activeTestType,
-    paperType,
-    selectedSubject,
-    selectedTopic,
-    selectedYear,
-    fullMockPreset,
-    questionCount,
-    matchingCount,
-    testMode,
-  ]);
-
-  // Primary Action: Start Test
+  // Start Mock Test
   const handleStartTest = async () => {
-    if (matchingCount === 0) {
+    if (matchingCount === 0 && !loadingFilters) {
       Alert.alert(
         'Insufficient Questions',
-        'No questions match this selection. Please pick a different subject or broaden the year filter.'
+        'No questions match this configuration. Please pick a different subject or include more years.'
       );
       return;
     }
 
-    const effectiveCount = Math.min(questionCount, matchingCount);
+    const effectiveCount = Math.min(totalCalculatedQuestions, matchingCount || totalCalculatedQuestions);
     const configToRun: MockTestFilterConfig = {
       ...currentFilterConfig,
       questionCount: effectiveCount,
@@ -392,309 +357,253 @@ export function MockTestDashboard({
     }
   };
 
-  const isCountExceeded = questionCount > matchingCount && matchingCount > 0;
-  const isStartDisabled = matchingCount === 0 || isGenerating || loadingFilters;
+  const isStartDisabled = (matchingCount === 0 && !loadingFilters && !isCounting) || isGenerating;
+
+  // Formatted years string for summary
+  const yearsSummaryString = useMemo(() => {
+    if (selectedYears.length === 0) return 'All available';
+    if (selectedYears.length <= 4) return selectedYears.join(', ');
+    return `${selectedYears.slice(0, 3).join(', ')} +${selectedYears.length - 3} more`;
+  }, [selectedYears]);
 
   return (
-    <View style={[styles.screenWrapper, { backgroundColor: theme.bg }]}>
+    <View style={[styles.screenWrapper, { backgroundColor: colors.bg }]}>
       <ScrollView
         style={styles.scrollView}
-        contentContainerStyle={[
-          styles.scrollContent,
-          isDesktop && styles.desktopContainer,
-        ]}
-        showsVerticalScrollIndicator={false}>
-        {/* Header */}
-        <View style={styles.header}>
-          <View style={styles.headerTitleGroup}>
-            <Text style={[styles.pageTitle, { color: theme.textPrimary }]}>
-              Mock Tests
-            </Text>
-            <Text style={[styles.pageSubtitle, { color: theme.textSecondary }]}>
-              Practice PYQs. Improve your accuracy.
+        contentContainerStyle={[styles.scrollContent, isWide && styles.wideContainer]}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled">
+        {/* Top Navbar Row */}
+        <View style={styles.topNavRow}>
+          <View style={styles.topNavBrand}>
+            {onBack ? (
+              <Pressable
+                onPress={onBack}
+                accessibilityRole="button"
+                accessibilityLabel="Go back"
+                style={styles.backBtn}>
+                <ArrowLeft size={18} color={colors.textPrimary} strokeWidth={2.4} />
+              </Pressable>
+            ) : (
+              <LayoutGrid size={18} color={colors.textPrimary} strokeWidth={2.2} />
+            )}
+            <Text style={[styles.topBrandText, { color: colors.textPrimary }]}>
+              Prelims Mock
             </Text>
           </View>
 
-          <View style={styles.headerActions}>
+          <View style={styles.topNavActions}>
             {onToggleTheme && (
               <Pressable
                 onPress={onToggleTheme}
                 accessibilityRole="button"
-                accessibilityLabel="Toggle Theme"
+                accessibilityLabel="Toggle dark mode"
                 style={[
-                  styles.iconButton,
+                  styles.themeTogglePill,
                   {
-                    backgroundColor: isDark ? '#1a1e26' : '#f1f3f5',
-                    borderColor: isDark ? '#2a313d' : '#e5e7eb',
+                    backgroundColor: colors.cardBg,
+                    borderColor: colors.cardBorder,
                   },
                 ]}>
                 {isDark ? (
-                  <Sun size={15} color="#fbbf24" strokeWidth={2} />
+                  <Sun size={14} color={colors.textPrimary} strokeWidth={2} />
                 ) : (
-                  <Moon size={15} color="#4b5563" strokeWidth={2} />
+                  <Moon size={14} color={colors.textPrimary} strokeWidth={2} />
                 )}
+                <Text style={[styles.themeToggleText, { color: colors.textPrimary }]}>
+                  {isDark ? 'Light mode' : 'Dark mode'}
+                </Text>
               </Pressable>
             )}
 
-            <Pressable
-              onPress={() => setShowHistoryModal(true)}
-              accessibilityRole="button"
-              accessibilityLabel="View Test History"
-              style={[
-                styles.historyButton,
-                {
-                  backgroundColor: isDark ? '#1a1e26' : '#f1f3f5',
-                  borderColor: isDark ? '#2a313d' : '#e5e7eb',
-                },
-              ]}>
-              <History size={14} color={theme.textPrimary} strokeWidth={2} />
-              <Text style={[styles.historyButtonText, { color: theme.textPrimary }]}>
-                History
-              </Text>
-              {completedTestsCount > 0 && (
-                <View
-                  style={[
-                    styles.historyBadge,
-                    { backgroundColor: isDark ? '#2a313d' : '#e5e7eb' },
-                  ]}>
-                  <Text
-                    style={[styles.historyBadgeText, { color: theme.textPrimary }]}>
-                    {completedTestsCount}
-                  </Text>
-                </View>
-              )}
-            </Pressable>
-          </View>
-        </View>
-
-        {/* 1. Test Type Segmented Control */}
-        <View
-          style={[
-            styles.segmentContainer,
-            { backgroundColor: isDark ? '#14171e' : '#f3f4f6' },
-          ]}>
-          {(['pyq', 'subject', 'full_mock'] as MainTestType[]).map((type) => {
-            const isActive = activeTestType === type;
-            const label =
-              type === 'pyq'
-                ? 'PYQs'
-                : type === 'subject'
-                ? 'Subject-wise'
-                : 'Full Mock';
-
-            return (
+            {completedTestsCount > 0 && (
               <Pressable
-                key={type}
-                onPress={() => handleTestTypeChange(type)}
+                onPress={() => setShowHistoryModal(true)}
                 style={[
-                  styles.segmentTab,
-                  isActive && [
-                    styles.segmentTabActive,
-                    {
-                      backgroundColor: isDark ? '#222834' : '#ffffff',
-                      borderColor: isDark ? '#323b4c' : '#e5e7eb',
-                    },
-                  ],
+                  styles.historyPill,
+                  { backgroundColor: colors.cardBg, borderColor: colors.cardBorder },
                 ]}>
-                <Text
-                  style={[
-                    styles.segmentLabel,
-                    {
-                      color: isActive ? theme.textPrimary : theme.textSecondary,
-                      fontWeight: isActive ? '600' : '400',
-                    },
-                  ]}>
-                  {label}
+                <Text style={[styles.historyPillText, { color: colors.textPrimary }]}>
+                  History
                 </Text>
+                <View style={[styles.historyCountBadge, { backgroundColor: colors.primary }]}>
+                  <Text style={styles.historyCountText}>{completedTestsCount}</Text>
+                </View>
               </Pressable>
-            );
-          })}
-        </View>
-
-        {/* 2. Examination Paper Selection */}
-        <View style={styles.section}>
-          <Text style={[styles.sectionLabel, { color: theme.textSecondary }]}>
-            EXAMINATION PAPER
-          </Text>
-          <View style={styles.paperRow}>
-            {(['GS1', 'CSAT'] as PaperType[]).map((paper) => {
-              const isSelected = paperType === paper;
-              const title = paper === 'GS1' ? 'GS Paper I' : 'CSAT Paper II';
-              const subtitle =
-                paper === 'GS1'
-                  ? 'General Studies · 100 Qs'
-                  : 'Aptitude & English · 80 Qs';
-              const marks =
-                paper === 'GS1' ? '+2.0 / -0.66' : '+2.5 / -0.83';
-
-              return (
-                <Pressable
-                  key={paper}
-                  onPress={() => handlePaperTypeChange(paper)}
-                  style={[
-                    styles.paperCard,
-                    {
-                      backgroundColor: isSelected
-                        ? isDark
-                          ? '#1c222c'
-                          : '#f9fafb'
-                        : isDark
-                        ? '#14171e'
-                        : '#ffffff',
-                      borderColor: isSelected
-                        ? isDark
-                          ? '#4b5563'
-                          : '#111827'
-                        : isDark
-                        ? '#222834'
-                        : '#e5e7eb',
-                    },
-                  ]}>
-                  <View style={styles.paperCardHeader}>
-                    <Text
-                      style={[
-                        styles.paperCardTitle,
-                        {
-                          color: isSelected
-                            ? theme.textPrimary
-                            : theme.textSecondary,
-                        },
-                      ]}>
-                      {title}
-                    </Text>
-                    {isSelected && (
-                      <View
-                        style={[
-                          styles.checkIndicator,
-                          {
-                            backgroundColor: isDark ? '#ffffff' : '#111827',
-                          },
-                        ]}>
-                        <Check
-                          size={11}
-                          color={isDark ? '#111827' : '#ffffff'}
-                          strokeWidth={2.5}
-                        />
-                      </View>
-                    )}
-                  </View>
-                  <Text
-                    style={[styles.paperCardSub, { color: theme.textSecondary }]}>
-                    {subtitle}
-                  </Text>
-                  <Text
-                    style={[styles.paperCardMarks, { color: theme.textSecondary }]}>
-                    {marks}
-                  </Text>
-                </Pressable>
-              );
-            })}
+            )}
           </View>
         </View>
 
-        {/* 3. Conditional Configuration: PYQs */}
-        {activeTestType === 'pyq' && (
-          <>
-            {/* Examination Year */}
-            <View style={styles.section}>
-              <View style={styles.sectionHeaderRow}>
-                <Text
-                  style={[styles.sectionLabel, { color: theme.textSecondary }]}>
-                  EXAMINATION YEAR
+        {/* Hero Title Section */}
+        <View style={styles.heroSection}>
+          <Text style={[styles.eyebrowText, { color: colors.eyebrow }]}>
+            CIVIL SERVICES PRELIMINARY EXAMINATION
+          </Text>
+          <Text style={[styles.heroTitle, { color: colors.textPrimary }]}>
+            Build your mock test
+          </Text>
+          <Text style={[styles.heroSubtitle, { color: colors.textMuted }]}>
+            Pick a paper, choose previous year question sets, then decide how strict the sitting should be.
+          </Text>
+        </View>
+
+        {/* Main 2-Column Responsive Layout */}
+        <View style={[styles.mainLayout, isWide && styles.mainLayoutWide]}>
+          {/* LEFT COLUMN: 4 Step Cards */}
+          <View style={[styles.leftColumn, isWide && styles.leftColumnWide]}>
+            {/* CARD 1: Choose the paper */}
+            <View
+              style={[
+                styles.stepCard,
+                { backgroundColor: colors.cardBg, borderColor: colors.cardBorder },
+              ]}>
+              <View style={styles.stepCardHeader}>
+                <View style={[styles.stepNumberBadge, { backgroundColor: colors.stepBadgeBg }]}>
+                  <Text style={[styles.stepNumberText, { color: colors.stepBadgeText }]}>1</Text>
+                </View>
+                <Text style={[styles.stepCardTitle, { color: colors.textPrimary }]}>
+                  Choose the paper
                 </Text>
-                {selectedYear !== 'all' && (
-                  <Pressable
-                    onPress={() => setSelectedYear('all')}
-                    hitSlop={8}>
-                    <Text
-                      style={[
-                        styles.sectionActionText,
-                        { color: theme.textSecondary },
-                      ]}>
-                      Reset to all
-                    </Text>
-                  </Pressable>
-                )}
               </View>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.pillsScroll}>
+
+              <View style={styles.paperOptionsRow}>
+                {/* Paper I: General Studies */}
                 <Pressable
-                  onPress={() => setSelectedYear('all')}
+                  onPress={() => setPaperType('GS1')}
                   style={[
-                    styles.pill,
+                    styles.paperOptionBox,
                     {
                       backgroundColor:
-                        selectedYear === 'all'
-                          ? isDark
-                            ? '#f3f4f6'
-                            : '#111827'
-                          : isDark
-                          ? '#181c24'
-                          : '#f3f4f6',
+                        paperType === 'GS1' ? colors.primaryTint : 'transparent',
                       borderColor:
-                        selectedYear === 'all'
-                          ? isDark
-                            ? '#f3f4f6'
-                            : '#111827'
-                          : isDark
-                          ? '#2a313d'
-                          : '#e5e7eb',
+                        paperType === 'GS1' ? colors.primaryBorder : colors.cardBorder,
                     },
                   ]}>
-                  <Text
-                    style={[
-                      styles.pillText,
-                      {
-                        color:
-                          selectedYear === 'all'
-                            ? isDark
-                              ? '#111827'
-                              : '#ffffff'
-                            : theme.textPrimary,
-                        fontWeight: selectedYear === 'all' ? '600' : '400',
-                      },
-                    ]}>
-                    All Years
+                  <View style={styles.paperOptionTopRow}>
+                    <View
+                      style={[
+                        styles.radioIndicator,
+                        {
+                          borderColor:
+                            paperType === 'GS1' ? colors.primaryBorder : colors.cardBorder,
+                        },
+                      ]}>
+                      {paperType === 'GS1' && (
+                        <View style={[styles.radioDot, { backgroundColor: colors.primaryBorder }]} />
+                      )}
+                    </View>
+                    <Text style={[styles.paperLabelCode, { color: colors.textMuted }]}>
+                      PAPER I
+                    </Text>
+                  </View>
+
+                  <Text style={[styles.paperHeading, { color: colors.textPrimary }]}>
+                    General Studies
+                  </Text>
+                  <Text style={[styles.paperMetaText, { color: colors.textMuted }]}>
+                    100 questions · 200 marks · 2 hours
+                  </Text>
+                  <Text style={[styles.paperTagText, { color: colors.amberBadge }]}>
+                    Decides the Prelims cut-off
                   </Text>
                 </Pressable>
 
+                {/* Paper II: CSAT */}
+                <Pressable
+                  onPress={() => setPaperType('CSAT')}
+                  style={[
+                    styles.paperOptionBox,
+                    {
+                      backgroundColor:
+                        paperType === 'CSAT' ? colors.primaryTint : 'transparent',
+                      borderColor:
+                        paperType === 'CSAT' ? colors.primaryBorder : colors.cardBorder,
+                    },
+                  ]}>
+                  <View style={styles.paperOptionTopRow}>
+                    <View
+                      style={[
+                        styles.radioIndicator,
+                        {
+                          borderColor:
+                            paperType === 'CSAT' ? colors.primaryBorder : colors.cardBorder,
+                        },
+                      ]}>
+                      {paperType === 'CSAT' && (
+                        <View style={[styles.radioDot, { backgroundColor: colors.primaryBorder }]} />
+                      )}
+                    </View>
+                    <Text style={[styles.paperLabelCode, { color: colors.textMuted }]}>
+                      PAPER II
+                    </Text>
+                  </View>
+
+                  <Text style={[styles.paperHeading, { color: colors.textPrimary }]}>
+                    CSAT
+                  </Text>
+                  <Text style={[styles.paperMetaText, { color: colors.textMuted }]}>
+                    80 questions · 200 marks · 2 hours
+                  </Text>
+                  <Text style={[styles.paperTagText, { color: colors.amberBadge }]}>
+                    Qualifying only, 33% to clear
+                  </Text>
+                </Pressable>
+              </View>
+            </View>
+
+            {/* CARD 2: Select the years */}
+            <View
+              style={[
+                styles.stepCard,
+                { backgroundColor: colors.cardBg, borderColor: colors.cardBorder },
+              ]}>
+              <View style={styles.stepCardHeaderBetween}>
+                <View style={styles.stepCardHeaderLeft}>
+                  <View style={[styles.stepNumberBadge, { backgroundColor: colors.stepBadgeBg }]}>
+                    <Text style={[styles.stepNumberText, { color: colors.stepBadgeText }]}>2</Text>
+                  </View>
+                  <Text style={[styles.stepCardTitle, { color: colors.textPrimary }]}>
+                    Select the years
+                  </Text>
+                </View>
+
+                <View style={styles.yearsActionGroup}>
+                  <Text style={[styles.yearsCountInfo, { color: colors.textMuted }]}>
+                    {selectedYears.length} of {filtersData.years.length} selected
+                  </Text>
+                  <Pressable onPress={handleSelectAllYears} hitSlop={6}>
+                    <Text style={[styles.yearsActionLink, { color: colors.primary }]}>
+                      Select all
+                    </Text>
+                  </Pressable>
+                  <Pressable onPress={handleClearYears} hitSlop={6}>
+                    <Text style={[styles.yearsActionLink, { color: colors.textMuted }]}>
+                      Clear
+                    </Text>
+                  </Pressable>
+                </View>
+              </View>
+
+              {/* Year Pills Grid */}
+              <View style={styles.yearsGrid}>
                 {filtersData.years.map((year) => {
-                  const isSelected = selectedYear === year;
+                  const isSelected = selectedYears.includes(year);
                   return (
                     <Pressable
                       key={year}
-                      onPress={() => setSelectedYear(year)}
+                      onPress={() => handleToggleYear(year)}
                       style={[
-                        styles.pill,
+                        styles.yearBox,
                         {
-                          backgroundColor: isSelected
-                            ? isDark
-                              ? '#f3f4f6'
-                              : '#111827'
-                            : isDark
-                            ? '#181c24'
-                            : '#f3f4f6',
-                          borderColor: isSelected
-                            ? isDark
-                              ? '#f3f4f6'
-                              : '#111827'
-                            : isDark
-                            ? '#2a313d'
-                            : '#e5e7eb',
+                          backgroundColor: isSelected ? colors.chipSelectedBg : colors.chipBg,
                         },
                       ]}>
                       <Text
                         style={[
-                          styles.pillText,
+                          styles.yearBoxText,
                           {
-                            color: isSelected
-                              ? isDark
-                                ? '#111827'
-                                : '#ffffff'
-                              : theme.textPrimary,
-                            fontWeight: isSelected ? '600' : '400',
+                            color: isSelected ? colors.chipSelectedText : colors.textPrimary,
+                            fontWeight: isSelected ? '700' : '500',
                           },
                         ]}>
                         {year}
@@ -702,746 +611,410 @@ export function MockTestDashboard({
                     </Pressable>
                   );
                 })}
-              </ScrollView>
-            </View>
-
-            {/* Subject Filter (Optional) */}
-            <View style={styles.section}>
-              <Text
-                style={[styles.sectionLabel, { color: theme.textSecondary }]}>
-                SUBJECT FILTER (OPTIONAL)
-              </Text>
-              <Pressable
-                onPress={() => setShowSubjectModal(true)}
-                style={[
-                  styles.filterRow,
-                  {
-                    backgroundColor: isDark ? '#14171e' : '#ffffff',
-                    borderColor: isDark ? '#222834' : '#e5e7eb',
-                  },
-                ]}>
-                <View style={styles.filterRowTextGroup}>
-                  <Text
-                    style={[
-                      styles.filterRowTitle,
-                      {
-                        color: selectedSubject
-                          ? theme.textPrimary
-                          : theme.textSecondary,
-                        fontWeight: selectedSubject ? '600' : '400',
-                      },
-                    ]}>
-                    {selectedSubject
-                      ? selectedTopic
-                        ? `${selectedSubject} · ${selectedTopic}`
-                        : selectedSubject
-                      : 'All subjects included'}
-                  </Text>
-                  <Text
-                    style={[
-                      styles.filterRowSub,
-                      { color: theme.textSecondary },
-                    ]}>
-                    {selectedSubject
-                      ? 'Filtered by subject & topic'
-                      : 'Tap to filter questions by subject'}
-                  </Text>
-                </View>
-
-                <View style={styles.filterRowActions}>
-                  {selectedSubject ? (
-                    <Pressable
-                      onPress={(e) => {
-                        e.stopPropagation();
-                        setSelectedSubject('');
-                        setSelectedTopic('');
-                      }}
-                      hitSlop={8}
-                      style={[
-                        styles.clearFilterBtn,
-                        { backgroundColor: isDark ? '#222834' : '#e5e7eb' },
-                      ]}>
-                      <X size={12} color={theme.textPrimary} />
-                    </Pressable>
-                  ) : null}
-                  <ChevronRight size={16} color={theme.textSecondary} />
-                </View>
-              </Pressable>
-            </View>
-          </>
-        )}
-
-        {/* 3. Conditional Configuration: Subject-wise */}
-        {activeTestType === 'subject' && (
-          <View style={styles.section}>
-            <Text
-              style={[styles.sectionLabel, { color: theme.textSecondary }]}>
-              SUBJECT & TOPIC
-            </Text>
-            <Pressable
-              onPress={() => setShowSubjectModal(true)}
-              style={[
-                styles.filterRow,
-                {
-                  backgroundColor: isDark ? '#14171e' : '#ffffff',
-                  borderColor: selectedSubject
-                    ? isDark
-                      ? '#4b5563'
-                      : '#111827'
-                    : isDark
-                    ? '#222834'
-                    : '#e5e7eb',
-                },
-              ]}>
-              <View style={styles.filterRowTextGroup}>
-                <Text
-                  style={[
-                    styles.filterRowTitle,
-                    {
-                      color: selectedSubject
-                        ? theme.textPrimary
-                        : theme.textSecondary,
-                      fontWeight: selectedSubject ? '600' : '400',
-                    },
-                  ]}>
-                  {selectedSubject || 'Select a subject'}
-                </Text>
-                <Text
-                  style={[
-                    styles.filterRowSub,
-                    { color: theme.textSecondary },
-                  ]}>
-                  {selectedTopic
-                    ? `Topic: ${selectedTopic}`
-                    : selectedSubject
-                    ? 'All topics included in this subject'
-                    : 'Tap to select a syllabus subject'}
-                </Text>
               </View>
 
-              <ChevronRight size={18} color={theme.textSecondary} />
-            </Pressable>
-          </View>
-        )}
-
-        {/* 3. Conditional Configuration: Full Mock */}
-        {activeTestType === 'full_mock' && (
-          <>
-            <View style={styles.section}>
-              <Text
-                style={[styles.sectionLabel, { color: theme.textSecondary }]}>
-                MOCK PAPER PRESET
+              <Text style={[styles.stepCardFooterNote, { color: colors.textMuted }]}>
+                Pick one year for a single sitting, or several to practise back to back.
               </Text>
-              <View style={styles.presetGrid}>
-                <Pressable
-                  onPress={() => setFullMockPreset('pool')}
-                  style={[
-                    styles.presetTile,
-                    {
-                      backgroundColor:
-                        fullMockPreset === 'pool'
-                          ? isDark
-                            ? '#1c222c'
-                            : '#f9fafb'
-                          : isDark
-                          ? '#14171e'
-                          : '#ffffff',
-                      borderColor:
-                        fullMockPreset === 'pool'
-                          ? isDark
-                            ? '#4b5563'
-                            : '#111827'
-                          : isDark
-                          ? '#222834'
-                          : '#e5e7eb',
-                    },
-                  ]}>
-                  <Text
-                    style={[
-                      styles.presetTileTitle,
-                      {
-                        color:
-                          fullMockPreset === 'pool'
-                            ? theme.textPrimary
-                            : theme.textSecondary,
-                        fontWeight:
-                          fullMockPreset === 'pool' ? '600' : '500',
-                      },
-                    ]}>
-                    Comprehensive Question Pool
-                  </Text>
-                  <Text
-                    style={[
-                      styles.presetTileSub,
-                      { color: theme.textSecondary },
-                    ]}>
-                    Balanced distribution across all years
-                  </Text>
-                </Pressable>
-
-                {filtersData.years.slice(0, 3).map((yr) => {
-                  const isSelected = fullMockPreset === yr;
-                  return (
-                    <Pressable
-                      key={yr}
-                      onPress={() => setFullMockPreset(yr)}
-                      style={[
-                        styles.presetTile,
-                        {
-                          backgroundColor: isSelected
-                            ? isDark
-                              ? '#1c222c'
-                              : '#f9fafb'
-                            : isDark
-                            ? '#14171e'
-                            : '#ffffff',
-                          borderColor: isSelected
-                            ? isDark
-                              ? '#4b5563'
-                              : '#111827'
-                            : isDark
-                            ? '#222834'
-                            : '#e5e7eb',
-                        },
-                      ]}>
-                      <Text
-                        style={[
-                          styles.presetTileTitle,
-                          {
-                            color: isSelected
-                              ? theme.textPrimary
-                              : theme.textSecondary,
-                            fontWeight: isSelected ? '600' : '500',
-                          },
-                        ]}>
-                        Official {yr} Paper
-                      </Text>
-                      <Text
-                        style={[
-                          styles.presetTileSub,
-                          { color: theme.textSecondary },
-                        ]}>
-                        Actual exam question set
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </View>
             </View>
 
-            {/* Exam specifications notice */}
+            {/* CARD 3: Pick the scope */}
             <View
               style={[
-                styles.specNotice,
-                {
-                  backgroundColor: isDark ? '#14171e' : '#f9fafb',
-                  borderColor: isDark ? '#222834' : '#e5e7eb',
-                },
+                styles.stepCard,
+                { backgroundColor: colors.cardBg, borderColor: colors.cardBorder },
               ]}>
-              <Text
-                style={[styles.specNoticeText, { color: theme.textSecondary }]}>
-                {paperType === 'GS1'
-                  ? '100 Questions · 120 Minutes · 200 Marks (+2.0 / -0.66)'
-                  : '80 Questions · 120 Minutes · 200 Marks (+2.5 / -0.83)'}
-              </Text>
-            </View>
+              <View style={styles.stepCardHeader}>
+                <View style={[styles.stepNumberBadge, { backgroundColor: colors.stepBadgeBg }]}>
+                  <Text style={[styles.stepNumberText, { color: colors.stepBadgeText }]}>3</Text>
+                </View>
+                <Text style={[styles.stepCardTitle, { color: colors.textPrimary }]}>
+                  Pick the scope
+                </Text>
+              </View>
 
-            {/* Question Order */}
-            <View style={styles.section}>
-              <Text
-                style={[styles.sectionLabel, { color: theme.textSecondary }]}>
-                QUESTION ORDER
-              </Text>
-              <View style={styles.orderRow}>
+              {/* Scope Segment Pill */}
+              <View style={[styles.scopeSegmentPill, { backgroundColor: colors.chipBg }]}>
                 <Pressable
-                  onPress={() => setOrderMode('exam_order')}
+                  onPress={() => setScope('full')}
                   style={[
-                    styles.orderOption,
-                    {
-                      backgroundColor:
-                        orderMode === 'exam_order'
-                          ? isDark
-                            ? '#f3f4f6'
-                            : '#111827'
-                          : isDark
-                          ? '#14171e'
-                          : '#ffffff',
-                      borderColor:
-                        orderMode === 'exam_order'
-                          ? isDark
-                            ? '#f3f4f6'
-                            : '#111827'
-                          : isDark
-                          ? '#222834'
-                          : '#e5e7eb',
-                    },
+                    styles.scopeSegmentOption,
+                    scope === 'full' && [
+                      styles.scopeSegmentOptionActive,
+                      { backgroundColor: colors.chipSelectedBg },
+                    ],
                   ]}>
                   <Text
                     style={[
-                      styles.orderOptionText,
+                      styles.scopeSegmentText,
                       {
-                        color:
-                          orderMode === 'exam_order'
-                            ? isDark
-                              ? '#111827'
-                              : '#ffffff'
-                            : theme.textPrimary,
-                        fontWeight: orderMode === 'exam_order' ? '600' : '400',
+                        color: scope === 'full' ? colors.chipSelectedText : colors.textMuted,
+                        fontWeight: scope === 'full' ? '700' : '500',
                       },
                     ]}>
-                    Official Exam Order
+                    Full paper
                   </Text>
                 </Pressable>
 
                 <Pressable
-                  onPress={() => setOrderMode('random')}
+                  onPress={() => setScope('subject')}
                   style={[
-                    styles.orderOption,
-                    {
-                      backgroundColor:
-                        orderMode === 'random'
-                          ? isDark
-                            ? '#f3f4f6'
-                            : '#111827'
-                          : isDark
-                          ? '#14171e'
-                          : '#ffffff',
-                      borderColor:
-                        orderMode === 'random'
-                          ? isDark
-                            ? '#f3f4f6'
-                            : '#111827'
-                          : isDark
-                          ? '#222834'
-                          : '#e5e7eb',
-                    },
+                    styles.scopeSegmentOption,
+                    scope === 'subject' && [
+                      styles.scopeSegmentOptionActive,
+                      { backgroundColor: colors.chipSelectedBg },
+                    ],
                   ]}>
                   <Text
                     style={[
-                      styles.orderOptionText,
+                      styles.scopeSegmentText,
                       {
-                        color:
-                          orderMode === 'random'
-                            ? isDark
-                              ? '#111827'
-                              : '#ffffff'
-                            : theme.textPrimary,
-                        fontWeight: orderMode === 'random' ? '600' : '400',
+                        color: scope === 'subject' ? colors.chipSelectedText : colors.textMuted,
+                        fontWeight: scope === 'subject' ? '700' : '500',
                       },
                     ]}>
-                    Shuffled Order
+                    Subject-wise
                   </Text>
                 </Pressable>
               </View>
-            </View>
-          </>
-        )}
 
-        {/* 4. Test Format (for PYQ & Subject-wise) */}
-        {activeTestType !== 'full_mock' && (
-          <View style={styles.section}>
-            <Text
-              style={[styles.sectionLabel, { color: theme.textSecondary }]}>
-              TEST FORMAT
-            </Text>
-            <View style={styles.formatGroup}>
-              {/* Practice Mode */}
-              <Pressable
-                onPress={() => {
-                  setTestMode('practice');
-                  savePreferences(activeTestType, paperType, questionCount, 'practice');
-                }}
-                style={[
-                  styles.formatRow,
-                  {
-                    backgroundColor:
-                      testMode === 'practice'
-                        ? isDark
-                          ? '#1c222c'
-                          : '#f9fafb'
-                        : isDark
-                        ? '#14171e'
-                        : '#ffffff',
-                    borderColor:
-                      testMode === 'practice'
-                        ? isDark
-                          ? '#4b5563'
-                          : '#111827'
-                        : isDark
-                        ? '#222834'
-                        : '#e5e7eb',
-                  },
-                ]}>
-                <View
+              {/* Subject Dropdown if Subject-wise scope is picked */}
+              {scope === 'subject' && (
+                <Pressable
+                  onPress={() => setShowSubjectModal(true)}
                   style={[
-                    styles.radioIndicator,
+                    styles.subjectPickerBar,
                     {
-                      borderColor:
-                        testMode === 'practice'
-                          ? isDark
-                            ? '#ffffff'
-                            : '#111827'
-                          : isDark
-                          ? '#4b5563'
-                          : '#d1d5db',
+                      backgroundColor: colors.cardBg,
+                      borderColor: colors.cardBorder,
                     },
                   ]}>
-                  {testMode === 'practice' && (
-                    <View
-                      style={[
-                        styles.radioDot,
-                        {
-                          backgroundColor: isDark ? '#ffffff' : '#111827',
-                        },
-                      ]}
-                    />
-                  )}
-                </View>
-                <View style={styles.formatTextGroup}>
-                  <Text
-                    style={[
-                      styles.formatTitle,
-                      {
-                        color:
-                          testMode === 'practice'
-                            ? theme.textPrimary
-                            : theme.textSecondary,
-                        fontWeight:
-                          testMode === 'practice' ? '600' : '500',
-                      },
-                    ]}>
-                    Practice Mode
-                  </Text>
-                  <Text
-                    style={[
-                      styles.formatSub,
-                      { color: theme.textSecondary },
-                    ]}>
-                    View answers and explanations while learning.
-                  </Text>
-                </View>
-              </Pressable>
+                  <View style={styles.subjectPickerTextGroup}>
+                    <Text style={[styles.subjectPickerTitle, { color: colors.textPrimary }]}>
+                      {selectedSubject
+                        ? selectedTopic
+                          ? `${selectedSubject} · ${selectedTopic}`
+                          : selectedSubject
+                        : 'Select Subject & Topic'}
+                    </Text>
+                    <Text style={[styles.subjectPickerSub, { color: colors.textMuted }]}>
+                      Tap to filter by syllabus domain
+                    </Text>
+                  </View>
+                  <ChevronDown size={18} color={colors.textMuted} />
+                </Pressable>
+              )}
 
-              {/* Timed Mode */}
-              <Pressable
-                onPress={() => {
-                  setTestMode('full');
-                  savePreferences(activeTestType, paperType, questionCount, 'full');
-                }}
-                style={[
-                  styles.formatRow,
-                  {
-                    backgroundColor:
-                      testMode === 'full'
-                        ? isDark
-                          ? '#1c222c'
-                          : '#f9fafb'
-                        : isDark
-                        ? '#14171e'
-                        : '#ffffff',
-                    borderColor:
-                      testMode === 'full'
-                        ? isDark
-                          ? '#4b5563'
-                          : '#111827'
-                        : isDark
-                        ? '#222834'
-                        : '#e5e7eb',
-                  },
-                ]}>
-                <View
+              <Text style={[styles.stepCardFooterNote, { color: colors.textMuted }]}>
+                {scope === 'full'
+                  ? 'Every question from each selected paper, in its original order.'
+                  : 'Questions strictly focused on your chosen subject and subtopics.'}
+              </Text>
+            </View>
+
+            {/* CARD 4: Set the mode */}
+            <View
+              style={[
+                styles.stepCard,
+                { backgroundColor: colors.cardBg, borderColor: colors.cardBorder },
+              ]}>
+              <View style={styles.stepCardHeader}>
+                <View style={[styles.stepNumberBadge, { backgroundColor: colors.stepBadgeBg }]}>
+                  <Text style={[styles.stepNumberText, { color: colors.stepBadgeText }]}>4</Text>
+                </View>
+                <Text style={[styles.stepCardTitle, { color: colors.textPrimary }]}>
+                  Set the mode
+                </Text>
+              </View>
+
+              {/* Mode Options: Timed exam vs Practice */}
+              <View style={styles.paperOptionsRow}>
+                {/* Timed Exam Box */}
+                <Pressable
+                  onPress={() => {
+                    setTestMode('full');
+                    setInstantExplanations(false);
+                  }}
                   style={[
-                    styles.radioIndicator,
+                    styles.modeOptionBox,
                     {
+                      backgroundColor:
+                        testMode === 'full' ? colors.primaryTint : 'transparent',
                       borderColor:
-                        testMode === 'full'
-                          ? isDark
-                            ? '#ffffff'
-                            : '#111827'
-                          : isDark
-                          ? '#4b5563'
-                          : '#d1d5db',
+                        testMode === 'full' ? colors.primaryBorder : colors.cardBorder,
                     },
                   ]}>
-                  {testMode === 'full' && (
+                  <View style={styles.modeOptionTopRow}>
                     <View
                       style={[
-                        styles.radioDot,
+                        styles.radioIndicator,
                         {
-                          backgroundColor: isDark ? '#ffffff' : '#111827',
-                        },
-                      ]}
-                    />
-                  )}
-                </View>
-                <View style={styles.formatTextGroup}>
-                  <Text
-                    style={[
-                      styles.formatTitle,
-                      {
-                        color:
-                          testMode === 'full'
-                            ? theme.textPrimary
-                            : theme.textSecondary,
-                        fontWeight: testMode === 'full' ? '600' : '500',
-                      },
-                    ]}>
-                    Timed Mode
-                  </Text>
-                  <Text
-                    style={[
-                      styles.formatSub,
-                      { color: theme.textSecondary },
-                    ]}>
-                    Simulate exam conditions with a countdown.
-                  </Text>
-                </View>
-              </Pressable>
-            </View>
-          </View>
-        )}
-
-        {/* 5. Number of Questions (for PYQ & Subject-wise) */}
-        {activeTestType !== 'full_mock' && (
-          <View style={styles.section}>
-            <Text
-              style={[styles.sectionLabel, { color: theme.textSecondary }]}>
-              NUMBER OF QUESTIONS
-            </Text>
-            <View style={styles.countRow}>
-              {countPresets.map((preset) => {
-                const isSelected = !isCustomCount && questionCount === preset;
-                return (
-                  <Pressable
-                    key={preset}
-                    onPress={() => handleSelectCountPreset(preset)}
-                    style={[
-                      styles.countPill,
-                      {
-                        backgroundColor: isSelected
-                          ? isDark
-                            ? '#f3f4f6'
-                            : '#111827'
-                          : isDark
-                          ? '#181c24'
-                          : '#f3f4f6',
-                        borderColor: isSelected
-                          ? isDark
-                            ? '#f3f4f6'
-                            : '#111827'
-                          : isDark
-                          ? '#2a313d'
-                          : '#e5e7eb',
-                      },
-                    ]}>
-                    <Text
-                      style={[
-                        styles.countPillText,
-                        {
-                          color: isSelected
-                            ? isDark
-                              ? '#111827'
-                              : '#ffffff'
-                            : theme.textPrimary,
-                          fontWeight: isSelected ? '600' : '400',
+                          borderColor:
+                            testMode === 'full' ? colors.primaryBorder : colors.cardBorder,
                         },
                       ]}>
-                      {preset}
+                      {testMode === 'full' && (
+                        <View style={[styles.radioDot, { backgroundColor: colors.primaryBorder }]} />
+                      )}
+                    </View>
+                    <Clock size={16} color={colors.textPrimary} strokeWidth={2.2} />
+                    <Text style={[styles.modeHeading, { color: colors.textPrimary }]}>
+                      Timed exam
                     </Text>
-                  </Pressable>
-                );
-              })}
+                  </View>
+                  <Text style={[styles.modeDescription, { color: colors.textMuted }]}>
+                    Exam conditions. A countdown runs, wrong answers can cost marks, and answers appear only at the end.
+                  </Text>
+                </Pressable>
 
-              <Pressable
-                onPress={() => setIsCustomCount(true)}
-                style={[
-                  styles.countPill,
-                  {
-                    backgroundColor: isCustomCount
-                      ? isDark
-                        ? '#f3f4f6'
-                        : '#111827'
-                      : isDark
-                      ? '#181c24'
-                      : '#f3f4f6',
-                    borderColor: isCustomCount
-                      ? isDark
-                        ? '#f3f4f6'
-                        : '#111827'
-                      : isDark
-                      ? '#2a313d'
-                      : '#e5e7eb',
-                  },
-                ]}>
-                <Text
+                {/* Practice Mode Box */}
+                <Pressable
+                  onPress={() => {
+                    setTestMode('practice');
+                    setInstantExplanations(true);
+                  }}
                   style={[
-                    styles.countPillText,
+                    styles.modeOptionBox,
                     {
-                      color: isCustomCount
-                        ? isDark
-                          ? '#111827'
-                          : '#ffffff'
-                        : theme.textPrimary,
-                      fontWeight: isCustomCount ? '600' : '400',
+                      backgroundColor:
+                        testMode === 'practice' ? colors.primaryTint : 'transparent',
+                      borderColor:
+                        testMode === 'practice' ? colors.primaryBorder : colors.cardBorder,
                     },
                   ]}>
-                  Custom
-                </Text>
-              </Pressable>
-            </View>
-
-            {isCustomCount && (
-              <View style={styles.customInputRow}>
-                <TextInput
-                  value={customCountInput}
-                  onChangeText={handleCustomCountSubmit}
-                  placeholder={`Enter 1 - ${matchingCount || 100}`}
-                  placeholderTextColor={theme.textSecondary}
-                  keyboardType="numeric"
-                  style={[
-                    styles.customInput,
-                    {
-                      backgroundColor: isDark ? '#14171e' : '#ffffff',
-                      color: theme.textPrimary,
-                      borderColor: isDark ? '#2a313d' : '#e5e7eb',
-                    },
-                  ]}
-                />
+                  <View style={styles.modeOptionTopRow}>
+                    <View
+                      style={[
+                        styles.radioIndicator,
+                        {
+                          borderColor:
+                            testMode === 'practice' ? colors.primaryBorder : colors.cardBorder,
+                        },
+                      ]}>
+                      {testMode === 'practice' && (
+                        <View style={[styles.radioDot, { backgroundColor: colors.primaryBorder }]} />
+                      )}
+                    </View>
+                    <BookOpen size={16} color={colors.textPrimary} strokeWidth={2.2} />
+                    <Text style={[styles.modeHeading, { color: colors.textPrimary }]}>
+                      Practice
+                    </Text>
+                  </View>
+                  <Text style={[styles.modeDescription, { color: colors.textMuted }]}>
+                    Learn as you go. No timer, and you can see the answer and reasoning after every question.
+                  </Text>
+                </Pressable>
               </View>
-            )}
 
-            {isCountExceeded && (
-              <Text
-                style={[
-                  styles.countWarningText,
-                  { color: isDark ? '#fbbf24' : '#b45309' },
-                ]}>
-                Only {matchingCount} questions are available. All {matchingCount} will be included.
-              </Text>
-            )}
-          </View>
-        )}
+              {/* Toggles Group */}
+              <View style={[styles.togglesGroup, { borderTopColor: colors.cardBorder }]}>
+                {/* 1. Negative Marking */}
+                <View style={styles.toggleRow}>
+                  <View style={styles.toggleTextCol}>
+                    <Text style={[styles.toggleTitle, { color: colors.textPrimary }]}>
+                      Negative marking
+                    </Text>
+                    <Text style={[styles.toggleSubtitle, { color: colors.textMuted }]}>
+                      {paperType === 'CSAT'
+                        ? 'Each wrong answer costs 0.83 marks (one third of 2.5).'
+                        : 'Each wrong answer costs 0.66 marks (one third of 2).'}
+                    </Text>
+                  </View>
+                  <PrimaryToggle
+                    value={negativeMarkingEnabled}
+                    onValueChange={setNegativeMarkingEnabled}
+                    isDark={isDark}
+                    activeTrackColor={colors.primary}
+                  />
+                </View>
 
-        {/* 6. Start Test Area (In-flow at bottom, clean & uncluttered) */}
-        <View
-          style={[
-            styles.startArea,
-            {
-              borderTopColor: isDark ? '#1f242d' : '#f1f3f5',
-            },
-          ]}>
-          {/* Availability and Dynamic Summary */}
-          <View style={styles.startSummaryRow}>
-            <View style={styles.availabilityBadge}>
-              <View
-                style={[
-                  styles.statusDot,
-                  {
-                    backgroundColor:
-                      isCounting || loadingFilters
-                        ? '#eab308'
-                        : matchingCount > 0
-                        ? '#22c55e'
-                        : '#ef4444',
-                  },
-                ]}
-              />
-              <Text
-                style={[
-                  styles.availabilityText,
-                  { color: theme.textSecondary },
-                ]}>
-                {isCounting || loadingFilters
-                  ? 'Checking availability...'
-                  : `${matchingCount.toLocaleString()} questions available`}
-              </Text>
+                {/* 2. Shuffle Questions */}
+                <View style={styles.toggleRow}>
+                  <View style={styles.toggleTextCol}>
+                    <Text style={[styles.toggleTitle, { color: colors.textPrimary }]}>
+                      Shuffle questions
+                    </Text>
+                    <Text style={[styles.toggleSubtitle, { color: colors.textMuted }]}>
+                      Mix the order so you cannot lean on the original sequence.
+                    </Text>
+                  </View>
+                  <PrimaryToggle
+                    value={shuffleQuestions}
+                    onValueChange={setShuffleQuestions}
+                    isDark={isDark}
+                    activeTrackColor={colors.primary}
+                  />
+                </View>
+
+                {/* 3. Instant Explanations */}
+                <View style={styles.toggleRow}>
+                  <View style={styles.toggleTextCol}>
+                    <Text style={[styles.toggleTitle, { color: colors.textPrimary }]}>
+                      Instant explanations
+                    </Text>
+                    <Text style={[styles.toggleSubtitle, { color: colors.textMuted }]}>
+                      {testMode === 'full'
+                        ? 'Off in timed mode. Review every answer after you submit.'
+                        : 'Available immediately upon choosing an answer.'}
+                    </Text>
+                  </View>
+                  <PrimaryToggle
+                    disabled={testMode === 'full'}
+                    value={instantExplanations}
+                    onValueChange={setInstantExplanations}
+                    isDark={isDark}
+                    activeTrackColor={colors.primary}
+                  />
+                </View>
+              </View>
             </View>
-
-            <Text
-              numberOfLines={1}
-              style={[styles.summaryText, { color: theme.textSecondary }]}>
-              {dynamicSummary}
-            </Text>
           </View>
 
-          {/* Zero matching questions explanation */}
-          {matchingCount === 0 && !loadingFilters && !isCounting && (
-            <Text
+          {/* RIGHT COLUMN: "Your mock test" Summary Card */}
+          <View style={[styles.rightColumn, isWide && styles.rightColumnWide]}>
+            <View
               style={[
-                styles.zeroMatchingText,
-                { color: isDark ? '#f87171' : '#dc2626' },
+                styles.summaryCard,
+                { backgroundColor: colors.cardBg, borderColor: colors.cardBorder },
               ]}>
-              No questions found for this selection. Try broadening your filter or selecting All Years.
-            </Text>
-          )}
+              <Text style={[styles.summaryCardTitle, { color: colors.textPrimary }]}>
+                Your mock test
+              </Text>
 
-          {/* Primary Action Button */}
-          <Pressable
-            onPress={handleStartTest}
-            disabled={isStartDisabled}
-            accessibilityRole="button"
-            accessibilityLabel="Start Test"
-            style={({ pressed }) => [
-              styles.primaryButton,
-              {
-                backgroundColor: isStartDisabled
-                  ? isDark
-                    ? '#1f242d'
-                    : '#e5e7eb'
-                  : isDark
-                  ? '#f3f4f6'
-                  : '#111827',
-                opacity: pressed ? 0.9 : 1,
-              },
-            ]}>
-            {isGenerating ? (
-              <View style={styles.btnContent}>
-                <ActivityIndicator
-                  size="small"
-                  color={isDark ? '#111827' : '#ffffff'}
-                />
-                <Text
+              {/* Top 2 KPI Metric Boxes */}
+              <View style={styles.metricBoxesRow}>
+                {/* Questions Box */}
+                <View
                   style={[
-                    styles.primaryButtonText,
-                    {
-                      color: isDark ? '#111827' : '#ffffff',
-                    },
+                    styles.metricBox,
+                    { backgroundColor: colors.metricBoxBg },
                   ]}>
-                  Preparing Test...
-                </Text>
-              </View>
-            ) : (
-              <View style={styles.btnContent}>
-                <Text
+                  <Text style={[styles.metricBoxLabel, { color: colors.textMuted }]}>
+                    QUESTIONS
+                  </Text>
+                  <Text style={[styles.metricBoxValue, { color: colors.textPrimary }]}>
+                    {isCounting ? '…' : totalCalculatedQuestions}
+                  </Text>
+                  <Text style={[styles.metricBoxSub, { color: colors.textMuted }]}>
+                    across {selectedYears.length} {selectedYears.length === 1 ? 'paper' : 'papers'}
+                  </Text>
+                </View>
+
+                {/* Time Box */}
+                <View
                   style={[
-                    styles.primaryButtonText,
-                    {
-                      color: isStartDisabled
-                        ? theme.textSecondary
-                        : isDark
-                        ? '#111827'
-                        : '#ffffff',
-                    },
+                    styles.metricBox,
+                    { backgroundColor: colors.metricBoxBg },
                   ]}>
-                  Start Test
-                </Text>
-                <ArrowRight
-                  size={16}
-                  color={
-                    isStartDisabled
-                      ? theme.textSecondary
-                      : isDark
-                      ? '#111827'
-                      : '#ffffff'
-                  }
-                />
+                  <Text style={[styles.metricBoxLabel, { color: colors.textMuted }]}>
+                    TIME
+                  </Text>
+                  <Text style={[styles.metricBoxValue, { color: colors.textPrimary }]}>
+                    {durationDisplayString}
+                  </Text>
+                  <Text style={[styles.metricBoxSub, { color: colors.textMuted }]}>
+                    {testMode === 'full' ? 'per paper, one sitting each' : 'untimed session'}
+                  </Text>
+                </View>
               </View>
-            )}
-          </Pressable>
+
+              {/* Breakdown Table Rows */}
+              <View style={styles.breakdownList}>
+                <View style={styles.breakdownRow}>
+                  <Text style={[styles.breakdownLabel, { color: colors.textMuted }]}>
+                    Paper
+                  </Text>
+                  <Text style={[styles.breakdownValue, { color: colors.textPrimary }]}>
+                    {paperType === 'GS1' ? 'Paper I, General Studies' : 'Paper II, CSAT'}
+                  </Text>
+                </View>
+
+                <View style={styles.breakdownRow}>
+                  <Text style={[styles.breakdownLabel, { color: colors.textMuted }]}>
+                    Years
+                  </Text>
+                  <Text
+                    numberOfLines={1}
+                    style={[styles.breakdownValue, { color: colors.textPrimary }]}>
+                    {yearsSummaryString}
+                  </Text>
+                </View>
+
+                <View style={styles.breakdownRow}>
+                  <Text style={[styles.breakdownLabel, { color: colors.textMuted }]}>
+                    Scope
+                  </Text>
+                  <Text style={[styles.breakdownValue, { color: colors.textPrimary }]}>
+                    {scope === 'full' ? 'Full paper' : selectedSubject || 'Subject-wise'}
+                  </Text>
+                </View>
+
+                <View style={styles.breakdownRow}>
+                  <Text style={[styles.breakdownLabel, { color: colors.textMuted }]}>
+                    Mode
+                  </Text>
+                  <Text style={[styles.breakdownValue, { color: colors.textPrimary }]}>
+                    {testMode === 'full' ? 'Timed exam' : 'Practice'}
+                  </Text>
+                </View>
+
+                <View style={styles.breakdownRow}>
+                  <Text style={[styles.breakdownLabel, { color: colors.textMuted }]}>
+                    Marking
+                  </Text>
+                  <Text style={[styles.breakdownValue, { color: colors.textPrimary }]}>
+                    {markingSummaryString}
+                  </Text>
+                </View>
+              </View>
+
+              {/* Start Mock Test Button */}
+              <Pressable
+                onPress={handleStartTest}
+                disabled={isStartDisabled}
+                accessibilityRole="button"
+                accessibilityLabel="Start mock test"
+                style={({ pressed }) => [
+                  styles.startMockBtn,
+                  {
+                    backgroundColor: isStartDisabled
+                      ? isDark
+                        ? '#292C36'
+                        : '#D1D5DB'
+                      : colors.primary,
+                    opacity: pressed ? 0.9 : 1,
+                  },
+                ]}>
+                {isGenerating ? (
+                  <View style={styles.btnContentRow}>
+                    <ActivityIndicator size="small" color={colors.buttonText} />
+                    <Text style={[styles.startMockBtnText, { color: colors.buttonText }]}>
+                      Preparing test...
+                    </Text>
+                  </View>
+                ) : (
+                  <View style={styles.btnContentRow}>
+                    <Text style={[styles.startMockBtnText, { color: colors.buttonText }]}>
+                      Start mock test
+                    </Text>
+                    <ArrowRight size={16} color={colors.buttonText} strokeWidth={2.4} />
+                  </View>
+                )}
+              </Pressable>
+
+              <Text style={[styles.summaryFooterNote, { color: colors.textMuted }]}>
+                {testMode === 'full'
+                  ? 'Each year runs as its own 2 hour sitting.'
+                  : 'Practice questions with instant answer explanations.'}
+              </Text>
+            </View>
+          </View>
         </View>
+
+        <View style={{ height: 40 }} />
       </ScrollView>
 
-      {/* Modals outside ScrollView */}
+      {/* Subject Modal */}
       <SubjectTopicPickerModal
         visible={showSubjectModal}
         onClose={() => setShowSubjectModal(false)}
@@ -1449,14 +1022,15 @@ export function MockTestDashboard({
         topicsBySubject={filtersData.topicsBySubject}
         selectedSubject={selectedSubject}
         selectedTopic={selectedTopic}
-        onSelect={(subject, topic) => {
-          setSelectedSubject(subject);
-          setSelectedTopic(topic);
+        onSelect={(subj, top) => {
+          setSelectedSubject(subj);
+          setSelectedTopic(top);
         }}
         paperType={paperType}
         isDark={isDark}
       />
 
+      {/* History Modal */}
       <TestHistoryModal
         visible={showHistoryModal}
         onClose={() => setShowHistoryModal(false)}
@@ -1470,393 +1044,453 @@ export function MockTestDashboard({
   );
 }
 
-const styles = StyleSheet.create({
-  screenWrapper: {
-    flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 40,
-  },
-  desktopContainer: {
-    maxWidth: 580,
-    alignSelf: 'center',
-    width: '100%',
-    paddingHorizontal: 24,
-    paddingTop: 24,
-  },
+const getStyles = (colors: any, isWide: boolean, isMobile: boolean) =>
+  StyleSheet.create({
+    screenWrapper: {
+      flex: 1,
+    },
+    scrollView: {
+      flex: 1,
+    },
+    scrollContent: {
+      paddingHorizontal: isWide ? 32 : 16,
+      paddingTop: isWide ? 20 : 12,
+      paddingBottom: 40,
+    },
+    wideContainer: {
+      maxWidth: 1180,
+      alignSelf: 'center',
+      width: '100%',
+    },
 
-  /* Header */
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: 20,
-  },
-  headerTitleGroup: {
-    flex: 1,
-    paddingRight: 12,
-  },
-  pageTitle: {
-    fontSize: 22,
-    fontWeight: '700',
-    letterSpacing: -0.4,
-  },
-  pageSubtitle: {
-    fontSize: 13,
-    marginTop: 2,
-    letterSpacing: -0.1,
-  },
-  headerActions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  iconButton: {
-    width: 34,
-    height: 34,
-    borderRadius: 8,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  historyButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 34,
-    paddingHorizontal: 10,
-    borderRadius: 8,
-    borderWidth: 1,
-    gap: 6,
-  },
-  historyButtonText: {
-    fontSize: 12.5,
-    fontWeight: '500',
-  },
-  historyBadge: {
-    paddingHorizontal: 5,
-    paddingVertical: 1,
-    borderRadius: 10,
-  },
-  historyBadgeText: {
-    fontSize: 11,
-    fontWeight: '600',
-  },
+    /* Top Navbar */
+    topNavRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: isWide ? 26 : 18,
+    },
+    topNavBrand: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+    },
+    backBtn: {
+      width: 34,
+      height: 34,
+      borderRadius: 8,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    topBrandText: {
+      fontSize: 16,
+      fontWeight: '800',
+      letterSpacing: -0.2,
+    },
+    topNavActions: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+    },
+    themeTogglePill: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
+      paddingHorizontal: 12,
+      paddingVertical: 7,
+      borderRadius: 999,
+      borderWidth: 1,
+    },
+    themeToggleText: {
+      fontSize: 12,
+      fontWeight: '600',
+    },
+    historyPill: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
+      paddingHorizontal: 12,
+      paddingVertical: 7,
+      borderRadius: 999,
+      borderWidth: 1,
+    },
+    historyPillText: {
+      fontSize: 12,
+      fontWeight: '600',
+    },
+    historyCountBadge: {
+      borderRadius: 9,
+      minWidth: 18,
+      height: 18,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingHorizontal: 4,
+    },
+    historyCountText: {
+      fontSize: 10.5,
+      fontWeight: '800',
+      color: '#FFFFFF',
+    },
 
-  /* Test Type Segment */
-  segmentContainer: {
-    flexDirection: 'row',
-    padding: 3,
-    borderRadius: 10,
-    marginBottom: 22,
-  },
-  segmentTab: {
-    flex: 1,
-    paddingVertical: 8,
-    borderRadius: 7,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  segmentTabActive: {
-    borderWidth: 1,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.08,
-        shadowRadius: 2,
-      },
-      android: {
-        elevation: 1,
-      },
-    }),
-  },
-  segmentLabel: {
-    fontSize: 13,
-    letterSpacing: -0.2,
-  },
+    /* Hero Section */
+    heroSection: {
+      marginBottom: isWide ? 24 : 18,
+    },
+    eyebrowText: {
+      fontSize: isWide ? 11 : 10,
+      fontWeight: '800',
+      letterSpacing: 1.2,
+      marginBottom: 6,
+    },
+    heroTitle: {
+      fontSize: isWide ? 34 : 26,
+      fontWeight: '900',
+      letterSpacing: -0.6,
+      marginBottom: 6,
+    },
+    heroSubtitle: {
+      fontSize: isWide ? 14 : 12.5,
+      fontWeight: '500',
+      lineHeight: isWide ? 20 : 18,
+      maxWidth: 620,
+    },
 
-  /* Sections */
-  section: {
-    marginBottom: 20,
-  },
-  sectionHeaderRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  sectionLabel: {
-    fontSize: 11.5,
-    fontWeight: '600',
-    letterSpacing: 0.5,
-    marginBottom: 8,
-    textTransform: 'uppercase',
-  },
-  sectionActionText: {
-    fontSize: 11.5,
-    fontWeight: '500',
-  },
+    /* Main Layout: Left Steps + Right Summary */
+    mainLayout: {
+      flexDirection: 'column',
+      gap: 20,
+    },
+    mainLayoutWide: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      gap: 28,
+    },
+    leftColumn: {
+      flex: 1,
+      gap: 16,
+    },
+    leftColumnWide: {
+      flex: 1.7,
+      gap: 20,
+    },
+    rightColumn: {
+      flex: 1,
+    },
+    rightColumnWide: {
+      flex: 1,
+      maxWidth: 380,
+    },
 
-  /* Examination Paper Cards */
-  paperRow: {
-    flexDirection: 'row',
-    gap: 10,
-  },
-  paperCard: {
-    flex: 1,
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 12,
-  },
-  paperCardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 3,
-  },
-  paperCardTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    letterSpacing: -0.2,
-  },
-  paperCardSub: {
-    fontSize: 12,
-    marginBottom: 4,
-  },
-  paperCardMarks: {
-    fontSize: 11,
-    fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
-  },
-  checkIndicator: {
-    width: 18,
-    height: 18,
-    borderRadius: 9,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    /* Step Card Common */
+    stepCard: {
+      borderRadius: 16,
+      borderWidth: 1,
+      padding: isWide ? 22 : 16,
+      gap: 14,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.04,
+      shadowRadius: 6,
+      elevation: 1,
+    },
+    stepCardHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+    },
+    stepCardHeaderBetween: {
+      flexDirection: isWide ? 'row' : 'column',
+      alignItems: isWide ? 'center' : 'flex-start',
+      justifyContent: 'space-between',
+      gap: 8,
+    },
+    stepCardHeaderLeft: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+    },
+    stepNumberBadge: {
+      width: 24,
+      height: 24,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    stepNumberText: {
+      fontSize: 12.5,
+      fontWeight: '800',
+    },
+    stepCardTitle: {
+      fontSize: isWide ? 16 : 15,
+      fontWeight: '800',
+      letterSpacing: -0.3,
+    },
+    stepCardFooterNote: {
+      fontSize: 11.5,
+      fontWeight: '500',
+      marginTop: -2,
+    },
 
-  /* Horizontal Pills (Years, Presets) */
-  pillsScroll: {
-    flexDirection: 'row',
-    gap: 7,
-  },
-  pill: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 8,
-    borderWidth: 1,
-  },
-  pillText: {
-    fontSize: 12.5,
-    letterSpacing: -0.1,
-  },
+    /* Step 1: Paper Options */
+    paperOptionsRow: {
+      flexDirection: isMobile ? 'column' : 'row',
+      gap: 10,
+    },
+    paperOptionBox: {
+      flex: 1,
+      borderRadius: 14,
+      borderWidth: 1.5,
+      padding: isWide ? 16 : 14,
+      gap: 5,
+    },
+    paperOptionTopRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    radioIndicator: {
+      width: 18,
+      height: 18,
+      borderRadius: 9,
+      borderWidth: 1.8,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    radioDot: {
+      width: 8,
+      height: 8,
+      borderRadius: 4,
+    },
+    paperLabelCode: {
+      fontSize: 10.5,
+      fontWeight: '800',
+      letterSpacing: 0.6,
+    },
+    paperHeading: {
+      fontSize: isWide ? 16 : 15,
+      fontWeight: '800',
+      letterSpacing: -0.2,
+    },
+    paperMetaText: {
+      fontSize: 11.5,
+      fontWeight: '500',
+    },
+    paperTagText: {
+      fontSize: 11,
+      fontWeight: '700',
+      marginTop: 2,
+    },
 
-  /* Subject & Topic Filter Row */
-  filterRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 13,
-    paddingVertical: 12,
-    borderRadius: 10,
-    borderWidth: 1,
-  },
-  filterRowTextGroup: {
-    flex: 1,
-    paddingRight: 10,
-  },
-  filterRowTitle: {
-    fontSize: 13.5,
-    letterSpacing: -0.2,
-    marginBottom: 2,
-  },
-  filterRowSub: {
-    fontSize: 11.5,
-  },
-  filterRowActions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  clearFilterBtn: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    /* Step 2: Years Selection */
+    yearsActionGroup: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: isWide ? 'flex-end' : 'space-between',
+      width: isWide ? 'auto' : '100%',
+      paddingLeft: isWide ? 0 : 34,
+      gap: 12,
+    },
+    yearsCountInfo: {
+      fontSize: 11.5,
+      fontWeight: '600',
+    },
+    yearsActionLink: {
+      fontSize: 11.5,
+      fontWeight: '700',
+    },
+    yearsGrid: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 8,
+    },
+    yearBox: {
+      flexBasis: isWide ? 58 : '18%',
+      flexGrow: 1,
+      maxWidth: isWide ? 64 : '23%',
+      height: 38,
+      borderRadius: 8,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    yearBoxText: {
+      fontSize: 13,
+    },
 
-  /* Full Mock Presets & Notice */
-  presetGrid: {
-    gap: 8,
-  },
-  presetTile: {
-    paddingHorizontal: 13,
-    paddingVertical: 11,
-    borderRadius: 9,
-    borderWidth: 1,
-  },
-  presetTileTitle: {
-    fontSize: 13,
-    marginBottom: 2,
-  },
-  presetTileSub: {
-    fontSize: 11.5,
-  },
-  specNotice: {
-    paddingHorizontal: 12,
-    paddingVertical: 9,
-    borderRadius: 8,
-    borderWidth: 1,
-    marginBottom: 20,
-  },
-  specNoticeText: {
-    fontSize: 12,
-    textAlign: 'center',
-    fontWeight: '500',
-  },
-  orderRow: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  orderOption: {
-    flex: 1,
-    paddingVertical: 9,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    alignItems: 'center',
-  },
-  orderOptionText: {
-    fontSize: 12.5,
-  },
+    /* Step 3: Scope Selection */
+    scopeSegmentPill: {
+      flexDirection: 'row',
+      borderRadius: 12,
+      padding: 4,
+      gap: 4,
+      width: isWide ? 300 : '100%',
+    },
+    scopeSegmentOption: {
+      flex: 1,
+      paddingVertical: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 9,
+    },
+    scopeSegmentOptionActive: {
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.1,
+      shadowRadius: 3,
+      elevation: 1,
+    },
+    scopeSegmentText: {
+      fontSize: 13.5,
+    },
+    subjectPickerBar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      borderWidth: 1,
+      borderRadius: 12,
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+      marginTop: 4,
+    },
+    subjectPickerTextGroup: {
+      flex: 1,
+      gap: 2,
+    },
+    subjectPickerTitle: {
+      fontSize: 14,
+      fontWeight: '700',
+    },
+    subjectPickerSub: {
+      fontSize: 11,
+    },
 
-  /* Test Format (Practice vs Timed) */
-  formatGroup: {
-    gap: 8,
-  },
-  formatRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 13,
-    paddingVertical: 11,
-    borderRadius: 10,
-    borderWidth: 1,
-    gap: 12,
-  },
-  radioIndicator: {
-    width: 18,
-    height: 18,
-    borderRadius: 9,
-    borderWidth: 1.5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  radioDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
-  formatTextGroup: {
-    flex: 1,
-  },
-  formatTitle: {
-    fontSize: 13.5,
-    letterSpacing: -0.2,
-    marginBottom: 1,
-  },
-  formatSub: {
-    fontSize: 11.5,
-  },
+    /* Step 4: Mode & Toggles */
+    modeOptionBox: {
+      flex: 1,
+      borderRadius: 14,
+      borderWidth: 1.5,
+      padding: isWide ? 16 : 14,
+      gap: 6,
+    },
+    modeOptionTopRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    modeHeading: {
+      fontSize: 14.5,
+      fontWeight: '800',
+    },
+    modeDescription: {
+      fontSize: 11.5,
+      lineHeight: 16,
+    },
+    togglesGroup: {
+      borderTopWidth: 1,
+      paddingTop: 14,
+      gap: 14,
+    },
+    toggleRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 14,
+    },
+    toggleTextCol: {
+      flex: 1,
+      gap: 2,
+    },
+    toggleTitle: {
+      fontSize: 13,
+      fontWeight: '700',
+    },
+    toggleSubtitle: {
+      fontSize: 11,
+      lineHeight: 15,
+    },
 
-  /* Number of Questions */
-  countRow: {
-    flexDirection: 'row',
-    gap: 7,
-  },
-  countPill: {
-    flex: 1,
-    paddingVertical: 8,
-    borderRadius: 8,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  countPillText: {
-    fontSize: 13,
-  },
-  customInputRow: {
-    marginTop: 8,
-  },
-  customInput: {
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 7,
-    fontSize: 13,
-  },
-  countWarningText: {
-    fontSize: 11.5,
-    marginTop: 6,
-  },
+    /* Right Summary Card */
+    summaryCard: {
+      borderRadius: 18,
+      borderWidth: 1,
+      padding: isWide ? 22 : 16,
+      gap: 18,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.05,
+      shadowRadius: 10,
+      elevation: 2,
+    },
+    summaryCardTitle: {
+      fontSize: 16.5,
+      fontWeight: '800',
+      letterSpacing: -0.3,
+    },
+    metricBoxesRow: {
+      flexDirection: 'row',
+      gap: 10,
+    },
+    metricBox: {
+      flex: 1,
+      borderRadius: 12,
+      paddingVertical: 12,
+      paddingHorizontal: 12,
+      gap: 3,
+    },
+    metricBoxLabel: {
+      fontSize: 10,
+      fontWeight: '800',
+      letterSpacing: 0.8,
+    },
+    metricBoxValue: {
+      fontSize: isWide ? 24 : 20,
+      fontWeight: '900',
+      letterSpacing: -0.5,
+    },
+    metricBoxSub: {
+      fontSize: 10.5,
+      fontWeight: '500',
+    },
 
-  /* Start Test Area (In-flow at bottom) */
-  startArea: {
-    borderTopWidth: 1,
-    paddingTop: 16,
-    marginTop: 8,
-    gap: 10,
-  },
-  startSummaryRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  availabilityBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  statusDot: {
-    width: 7,
-    height: 7,
-    borderRadius: 3.5,
-  },
-  availabilityText: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  summaryText: {
-    fontSize: 12,
-    flexShrink: 1,
-    marginLeft: 8,
-    textAlign: 'right',
-  },
-  zeroMatchingText: {
-    fontSize: 12,
-    textAlign: 'center',
-  },
-  primaryButton: {
-    paddingVertical: 13,
-    paddingHorizontal: 18,
-    borderRadius: 9,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  btnContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-  },
-  primaryButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
-    letterSpacing: -0.2,
-  },
-});
+    breakdownList: {
+      gap: 10,
+      paddingVertical: 2,
+    },
+    breakdownRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: 12,
+    },
+    breakdownLabel: {
+      fontSize: 12.5,
+      fontWeight: '500',
+    },
+    breakdownValue: {
+      fontSize: 12.5,
+      fontWeight: '700',
+      textAlign: 'right',
+      flex: 1,
+    },
+
+    startMockBtn: {
+      height: 48,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 2,
+    },
+    btnContentRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    startMockBtnText: {
+      fontSize: 14.5,
+      fontWeight: '800',
+    },
+    summaryFooterNote: {
+      fontSize: 11,
+      fontWeight: '500',
+      textAlign: 'center',
+    },
+  });

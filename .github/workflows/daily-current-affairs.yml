@@ -1,0 +1,35 @@
+name: Daily UPSC Current Affairs Ingestion Pipeline
+
+on:
+  schedule:
+    # Default daily refresh at 5:00 AM IST (23:30 UTC)
+    - cron: '30 23 * * *'
+    # Incremental refreshes every 6 hours for developing stories
+    - cron: '30 5,11,17 * * *'
+  workflow_dispatch:
+
+jobs:
+  ingest-current-affairs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Current Affairs Ingestion & Verification Pipeline
+        env:
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
+          EXPO_PUBLIC_SUPABASE_URL: ${{ secrets.EXPO_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: npm run ca:ingest
+

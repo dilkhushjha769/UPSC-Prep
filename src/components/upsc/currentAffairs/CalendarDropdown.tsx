@@ -5,14 +5,61 @@ import {
   Text,
   Pressable,
   StyleSheet,
+  useWindowDimensions,
+  Platform,
 } from 'react-native';
-import {
-  ChevronLeft,
-  ChevronRight,
-  Calendar as CalendarIcon,
-  Check,
-} from 'lucide-react-native';
-import { DAILY_EVENTS_DATA } from '@/data/currentAffairsData';
+import Svg, { Path } from 'react-native-svg';
+import { Check } from 'lucide-react-native';
+import { PALETTE, Typography } from '@/constants/colors';
+import { DAILY_EVENTS_DATA, getTodayDateKey } from '@/data/currentAffairsData';
+
+// ============================================================================
+// FIGMA CALENDAR ICONS (Matching src/components/ui/Calendar.tsx)
+// ============================================================================
+
+function ChevronLeftIcon({
+  size = 18,
+  color = '#FFFFFF',
+}: {
+  size?: number;
+  color?: string;
+}) {
+  return (
+    <Svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={2.5}
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <Path d="m15 18-6-6 6-6" />
+    </Svg>
+  );
+}
+
+function ChevronRightIcon({
+  size = 18,
+  color = '#FFFFFF',
+}: {
+  size?: number;
+  color?: string;
+}) {
+  return (
+    <Svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={2.5}
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <Path d="m9 18 6-6-6-6" />
+    </Svg>
+  );
+}
 
 interface CalendarDropdownProps {
   visible: boolean;
@@ -41,7 +88,7 @@ const MONTH_NAMES = [
   'Dec',
 ];
 
-const WEEKDAY_INITIALS = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
+const WEEKDAYS = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
 
 export function CalendarDropdown({
   visible,
@@ -51,13 +98,18 @@ export function CalendarDropdown({
   topOffset = 180,
   rightOffset = 16,
   leftOffset,
-  isDark = false,
+  isDark = true,
   completedDates = [],
 }: CalendarDropdownProps) {
-  const styles = useMemo(() => getStyles(isDark), [isDark]);
+  const { width, height } = useWindowDimensions();
+  const isMobile = width < 768;
 
-  // Today reference (2026-10-25)
-  const today = useMemo(() => new Date(2026, 9, 25), []);
+  // Dynamic Today reference (updates automatically every day)
+  const todayKey = useMemo(() => getTodayDateKey(), []);
+  const today = useMemo(() => {
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+  }, []);
 
   // Parse currently selected date
   const parsedSelected = useMemo(() => {
@@ -69,7 +121,8 @@ export function CalendarDropdown({
         day: parseInt(parts[2], 10),
       };
     }
-    return { year: 2026, month: 9, day: 25 };
+    const now = new Date();
+    return { year: now.getFullYear(), month: now.getMonth(), day: now.getDate() };
   }, [selectedDateKey]);
 
   // Browse month/year state
@@ -94,13 +147,59 @@ export function CalendarDropdown({
     return new Set(completedDates);
   }, [completedDates]);
 
-  // Calendar cells
+  // Figma Color Theme definitions (Matching src/components/ui/Calendar.tsx)
+  const theme = useMemo(() => {
+    if (isDark) {
+      return {
+        cardBg: PALETTE.neutral.dark.darkest, // #1F2024
+        cardBorder: PALETTE.neutral.dark.textMuted, // #494A50
+        divider: PALETTE.neutral.dark.surface, // #2F3036
+        titleText: PALETTE.neutral.light.lightest, // #FFFFFF
+        arrowColor: PALETTE.neutral.light.lightest, // #FFFFFF
+        arrowHoverBg: PALETTE.neutral.dark.surface, // #2F3036
+        weekdayText: PALETTE.neutral.dark.textSecondary, // #71727A
+        dayText: PALETTE.neutral.light.lightest, // #FFFFFF
+        dayTextDisabled: PALETTE.neutral.dark.textMuted, // #494A50
+        todayBg: PALETTE.neutral.dark.surface, // #2F3036
+        todayText: PALETTE.neutral.light.lightest, // #FFFFFF
+        selectedBg: PALETTE.highlight.primary, // #006FFD
+        selectedText: PALETTE.neutral.light.lightest, // #FFFFFF
+        curatedDot: PALETTE.highlight.tint80, // #2897FF
+        completedDot: PALETTE.support.success.medium, // #3AC0A0
+        pillBg: PALETTE.neutral.dark.surface, // #2F3036
+        pillBorder: PALETTE.neutral.dark.textMuted, // #494A50
+        pillText: PALETTE.neutral.light.muted, // #C5C6CC
+      };
+    }
+
+    return {
+      cardBg: PALETTE.neutral.light.lightest, // #FFFFFF
+      cardBorder: PALETTE.neutral.light.borderSubtle, // #E8E9F1
+      divider: PALETTE.neutral.light.borderSubtle, // #E8E9F1
+      titleText: PALETTE.neutral.dark.darkest, // #1F2024
+      arrowColor: PALETTE.neutral.dark.textSecondary, // #71727A
+      arrowHoverBg: PALETTE.neutral.light.surface, // #F8F9FE
+      weekdayText: PALETTE.neutral.dark.textSecondary, // #71727A
+      dayText: PALETTE.neutral.dark.darkest, // #1F2024
+      dayTextDisabled: PALETTE.neutral.light.muted, // #C5C6CC
+      todayBg: PALETTE.highlight.tint20, // #EAF2FF
+      todayText: PALETTE.highlight.primary, // #006FFD
+      selectedBg: PALETTE.highlight.primary, // #006FFD
+      selectedText: PALETTE.neutral.light.lightest, // #FFFFFF
+      curatedDot: PALETTE.highlight.primary, // #006FFD
+      completedDot: PALETTE.support.success.medium, // #3AC0A0
+      pillBg: PALETTE.neutral.light.surface, // #F8F9FE
+      pillBorder: PALETTE.neutral.light.borderSubtle, // #E8E9F1
+      pillText: PALETTE.neutral.dark.textSecondary, // #71727A
+    };
+  }, [isDark]);
+
+  // Calendar cells (Monday = 0 ... Sunday = 6)
   const calendarCells = useMemo(() => {
     const firstDay = new Date(viewYear, viewMonth, 1);
     const lastDay = new Date(viewYear, viewMonth + 1, 0);
     const totalDays = lastDay.getDate();
 
-    // Monday = 0, Sunday = 6
     const startDayIndex = (firstDay.getDay() + 6) % 7;
 
     const cells: {
@@ -116,7 +215,7 @@ export function CalendarDropdown({
     for (let i = 0; i < startDayIndex; i++) {
       cells.push({
         day: null,
-        dateKey: `empty-${i}`,
+        dateKey: `empty-lead-${i}`,
         isFuture: false,
         isSelected: false,
         isCurated: false,
@@ -135,10 +234,7 @@ export function CalendarDropdown({
       const isSelected = key === selectedDateKey;
       const isCurated = curatedDatesSet.has(key);
       const isCompleted = completedDatesSet.has(key);
-      const isToday =
-        cellDate.getFullYear() === today.getFullYear() &&
-        cellDate.getMonth() === today.getMonth() &&
-        cellDate.getDate() === today.getDate();
+      const isToday = key === todayKey;
 
       cells.push({
         day: d,
@@ -152,7 +248,7 @@ export function CalendarDropdown({
     }
 
     return cells;
-  }, [viewYear, viewMonth, today, selectedDateKey, curatedDatesSet, completedDatesSet]);
+  }, [viewYear, viewMonth, today, todayKey, selectedDateKey, curatedDatesSet, completedDatesSet]);
 
   const handlePrevMonth = () => {
     if (viewMonth === 0) {
@@ -185,6 +281,14 @@ export function CalendarDropdown({
 
   if (!visible) return null;
 
+  // Clamp dropdown position so the 324px Figma calendar card never overflows viewport
+  const cardWidth = Math.min(324, width - 24);
+  const safeTop = Math.max(72, Math.min(topOffset, height - 430));
+  const safeLeft =
+    leftOffset !== undefined
+      ? Math.max(12, Math.min(leftOffset, width - cardWidth - 12))
+      : undefined;
+
   return (
     <Modal
       visible={visible}
@@ -192,156 +296,182 @@ export function CalendarDropdown({
       animationType="fade"
       onRequestClose={onClose}
     >
-      <View style={styles.overlay}>
-        {/* Transparent dismiss backdrop */}
+      <View style={[styles.overlay, isMobile && styles.overlayMobile]}>
+        {/* Dismiss backdrop */}
         <Pressable style={styles.backdrop} onPress={onClose} />
 
-        {/* Anchored Dropdown Menu Positioned Directly Below Calendar Button */}
+        {/* Figma Design System Calendar Card */}
         <View
           style={[
             styles.card,
             {
-              position: 'absolute',
-              top: topOffset,
-              ...(leftOffset !== undefined ? { left: leftOffset } : { right: rightOffset }),
+              width: cardWidth,
+              backgroundColor: theme.cardBg,
+              borderColor: theme.cardBorder,
             },
+            !isMobile
+              ? {
+                  position: 'absolute',
+                  top: safeTop,
+                  ...(safeLeft !== undefined ? { left: safeLeft } : { right: rightOffset }),
+                }
+              : {
+                  position: 'absolute',
+                  top: safeTop,
+                  alignSelf: 'center',
+                },
           ]}
         >
-          {/* Mini Month Navigator */}
-          <View style={styles.monthHeader}>
-            <Pressable
-              style={({ pressed }) => [styles.arrowBtn, pressed && styles.pressed]}
-              onPress={handlePrevMonth}
-              hitSlop={6}
-            >
-              <ChevronLeft size={14} color={isDark ? '#F8FAFC' : '#0F172A'} strokeWidth={2} />
-            </Pressable>
+          {/* Figma Header Row: "Oct 2026" on Left, Nav Arrows on Right */}
+          <View style={styles.headerRow}>
+            <Text style={[styles.monthTitle, { color: theme.titleText }]}>
+              {MONTH_NAMES[viewMonth]} {viewYear}
+            </Text>
 
-            <View style={styles.monthTitleBox}>
-              <CalendarIcon size={12} color={isDark ? '#38BDF8' : '#64748B'} strokeWidth={2} />
-              <Text style={styles.monthTitle}>
-                {MONTH_NAMES[viewMonth]} {viewYear}
-              </Text>
+            <View style={styles.arrowsContainer}>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.navBtn,
+                  { backgroundColor: theme.arrowHoverBg },
+                  pressed && { opacity: 0.7 },
+                  Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
+                ]}
+                onPress={handlePrevMonth}
+                hitSlop={8}
+                accessibilityRole="button"
+                accessibilityLabel="Previous month"
+              >
+                <ChevronLeftIcon size={17} color={theme.arrowColor} />
+              </Pressable>
+
+              <Pressable
+                style={({ pressed }) => [
+                  styles.navBtn,
+                  { backgroundColor: theme.arrowHoverBg },
+                  isNextMonthDisabled && styles.arrowDisabled,
+                  pressed && !isNextMonthDisabled && { opacity: 0.7 },
+                  Platform.OS === 'web' &&
+                    ({ cursor: isNextMonthDisabled ? 'default' : 'pointer' } as object),
+                ]}
+                onPress={handleNextMonth}
+                disabled={isNextMonthDisabled}
+                hitSlop={8}
+                accessibilityRole="button"
+                accessibilityLabel="Next month"
+              >
+                <ChevronRightIcon size={17} color={theme.arrowColor} />
+              </Pressable>
             </View>
-
-            <Pressable
-              style={({ pressed }) => [
-                styles.arrowBtn,
-                isNextMonthDisabled && styles.arrowDisabled,
-                pressed && !isNextMonthDisabled && styles.pressed,
-              ]}
-              onPress={handleNextMonth}
-              disabled={isNextMonthDisabled}
-              hitSlop={6}
-            >
-              <ChevronRight
-                size={14}
-                color={isNextMonthDisabled ? (isDark ? '#334155' : '#CBD5E1') : (isDark ? '#F8FAFC' : '#0F172A')}
-                strokeWidth={2}
-              />
-            </Pressable>
           </View>
 
-          {/* Weekday Initials Row */}
-          <View style={styles.weekdayRow}>
-            {WEEKDAY_INITIALS.map((init, i) => (
-              <View key={i} style={styles.weekdayCell}>
-                <Text style={styles.weekdayText}>{init}</Text>
+          {/* Figma Weekdays Row: MO TU WE TH FR SA SU */}
+          <View style={styles.weekdaysRow}>
+            {WEEKDAYS.map((wd) => (
+              <View key={wd} style={styles.weekdayCell}>
+                <Text style={[styles.weekdayText, { color: theme.weekdayText }]}>
+                  {wd}
+                </Text>
               </View>
             ))}
           </View>
 
-          {/* Compact Day Grid */}
+          {/* Figma Circular Days Grid */}
           <View style={styles.grid}>
-            {calendarCells.map((cell, idx) => {
+            {calendarCells.map((cell) => {
               if (cell.day === null) {
-                return <View key={`empty-${idx}`} style={styles.dayCellEmpty} />;
+                return <View key={cell.dateKey} style={styles.dayCellContainer} />;
               }
 
               return (
-                <Pressable
-                  key={cell.dateKey}
-                  style={[
-                    styles.dayCell,
-                    cell.isSelected && styles.dayCellSelected,
-                    cell.isToday && !cell.isSelected && styles.dayCellToday,
-                    cell.isFuture && styles.dayCellFuture,
-                  ]}
-                  onPress={() => handleSelectDay(cell.dateKey, cell.isFuture)}
-                  disabled={cell.isFuture}
-                >
-                  <Text
-                    style={[
-                      styles.dayText,
-                      cell.isSelected && styles.dayTextSelected,
-                      cell.isFuture && styles.dayTextFuture,
+                <View key={cell.dateKey} style={styles.dayCellContainer}>
+                  <Pressable
+                    style={({ pressed }) => [
+                      styles.dayCircle,
+                      cell.isSelected && { backgroundColor: theme.selectedBg },
+                      !cell.isSelected &&
+                        cell.isToday && { backgroundColor: theme.todayBg },
+                      !cell.isSelected &&
+                        cell.isCompleted &&
+                        !cell.isToday && {
+                          backgroundColor: isDark
+                            ? 'rgba(58, 192, 160, 0.14)'
+                            : PALETTE.support.success.light,
+                        },
+                      pressed && !cell.isSelected && !cell.isFuture && { opacity: 0.7 },
+                      Platform.OS === 'web' &&
+                        ({ cursor: cell.isFuture ? 'default' : 'pointer' } as object),
                     ]}
+                    onPress={() => handleSelectDay(cell.dateKey, cell.isFuture)}
+                    disabled={cell.isFuture}
                   >
-                    {cell.day}
-                  </Text>
+                    <Text
+                      style={[
+                        styles.dayText,
+                        {
+                          color: cell.isSelected
+                            ? theme.selectedText
+                            : cell.isToday
+                            ? theme.todayText
+                            : cell.isFuture
+                            ? theme.dayTextDisabled
+                            : cell.isCompleted
+                            ? isDark
+                              ? PALETTE.support.success.medium
+                              : PALETTE.support.success.dark
+                            : theme.dayText,
+                        },
+                      ]}
+                    >
+                      {cell.day}
+                    </Text>
 
-                  {cell.isCompleted ? (
-                    <View style={styles.completedCheckIndicator}>
-                      <Check size={8} color={cell.isSelected ? '#FFFFFF' : '#10B981'} strokeWidth={3} />
-                    </View>
-                  ) : cell.isCurated && !cell.isSelected ? (
-                    <View style={styles.curatedDot} />
-                  ) : null}
-                </Pressable>
+                    {/* Status Marker Dot / Check (Figma Bottom Dot Slot) */}
+                    {cell.isCompleted ? (
+                      <View style={styles.completedCheckIndicator}>
+                        <Check
+                          size={8}
+                          color={cell.isSelected ? '#FFFFFF' : theme.completedDot}
+                          strokeWidth={3}
+                        />
+                      </View>
+                    ) : cell.isCurated ? (
+                      <View
+                        style={[
+                          styles.dot,
+                          {
+                            backgroundColor: cell.isSelected
+                              ? '#FFFFFF'
+                              : theme.curatedDot,
+                          },
+                        ]}
+                      />
+                    ) : null}
+                  </Pressable>
+                </View>
               );
             })}
           </View>
 
-          {/* Quick Shortcuts Footer */}
-          <View style={styles.footerRow}>
-            <Pressable
-              style={[
-                styles.quickPill,
-                selectedDateKey === '2026-10-25' && styles.quickPillActive,
-              ]}
-              onPress={() => {
-                onSelectDate('2026-10-25');
-                onClose();
-              }}
-            >
-              <Text
-                style={[
-                  styles.quickPillText,
-                  selectedDateKey === '2026-10-25' && styles.quickPillTextActive,
-                ]}
-              >
-                Today
-              </Text>
-            </Pressable>
-
-            <Pressable
-              style={[
-                styles.quickPill,
-                selectedDateKey === '2026-10-24' && styles.quickPillActive,
-              ]}
-              onPress={() => {
-                onSelectDate('2026-10-24');
-                onClose();
-              }}
-            >
-              <Text
-                style={[
-                  styles.quickPillText,
-                  selectedDateKey === '2026-10-24' && styles.quickPillTextActive,
-                ]}
-              >
-                Yesterday
-              </Text>
-            </Pressable>
-
+          {/* Figma Legend Footer */}
+          <View style={[styles.footerRow, { borderTopColor: theme.divider }]}>
             <View style={styles.footerIndicatorsRow}>
               <View style={styles.footerIndicatorItem}>
-                <Check size={9} color={isDark ? '#34D399' : '#10B981'} strokeWidth={3} />
-                <Text style={styles.completedLegendText}>Read</Text>
+                <Check size={10} color={theme.completedDot} strokeWidth={3} />
+                <Text style={[styles.legendText, { color: theme.weekdayText }]}>
+                  Read
+                </Text>
               </View>
-              <Text style={styles.editionIndicator}>
-                ● Curated
-              </Text>
+              <View style={styles.footerIndicatorItem}>
+                <View
+                  style={[
+                    styles.legendDot,
+                    { backgroundColor: theme.curatedDot },
+                  ]}
+                />
+                <Text style={[styles.legendText, { color: theme.weekdayText }]}>
+                  Brief
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -350,169 +480,138 @@ export function CalendarDropdown({
   );
 }
 
-const getStyles = (isDark: boolean) =>
-  StyleSheet.create({
-    overlay: {
-      flex: 1,
-      backgroundColor: 'rgba(0, 0, 0, 0.35)',
-    },
-    backdrop: {
-      ...StyleSheet.absoluteFill,
-    },
-    card: {
-      width: 278,
-      backgroundColor: isDark ? '#1F2024' : '#FFFFFF',
-      borderRadius: 16,
-      borderWidth: 1,
-      borderColor: isDark ? '#494A50' : '#E8E9F1',
-      padding: 14,
-      shadowColor: '#000000',
-      shadowOffset: { width: 0, height: 8 },
-      shadowOpacity: isDark ? 0.5 : 0.18,
-      shadowRadius: 16,
-      elevation: 10,
-    },
-    monthHeader: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: 10,
-      paddingBottom: 6,
-      borderBottomWidth: 1,
-      borderBottomColor: isDark ? '#2F3036' : '#F1F5F9',
-    },
-    monthTitleBox: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 6,
-    },
-    monthTitle: {
-      fontSize: 13,
-      fontWeight: '700',
-      color: isDark ? '#FFFFFF' : '#1F2024',
-      letterSpacing: -0.1,
-    },
-    arrowBtn: {
-      padding: 4,
-      borderRadius: 6,
-      backgroundColor: isDark ? '#2F3036' : '#F8F9FE',
-    },
-    arrowDisabled: {
-      opacity: 0.3,
-    },
-    pressed: {
-      opacity: 0.6,
-    },
-    weekdayRow: {
-      flexDirection: 'row',
-      marginBottom: 6,
-    },
-    weekdayCell: {
-      flex: 1,
-      alignItems: 'center',
-      paddingVertical: 2,
-    },
-    weekdayText: {
-      fontSize: 10,
-      fontWeight: '700',
-      color: isDark ? '#71727A' : '#71727A',
-    },
-    grid: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-    },
-    dayCellEmpty: {
-      width: `${100 / 7}%`,
-      height: 30,
-    },
-    dayCell: {
-      width: `${100 / 7}%`,
-      height: 30,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 15,
-      position: 'relative',
-      marginVertical: 1,
-    },
-    dayCellSelected: {
-      backgroundColor: '#006FFD',
-    },
-    dayCellToday: {
-      backgroundColor: isDark ? '#2F3036' : '#EAF2FF',
-    },
-    dayCellFuture: {
-      opacity: 0.2,
-    },
-    dayText: {
-      fontSize: 12,
-      fontWeight: '600',
-      color: isDark ? '#FFFFFF' : '#1F2024',
-    },
-    dayTextSelected: {
-      color: '#FFFFFF',
-      fontWeight: '700',
-    },
-    dayTextFuture: {
-      color: isDark ? '#494A50' : '#C5C6CC',
-    },
-    curatedDot: {
-      width: 3.5,
-      height: 3.5,
-      borderRadius: 2,
-      backgroundColor: '#3AC0A0',
-      position: 'absolute',
-      bottom: 2,
-    },
-    completedCheckIndicator: {
-      position: 'absolute',
-      bottom: 1.5,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    footerRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      marginTop: 8,
-      paddingTop: 8,
-      borderTopWidth: 1,
-      borderTopColor: isDark ? '#2F3036' : '#F1F5F9',
-    },
-    quickPill: {
-      paddingVertical: 4,
-      paddingHorizontal: 8,
-      borderRadius: 6,
-      backgroundColor: isDark ? '#2F3036' : '#F8F9FE',
-    },
-    quickPillActive: {
-      backgroundColor: '#006FFD',
-    },
-    quickPillText: {
-      fontSize: 10.5,
-      fontWeight: '600',
-      color: isDark ? '#C5C6CC' : '#71727A',
-    },
-    quickPillTextActive: {
-      color: '#FFFFFF',
-    },
-    footerIndicatorsRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 7,
-    },
-    footerIndicatorItem: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 2.5,
-    },
-    completedLegendText: {
-      fontSize: 9.5,
-      fontWeight: '600',
-      color: isDark ? '#34D399' : '#10B981',
-    },
-    editionIndicator: {
-      fontSize: 9.5,
-      fontWeight: '600',
-      color: isDark ? '#34D399' : '#10B981',
-    },
-  });
+const styles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.45)',
+  },
+  overlayMobile: {
+    alignItems: 'center',
+  },
+  backdrop: {
+    ...StyleSheet.absoluteFill,
+  },
+  card: {
+    borderRadius: 24,
+    borderWidth: 1,
+    paddingHorizontal: 18,
+    paddingTop: 20,
+    paddingBottom: 16,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.25,
+    shadowRadius: 18,
+    elevation: 10,
+  },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 18,
+    paddingHorizontal: 4,
+  },
+  monthTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    fontFamily: Typography.fontFamily,
+    letterSpacing: -0.2,
+  },
+  arrowsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  navBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  arrowDisabled: {
+    opacity: 0.3,
+  },
+  weekdaysRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+  },
+  weekdayCell: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  weekdayText: {
+    fontSize: 11,
+    fontWeight: '700',
+    fontFamily: Typography.fontFamily,
+    letterSpacing: 0.5,
+  },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  dayCellContainer: {
+    width: `${100 / 7}%`,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 4,
+  },
+  dayCircle: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  dayText: {
+    fontSize: 13.5,
+    fontWeight: '700',
+    fontFamily: Typography.fontFamily,
+  },
+  dot: {
+    position: 'absolute',
+    bottom: 4,
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+  },
+  completedCheckIndicator: {
+    position: 'absolute',
+    bottom: 2.5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  footerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginTop: 10,
+    paddingTop: 10,
+    borderTopWidth: 1,
+  },
+  footerIndicatorsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  footerIndicatorItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  legendDot: {
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
+  },
+  legendText: {
+    fontSize: 10.5,
+    fontWeight: '600',
+    fontFamily: Typography.fontFamily,
+  },
+});

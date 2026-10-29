@@ -12,13 +12,12 @@ import {
   ChevronRight,
   Compass,
   RotateCcw,
-  Check,
   BookOpen,
 } from 'lucide-react-native';
+import { Button } from '@/components/ui/Button';
 import { DailyEventItem } from '@/data/currentAffairsData';
 import { BW_THEME } from '@/constants/bwTheme';
-import { EditorialExplanationView } from '@/components/common/EditorialExplanationView';
-import { generateEventRecallQuestions } from '@/services/eventRecallService';
+import { PALETTE } from '@/constants/colors';
 import {
   parseExecutiveBrief,
   renderExecutiveBriefText,
@@ -45,6 +44,7 @@ interface DailyEventCardProps {
   onNextEvent?: () => void;
   onSelectEvent?: (index: number) => void;
   onOpenDailyRecall?: () => void;
+  onOpenEventRecall?: (event: DailyEventItem) => void;
   hasPrevEvent?: boolean;
   hasNextEvent?: boolean;
   eventIndex?: number;
@@ -63,6 +63,7 @@ export function DailyEventCard({
   onNextEvent,
   onSelectEvent,
   onOpenDailyRecall,
+  onOpenEventRecall,
   hasPrevEvent,
   hasNextEvent,
   eventIndex,
@@ -74,16 +75,6 @@ export function DailyEventCard({
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const styles = useMemo(() => getStyles(theme, isDark, isDesktop), [theme, isDark, isDesktop]);
 
-  // Active Recall Drawer Tab State: 'recall' | null (starts closed)
-  const [activeSectionTab, setActiveSectionTab] = useState<'recall' | null>(null);
-
-  const toggleSectionTab = (tab: 'recall') => {
-    setActiveSectionTab((prev) => (prev === tab ? null : tab));
-  };
-
-  // Active Recall Questions & User Responses
-  const recallQuestions = useMemo(() => generateEventRecallQuestions(event), [event]);
-  const [recallAnswers, setRecallAnswers] = useState<Record<string, 'A' | 'B' | 'C' | 'D'>>({});
   // Track if current event's image failed so we fallback cleanly to category image
   const [failedEventId, setFailedEventId] = useState<string | null>(null);
   const imageLoadFailed = failedEventId === event.id;
@@ -100,12 +91,6 @@ export function DailyEventCard({
       return raw;
     }
   }, [event.imageUrl, event.category, imageLoadFailed]);
-
-  const correctCount = useMemo(() => {
-    return recallQuestions.reduce((acc, q) => {
-      return recallAnswers[q.id] === q.correctAnswer ? acc + 1 : acc;
-    }, 0);
-  }, [recallQuestions, recallAnswers]);
 
   // Normalize paper format (e.g. GS-II -> GS2, GS-III -> GS3)
   const normalizedPaper = useMemo(() => {
@@ -150,53 +135,28 @@ export function DailyEventCard({
           <Text style={styles.sourceDateText}>{event.source}</Text>
         </View>
 
-        {/* Top Right: Event Recall Button (replaces bookmark & top note) */}
+        {/* Top Right: Event Recall Button (Opens Dedicated Recall Quiz Page) */}
         <View style={styles.idActionsGroup}>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Recall the Event (5 Questions)"
-            style={({ pressed }: any) => [
-              styles.topEventRecallBtn,
-              activeSectionTab === 'recall' && styles.topEventRecallBtnActive,
-              pressed && styles.sectionTabBtnPressed,
-            ]}
-            onPress={() => toggleSectionTab('recall')}
-            hitSlop={4}
-          >
-            <RotateCcw
-              size={12}
-              color={
-                activeSectionTab === 'recall'
-                  ? '#FFFFFF'
-                  : theme.buttonSecondaryText
+          <Button
+            variant="secondary"
+            size="sm"
+            title="Recall Event"
+            isDark={isDark}
+            leftIcon={
+              <RotateCcw
+                size={12}
+                color={isDark ? '#6FBAFF' : '#006FFD'}
+                strokeWidth={2.2}
+              />
+            }
+            onPress={() => {
+              if (onOpenEventRecall) {
+                onOpenEventRecall(event);
+              } else {
+                onOpenDailyRecall?.();
               }
-              strokeWidth={2}
-            />
-            <Text
-              style={[
-                styles.topEventRecallText,
-                activeSectionTab === 'recall' && styles.topEventRecallTextActive,
-              ]}
-              numberOfLines={1}
-            >
-              Recall Event
-            </Text>
-            <View
-              style={[
-                styles.topEventRecallBadge,
-                activeSectionTab === 'recall' && styles.topEventRecallBadgeActive,
-              ]}
-            >
-              <Text
-                style={[
-                  styles.topEventRecallBadgeText,
-                  activeSectionTab === 'recall' && styles.topEventRecallBadgeTextActive,
-                ]}
-              >
-                5 Qs
-              </Text>
-            </View>
-          </Pressable>
+            }}
+          />
         </View>
       </View>
 
@@ -267,161 +227,19 @@ export function DailyEventCard({
       ) : null}
 
       {/* ======================================================== */}
-      {/* ACTIVE RECALL QUESTIONS DRAWER (TRIGGERED FROM TOP RIGHT) */}
-      {/* ======================================================== */}
-      {activeSectionTab === 'recall' && (
-        <View style={styles.recallSection}>
-          <View style={styles.recallHeaderCard}>
-            <View style={styles.recallHeaderLeft}>
-              <View style={styles.recallHeaderBadge}>
-                <RotateCcw size={12} color="#FFFFFF" strokeWidth={2.2} />
-                <Text style={styles.recallHeaderBadgeText}>Active Recall Practice</Text>
-              </View>
-              <Text style={styles.recallSubheading}>
-                5 questions to train active retrieval memory & test UPSC syllabus linkage
-              </Text>
-            </View>
-            <View style={styles.recallHeaderRight}>
-              <View style={styles.recallScorePill}>
-                <Text style={styles.recallScoreText}>
-                  {Object.keys(recallAnswers).length > 0
-                    ? `${correctCount}/5 Recalled`
-                    : '0/5 Answered'}
-                </Text>
-              </View>
-              {Object.keys(recallAnswers).length > 0 && (
-                <Pressable
-                  style={styles.recallResetBtn}
-                  onPress={() => setRecallAnswers({})}
-                  accessibilityLabel="Reset answers"
-                >
-                  <RotateCcw size={11} color={isDark ? '#94A3B8' : '#64748B'} strokeWidth={2} />
-                  <Text style={styles.recallResetBtnText}>Reset</Text>
-                </Pressable>
-              )}
-            </View>
-          </View>
-
-          <View style={styles.recallQuestionsList}>
-            {recallQuestions.map((q) => {
-              const selectedOption = recallAnswers[q.id];
-              const isAnswered = selectedOption !== undefined;
-
-              return (
-                <View key={q.id} style={styles.recallQuestionCard}>
-                  <View style={styles.recallQMetaRow}>
-                    <View style={styles.recallQBadge}>
-                      <Text style={styles.recallQBadgeText}>Q{q.questionNumber}</Text>
-                    </View>
-                    <Text style={styles.recallTopicTag} numberOfLines={1}>
-                      {q.topicTag}
-                    </Text>
-                  </View>
-
-                  <Text style={styles.recallQuestionPrompt}>{q.question}</Text>
-
-                  <View style={styles.recallOptionsList}>
-                    {q.options.map((opt) => {
-                      const isSelected = selectedOption === opt.key;
-                      const isTheCorrectKey = opt.key === q.correctAnswer;
-                      const showCorrectStyle = isAnswered && isTheCorrectKey;
-                      const showWrongStyle = isAnswered && isSelected && !isTheCorrectKey;
-
-                      return (
-                        <Pressable
-                          key={opt.key}
-                          accessibilityRole="button"
-                          accessibilityLabel={`Option ${opt.key}: ${opt.text}`}
-                          style={({ pressed, hovered }: any) => [
-                            styles.recallOptionBtn,
-                            hovered && !isAnswered && styles.recallOptionBtnHover,
-                            pressed && !isAnswered && styles.sectionTabBtnPressed,
-                            showCorrectStyle && styles.recallOptionBtnCorrect,
-                            showWrongStyle && styles.recallOptionBtnWrong,
-                          ]}
-                          onPress={() => {
-                            setRecallAnswers((prev) => ({
-                              ...prev,
-                              [q.id]: opt.key,
-                            }));
-                          }}
-                        >
-                          <View
-                            style={[
-                              styles.recallOptionKeyBadge,
-                              showCorrectStyle && styles.recallOptionKeyBadgeCorrect,
-                              showWrongStyle && styles.recallOptionKeyBadgeWrong,
-                            ]}
-                          >
-                            {showCorrectStyle ? (
-                              <Check size={11} color="#FFFFFF" strokeWidth={3} />
-                            ) : (
-                              <Text
-                                style={[
-                                  styles.recallOptionKeyText,
-                                  (showCorrectStyle || showWrongStyle) && styles.recallOptionKeyTextHighlight,
-                                ]}
-                              >
-                                {opt.key}
-                              </Text>
-                            )}
-                          </View>
-                          <Text
-                            style={[
-                              styles.recallOptionText,
-                              showCorrectStyle && styles.recallOptionTextCorrect,
-                              showWrongStyle && styles.recallOptionTextWrong,
-                            ]}
-                          >
-                            {opt.text}
-                          </Text>
-                        </Pressable>
-                      );
-                    })}
-                  </View>
-
-                  {isAnswered && (
-                    <EditorialExplanationView
-                      isDark={isDark}
-                      correctAnswer={q.correctAnswer}
-                      explanationText={q.explanation}
-                      syllabusRelevance={q.syllabusRelevance}
-                    />
-                  )}
-                </View>
-              );
-            })}
-          </View>
-        </View>
-      )}
-
-      {/* ======================================================== */}
       {/* C. BOTTOM BAR: FULL ANALYSIS (LEFT) & NAV (SAME LINE)    */}
       {/* ======================================================== */}
       <View style={styles.cardBottomBar}>
-        {/* Left Side: Full Analysis Button */}
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Open Full Analysis"
-          style={({ pressed, hovered }: any) => [
-            styles.fullAnalysisBtn,
-            hovered && styles.fullAnalysisBtnHover,
-            pressed && styles.fullAnalysisBtnPressed,
-          ]}
+        {/* Left Side: Full Analysis Button (Standard App Primary Button) */}
+        <Button
+          variant="primary"
+          size="sm"
+          title="Full Analysis"
+          isDark={isDark}
+          leftIcon={<BookOpen size={13} color="#FFFFFF" strokeWidth={2.2} />}
+          rightIcon={<ChevronRight size={13} color="#FFFFFF" strokeWidth={2.2} />}
           onPress={() => onOpenDetail(event)}
-        >
-          <BookOpen
-            size={13}
-            color={theme.buttonSecondaryText}
-            strokeWidth={2}
-          />
-          <Text style={styles.fullAnalysisBtnText}>Full Analysis</Text>
-          <ChevronRight
-            size={13}
-            color={theme.buttonSecondaryText}
-            strokeWidth={2}
-          />
-        </Pressable>
+        />
 
         {/* Right Side: Prev / Next & Slide Dots in the Same Line */}
         {typeof totalEvents === 'number' && totalEvents > 1 && (
@@ -434,9 +252,9 @@ export function DailyEventCard({
               accessibilityLabel="Previous event"
             >
               <ChevronLeft
-                size={12}
-                color={!hasPrevEvent ? (isDark ? '#475569' : '#CBD5E1') : (isDark ? '#E2E8F0' : '#1E293B')}
-                strokeWidth={2}
+                size={13}
+                color={!hasPrevEvent ? (isDark ? '#494A50' : '#C5C6CC') : (isDark ? '#FFFFFF' : '#1F2024')}
+                strokeWidth={2.2}
               />
               <Text style={[styles.geminiNavBtnText, !hasPrevEvent && styles.geminiNavBtnTextDisabled]}>
                 Prev
@@ -470,9 +288,9 @@ export function DailyEventCard({
                 Next
               </Text>
               <ChevronRight
-                size={12}
-                color={!hasNextEvent ? (isDark ? '#475569' : '#CBD5E1') : (isDark ? '#E2E8F0' : '#1E293B')}
-                strokeWidth={2}
+                size={13}
+                color={!hasNextEvent ? (isDark ? '#494A50' : '#C5C6CC') : (isDark ? '#FFFFFF' : '#1F2024')}
+                strokeWidth={2.2}
               />
             </Pressable>
           </View>
@@ -1468,13 +1286,13 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     geminiNavBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 2,
-      paddingVertical: 3,
-      paddingHorizontal: 7,
-      borderRadius: 6,
-      backgroundColor: isDark ? '#202227' : '#FFFFFF',
+      gap: 4,
+      paddingVertical: 6,
+      paddingHorizontal: 10,
+      borderRadius: 10,
+      backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#2E323A' : '#E2E8F0',
+      borderColor: isDark ? '#383A42' : '#E8E9F1',
     },
     geminiNavBtnDisabled: {
       opacity: 0.35,
@@ -1482,30 +1300,30 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       borderColor: 'transparent',
     },
     geminiNavBtnText: {
-      fontSize: 11,
+      fontSize: 12,
       fontWeight: '600',
-      color: isDark ? '#F1F5F9' : '#1E293B',
+      color: isDark ? '#FFFFFF' : '#1F2024',
     },
     geminiNavBtnTextDisabled: {
-      color: isDark ? '#475569' : '#94A3B8',
+      color: isDark ? '#494A50' : '#C5C6CC',
     },
     geminiNavDots: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 4,
-      paddingHorizontal: 2,
+      paddingHorizontal: 4,
     },
     geminiNavDot: {
       width: 5,
       height: 5,
       borderRadius: 2.5,
-      backgroundColor: isDark ? '#353942' : '#CBD5E1',
+      backgroundColor: isDark ? '#383A42' : '#D4D6DD',
     },
     geminiNavDotActive: {
       width: 14,
       height: 5,
       borderRadius: 2.5,
-      backgroundColor: theme.buttonPrimaryBg,
+      backgroundColor: PALETTE.highlight.primary,
     },
 
     /* Middle Side Navigation Arrow Buttons */
@@ -1518,9 +1336,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       borderRadius: 18,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: isDark ? '#202227' : '#FFFFFF',
+      backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#2E323A' : '#D1D5DB',
+      borderColor: isDark ? '#383A42' : '#E8E9F1',
       shadowColor: '#000000',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: isDark ? 0.35 : 0.12,

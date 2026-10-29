@@ -297,9 +297,10 @@ export function MobileBottomNav({
               style={[
                 styles.mobileIconCapsule,
                 isActive && {
+                  borderColor: '#006FFD',
                   backgroundColor: isDark
-                    ? 'rgba(0, 111, 253, 0.18)'
-                    : '#EAF2FF',
+                    ? 'rgba(0, 111, 253, 0.10)'
+                    : 'rgba(0, 111, 253, 0.06)',
                 },
               ]}>
               <Icon
@@ -309,7 +310,7 @@ export function MobileBottomNav({
                     ? '#006FFD'
                     : theme.textMuted
                 }
-                strokeWidth={isActive ? 2.3 : 1.8}
+                strokeWidth={isActive ? 2.2 : 1.8}
               />
             </View>
             <Text
@@ -319,23 +320,13 @@ export function MobileBottomNav({
                 styles.mobileNavText,
                 {
                   color: isActive
-                    ? (isDark ? '#FFFFFF' : '#006FFD')
+                    ? '#006FFD'
                     : theme.textMuted,
                   fontWeight: isActive ? '700' : '500',
                 },
               ]}>
               {item.label}
             </Text>
-            {isActive && (
-              <View
-                style={[
-                  styles.activeIndicatorDot,
-                  {
-                    backgroundColor: '#006FFD',
-                  },
-                ]}
-              />
-            )}
           </TouchableOpacity>
         );
       })}
@@ -480,6 +471,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 4,
     borderRadius: 14,
+    borderWidth: 1.5,
+    borderColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 2,
@@ -487,11 +480,5 @@ const styles = StyleSheet.create({
   mobileNavText: {
     fontSize: 10.5,
     letterSpacing: -0.2,
-  },
-  activeIndicatorDot: {
-    width: 3.5,
-    height: 3.5,
-    borderRadius: 2,
-    marginTop: 2,
   },
 });

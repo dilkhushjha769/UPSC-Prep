@@ -162,6 +162,7 @@ export default function AppScreen() {
             <MockTestDashboard
               onStartTest={(testId) => setActiveMockTestId(testId)}
               onToggleTheme={toggleTheme}
+              onBack={() => setActiveTab('home')}
               isDark={isDark}
             />
           )}

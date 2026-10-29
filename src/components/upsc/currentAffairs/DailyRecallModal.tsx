@@ -26,6 +26,7 @@ import { DailyEventItem } from '@/data/currentAffairsData';
 import {
   EventRecallQuestion,
   generateDayRecallQuestions,
+  generateEventRecallQuestions,
 } from '@/services/eventRecallService';
 
 interface DailyRecallModalProps {
@@ -33,6 +34,7 @@ interface DailyRecallModalProps {
   onClose: () => void;
   dateKey: string;
   events: DailyEventItem[];
+  singleEvent?: DailyEventItem | null;
   isDark: boolean;
 }
 
@@ -41,6 +43,7 @@ export function DailyRecallModal({
   onClose,
   dateKey,
   events,
+  singleEvent = null,
   isDark,
 }: DailyRecallModalProps) {
   if (!visible) return null;
@@ -56,6 +59,7 @@ export function DailyRecallModal({
         onClose={onClose}
         dateKey={dateKey}
         events={events}
+        singleEvent={singleEvent}
         isDark={isDark}
       />
     </Modal>
@@ -66,11 +70,13 @@ function DailyRecallContent({
   onClose,
   dateKey,
   events,
+  singleEvent,
   isDark,
 }: {
   onClose: () => void;
   dateKey: string;
   events: DailyEventItem[];
+  singleEvent?: DailyEventItem | null;
   isDark: boolean;
 }) {
   const { width } = useWindowDimensions();
@@ -79,10 +85,13 @@ function DailyRecallContent({
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const styles = useMemo(() => getStyles(theme, isDark, isDesktop), [theme, isDark, isDesktop]);
 
-  // Generate the 10 active recall questions for the selected day
+  // Generate the 5 active recall questions for a single event OR 10 questions for the selected day
   const questions: EventRecallQuestion[] = useMemo(
-    () => generateDayRecallQuestions(dateKey, events),
-    [dateKey, events]
+    () =>
+      singleEvent
+        ? generateEventRecallQuestions(singleEvent)
+        : generateDayRecallQuestions(dateKey, events),
+    [singleEvent, dateKey, events]
   );
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -155,17 +164,23 @@ function DailyRecallContent({
         <View style={styles.header}>
           <View style={styles.headerLeft}>
             <View style={styles.iconCircle}>
-              <Zap size={16} color={isDark ? '#38BDF8' : '#0284C7'} strokeWidth={2.4} fill={isDark ? '#38BDF8' : '#0284C7'} />
+              <Zap size={16} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2.4} fill={isDark ? '#6FBAFF' : '#006FFD'} />
             </View>
-            <View>
+            <View style={{ flex: 1 }}>
               <View style={styles.headerTitleRow}>
-                <Text style={styles.headerTitle}>Daily Active Recall</Text>
+                <Text style={styles.headerTitle}>
+                  {singleEvent ? 'Event Recall Quiz' : 'Daily Active Recall'}
+                </Text>
                 <View style={styles.geminiBadge}>
-                  <Text style={styles.geminiBadgeText}>10 MCQs</Text>
+                  <Text style={styles.geminiBadgeText}>
+                    {questions.length} MCQs
+                  </Text>
                 </View>
               </View>
-              <Text style={styles.headerSubtitle}>
-                {formattedDate} · 10 High-Yield Retention Questions
+              <Text style={styles.headerSubtitle} numberOfLines={1}>
+                {singleEvent
+                  ? singleEvent.headline
+                  : `${formattedDate} · 10 High-Yield Retention Questions`}
               </Text>
             </View>
           </View>
@@ -246,17 +261,21 @@ function DailyRecallContent({
               <View style={styles.trophyCircle}>
                 <Award size={36} color="#FBBF24" strokeWidth={1.8} />
               </View>
-              <Text style={styles.completedTitle}>Daily Active Recall Complete!</Text>
+              <Text style={styles.completedTitle}>
+                {singleEvent ? 'Event Recall Quiz Complete!' : 'Daily Active Recall Complete!'}
+              </Text>
               <Text style={styles.completedSubtitle}>
-                You reviewed all 10 UPSC current affairs questions for {formattedDate}.
+                {singleEvent
+                  ? `You reviewed all ${questions.length} active recall questions for "${singleEvent.headline}".`
+                  : `You reviewed all ${questions.length} UPSC current affairs questions for ${formattedDate}.`}
               </Text>
 
               <View style={styles.scoreSummaryBox}>
-                <Text style={styles.scoreSummaryBig}>{score} / 10</Text>
+                <Text style={styles.scoreSummaryBig}>{score} / {questions.length}</Text>
                 <Text style={styles.scoreSummaryLabel}>
-                  {score >= 8
+                  {score >= Math.ceil(questions.length * 0.8)
                     ? 'Outstanding Retention! Prelims & Mains Ready 🔥'
-                    : score >= 6
+                    : score >= Math.ceil(questions.length * 0.6)
                     ? 'Solid Recall! High Conceptual Grasp 🌟'
                     : 'Good Effort! Active Recall Strengthens Long-Term Memory 💡'}
                 </Text>
@@ -270,7 +289,7 @@ function DailyRecallContent({
                     setCurrentIndex(0);
                   }}
                 >
-                  <BookOpen size={15} color={theme.textPrimary} strokeWidth={2} />
+                  <BookOpen size={15} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2} />
                   <Text style={styles.reviewBtnText}>Review Answers</Text>
                 </Pressable>
 
@@ -488,10 +507,12 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       marginTop: 2,
     },
     closeBtn: {
-      width: 34,
-      height: 34,
-      borderRadius: 8,
-      backgroundColor: isDark ? '#142032' : '#F1F5F9',
+      width: 36,
+      height: 36,
+      borderRadius: 18,
+      backgroundColor: isDark ? '#2F3036' : '#FFFFFF',
+      borderWidth: 1,
+      borderColor: isDark ? '#383A42' : '#E8E9F1',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -831,15 +852,15 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       justifyContent: 'center',
       gap: 7,
       paddingVertical: 12,
-      borderRadius: 9,
-      backgroundColor: isDark ? '#132032' : '#F1F5F9',
-      borderWidth: 1,
-      borderColor: isDark ? '#1E324C' : '#CBD5E1',
+      borderRadius: 10,
+      backgroundColor: 'transparent',
+      borderWidth: 1.5,
+      borderColor: isDark ? '#2897FF' : '#006FFD',
     },
     reviewBtnText: {
       fontSize: 13.5,
-      fontWeight: '600',
-      color: isDark ? '#F1F5F9' : '#0F172A',
+      fontWeight: '700',
+      color: isDark ? '#6FBAFF' : '#006FFD',
     },
     retakeBtn: {
       flex: 1,
@@ -848,13 +869,13 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       justifyContent: 'center',
       gap: 7,
       paddingVertical: 12,
-      borderRadius: 9,
-      backgroundColor: theme.buttonPrimaryBg,
+      borderRadius: 10,
+      backgroundColor: '#006FFD',
     },
     retakeBtnText: {
       fontSize: 13.5,
       fontWeight: '700',
-      color: theme.buttonPrimaryText,
+      color: '#FFFFFF',
     },
 
     emptyCard: {
@@ -882,12 +903,12 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       flexDirection: 'row',
       alignItems: 'center',
       gap: 4,
-      paddingHorizontal: 12,
+      paddingHorizontal: 14,
       paddingVertical: 8,
-      borderRadius: 7,
-      backgroundColor: isDark ? '#101B2B' : '#F8FAFC',
+      borderRadius: 10,
+      backgroundColor: isDark ? '#2F3036' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#1F2E45' : '#CBD5E1',
+      borderColor: isDark ? '#383A42' : '#E8E9F1',
     },
     navBtnDisabled: {
       opacity: 0.35,
@@ -897,10 +918,10 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     navBtnText: {
       fontSize: 12.5,
       fontWeight: '600',
-      color: isDark ? '#F1F5F9' : '#0F172A',
+      color: isDark ? '#FFFFFF' : '#1F2024',
     },
     navBtnTextDisabled: {
-      color: isDark ? '#475569' : '#94A3B8',
+      color: isDark ? '#494A50' : '#C5C6CC',
     },
     resetBtn: {
       flexDirection: 'row',
@@ -920,8 +941,8 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       gap: 5,
       paddingHorizontal: 14,
       paddingVertical: 8,
-      borderRadius: 7,
-      backgroundColor: theme.buttonPrimaryBg,
+      borderRadius: 10,
+      backgroundColor: '#006FFD',
     },
     navBtnNextUnanswered: {
       opacity: 0.8,

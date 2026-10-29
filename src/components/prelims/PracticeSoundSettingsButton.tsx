@@ -1,10 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Pressable, StyleSheet, Switch, Text, View } from 'react-native';
+import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Settings, X } from 'lucide-react-native';
+import { PrimaryToggle } from '@/components/common/PrimaryToggle';
 import { practiceSoundService, PracticeSoundSettings } from '@/services/practiceSoundService';
 
 interface Props {
   isDark: boolean;
+}
+
+interface SoundRowProps {
+  label: string;
+  value: boolean;
+  onChange: (v: boolean) => void;
+  disabled?: boolean;
+  border: string;
+  text: string;
+  isDark: boolean;
+}
+
+function SoundRow({ label, value, onChange, disabled, border, text, isDark }: SoundRowProps) {
+  return (
+    <View style={[styles.row, { borderColor: border, opacity: disabled ? 0.45 : 1 }]}>
+      <Text style={[styles.rowLabel, { color: text }]}>{label}</Text>
+      <PrimaryToggle
+        value={value}
+        onValueChange={onChange}
+        disabled={disabled}
+        isDark={isDark}
+        activeTrackColor="#006FFD"
+      />
+    </View>
+  );
 }
 
 /** Grey gear button that opens a small sound-effects settings sheet. */
@@ -18,15 +44,6 @@ export function PracticeSoundSettingsButton({ isDark }: Props) {
   const text = isDark ? '#F5F5F7' : '#0F172A';
   const card = isDark ? '#1F2024' : '#FFFFFF';
   const border = isDark ? '#35373F' : '#E2E8F0';
-  const track = { false: isDark ? '#343740' : '#D1D5DB', true: '#0D6EFD' };
-
-  const Row = ({ label, value, onChange, disabled }: { label: string; value: boolean; onChange: (v: boolean) => void; disabled?: boolean }) => (
-    <View style={[styles.row, { borderColor: border, opacity: disabled ? 0.45 : 1 }]}>
-      <Text style={[styles.rowLabel, { color: text }]}>{label}</Text>
-      <Switch value={value} onValueChange={onChange} disabled={disabled} trackColor={track} thumbColor="#FFFFFF" // @ts-ignore
-  activeThumbColor="#FFFFFF" activeTrackColor="#006FFD" />
-    </View>
-  );
 
   return (
     <>
@@ -51,9 +68,9 @@ export function PracticeSoundSettingsButton({ isDark }: Props) {
                 <X size={18} color={grey} strokeWidth={2.2} />
               </Pressable>
             </View>
-            <Row label="Sound effects" value={s.enabled} onChange={(v) => practiceSoundService.update({ enabled: v })} />
-            <Row label="Correct answer sound" value={s.correctSound} disabled={!s.enabled} onChange={(v) => practiceSoundService.update({ correctSound: v })} />
-            <Row label="Wrong answer sound" value={s.incorrectSound} disabled={!s.enabled} onChange={(v) => practiceSoundService.update({ incorrectSound: v })} />
+            <SoundRow label="Sound effects" value={s.enabled} onChange={(v) => practiceSoundService.update({ enabled: v })} border={border} text={text} isDark={isDark} />
+            <SoundRow label="Correct answer sound" value={s.correctSound} disabled={!s.enabled} onChange={(v) => practiceSoundService.update({ correctSound: v })} border={border} text={text} isDark={isDark} />
+            <SoundRow label="Wrong answer sound" value={s.incorrectSound} disabled={!s.enabled} onChange={(v) => practiceSoundService.update({ incorrectSound: v })} border={border} text={text} isDark={isDark} />
           </Pressable>
         </Pressable>
       </Modal>
@@ -70,4 +87,3 @@ const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 12, borderTopWidth: StyleSheet.hairlineWidth },
   rowLabel: { fontSize: 14, fontWeight: '600' },
 });
-

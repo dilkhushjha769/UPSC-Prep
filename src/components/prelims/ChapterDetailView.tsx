@@ -159,7 +159,7 @@ export function ChapterDetailView({
         {/* Chapter Header */}
         <View style={styles.headerBlock}>
           <Text style={styles.breadcrumbText}>
-            UPSC Prelims › {subject.paper === 'GS2' ? 'GS Paper II (CSAT)' : 'GS Paper I'} › {subject.shortTitle} › {chapter.title}
+            UPSC Prelims › {subject.paper === 'GS2' ? 'GS Paper II (CSAT)' : 'GS Paper I'} › {subject.shortTitle}
           </Text>
           <Text style={styles.chapterTitle}>{chapter.title}</Text>
           <Text style={styles.subjectContext}>
@@ -187,6 +187,17 @@ export function ChapterDetailView({
             <Text style={styles.metricValue}>~{avgPerYear}</Text>
             <Text style={styles.metricLabel}>Avg / Year</Text>
           </View>
+        </View>
+
+        {/* 10-YEAR CHAPTER PYQ TREND (ON TOP) */}
+        <View style={styles.trendSection}>
+          <YearWiseTrendGraph
+            chapter={chapter}
+            questions={chapterQuestions}
+            onPracticeQuestions={(year) => {
+              onStartPractice(chapter, year);
+            }}
+          />
         </View>
 
         {/* Practice & Quiz in Compact Button Format */}
@@ -315,15 +326,6 @@ export function ChapterDetailView({
             </View>
           )}
         </View>
-
-        {/* 10-YEAR INTERACTIVE TREND GRAPH */}
-        <YearWiseTrendGraph
-          chapter={chapter}
-          questions={chapterQuestions}
-          onPracticeQuestions={(year) => {
-            onStartPractice(chapter, year);
-          }}
-        />
 
         <View style={{ height: 40 }} />
       </ScrollView>
@@ -517,9 +519,9 @@ const getStyles = (theme: PrelimsThemeType) =>
       paddingBottom: 12,
     },
     backButton: {
-      width: 34,
-      height: 34,
-      borderRadius: 8,
+      width: 36,
+      height: 36,
+      borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: theme.colors.bgSurface,
@@ -528,9 +530,10 @@ const getStyles = (theme: PrelimsThemeType) =>
       ...theme.shadows.card,
     },
     serialBadge: {
-      width: 34,
-      height: 34,
-      borderRadius: 8,
+      minWidth: 36,
+      height: 36,
+      paddingHorizontal: 8,
+      borderRadius: 10,
       backgroundColor: theme.colors.bgSurfaceMuted,
       borderWidth: 1,
       borderColor: theme.colors.borderSubtle,
@@ -541,6 +544,7 @@ const getStyles = (theme: PrelimsThemeType) =>
       fontSize: 12,
       fontWeight: '800',
       color: theme.colors.textPrimary,
+      letterSpacing: 0.5,
     },
     scrollView: {
       flex: 1,
@@ -550,7 +554,7 @@ const getStyles = (theme: PrelimsThemeType) =>
       paddingTop: 4,
     },
     headerBlock: {
-      marginBottom: 16,
+      marginBottom: 14,
     },
     breadcrumbText: {
       fontSize: 11,
@@ -559,9 +563,12 @@ const getStyles = (theme: PrelimsThemeType) =>
       letterSpacing: 0.25,
       marginBottom: 4,
     },
+    trendSection: {
+      marginBottom: 14,
+    },
     subtopicsListCard: {
       backgroundColor: theme.colors.bgSurface,
-      borderRadius: 12,
+      borderRadius: 14,
       borderWidth: 1,
       borderColor: theme.colors.borderCard,
       overflow: 'hidden',
@@ -571,9 +578,9 @@ const getStyles = (theme: PrelimsThemeType) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingVertical: 11,
-      paddingHorizontal: 14,
-      gap: 10,
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+      gap: 12,
     },
     subtopicRowBorder: {
       borderBottomWidth: 1,
@@ -582,27 +589,30 @@ const getStyles = (theme: PrelimsThemeType) =>
     subtopicLeft: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 10,
+      gap: 12,
       flex: 1,
     },
     subtopicIndexBadge: {
-      width: 24,
-      height: 24,
-      borderRadius: 6,
+      width: 26,
+      height: 26,
+      borderRadius: 7,
       backgroundColor: theme.colors.bgSurfaceMuted,
+      borderWidth: 1,
+      borderColor: theme.colors.borderSubtle,
       alignItems: 'center',
       justifyContent: 'center',
     },
     subtopicIndexText: {
-      fontSize: 10,
+      fontSize: 11,
       fontWeight: '800',
       color: theme.colors.textMuted,
     },
     subtopicTitle: {
-      fontSize: 13,
+      fontSize: 13.5,
       fontWeight: '600',
       color: theme.colors.textPrimary,
       flex: 1,
+      lineHeight: 18,
     },
     subtopicRight: {
       flexDirection: 'row',
@@ -610,8 +620,8 @@ const getStyles = (theme: PrelimsThemeType) =>
       gap: 8,
     },
     subtopicCountBadge: {
-      paddingVertical: 3,
-      paddingHorizontal: 8,
+      paddingVertical: 3.5,
+      paddingHorizontal: 9,
       borderRadius: 999,
       backgroundColor: theme.colors.bgSurfaceMuted,
       borderWidth: 1,
@@ -623,7 +633,7 @@ const getStyles = (theme: PrelimsThemeType) =>
       color: theme.colors.textSecondary,
     },
     subtopicPracticeLink: {
-      fontSize: 11,
+      fontSize: 11.5,
       fontWeight: '700',
       color: theme.colors.primary,
     },
@@ -634,22 +644,22 @@ const getStyles = (theme: PrelimsThemeType) =>
         web: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
         default: 'System',
       }),
-      fontSize: 23,
+      fontSize: 24,
       fontWeight: '800',
       color: theme.colors.textPrimary,
-      letterSpacing: -0.6,
-      lineHeight: 30,
-      marginBottom: 4,
+      letterSpacing: -0.5,
+      lineHeight: 31,
+      marginBottom: 5,
     },
     subjectContext: {
-      fontSize: 12,
+      fontSize: 12.5,
       color: theme.colors.textSecondary,
       fontWeight: '500',
     },
     metricsCard: {
       flexDirection: 'row',
       backgroundColor: theme.colors.bgSurface,
-      borderRadius: 12,
+      borderRadius: 14,
       paddingVertical: 14,
       paddingHorizontal: 16,
       borderWidth: 1,
@@ -663,29 +673,29 @@ const getStyles = (theme: PrelimsThemeType) =>
       alignItems: 'center',
     },
     metricValue: {
-      fontSize: 19,
+      fontSize: 20,
       fontWeight: '800',
       color: theme.colors.textPrimary,
       letterSpacing: -0.3,
     },
     metricLabel: {
       fontSize: 10,
-      fontWeight: '600',
+      fontWeight: '700',
       color: theme.colors.textSecondary,
-      marginTop: 2,
+      marginTop: 3,
       textTransform: 'uppercase',
-      letterSpacing: 0.4,
+      letterSpacing: 0.5,
     },
     metricDivider: {
       width: 1,
-      height: 26,
+      height: 28,
       backgroundColor: theme.colors.borderSubtle,
     },
     buttonsRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 10,
-      marginBottom: 16,
+      gap: 12,
+      marginBottom: 18,
     },
     btnPractice: {
       flex: 1,
@@ -693,9 +703,9 @@ const getStyles = (theme: PrelimsThemeType) =>
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: theme.colors.bgSurface,
-      borderRadius: 10,
-      paddingVertical: 13,
-      paddingHorizontal: 14,
+      borderRadius: 12,
+      paddingVertical: 13.5,
+      paddingHorizontal: 16,
       borderWidth: 1.5,
       borderColor: theme.colors.borderCard,
       gap: 8,
@@ -713,9 +723,9 @@ const getStyles = (theme: PrelimsThemeType) =>
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: theme.colors.darkButton,
-      borderRadius: 10,
-      paddingVertical: 13,
-      paddingHorizontal: 14,
+      borderRadius: 12,
+      paddingVertical: 13.5,
+      paddingHorizontal: 16,
       borderWidth: 1.5,
       borderColor: theme.colors.darkButton,
       gap: 8,

@@ -869,12 +869,12 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       gap: 7,
       paddingVertical: 12,
       borderRadius: 9,
-      backgroundColor: isDark ? '#0284C7' : '#1E3A8A',
+      backgroundColor: theme.buttonPrimaryBg,
     },
     retakeBtnText: {
       fontSize: 13.5,
       fontWeight: '700',
-      color: '#FFFFFF',
+      color: theme.buttonPrimaryText,
     },
 
     emptyCard: {
@@ -941,7 +941,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingHorizontal: 14,
       paddingVertical: 8,
       borderRadius: 7,
-      backgroundColor: isDark ? '#0284C7' : '#1E3A8A',
+      backgroundColor: theme.buttonPrimaryBg,
     },
     navBtnNextUnanswered: {
       opacity: 0.8,

@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
+import { Image } from 'expo-image';
 import {
   X,
   Bookmark,
@@ -72,6 +73,7 @@ export function ArticleDetailModal({
   const summary = item.data.summary;
 
   const itemId = item.data.id;
+  const imageUrl = item.type === 'event' ? item.data.imageUrl : (item.data as any).imageUrl;
 
   return (
     <Modal visible={visible} animationType="slide" transparent={false}>
@@ -122,6 +124,19 @@ export function ArticleDetailModal({
             <BookOpen size={13} color={theme.textMuted} strokeWidth={2} />
             <Text style={styles.sourceText}>Authenticated Reference: {source}</Text>
           </View>
+
+          {/* Authentic Editorial Photo if available */}
+          {Boolean(imageUrl) && (
+            <View style={styles.heroImageWrapper}>
+              <Image
+                source={{ uri: imageUrl }}
+                style={styles.heroImage}
+                contentFit="cover"
+                transition={180}
+              />
+              <Text style={styles.imageSourceCaption}>Photo Courtesy: {source}</Text>
+            </View>
+          )}
 
           {/* Summary (if present) */}
           {Boolean(summary) && (
@@ -300,6 +315,32 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       padding: 20,
       paddingBottom: 40,
       gap: 16,
+    },
+    heroImageWrapper: {
+      width: '100%',
+      height: 200,
+      borderRadius: 12,
+      overflow: 'hidden',
+      backgroundColor: isDark ? '#17191D' : '#F1F5F9',
+      borderWidth: 1,
+      borderColor: isDark ? '#262930' : '#E2E8F0',
+      position: 'relative',
+    },
+    heroImage: {
+      width: '100%',
+      height: '100%',
+    },
+    imageSourceCaption: {
+      position: 'absolute',
+      bottom: 6,
+      right: 8,
+      fontSize: 10,
+      fontWeight: '600',
+      color: '#FFFFFF',
+      backgroundColor: 'rgba(0, 0, 0, 0.65)',
+      paddingHorizontal: 6,
+      paddingVertical: 2,
+      borderRadius: 4,
     },
     badgeRow: {
       flexDirection: 'row',

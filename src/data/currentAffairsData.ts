@@ -67,10 +67,13 @@ export interface CuratedArticle {
   id: string;
   title: string;
   source: string;
+  agencyId?: string;
   date: string;
   category: string;
   paper: 'GS 1' | 'GS 2' | 'GS 3' | 'Prelims' | string;
   summary: string;
+  imageUrl?: string;
+  link?: string;
   keyPoints: string[];
   analyticalAngle: string;
   mainsQuestion?: string;
@@ -132,7 +135,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'India-China Complete Coordinated Verification of Troops at Demchok & Depsang Plains',
         source: 'The Hindu • Front Page',
         date: '25 Oct 2026',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/PM_Narendra_Modi_meeting_President_of_China_Xi_Jinping_at_the_16th_BRICS_Summit_%282024%29_01.jpg',
+        imageUrl: 'https://images.indianexpress.com/2026/10/lac-china-india.jpg',
         summary: '- Indian and Chinese military commanders completed joint verification of troop pullback from friction points in **Demchok** and the **Depsang Plains**.\n- The disengagement restores patrolling access up to legacy **Patrolling Points (PP 10 to 13)** through coordinated, pre-scheduled timetables.\n- The move de-escalates a four-year standoff along the **Line of Actual Control (LAC)**, preparing ground to revive the **2005 Political Parameters** boundary dialogue.',
         summaryBullets: [
           'Indian and Chinese military commanders completed joint verification of troop pullback from friction points in **Demchok** and the **Depsang Plains**.',
@@ -180,7 +183,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'National Green Hydrogen Mission: Ministry Releases Tranche-II Incentives for Electrolyser Manufacturing',
         source: 'Press Information Bureau (PIB Delhi)',
         date: '25 Oct 2026',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Hydrogen_electrolyser_-_Science_Museum%2C_London.jpg',
+        imageUrl: 'https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg',
         summary: '- The **Ministry of New & Renewable Energy** issued operational guidelines for Tranche-II of the **₹4,440-crore SIGHT scheme**.\n- Component-I incentivizes **1,500 MW annual electrolyser manufacturing** capacity, mandating at least **50% local value addition** for advanced stacks.\n- The rollout strengthens domestic clean-tech supply chains under the **National Green Hydrogen Mission**, targeting **5 MMT annual output** by 2030.',
         summaryBullets: [
           'The **Ministry of New & Renewable Energy** issued operational guidelines for Tranche-II of the **₹4,440-crore SIGHT scheme**.',
@@ -227,7 +230,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'Supreme Court Issues Directives for Expeditious Border Fencing & Foreigners Tribunal Audits in Assam',
         source: 'The Indian Express • Legal Bureau',
         date: '25 Oct 2026',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Indo_Bangladesh_Border%2C_Dakshin_Denajpur.jpg',
+        imageUrl: 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
         summary: '- The **Supreme Court** issued compliance directives to the **Ministry of Home Affairs** following its verdict upholding **Section 6A of the Citizenship Act, 1955**.\n- Directives mandate time-bound completion of **Indo-Bangladesh border fencing** and accelerated biometric profiling of migrants from the **1966–1971 stream**.\n- The bench ordered digitization of **Foreigners Tribunals in Assam** to ensure statutory constitutionality is matched by robust border surveillance and faster adjudication.',
         summaryBullets: [
           'The **Supreme Court** issued compliance directives to the **Ministry of Home Affairs** following its verdict upholding **Section 6A of the Citizenship Act, 1955**.',
@@ -274,7 +277,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'ISRO Completes Vacuum Hot Testing of Semi-Cryogenic Pre-Burner for LVM3 Heavy Payload Booster',
         source: 'ISRO Technical Bulletin',
         date: '25 Oct 2026',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/38/LVM3_Launch_Configuration.png',
+        imageUrl: 'https://images.indianexpress.com/2026/10/WhatsApp-Image-2026-10-27-at-16.00.04.jpeg',
         summary: '- **ISRO** successfully conducted a vacuum hot-test of the semi-cryogenic pre-burner for the **SCE-200 engine** at **IPRC Mahendragiri**.\n- The engine operates on an indigenous **Isrosene (refined kerosene)** and **liquid oxygen (LOX)** propellant cycle, delivering **2,000 kN thrust**.\n- The milestone advances development of India\'s **Next Generation Launch Vehicle (NGLV)**, raising **LVM3 GTO payload capacity** from 4 to 6 tonnes.',
         summaryBullets: [
           '**ISRO** successfully conducted a vacuum hot-test of the semi-cryogenic pre-burner for the **SCE-200 engine** at **IPRC Mahendragiri**.',
@@ -330,7 +333,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: '16th BRICS Summit Adopts Kazan Declaration: Focus on Local Currency Settlement & NDB Expansion',
         source: 'Ministry of External Affairs (MEA)',
         date: '24 Oct 2026',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/PM_Narendra_Modi_meeting_President_of_China_Xi_Jinping_at_the_16th_BRICS_Summit_%282024%29_01.jpg',
+        imageUrl: 'https://images.indianexpress.com/2026/10/US-4-14.jpg',
         summary: '- Leaders of the expanded nine-member **BRICS** grouping adopted the **Kazan Declaration** at the 2024 summit in Russia.\n- Members supported greater use of **local currencies in cross-border trade** and discussed alternative payment mechanisms.\n- The declaration reiterated calls for reforms to the **UN Security Council, IMF, and World Bank**, including better representation of developing countries.',
         summaryBullets: [
           'Leaders of the expanded nine-member **BRICS** grouping adopted the **Kazan Declaration** at the 2024 summit in Russia.',
@@ -377,7 +380,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'RBI Releases Revised Liquidity Coverage Ratio (LCR) Norms to Mitigate Digital Bank Run Risks',
         source: 'Reserve Bank of India (RBI)',
         date: '24 Oct 2026',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/RBI-Tower.jpg',
+        imageUrl: 'https://images.indianexpress.com/2026/10/Jio-IPO-4.jpg',
         summary: '- The **Reserve Bank of India** finalized revised **Liquidity Coverage Ratio (LCR)** regulations to mitigate digital bank run risks in 24/7 banking environments.\n- Banks must maintain an additional **5% run-off factor** on retail deposits enabled with mobile banking and UPI, requiring higher holdings of **High-Quality Liquid Assets (HQLA)**.\n- The framework aligns domestic banking prudence with **Basel III standards** while providing a phased implementation window to prevent credit constraints.',
         summaryBullets: [
           'The **Reserve Bank of India** finalized revised **Liquidity Coverage Ratio (LCR)** regulations to mitigate digital bank run risks in 24/7 banking environments.',
@@ -433,7 +436,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'Supreme Court 7-Judge Bench Rules States Empowered to Sub-Classify SC/ST Categories for Reservation',
         source: 'The Hindu • Supreme Court Reporter',
         date: '23 Oct 2026',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Supreme_Court_of_India_01.jpg',
+        imageUrl: 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
         summary: '- A 7-judge **Supreme Court** Constitution Bench ruled 6:1 that State legislatures possess authority under **Article 16(4)** to sub-classify Scheduled Castes for affirmative action.\n- The court held that sub-classification must be backed by **quantifiable empirical data** of backwardness without creating an exclusive 100% reservation monopoly.\n- Overruling the **2004 E.V. Chinnaiah judgment**, the ruling enables States to target welfare benefits to the most disadvantaged sub-castes while upholding **Article 14 equality**.',
         summaryBullets: [
           'A 7-judge **Supreme Court** Constitution Bench ruled 6:1 that State legislatures possess authority under **Article 16(4)** to sub-classify Scheduled Castes for affirmative action.',
@@ -480,7 +483,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'Cabinet Clears National Critical Minerals Mission with ₹34,000 Crore Capital Allocation',
         source: 'Press Information Bureau (PIB)',
         date: '23 Oct 2026',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/df/Spodumene-usa59abg.jpg',
+        imageUrl: 'https://images.indianexpress.com/2026/10/Amodeithropic.jpg',
         summary: '- The Union Cabinet approved the **National Critical Minerals Mission** with an outlay of **₹34,000 crore** to secure India\'s strategic supply chains.\n- The mission focuses on domestic exploration and offshore asset acquisition of **24 critical minerals**, including **Lithium, Cobalt, and Rare Earth Elements**.\n- State-owned venture **KABIL** will spearhead acquisitions in South America and Australia, supporting domestic battery manufacturing and national clean-energy goals.',
         summaryBullets: [
           'The Union Cabinet approved the **National Critical Minerals Mission** with an outlay of **₹34,000 crore** to secure India\'s strategic supply chains.',
@@ -536,7 +539,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'CBD COP16 Cali: Negotiations Open on Digital Sequence Information (DSI) Benefit Sharing',
         source: 'Down To Earth • Policy Analysis',
         date: '22 Oct 2026',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/75/COP16_Cali%2C_Colombia.jpg',
+        imageUrl: 'https://images.indianexpress.com/2026/10/28CheetahKunoDeath.jpg',
         summary: '- Negotiations commenced at **CBD COP16** in Cali, Colombia, focusing on operationalizing the **Kunming-Montreal Global Biodiversity Framework (KMGBF)**.\n- India and developing nations demanded a binding multilateral fund for commercialized **Digital Sequence Information (DSI)** under the **Nagoya Protocol**.\n- The mechanism aims to prevent **biopiracy** by ensuring pharmaceutical corporations share profits equitably with **biodiversity-rich indigenous communities**.',
         summaryBullets: [
           'Negotiations commenced at **CBD COP16** in Cali, Colombia, focusing on operationalizing the **Kunming-Montreal Global Biodiversity Framework (KMGBF)**.',
@@ -592,7 +595,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'RBI Expands Offline CBDC-Retail Functionality via Sound-Wave and NFC Protocols',
         source: 'Livemint • Banking & Finance',
         date: '21 Oct 2026',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/RBI-Tower.jpg',
+        imageUrl: 'https://images.indianexpress.com/2026/10/Jio-IPO-4.jpg',
         summary: '- The **Reserve Bank of India** introduced regulatory protocols enabling offline transactions for the **Digital Rupee (e₹-R)** without internet connectivity.\n- Payments rely on **Near Field Communication (NFC)** and encrypted acoustic soundwaves, capped at **₹500 per transaction** via device cryptographic wallets.\n- The framework bridges the digital divide in remote hilly and tribal districts while maintaining **sovereign currency liability** on the RBI balance sheet.',
         summaryBullets: [
           'The **Reserve Bank of India** introduced regulatory protocols enabling offline transactions for the **Digital Rupee (e₹-R)** without internet connectivity.',
@@ -639,7 +642,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'UNFCCC Baku COP29: G77 & India Demand $1 Trillion Annual New Collective Quantified Goal',
         source: 'The Hindu • Climate Diplomacy',
         date: '21 Oct 2026',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/%D0%A1%D0%B0%D0%BC%D0%BC%D0%B8%D1%82_%D0%BB%D0%B8%D0%B4%D0%B5%D1%80%D0%BE%D0%B2_COP29_12_%D0%BD%D0%BE%D1%8F%D0%B1%D1%80%D1%8F_2024.jpg',
+        imageUrl: 'https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg',
         summary: '- The **G77 coalition and India** called for establishing a **$1 trillion annual climate finance target** ahead of **UNFCCC COP29** in Baku.\n- The **New Collective Quantified Goal (NCQG)** will supersede the expired $100 billion Copenhagen pledge under **Article 9 of the Paris Agreement**.\n- Developing nations emphasized non-debt creating **public grants and concessional finance** over commercial loans to honor the principle of **CBDR-RC**.',
         summaryBullets: [
           'The **G77 coalition and India** called for establishing a **$1 trillion annual climate finance target** ahead of **UNFCCC COP29** in Baku.',
@@ -695,7 +698,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'DRDO Successfully Flight-Tests Long-Range Land Attack Cruise Missile (LRLACM) from Chandipur',
         source: 'Press Information Bureau (PIB)',
         date: '20 Oct 2026',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/6/63/Nirbhay_DRDO.jpg',
+        imageUrl: 'https://images.indianexpress.com/2026/10/Railways-safety-feature-1.jpg',
         summary: '- The **DRDO** successfully conducted the maiden flight-test of the indigenous **Long-Range Land Attack Cruise Missile (LRLACM)** from Chandipur, Odisha.\n- Powered by the indigenous **Manik small turbofan engine**, the subsonic missile employs **NAVIC satellite guidance** and terrain-hugging flight profiles.\n- The platform bridges India\'s conventional strike gap between supersonic **BrahMos** and strategic ballistic missiles under **Atmanirbhar Bharat**.',
         summaryBullets: [
           'The **DRDO** successfully conducted the maiden flight-test of the indigenous **Long-Range Land Attack Cruise Missile (LRLACM)** from Chandipur, Odisha.',
@@ -751,7 +754,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'Union Cabinet Approves Implementation Plan for Simultaneous Elections (One Nation One Election)',
         source: 'The Hindu • Governance & Constitutional Law',
         date: '19 Oct 2026',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Sansad_Bhavan%2C_Delhi%2C_BNK.jpg',
+        imageUrl: 'https://images.indianexpress.com/2026/10/US-4-14.jpg',
         summary: '- The **Union Cabinet** formally approved the recommendations of the high-level panel chaired by **Ram Nath Kovind** on simultaneous elections.\n- Phase 1 synchronizes **Lok Sabha and State Assembly** polls, with local body elections scheduled within 100 days under proposed **Article 324A**.\n- Constitutional amendments to **Articles 83 and 172** require a special majority under **Article 368**, with state ratification needed for local body synchronization.',
         summaryBullets: [
           'The **Union Cabinet** formally approved the recommendations of the high-level panel chaired by **Ram Nath Kovind** on simultaneous elections.',
@@ -830,7 +833,7 @@ export function getDailyEventsSummary(dateKey: string): DayEventsSummary {
         headline: `Constitutional & Governance Developments Archive for ${label}`,
         source: 'PIB & Leading Dailies • Archive Record',
         date: `${shortDay} ${monthName} ${yearStr}`,
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Sansad_Bhavan%2C_Delhi%2C_BNK.jpg',
+        imageUrl: 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
         summary: `- Union and State administrative authorities notified statutory resolutions and executive rules in the **Gazette of India** for ${label}.\n- Key developments centered on **inter-state council coordination**, statutory tribunal benches, and public finance review.\n- Measures strengthen institutional accountability and **cooperative federalism** under **Part V and Part VI** of the Constitution.`,
         summaryBullets: [
           `Union and State administrative authorities notified statutory resolutions and executive rules in the **Gazette of India** for ${label}.`,
@@ -876,7 +879,7 @@ export function getDailyEventsSummary(dateKey: string): DayEventsSummary {
         headline: `Macroeconomic Indicators & Strategic Industrial Outlook for ${label}`,
         source: 'Livemint & Business Standard • Archive Record',
         date: `${shortDay} ${monthName} ${yearStr}`,
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/6/64/New_Delhi_government_block_03-2016_img5.jpg',
+        imageUrl: 'https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg',
         summary: `- Macroeconomic tracking indicates steady fiscal expenditure and liquidity management supervised by the **Reserve Bank of India**.\n- Key indicators highlighted trends across **retail CPI inflation**, capital capex allocations, and external trade balances.\n- Monetary and fiscal authorities emphasized **price stability** alongside capital investment under the **FRBM framework**.`,
         summaryBullets: [
           'Macroeconomic tracking indicates steady fiscal expenditure and liquidity management supervised by the **Reserve Bank of India**.',
@@ -1035,49 +1038,164 @@ export const EDITORIALS_DATA: CuratedArticle[] = [
 
 export const IMPORTANT_NEWS_DATA: CuratedArticle[] = [
   {
-    id: 'in_1',
-    title: 'National Mission on Critical Minerals: KABIL Finalizes Lithium Brine Extraction Blocks',
-    source: 'Press Information Bureau (PIB)',
+    id: 'in_ie_1',
+    title: 'UPSC Key: Census Duty Obligations, Extreme El Niño Impacts and E100 Biofuel Roadmap',
+    source: 'The Indian Express • UPSC Essentials',
+    agencyId: 'express',
+    date: '28 Oct 2026',
+    category: 'Environment & Governance',
+    paper: 'GS 3',
+    summary: 'Comprehensive analytical brief on statutory obligations of public servants under the Census Act 1948, climate mechanisms of "Godzilla" El Niño events on winter precipitation, and regulatory prerequisites for 100% ethanol (E100) retail dispensing.',
+    imageUrl: 'https://images.indianexpress.com/2026/10/UPSC-Key-27th-Oct-2026.jpg',
+    link: 'https://indianexpress.com/article/upsc-current-affairs/upsc-key-census-duty-godzilla-el-nino-and-e100-10939318/',
+    keyPoints: [
+      'Statutory framework: Section 11 of Census Act 1948 penalizes refusal to discharge enumeration duties.',
+      'Ocean-atmosphere coupling: Positive Indian Ocean Dipole modulates severe cyclonic intensification in Bay of Bengal.',
+      'Biofuel transition: E100 requires flex-fuel engine calibration to counter lower energy density and phase-separation risks.',
+      'Public service impact: Rebalancing field administrative duties with continuous public service delivery.',
+    ],
+    analyticalAngle: 'Interplay between constitutional administrative machinery, climate resilience, and bio-energy independence.',
+    mainsQuestion: 'Assess the institutional challenges of conducting the decennial national census alongside routine administrative responsibilities. (10 Marks, 150 Words)',
+  },
+  {
+    id: 'in_th_1',
+    title: 'Election Commission of India Releases Verified State Electoral Rolls Post-SIR',
+    source: 'The Hindu • National Desk',
+    agencyId: 'hindu',
+    date: '28 Oct 2026',
+    category: 'Polity & Elections',
+    paper: 'GS 2',
+    summary: 'The Election Commission finalized verified voter lists following Special Summary Revision (SIR) across key states, enrolling over 1.4 million first-time voters, purging duplicate entries, and appointing 11 central oversight observers.',
+    imageUrl: 'https://th-i.thgim.com/public/incoming/2rlwoo/article71634541.ece/alternates/LANDSCAPE_1200/20261027106L.jpg',
+    link: 'https://www.thehindu.com/news/national/',
+    keyPoints: [
+      'Four qualifying dates (Jan 1, Apr 1, Jul 1, Oct 1) under Section 14(b) of RPA 1950 drastically accelerated youth enrolment.',
+      'De-duplication algorithms deployed across ERONet platform to eliminate cross-constituency double voting.',
+      'Standard Operating Procedure issued for continuous voter card updates via Form 6 and Form 8.',
+      'Civil society vigilance and party booth-level agents (BLAs) integrated into claims and objections adjudication.',
+    ],
+    analyticalAngle: 'Universal adult suffrage jurisprudence and the role of digital voter registries in electoral integrity.',
+    mainsQuestion: 'Evaluate the role of continuous electoral roll revision in strengthening democratic representation and curbing electoral fraud. (15 Marks, 250 Words)',
+  },
+  {
+    id: 'in_pib_1',
+    title: 'National Green Hydrogen Mission: SIGHT Tranche-II Incentives for Electrolyser Manufacturing',
+    source: 'Press Information Bureau (PIB Delhi)',
+    agencyId: 'pib',
+    date: '27 Oct 2026',
+    category: 'Energy & Industrial Policy',
+    paper: 'GS 3',
+    summary: 'The Ministry of New & Renewable Energy released guidelines for Tranche-II under the ₹4,440-crore SIGHT scheme, allocating subsidies for 1,500 MW annual domestic electrolyser production with mandatory 50% local value addition.',
+    imageUrl: 'https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg',
+    link: 'https://pib.gov.in',
+    keyPoints: [
+      'Incentivizes Proton Exchange Membrane (PEM) and Alkaline electrolyser stack manufacturing.',
+      'Mandates minimum 50% domestic content to nurture Tier-1 and Tier-2 specialized component suppliers.',
+      'Forms central pillar to achieve 5 MMT annual green hydrogen capacity by 2030.',
+      'Implementation executed by Solar Energy Corporation of India (SECI) under performance-linked disbursements.',
+    ],
+    analyticalAngle: 'Strategic industrial policy: Balancing capital subsidies with local value addition to avoid import dependency.',
+    mainsQuestion: 'Critically examine the SIGHT scheme under the National Green Hydrogen Mission in making India a global clean energy manufacturing hub. (15 Marks, 250 Words)',
+  },
+  {
+    id: 'in_ie_2',
+    title: 'Explained: Meteorological Drivers of Severe Cyclonic Storm Intensification in North Indian Ocean',
+    source: 'The Indian Express • Explained',
+    agencyId: 'express',
+    date: '27 Oct 2026',
+    category: 'Geography & Disaster Management',
+    paper: 'GS 1 & GS 3',
+    summary: 'Atmospheric scientists examine anomalous sea surface temperatures exceeding 30.5°C in the Bay of Bengal, explaining how low vertical wind shear and moisture flux convergence drive rapid tropical cyclone intensification within 24-hour cycles.',
+    imageUrl: 'https://images.indianexpress.com/2026/10/arnab_409941.jpg',
+    link: 'https://indianexpress.com/article/explained/explained-climate/',
+    keyPoints: [
+      'Rapid intensification defined as an increase in maximum sustained winds of at least 30 knots within 24 hours.',
+      'High Tropical Cyclone Heat Potential (TCHP) acts as an oceanic thermal reservoir feeding storm convection.',
+      'Early warning Doppler radar coverage along eastern seaboard minimizes evacuation lead times.',
+      'Climate modeling highlights post-monsoon cyclonic frequency shifts linked to broader anthropocene warming.',
+    ],
+    analyticalAngle: 'Disaster management architecture: Shifting from post-disaster relief to structural and predictive risk reduction.',
+    mainsQuestion: 'Explain the factors responsible for rapid tropical cyclone intensification in the Bay of Bengal and discuss early warning measures. (10 Marks, 150 Words)',
+  },
+  {
+    id: 'in_th_2',
+    title: 'Supreme Court Issues Compliance Directives on Border Fencing & Foreigners Tribunals in Assam',
+    source: 'The Hindu • Legal Bureau',
+    agencyId: 'hindu',
+    date: '26 Oct 2026',
+    category: 'Polity & Constitutional Law',
+    paper: 'GS 2',
+    summary: 'Following its constitution bench verdict upholding Section 6A of the Citizenship Act, 1955, the Supreme Court ordered the Union Home Ministry to institute rigorous biometric monitoring, expedite riverine fencing, and modernize Foreigners Tribunals.',
+    imageUrl: 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
+    link: 'https://www.thehindu.com',
+    keyPoints: [
+      'Reiterates constitutional validity of March 25, 1971 cut-off date regularized under historic Assam Accord.',
+      'Mandates digitizing records of 100 Foreigners Tribunals in Assam to resolve pending nationality references.',
+      'Directs Joint border inspection along unfenced riverine stretches in Dhubri and Karimganj sectors.',
+      'Reaffirms constitutional harmony between parliamentary power (Article 11) and executive security imperatives.',
+    ],
+    analyticalAngle: 'Constitutional balance between statutory immigration policy, human rights, and border sovereignty.',
+    mainsQuestion: 'Discuss the constitutional and humanitarian dimensions of the Assam Accord in the light of recent Supreme Court verdicts. (15 Marks, 250 Words)',
+  },
+  {
+    id: 'in_mint_1',
+    title: 'RBI Master Directions: Revised Liquidity Coverage Ratio Framework for Banking Stability',
+    source: 'Livemint • Banking & Finance',
+    agencyId: 'mint',
+    date: '26 Oct 2026',
+    category: 'Economy & Financial Regulation',
+    paper: 'GS 3',
+    summary: 'The Reserve Bank of India updated Basel III Liquidity Coverage Ratio (LCR) guidelines, requiring commercial banks to increase buffer liquidity buffers against instant retail runs caused by 24/7 internet and mobile banking services.',
+    imageUrl: 'https://images.indianexpress.com/2026/10/Jio-IPO-4.jpg',
+    link: 'https://www.livemint.com',
+    keyPoints: [
+      'Increases mandatory run-off factor on retail internet/UPI deposits from 5% to 10%.',
+      'Mandates banks hold an additional buffer of High-Quality Liquid Assets (HQLA) in Government Securities (G-Secs).',
+      'Direct response to speed of modern digital bank runs observed in international banking crises (e.g., SVB collapse).',
+      'Balances systemic financial solvency with banks’ ongoing credit delivery capabilities.',
+    ],
+    analyticalAngle: 'Macro-prudential regulation: Upgrading traditional banking ratios for an era of instant digital liquidity velocity.',
+    mainsQuestion: 'What is the Liquidity Coverage Ratio (LCR)? How do 24/7 digital payment platforms create new vulnerabilities for banking stability? (10 Marks, 150 Words)',
+  },
+  {
+    id: 'in_dte_1',
+    title: 'Project Cheetah: Independent High-Level Task Force Formed for Kuno Habitat Management',
+    source: 'Down To Earth • Wildlife Ecology',
+    agencyId: 'dte',
     date: '25 Oct 2026',
-    category: 'Strategic Resources',
+    category: 'Environment & Biodiversity',
     paper: 'GS 3',
-    summary: 'Khanij Bidesh India Limited (KABIL) signs commercial concession pacts for 5 lithium brine blocks in Catamarca Province, Argentina, securing long-term non-ferrous raw materials for domestic gigafactories.',
+    summary: 'The National Tiger Conservation Authority (NTCA) along with leading veterinary pathologists set up a technical panel to scrutinize radio telemetry tracking, veterinary monitoring, and prey density in the Kuno-Palpur wildlife sanctuary.',
+    imageUrl: 'https://images.indianexpress.com/2026/10/28CheetahKunoDeath.jpg',
+    link: 'https://www.downtoearth.org.in',
     keyPoints: [
-      'Secures rights to extract over 50,000 tonnes of battery-grade lithium carbonate annually.',
-      'Reduces near-total import dependence on East Asian refining consortia.',
-      'Complements geological surveys in Reasi (J&K) and Katghora (Chhattisgarh).',
+      'Scrutinizes inter-state dispersal corridors connecting Kuno to Gandhi Sagar Wildlife Sanctuary in Madhya Pradesh.',
+      'Investigates health complications arising from winter coat development under monsoon humidity.',
+      'Recommends soft-release acclimation protocol adjustments for second-generation African cheetah cubs.',
+      'Highlights ecological role of top predators in grassland and scrub savannah restoration.',
     ],
-    analyticalAngle: 'Raw material supply security as a prerequisite for India’s 2030 EV 30% penetration targets.',
+    analyticalAngle: 'Ecological feasibility, genetic diversity, and conservation ethics in transcontinental species reintroduction.',
+    mainsQuestion: 'Evaluate the ecological significance and conservation hurdles encountered in the transcontinental reintroduction of cheetahs in India. (15 Marks, 250 Words)',
   },
   {
-    id: 'in_2',
-    title: 'WMO Greenhouse Gas Bulletin: Atmospheric CO2 and Methane Reach Unprecedented Peaks',
-    source: 'UN Climate Registry • Geneva',
-    date: '24 Oct 2026',
-    category: 'Climate & Ecology',
+    id: 'in_ie_3',
+    title: 'Kavach 4.0 ATP System Deployment Across 10,000 Route Kilometers Accelerated',
+    source: 'The Indian Express • Infrastructure',
+    agencyId: 'express',
+    date: '25 Oct 2026',
+    category: 'Infrastructure & Safety Technology',
     paper: 'GS 3',
-    summary: 'Atmospheric carbon dioxide concentrations crossed 420 ppm in 2024, exhibiting annual growth rate surpassing historical decadal averages due to intensifying forest wildfires and El Niño feedbacks.',
+    summary: 'The Railway Board sanctioned immediate tenders for indigenously designed Kavach 4.0 automatic train protection systems across high-density passenger corridors, incorporating LTE-R radio communications and SIL-4 safety fail-safes.',
+    imageUrl: 'https://images.indianexpress.com/2026/10/Railways-safety-feature-1.jpg',
+    link: 'https://indianexpress.com/article/upsc-current-affairs/upsc-essentials/knowledge-nugget-how-is-indian-railways-rethinking-safety-and-security-upsc-10938686/',
     keyPoints: [
-      'Methane (CH4) concentrations reached 1,934 ppb (265% of pre-industrial levels).',
-      'Wildfires in boreal zones released record carbon into the atmosphere, weakening terrestrial sinks.',
-      'Accelerating ocean acidification threatening tropical coral reef calcification.',
+      'Safety Integrity Level 4 (SIL-4) certified: Probability of danger failure less than 1 in 10,000 years.',
+      'Automatic brake actuation prevents Signal Passing At Danger (SPAD) and head-on/rear-end train collisions.',
+      'Integrates RFID readers on tracks, UHF station radios, and onboard locomotive computer units.',
+      'A key component of national logistics modernization under PM Gati Shakti National Master Plan.',
     ],
-    analyticalAngle: 'Feedback loops between climate change, forest vulnerability, and global carbon budget depletion.',
-  },
-  {
-    id: 'in_3',
-    title: 'Central Government Notifies Guidelines for Carbon Credit Trading Scheme (CCTS)',
-    source: 'Ministry of Power & Bureau of Energy Efficiency',
-    date: '23 Oct 2026',
-    category: 'Energy & Climate',
-    paper: 'GS 3',
-    summary: 'Detailed statutory rules for India’s domestic compliance carbon market established under Energy Conservation (Amendment) Act 2022. Mandates non-fossil emission reduction targets for energy-intensive sectors.',
-    keyPoints: [
-      'Phased rollout covering Steel, Cement, Fertilizers, and Petrochemicals.',
-      'Bureau of Energy Efficiency (BEE) acts as administrator; Grid Controller of India as registry.',
-      'Carbon Credit Certificates (CCCs) will be tradable on registered domestic power exchanges.',
-    ],
-    analyticalAngle: 'Transition from voluntary carbon markets to mandatory regulatory cap-and-trade architecture.',
+    analyticalAngle: 'Indigenization of critical transport safety technologies to reduce dependence on costly imported European ATP systems.',
+    mainsQuestion: 'Discuss the role of indigenous technology adoption in modernizing India’s railway infrastructure and improving operational safety. (10 Marks, 150 Words)',
   },
 ];
 
@@ -1280,52 +1398,59 @@ export interface FormatCategory {
   id: string;
   title: string;
   subtitle: string;
-  iconName: 'Newspaper' | 'BookOpen' | 'Layers' | 'Scale' | 'Landmark' | 'MessagesSquare';
+  iconName: 'Newspaper' | 'BookOpen' | 'Layers' | 'Scale' | 'Landmark' | 'MessagesSquare' | 'Globe' | 'Leaf' | string;
+  imageUrl?: string;
   articles: CuratedArticle[];
 }
 
 export const FORMAT_CATEGORIES: FormatCategory[] = [
   {
     id: 'daily-news',
-    title: 'Daily News',
-    subtitle: 'Important news, concise facts and source links.',
+    title: '1. Daily News',
+    subtitle: 'Daily developments across all relevant subjects, with concise summaries and key facts.',
     iconName: 'Newspaper',
+    imageUrl: 'https://images.indianexpress.com/2026/10/UPSC-Key-27th-Oct-2026.jpg',
     articles: IMPORTANT_NEWS_DATA,
   },
   {
-    id: 'editorials',
-    title: 'Editorials',
-    subtitle: 'Arguments, balanced analysis and Mains insights.',
-    iconName: 'BookOpen',
-    articles: EDITORIALS_DATA,
+    id: 'international-affairs',
+    title: '2. International Affairs',
+    subtitle: "IR, global events, India's foreign policy, international institutions and map-based facts.",
+    iconName: 'Globe',
+    imageUrl: 'https://images.indianexpress.com/2026/10/US-6-11.jpg',
+    articles: ARTICLES_OPINIONS_DATA,
   },
   {
-    id: 'explainers',
-    title: 'Articles & Explainers',
-    subtitle: 'Background, concepts and deeper issue analysis.',
-    iconName: 'Layers',
-    articles: ARTICLES_EXPLAINERS_DATA,
-  },
-  {
-    id: 'judgments',
-    title: 'Judgments & Legal Developments',
-    subtitle: 'Court rulings, constitutional questions and significance.',
+    id: 'polity-governance',
+    title: '3. Polity & Governance',
+    subtitle: 'Judgments, constitutional issues, policies, governance reforms and government initiatives.',
     iconName: 'Scale',
+    imageUrl: 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
     articles: JUDGMENTS_LEGAL_DATA,
   },
   {
-    id: 'schemes',
-    title: 'Schemes & Reports',
-    subtitle: 'Government initiatives, indices, surveys and data.',
+    id: 'economy-environment-science',
+    title: '4. Economy, Environment & Science',
+    subtitle: 'Economic developments, ecology, biodiversity, technology and scientific discoveries.',
+    iconName: 'Leaf',
+    imageUrl: 'https://images.indianexpress.com/2026/10/Jio-IPO-4.jpg',
+    articles: ARTICLES_EXPLAINERS_DATA,
+  },
+  {
+    id: 'reports-schemes-data',
+    title: '5. Reports, Schemes & Data',
+    subtitle: 'Government schemes, surveys, indices, reports and useful Mains statistics.',
     iconName: 'Landmark',
+    imageUrl: 'https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg',
     articles: SCHEMES_REPORTS_DATA,
   },
   {
-    id: 'opinions',
-    title: 'Opinions & Perspectives',
-    subtitle: 'Different viewpoints on contested issues.',
-    iconName: 'MessagesSquare',
-    articles: OPINIONS_PERSPECTIVES_DATA,
+    id: 'editorials-explainers',
+    title: '6. Editorials & Explainers',
+    subtitle: 'Balanced arguments, background context, multidimensional analysis and Mains-ready points.',
+    iconName: 'BookOpen',
+    imageUrl: 'https://images.indianexpress.com/2026/10/serbia-elections.jpg',
+    articles: EDITORIALS_DATA,
   },
 ];
 

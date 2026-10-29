@@ -21,8 +21,10 @@ import {
   ChevronDown,
   FileText,
   Filter,
+  Globe,
   Landmark,
   Layers,
+  Leaf,
   ListChecks,
   MessagesSquare,
   Newspaper,
@@ -31,6 +33,7 @@ import {
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Animated,
+  Easing,
   PanResponder,
   Pressable,
   ScrollView,
@@ -39,6 +42,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
+import { Image } from 'expo-image';
 import { ArticleDetailModal } from './currentAffairs/ArticleDetailModal';
 import { CalendarDropdown } from './currentAffairs/CalendarDropdown';
 import { CAQuizModal } from './currentAffairs/CAQuizModal';
@@ -47,6 +51,10 @@ import { DailyRecallModal } from './currentAffairs/DailyRecallModal';
 import { FormatFeedModal } from './currentAffairs/FormatFeedModal';
 import { MonthlyRevisionModal } from './currentAffairs/MonthlyRevisionModal';
 import { NotesLibraryModal } from './currentAffairs/NotesLibraryModal';
+import {
+  fetchLiveNewsFromAgencies,
+  getCachedAuthenticNews,
+} from '@/services/newsFeedService';
 
 type DetailItem =
   | { type: 'event'; data: DailyEventItem }
@@ -154,12 +162,74 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
 
   const [dailyRecallModalVisible, setDailyRecallModalVisible] = useState(false);
 
+  // Live authentic news state fetched directly from Indian Express & The Hindu RSS
+  const [liveAgencyEvents, setLiveAgencyEvents] = useState<DailyEventItem[]>([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    void (async () => {
+      // 1. Load cached authentic news immediately for instant display
+      const cached = await getCachedAuthenticNews();
+      if (isMounted && cached && cached.length > 0) {
+        setLiveAgencyEvents(cached);
+      }
+
+      // 2. Fetch fresh live news from authentic agencies
+      try {
+        const liveItems = await fetchLiveNewsFromAgencies(selectedAgencyId);
+        if (isMounted && liveItems && liveItems.length > 0) {
+          setLiveAgencyEvents(liveItems);
+        }
+      } catch {
+        // Fallback to pre-seeded authentic items
+      }
+    })();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [selectedAgencyId]);
+
+
   // Active day data retrieved from data or dynamic fallback
   const activeDaySummary: DayEventsSummary = useMemo(() => {
     return getDailyEventsSummary(selectedDateKey);
   }, [selectedDateKey]);
 
-  const activeDailyEvents: DailyEventItem[] = activeDaySummary.events;
+  const isToday = selectedDateKey === DAILY_EVENTS_DATA[0].dateKey;
+
+  const activeDailyEvents: DailyEventItem[] = useMemo(() => {
+    const baseEvents = activeDaySummary.events;
+
+    // Filter by selected agency if chosen
+    if (selectedAgencyId !== 'all') {
+      const agency = NEWS_AGENCIES.find((a) => a.id === selectedAgencyId);
+      if (agency?.matchKeyword) {
+        const kw = agency.matchKeyword.toLowerCase();
+        const matchedBase = baseEvents.filter((e) => e.source.toLowerCase().includes(kw));
+        const matchedLive = liveAgencyEvents.filter((e) => e.source.toLowerCase().includes(kw));
+        const combined = [...matchedLive, ...matchedBase];
+        return combined.length > 0 ? combined : baseEvents;
+      }
+    }
+
+    if (isToday && liveAgencyEvents.length > 0) {
+      // Merge live items with base events, de-duplicating by headline prefix
+      const seen = new Set<string>();
+      const merged: DailyEventItem[] = [];
+
+      for (const item of [...liveAgencyEvents, ...baseEvents]) {
+        const key = item.headline.toLowerCase().slice(0, 30);
+        if (!seen.has(key)) {
+          seen.add(key);
+          merged.push(item);
+        }
+      }
+      return merged;
+    }
+
+    return baseEvents;
+  }, [activeDaySummary.events, isToday, liveAgencyEvents, selectedAgencyId]);
 
   // Safe active event item
   const currentDailyEvent: DailyEventItem | undefined =
@@ -190,6 +260,30 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
   // Card sliding animation values for mobile gestures & transitions
   const [translateX] = useState(() => new Animated.Value(0));
   const [cardOpacity] = useState(() => new Animated.Value(1));
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Prefetch event images and category images into memory/disk cache so transitions and rendering are instant
+  useEffect(() => {
+    const eventUrls = activeDailyEvents
+      .map((e) => {
+        if (!e.imageUrl) return null;
+        try {
+          return decodeURI(e.imageUrl);
+        } catch {
+          return e.imageUrl;
+        }
+      })
+      .filter((url): url is string => Boolean(url));
+
+    const categoryUrls = FORMAT_CATEGORIES.map((c) => c.imageUrl).filter((url): url is string =>
+      Boolean(url)
+    );
+
+    const allUrls = [...eventUrls, ...categoryUrls];
+    if (allUrls.length > 0) {
+      Image.prefetch(allUrls);
+    }
+  }, [activeDailyEvents]);
 
   // Reset animations when date changes
   useEffect(() => {
@@ -199,38 +293,51 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
 
   const animateCardTransition = useCallback(
     (direction: 'next' | 'prev', callback: () => void) => {
-      const exitValue = direction === 'next' ? -220 : 220;
-      const enterValue = direction === 'next' ? 180 : -180;
+      if (isTransitioning) return;
+      setIsTransitioning(true);
 
+      const exitValue = direction === 'next' ? -42 : 42;
+      const enterValue = direction === 'next' ? 42 : -42;
+
+      // Phase 1: Smoothly fade and glide out to complete invisibility (0 opacity)
       Animated.parallel([
         Animated.timing(translateX, {
           toValue: exitValue,
-          duration: 120,
+          duration: 140,
+          easing: Easing.bezier(0.4, 0, 0.2, 1),
           useNativeDriver: true,
         }),
         Animated.timing(cardOpacity, {
-          toValue: 0.25,
-          duration: 120,
+          toValue: 0,
+          duration: 140,
+          easing: Easing.bezier(0.4, 0, 0.2, 1),
           useNativeDriver: true,
         }),
       ]).start(() => {
+        // Swap event data while card is completely invisible
         callback();
         translateX.setValue(enterValue);
+
+        // Phase 2: Smoothly glide and fade in to full visibility
         Animated.parallel([
           Animated.timing(translateX, {
             toValue: 0,
-            duration: 150,
+            duration: 180,
+            easing: Easing.bezier(0, 0, 0.2, 1),
             useNativeDriver: true,
           }),
           Animated.timing(cardOpacity, {
             toValue: 1,
-            duration: 150,
+            duration: 180,
+            easing: Easing.bezier(0, 0, 0.2, 1),
             useNativeDriver: true,
           }),
-        ]).start();
+        ]).start(() => {
+          setIsTransitioning(false);
+        });
       });
     },
-    [cardOpacity, translateX]
+    [cardOpacity, isTransitioning, translateX]
   );
 
   const handlePrevEvent = useCallback(() => {
@@ -313,6 +420,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
         },
         onPanResponderGrant: () => {
           setIsAutoPlayPaused(true);
+          cardOpacity.setValue(1);
           translateX.stopAnimation();
         },
         onPanResponderMove: (_, gestureState) => {
@@ -355,7 +463,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
           }
         },
       }),
-    [activeDailyEvents.length, activeEventIndex, handleNextEvent, handlePrevEvent, translateX]
+    [activeDailyEvents.length, activeEventIndex, cardOpacity, handleNextEvent, handlePrevEvent, translateX]
   );
 
   const renderFormatIcon = (iconName: string) => {
@@ -373,6 +481,10 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
         return <Landmark {...iconProps} />;
       case 'MessagesSquare':
         return <MessagesSquare {...iconProps} />;
+      case 'Globe':
+        return <Globe {...iconProps} />;
+      case 'Leaf':
+        return <Leaf {...iconProps} />;
       default:
         return <BookOpen {...iconProps} />;
     }
@@ -390,39 +502,49 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
         {/* 1. TOP HEADER - Current Affairs                          */}
         {/* ======================================================== */}
         <View style={styles.header}>
-          <View style={styles.titleBlock}>
+          <View style={styles.headerTopRow}>
             <Text style={styles.pageHeading}>Current Affairs</Text>
-            <Text style={styles.pageSubtitle}>
-              Decode Today. Prepare for Tomorrow.
-            </Text>
+
+            {/* Symbols only: Notes and My Library, aligned with Current Affairs heading */}
+            <View style={styles.headerActions}>
+              <Pressable
+                style={({ pressed }: any) => [
+                  styles.headerIconBtn,
+                  pressed && styles.cardPressed,
+                ]}
+                onPress={() => {
+                  setInitialNoteTitle('');
+                  setNotesLibraryInitialTab('notes');
+                  setNotesLibraryModalVisible(true);
+                }}
+                accessibilityLabel="Notes"
+                accessibilityRole="button"
+                hitSlop={6}
+              >
+                <FileText size={16} color={theme.textPrimary} strokeWidth={1.9} />
+              </Pressable>
+
+              <Pressable
+                style={({ pressed }: any) => [
+                  styles.headerIconBtn,
+                  pressed && styles.cardPressed,
+                ]}
+                onPress={() => {
+                  setNotesLibraryInitialTab('library');
+                  setNotesLibraryModalVisible(true);
+                }}
+                accessibilityLabel="My Library"
+                accessibilityRole="button"
+                hitSlop={6}
+              >
+                <Bookmark size={16} color={theme.textPrimary} strokeWidth={1.9} />
+              </Pressable>
+            </View>
           </View>
 
-          {/* Visually secondary header actions */}
-          <View style={styles.headerActions}>
-
-            <Pressable
-              style={styles.secondaryBtn}
-              onPress={() => {
-                setInitialNoteTitle('');
-                setNotesLibraryInitialTab('notes');
-                setNotesLibraryModalVisible(true);
-              }}
-            >
-              <FileText size={14} color={theme.textPrimary} strokeWidth={1.8} />
-              <Text style={styles.secondaryBtnText}>Notes</Text>
-            </Pressable>
-
-            <Pressable
-              style={styles.secondaryBtn}
-              onPress={() => {
-                setNotesLibraryInitialTab('library');
-                setNotesLibraryModalVisible(true);
-              }}
-            >
-              <Bookmark size={14} color={theme.textPrimary} strokeWidth={1.8} />
-              <Text style={styles.secondaryBtnText}>My Library</Text>
-            </Pressable>
-          </View>
+          <Text style={styles.pageSubtitle}>
+            Decode Today. Prepare for Tomorrow.
+          </Text>
         </View>
 
         {/* Divider Border between Current Affairs and Summary of Daily Events */}
@@ -494,7 +616,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
               >
                 <ListChecks
                   size={14}
-                  color={isDark ? '#090D16' : '#FFFFFF'}
+                  color="#FFFFFF"
                   strokeWidth={2.2}
                 />
                 <Text style={styles.prominentDailyQuizBtnText}>
@@ -525,7 +647,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                 >
                   <ListChecks
                     size={13}
-                    color={isDark ? '#090D16' : '#FFFFFF'}
+                    color="#FFFFFF"
                     strokeWidth={2.2}
                   />
                   <Text style={styles.prominentDailyQuizBtnText}>
@@ -640,7 +762,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
           <View style={styles.sectionHeaderRow}>
             <View style={styles.sectionTitleBlock}>
               <Text style={styles.sectionHeading}>Explore Current Affairs</Text>
-              <Text style={styles.sectionMetaHint}>Browse by format</Text>
+              <Text style={styles.sectionMetaHint}>Browse by subject & comprehensive modules</Text>
             </View>
 
             {/* News Agency Filter at Right Side */}
@@ -663,7 +785,10 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                         styles.agencyFilterChip,
                         isSelected && styles.agencyFilterChipActive,
                       ]}
-                      onPress={() => setSelectedAgencyId(agency.id)}
+                      onPress={() => {
+                        setSelectedAgencyId(agency.id);
+                        setActiveEventIndex(0);
+                      }}
                     >
                       <Text
                         style={[
@@ -687,11 +812,22 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                 style={({ pressed }) => [styles.formatCard, pressed && styles.cardPressed]}
                 onPress={() => handleOpenFormatModal(cat)}
               >
-                <View style={styles.formatCardIconBox}>
-                  {renderFormatIcon(cat.iconName)}
+                {cat.imageUrl ? (
+                  <Image
+                    source={{ uri: cat.imageUrl }}
+                    style={styles.formatThumbnailImage}
+                    contentFit="cover"
+                    transition={200}
+                  />
+                ) : (
+                  <View style={styles.formatCardIconBox}>
+                    {renderFormatIcon(cat.iconName)}
+                  </View>
+                )}
+                <View style={styles.formatTextContent}>
+                  <Text style={styles.formatCardTitle}>{cat.title}</Text>
+                  <Text style={styles.formatCardSubtitle}>{cat.subtitle}</Text>
                 </View>
-                <Text style={styles.formatCardTitle}>{cat.title}</Text>
-                <Text style={styles.formatCardSubtitle}>{cat.subtitle}</Text>
               </Pressable>
             ))}
           </View>
@@ -847,25 +983,24 @@ const getStyles = (
 
     /* 1. Header */
     header: {
-      flexDirection: isDesktop ? 'row' : 'column',
-      justifyContent: 'space-between',
-      alignItems: isDesktop ? 'center' : 'flex-start',
-      marginBottom: 24,
-      gap: 14,
+      marginBottom: 20,
     },
-    titleBlock: {
-      flex: 1,
+    headerTopRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 12,
+      marginBottom: 3,
     },
     pageHeading: {
-      fontSize: isDesktop ? 30 : 26,
+      fontSize: isDesktop ? 30 : 25,
       fontWeight: '700',
       color: theme.textPrimary,
       letterSpacing: -0.4,
-      marginBottom: 4,
     },
     pageSubtitle: {
-      fontSize: 14,
-      lineHeight: 20,
+      fontSize: 13.5,
+      lineHeight: 19,
       color: theme.textMuted,
     },
     headerActions: {
@@ -873,21 +1008,15 @@ const getStyles = (
       alignItems: 'center',
       gap: 8,
     },
-    secondaryBtn: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 6,
-      paddingHorizontal: 14,
-      paddingVertical: 7,
+    headerIconBtn: {
+      width: 34,
+      height: 34,
       borderRadius: 8,
+      alignItems: 'center',
+      justifyContent: 'center',
       backgroundColor: theme.surfaceMuted,
       borderWidth: 1,
       borderColor: theme.borderSubtle,
-    },
-    secondaryBtnText: {
-      fontSize: 13,
-      fontWeight: '600',
-      color: theme.textPrimary,
     },
     headerDivider: {
       height: 1,
@@ -998,26 +1127,26 @@ const getStyles = (
       paddingRight: 10,
       paddingVertical: 5.5,
       borderRadius: 8,
-      backgroundColor: isDark ? '#141E2D' : '#F8FAFC',
+      backgroundColor: isDark ? '#202227' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#233248' : '#E2E8F0',
+      borderColor: isDark ? '#2E323A' : '#E2E8F0',
     },
     calendarDatePillBtnHover: {
-      backgroundColor: isDark ? '#1A273A' : '#F1F5F9',
-      borderColor: isDark ? '#334764' : '#CBD5E1',
+      backgroundColor: isDark ? '#282B32' : '#F8FAFC',
+      borderColor: isDark ? '#3D424D' : '#CBD5E1',
     },
     calendarIconCircle: {
       width: 22,
       height: 22,
       borderRadius: 5,
-      backgroundColor: isDark ? '#1E2D42' : '#F1F5F9',
+      backgroundColor: isDark ? '#282B32' : '#F1F5F9',
       alignItems: 'center',
       justifyContent: 'center',
     },
     calendarDatePillText: {
       fontSize: 12.5,
       fontWeight: '600',
-      color: isDark ? '#E2E8F0' : '#1E293B',
+      color: isDark ? '#F1F5F9' : '#1E293B',
       letterSpacing: -0.15,
     },
 
@@ -1028,16 +1157,16 @@ const getStyles = (
       borderRadius: 7,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: isDark ? '#141E2D' : '#F8FAFC',
+      backgroundColor: isDark ? '#202227' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#23334A' : '#E2E8F0',
+      borderColor: isDark ? '#2E323A' : '#E2E8F0',
     },
     dayReadTickBtnActive: {
-      backgroundColor: isDark ? '#1E293B' : '#0F172A',
-      borderColor: isDark ? '#334155' : '#0F172A',
+      backgroundColor: isDark ? '#059669' : '#10B981',
+      borderColor: isDark ? '#059669' : '#10B981',
     },
 
-    /* Prominent Daily Quiz Button (Real Main / Primary Button) */
+    /* Prominent Daily Quiz Button (Primary Button aligned with Figma / BW_THEME design system) */
     prominentDailyQuizBtn: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -1046,36 +1175,36 @@ const getStyles = (
       paddingRight: isDesktop ? 11 : 9,
       paddingVertical: isDesktop ? 7.5 : 6.5,
       borderRadius: 8,
-      backgroundColor: isDark ? '#FFFFFF' : '#0F172A',
+      backgroundColor: theme.buttonPrimaryBg,
       borderWidth: 1,
-      borderColor: isDark ? '#FFFFFF' : '#0F172A',
-      shadowColor: '#000000',
-      shadowOffset: { width: 0, height: 1.5 },
-      shadowOpacity: isDark ? 0.2 : 0.12,
-      shadowRadius: 3,
+      borderColor: theme.buttonPrimaryBg,
+      shadowColor: '#006FFD',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
       elevation: 2,
     },
     prominentDailyQuizBtnHover: {
-      backgroundColor: isDark ? '#E2E8F0' : '#1E293B',
-      borderColor: isDark ? '#E2E8F0' : '#1E293B',
+      backgroundColor: '#005CE6',
+      borderColor: '#005CE6',
       transform: [{ translateY: -1 }],
     },
     prominentDailyQuizBtnText: {
       fontSize: isDesktop ? 13 : 12,
       fontWeight: '700',
-      color: isDark ? '#090D16' : '#FFFFFF',
+      color: theme.buttonPrimaryText,
       letterSpacing: -0.15,
     },
     prominentDailyQuizBadge: {
       paddingHorizontal: 5.5,
       paddingVertical: 1.5,
       borderRadius: 4,
-      backgroundColor: isDark ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.2)',
+      backgroundColor: 'rgba(255, 255, 255, 0.22)',
     },
     prominentDailyQuizBadgeText: {
       fontSize: 10,
       fontWeight: '700',
-      color: isDark ? '#090D16' : '#FFFFFF',
+      color: '#FFFFFF',
       letterSpacing: 0.1,
     },
 
@@ -1083,12 +1212,15 @@ const getStyles = (
     eventCardOuterContainer: {
       width: '100%',
       position: 'relative',
+      minHeight: isDesktop ? 390 : 540,
     },
     eventCardLightWrapper: {
       width: '100%',
       borderRadius: 14,
       overflow: 'hidden',
       position: 'relative',
+      minHeight: isDesktop ? 390 : 540,
+      backgroundColor: isDark ? '#17191D' : 'transparent',
       ...(!isDark
         ? {
           shadowColor: '#0F172A',
@@ -1190,21 +1322,42 @@ const getStyles = (
       width: isDesktop ? '48.8%' : '100%',
       backgroundColor: theme.cardBg,
       borderRadius: 12,
-      padding: 16,
+      padding: 12,
       borderWidth: 1,
       borderColor: theme.cardBorder,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 14,
     },
     cardPressed: {
       opacity: 0.88,
     },
+    formatThumbnailImage: {
+      width: 58,
+      height: 58,
+      borderRadius: 10,
+      backgroundColor: isDark ? '#262930' : '#E2E8F0',
+      flexShrink: 0,
+    },
     formatCardIconBox: {
-      marginBottom: 10,
+      width: 58,
+      height: 58,
+      borderRadius: 10,
+      backgroundColor: theme.surfaceMuted,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0,
+    },
+    formatTextContent: {
+      flex: 1,
+      justifyContent: 'center',
     },
     formatCardTitle: {
       fontSize: 15,
       fontWeight: '700',
       color: theme.textPrimary,
-      marginBottom: 4,
+      marginBottom: 3,
+      letterSpacing: -0.2,
     },
     formatCardSubtitle: {
       fontSize: 12.5,

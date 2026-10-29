@@ -207,7 +207,7 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
                   onPress={() => setCurrentIndex((idx) => Math.min(questions.length - 1, idx + 1))}
                 >
                   <Text style={styles.nextBtnText}>Next</Text>
-                  <ArrowRight size={15} color={isDark ? '#000000' : '#FFFFFF'} strokeWidth={2} />
+                  <ArrowRight size={15} color="#FFFFFF" strokeWidth={2} />
                 </Pressable>
               ) : (
                 <Pressable style={styles.submitBtn} onPress={handleSubmit}>
@@ -486,8 +486,8 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       justifyContent: 'center',
     },
     optionKeyBadgeSelected: {
-      backgroundColor: isDark ? '#FFFFFF' : '#0F172A',
-      borderColor: isDark ? '#FFFFFF' : '#0F172A',
+      backgroundColor: theme.buttonPrimaryBg,
+      borderColor: theme.buttonPrimaryBg,
     },
     optionKeyText: {
       fontSize: 12.5,
@@ -495,7 +495,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       color: theme.textPrimary,
     },
     optionKeyTextSelected: {
-      color: isDark ? '#000000' : '#FFFFFF',
+      color: '#FFFFFF',
     },
     optionText: {
       flex: 1,
@@ -540,7 +540,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: 6,
-      backgroundColor: isDark ? '#FFFFFF' : '#0F172A',
+      backgroundColor: theme.buttonPrimaryBg,
       paddingHorizontal: 16,
       paddingVertical: 8,
       borderRadius: 8,
@@ -548,7 +548,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     nextBtnText: {
       fontSize: 12.5,
       fontWeight: '700',
-      color: isDark ? '#000000' : '#FFFFFF',
+      color: theme.buttonPrimaryText,
     },
     submitBtn: {
       backgroundColor: '#10B981',
@@ -755,7 +755,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       fontStyle: 'italic',
     },
     doneBtn: {
-      backgroundColor: isDark ? '#FFFFFF' : '#0F172A',
+      backgroundColor: theme.buttonPrimaryBg,
       paddingVertical: 12,
       borderRadius: 9,
       alignItems: 'center',
@@ -765,7 +765,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     doneBtnText: {
       fontSize: 13,
       fontWeight: '700',
-      color: isDark ? '#000000' : '#FFFFFF',
+      color: theme.buttonPrimaryText,
     },
     pressed: {
       opacity: 0.85,

@@ -23,6 +23,15 @@ import {
   renderExecutiveBriefText,
 } from '@/services/executiveBriefService';
 
+const DEFAULT_CATEGORY_IMAGES: Record<string, string> = {
+  'International Relations': 'https://images.indianexpress.com/2026/10/US-4-14.jpg',
+  'Polity': 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
+  'Economy': 'https://images.indianexpress.com/2026/10/Jio-IPO-4.jpg',
+  'Sci-Tech': 'https://images.indianexpress.com/2026/10/Amodeithropic.jpg',
+  'Environment': 'https://images.indianexpress.com/2026/10/28CheetahKunoDeath.jpg',
+  'Security': 'https://images.indianexpress.com/2026/10/lac-china-india.jpg',
+};
+
 interface DailyEventCardProps {
   event: DailyEventItem;
   isBookmarked?: boolean;
@@ -74,8 +83,22 @@ export function DailyEventCard({
   // Active Recall Questions & User Responses
   const recallQuestions = useMemo(() => generateEventRecallQuestions(event), [event]);
   const [recallAnswers, setRecallAnswers] = useState<Record<string, 'A' | 'B' | 'C' | 'D'>>({});
-  const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null);
-  const imgError = Boolean(event.imageUrl && failedImageUrl === event.imageUrl);
+  // Track if current event's image failed so we fallback cleanly to category image
+  const [failedEventId, setFailedEventId] = useState<string | null>(null);
+  const imageLoadFailed = failedEventId === event.id;
+
+  // Robust image resolver: checks event imageUrl, decodes URI, and falls back to category image
+  const activeImageUrl = useMemo(() => {
+    if (imageLoadFailed) {
+      return DEFAULT_CATEGORY_IMAGES[event.category] || DEFAULT_CATEGORY_IMAGES['Polity'];
+    }
+    const raw = event.imageUrl || DEFAULT_CATEGORY_IMAGES[event.category] || DEFAULT_CATEGORY_IMAGES['Polity'];
+    try {
+      return decodeURI(raw);
+    } catch {
+      return raw;
+    }
+  }, [event.imageUrl, event.category, imageLoadFailed]);
 
   const correctCount = useMemo(() => {
     return recallQuestions.reduce((acc, q) => {
@@ -144,7 +167,7 @@ export function DailyEventCard({
               color={
                 activeSectionTab === 'recall'
                   ? '#FFFFFF'
-                  : (isDark ? '#94A3B8' : '#64748B')
+                  : theme.buttonSecondaryText
               }
               strokeWidth={2}
             />
@@ -190,22 +213,17 @@ export function DailyEventCard({
           </View>
 
           <View style={styles.summaryContentRow}>
-            {!isDesktop && event.imageUrl && !imgError ? (
+            {!isDesktop && activeImageUrl ? (
               <View style={styles.summaryImageWrapper}>
                 <Image
-                  source={{
-                    uri: event.imageUrl,
-                    headers: {
-                      'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-                      'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
-                    },
-                  }}
+                  source={{ uri: activeImageUrl }}
                   style={styles.summarySnippetImage}
                   contentFit="cover"
-                  transition={200}
+                  transition={120}
                   cachePolicy="memory-disk"
+                  priority="high"
                   onError={() => {
-                    if (event.imageUrl) setFailedImageUrl(event.imageUrl);
+                    setFailedEventId(event.id);
                   }}
                   accessibilityLabel={event.headline}
                 />
@@ -227,22 +245,17 @@ export function DailyEventCard({
               ))}
             </View>
 
-            {isDesktop && event.imageUrl && !imgError ? (
+            {isDesktop && activeImageUrl ? (
               <View style={styles.summaryImageWrapper}>
                 <Image
-                  source={{
-                    uri: event.imageUrl,
-                    headers: {
-                      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                      'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
-                    },
-                  }}
+                  source={{ uri: activeImageUrl }}
                   style={styles.summarySnippetImage}
                   contentFit="cover"
-                  transition={200}
+                  transition={120}
                   cachePolicy="memory-disk"
+                  priority="high"
                   onError={() => {
-                    if (event.imageUrl) setFailedImageUrl(event.imageUrl);
+                    setFailedEventId(event.id);
                   }}
                   accessibilityLabel={event.headline}
                 />
@@ -415,13 +428,13 @@ export function DailyEventCard({
         >
           <BookOpen
             size={13}
-            color={isDark ? '#E2E8F0' : '#1E293B'}
+            color={theme.buttonSecondaryText}
             strokeWidth={2}
           />
           <Text style={styles.fullAnalysisBtnText}>Full Analysis</Text>
           <ChevronRight
             size={13}
-            color={isDark ? '#E2E8F0' : '#1E293B'}
+            color={theme.buttonSecondaryText}
             strokeWidth={2}
           />
         </Pressable>
@@ -536,14 +549,16 @@ export function DailyEventCard({
 const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: boolean) =>
   StyleSheet.create({
     card: {
-      backgroundColor: isDark ? '#070B14' : '#F0F6FC',
+      backgroundColor: isDark ? '#17191D' : '#F0F6FC',
       borderRadius: 14,
       paddingVertical: isDesktop ? 20 : 13,
-      paddingHorizontal: isDesktop ? 28 : 20,
+      paddingHorizontal: isDesktop ? 28 : 16,
       borderWidth: 1,
-      borderColor: isDark ? '#141E30' : '#DCE7F3',
+      borderColor: isDark ? '#262930' : '#DCE7F3',
       marginBottom: 0,
       position: 'relative',
+      minHeight: isDesktop ? 390 : 540,
+      justifyContent: 'space-between',
     },
 
     /* Section Action Buttons Block (Desktop 4-in-a-row, Mobile 2x2 grid) */
@@ -738,18 +753,18 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingVertical: 5,
       paddingHorizontal: isDesktop ? 10 : 8,
       borderRadius: 7,
-      backgroundColor: isDark ? '#141E2D' : '#F8FAFC',
+      backgroundColor: theme.buttonSecondaryBg,
       borderWidth: 1,
-      borderColor: isDark ? '#2D3D54' : '#E2E8F0',
+      borderColor: theme.buttonSecondaryBorder,
     },
     topEventRecallBtnActive: {
-      backgroundColor: isDark ? '#1E293B' : '#0F172A',
-      borderColor: isDark ? '#3B4E6B' : '#0F172A',
+      backgroundColor: theme.buttonPrimaryBg,
+      borderColor: theme.buttonPrimaryBg,
     },
     topEventRecallText: {
       fontSize: 11.5,
       fontWeight: '600',
-      color: isDark ? '#E2E8F0' : '#1E293B',
+      color: theme.buttonSecondaryText,
       letterSpacing: -0.1,
     },
     topEventRecallTextActive: {
@@ -760,15 +775,15 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingHorizontal: 5,
       paddingVertical: 1,
       borderRadius: 4,
-      backgroundColor: isDark ? '#1E2D42' : '#E2E8F0',
+      backgroundColor: isDark ? 'rgba(111, 186, 255, 0.18)' : 'rgba(0, 111, 253, 0.12)',
     },
     topEventRecallBadgeActive: {
-      backgroundColor: isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.25)',
+      backgroundColor: 'rgba(255, 255, 255, 0.25)',
     },
     topEventRecallBadgeText: {
       fontSize: 9.5,
       fontWeight: '700',
-      color: isDark ? '#94A3B8' : '#64748B',
+      color: theme.buttonSecondaryText,
     },
     topEventRecallBadgeTextActive: {
       color: '#FFFFFF',
@@ -932,12 +947,14 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
 
     /* B. Headline & Overview */
     headline: {
-      fontSize: 20.5,
+      fontSize: isDesktop ? 19 : 17.5,
       fontWeight: '700',
-      lineHeight: 28,
+      lineHeight: isDesktop ? 26.5 : 24.5,
       color: isDark ? '#F8FAFC' : theme.textPrimary,
-      letterSpacing: -0.25,
+      letterSpacing: -0.2,
+      maxWidth: isDesktop ? 780 : '96%',
       marginBottom: 10,
+      minHeight: isDesktop ? 54 : 48,
     },
     summaryOverviewCard: {
       backgroundColor: isDark ? '#303030' : '#FFFFFF',
@@ -946,7 +963,10 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       borderColor: isDark ? '#424242' : '#DFE6F0',
       paddingHorizontal: 14,
       paddingVertical: 12,
-      marginBottom: 16,
+      marginBottom: 14,
+      flex: 1,
+      minHeight: isDesktop ? 180 : 350,
+      justifyContent: 'space-between',
     },
     summaryOverviewHeader: {
       flexDirection: 'row',
@@ -964,23 +984,25 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     summaryContentRow: {
       flexDirection: isDesktop ? 'row' : 'column',
       alignItems: isDesktop ? 'flex-start' : 'stretch',
-      gap: isDesktop ? 16 : 12,
+      gap: isDesktop ? 16 : 10,
+      flex: 1,
     },
     summarySentenceBlock: {
-      flex: isDesktop ? 1 : undefined,
+      flex: 1,
       width: '100%',
       gap: 10,
     },
     summaryImageWrapper: {
       width: isDesktop ? 200 : '100%',
-      height: isDesktop ? 136 : 155,
+      height: isDesktop ? 136 : 150,
       borderRadius: isDesktop ? 10 : 8,
       overflow: 'hidden',
-      backgroundColor: isDark ? '#262626' : '#EDF2F7',
+      backgroundColor: isDark ? '#141619' : '#EDF2F7',
       borderWidth: 1,
-      borderColor: isDark ? '#454545' : '#DFE6F0',
+      borderColor: isDark ? '#2A2E35' : '#DFE6F0',
       flexShrink: 0,
       marginTop: isDesktop ? 2 : 0,
+      marginBottom: isDesktop ? 0 : 8,
     },
     summarySnippetImage: {
       width: '100%',
@@ -1425,9 +1447,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       justifyContent: 'space-between',
       gap: 10,
       paddingTop: 12,
-      marginTop: 12,
+      marginTop: 'auto',
       borderTopWidth: 1,
-      borderTopColor: isDark ? '#1E293B' : '#E2E8F0',
+      borderTopColor: isDark ? '#262930' : '#E2E8F0',
     },
     fullAnalysisBtn: {
       flexDirection: 'row',
@@ -1436,12 +1458,13 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingHorizontal: 12,
       paddingVertical: 7,
       borderRadius: 7,
-      backgroundColor: isDark ? '#1E293B' : '#F1F5F9',
+      backgroundColor: theme.buttonSecondaryBg,
       borderWidth: 1,
-      borderColor: isDark ? '#334155' : '#E2E8F0',
+      borderColor: theme.buttonSecondaryBorder,
     },
     fullAnalysisBtnHover: {
-      backgroundColor: isDark ? '#334155' : '#E2E8F0',
+      backgroundColor: isDark ? '#2D3F59' : '#DBEAFE',
+      borderColor: isDark ? '#466D9F' : '#93C5FD',
     },
     fullAnalysisBtnPressed: {
       transform: [{ scale: 0.98 }],
@@ -1450,7 +1473,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     fullAnalysisBtnText: {
       fontSize: 12,
       fontWeight: '700',
-      color: isDark ? '#F1F5F9' : '#1E293B',
+      color: theme.buttonSecondaryText,
       letterSpacing: 0.2,
     },
     bottomNavGroup: {
@@ -1465,9 +1488,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingVertical: 3,
       paddingHorizontal: 7,
       borderRadius: 6,
-      backgroundColor: isDark ? '#0F1A2A' : '#F8FAFC',
+      backgroundColor: isDark ? '#202227' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#1E2D44' : '#E2E8F0',
+      borderColor: isDark ? '#2E323A' : '#E2E8F0',
     },
     geminiNavBtnDisabled: {
       opacity: 0.35,
@@ -1492,13 +1515,13 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       width: 5,
       height: 5,
       borderRadius: 2.5,
-      backgroundColor: isDark ? '#263750' : '#CBD5E1',
+      backgroundColor: isDark ? '#353942' : '#CBD5E1',
     },
     geminiNavDotActive: {
       width: 14,
       height: 5,
       borderRadius: 2.5,
-      backgroundColor: isDark ? '#F1F5F9' : '#1E293B',
+      backgroundColor: theme.buttonPrimaryBg,
     },
 
     /* Middle Side Navigation Arrow Buttons */
@@ -1511,9 +1534,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       borderRadius: 18,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: isDark ? '#141E2D' : '#FFFFFF',
+      backgroundColor: isDark ? '#202227' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#26374F' : '#D1D5DB',
+      borderColor: isDark ? '#2E323A' : '#D1D5DB',
       shadowColor: '#000000',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: isDark ? 0.35 : 0.12,
@@ -1528,8 +1551,8 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       right: isDesktop ? 6 : 4,
     },
     sideNavArrowBtnHover: {
-      backgroundColor: isDark ? '#1E2D42' : '#F8FAFC',
-      borderColor: isDark ? '#3D5475' : '#9CA3AF',
+      backgroundColor: isDark ? '#282B32' : '#F8FAFC',
+      borderColor: isDark ? '#404550' : '#9CA3AF',
       transform: [{ scale: 1.06 }],
     },
     sideNavArrowBtnPressed: {

@@ -10,7 +10,6 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { PrimaryToggle } from '@/components/common/PrimaryToggle';
 import {
   ArrowLeft,
   ArrowRight,
@@ -20,8 +19,8 @@ import {
   BookOpen,
   LayoutGrid,
   ChevronDown,
-  X,
 } from 'lucide-react-native';
+import { PrimaryToggle } from '@/components/common/PrimaryToggle';
 import { MockTestService } from '@/services/mockTestService';
 import {
   AvailableFiltersData,
@@ -51,7 +50,8 @@ export function MockTestDashboard({
   isDark = false,
 }: MockTestDashboardProps) {
   const { width } = useWindowDimensions();
-  const isWide = width >= 960;
+  const isWide = width >= 940;
+  const isMobile = width < 680;
 
   // Modals
   const [showHistoryModal, setShowHistoryModal] = useState(false);
@@ -88,51 +88,55 @@ export function MockTestDashboard({
   const [isCounting, setIsCounting] = useState<boolean>(false);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
 
-  // Theme-derived colors matching the exact visual style
+  // Unified theme colors: #006FFD across BOTH light and dark modes
   const colors = useMemo(() => {
     if (isDark) {
       return {
-        bg: '#14161C',
-        cardBg: '#1D2028',
-        cardBorder: '#2E323D',
+        bg: '#1F2024',
+        cardBg: '#2A2C34',
+        cardBorder: '#3E424F',
         textPrimary: '#FFFFFF',
         textSecondary: '#C5C6CC',
         textMuted: '#8F9098',
         primary: '#006FFD',
         primaryDeep: '#0052CC',
-        primaryTint: 'rgba(0, 111, 253, 0.12)',
+        primaryTint: 'rgba(0, 111, 253, 0.15)',
         primaryBorder: '#006FFD',
         buttonText: '#FFFFFF',
-        chipBg: '#272A35',
+        chipBg: '#23252E',
         chipSelectedBg: '#006FFD',
         chipSelectedText: '#FFFFFF',
-        metricBoxBg: '#242732',
+        metricBoxBg: '#21232B',
         amberBadge: '#F59E0B',
-        stepBadgeBg: '#262934',
+        stepBadgeBg: '#006FFD',
         stepBadgeText: '#FFFFFF',
+        eyebrow: '#006FFD',
       };
     }
     return {
-      bg: '#F8F9FD',
+      bg: '#F8F9FE',
       cardBg: '#FFFFFF',
-      cardBorder: '#E6E9F2',
-      textPrimary: '#0F172A',
-      textSecondary: '#334155',
-      textMuted: '#64748B',
-      primary: '#203576',
-      primaryDeep: '#172758',
-      primaryTint: '#EEF2FF',
-      primaryBorder: '#253D90',
+      cardBorder: '#E8E9F1',
+      textPrimary: '#1F2024',
+      textSecondary: '#494A50',
+      textMuted: '#71727A',
+      primary: '#006FFD',
+      primaryDeep: '#0052CC',
+      primaryTint: '#EAF2FF',
+      primaryBorder: '#006FFD',
       buttonText: '#FFFFFF',
       chipBg: '#F1F3F9',
-      chipSelectedBg: '#203576',
+      chipSelectedBg: '#006FFD',
       chipSelectedText: '#FFFFFF',
-      metricBoxBg: '#F4F6FC',
+      metricBoxBg: '#F4F7FC',
       amberBadge: '#B45309',
-      stepBadgeBg: '#0F172A',
+      stepBadgeBg: '#006FFD',
       stepBadgeText: '#FFFFFF',
+      eyebrow: '#006FFD',
     };
   }, [isDark]);
+
+  const styles = useMemo(() => getStyles(colors, isWide, isMobile), [colors, isWide, isMobile]);
 
   // Load initial stats & preferences
   useEffect(() => {
@@ -432,7 +436,7 @@ export function MockTestDashboard({
 
         {/* Hero Title Section */}
         <View style={styles.heroSection}>
-          <Text style={styles.eyebrowText}>
+          <Text style={[styles.eyebrowText, { color: colors.eyebrow }]}>
             CIVIL SERVICES PRELIMINARY EXAMINATION
           </Text>
           <Text style={[styles.heroTitle, { color: colors.textPrimary }]}>
@@ -497,7 +501,7 @@ export function MockTestDashboard({
                     General Studies
                   </Text>
                   <Text style={[styles.paperMetaText, { color: colors.textMuted }]}>
-                    100 questions  200 marks  2 hours
+                    100 questions · 200 marks · 2 hours
                   </Text>
                   <Text style={[styles.paperTagText, { color: colors.amberBadge }]}>
                     Decides the Prelims cut-off
@@ -538,7 +542,7 @@ export function MockTestDashboard({
                     CSAT
                   </Text>
                   <Text style={[styles.paperMetaText, { color: colors.textMuted }]}>
-                    80 questions  200 marks  2 hours
+                    80 questions · 200 marks · 2 hours
                   </Text>
                   <Text style={[styles.paperTagText, { color: colors.amberBadge }]}>
                     Qualifying only, 33% to clear
@@ -568,7 +572,7 @@ export function MockTestDashboard({
                     {selectedYears.length} of {filtersData.years.length} selected
                   </Text>
                   <Pressable onPress={handleSelectAllYears} hitSlop={6}>
-                    <Text style={[styles.yearsActionLink, { color: colors.textPrimary }]}>
+                    <Text style={[styles.yearsActionLink, { color: colors.primary }]}>
                       Select all
                     </Text>
                   </Pressable>
@@ -1040,448 +1044,453 @@ export function MockTestDashboard({
   );
 }
 
-const styles = StyleSheet.create({
-  screenWrapper: {
-    flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    paddingHorizontal: 20,
-    paddingTop: 16,
-    paddingBottom: 40,
-  },
-  wideContainer: {
-    maxWidth: 1180,
-    alignSelf: 'center',
-    width: '100%',
-    paddingHorizontal: 32,
-  },
+const getStyles = (colors: any, isWide: boolean, isMobile: boolean) =>
+  StyleSheet.create({
+    screenWrapper: {
+      flex: 1,
+    },
+    scrollView: {
+      flex: 1,
+    },
+    scrollContent: {
+      paddingHorizontal: isWide ? 32 : 16,
+      paddingTop: isWide ? 20 : 12,
+      paddingBottom: 40,
+    },
+    wideContainer: {
+      maxWidth: 1180,
+      alignSelf: 'center',
+      width: '100%',
+    },
 
-  /* Top Navbar */
-  topNavRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 28,
-  },
-  topNavBrand: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  backBtn: {
-    width: 34,
-    height: 34,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  topBrandText: {
-    fontSize: 16,
-    fontWeight: '800',
-    letterSpacing: -0.2,
-  },
-  topNavActions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  themeTogglePill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 12,
-    paddingVertical: 7,
-    borderRadius: 999,
-    borderWidth: 1,
-  },
-  themeToggleText: {
-    fontSize: 12.5,
-    fontWeight: '600',
-  },
-  historyPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 12,
-    paddingVertical: 7,
-    borderRadius: 999,
-    borderWidth: 1,
-  },
-  historyPillText: {
-    fontSize: 12.5,
-    fontWeight: '600',
-  },
-  historyCountBadge: {
-    borderRadius: 9,
-    minWidth: 18,
-    height: 18,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 4,
-  },
-  historyCountText: {
-    fontSize: 10.5,
-    fontWeight: '800',
-    color: '#FFFFFF',
-  },
+    /* Top Navbar */
+    topNavRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: isWide ? 26 : 18,
+    },
+    topNavBrand: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+    },
+    backBtn: {
+      width: 34,
+      height: 34,
+      borderRadius: 8,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    topBrandText: {
+      fontSize: 16,
+      fontWeight: '800',
+      letterSpacing: -0.2,
+    },
+    topNavActions: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+    },
+    themeTogglePill: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
+      paddingHorizontal: 12,
+      paddingVertical: 7,
+      borderRadius: 999,
+      borderWidth: 1,
+    },
+    themeToggleText: {
+      fontSize: 12,
+      fontWeight: '600',
+    },
+    historyPill: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
+      paddingHorizontal: 12,
+      paddingVertical: 7,
+      borderRadius: 999,
+      borderWidth: 1,
+    },
+    historyPillText: {
+      fontSize: 12,
+      fontWeight: '600',
+    },
+    historyCountBadge: {
+      borderRadius: 9,
+      minWidth: 18,
+      height: 18,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingHorizontal: 4,
+    },
+    historyCountText: {
+      fontSize: 10.5,
+      fontWeight: '800',
+      color: '#FFFFFF',
+    },
 
-  /* Hero Section */
-  heroSection: {
-    marginBottom: 24,
-  },
-  eyebrowText: {
-    fontSize: 11,
-    fontWeight: '800',
-    letterSpacing: 1.2,
-    color: '#6366F1',
-    marginBottom: 8,
-  },
-  heroTitle: {
-    fontSize: 34,
-    fontWeight: '900',
-    letterSpacing: -0.8,
-    marginBottom: 6,
-  },
-  heroSubtitle: {
-    fontSize: 14,
-    fontWeight: '500',
-    lineHeight: 20,
-    maxWidth: 620,
-  },
+    /* Hero Section */
+    heroSection: {
+      marginBottom: isWide ? 24 : 18,
+    },
+    eyebrowText: {
+      fontSize: isWide ? 11 : 10,
+      fontWeight: '800',
+      letterSpacing: 1.2,
+      marginBottom: 6,
+    },
+    heroTitle: {
+      fontSize: isWide ? 34 : 26,
+      fontWeight: '900',
+      letterSpacing: -0.6,
+      marginBottom: 6,
+    },
+    heroSubtitle: {
+      fontSize: isWide ? 14 : 12.5,
+      fontWeight: '500',
+      lineHeight: isWide ? 20 : 18,
+      maxWidth: 620,
+    },
 
-  /* Main Layout: Left Steps + Right Summary */
-  mainLayout: {
-    flexDirection: 'column',
-    gap: 24,
-  },
-  mainLayoutWide: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 28,
-  },
-  leftColumn: {
-    flex: 1,
-    gap: 20,
-  },
-  leftColumnWide: {
-    flex: 1.7,
-  },
-  rightColumn: {
-    flex: 1,
-  },
-  rightColumnWide: {
-    flex: 1,
-    maxWidth: 380,
-  },
+    /* Main Layout: Left Steps + Right Summary */
+    mainLayout: {
+      flexDirection: 'column',
+      gap: 20,
+    },
+    mainLayoutWide: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      gap: 28,
+    },
+    leftColumn: {
+      flex: 1,
+      gap: 16,
+    },
+    leftColumnWide: {
+      flex: 1.7,
+      gap: 20,
+    },
+    rightColumn: {
+      flex: 1,
+    },
+    rightColumnWide: {
+      flex: 1,
+      maxWidth: 380,
+    },
 
-  /* Step Card Common */
-  stepCard: {
-    borderRadius: 18,
-    borderWidth: 1,
-    padding: 22,
-    gap: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.04,
-    shadowRadius: 6,
-    elevation: 1,
-  },
-  stepCardHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  stepCardHeaderBetween: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    gap: 10,
-  },
-  stepCardHeaderLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  stepNumberBadge: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  stepNumberText: {
-    fontSize: 13,
-    fontWeight: '800',
-  },
-  stepCardTitle: {
-    fontSize: 16,
-    fontWeight: '800',
-    letterSpacing: -0.3,
-  },
-  stepCardFooterNote: {
-    fontSize: 12,
-    fontWeight: '500',
-    marginTop: -4,
-  },
+    /* Step Card Common */
+    stepCard: {
+      borderRadius: 16,
+      borderWidth: 1,
+      padding: isWide ? 22 : 16,
+      gap: 14,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.04,
+      shadowRadius: 6,
+      elevation: 1,
+    },
+    stepCardHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+    },
+    stepCardHeaderBetween: {
+      flexDirection: isWide ? 'row' : 'column',
+      alignItems: isWide ? 'center' : 'flex-start',
+      justifyContent: 'space-between',
+      gap: 8,
+    },
+    stepCardHeaderLeft: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+    },
+    stepNumberBadge: {
+      width: 24,
+      height: 24,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    stepNumberText: {
+      fontSize: 12.5,
+      fontWeight: '800',
+    },
+    stepCardTitle: {
+      fontSize: isWide ? 16 : 15,
+      fontWeight: '800',
+      letterSpacing: -0.3,
+    },
+    stepCardFooterNote: {
+      fontSize: 11.5,
+      fontWeight: '500',
+      marginTop: -2,
+    },
 
-  /* Step 1: Paper Options */
-  paperOptionsRow: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  paperOptionBox: {
-    flex: 1,
-    borderRadius: 14,
-    borderWidth: 1.5,
-    padding: 16,
-    gap: 6,
-  },
-  paperOptionTopRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  radioIndicator: {
-    width: 18,
-    height: 18,
-    borderRadius: 9,
-    borderWidth: 1.8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  radioDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
-  paperLabelCode: {
-    fontSize: 10.5,
-    fontWeight: '800',
-    letterSpacing: 0.6,
-  },
-  paperHeading: {
-    fontSize: 16,
-    fontWeight: '800',
-    letterSpacing: -0.2,
-  },
-  paperMetaText: {
-    fontSize: 11.5,
-    fontWeight: '500',
-  },
-  paperTagText: {
-    fontSize: 11,
-    fontWeight: '700',
-    marginTop: 2,
-  },
+    /* Step 1: Paper Options */
+    paperOptionsRow: {
+      flexDirection: isMobile ? 'column' : 'row',
+      gap: 10,
+    },
+    paperOptionBox: {
+      flex: 1,
+      borderRadius: 14,
+      borderWidth: 1.5,
+      padding: isWide ? 16 : 14,
+      gap: 5,
+    },
+    paperOptionTopRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    radioIndicator: {
+      width: 18,
+      height: 18,
+      borderRadius: 9,
+      borderWidth: 1.8,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    radioDot: {
+      width: 8,
+      height: 8,
+      borderRadius: 4,
+    },
+    paperLabelCode: {
+      fontSize: 10.5,
+      fontWeight: '800',
+      letterSpacing: 0.6,
+    },
+    paperHeading: {
+      fontSize: isWide ? 16 : 15,
+      fontWeight: '800',
+      letterSpacing: -0.2,
+    },
+    paperMetaText: {
+      fontSize: 11.5,
+      fontWeight: '500',
+    },
+    paperTagText: {
+      fontSize: 11,
+      fontWeight: '700',
+      marginTop: 2,
+    },
 
-  /* Step 2: Years Selection */
-  yearsActionGroup: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  yearsCountInfo: {
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  yearsActionLink: {
-    fontSize: 12,
-    fontWeight: '700',
-  },
-  yearsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-  yearBox: {
-    width: 58,
-    height: 38,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  yearBoxText: {
-    fontSize: 13,
-  },
+    /* Step 2: Years Selection */
+    yearsActionGroup: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: isWide ? 'flex-end' : 'space-between',
+      width: isWide ? 'auto' : '100%',
+      paddingLeft: isWide ? 0 : 34,
+      gap: 12,
+    },
+    yearsCountInfo: {
+      fontSize: 11.5,
+      fontWeight: '600',
+    },
+    yearsActionLink: {
+      fontSize: 11.5,
+      fontWeight: '700',
+    },
+    yearsGrid: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 8,
+    },
+    yearBox: {
+      flexBasis: isWide ? 58 : '18%',
+      flexGrow: 1,
+      maxWidth: isWide ? 64 : '23%',
+      height: 38,
+      borderRadius: 8,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    yearBoxText: {
+      fontSize: 13,
+    },
 
-  /* Step 3: Scope Selection */
-  scopeSegmentPill: {
-    flexDirection: 'row',
-    borderRadius: 12,
-    padding: 4,
-    gap: 4,
-    maxWidth: 300,
-  },
-  scopeSegmentOption: {
-    flex: 1,
-    paddingVertical: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 9,
-  },
-  scopeSegmentOptionActive: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 1,
-  },
-  scopeSegmentText: {
-    fontSize: 13.5,
-  },
-  subjectPickerBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderWidth: 1,
-    borderRadius: 12,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    marginTop: 4,
-  },
-  subjectPickerTextGroup: {
-    flex: 1,
-    gap: 2,
-  },
-  subjectPickerTitle: {
-    fontSize: 14,
-    fontWeight: '700',
-  },
-  subjectPickerSub: {
-    fontSize: 11,
-  },
+    /* Step 3: Scope Selection */
+    scopeSegmentPill: {
+      flexDirection: 'row',
+      borderRadius: 12,
+      padding: 4,
+      gap: 4,
+      width: isWide ? 300 : '100%',
+    },
+    scopeSegmentOption: {
+      flex: 1,
+      paddingVertical: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 9,
+    },
+    scopeSegmentOptionActive: {
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.1,
+      shadowRadius: 3,
+      elevation: 1,
+    },
+    scopeSegmentText: {
+      fontSize: 13.5,
+    },
+    subjectPickerBar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      borderWidth: 1,
+      borderRadius: 12,
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+      marginTop: 4,
+    },
+    subjectPickerTextGroup: {
+      flex: 1,
+      gap: 2,
+    },
+    subjectPickerTitle: {
+      fontSize: 14,
+      fontWeight: '700',
+    },
+    subjectPickerSub: {
+      fontSize: 11,
+    },
 
-  /* Step 4: Mode & Toggles */
-  modeOptionBox: {
-    flex: 1,
-    borderRadius: 14,
-    borderWidth: 1.5,
-    padding: 16,
-    gap: 8,
-  },
-  modeOptionTopRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  modeHeading: {
-    fontSize: 15,
-    fontWeight: '800',
-  },
-  modeDescription: {
-    fontSize: 11.5,
-    lineHeight: 16.5,
-  },
-  togglesGroup: {
-    borderTopWidth: 1,
-    paddingTop: 16,
-    gap: 16,
-  },
-  toggleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 16,
-  },
-  toggleTextCol: {
-    flex: 1,
-    gap: 2,
-  },
-  toggleTitle: {
-    fontSize: 13.5,
-    fontWeight: '700',
-  },
-  toggleSubtitle: {
-    fontSize: 11.5,
-  },
+    /* Step 4: Mode & Toggles */
+    modeOptionBox: {
+      flex: 1,
+      borderRadius: 14,
+      borderWidth: 1.5,
+      padding: isWide ? 16 : 14,
+      gap: 6,
+    },
+    modeOptionTopRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    modeHeading: {
+      fontSize: 14.5,
+      fontWeight: '800',
+    },
+    modeDescription: {
+      fontSize: 11.5,
+      lineHeight: 16,
+    },
+    togglesGroup: {
+      borderTopWidth: 1,
+      paddingTop: 14,
+      gap: 14,
+    },
+    toggleRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 14,
+    },
+    toggleTextCol: {
+      flex: 1,
+      gap: 2,
+    },
+    toggleTitle: {
+      fontSize: 13,
+      fontWeight: '700',
+    },
+    toggleSubtitle: {
+      fontSize: 11,
+      lineHeight: 15,
+    },
 
-  /* Right Summary Card */
-  summaryCard: {
-    borderRadius: 20,
-    borderWidth: 1,
-    padding: 24,
-    gap: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-    elevation: 2,
-  },
-  summaryCardTitle: {
-    fontSize: 17,
-    fontWeight: '800',
-    letterSpacing: -0.3,
-  },
-  metricBoxesRow: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  metricBox: {
-    flex: 1,
-    borderRadius: 14,
-    paddingVertical: 14,
-    paddingHorizontal: 14,
-    gap: 4,
-  },
-  metricBoxLabel: {
-    fontSize: 10.5,
-    fontWeight: '800',
-    letterSpacing: 0.8,
-  },
-  metricBoxValue: {
-    fontSize: 24,
-    fontWeight: '900',
-    letterSpacing: -0.5,
-  },
-  metricBoxSub: {
-    fontSize: 11,
-    fontWeight: '500',
-  },
+    /* Right Summary Card */
+    summaryCard: {
+      borderRadius: 18,
+      borderWidth: 1,
+      padding: isWide ? 22 : 16,
+      gap: 18,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.05,
+      shadowRadius: 10,
+      elevation: 2,
+    },
+    summaryCardTitle: {
+      fontSize: 16.5,
+      fontWeight: '800',
+      letterSpacing: -0.3,
+    },
+    metricBoxesRow: {
+      flexDirection: 'row',
+      gap: 10,
+    },
+    metricBox: {
+      flex: 1,
+      borderRadius: 12,
+      paddingVertical: 12,
+      paddingHorizontal: 12,
+      gap: 3,
+    },
+    metricBoxLabel: {
+      fontSize: 10,
+      fontWeight: '800',
+      letterSpacing: 0.8,
+    },
+    metricBoxValue: {
+      fontSize: isWide ? 24 : 20,
+      fontWeight: '900',
+      letterSpacing: -0.5,
+    },
+    metricBoxSub: {
+      fontSize: 10.5,
+      fontWeight: '500',
+    },
 
-  breakdownList: {
-    gap: 12,
-    paddingVertical: 4,
-  },
-  breakdownRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: 12,
-  },
-  breakdownLabel: {
-    fontSize: 13,
-    fontWeight: '500',
-  },
-  breakdownValue: {
-    fontSize: 13,
-    fontWeight: '700',
-    textAlign: 'right',
-    flex: 1,
-  },
+    breakdownList: {
+      gap: 10,
+      paddingVertical: 2,
+    },
+    breakdownRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: 12,
+    },
+    breakdownLabel: {
+      fontSize: 12.5,
+      fontWeight: '500',
+    },
+    breakdownValue: {
+      fontSize: 12.5,
+      fontWeight: '700',
+      textAlign: 'right',
+      flex: 1,
+    },
 
-  startMockBtn: {
-    height: 48,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 4,
-  },
-  btnContentRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  startMockBtnText: {
-    fontSize: 14.5,
-    fontWeight: '800',
-  },
-  summaryFooterNote: {
-    fontSize: 11.5,
-    fontWeight: '500',
-    textAlign: 'center',
-  },
-});
+    startMockBtn: {
+      height: 48,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 2,
+    },
+    btnContentRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    startMockBtnText: {
+      fontSize: 14.5,
+      fontWeight: '800',
+    },
+    summaryFooterNote: {
+      fontSize: 11,
+      fontWeight: '500',
+      textAlign: 'center',
+    },
+  });

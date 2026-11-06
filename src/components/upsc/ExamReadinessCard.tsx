@@ -15,6 +15,8 @@ import { useAppTheme } from '@/context/ThemeContext';
 interface ExamReadinessCardProps {
   isDark: boolean;
   onOpenPrelims?: () => void;
+  onOpenMains?: () => void;
+  onOpenMockTests?: () => void;
 }
 
 // =============================================================================
@@ -223,7 +225,12 @@ function MockTestIllustration({ isDark }: { isDark: boolean }) {
 // MAIN COMPONENT
 // =============================================================================
 
-export function ExamReadinessCard({ isDark: propIsDark, onOpenPrelims }: { isDark?: boolean; onOpenPrelims?: () => void }) {
+export function ExamReadinessCard({
+  isDark: propIsDark,
+  onOpenPrelims,
+  onOpenMains,
+  onOpenMockTests,
+}: ExamReadinessCardProps) {
   const { isDark: contextIsDark } = useAppTheme();
   const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const { setIsMCQModalOpen, setIsMainsModalOpen } = useStudy();
@@ -254,7 +261,7 @@ export function ExamReadinessCard({ isDark: propIsDark, onOpenPrelims }: { isDar
       badgeBorder: isDark ? '#253244' : '#EAE5DC',
       borderHover: '#F58235',
       glow: 'rgba(245, 130, 53, 0.15)',
-      onPress: () => setIsMainsModalOpen(true),
+      onPress: () => (onOpenMains ? onOpenMains() : setIsMainsModalOpen(true)),
     },
     {
       id: 'mock',
@@ -265,7 +272,7 @@ export function ExamReadinessCard({ isDark: propIsDark, onOpenPrelims }: { isDar
       badgeBorder: isDark ? '#253244' : '#EAE5DC',
       borderHover: '#F58235',
       glow: 'rgba(245, 130, 53, 0.15)',
-      onPress: () => setIsMCQModalOpen(true),
+      onPress: () => (onOpenMockTests ? onOpenMockTests() : setIsMCQModalOpen(true)),
     },
   ];
 

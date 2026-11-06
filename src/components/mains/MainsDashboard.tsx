@@ -21,6 +21,7 @@ import {
   Search,
   Sparkles,
   Sun,
+  Users,
   X,
 } from 'lucide-react-native';
 import {
@@ -39,6 +40,7 @@ import { MainsService } from '@/services/mainsService';
 import { MainsQuestionDetailModal } from './MainsQuestionDetailModal';
 import { MainsAnswerWorkspaceModal } from './MainsAnswerWorkspaceModal';
 import { MainsEvaluationReportModal } from './MainsEvaluationReportModal';
+import { MainsCommunityView } from './community/MainsCommunityView';
 
 interface MainsDashboardProps {
   isDark: boolean;
@@ -47,6 +49,9 @@ interface MainsDashboardProps {
 }
 
 export function MainsDashboard({ isDark, onToggleTheme }: MainsDashboardProps) {
+  // Mode: Practice vs Community
+  const [mainsMode, setMainsMode] = useState<'practice' | 'community'>('practice');
+
   // Navigation & Filter state
   const [selectedPaperId, setSelectedPaperId] = useState<MainsPaperId>('GS4');
   const [searchQuery, setSearchQuery] = useState('');
@@ -266,9 +271,19 @@ export function MainsDashboard({ isDark, onToggleTheme }: MainsDashboardProps) {
   const textMuted = isDark ? '#64748B' : '#94A3B8';
   const accent = '#F58235';
 
+  if (mainsMode === 'community') {
+    return (
+      <MainsCommunityView
+        isDark={isDark}
+        onBackToPractice={() => setMainsMode('practice')}
+        onToggleTheme={onToggleTheme}
+      />
+    );
+  }
+
   return (
     <View style={[styles.root, { backgroundColor: bg }]}>
-      {/* 1. App Header (Clean & Focused - Random Option Removed) */}
+      {/* 1. App Header with Mains Practice & Community Switch */}
       <View style={[styles.headerBar, { backgroundColor: surface, borderBottomColor: border }]}>
         <View style={styles.headerLeft}>
           <Text style={[styles.headerTitle, { color: textPrimary }]}>Mains Answer Writing</Text>
@@ -278,6 +293,14 @@ export function MainsDashboard({ isDark, onToggleTheme }: MainsDashboardProps) {
         </View>
 
         <View style={styles.headerRight}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => setMainsMode('community')}
+            style={[styles.communityNavBtn, { backgroundColor: `${accent}15`, borderColor: accent }]}>
+            <Users size={13} color={accent} />
+            <Text style={[styles.communityNavBtnText, { color: accent }]}>Mains Community</Text>
+          </TouchableOpacity>
+
           {onToggleTheme && (
             <TouchableOpacity
               activeOpacity={0.7}
@@ -926,6 +949,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  communityNavBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
+  communityNavBtnText: {
+    fontSize: 12,
+    fontWeight: '700',
   },
 
   // Scroll body & container

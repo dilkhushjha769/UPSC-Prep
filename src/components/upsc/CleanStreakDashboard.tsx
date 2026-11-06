@@ -401,7 +401,12 @@ export function CleanStreakDashboard({
       {/* ========================================================= */}
       {/* 6. EXAM READINESS & ALL INDIA RANK CARD                   */}
       {/* ========================================================= */}
-      <ExamReadinessCard isDark={isDark} onOpenPrelims={onOpenPrelims} />
+      <ExamReadinessCard
+        isDark={isDark}
+        onOpenPrelims={onOpenPrelims}
+        onOpenMains={onOpenMains}
+        onOpenMockTests={onOpenMockTests}
+      />
 
       {/* Monthly Streak History Modal */}
       <StreakCalendarModal

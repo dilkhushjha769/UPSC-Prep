@@ -3,4 +3,12 @@ export * from './MainsQuestionBrowser';
 export * from './MainsQuestionDetailModal';
 export * from './MainsAnswerWorkspaceModal';
 export * from './MainsEvaluationReportModal';
-
+export * from './community/MainsCommunityView';
+export * from './community/CommunityFeedTab';
+export * from './community/PeerReviewExchangeTab';
+export * from './community/MyActivityTab';
+export * from './community/AnswerSheetViewerModal';
+export * from './community/PublishAnswerModal';
+export * from './community/CreateExchangeModal';
+export * from './community/PeerEvaluationModal';
+export * from './community/CommunityNotificationsModal';

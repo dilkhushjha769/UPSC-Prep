@@ -22,6 +22,7 @@ import {
   Scale,
 } from 'lucide-react-native';
 import { Subject } from '@/types/prelims';
+import { usePrelimsTheme } from '@/constants/prelimsTheme';
 
 interface SubjectProgressRowProps {
   subject: Subject;
@@ -37,21 +38,23 @@ export function SubjectProgressRow({
   serialNumber,
   solvedCount,
   totalQuestions,
-  isDark = true,
+  isDark: propIsDark,
   onPress,
 }: SubjectProgressRowProps) {
+  const prelimsTheme = usePrelimsTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : prelimsTheme.isDark;
   const colors = {
-    cardBg: isDark ? '#1E2535' : '#FFFFFF',
-    cardBorder: isDark ? '#333D52' : '#EAE5DC',
-    serialBg: isDark ? '#1E2535' : '#FAF9F6',
-    serialBorder: isDark ? '#333D52' : '#EAE5DC',
-    serialText: isDark ? '#A4ADBF' : '#7A8499',
-    textPrimary: isDark ? '#F2EFE8' : '#1C2433',
-    textSecondary: isDark ? '#A4ADBF' : '#7A8499',
-    progressTrack: isDark ? '#262E40' : '#EAE5DC',
-    divider: isDark ? '#262E40' : '#EAE5DC',
-    chevron: isDark ? '#7A8499' : '#8892A6',
-    pressedBg: isDark ? '#262E40' : '#E9EDF9',
+    cardBg: isDark ? '#141C28' : '#FFFFFF',
+    cardBorder: isDark ? '#253244' : '#EAE5DC',
+    serialBg: isDark ? '#141C28' : '#FAF9F6',
+    serialBorder: isDark ? '#253244' : '#EAE5DC',
+    serialText: isDark ? '#9DA8B9' : '#7A8499',
+    textPrimary: isDark ? '#F0F4F8' : '#1C2433',
+    textSecondary: isDark ? '#9DA8B9' : '#7A8499',
+    progressTrack: isDark ? '#253244' : '#EAE5DC',
+    divider: isDark ? '#253244' : '#EAE5DC',
+    chevron: isDark ? '#6E7A8E' : '#8892A6',
+    pressedBg: isDark ? '#1B2534' : '#E9EDF9',
   };
   const { width: windowWidth } = useWindowDimensions();
   const [containerWidth, setContainerWidth] = useState<number>(0);
@@ -70,7 +73,7 @@ export function SubjectProgressRow({
   const percentage = count > 0 ? Math.min(100, Math.round((solvedCount / count) * 100)) : 0;
 
   // Resolve Subject-Specific Icon and Color Configuration
-  const { icon: IconComponent, color, bg } = useMemo(() => {
+  const { icon: IconComponent, color } = useMemo(() => {
     switch (subject.id) {
       // GS1 Subjects
       case 'history_culture':
@@ -127,8 +130,8 @@ export function SubjectProgressRow({
             <Text style={[styles.serialText, { color: colors.serialText }]}>{formattedSerial}</Text>
           </View>
 
-          <View style={[styles.iconTile, { backgroundColor: bg }]}>
-            <IconComponent size={20} color="#FFFFFF" strokeWidth={2.2} />
+          <View style={[styles.iconTile, { backgroundColor: isDark ? '#1B2534' : '#F5F3EE', borderColor: isDark ? '#253244' : '#EAE5DC', borderWidth: 1 }]}>
+            <IconComponent size={20} color={isDark ? '#F58235' : '#E07328'} strokeWidth={2.2} />
           </View>
 
           <View style={styles.mobileTitleBlock}>
@@ -193,8 +196,8 @@ export function SubjectProgressRow({
       </View>
 
       {/* 2. Colored Subject Icon Tile */}
-      <View style={[styles.iconTile, { backgroundColor: bg }]}>
-        <IconComponent size={20} color="#FFFFFF" strokeWidth={2.2} />
+      <View style={[styles.iconTile, { backgroundColor: isDark ? '#1B2534' : '#F5F3EE', borderColor: isDark ? '#253244' : '#EAE5DC', borderWidth: 1 }]}>
+        <IconComponent size={20} color={isDark ? '#F58235' : '#E07328'} strokeWidth={2.2} />
       </View>
 
       {/* 3. Subject Name & Chapters Count */}
@@ -243,9 +246,9 @@ const styles = StyleSheet.create({
   cardRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1E2535',
+    backgroundColor: '#141C28',
     borderWidth: 1,
-    borderColor: '#333D52',
+    borderColor: '#253244',
     borderRadius: 12,
     paddingVertical: 14,
     paddingHorizontal: 16,
@@ -253,9 +256,9 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   cardRowMobile: {
-    backgroundColor: '#1E2535',
+    backgroundColor: '#141C28',
     borderWidth: 1,
-    borderColor: '#333D52',
+    borderColor: '#253244',
     borderRadius: 12,
     padding: 14,
     marginBottom: 10,
@@ -275,7 +278,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 8,
     borderTopWidth: 1,
-    borderTopColor: '#262E40',
+    borderTopColor: '#1B2534',
     gap: 12,
   },
   mobileProgressGroup: {
@@ -288,16 +291,16 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 8,
-    backgroundColor: '#1E2535',
+    backgroundColor: '#141C28',
     borderWidth: 1,
-    borderColor: '#333D52',
+    borderColor: '#253244',
     alignItems: 'center',
     justifyContent: 'center',
   },
   serialText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#A4ADBF',
+    color: '#9DA8B9',
     letterSpacing: -0.2,
   },
   iconTile: {
@@ -314,13 +317,13 @@ const styles = StyleSheet.create({
   subjectTitle: {
     fontSize: 15,
     fontWeight: '700',
-    color: '#F2EFE8',
+    color: '#F0F4F8',
     letterSpacing: -0.2,
     marginBottom: 2,
   },
   subjectSubtitle: {
     fontSize: 12,
-    color: '#A4ADBF',
+    color: '#9DA8B9',
     fontWeight: '500',
   },
   progressSection: {
@@ -334,7 +337,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 7,
     borderRadius: 4,
-    backgroundColor: '#262E40',
+    backgroundColor: '#1B2534',
     overflow: 'hidden',
   },
   progressFill: {
@@ -344,7 +347,7 @@ const styles = StyleSheet.create({
   percentText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#F2EFE8',
+    color: '#F0F4F8',
     minWidth: 36,
     textAlign: 'right',
   },
@@ -358,13 +361,13 @@ const styles = StyleSheet.create({
   solvedRatio: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#F2EFE8',
+    color: '#F0F4F8',
     letterSpacing: -0.2,
   },
   solvedLabel: {
     fontSize: 11,
     fontWeight: '500',
-    color: '#A4ADBF',
+    color: '#9DA8B9',
   },
   solvedGroup: {
     flexDirection: 'row',
@@ -376,10 +379,10 @@ const styles = StyleSheet.create({
   },
   solvedCount: {
     fontWeight: '700',
-    color: '#F2EFE8',
+    color: '#F0F4F8',
   },
   solvedTotal: {
-    color: '#A4ADBF',
+    color: '#9DA8B9',
     fontWeight: '500',
   },
   chevronBox: {
@@ -390,7 +393,7 @@ const styles = StyleSheet.create({
   },
   pressed: {
     opacity: 0.88,
-    backgroundColor: '#262E40',
+    backgroundColor: '#1B2534',
   },
 });
 

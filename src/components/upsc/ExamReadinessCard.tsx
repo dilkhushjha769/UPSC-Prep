@@ -10,6 +10,7 @@ import {
 import Svg, { Circle, G, Line, Path, Rect } from 'react-native-svg';
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
+import { useAppTheme } from '@/context/ThemeContext';
 
 interface ExamReadinessCardProps {
   isDark: boolean;
@@ -22,12 +23,12 @@ interface ExamReadinessCardProps {
 
 /** Prelims: Exam Question Paper with Target Reticle Check */
 function PrelimsIllustration({ isDark }: { isDark: boolean }) {
-  const stroke = isDark ? '#D9822B' : '#2A1D12';
-  const paperFill = isDark ? '#B9570A' : '#F2C9A3';
-  const lineStroke = isDark ? '#FFFFFF' : '#2A1D12';
-  const targetBg = isDark ? '#2A1D12' : '#FFFFFF';
-  const targetBorder = isDark ? '#D9822B' : '#2A1D12';
-  const targetDot = isDark ? '#D9822B' : '#B9570A';
+  const stroke = isDark ? '#F1F5F9' : '#1E293B';
+  const paperFill = isDark ? '#141C28' : '#FFFFFF';
+  const lineStroke = isDark ? '#94A3B8' : '#64748B';
+  const targetBg = isDark ? '#1B2534' : '#F5F3EE';
+  const targetBorder = '#F58235';
+  const targetDot = '#F58235';
 
   return (
     <Svg width="36" height="36" viewBox="0 0 36 36" fill="none">
@@ -58,9 +59,9 @@ function PrelimsIllustration({ isDark }: { isDark: boolean }) {
 
 /** Mains: Checklist Clipboard with Angled Pen (Exact match to User Reference Image 1) */
 function MainsIllustration({ isDark }: { isDark: boolean }) {
-  const stroke = isDark ? '#FCEBDD' : '#2A1D12';
-  const accent = isDark ? '#7C93D1' : '#B9570A';
-  const penBody = isDark ? '#D9822B' : '#F2C9A3';
+  const stroke = isDark ? '#F1F5F9' : '#1E293B';
+  const accent = '#F58235';
+  const penBody = isDark ? '#141C28' : '#FFFFFF';
 
   return (
     <Svg width="36" height="36" viewBox="0 0 36 36" fill="none">
@@ -122,7 +123,7 @@ function MainsIllustration({ isDark }: { isDark: boolean }) {
         <Line x1="-3.5" y1="-2.5" x2="3.5" y2="-2.5" stroke={stroke} strokeWidth="1.6" />
         <Path
           d="M -2.5 4 L 0 9 L 2.5 4 Z"
-          fill={isDark ? '#FCEBDD' : stroke}
+          fill="#F58235"
           stroke={stroke}
           strokeWidth="1.6"
           strokeLinejoin="round"
@@ -134,19 +135,19 @@ function MainsIllustration({ isDark }: { isDark: boolean }) {
 
 /** Mock Tests: Question Paper with Overlapping Stopwatch Timer (Exact match to User Reference Image 2) */
 function MockTestIllustration({ isDark }: { isDark: boolean }) {
-  const paperBg = isDark ? '#1E2535' : '#FCEBDD';
-  const paperBorder = isDark ? '#333D52' : '#DDD6CA';
-  const foldBg = isDark ? '#262E40' : '#DDD6CA';
-  const headerFill = isDark ? '#333D52' : '#DDD6CA';
-  const textLineFill = isDark ? '#4A5568' : '#DDD6CA';
-  const blueBox = isDark ? '#D9822B' : '#B9570A';
-  const amberBox = isDark ? '#D9822B' : '#A65A0A';
+  const paperBg = isDark ? '#141C28' : '#FFFFFF';
+  const paperBorder = isDark ? '#334155' : '#DDD6CA';
+  const foldBg = isDark ? '#1B2534' : '#F5F3EE';
+  const headerFill = isDark ? '#334155' : '#EAE5DC';
+  const textLineFill = isDark ? '#253244' : '#EAE5DC';
+  const blueBox = isDark ? '#60A5FA' : '#3B82F6';
+  const amberBox = '#F58235';
 
-  const clockBody = isDark ? '#A65A0A' : '#D9822B';
-  const clockBorder = isDark ? '#D9822B' : '#A65A0A';
-  const crownColor = isDark ? '#D9822B' : '#A65A0A';
-  const tickColor = isDark ? '#6B3A08' : '#A65A0A';
-  const handColor = '#FFFFFF';
+  const clockBody = isDark ? '#141C28' : '#FFFFFF';
+  const clockBorder = '#F58235';
+  const crownColor = '#F58235';
+  const tickColor = isDark ? '#94A3B8' : '#64748B';
+  const handColor = '#F58235';
 
   return (
     <Svg width="36" height="36" viewBox="0 0 36 36" fill="none">
@@ -222,7 +223,9 @@ function MockTestIllustration({ isDark }: { isDark: boolean }) {
 // MAIN COMPONENT
 // =============================================================================
 
-export function ExamReadinessCard({ isDark, onOpenPrelims }: ExamReadinessCardProps) {
+export function ExamReadinessCard({ isDark: propIsDark, onOpenPrelims }: { isDark?: boolean; onOpenPrelims?: () => void }) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const { setIsMCQModalOpen, setIsMainsModalOpen } = useStudy();
   const { width } = useWindowDimensions();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
@@ -236,10 +239,10 @@ export function ExamReadinessCard({ isDark, onOpenPrelims }: ExamReadinessCardPr
       title: 'Prelims',
       subtitle: 'Real Exam Pattern & MCQs',
       illustration: PrelimsIllustration,
-      badgeBg: isDark ? 'rgba(185, 87, 10, 0.16)' : '#FCEBDD',
-      badgeBorder: isDark ? '#6B3A12' : '#F2C9A3',
-      borderHover: '#B9570A',
-      glow: 'rgba(28, 36, 51, 0.10)',
+      badgeBg: isDark ? '#1B2534' : '#F5F3EE',
+      badgeBorder: isDark ? '#253244' : '#EAE5DC',
+      borderHover: '#F58235',
+      glow: 'rgba(245, 130, 53, 0.15)',
       onPress: () => (onOpenPrelims ? onOpenPrelims() : setIsMCQModalOpen(true)),
     },
     {
@@ -247,10 +250,10 @@ export function ExamReadinessCard({ isDark, onOpenPrelims }: ExamReadinessCardPr
       title: 'Mains',
       subtitle: 'Answer Writing & Models',
       illustration: MainsIllustration,
-      badgeBg: isDark ? 'rgba(185, 87, 10, 0.16)' : '#FCEBDD',
-      badgeBorder: isDark ? '#6B3A12' : '#F2C9A3',
-      borderHover: '#B9570A',
-      glow: 'rgba(28, 36, 51, 0.10)',
+      badgeBg: isDark ? '#1B2534' : '#F5F3EE',
+      badgeBorder: isDark ? '#253244' : '#EAE5DC',
+      borderHover: '#F58235',
+      glow: 'rgba(245, 130, 53, 0.15)',
       onPress: () => setIsMainsModalOpen(true),
     },
     {
@@ -258,10 +261,10 @@ export function ExamReadinessCard({ isDark, onOpenPrelims }: ExamReadinessCardPr
       title: 'Mock Tests',
       subtitle: 'Smart Performance Analysis',
       illustration: MockTestIllustration,
-      badgeBg: isDark ? 'rgba(185, 87, 10, 0.16)' : '#FCEBDD',
-      badgeBorder: isDark ? '#6B3A12' : '#F2C9A3',
-      borderHover: '#B9570A',
-      glow: 'rgba(28, 36, 51, 0.10)',
+      badgeBg: isDark ? '#1B2534' : '#F5F3EE',
+      badgeBorder: isDark ? '#253244' : '#EAE5DC',
+      borderHover: '#F58235',
+      glow: 'rgba(245, 130, 53, 0.15)',
       onPress: () => setIsMCQModalOpen(true),
     },
   ];

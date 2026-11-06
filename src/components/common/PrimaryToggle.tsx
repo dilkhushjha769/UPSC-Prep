@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
+import { useAppTheme } from '@/context/ThemeContext';
 
 interface PrimaryToggleProps {
   value: boolean;
@@ -12,10 +13,13 @@ interface PrimaryToggleProps {
 export function PrimaryToggle({
   value,
   onValueChange,
-  isDark = false,
+  isDark: propIsDark,
   disabled = false,
-  activeTrackColor = '#B9570A',
+  activeTrackColor = '#F58235',
 }: PrimaryToggleProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
+
   return (
     <Pressable
       disabled={disabled}
@@ -28,7 +32,7 @@ export function PrimaryToggle({
           backgroundColor: value
             ? activeTrackColor
             : isDark
-            ? '#333D52'
+            ? '#253244'
             : '#DDD6CA',
           opacity: disabled ? 0.45 : 1,
         },
@@ -64,4 +68,3 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
 });
-

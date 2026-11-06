@@ -1,4 +1,6 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   StyleSheet,
   Text,
@@ -19,10 +21,12 @@ import { UPSC_THEME } from '@/constants/themeColors';
 import { ArcGauge } from './CircularGauge';
 
 interface DailyStudyGoalProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function DailyStudyGoal({ isDark }: DailyStudyGoalProps) {
+export function DailyStudyGoal({ isDark: propIsDark }: DailyStudyGoalProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const {
     todayTotalMinutes,
     todayGoalMinutes,
@@ -93,7 +97,7 @@ export function DailyStudyGoal({ isDark }: DailyStudyGoalProps) {
               <View
                 style={[
                   styles.statusBadge,
-                  { backgroundColor: isDark ? '#262E40' : '#E9EDF9' },
+                  { backgroundColor: isDark ? '#1B2534' : '#E9EDF9' },
                 ]}>
                 <Clock size={12} color={colors.primary} />
                 <Text style={[styles.statusBadgeText, { color: colors.primary }]}>
@@ -123,7 +127,7 @@ export function DailyStudyGoal({ isDark }: DailyStudyGoalProps) {
           <View
             style={[
               styles.progressBarTrack,
-              { backgroundColor: isDark ? '#1E2535' : '#FCEBDD' },
+              { backgroundColor: isDark ? '#141C28' : '#FCEBDD' },
             ]}>
             <View
               style={[
@@ -143,7 +147,7 @@ export function DailyStudyGoal({ isDark }: DailyStudyGoalProps) {
             size={120}
             strokeWidth={11}
             progress={progressRatio}
-            trackColor={isDark ? '#262E40' : '#FCEBDD'}
+            trackColor={isDark ? '#1B2534' : '#FCEBDD'}
             fillColor={colors.primary}
             gradientColors={[colors.primary, colors.primary]}
             gradientId="todayGoalGrad">
@@ -185,8 +189,7 @@ export function DailyStudyGoal({ isDark }: DailyStudyGoalProps) {
           activeOpacity={0.85}
           onPress={() => setIsFocusModalOpen(true)}
           style={[
-            styles.primaryActionBtn,
-            { backgroundColor: colors.primary },
+            styles.primaryActionBtn, primaryButtonStyle(isDark),
           ]}>
           <Play size={16} color="#FFFFFF" fill="#FFFFFF" />
           <Text style={styles.primaryActionText}>Start Study Session</Text>
@@ -199,7 +202,7 @@ export function DailyStudyGoal({ isDark }: DailyStudyGoalProps) {
           style={[
             styles.secondaryActionBtn,
             {
-              backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+              backgroundColor: isDark ? '#141C28' : '#FAF9F6',
               borderColor: colors.cardBorderSubtle,
             },
           ]}>

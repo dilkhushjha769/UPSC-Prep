@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React, { useState } from 'react';
 import {
   Modal,
@@ -19,10 +20,12 @@ import { useStudy } from '@/context/StudyContext';
 import { UPSC_THEME } from '@/constants/themeColors';
 
 interface MainsAnswerModalProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function MainsAnswerModal({ isDark }: MainsAnswerModalProps) {
+export function MainsAnswerModal({ isDark: propIsDark }: MainsAnswerModalProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { isMainsModalOpen, setIsMainsModalOpen, recordMainsAnswer } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 
@@ -89,8 +92,8 @@ export function MainsAnswerModal({ isDark }: MainsAnswerModalProps) {
               style={[
                 styles.promptBox,
                 {
-                  backgroundColor: isDark ? '#1E2535' : '#E9EDF9',
-                  borderColor: isDark ? '#262E40' : '#E9EDF9',
+                  backgroundColor: isDark ? '#141C28' : '#E9EDF9',
+                  borderColor: isDark ? '#253244' : '#E9EDF9',
                 },
               ]}>
               <View style={styles.promptMeta}>
@@ -127,10 +130,10 @@ export function MainsAnswerModal({ isDark }: MainsAnswerModalProps) {
                     {
                       backgroundColor: checklist[item.id]
                         ? isDark
-                          ? '#16382A'
+                          ? '#17301F'
                           : '#E3F1E8'
                         : isDark
-                        ? '#1E2535'
+                        ? '#141C28'
                         : '#FAF9F6',
                       borderColor: checklist[item.id]
                         ? colors.accentEmerald
@@ -186,7 +189,7 @@ export function MainsAnswerModal({ isDark }: MainsAnswerModalProps) {
                 style={[
                   styles.textArea,
                   {
-                    backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                    backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                     borderColor: colors.cardBorderSubtle,
                     color: colors.textPrimary,
                   },

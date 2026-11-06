@@ -1,4 +1,5 @@
 import React from 'react';
+import { usePrelimsTheme } from '@/constants/prelimsTheme';
 import {
   Modal,
   Platform,
@@ -25,22 +26,24 @@ export function YearRangePickerModal({
   visible,
   selectedRange,
   paper,
-  isDark = true,
+  isDark: propIsDark,
   onSelect,
   onClose,
 }: YearRangePickerModalProps) {
+  const prelimsTheme = usePrelimsTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : prelimsTheme.isDark;
   const colors = {
-    dialogBg: isDark ? '#1E2535' : '#FFFFFF',
-    dialogBorder: isDark ? '#333D52' : '#EAE5DC',
-    headerBorder: isDark ? '#333D52' : '#EAE5DC',
-    iconBg: isDark ? '#1E2535' : '#FAF9F6',
-    iconBorder: isDark ? '#333D52' : '#EAE5DC',
-    textPrimary: isDark ? '#F2EFE8' : '#1C2433',
-    textSecondary: isDark ? '#A4ADBF' : '#7A8499',
-    rowBg: isDark ? '#1E2535' : '#FAF9F6',
-    rowBorder: isDark ? '#333D52' : '#EAE5DC',
-    chipBg: isDark ? '#1E2535' : '#FAF9F6',
-    chipBorder: isDark ? '#333D52' : '#EAE5DC',
+    dialogBg: isDark ? '#141C28' : '#FFFFFF',
+    dialogBorder: isDark ? '#253244' : '#EAE5DC',
+    headerBorder: isDark ? '#253244' : '#EAE5DC',
+    iconBg: isDark ? '#141C28' : '#FAF9F6',
+    iconBorder: isDark ? '#253244' : '#EAE5DC',
+    textPrimary: isDark ? '#F0F4F8' : '#1C2433',
+    textSecondary: isDark ? '#9DA8B9' : '#7A8499',
+    rowBg: isDark ? '#141C28' : '#FAF9F6',
+    rowBorder: isDark ? '#253244' : '#EAE5DC',
+    chipBg: isDark ? '#141C28' : '#FAF9F6',
+    chipBorder: isDark ? '#253244' : '#EAE5DC',
   };
   const isGS1 = paper === 'gs1';
   const years = isGS1
@@ -85,7 +88,7 @@ export function YearRangePickerModal({
               onPress={onClose}
               accessibilityLabel="Close year picker"
             >
-              <X size={16} color="#A4ADBF" strokeWidth={2.2} />
+              <X size={16} color="#9DA8B9" strokeWidth={2.2} />
             </Pressable>
           </View>
 
@@ -99,7 +102,7 @@ export function YearRangePickerModal({
                   key={preset.key}
                   style={({ pressed }) => [
                     styles.rowItem,
-                    { backgroundColor: isSelected ? (isDark ? '#262E40' : '#FCEBDD') : colors.rowBg, borderColor: isSelected ? '#B9570A' : colors.rowBorder },
+                    { backgroundColor: isSelected ? (isDark ? '#1B2534' : '#FCEBDD') : colors.rowBg, borderColor: isSelected ? '#B9570A' : colors.rowBorder },
                     pressed && styles.pressed,
                   ]}
                   onPress={() => {
@@ -162,9 +165,9 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 440,
     maxHeight: '85%',
-    backgroundColor: '#1E2535',
+    backgroundColor: '#141C28',
     borderWidth: 1,
-    borderColor: '#333D52',
+    borderColor: '#253244',
     borderRadius: 14,
     padding: 18,
     ...Platform.select({
@@ -178,7 +181,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingBottom: 14,
     borderBottomWidth: 1,
-    borderBottomColor: '#333D52',
+    borderBottomColor: '#253244',
   },
   headerLeft: {
     flexDirection: 'row',
@@ -189,21 +192,21 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 8,
-    backgroundColor: '#1E2535',
+    backgroundColor: '#141C28',
     borderWidth: 1,
-    borderColor: '#333D52',
+    borderColor: '#253244',
     alignItems: 'center',
     justifyContent: 'center',
   },
   title: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#F2EFE8',
+    color: '#F0F4F8',
     letterSpacing: -0.2,
   },
   subtitle: {
     fontSize: 12,
-    color: '#A4ADBF',
+    color: '#9DA8B9',
     fontWeight: '500',
     marginTop: 1,
   },
@@ -211,9 +214,9 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 8,
-    backgroundColor: '#1E2535',
+    backgroundColor: '#141C28',
     borderWidth: 1,
-    borderColor: '#333D52',
+    borderColor: '#253244',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -223,7 +226,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#A4ADBF',
+    color: '#9DA8B9',
     letterSpacing: 0.8,
     marginBottom: 8,
   },
@@ -237,7 +240,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'transparent',
     marginBottom: 4,
-    backgroundColor: '#1E2535',
+    backgroundColor: '#141C28',
   },
   rowItemActive: {
     backgroundColor: '#1C2433',
@@ -249,7 +252,7 @@ const styles = StyleSheet.create({
   rowLabel: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#F2EFE8',
+    color: '#F0F4F8',
   },
   rowLabelActive: {
     color: '#FFFFFF',
@@ -257,7 +260,7 @@ const styles = StyleSheet.create({
   },
   rowSub: {
     fontSize: 12,
-    color: '#A4ADBF',
+    color: '#9DA8B9',
     marginTop: 2,
   },
   yearsGrid: {
@@ -272,9 +275,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingVertical: 10,
     borderRadius: 8,
-    backgroundColor: '#1E2535',
+    backgroundColor: '#141C28',
     borderWidth: 1,
-    borderColor: '#333D52',
+    borderColor: '#253244',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -285,7 +288,7 @@ const styles = StyleSheet.create({
   yearChipText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#F2EFE8',
+    color: '#F0F4F8',
   },
   yearChipTextActive: {
     color: '#FFFFFF',

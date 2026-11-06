@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   View,
   Text,
@@ -477,7 +478,7 @@ function QuizModalContent({
 
             {/* Rule 1 */}
             <View style={styles.ruleItemRow}>
-              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1E2535' : '#FCEBDD' }]}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#141C28' : '#FCEBDD' }]}>
                 <Text style={styles.ruleItemNumText}>1</Text>
               </View>
               <View style={styles.ruleItemContent}>
@@ -492,7 +493,7 @@ function QuizModalContent({
 
             {/* Rule 2 */}
             <View style={styles.ruleItemRow}>
-              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1E2535' : '#FCEBDD' }]}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#141C28' : '#FCEBDD' }]}>
                 <Text style={styles.ruleItemNumText}>2</Text>
               </View>
               <View style={styles.ruleItemContent}>
@@ -507,7 +508,7 @@ function QuizModalContent({
 
             {/* Rule 3 */}
             <View style={styles.ruleItemRow}>
-              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1E2535' : '#FCEBDD' }]}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#141C28' : '#FCEBDD' }]}>
                 <Text style={styles.ruleItemNumText}>3</Text>
               </View>
               <View style={styles.ruleItemContent}>
@@ -522,7 +523,7 @@ function QuizModalContent({
 
             {/* Rule 4 */}
             <View style={styles.ruleItemRow}>
-              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1E2535' : '#FCEBDD' }]}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#141C28' : '#FCEBDD' }]}>
                 <Text style={styles.ruleItemNumText}>4</Text>
               </View>
               <View style={styles.ruleItemContent}>
@@ -537,7 +538,7 @@ function QuizModalContent({
 
             {/* Rule 5 */}
             <View style={styles.ruleItemRow}>
-              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#1E2535' : '#FCEBDD' }]}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#141C28' : '#FCEBDD' }]}>
                 <Text style={styles.ruleItemNumText}>5</Text>
               </View>
               <View style={styles.ruleItemContent}>
@@ -566,7 +567,7 @@ function QuizModalContent({
           </Pressable>
 
           <Pressable
-            style={({ pressed }) => [styles.rulesStartBtn, pressed && styles.pressed]}
+            style={({ pressed }) => [styles.rulesStartBtn, primaryButtonStyle(theme.isDark), pressed && styles.pressed]}
             onPress={() => setQuizStarted(true)}
             accessibilityRole="button"
             accessibilityLabel="Start Quiz Now"
@@ -615,7 +616,7 @@ function QuizModalContent({
                   timeLeftSeconds < 120
                     ? '#B42318'
                     : theme.isDark
-                    ? '#D9822B'
+                    ? '#E0963A'
                     : '#B9570A'
                 }
                 strokeWidth={2.2}
@@ -967,7 +968,7 @@ function QuizModalContent({
                   </View>
                   <View style={styles.confirmStatDivider} />
                   <View style={styles.confirmStatItem}>
-                    <Text style={[styles.confirmStatNum, { color: theme.isDark ? '#D9822B' : '#B9570A' }]}>
+                    <Text style={[styles.confirmStatNum, { color: theme.isDark ? '#E0963A' : '#B9570A' }]}>
                       {formatTime(timeLeftSeconds)}
                     </Text>
                     <Text style={styles.confirmStatLabel}>Time Left</Text>
@@ -1168,15 +1169,15 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
   return StyleSheet.create({
     fullScreenSafeArea: {
       flex: 1,
-      backgroundColor: isDark ? '#1C2433' : '#FAF9F6',
+      backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
     },
     fullScreenContainer: {
       flex: 1,
-      backgroundColor: isDark ? '#1C2433' : '#FAF9F6',
+      backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
     },
     sheetContainer: {
       flex: 1,
-      backgroundColor: isDark ? '#1C2433' : '#FAF9F6',
+      backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
     },
     topBar: {
       position: 'relative',
@@ -1186,7 +1187,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       paddingHorizontal: isMobile ? 14 : 20,
       paddingVertical: isMobile ? 11 : 13,
       borderBottomWidth: 1,
-      borderBottomColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(199, 210, 254, 0.5)',
+      borderBottomColor: isDark ? '#253244' : 'rgba(199, 210, 254, 0.5)',
       backgroundColor: isDark ? 'rgba(17, 21, 36, 0.85)' : 'rgba(234, 241, 253, 0.85)',
     },
     titleCol: {
@@ -1223,7 +1224,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       width: 34,
       height: 34,
       borderRadius: 8,
-      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
       borderWidth: 1,
       borderColor: theme.colors.borderCard,
       alignItems: 'center',
@@ -1288,7 +1289,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       backgroundColor: isMobile ? 'transparent' : (isDark ? 'rgba(22, 26, 38, 0.7)' : 'rgba(255, 255, 255, 0.75)'),
       borderRadius: isMobile ? 0 : 14,
       borderWidth: isMobile ? 0 : 1,
-      borderColor: isDark ? '#262E40' : 'rgba(199, 210, 254, 0.6)',
+      borderColor: isDark ? '#253244' : 'rgba(199, 210, 254, 0.6)',
       display: 'flex',
       flexDirection: 'column',
       overflow: 'hidden',
@@ -1316,7 +1317,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       gap: 8,
     },
     metaYearTag: {
-      backgroundColor: isDark ? '#262E40' : '#FCEBDD',
+      backgroundColor: isDark ? '#1B2534' : '#FCEBDD',
       paddingHorizontal: 7,
       paddingVertical: 2.5,
       borderRadius: 5,
@@ -1327,7 +1328,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       color: '#26734D',
     },
     metaMarkingTag: {
-      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
       paddingHorizontal: 7,
       paddingVertical: 2.5,
       borderRadius: 5,
@@ -1348,7 +1349,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 5,
-      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
       paddingHorizontal: 9,
       paddingVertical: 5,
       borderRadius: 7,
@@ -1365,14 +1366,14 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       fontWeight: '600',
     },
     bookmarkBtnTextActive: {
-      color: isDark ? '#D9822B' : '#A65A0A',
+      color: isDark ? '#E0963A' : '#A65A0A',
       fontWeight: '800',
     },
     markBtn: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 5,
-      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
       paddingHorizontal: 9,
       paddingVertical: 5,
       borderRadius: 7,
@@ -1380,7 +1381,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       borderColor: theme.colors.borderSubtle,
     },
     markBtnActive: {
-      backgroundColor: isDark ? '#262E40' : '#FCEBDD',
+      backgroundColor: isDark ? '#1B2534' : '#FCEBDD',
       borderColor: '#D9822B',
     },
     markBtnText: {
@@ -1414,26 +1415,26 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       borderRadius: 12,
       borderWidth: 1.5,
       borderColor: theme.colors.borderCard,
-      backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
+      backgroundColor: isDark ? '#141C28' : '#FFFFFF',
       gap: 12,
     },
     optionItemSelected: {
-      backgroundColor: isDark ? '#1E2535' : '#FCEBDD',
-      borderColor: isDark ? '#D9822B' : '#B9570A',
+      backgroundColor: isDark ? '#141C28' : '#FCEBDD',
+      borderColor: isDark ? '#E0963A' : '#B9570A',
     },
     keyCircle: {
       width: 28,
       height: 28,
       borderRadius: 14,
-      backgroundColor: isDark ? '#262E40' : '#F0EDE6',
+      backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
       borderWidth: 1,
       borderColor: theme.colors.borderSubtle,
       alignItems: 'center',
       justifyContent: 'center',
     },
     keyCircleSelected: {
-      backgroundColor: isDark ? '#B9570A' : '#B9570A',
-      borderColor: isDark ? '#D9822B' : '#B9570A',
+      backgroundColor: isDark ? '#F0F4F8' : '#1C2433',
+      borderColor: isDark ? '#253244' : '#1C2433',
     },
     keyText: {
       fontSize: 12,
@@ -1441,7 +1442,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       color: theme.colors.textPrimary,
     },
     keyTextSelected: {
-      color: '#FFFFFF',
+      color: isDark ? '#0B1018' : '#FFFFFF',
     },
     optionContentText: {
       fontSize: 14,
@@ -1461,13 +1462,13 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       paddingVertical: isMobile ? 10 : 12,
       borderTopWidth: 1,
       borderTopColor: theme.colors.borderCard,
-      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+      backgroundColor: isDark ? '#141C28' : '#FAF9F6',
       gap: isMobile ? 8 : 10,
     },
     navPrevBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: isDark ? '#262E40' : '#F0EDE6',
+      backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
       paddingVertical: 8,
       paddingHorizontal: isMobile ? 10 : 14,
       borderRadius: 8,
@@ -1490,7 +1491,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     clearBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: isDark ? '#262E40' : '#F0EDE6',
+      backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
       paddingVertical: 6,
       paddingHorizontal: 10,
       borderRadius: 6,
@@ -1534,7 +1535,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     submitBtnText: {
       fontSize: 12.5,
       fontWeight: '800',
-      color: '#FFFFFF',
+      color: isDark ? '#0B1018' : '#FFFFFF',
     },
     btnDisabled: {
       opacity: 0.45,
@@ -1626,7 +1627,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     },
     statPill: {
       flex: 1,
-      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+      backgroundColor: isDark ? '#141C28' : '#FAF9F6',
       paddingVertical: 10,
       borderRadius: 10,
       alignItems: 'center',
@@ -1718,13 +1719,13 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       borderRadius: 5,
     },
     statusBadgeCorrect: {
-      backgroundColor: isDark ? '#16382A' : '#E3F1E8',
+      backgroundColor: isDark ? '#17301F' : '#E3F1E8',
     },
     statusBadgeWrong: {
       backgroundColor: isDark ? '#6E1F18' : '#FBE4E1',
     },
     statusBadgeSkipped: {
-      backgroundColor: isDark ? '#262E40' : '#F0EDE6',
+      backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
     },
     statusBadgeText: {
       fontSize: 10,
@@ -1750,7 +1751,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       flexDirection: 'row',
       alignItems: 'center',
       flexWrap: 'wrap',
-      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+      backgroundColor: isDark ? '#141C28' : '#FAF9F6',
       padding: 10,
       borderRadius: 8,
       borderWidth: 1,
@@ -1771,7 +1772,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       color: '#3FA573',
     },
     solutionBox: {
-      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
       padding: 12,
       borderRadius: 8,
       borderLeftWidth: 3,
@@ -1861,7 +1862,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       alignItems: 'center',
       justifyContent: 'space-around',
       width: '100%',
-      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+      backgroundColor: isDark ? '#141C28' : '#FAF9F6',
       borderRadius: 10,
       paddingVertical: 10,
       paddingHorizontal: 12,
@@ -1909,7 +1910,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     },
     confirmExitBtn: {
       flex: 1,
-      backgroundColor: isDark ? '#3D1B18' : '#FBE4E1',
+      backgroundColor: isDark ? '#3B1A17' : '#FBE4E1',
       borderWidth: 1,
       borderColor: isDark ? '#6E1F18' : '#F3C4BF',
       paddingVertical: 12,
@@ -1968,7 +1969,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       marginBottom: 8,
     },
     rulesExamBadge: {
-      backgroundColor: theme.isDark ? '#1E2535' : '#FCEBDD',
+      backgroundColor: theme.isDark ? '#141C28' : '#FCEBDD',
       paddingHorizontal: 8,
       paddingVertical: 3,
       borderRadius: 6,
@@ -2092,14 +2093,14 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       alignItems: 'center',
       justifyContent: 'center',
       gap: 8,
-      backgroundColor: '#B9570A',
+      backgroundColor: '#1C2433',
       paddingVertical: 12,
       borderRadius: 10,
     },
     rulesStartBtnText: {
       fontSize: 14,
       fontWeight: '700',
-      color: '#FFFFFF',
+      color: isDark ? '#0B1018' : '#FFFFFF',
       letterSpacing: -0.1,
     },
   });

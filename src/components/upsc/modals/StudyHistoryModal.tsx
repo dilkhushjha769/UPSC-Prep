@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React, { useState } from 'react';
 import {
   Modal,
@@ -22,10 +23,12 @@ import { SUBJECT_COLORS, UPSC_THEME } from '@/constants/themeColors';
 import { StudySession } from '@/types/study';
 
 interface StudyHistoryModalProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function StudyHistoryModal({ isDark }: StudyHistoryModalProps) {
+export function StudyHistoryModal({ isDark: propIsDark }: StudyHistoryModalProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const {
     isHistoryModalOpen,
     setIsHistoryModalOpen,
@@ -88,7 +91,7 @@ export function StudyHistoryModal({ isDark }: StudyHistoryModalProps) {
               style={[
                 styles.searchBar,
                 {
-                  backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                  backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                 },
               ]}>
@@ -132,11 +135,11 @@ export function StudyHistoryModal({ isDark }: StudyHistoryModalProps) {
                       styles.filterChip,
                       {
                         backgroundColor: isSelected
-                          ? isDark ? '#FFFFFF' : '#151A25'
-                          : isDark ? '#1E2535' : '#F0EDE6',
+                          ? isDark ? '#FFFFFF' : '#0B1018'
+                          : isDark ? '#141C28' : '#F0EDE6',
                         borderColor: isSelected
-                          ? isDark ? '#FFFFFF' : '#151A25'
-                          : isDark ? '#262E40' : '#EAE5DC',
+                          ? isDark ? '#FFFFFF' : '#0B1018'
+                          : isDark ? '#1B2534' : '#EAE5DC',
                       },
                     ]}>
                     <Text
@@ -144,7 +147,7 @@ export function StudyHistoryModal({ isDark }: StudyHistoryModalProps) {
                         styles.filterChipText,
                         {
                           color: isSelected
-                            ? isDark ? '#151A25' : '#FFFFFF'
+                            ? isDark ? '#0B1018' : '#FFFFFF'
                             : colors.textSecondary,
                           fontWeight: isSelected ? '700' : '500',
                         },
@@ -178,7 +181,7 @@ export function StudyHistoryModal({ isDark }: StudyHistoryModalProps) {
                       style={[
                         styles.sessionCard,
                         {
-                          backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                          backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                           borderColor: colors.cardBorderSubtle,
                         },
                       ]}>
@@ -189,7 +192,7 @@ export function StudyHistoryModal({ isDark }: StudyHistoryModalProps) {
                               styles.subjectBadge,
                               {
                                 backgroundColor: isDark
-                                  ? '#262E40'
+                                  ? '#1B2534'
                                   : subjectStyle.bg,
                                 borderColor: subjectStyle.border,
                               },

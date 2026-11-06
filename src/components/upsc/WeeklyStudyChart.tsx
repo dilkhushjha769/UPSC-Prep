@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React, { useState } from 'react';
 import {
   StyleSheet,
@@ -22,10 +23,12 @@ import { useStudy } from '@/context/StudyContext';
 import { UPSC_THEME } from '@/constants/themeColors';
 
 interface WeeklyStudyChartProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function WeeklyStudyChart({ isDark }: WeeklyStudyChartProps) {
+export function WeeklyStudyChart({ isDark: propIsDark }: WeeklyStudyChartProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { weekDays } = useStudy();
   const { width } = useWindowDimensions();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
@@ -136,7 +139,7 @@ export function WeeklyStudyChart({ isDark }: WeeklyStudyChartProps) {
           style={[
             styles.targetBadge,
             {
-              backgroundColor: isDark ? '#262E40' : '#FCEBDD',
+              backgroundColor: isDark ? '#1B2534' : '#FCEBDD',
               borderColor: colors.cardBorderSubtle,
             },
           ]}>
@@ -153,7 +156,7 @@ export function WeeklyStudyChart({ isDark }: WeeklyStudyChartProps) {
           style={[
             styles.statCard,
             {
-              backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+              backgroundColor: isDark ? '#141C28' : '#FAF9F6',
               borderColor: colors.cardBorderSubtle,
             },
           ]}>
@@ -173,7 +176,7 @@ export function WeeklyStudyChart({ isDark }: WeeklyStudyChartProps) {
           style={[
             styles.statCard,
             {
-              backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+              backgroundColor: isDark ? '#141C28' : '#FAF9F6',
               borderColor: colors.cardBorderSubtle,
             },
           ]}>
@@ -190,7 +193,7 @@ export function WeeklyStudyChart({ isDark }: WeeklyStudyChartProps) {
           style={[
             styles.statCard,
             {
-              backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+              backgroundColor: isDark ? '#141C28' : '#FAF9F6',
               borderColor: colors.cardBorderSubtle,
             },
           ]}>
@@ -211,7 +214,7 @@ export function WeeklyStudyChart({ isDark }: WeeklyStudyChartProps) {
         style={[
           styles.dayInspector,
           {
-            backgroundColor: isDark ? '#262E40' : '#E9EDF9',
+            backgroundColor: isDark ? '#1B2534' : '#E9EDF9',
             borderColor: colors.cardBorder,
           },
         ]}>

@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React from 'react';
 import {
   ScrollView,
@@ -19,10 +20,12 @@ import { UPSC_THEME } from '@/constants/themeColors';
 import { DayStudySummary } from '@/types/study';
 
 interface StudyStreakCalendarProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function StudyStreakCalendar({ isDark }: StudyStreakCalendarProps) {
+export function StudyStreakCalendar({ isDark: propIsDark }: StudyStreakCalendarProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { streak, weekDays, setIsStreakInfoModalOpen, config } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 
@@ -41,7 +44,7 @@ export function StudyStreakCalendar({ isDark }: StudyStreakCalendarProps) {
           <View
             style={[
               styles.flameIconContainer,
-              { backgroundColor: isDark ? '#262E40' : '#FBE4E1' },
+              { backgroundColor: isDark ? '#1B2534' : '#FBE4E1' },
             ]}>
             <Flame size={20} color="#B42318" fill="#B42318" />
           </View>
@@ -96,15 +99,15 @@ export function StudyStreakCalendar({ isDark }: StudyStreakCalendarProps) {
             let numColor = colors.textPrimary;
 
             if (day.isToday) {
-              itemBg = colors.primarySoft;
-              itemBorder = colors.primary;
-              dayColor = colors.primary;
-              numColor = colors.primary;
+              itemBg = isDark ? '#F4F6FB' : '#1C2433';
+              itemBorder = isDark ? '#F4F6FB' : '#1C2433';
+              dayColor = isDark ? '#0D1520' : '#FFFFFF';
+              numColor = isDark ? '#0D1520' : '#FFFFFF';
             } else if (day.isCompleted) {
-              itemBg = isDark ? '#1C2433' : '#FAF9F6';
+              itemBg = isDark ? '#0B1018' : '#FAF9F6';
               itemBorder = isDark ? '#3F4A5E' : '#EAE5DC';
             } else if (day.isPast && !day.isCompleted) {
-              itemBg = isDark ? '#151A25' : '#FAF9F6';
+              itemBg = isDark ? '#0B1018' : '#FAF9F6';
               itemBorder = colors.cardBorderSubtle;
               dayColor = colors.textMuted;
               numColor = colors.textMuted;
@@ -129,12 +132,12 @@ export function StudyStreakCalendar({ isDark }: StudyStreakCalendarProps) {
                 <View
                   style={[
                     styles.dateCircle,
-                    day.isToday && { backgroundColor: colors.primary },
+                    day.isToday && { backgroundColor: isDark ? '#F4F6FB' : '#1C2433' },
                   ]}>
                   <Text
                     style={[
                       styles.dateNumber,
-                      { color: day.isToday ? '#FFFFFF' : numColor },
+                      { color: day.isToday ? (isDark ? '#0D1520' : '#FFFFFF') : numColor },
                     ]}>
                     {day.dayNumber}
                   </Text>
@@ -201,7 +204,7 @@ export function StudyStreakCalendar({ isDark }: StudyStreakCalendarProps) {
         style={[
           styles.statsGrid,
           {
-            backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+            backgroundColor: isDark ? '#141C28' : '#FAF9F6',
             borderColor: colors.cardBorderSubtle,
           },
         ]}>

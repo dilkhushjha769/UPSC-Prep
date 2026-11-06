@@ -1,4 +1,6 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React, { useState } from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   Modal,
   Platform,
@@ -59,10 +61,12 @@ const PRESET_DURATIONS = [
 ];
 
 interface FocusTimerModalProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
+export function FocusTimerModal({ isDark: propIsDark }: FocusTimerModalProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const {
     isFocusModalOpen,
     setIsFocusModalOpen,
@@ -164,7 +168,7 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
             styles.modalContainer,
             {
               backgroundColor: theme.cardBg,
-              borderColor: isDark ? '#262E40' : theme.cardBorder,
+              borderColor: isDark ? '#253244' : theme.cardBorder,
             },
             Platform.OS === 'web' && ({
               boxShadow: isDark
@@ -184,8 +188,8 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
               style={[
                 styles.closeBtn,
                 {
-                  backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
-                  borderColor: isDark ? '#262E40' : '#EAE5DC',
+                  backgroundColor: isDark ? '#141C28' : '#F0EDE6',
+                  borderColor: isDark ? '#253244' : '#EAE5DC',
                 },
               ]}>
               <X size={15} color={theme.textPrimary} />
@@ -218,11 +222,11 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                             styles.subjectChip,
                             {
                               backgroundColor: isSelected
-                                ? isDark ? '#FFFFFF' : '#151A25'
-                                : isDark ? '#151A25' : '#FAF9F6',
+                                ? isDark ? '#FFFFFF' : '#0B1018'
+                                : isDark ? '#0B1018' : '#FAF9F6',
                               borderColor: isSelected
-                                ? isDark ? '#FFFFFF' : '#151A25'
-                                : isDark ? '#262E40' : '#EAE5DC',
+                                ? isDark ? '#FFFFFF' : '#0B1018'
+                                : isDark ? '#1B2534' : '#EAE5DC',
                             },
                           ]}>
                           <Text
@@ -230,7 +234,7 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                               styles.subjectChipText,
                               {
                                 color: isSelected
-                                  ? isDark ? '#151A25' : '#FFFFFF'
+                                  ? isDark ? '#0B1018' : '#FFFFFF'
                                   : theme.textSecondary,
                                 fontWeight: isSelected ? '700' : '500',
                               },
@@ -254,8 +258,8 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                         style={[
                           styles.textInput,
                           {
-                            backgroundColor: isDark ? '#151A25' : '#FAF9F6',
-                            borderColor: isDark ? '#262E40' : '#EAE5DC',
+                            backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
+                            borderColor: isDark ? '#253244' : '#EAE5DC',
                             color: theme.textPrimary,
                           },
                         ]}
@@ -277,8 +281,8 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                     style={[
                       styles.textInput,
                       {
-                        backgroundColor: isDark ? '#151A25' : '#FAF9F6',
-                        borderColor: isDark ? '#262E40' : '#EAE5DC',
+                        backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
+                        borderColor: isDark ? '#253244' : '#EAE5DC',
                         color: theme.textPrimary,
                       },
                     ]}
@@ -303,11 +307,11 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                             styles.presetPill,
                             {
                               backgroundColor: isSelected
-                                ? isDark ? '#1E2535' : '#F0EDE6'
-                                : isDark ? '#151A25' : '#FFFFFF',
+                                ? isDark ? '#141C28' : '#F0EDE6'
+                                : isDark ? '#0B1018' : '#FFFFFF',
                               borderColor: isSelected
-                                ? isDark ? '#FFFFFF' : '#151A25'
-                                : isDark ? '#262E40' : '#EAE5DC',
+                                ? isDark ? '#FFFFFF' : '#0B1018'
+                                : isDark ? '#1B2534' : '#EAE5DC',
                               borderWidth: isSelected ? 1.5 : 1,
                             },
                           ]}>
@@ -339,8 +343,8 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                   style={[
                     styles.activeSessionCard,
                     {
-                      backgroundColor: isDark ? '#151A25' : '#FAF9F6',
-                      borderColor: isDark ? '#262E40' : '#EAE5DC',
+                      backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
+                      borderColor: isDark ? '#253244' : '#EAE5DC',
                     },
                   ]}>
                   <View style={styles.activeSubjectRow}>
@@ -348,7 +352,7 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                       style={[
                         styles.activeSubjectTag,
                         {
-                          backgroundColor: isDark ? '#262E40' : '#EAE5DC',
+                          backgroundColor: isDark ? '#1B2534' : '#EAE5DC',
                         },
                       ]}>
                       <BookOpen size={11} color={theme.textPrimary} />
@@ -379,7 +383,7 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                           cx={center}
                           cy={center}
                           r={radius}
-                          stroke={isDark ? '#262E40' : '#EAE5DC'}
+                          stroke={isDark ? '#1B2534' : '#EAE5DC'}
                           strokeWidth={strokeWidth}
                           fill="none"
                         />
@@ -389,8 +393,8 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                           r={radius}
                           stroke={
                             isQualified
-                              ? isDark ? '#3FA573' : '#26734D'
-                              : isDark ? '#FFFFFF' : '#151A25'
+                              ? isDark ? '#4DB383' : '#26734D'
+                              : isDark ? '#FFFFFF' : '#0B1018'
                           }
                           strokeWidth={strokeWidth}
                           strokeDasharray={`${circumference} ${circumference}`}
@@ -453,8 +457,8 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                   style={[
                     styles.dailyContextCard,
                     {
-                      backgroundColor: isDark ? '#151A25' : '#FAF9F6',
-                      borderColor: isDark ? '#262E40' : '#EAE5DC',
+                      backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
+                      borderColor: isDark ? '#253244' : '#EAE5DC',
                     },
                   ]}>
                   <View style={styles.dailyContextItem}>
@@ -497,8 +501,8 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                   style={[
                     styles.ambientCard,
                     {
-                      backgroundColor: isDark ? '#151A25' : '#FAF9F6',
-                      borderColor: isDark ? '#262E40' : '#EAE5DC',
+                      backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
+                      borderColor: isDark ? '#253244' : '#EAE5DC',
                     },
                   ]}>
                   <View style={styles.ambientHeader}>
@@ -526,11 +530,11 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                             styles.ambientPill,
                             {
                               backgroundColor: isSelected
-                                ? isDark ? '#FFFFFF' : '#151A25'
-                                : isDark ? '#1E2535' : '#FFFFFF',
+                                ? isDark ? '#FFFFFF' : '#0B1018'
+                                : isDark ? '#141C28' : '#FFFFFF',
                               borderColor: isSelected
-                                ? isDark ? '#FFFFFF' : '#151A25'
-                                : isDark ? '#262E40' : '#EAE5DC',
+                                ? isDark ? '#FFFFFF' : '#0B1018'
+                                : isDark ? '#1B2534' : '#EAE5DC',
                             },
                           ]}>
                           <Text
@@ -538,7 +542,7 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                               styles.ambientPillText,
                               {
                                 color: isSelected
-                                  ? isDark ? '#151A25' : '#FFFFFF'
+                                  ? isDark ? '#0B1018' : '#FFFFFF'
                                   : theme.textSecondary,
                                 fontWeight: isSelected ? '700' : '500',
                               },
@@ -559,7 +563,7 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                 style={[
                   styles.confirmBox,
                   {
-                    backgroundColor: isDark ? '#1E2535' : '#FBE4E1',
+                    backgroundColor: isDark ? '#141C28' : '#FBE4E1',
                     borderColor: isDark ? '#6E1F18' : '#F3C4BF',
                   },
                 ]}>
@@ -577,7 +581,7 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                     onPress={() => setIsDiscardConfirmOpen(false)}
                     style={[
                       styles.confirmBtnCancel,
-                      { borderColor: isDark ? '#333D52' : '#DDD6CA' },
+                      { borderColor: isDark ? '#253244' : '#DDD6CA' },
                     ]}>
                     <Text style={{ color: theme.textPrimary, fontSize: 12, fontWeight: '600' }}>
                       Keep
@@ -601,20 +605,20 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                   activeOpacity={0.85}
                   onPress={handleStart}
                   style={[
-                    styles.primaryActionBtn,
+                    styles.primaryActionBtn, primaryButtonStyle(isDark),
                     {
-                      backgroundColor: isDark ? '#FFFFFF' : '#151A25',
+                      backgroundColor: isDark ? '#FFFFFF' : '#0B1018',
                     },
                   ]}>
                   <Play
                     size={15}
-                    color={isDark ? '#151A25' : '#FFFFFF'}
-                    fill={isDark ? '#151A25' : '#FFFFFF'}
+                    color={isDark ? '#0B1018' : '#FFFFFF'}
+                    fill={isDark ? '#0B1018' : '#FFFFFF'}
                   />
                   <Text
                     style={[
                       styles.primaryActionText,
-                      { color: isDark ? '#151A25' : '#FFFFFF' },
+                      { color: isDark ? '#0B1018' : '#FFFFFF' },
                     ]}>
                     Start Focus
                   </Text>
@@ -629,8 +633,8 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                       style={[
                         styles.controlSecondaryBtn,
                         {
-                          backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
-                          borderColor: isDark ? '#262E40' : '#EAE5DC',
+                          backgroundColor: isDark ? '#141C28' : '#F0EDE6',
+                          borderColor: isDark ? '#253244' : '#EAE5DC',
                         },
                       ]}>
                       <Play
@@ -649,8 +653,8 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                       style={[
                         styles.controlSecondaryBtn,
                         {
-                          backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
-                          borderColor: isDark ? '#262E40' : '#EAE5DC',
+                          backgroundColor: isDark ? '#141C28' : '#F0EDE6',
+                          borderColor: isDark ? '#253244' : '#EAE5DC',
                         },
                       ]}>
                       <Pause size={14} color={theme.textPrimary} />
@@ -667,14 +671,14 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                     style={[
                       styles.finishBtn,
                       {
-                        backgroundColor: isDark ? '#FFFFFF' : '#151A25',
+                        backgroundColor: isDark ? '#FFFFFF' : '#0B1018',
                       },
                     ]}>
-                    <StopCircle size={15} color={isDark ? '#151A25' : '#FFFFFF'} />
+                    <StopCircle size={15} color={isDark ? '#0B1018' : '#FFFFFF'} />
                     <Text
                       style={[
                         styles.finishBtnText,
-                        { color: isDark ? '#151A25' : '#FFFFFF' },
+                        { color: isDark ? '#0B1018' : '#FFFFFF' },
                       ]}>
                       End Focus
                     </Text>
@@ -687,8 +691,8 @@ export function FocusTimerModal({ isDark }: FocusTimerModalProps) {
                     style={[
                       styles.discardBtn,
                       {
-                        backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
-                        borderColor: isDark ? '#262E40' : '#EAE5DC',
+                        backgroundColor: isDark ? '#141C28' : '#F0EDE6',
+                        borderColor: isDark ? '#253244' : '#EAE5DC',
                       },
                     ]}>
                     <RotateCcw size={14} color={theme.textMuted} />

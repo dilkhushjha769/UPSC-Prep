@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React from 'react';
 import {
   StyleSheet,
@@ -18,10 +19,12 @@ import { useStudy } from '@/context/StudyContext';
 import { UPSC_THEME } from '@/constants/themeColors';
 
 interface PreparationProgressProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function PreparationProgress({ isDark }: PreparationProgressProps) {
+export function PreparationProgress({ isDark: propIsDark }: PreparationProgressProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { config, setIsConfigModalOpen } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 
@@ -122,7 +125,7 @@ export function PreparationProgress({ isDark }: PreparationProgressProps) {
         style={[
           styles.countdownBanner,
           {
-            backgroundColor: isDark ? '#1E2535' : '#E9EDF9',
+            backgroundColor: isDark ? '#141C28' : '#E9EDF9',
             borderColor: colors.cardBorder,
           },
         ]}>
@@ -182,7 +185,7 @@ export function PreparationProgress({ isDark }: PreparationProgressProps) {
               <View
                 style={[
                   styles.progressBarTrack,
-                  { backgroundColor: isDark ? '#262E40' : '#FCEBDD' },
+                  { backgroundColor: isDark ? '#1B2534' : '#FCEBDD' },
                 ]}>
                 <View
                   style={[

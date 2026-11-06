@@ -1,0 +1,220 @@
+{
+  "exam": "Civil Services (Main) Examination",
+  "year": 2026,
+  "paper": "General Studies Paper I",
+  "paper_code": "KVMS-G-GSA/35",
+  "subject": "General Studies I (Indian Heritage and Culture, History and Geography of the World and Society)",
+  "total_marks": 250,
+  "time_allowed_hours": 3,
+  "instructions": [
+    "There are TWENTY questions printed both in HINDI and in ENGLISH.",
+    "All questions are compulsory.",
+    "The number of marks carried by a question/part is indicated against it.",
+    "Answers must be written in the medium authorized in the Admission Certificate.",
+    "Answers to Question Nos. 1 to 10 should be in 150 words, whereas answers to Question Nos. 11 to 20 should be in 250 words.",
+    "Keep the word limit indicated in the questions in mind.",
+    "Any page or portion of the page left blank in the Question-cum-Answer Booklet must be clearly struck off."
+  ],
+  "questions": [
+    {
+      "question_number": 1,
+      "id": "2026_GS1_Q1",
+      "text_english": "Analyze the importance of Ashokan inscriptions for reconstructing Mauryan history.",
+      "text_hindi": "मौर्य इतिहास के पुनर्निर्माण के लिए अशोक के अभिलेखों के महत्त्व का विश्लेषण कीजिए।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Ancient Indian History",
+      "topic": "Mauryan Period / Inscriptions"
+    },
+    {
+      "question_number": 2,
+      "id": "2026_GS1_Q2",
+      "text_english": "Discuss the impact of Macaulay's Minute on colonial administration and education in India.",
+      "text_hindi": "भारत में औपनिवेशिक प्रशासन और शिक्षा पर मैकाले मिनट के प्रभाव की विवेचना कीजिए।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Modern Indian History",
+      "topic": "Colonial Administration / Education Policy"
+    },
+    {
+      "question_number": 3,
+      "id": "2026_GS1_Q3",
+      "text_english": "The significance of the Gandhian movements lay in the masses they mobilized. Elucidate.",
+      "text_hindi": "गाँधीवादी आंदोलनों का महत्त्व उनके द्वारा संगठित जनसमूहों में निहित था। स्पष्ट कीजिए।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Modern Indian History",
+      "topic": "Freedom Struggle / Gandhian Movements"
+    },
+    {
+      "question_number": 4,
+      "id": "2026_GS1_Q4",
+      "text_english": "What is the Fujiwhara effect? Explain its impact on the movement and intensity of tropical cyclones.",
+      "text_hindi": "फुजिह्वारा प्रभाव क्या है? उष्णकटिबन्धीय चक्रवातों के संचलन तथा तीव्रता पर पड़ने वाले इसके प्रभाव को समझाइए।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Physical Geography",
+      "topic": "Climatology / Tropical Cyclones"
+    },
+    {
+      "question_number": 5,
+      "id": "2026_GS1_Q5",
+      "text_english": "\"Tundra regions are ecologically fragile but economically important.\" Examine this statement critically.",
+      "text_hindi": "\"टुन्ड्रा प्रदेश पारिस्थितिक दृष्टि से नाजुक लेकिन आर्थिक दृष्टि से महत्त्वपूर्ण हैं।\" इस कथन का आलोचनात्मक परीक्षण कीजिए।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "World Geography",
+      "topic": "Biomes / Resource Geography"
+    },
+    {
+      "question_number": 6,
+      "id": "2026_GS1_Q6",
+      "text_english": "Discuss the role of aeolian processes in desertification and land degradation.",
+      "text_hindi": "मरुस्थलीकरण और भूमि अवनयन में वायुजनित प्रक्रियाओं की भूमिका की विवेचना कीजिए।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Physical Geography",
+      "topic": "Geomorphology / Land Degradation"
+    },
+    {
+      "question_number": 7,
+      "id": "2026_GS1_Q7",
+      "text_english": "\"Water resources are both an asset and a source of conflict in South Asia.\" Examine this statement giving examples.",
+      "text_hindi": "\"दक्षिणी एशिया में जल संसाधन, सम्पत्ति और विवाद का स्रोत दोनों हैं।\" उदाहरण देते हुए इस कथन का परीक्षण कीजिए।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Human & Regional Geography",
+      "topic": "Water Resources / South Asia Conflicts"
+    },
+    {
+      "question_number": 8,
+      "id": "2026_GS1_Q8",
+      "text_english": "Unity in diversity remains the defining feature of Indian society despite the challenges from communalism and regionalism. Comment.",
+      "text_hindi": "साम्प्रदायिकता और क्षेत्रवाद की चुनौतियों के बावजूद विविधता में एकता भारतीय समाज की मुख्य विशेषता बनी हुई है। टिप्पणी कीजिए।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Indian Society",
+      "topic": "Diversity / Communalism & Regionalism"
+    },
+    {
+      "question_number": 9,
+      "id": "2026_GS1_Q9",
+      "text_english": "How do you understand disability? Substantiate the need for inclusive policy framework in India in this regard.",
+      "text_hindi": "अपंगता को आप किस प्रकार समझते हैं? इस विषय में भारत में समावेशी नीतिगत ढाँचे की आवश्यकता सिद्ध कीजिए।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Indian Society",
+      "topic": "Social Empowerment / Disability & Inclusion"
+    },
+    {
+      "question_number": 10,
+      "id": "2026_GS1_Q10",
+      "text_english": "Do you think digital technology promotes social empowerment? Explain with examples.",
+      "text_hindi": "क्या आप ऐसा सोचते हैं कि अंकीय (डिजिटल) तकनीकी सामाजिक सशक्तता को बढ़ावा देती है? उदाहरणों के साथ समझाइए।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Indian Society",
+      "topic": "Digitalization / Social Empowerment"
+    },
+    {
+      "question_number": 11,
+      "id": "2026_GS1_Q11",
+      "text_english": "Vijayanagara architecture exemplifies the amalgamation of past traditions with contemporary practices. Elucidate with examples.",
+      "text_hindi": "विजयनगर वास्तुकला अतीत की परंपराओं और समकालीन प्रथाओं के सम्मिलन का उदाहरण प्रस्तुत करती है। उदाहरणों के साथ स्पष्ट कीजिए।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Art & Culture",
+      "topic": "Architecture / Vijayanagara Empire"
+    },
+    {
+      "question_number": 12,
+      "id": "2026_GS1_Q12",
+      "text_english": "Linguistic reorganization of Indian States was driven by popular pressure from below. Comment.",
+      "text_hindi": "भारतीय राज्यों का भाषाई पुनर्गठन नीचे से उठे जन-दबाव द्वारा संचालित था। टिप्पणी कीजिए।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Post-Independence History",
+      "topic": "Linguistic Reorganization of States"
+    },
+    {
+      "question_number": 13,
+      "id": "2026_GS1_Q13",
+      "text_english": "The model of planned economy was adopted in India to address the regional imbalances left behind by colonial rule. Comment.",
+      "text_hindi": "भारत में योजनाबद्ध अर्थव्यवस्था का मॉडल अपनाया गया ताकि औपनिवेशिक शासन द्वारा छोड़े गए क्षेत्रीय असंतुलनों को मिटाया जा सके। टिप्पणी कीजिए।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Post-Independence History",
+      "topic": "Economic Planning / Regional Imbalances"
+    },
+    {
+      "question_number": 14,
+      "id": "2026_GS1_Q14",
+      "text_english": "Compare the Loo, Chinook and Foehn winds with respect to their regions of prevalence, their nature and climatic impacts.",
+      "text_hindi": "लू, चिनूक और फॉन हवाओं की, उनके पाये जाने वाले क्षेत्र, उनकी प्रकृति और जलवायविक प्रभावों के आधार पर, तुलना कीजिए।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Physical Geography",
+      "topic": "Climatology / Local Winds"
+    },
+    {
+      "question_number": 15,
+      "id": "2026_GS1_Q15",
+      "text_english": "Analyze the role of satellite-based technologies in achieving climate-smart agriculture and food security in India.",
+      "text_hindi": "भारत में जलवायु अनुकूल (क्लाइमेट स्मार्ट) कृषि एवं खाद्य सुरक्षा को हासिल करने में उपग्रह-आधारित तकनीकियों की भूमिका का विश्लेषण कीजिए।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Economic Geography & Tech",
+      "topic": "Climate-Smart Agriculture / Satellite Tech"
+    },
+    {
+      "question_number": 16,
+      "id": "2026_GS1_Q16",
+      "text_english": "\"The centre of global trade is gradually shifting from the Atlantic region to the Indo-Pacific region.\" Examine this statement.",
+      "text_hindi": "\"वैश्विक व्यापार का केन्द्र अटलांटिक प्रदेश से हिन्द-प्रशान्त (इंडो-पैसिफिक) प्रदेश की ओर धीरे-धीरे स्थानान्तरित हो रहा है।\" इस कथन का परीक्षण कीजिए।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Economic & Geopolitics",
+      "topic": "Global Trade Routes / Indo-Pacific"
+    },
+    {
+      "question_number": 17,
+      "id": "2026_GS1_Q17",
+      "text_english": "Analyze the major drivers of human-induced land-use changes in India and their geographical consequences.",
+      "text_hindi": "भारत में मानवजन्य भूमि-उपयोग परिवर्तनों के प्रमुख कारकों और उनके भौगोलिक परिणामों का विश्लेषण कीजिए।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Human Geography",
+      "topic": "Land Use Change / Environmental Impact"
+    },
+    {
+      "question_number": 18,
+      "id": "2026_GS1_Q18",
+      "text_english": "Is caste disappearing in urban India? Illustrate your answer with examples.",
+      "text_hindi": "क्या शहरी भारत में जाति लुप्त हो रही है? अपने उत्तर को उदाहरणों के साथ स्पष्ट कीजिए।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Indian Society",
+      "topic": "Caste System / Urbanization"
+    },
+    {
+      "question_number": 19,
+      "id": "2026_GS1_Q19",
+      "text_english": "Critically examine the challenges of demographic transition in contemporary India.",
+      "text_hindi": "समकालीन भारत में जनसांख्यिकीय संक्रमण की चुनौतियों का आलोचनात्मक परीक्षण कीजिए।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Indian Society & Demographics",
+      "topic": "Demographic Transition / Population Dynamics"
+    },
+    {
+      "question_number": 20,
+      "id": "2026_GS1_Q20",
+      "text_english": "Evaluate the impact of globalization on Indian youths with reference to social, political, economic and cultural spheres.",
+      "text_hindi": "सामाजिक, राजनैतिक, आर्थिक एवं सांस्कृतिक क्षेत्रों के संदर्भ में भारतीय युवाओं पर वैश्वीकरण के प्रभाव का मूल्यांकन कीजिए।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Indian Society",
+      "topic": "Globalization / Impact on Youth"
+    }
+  ]
+}

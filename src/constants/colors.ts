@@ -11,32 +11,35 @@ import { DARK_TOKENS, LIGHT_TOKENS, SemanticTokens } from './designTokens';
 // ============================================================================
 
 export const PALETTE = {
-  // Legacy key name kept for import compatibility: this is the burnt-orange accent scale.
+  // Primary brand navy/charcoal for buttons & main actions
   highlight: {
-    primary: LIGHT_TOKENS.accent,
-    tint80: DARK_TOKENS.accent,
-    tint60: '#E8A25E',
-    tint40: '#F2C9A3',
-    tint20: LIGHT_TOKENS.accentSoft,
+    primary: LIGHT_TOKENS.primary, // #1C2433
+    tint80: DARK_TOKENS.primary, // #1B2534
+    tint60: '#3D4A66',
+    tint40: '#7A8499',
+    tint20: '#F0EDE6',
+    accent: LIGHT_TOKENS.accent, // #B9570A
   },
 
+  // Neutral Scales (Light & Dark)
   neutral: {
     light: {
-      lightest: LIGHT_TOKENS.surface,
-      surface: LIGHT_TOKENS.background,
-      borderSubtle: LIGHT_TOKENS.border,
-      border: LIGHT_TOKENS.borderStrong,
-      muted: LIGHT_TOKENS.muted,
+      lightest: LIGHT_TOKENS.surface, // #FFFFFF
+      surface: LIGHT_TOKENS.background, // #FAF9F6
+      borderSubtle: LIGHT_TOKENS.border, // #EAE5DC
+      border: LIGHT_TOKENS.borderStrong, // #DDD6CA
+      muted: LIGHT_TOKENS.muted, // #F0EDE6
     },
     dark: {
-      darkest: DARK_TOKENS.background,
-      surface: DARK_TOKENS.surface,
-      textMuted: DARK_TOKENS.border,
+      darkest: DARK_TOKENS.background, // #0B1018
+      surface: DARK_TOKENS.surface, // #141C28
+      textMuted: DARK_TOKENS.border, // #253244
       textSecondary: LIGHT_TOKENS.mutedForeground,
       muted: LIGHT_TOKENS.subtleForeground,
     },
   },
 
+  // Support / Status Colors
   support: {
     success: { dark: LIGHT_TOKENS.success, medium: DARK_TOKENS.success, light: LIGHT_TOKENS.successSoft },
     warning: { dark: LIGHT_TOKENS.warning, medium: DARK_TOKENS.warning, light: LIGHT_TOKENS.warningSoft },
@@ -44,11 +47,11 @@ export const PALETTE = {
   },
 } as const;
 
-export const GLOBAL_PRIMARY_BLUE = LIGHT_TOKENS.accent; // legacy name: now the accent colour
-export const TOGGLE_ACTIVE_COLOR = LIGHT_TOKENS.accent;
+export const GLOBAL_PRIMARY_BLUE = LIGHT_TOKENS.accent; // #F58235 (Brand Orange)
+export const TOGGLE_ACTIVE_COLOR = LIGHT_TOKENS.accent; // #F58235 (Brand Orange)
 
 // ============================================================================
-// 2. SEMANTIC THEME (LIGHT & DARK MODES) — derived from designTokens.ts
+// 2. SEMANTIC THEME (LIGHT & DARK MODES) - derived from designTokens.ts
 // ============================================================================
 
 const semantic = (t: SemanticTokens) => ({
@@ -64,14 +67,14 @@ const semantic = (t: SemanticTokens) => ({
   textPrimary: t.foreground,
   textSecondary: t.mutedForeground,
   textMuted: t.subtleForeground,
-  textInverse: t.primaryForeground,
+  textInverse: '#FFFFFF',
 
-  primary: t.primary,
-  primaryHover: t.primaryHover,
+  primary: t.accent, // #F58235
+  primaryHover: t.accentHover,
   primarySoft: t.accentSoft,
-  primaryText: t.primaryForeground,
+  primaryText: '#FFFFFF',
 
-  accent: t.accent,
+  accent: t.accent, // #F58235
   accentHover: t.accentHover,
 
   success: t.success,
@@ -91,6 +94,7 @@ export const SemanticColors = {
   light: semantic(LIGHT_TOKENS),
   dark: semantic(DARK_TOKENS),
 } as const;
+
 export const Typography = {
   fontFamily: Platform.select({
     web: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -123,3 +127,4 @@ export const Typography = {
 } as const;
 
 export default PALETTE;
+

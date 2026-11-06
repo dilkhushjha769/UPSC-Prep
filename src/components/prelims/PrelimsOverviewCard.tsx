@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { usePrelimsTheme } from '@/constants/prelimsTheme';
 import {
   LayoutChangeEvent,
   Platform,
@@ -19,12 +20,14 @@ interface PrelimsOverviewCardProps {
 }
 
 export function PrelimsOverviewCard({
-  isDark = true,
+  isDark: propIsDark,
   paperTitle,
   subjectsCount,
   totalQuestions,
   solvedQuestions,
 }: PrelimsOverviewCardProps) {
+  const prelimsTheme = usePrelimsTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : prelimsTheme.isDark;
   const { width: windowWidth } = useWindowDimensions();
   const [containerWidth, setContainerWidth] = useState<number>(0);
 
@@ -36,9 +39,12 @@ export function PrelimsOverviewCard({
     }
   };
 
-  const isCompact = containerWidth > 0 ? containerWidth < 720 : windowWidth < 768;
+  const isCompact = containerWidth > 0 ? containerWidth < 820 : windowWidth < 860;
 
   const isCSAT = paperTitle.toLowerCase().includes('csat') || paperTitle.includes('Paper 2');
+  const syllabusSubtitle = isCSAT
+    ? `${subjectsCount} Subjects • CSAT Syllabus`
+    : `${subjectsCount} Subjects • GS Core Syllabus`;
   const progressPercent =
     totalQuestions > 0 ? Math.min(100, Math.round((solvedQuestions / totalQuestions) * 100)) : 0;
 
@@ -52,15 +58,15 @@ export function PrelimsOverviewCard({
   const strokeDashoffset = circumference * (1 - clampedProgress);
 
   const colors = {
-    cardBg: isDark ? '#1E2535' : '#FFFFFF',
-    cardBorder: isDark ? '#333D52' : '#EAE5DC',
-    innerBarBg: isDark ? '#1E2535' : '#FAF9F6',
-    innerBarBorder: isDark ? '#262E40' : '#EAE5DC',
-    metricBadgeBg: isDark ? '#1E2535' : '#E9EDF9',
-    textPrimary: isDark ? '#F2EFE8' : '#1C2433',
-    textSecondary: isDark ? '#A4ADBF' : '#7A8499',
-    divider: isDark ? '#333D52' : '#EAE5DC',
-    trackCircle: isDark ? '#262E40' : '#EAE5DC',
+    cardBg: isDark ? '#141C28' : '#FFFFFF',
+    cardBorder: isDark ? '#253244' : '#EAE5DC',
+    innerBarBg: isDark ? '#141C28' : '#FAF9F6',
+    innerBarBorder: isDark ? '#253244' : '#EAE5DC',
+    metricBadgeBg: isDark ? '#141C28' : '#E9EDF9',
+    textPrimary: isDark ? '#F0F4F8' : '#1C2433',
+    textSecondary: isDark ? '#9DA8B9' : '#7A8499',
+    divider: isDark ? '#253244' : '#EAE5DC',
+    trackCircle: isDark ? '#253244' : '#EAE5DC',
   };
 
   return (
@@ -82,15 +88,15 @@ export function PrelimsOverviewCard({
               style={[
                 styles.mainIconBadge,
                 {
-                  backgroundColor: isDark ? (isCSAT ? '#1E2535' : '#1E2535') : (isCSAT ? '#E9EDF9' : '#FCEBDD'),
-                  borderColor: isDark ? (isCSAT ? '#333D52' : '#333D52') : (isCSAT ? '#CBD3EB' : '#F2C9A3'),
+                  backgroundColor: isDark ? '#1B2534' : '#F5F3EE',
+                  borderColor: isDark ? '#253244' : '#EAE5DC',
                 },
               ]}
             >
               {isCSAT ? (
                 <Brain size={22} color="#7C93D1" strokeWidth={2.2} />
               ) : (
-                <BookCheck size={22} color="#B9570A" strokeWidth={2.2} />
+                <BookCheck size={22} color="#F58235" strokeWidth={2.2} />
               )}
             </View>
             <View style={styles.compactTitleBlock}>
@@ -98,7 +104,7 @@ export function PrelimsOverviewCard({
                 {paperTitle}
               </Text>
               <Text style={[styles.paperSubtitle, { color: colors.textSecondary }]}>
-                {subjectsCount} Subjects • {totalQuestions.toLocaleString()} Verified Questions
+                {syllabusSubtitle}
               </Text>
             </View>
           </View>
@@ -201,23 +207,23 @@ export function PrelimsOverviewCard({
               style={[
                 styles.mainIconBadge,
                 {
-                  backgroundColor: isDark ? (isCSAT ? '#1E2535' : '#1E2535') : (isCSAT ? '#E9EDF9' : '#FCEBDD'),
-                  borderColor: isDark ? (isCSAT ? '#333D52' : '#333D52') : (isCSAT ? '#CBD3EB' : '#F2C9A3'),
+                  backgroundColor: isDark ? '#1B2534' : '#F5F3EE',
+                  borderColor: isDark ? '#253244' : '#EAE5DC',
                 },
               ]}
             >
               {isCSAT ? (
                 <Brain size={24} color="#7C93D1" strokeWidth={2.2} />
               ) : (
-                <BookCheck size={24} color="#B9570A" strokeWidth={2.2} />
+                <BookCheck size={24} color="#F58235" strokeWidth={2.2} />
               )}
             </View>
             <View style={styles.desktopTitleBlock}>
               <Text style={[styles.paperTitle, { color: colors.textPrimary }]} numberOfLines={1}>
                 {paperTitle}
               </Text>
-              <Text style={[styles.paperSubtitle, { color: colors.textSecondary }]} numberOfLines={1}>
-                {subjectsCount} Subjects • {totalQuestions.toLocaleString()} Verified Questions
+              <Text style={[styles.paperSubtitle, { color: colors.textSecondary }]}>
+                {syllabusSubtitle}
               </Text>
             </View>
           </View>
@@ -248,7 +254,7 @@ export function PrelimsOverviewCard({
                   styles.metricIconBadge,
                   {
                     backgroundColor:
-                      solvedQuestions > 0 ? (isDark ? '#16382A' : '#E3F1E8') : colors.metricBadgeBg,
+                      solvedQuestions > 0 ? (isDark ? '#17301F' : '#E3F1E8') : colors.metricBadgeBg,
                   },
                 ]}
               >
@@ -400,8 +406,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 14,
-    flex: 2.2,
-    minWidth: 260,
+    flex: 1.8,
+    minWidth: 200,
   },
   desktopTitleBlock: {
     flex: 1,

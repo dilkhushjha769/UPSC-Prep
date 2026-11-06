@@ -28,6 +28,7 @@ import {
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
+import { useAppTheme } from '@/context/ThemeContext';
 import { NotificationSettingsScreen } from './NotificationSettingsScreen';
 
 interface NotificationsScreenProps {
@@ -40,7 +41,7 @@ interface NotificationsScreenProps {
 type FilterPeriod = 'All' | 'Today' | 'Yesterday' | 'Earlier';
 
 // =========================================================================
-// PREMIUM CUSTOM FILLED SVG ICONS (Matching Mobbin / Adeoluwa Danad Design)
+// PREMIUM CUSTOM FILLED SVG ICONS (Semantic Color Palette, No Orange Overload)
 // =========================================================================
 
 /** 1. Solid Red Alarm Clock (Class is starting soon!) */
@@ -49,19 +50,19 @@ function PremiumAlarmClockIcon({ size = 22 }: { size?: number }) {
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="alarmGrad" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#E0675B" />
-          <Stop offset="1" stopColor="#E0675B" />
+          <Stop offset="0" stopColor="#EF4444" />
+          <Stop offset="1" stopColor="#DC2626" />
         </LinearGradient>
       </Defs>
       {/* Top Left Bell */}
       <Path
         d="M4.5 4.5C3.8 5.2 3.2 6.1 2.8 7.1L4.8 7.9C5.1 7.2 5.5 6.5 6 6L4.5 4.5Z"
-        fill="#B42318"
+        fill="#B91C1C"
       />
       {/* Top Right Bell */}
       <Path
         d="M19.5 4.5L18 6C18.5 6.5 18.9 7.2 19.2 7.9L21.2 7.1C20.8 6.1 20.2 5.2 19.5 4.5Z"
-        fill="#B42318"
+        fill="#B91C1C"
       />
       {/* Clock Face Circle */}
       <Circle cx="12" cy="13" r="7.5" fill="url(#alarmGrad)" />
@@ -87,7 +88,7 @@ function PremiumAlarmClockIcon({ size = 22 }: { size?: number }) {
       {/* Bottom Feet */}
       <Path
         d="M6 19.5L4.5 21M18 19.5L19.5 21"
-        stroke="#B42318"
+        stroke="#B91C1C"
         strokeWidth={2}
         strokeLinecap="round"
       />
@@ -101,8 +102,8 @@ function PremiumInfoBadgeIcon({ size = 22 }: { size?: number }) {
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="infoGrad" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#3FA573" />
-          <Stop offset="1" stopColor="#3FA573" />
+          <Stop offset="0" stopColor="#10B981" />
+          <Stop offset="1" stopColor="#059669" />
         </LinearGradient>
       </Defs>
       {/* Solid Disc */}
@@ -121,14 +122,14 @@ function PremiumInfoBadgeIcon({ size = 22 }: { size?: number }) {
   );
 }
 
-/** 3. Solid Slate/Navy Open Book (Assignment is closing soon!) */
+/** 3. Solid Sapphire / Indigo Open Book (Assignment is closing soon!) */
 function PremiumBookAssignmentIcon({ size = 22 }: { size?: number }) {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="bookGrad" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#2A1D12" />
-          <Stop offset="1" stopColor="#2A1D12" />
+          <Stop offset="0" stopColor="#6366F1" />
+          <Stop offset="1" stopColor="#4F46E5" />
         </LinearGradient>
       </Defs>
       {/* Left Page (Curved 3D appearance) */}
@@ -142,7 +143,7 @@ function PremiumBookAssignmentIcon({ size = 22 }: { size?: number }) {
         fill="url(#bookGrad)"
       />
       {/* Spine Gap & Highlights */}
-      <Path d="M12 6.5V18.5" stroke="#6B3A12" strokeWidth={1.2} />
+      <Path d="M12 6.5V18.5" stroke="#4338CA" strokeWidth={1.2} />
       {/* White Page Ridge Accents */}
       <Path
         d="M7 9C8.5 8.7 10 9 11 9.6M7 12C8.5 11.7 10 12 11 12.6"
@@ -162,14 +163,14 @@ function PremiumBookAssignmentIcon({ size = 22 }: { size?: number }) {
   );
 }
 
-/** 4. Solid Golden Amber Microphone (Class recording ready!) */
+/** 4. Solid Royal Purple Microphone (Class recording ready!) */
 function PremiumAudioMicIcon({ size = 22 }: { size?: number }) {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="micGrad" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#D9822B" />
-          <Stop offset="1" stopColor="#D9822B" />
+          <Stop offset="0" stopColor="#A855F7" />
+          <Stop offset="1" stopColor="#8B5CF6" />
         </LinearGradient>
       </Defs>
       {/* Mic Rounded Capsule Body */}
@@ -177,38 +178,38 @@ function PremiumAudioMicIcon({ size = 22 }: { size?: number }) {
       {/* Capsule Horizontal Acoustic Slits */}
       <Path
         d="M10 7.5H14M10 10H14"
-        stroke="#A65A0A"
-        strokeOpacity={0.5}
+        stroke="#6D28D9"
+        strokeOpacity={0.6}
         strokeWidth={1.1}
         strokeLinecap="round"
       />
       {/* Cradle Arc */}
       <Path
         d="M6 10.5C6 14 8.7 16.5 12 16.5C15.3 16.5 18 14 18 10.5"
-        stroke="#A65A0A"
+        stroke="#7E22CE"
         strokeWidth={2}
         strokeLinecap="round"
       />
       {/* Stem & Stand Base */}
-      <Path d="M12 16.5V19.5M8.5 19.5H15.5" stroke="#A65A0A" strokeWidth={2} strokeLinecap="round" />
+      <Path d="M12 16.5V19.5M8.5 19.5H15.5" stroke="#7E22CE" strokeWidth={2} strokeLinecap="round" />
     </Svg>
   );
 }
 
-/** 5. Solid Royal Blue Bell (Account verified / Notification alert) */
+/** 5. Solid Sky Blue Bell (Account verified / Notification alert) */
 function PremiumRoyalBellIcon({ size = 22 }: { size?: number }) {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="bellGrad" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#D9822B" />
-          <Stop offset="1" stopColor="#D9822B" />
+          <Stop offset="0" stopColor="#0EA5E9" />
+          <Stop offset="1" stopColor="#0284C7" />
         </LinearGradient>
       </Defs>
       {/* Top Suspension Loop */}
       <Path
         d="M12 3.5C11.2 3.5 10.5 4.1 10.5 5H13.5C13.5 4.1 12.8 3.5 12 3.5Z"
-        fill="#B9570A"
+        fill="#0369A1"
       />
       {/* Main Flared Bell Body */}
       <Path
@@ -218,24 +219,24 @@ function PremiumRoyalBellIcon({ size = 22 }: { size?: number }) {
       {/* Bottom Clapper */}
       <Path
         d="M10.2 17.5C10.5 18.8 11.2 19.5 12 19.5C12.8 19.5 13.5 18.8 13.8 17.5H10.2Z"
-        fill="#B9570A"
+        fill="#0369A1"
       />
     </Svg>
   );
 }
 
-/** 6. Dual-Tone Energetic Flame (Study streak protected) */
+/** 6. Warm Amber Streak Flame (Study streak protected) */
 function PremiumStreakFlameIcon({ size = 22 }: { size?: number }) {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="outerFlame" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#B9570A" />
-          <Stop offset="1" stopColor="#B9570A" />
+          <Stop offset="0" stopColor="#F97316" />
+          <Stop offset="1" stopColor="#EA580C" />
         </LinearGradient>
         <LinearGradient id="innerFlame" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#D9822B" />
-          <Stop offset="1" stopColor="#D9822B" />
+          <Stop offset="0" stopColor="#FDE047" />
+          <Stop offset="1" stopColor="#F59E0B" />
         </LinearGradient>
       </Defs>
       {/* Outer Flame Shell */}
@@ -252,14 +253,14 @@ function PremiumStreakFlameIcon({ size = 22 }: { size?: number }) {
   );
 }
 
-/** 7. Solid Royal Purple Trophy Cup (Full Mock Test Leaderboard) */
+/** 7. Solid Golden Trophy Cup (Full Mock Test Leaderboard) */
 function PremiumTrophyAwardIcon({ size = 22 }: { size?: number }) {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Defs>
         <LinearGradient id="trophyGrad" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor="#D9822B" />
-          <Stop offset="1" stopColor="#D9822B" />
+          <Stop offset="0" stopColor="#F59E0B" />
+          <Stop offset="1" stopColor="#D97706" />
         </LinearGradient>
       </Defs>
       {/* Trophy Goblet Cup */}
@@ -270,20 +271,20 @@ function PremiumTrophyAwardIcon({ size = 22 }: { size?: number }) {
       {/* Left Handle */}
       <Path
         d="M7 5.5H5C4.2 5.5 3.5 6.2 3.5 7C3.5 8.8 5 10 7 10"
-        stroke="#B9570A"
+        stroke="#B45309"
         strokeWidth={1.8}
         strokeLinecap="round"
       />
       {/* Right Handle */}
       <Path
         d="M17 5.5H19C19.8 5.5 20.5 6.2 20.5 7C20.5 8.8 19 10 17 10"
-        stroke="#B9570A"
+        stroke="#B45309"
         strokeWidth={1.8}
         strokeLinecap="round"
       />
       {/* Stem & Solid Weighted Pedestal Base */}
-      <Path d="M12 15V18" stroke="#B9570A" strokeWidth={2.4} strokeLinecap="round" />
-      <Path d="M8 18.5H16V20.5H8V18.5Z" fill="#B9570A" />
+      <Path d="M12 15V18" stroke="#B45309" strokeWidth={2.4} strokeLinecap="round" />
+      <Path d="M8 18.5H16V20.5H8V18.5Z" fill="#B45309" />
     </Svg>
   );
 }
@@ -305,11 +306,19 @@ interface NotificationItem {
 }
 
 export function NotificationsScreen({
-  isDark,
+  isDark: propIsDark,
   onBack,
-  onToggleTheme,
+  onToggleTheme: propToggleTheme,
   onOpenSettings,
-}: NotificationsScreenProps) {
+}: {
+  isDark?: boolean;
+  onBack: () => void;
+  onToggleTheme?: () => void;
+  onOpenSettings?: () => void;
+}) {
+  const { isDark: contextIsDark, toggleTheme: contextToggleTheme } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
+  const onToggleTheme = propToggleTheme || contextToggleTheme;
   const { streak } = useStudy();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const { width } = useWindowDimensions();
@@ -329,8 +338,8 @@ export function NotificationsScreen({
       time: '5:52 PM',
       period: 'Today',
       iconRenderer: (size) => <PremiumAlarmClockIcon size={size} />,
-      iconBgLight: '#FBE4E1',
-      iconBgDark: 'rgba(180, 35, 24, 0.16)',
+      iconBgLight: '#FEE2E2',
+      iconBgDark: 'rgba(239, 68, 68, 0.16)',
       isRead: false,
     },
     {
@@ -340,8 +349,8 @@ export function NotificationsScreen({
       time: '4:30 PM',
       period: 'Today',
       iconRenderer: (size) => <PremiumInfoBadgeIcon size={size} />,
-      iconBgLight: '#E3F1E8',
-      iconBgDark: 'rgba(38, 115, 77, 0.16)',
+      iconBgLight: '#DCFCE7',
+      iconBgDark: 'rgba(34, 197, 94, 0.16)',
       isRead: false,
     },
     {
@@ -351,8 +360,8 @@ export function NotificationsScreen({
       time: '2:15 PM',
       period: 'Today',
       iconRenderer: (size) => <PremiumBookAssignmentIcon size={size} />,
-      iconBgLight: '#F2C9A3',
-      iconBgDark: 'rgba(163, 148, 136, 0.16)',
+      iconBgLight: '#EEF2FF',
+      iconBgDark: 'rgba(99, 102, 241, 0.16)',
       isRead: false,
     },
     {
@@ -362,8 +371,8 @@ export function NotificationsScreen({
       time: '11:20 AM',
       period: 'Today',
       iconRenderer: (size) => <PremiumAudioMicIcon size={size} />,
-      iconBgLight: '#FCEBDD',
-      iconBgDark: 'rgba(166, 90, 10, 0.16)',
+      iconBgLight: '#F3E8FF',
+      iconBgDark: 'rgba(168, 85, 247, 0.16)',
       isRead: true,
     },
     {
@@ -373,8 +382,8 @@ export function NotificationsScreen({
       time: 'Yesterday, 8:10 PM',
       period: 'Yesterday',
       iconRenderer: (size) => <PremiumRoyalBellIcon size={size} />,
-      iconBgLight: '#F2C9A3',
-      iconBgDark: 'rgba(255, 106, 19, 0.16)',
+      iconBgLight: '#E0F2FE',
+      iconBgDark: 'rgba(14, 165, 233, 0.16)',
       isRead: true,
     },
     {
@@ -384,8 +393,8 @@ export function NotificationsScreen({
       time: 'Yesterday, 9:40 PM',
       period: 'Yesterday',
       iconRenderer: (size) => <PremiumStreakFlameIcon size={size} />,
-      iconBgLight: '#F2C9A3',
-      iconBgDark: 'rgba(249, 115, 22, 0.16)',
+      iconBgLight: '#FFEDD5',
+      iconBgDark: 'rgba(245, 130, 53, 0.16)',
       isRead: true,
     },
     {
@@ -395,8 +404,8 @@ export function NotificationsScreen({
       time: '2 days ago',
       period: 'Earlier',
       iconRenderer: (size) => <PremiumTrophyAwardIcon size={size} />,
-      iconBgLight: '#FCEBDD',
-      iconBgDark: 'rgba(255, 138, 61, 0.16)',
+      iconBgLight: '#FEF9C3',
+      iconBgDark: 'rgba(234, 179, 8, 0.16)',
       isRead: true,
     },
   ]);
@@ -457,12 +466,12 @@ export function NotificationsScreen({
             styles.backButton,
             Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
             {
-              backgroundColor: isDark ? 'rgba(255,255,255,0.08)' : '#FCEBDD',
-              borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.05)',
+              backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+              borderColor: isDark ? '#253244' : '#EAE5DC',
             },
           ]}>
           <ChevronLeft
-            size={20}
+            size={18}
             color={theme.textPrimary}
             strokeWidth={2.4}
           />
@@ -477,7 +486,7 @@ export function NotificationsScreen({
 
         {/* Right: Quick Action Controls */}
         <View style={styles.headerRightGroup}>
-          {/* In-flow Theme Toggle (Prevents overlap with floating button) */}
+          {/* In-flow Theme Toggle */}
           {Boolean(onToggleTheme) && (
             <TouchableOpacity
               activeOpacity={0.7}
@@ -487,18 +496,14 @@ export function NotificationsScreen({
                 styles.headerActionBtn,
                 Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
-                  backgroundColor: isDark
-                    ? 'rgba(251, 191, 36, 0.12)'
-                    : 'rgba(255, 106, 19, 0.08)',
-                  borderColor: isDark
-                    ? 'rgba(251, 191, 36, 0.28)'
-                    : 'rgba(255, 106, 19, 0.22)',
+                  backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+                  borderColor: isDark ? '#253244' : '#EAE5DC',
                 },
               ]}>
               {isDark ? (
-                <Sun size={17} color="#D9822B" strokeWidth={2.3} />
+                <Sun size={16} color="#F59E0B" strokeWidth={2.2} />
               ) : (
-                <Moon size={17} color="#B9570A" strokeWidth={2.3} />
+                <Moon size={16} color="#475569" strokeWidth={2.2} />
               )}
             </TouchableOpacity>
           )}
@@ -512,11 +517,11 @@ export function NotificationsScreen({
                 styles.headerActionBtn,
                 Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
-                  backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#FCEBDD',
-                  borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
+                  backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+                  borderColor: isDark ? '#253244' : '#EAE5DC',
                 },
               ]}>
-              <Trash2 size={15} color={theme.textMuted} strokeWidth={2} />
+              <Trash2 size={15} color={isDark ? '#9DA8B9' : '#64748B'} strokeWidth={2} />
             </TouchableOpacity>
           )}
 
@@ -529,11 +534,11 @@ export function NotificationsScreen({
                 styles.headerActionBtn,
                 Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
-                  backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#FCEBDD',
-                  borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
+                  backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+                  borderColor: isDark ? '#253244' : '#EAE5DC',
                 },
               ]}>
-              <CheckCheck size={16} color={theme.textSecondary} strokeWidth={2.2} />
+              <CheckCheck size={16} color={isDark ? '#9DA8B9' : '#64748B'} strokeWidth={2.2} />
             </TouchableOpacity>
           )}
 
@@ -551,11 +556,11 @@ export function NotificationsScreen({
               styles.headerActionBtn,
               Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
               {
-                backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#FCEBDD',
-                borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
+                backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+                borderColor: isDark ? '#253244' : '#EAE5DC',
               },
             ]}>
-            <Settings size={16} color={theme.textPrimary} strokeWidth={2.2} />
+            <Settings size={16} color={isDark ? '#9DA8B9' : '#64748B'} strokeWidth={2.2} />
           </TouchableOpacity>
         </View>
       </View>
@@ -567,7 +572,7 @@ export function NotificationsScreen({
           isDesktop && styles.desktopScrollContent,
         ]}
         showsVerticalScrollIndicator={false}>
-        {/* Filter Period Tabs (Matching Reference Image 2) */}
+        {/* Filter Period Tabs */}
         <View style={styles.filterPillsRow}>
           {(['All', 'Today', 'Yesterday', 'Earlier'] as FilterPeriod[]).map((tab) => {
             const isActive = selectedFilter === tab;
@@ -586,15 +591,15 @@ export function NotificationsScreen({
                     ? [
                         styles.filterPillActive,
                         {
-                          backgroundColor: isDark ? '#FCEBDD' : '#2A1D12',
-                          borderColor: isDark ? '#FCEBDD' : '#2A1D12',
+                          backgroundColor: isDark ? '#F4F6FB' : '#1E293B',
+                          borderColor: isDark ? '#F4F6FB' : '#1E293B',
                         },
                       ]
                     : [
                         styles.filterPillInactive,
                         {
-                          backgroundColor: isDark ? '#2A1D12' : '#FCEBDD',
-                          borderColor: isDark ? '#2A1D12' : '#F2C9A3',
+                          backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+                          borderColor: isDark ? '#253244' : '#EAE5DC',
                         },
                       ],
                 ]}>
@@ -604,9 +609,11 @@ export function NotificationsScreen({
                     {
                       color: isActive
                         ? isDark
-                          ? '#2A1D12'
+                          ? '#0D1520'
                           : '#FFFFFF'
-                        : theme.textSecondary,
+                        : isDark
+                          ? '#9DA8B9'
+                          : '#64748B',
                       fontWeight: isActive ? '700' : '500',
                     },
                   ]}>
@@ -623,40 +630,27 @@ export function NotificationsScreen({
             {filteredNotifications.map((item, index) => {
               const isLast = index === filteredNotifications.length - 1;
               const isMenuOpen = activeMenuId === item.id;
-              const iconBackground = isDark ? item.iconBgDark : item.iconBgLight;
 
               return (
                 <View key={item.id} style={styles.rowWrapper}>
                   <TouchableOpacity
-                    activeOpacity={0.75}
+                    activeOpacity={0.7}
                     onPress={() => handleToggleRead(item.id)}
                     style={[
                       styles.notificationRow,
                       Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
-                      !item.isRead && {
-                        backgroundColor: isDark
-                          ? 'rgba(255, 106, 19, 0.08)'
-                          : 'rgba(239, 246, 255, 0.75)',
-                      },
                       !isLast && [
                         styles.rowDivider,
                         {
                           borderBottomColor: isDark
-                            ? 'rgba(255, 255, 255, 0.07)'
-                            : 'rgba(0, 0, 0, 0.06)',
+                            ? '#253244'
+                            : '#EAE5DC',
                         },
                       ],
                     ]}>
-                    {/* Left: Solid Pastel Icon Circle */}
-                    <View
-                      style={[
-                        styles.iconCircle,
-                        {
-                          backgroundColor: iconBackground,
-                          borderColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
-                        },
-                      ]}>
-                      {item.iconRenderer(22)}
+                    {/* Left: Clean Icon without background cover */}
+                    <View style={styles.iconBox}>
+                      {item.iconRenderer(24)}
                     </View>
 
                     {/* Middle: Content */}
@@ -667,33 +661,32 @@ export function NotificationsScreen({
                             styles.itemTitle,
                             {
                               color: theme.textPrimary,
-                              fontWeight: !item.isRead ? '700' : '600',
+                              fontWeight: !item.isRead ? '700' : '500',
                             },
                           ]}
                           numberOfLines={1}>
                           {item.title}
                         </Text>
-                        {!item.isRead && (
-                          <View
-                            style={[
-                              styles.unreadDot,
-                              { backgroundColor: '#B9570A' },
-                            ]}
-                          />
-                        )}
                       </View>
 
                       <Text
                         style={[
                           styles.itemDescription,
-                          { color: theme.textSecondary },
+                          {
+                            color: !item.isRead
+                              ? (isDark ? '#F0F4F8' : '#334155')
+                              : (isDark ? '#9DA8B9' : '#64748B'),
+                          },
                         ]}
                         numberOfLines={2}>
                         {item.description}
                       </Text>
 
                       <Text
-                        style={[styles.itemTime, { color: theme.textMuted }]}>
+                        style={[
+                          styles.itemTime,
+                          { color: isDark ? '#6E7A8E' : '#94A3B8' },
+                        ]}>
                         {item.time}
                       </Text>
                     </View>
@@ -711,7 +704,7 @@ export function NotificationsScreen({
                       ]}>
                       <MoreVertical
                         size={17}
-                        color={theme.textMuted}
+                        color={isDark ? '#6E7A8E' : '#94A3B8'}
                         strokeWidth={2}
                       />
                     </TouchableOpacity>
@@ -723,8 +716,8 @@ export function NotificationsScreen({
                       style={[
                         styles.inlineMenuPopup,
                         {
-                          backgroundColor: isDark ? '#2A1D12' : '#FFFFFF',
-                          borderColor: theme.cardBorder,
+                          backgroundColor: isDark ? '#1B2534' : '#FFFFFF',
+                          borderColor: isDark ? '#253244' : '#EAE5DC',
                         },
                       ]}>
                       <TouchableOpacity
@@ -742,8 +735,8 @@ export function NotificationsScreen({
                         activeOpacity={0.7}
                         onPress={() => handleDeleteItem(item.id)}
                         style={styles.menuActionItem}>
-                        <Trash2 size={14} color="#B42318" />
-                        <Text style={[styles.menuActionText, { color: '#B42318' }]}>
+                        <Trash2 size={14} color="#EF4444" />
+                        <Text style={[styles.menuActionText, { color: '#EF4444' }]}>
                           Delete
                         </Text>
                       </TouchableOpacity>
@@ -763,7 +756,7 @@ export function NotificationsScreen({
                   styles.emptyBigHalo,
                   {
                     backgroundColor: isDark
-                      ? 'rgba(255, 255, 255, 0.04)'
+                      ? '#1B2534'
                       : '#FCEBDD',
                   },
                 ]}>
@@ -771,7 +764,7 @@ export function NotificationsScreen({
                   style={[
                     styles.emptySpeechBubble,
                     {
-                      backgroundColor: isDark ? '#262E40' : '#DDD6CA',
+                      backgroundColor: isDark ? '#1B2534' : '#DDD6CA',
                     },
                   ]}>
                   <View style={styles.emptyBubbleDots}>
@@ -859,7 +852,7 @@ export function NotificationsScreen({
                   Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                   {
                     backgroundColor: isDark
-                      ? 'rgba(255, 255, 255, 0.08)'
+                      ? '#1B2534'
                       : '#FCEBDD',
                     borderColor: theme.cardBorder,
                   },
@@ -942,9 +935,10 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   desktopScrollContent: {
-    maxWidth: 720,
+    maxWidth: 780,
     alignSelf: 'center',
     width: '100%',
+    paddingHorizontal: 20,
   },
   filterPillsRow: {
     flexDirection: 'row',
@@ -975,21 +969,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingVertical: 16,
     gap: 14,
     width: '100%',
   },
   rowDivider: {
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  iconCircle: {
-    width: 46,
-    height: 46,
-    borderRadius: 23,
-    borderWidth: 1,
+  iconBox: {
+    width: 32,
+    height: 32,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 1,
+    marginTop: 2,
   },
   contentCol: {
     flex: 1,
@@ -1005,18 +997,13 @@ const styles = StyleSheet.create({
     letterSpacing: -0.2,
     flexShrink: 1,
   },
-  unreadDot: {
-    width: 7,
-    height: 7,
-    borderRadius: 3.5,
-  },
   itemDescription: {
-    fontSize: 12.5,
-    lineHeight: 18,
-    marginBottom: 6,
+    fontSize: 13,
+    lineHeight: 18.5,
+    marginBottom: 5,
   },
   itemTime: {
-    fontSize: 11,
+    fontSize: 11.5,
     fontWeight: '500',
   },
   menuButton: {

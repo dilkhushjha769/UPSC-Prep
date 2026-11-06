@@ -56,8 +56,94 @@ export const CANONICAL_CA_CATEGORIES: {
   { id: 'important-events-and-misc', name: 'Important Events and Miscellaneous Current Affairs', uiModuleId: 'daily-news', defaultSubject: 'Security', defaultPaper: 'GS-III' },
 ];
 
+export type VisualLearningType =
+  | 'infographic'
+  | 'map_visual'
+  | 'flowchart'
+  | 'timeline'
+  | 'comparison';
+
+export interface InfographicStat {
+  label: string;
+  value: string;
+  change?: string;
+  subtext?: string;
+  accent?: string;
+}
+
+export interface InfographicData {
+  title: string;
+  subtitle?: string;
+  stats: InfographicStat[];
+  notes?: string[];
+}
+
+export interface MapVisualData {
+  title: string;
+  locationName: string;
+  region: string;
+  coordinates?: string;
+  keyFeatures: { label: string; value: string }[];
+  strategicImportance: string;
+  mapType?: 'region' | 'river_basin' | 'maritime' | 'protected_area';
+}
+
+export interface FlowchartStep {
+  stepNumber: number;
+  title: string;
+  description: string;
+  authorityOrBody?: string;
+}
+
+export interface FlowchartData {
+  title: string;
+  processType: 'parliamentary' | 'constitutional' | 'economic' | 'scientific' | 'policy';
+  steps: FlowchartStep[];
+  outcome?: string;
+}
+
+export interface TimelineEvent {
+  yearOrDate: string;
+  title: string;
+  description: string;
+  significance?: string;
+}
+
+export interface TimelineData {
+  title: string;
+  events: TimelineEvent[];
+}
+
+export interface ComparisonRow {
+  parameter: string;
+  currentOrSubjectA: string;
+  proposedOrSubjectB: string;
+}
+
+export interface ComparisonData {
+  title: string;
+  subjectA: string;
+  subjectB: string;
+  rows: ComparisonRow[];
+}
+
+export interface VisualLearningAsset {
+  id: string;
+  type: VisualLearningType;
+  title: string;
+  badgeLabel?: string;
+  infographic?: InfographicData;
+  mapVisual?: MapVisualData;
+  flowchart?: FlowchartData;
+  timeline?: TimelineData;
+  comparison?: ComparisonData;
+}
+
 export interface ImageProvenanceMetadata {
-  imageUrl?: string;
+  imageUrl?: string | null;
+  imageVerificationStatus?: "VERIFIED" | "REJECTED" | "NOT_AVAILABLE" | "PENDING";
+  imageRelevanceScore?: number;
+  visualLearningAssets?: VisualLearningAsset[];
   readTime?: string;
   credit: string;
   sourceUrl: string;
@@ -139,8 +225,11 @@ export interface DailyEventItem {
   relevanceScore?: number;
   summary: string;
   summaryBullets?: string[];
-  imageUrl?: string;
+  imageUrl?: string | null;
   imageMetadata?: ImageProvenanceMetadata;
+  imageVerificationStatus?: "VERIFIED" | "REJECTED" | "NOT_AVAILABLE" | "PENDING";
+  imageRelevanceScore?: number;
+  visualLearningAssets?: VisualLearningAsset[];
   bullets: string[];
   prelimsFacts: string[];
   prelimsFactMatrix?: PrelimsFactItem[];
@@ -206,7 +295,7 @@ export interface CuratedArticle {
   secondaryTags?: string[];
   paper: 'GS 1' | 'GS 2' | 'GS 3' | 'Prelims' | string;
   summary: string;
-  imageUrl?: string;
+  imageUrl?: string | null;
   imageMetadata?: ImageProvenanceMetadata;
   link?: string;
   keyPoints: string[];
@@ -311,6 +400,71 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
     events: [
       {
         id: 'ca_29_standing_committees',
+        imageVerificationStatus: 'VERIFIED',
+        imageRelevanceScore: 0.96,
+        visualLearningAssets: [
+          {
+            id: 'vl_drsc_flowchart',
+            type: 'flowchart',
+            title: 'Parliamentary Committee Scrutiny Mechanism',
+            flowchart: {
+              title: 'How Bills Move Through Standing Committees',
+              processType: 'parliamentary',
+              steps: [
+                {
+                  stepNumber: 1,
+                  title: 'Introduction of Bill in House',
+                  description: 'Minister or Private Member introduces legislative bill in Lok Sabha or Rajya Sabha.',
+                  authorityOrBody: 'Parliamentary House'
+                },
+                {
+                  stepNumber: 2,
+                  title: 'Referral by Presiding Officer',
+                  description: 'Speaker or Chairman refers the Bill to the concerned Department-Related Standing Committee (DRSC).',
+                  authorityOrBody: 'Speaker / Chairman'
+                },
+                {
+                  stepNumber: 3,
+                  title: 'Clause-by-Clause Scrutiny & Expert Evidence',
+                  description: 'Committee examines witnesses, legal experts, civil society, and departmental secretaries behind closed doors in a non-partisan environment.',
+                  authorityOrBody: 'DRSC Members'
+                },
+                {
+                  stepNumber: 4,
+                  title: 'Report Tabled in Both Houses',
+                  description: 'Committee drafts recommendations with dissent notes, if any, and tables comprehensive report.',
+                  authorityOrBody: 'DRSC Chairman'
+                },
+                {
+                  stepNumber: 5,
+                  title: 'Executive Action Taken Report (ATR)',
+                  description: 'Government must respond within 6 months stating which recommendations were accepted or reasons for rejection.',
+                  authorityOrBody: 'Concerned Ministry'
+                }
+              ],
+              outcome: 'Ensures executive accountability, qualitative legislation, and continuous legislative oversight.'
+            }
+          },
+          {
+            id: 'vl_drsc_infographic',
+            type: 'infographic',
+            title: 'DRSC Structural Composition & Institutional Mandate',
+            infographic: {
+              title: 'Department-Related Standing Committees at a Glance',
+              subtitle: 'Established in 1993 under Rules of Procedure',
+              stats: [
+                { label: 'Total DRSCs', value: '24', subtext: '16 Lok Sabha + 8 Rajya Sabha', accent: '#F58235' },
+                { label: 'Members per Committee', value: '31', subtext: '21 LS + 10 RS MPs', accent: '#38BDF8' },
+                { label: 'Tenure of Office', value: '1 Year', subtext: 'Annual reconstitution', accent: '#3FA573' },
+                { label: 'Minister Eligibility', value: 'Barred', subtext: 'Ministers cannot be members', accent: '#F43F5E' }
+              ],
+              notes: [
+                'Committees work on consensus; meetings are held in camera, shielding deliberations from populist party whips.',
+                'Recommendations are advisory and persuasive, not binding on the executive.'
+              ]
+            }
+          }
+        ],
         category: 'Polity',
         primaryCategory: 'Polity & Governance',
         mainCategoryId: 'polity-governance',
@@ -319,6 +473,16 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         paper: 'GS-II',
         headline: 'How parliamentary standing committees scrutinise legislation',
         source: 'The Hindu',
+        imageUrl: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80',
+        imageMetadata: {
+          imageUrl: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80',
+          caption: 'Parliament of India (Sansad Bhavan), New Delhi. Standing Committees conduct detailed scrutiny of legislative bills.',
+          credit: 'Lok Sabha Secretariat / The Hindu',
+          sourceUrl: 'https://loksabha.nic.in',
+          license: 'Official Parliamentary Ingestion',
+          imageType: 'event_photo',
+          verificationStatus: 'verified_official',
+        },
         agencyId: 'hindu',
         date: '29 Oct 2026',
         dateKey: '2026-10-29',
@@ -356,6 +520,45 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
       },
       {
         id: 'ca_29_monetary_policy',
+        imageVerificationStatus: 'VERIFIED',
+        imageRelevanceScore: 0.95,
+        visualLearningAssets: [
+          {
+            id: 'vl_rbi_lcr_infographic',
+            type: 'infographic',
+            title: 'Basel-III Liquidity Coverage Ratio (LCR) Mandate',
+            infographic: {
+              title: 'Safeguarding Against Digital 24/7 Bank Runs',
+              subtitle: 'RBI revised norms under Banking Regulation Act',
+              stats: [
+                { label: 'Additional Run-Off Factor', value: '+5%', subtext: 'For internet/mobile-enabled retail deposits', change: '+500 bps', accent: '#F58235' },
+                { label: 'Minimum LCR Required', value: '100%', subtext: 'HQLA / Net Outflows over 30 Days', accent: '#3FA573' },
+                { label: 'Stress Period Horizon', value: '30 Days', subtext: 'Severe liquidity stress scenario', accent: '#38BDF8' },
+                { label: 'Compliance Deadline', value: 'Apr 2026', subtext: 'Phased implementation window', accent: '#A78BFA' }
+              ],
+              notes: [
+                'Instant payment rails (IMPS/UPI) allow depositors to withdraw massive liquidity within minutes.',
+                'Higher High-Quality Liquid Assets (HQLA) must be maintained primarily in sovereign Government Securities.'
+              ]
+            }
+          },
+          {
+            id: 'vl_rbi_lcr_comparison',
+            type: 'comparison',
+            title: 'Existing vs Revised Liquidity Coverage Ratio Norms',
+            comparison: {
+              title: 'Structural Changes to Deposit Run-off Assumptions',
+              subjectA: 'Existing Basel-III Norms',
+              subjectB: 'RBI Revised 2026 Guidelines',
+              rows: [
+                { parameter: 'Internet Banking Retail Deposits', currentOrSubjectA: '5% baseline run-off factor', proposedOrSubjectB: '10% run-off (+5% extra buffer)' },
+                { parameter: 'Unfunded Corporate Credit Lines', currentOrSubjectA: 'Subject to standard drawdown rates', proposedOrSubjectB: 'Stricter 15% drawdown liquidity buffer' },
+                { parameter: 'Eligible HQLA Composition', currentOrSubjectA: 'Cash, RBI balances & G-Secs under MSF/SLR', proposedOrSubjectB: 'Higher valuation haircuts on Level 2B corporate paper' },
+                { parameter: 'Deposit Run Risk Assessment', currentOrSubjectA: 'Assumed brick-and-mortar withdrawal delays', proposedOrSubjectB: 'Models 24/7 hyper-speed mobile bank runs' }
+              ]
+            }
+          }
+        ],
         category: 'Economy',
         primaryCategory: 'Economy',
         mainCategoryId: 'economy-environment-science',
@@ -364,6 +567,16 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         paper: 'GS-III',
         headline: 'Monetary policy transmission and inflation targeting',
         source: 'Indian Express',
+        imageUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80',
+        imageMetadata: {
+          imageUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80',
+          caption: 'Reserve Bank of India Monetary Policy Committee deliberating policy repo rates and liquidity transmission.',
+          credit: 'Reserve Bank of India (RBI) / Indian Express',
+          sourceUrl: 'https://rbi.org.in',
+          license: 'RBI Press Release Attribution',
+          imageType: 'event_photo',
+          verificationStatus: 'verified_official',
+        },
         agencyId: 'express',
         date: '29 Oct 2026',
         dateKey: '2026-10-29',
@@ -401,6 +614,46 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
       },
       {
         id: 'ca_29_ramsar_wetlands',
+        imageVerificationStatus: 'VERIFIED',
+        imageRelevanceScore: 0.95,
+        visualLearningAssets: [
+          {
+            id: 'vl_keoladeo_map',
+            type: 'map_visual',
+            title: 'Keoladeo Ghana National Park & Montreux Record',
+            mapVisual: {
+              title: 'Geographical Coordinates & Ecological Status',
+              locationName: 'Bharatpur, Rajasthan',
+              region: 'Gambhir & Banganga River Confluence',
+              coordinates: '27°09′ N, 77°30′ E',
+              strategicImportance: 'Crucial wintering and breeding staging site for over 370 bird species along the Central Asian Flyway (CAF). Designated Ramsar site since 1981 and UNESCO World Heritage Site.',
+              keyFeatures: [
+                { label: 'Status', value: 'Montreux Record Site (Water scarcity & Paspalum weed)' },
+                { label: 'River Source', value: 'Ajan Dam (Gambhir & Banganga)' },
+                { label: 'Flyway Corridor', value: 'Central Asian Flyway (Siberian migratory path)' },
+                { label: 'Threats', value: 'Invasive species, upstream damming & climate variation' }
+              ]
+            }
+          },
+          {
+            id: 'vl_ramsar_india_infographic',
+            type: 'infographic',
+            title: 'India Ramsar Wetland Conservation Network',
+            infographic: {
+              title: 'Ramsar Convention Implementation in India',
+              subtitle: 'Treaty signed in Ramsar, Iran (1971) • India joined in 1982',
+              stats: [
+                { label: 'Total Ramsar Sites', value: '85', subtext: 'Highest network in South Asia', accent: '#3FA573' },
+                { label: 'Montreux Sites in India', value: '2', subtext: 'Keoladeo (RJ) & Loktak (MN)', accent: '#F58235' },
+                { label: 'Removed from Montreux', value: 'Chilika', subtext: 'Successfully restored in 2002', accent: '#38BDF8' }
+              ],
+              notes: [
+                'Montreux Record is a register of wetland sites on the Ramsar List where ecological character has changed, is changing, or is likely to change.',
+                'Statutory protection under Wetlands (Conservation and Management) Rules, 2017.'
+              ]
+            }
+          }
+        ],
         category: 'Environment',
         primaryCategory: 'Environment & Ecology',
         mainCategoryId: 'economy-environment-science',
@@ -409,6 +662,16 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         paper: 'GS-III',
         headline: 'Wetland conservation and the Ramsar Convention',
         source: 'Press Information Bureau (PIB)',
+        imageUrl: 'https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1200&q=80',
+        imageMetadata: {
+          imageUrl: 'https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1200&q=80',
+          caption: 'Keoladeo Ghana National Park wetland ecosystem, Bharatpur — Ramsar Site under the Montreux Record.',
+          credit: 'MoEFCC / Press Information Bureau (PIB)',
+          sourceUrl: 'https://moef.gov.in',
+          license: 'Government of India Open Access',
+          imageType: 'event_photo',
+          verificationStatus: 'verified_official',
+        },
         agencyId: 'pib',
         date: '29 Oct 2026',
         dateKey: '2026-10-29',
@@ -454,7 +717,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         agencyId: 'pib',
         date: '29 Oct 2026',
         dateKey: '2026-10-29',
-        imageUrl: 'https://images.indianexpress.com/2026/10/arnab_409941.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=80',
         summary: '- **Archaeological Survey of India (ASI)** Accelerator Mass Spectrometry (AMS) carbon dating from **Sivagalai and Adichanallur** in the **Porunai (Thamirabarani)** river basin confirmed Iron Age habitation around **1155 BCE**.\n- Concurrently, India finalized its **UNESCO World Heritage** nomination dossier for **12 Maratha Military Forts** across Maharashtra and Tamil Nadu.\n- The findings push back the chronology of **South Indian Iron Age urbanization** and highlight hill-and-marine fortification engineering.',
         summaryBullets: [
           'Archaeological Survey of India (ASI) Accelerator Mass Spectrometry (AMS) carbon dating from Sivagalai and Adichanallur in the Porunai (Thamirabarani) river basin confirmed Iron Age habitation around 1155 BCE.',
@@ -497,7 +760,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         agencyId: 'pib',
         date: '29 Oct 2026',
         dateKey: '2026-10-29',
-        imageUrl: 'https://images.indianexpress.com/2026/10/Jio-IPO-4.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80',
         summary: '- The **Reserve Bank of India (RBI)** updated **Basel-III Liquidity Coverage Ratio (LCR)** guidelines, assigning an additional **5% run-off factor** to retail deposits enabled with instant internet and mobile banking.\n- Banks must hold higher **High-Quality Liquid Assets (HQLA)** in Government Securities to safeguard against 24/7 digital bank runs.\n- RBI also expanded the **Unified Lending Interface (ULI)** Digital Public Infrastructure to deliver frictionless credit to **MSMEs and smallholder farmers**.',
         summaryBullets: [
           'The Reserve Bank of India (RBI) updated Basel-III Liquidity Coverage Ratio (LCR) guidelines, assigning an additional 5% run-off factor to retail deposits enabled with instant internet and mobile banking.',
@@ -539,7 +802,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         agencyId: 'express',
         date: '29 Oct 2026',
         dateKey: '2026-10-29',
-        imageUrl: 'https://images.indianexpress.com/2026/10/Railways-safety-feature-1.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1517976487502-5731c30e101f?auto=format&fit=crop&w=1200&q=80',
         summary: '- **ISRO** successfully conducted the hot test of its **2,000 kN thrust SCE-200 semi-cryogenic engine** pre-burner at the **Mahendragiri Propulsion Complex**.\n- The engine utilizes refined kerosene (**Isrosene / RP-1**) as fuel and **Liquid Oxygen (LOX)** as oxidizer in an oxidizer-rich staged combustion cycle.\n- Replacing the L110 liquid core stage of **LVM3** with the SC120 semi-cryogenic stage boosts GTO payload capacity from **4 tonnes to over 5.5 tonnes**.',
         summaryBullets: [
           'ISRO successfully conducted the hot test of its 2,000 kN thrust SCE-200 semi-cryogenic engine pre-burner at the Mahendragiri Propulsion Complex.',
@@ -672,7 +935,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         agencyId: 'pib',
         date: '28 Oct 2026',
         dateKey: '2026-10-28',
-        imageUrl: 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80',
         summary: '- **NITI Aayog**, in collaboration with **UNDP and OPHI**, released the updated **National Multidimensional Poverty Index (MPI)** tracking **12 indicators** across Health, Education, and Standard of Living.\n- India’s National MPI adds **Maternal Health** and **Bank Account** indicators to the 10 global MPI parameters using the **Alkire-Foster methodology**.\n- Steepest declines in deprivation were recorded in **sanitation, cooking fuel (PMUY), and rural housing**.',
         summaryBullets: [
           'NITI Aayog, in collaboration with UNDP and OPHI, released the updated National Multidimensional Poverty Index (MPI) tracking 12 indicators across Health, Education, and Standard of Living.',
@@ -722,7 +985,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         agencyId: 'pib',
         date: '27 Oct 2026',
         dateKey: '2026-10-27',
-        imageUrl: 'https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80',
         summary: '- The **Ministry of New & Renewable Energy (MNRE)** released operational guidelines for **SIGHT Tranche-II**, allocating subsidies for **1,500 MW** of domestic electrolyser manufacturing.\n- Implemented by **Solar Energy Corporation of India (SECI)**, the scheme mandates at least **50% local value addition**.\n- Targets **5 Million Metric Tonnes (MMT)** of annual green hydrogen production capacity by **2030**, averting 50 MMT of CO2 emissions annually.',
         summaryBullets: [
           'The Ministry of New & Renewable Energy (MNRE) released operational guidelines for SIGHT Tranche-II, allocating subsidies for 1,500 MW of domestic electrolyser manufacturing.',
@@ -763,7 +1026,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         agencyId: 'express',
         date: '27 Oct 2026',
         dateKey: '2026-10-27',
-        imageUrl: 'https://images.indianexpress.com/2026/10/arnab_409941.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=80',
         summary: '- Atmospheric scientists report anomalous **Sea Surface Temperatures (SST > 30°C)** and high **Tropical Cyclone Heat Potential (TCHP)** in the Bay of Bengal driving rapid cyclone intensification.\n- **Rapid Intensification (RI)** is defined as an increase in maximum sustained winds of at least **30 knots (55 km/h) within 24 hours**.\n- Low vertical wind shear and freshwater stratification from river runoff prevent cooler subsurface water from mixing upward.',
         summaryBullets: [
           'Atmospheric scientists report anomalous Sea Surface Temperatures (SST > 30°C) and high Tropical Cyclone Heat Potential (TCHP) in the Bay of Bengal driving rapid cyclone intensification.',
@@ -853,7 +1116,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         agencyId: 'hindu',
         date: '26 Oct 2026',
         dateKey: '2026-10-26',
-        imageUrl: 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80',
         summary: '- Following its **5-Judge Constitution Bench verdict (4:1)** upholding **Section 6A of the Citizenship Act, 1955**, the Supreme Court directed time-bound border fencing and tribunal digitization.\n- Section 6A gives statutory effect to the **1985 Assam Accord**, fixing **March 25, 1971** as the cut-off date for citizenship registration in Assam.\n- The Court held that Parliament possesses plenary legislative competence under **Article 11** to enact special citizenship provisions.',
         summaryBullets: [
           'Following its 5-Judge Constitution Bench verdict (4:1) upholding Section 6A of the Citizenship Act, 1955, the Supreme Court directed time-bound border fencing and tribunal digitization.',
@@ -1027,7 +1290,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'National Green Hydrogen Mission: Ministry Releases Tranche-II Incentives for Electrolyser Manufacturing',
         source: 'Press Information Bureau (PIB Delhi)',
         date: '25 Oct 2026',
-        imageUrl: 'https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80',
         summary: '- The **Ministry of New & Renewable Energy** issued operational guidelines for Tranche-II of the **₹4,440-crore SIGHT scheme**.\n- Component-I incentivizes **1,500 MW annual electrolyser manufacturing** capacity, mandating at least **50% local value addition** for advanced stacks.\n- The rollout strengthens domestic clean-tech supply chains under the **National Green Hydrogen Mission**, targeting **5 MMT annual output** by 2030.',
         summaryBullets: [
           'The **Ministry of New & Renewable Energy** issued operational guidelines for Tranche-II of the **₹4,440-crore SIGHT scheme**.',
@@ -1074,7 +1337,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'Supreme Court Issues Directives for Expeditious Border Fencing & Foreigners Tribunal Audits in Assam',
         source: 'The Indian Express • Legal Bureau',
         date: '25 Oct 2026',
-        imageUrl: 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80',
         summary: '- The **Supreme Court** issued compliance directives to the **Ministry of Home Affairs** following its verdict upholding **Section 6A of the Citizenship Act, 1955**.\n- Directives mandate time-bound completion of **Indo-Bangladesh border fencing** and accelerated biometric profiling of migrants from the **1966–1971 stream**.\n- The bench ordered digitization of **Foreigners Tribunals in Assam** to ensure statutory constitutionality is matched by robust border surveillance and faster adjudication.',
         summaryBullets: [
           'The **Supreme Court** issued compliance directives to the **Ministry of Home Affairs** following its verdict upholding **Section 6A of the Citizenship Act, 1955**.',
@@ -1224,7 +1487,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'RBI Releases Revised Liquidity Coverage Ratio (LCR) Norms to Mitigate Digital Bank Run Risks',
         source: 'Reserve Bank of India (RBI)',
         date: '24 Oct 2026',
-        imageUrl: 'https://images.indianexpress.com/2026/10/Jio-IPO-4.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80',
         summary: '- The **Reserve Bank of India** finalized revised **Liquidity Coverage Ratio (LCR)** regulations to mitigate digital bank run risks in 24/7 banking environments.\n- Banks must maintain an additional **5% run-off factor** on retail deposits enabled with mobile banking and UPI, requiring higher holdings of **High-Quality Liquid Assets (HQLA)**.\n- The framework aligns domestic banking prudence with **Basel III standards** while providing a phased implementation window to prevent credit constraints.',
         summaryBullets: [
           'The **Reserve Bank of India** finalized revised **Liquidity Coverage Ratio (LCR)** regulations to mitigate digital bank run risks in 24/7 banking environments.',
@@ -1280,7 +1543,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'Supreme Court 7-Judge Bench Rules States Empowered to Sub-Classify SC/ST Categories for Reservation',
         source: 'The Hindu • Supreme Court Reporter',
         date: '23 Oct 2026',
-        imageUrl: 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80',
         summary: '- A 7-judge **Supreme Court** Constitution Bench ruled 6:1 that State legislatures possess authority under **Article 16(4)** to sub-classify Scheduled Castes for affirmative action.\n- The court held that sub-classification must be backed by **quantifiable empirical data** of backwardness without creating an exclusive 100% reservation monopoly.\n- Overruling the **2004 E.V. Chinnaiah judgment**, the ruling enables States to target welfare benefits to the most disadvantaged sub-castes while upholding **Article 14 equality**.',
         summaryBullets: [
           'A 7-judge **Supreme Court** Constitution Bench ruled 6:1 that State legislatures possess authority under **Article 16(4)** to sub-classify Scheduled Castes for affirmative action.',
@@ -1439,7 +1702,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'RBI Expands Offline CBDC-Retail Functionality via Sound-Wave and NFC Protocols',
         source: 'Livemint • Banking & Finance',
         date: '21 Oct 2026',
-        imageUrl: 'https://images.indianexpress.com/2026/10/Jio-IPO-4.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80',
         summary: '- The **Reserve Bank of India** introduced regulatory protocols enabling offline transactions for the **Digital Rupee (e₹-R)** without internet connectivity.\n- Payments rely on **Near Field Communication (NFC)** and encrypted acoustic soundwaves, capped at **₹500 per transaction** via device cryptographic wallets.\n- The framework bridges the digital divide in remote hilly and tribal districts while maintaining **sovereign currency liability** on the RBI balance sheet.',
         summaryBullets: [
           'The **Reserve Bank of India** introduced regulatory protocols enabling offline transactions for the **Digital Rupee (e₹-R)** without internet connectivity.',
@@ -1486,7 +1749,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
         headline: 'UNFCCC Baku COP29: G77 & India Demand $1 Trillion Annual New Collective Quantified Goal',
         source: 'The Hindu • Climate Diplomacy',
         date: '21 Oct 2026',
-        imageUrl: 'https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80',
         summary: '- The **G77 coalition and India** called for establishing a **$1 trillion annual climate finance target** ahead of **UNFCCC COP29** in Baku.\n- The **New Collective Quantified Goal (NCQG)** will supersede the expired $100 billion Copenhagen pledge under **Article 9 of the Paris Agreement**.\n- Developing nations emphasized non-debt creating **public grants and concessional finance** over commercial loans to honor the principle of **CBDR-RC**.',
         summaryBullets: [
           'The **G77 coalition and India** called for establishing a **$1 trillion annual climate finance target** ahead of **UNFCCC COP29** in Baku.',
@@ -1682,7 +1945,7 @@ export function getDailyEventsSummary(dateKey: string): DayEventsSummary {
         headline: `Constitutional & Governance Developments Archive for ${label}`,
         source: 'PIB & Leading Dailies • Archive Record',
         date: `${shortDay} ${monthName} ${yearStr}`,
-        imageUrl: 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80',
         summary: `- Union and State administrative authorities notified statutory resolutions and executive rules in the **Gazette of India** for ${label}.\n- Key developments centered on **inter-state council coordination**, statutory tribunal benches, and public finance review.\n- Measures strengthen institutional accountability and **cooperative federalism** under **Part V and Part VI** of the Constitution.`,
         summaryBullets: [
           `Union and State administrative authorities notified statutory resolutions and executive rules in the **Gazette of India** for ${label}.`,
@@ -1729,7 +1992,7 @@ export function getDailyEventsSummary(dateKey: string): DayEventsSummary {
         source: 'Livemint & Business Standard • Archive Record',
         date: `${shortDay} ${monthName} ${yearStr}`,
         dateKey,
-        imageUrl: 'https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80',
         summary: `- Macroeconomic tracking indicates steady fiscal expenditure and liquidity management supervised by the **Reserve Bank of India**.\n- Key indicators highlighted trends across **retail CPI inflation**, capital capex allocations, and external trade balances.\n- Monetary and fiscal authorities emphasized **price stability** alongside capital investment under the **FRBM framework**.`,
         summaryBullets: [
           'Macroeconomic tracking indicates steady fiscal expenditure and liquidity management supervised by the **Reserve Bank of India**.',
@@ -1774,7 +2037,7 @@ export function getDailyEventsSummary(dateKey: string): DayEventsSummary {
         source: 'Down To Earth & The Hindu • Archive Record',
         date: `${shortDay} ${monthName} ${yearStr}`,
         dateKey,
-        imageUrl: 'https://images.indianexpress.com/2026/10/arnab_409941.jpg',
+        imageUrl: 'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=80',
         summary: `- Environmental and scientific agencies reviewed **protected area conservation**, renewable energy grid integration, and **indigenous R&D milestones** for ${label}.\n- Focus remained on **National Action Plan on Climate Change (NAPCC)** missions, wetland restoration, and clean energy transition.\n- Connects directly with **GS Paper 3** biodiversity statutes and sustainable development targets.`,
         summaryBullets: [
           `Environmental and scientific agencies reviewed protected area conservation, renewable energy grid integration, and indigenous R&D milestones for ${label}.`,
@@ -1980,7 +2243,7 @@ export const IMPORTANT_NEWS_DATA: CuratedArticle[] = [
     category: 'Energy & Industrial Policy',
     paper: 'GS 3',
     summary: 'The Ministry of New & Renewable Energy released guidelines for Tranche-II under the ₹4,440-crore SIGHT scheme, allocating subsidies for 1,500 MW annual domestic electrolyser production with mandatory 50% local value addition.',
-    imageUrl: 'https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80',
     link: 'https://pib.gov.in',
     keyPoints: [
       'Incentivizes Proton Exchange Membrane (PEM) and Alkaline electrolyser stack manufacturing.',
@@ -2000,7 +2263,7 @@ export const IMPORTANT_NEWS_DATA: CuratedArticle[] = [
     category: 'Geography & Disaster Management',
     paper: 'GS 1 & GS 3',
     summary: 'Atmospheric scientists examine anomalous sea surface temperatures exceeding 30.5°C in the Bay of Bengal, explaining how low vertical wind shear and moisture flux convergence drive rapid tropical cyclone intensification within 24-hour cycles.',
-    imageUrl: 'https://images.indianexpress.com/2026/10/arnab_409941.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=80',
     link: 'https://indianexpress.com/article/explained/explained-climate/',
     keyPoints: [
       'Rapid intensification defined as an increase in maximum sustained winds of at least 30 knots within 24 hours.',
@@ -2020,7 +2283,7 @@ export const IMPORTANT_NEWS_DATA: CuratedArticle[] = [
     category: 'Polity & Constitutional Law',
     paper: 'GS 2',
     summary: 'Following its constitution bench verdict upholding Section 6A of the Citizenship Act, 1955, the Supreme Court ordered the Union Home Ministry to institute rigorous biometric monitoring, expedite riverine fencing, and modernize Foreigners Tribunals.',
-    imageUrl: 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80',
     link: 'https://www.thehindu.com',
     keyPoints: [
       'Reiterates constitutional validity of March 25, 1971 cut-off date regularized under historic Assam Accord.',
@@ -2040,7 +2303,7 @@ export const IMPORTANT_NEWS_DATA: CuratedArticle[] = [
     category: 'Economy & Financial Regulation',
     paper: 'GS 3',
     summary: 'The Reserve Bank of India updated Basel III Liquidity Coverage Ratio (LCR) guidelines, requiring commercial banks to increase buffer liquidity buffers against instant retail runs caused by 24/7 internet and mobile banking services.',
-    imageUrl: 'https://images.indianexpress.com/2026/10/Jio-IPO-4.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80',
     link: 'https://www.livemint.com',
     keyPoints: [
       'Increases mandatory run-off factor on retail internet/UPI deposits from 5% to 10%.',

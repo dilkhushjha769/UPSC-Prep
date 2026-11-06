@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   BackHandler,
   Modal,
@@ -29,14 +30,17 @@ import { BW_THEME } from '@/constants/bwTheme';
 import { EditorialExplanationView } from '@/components/common/EditorialExplanationView';
 import { examFocusService } from '@/services/examFocusService';
 import { useStudy } from '@/context/StudyContext';
+import { useAppTheme } from '@/context/ThemeContext';
 
 interface CAQuizModalProps {
   visible: boolean;
   onClose: () => void;
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function CAQuizModal({ visible, onClose, isDark }: CAQuizModalProps) {
+export function CAQuizModal({ visible, onClose, isDark: propIsDark }: CAQuizModalProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   if (!visible) return null;
 
   return (
@@ -265,7 +269,7 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
             {/* Scorecard */}
             <View style={styles.scoreCard}>
               <View style={styles.scoreIconCircle}>
-                <Award size={32} color={isDark ? '#FFFFFF' : '#1C2433'} strokeWidth={2} />
+                <Award size={32} color={isDark ? '#F0F4F8' : '#1C2433'} strokeWidth={2} />
               </View>
               <Text style={styles.scoreTitle}>Quiz Completed</Text>
               <Text style={styles.scoreValue}>
@@ -373,7 +377,7 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
               );
             })}
 
-            <Pressable style={styles.doneBtn} onPress={onClose}>
+            <Pressable style={[styles.doneBtn, primaryButtonStyle(isDark)]} onPress={onClose}>
               <Text style={styles.doneBtnText}>Done</Text>
             </Pressable>
           </ScrollView>
@@ -517,7 +521,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     },
     optionCardSelected: {
       borderColor: theme.textPrimary,
-      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
     },
     optionKeyBadge: {
       width: 28,
@@ -539,7 +543,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       color: theme.textPrimary,
     },
     optionKeyTextSelected: {
-      color: '#FFFFFF',
+      color: isDark ? '#0B1018' : '#FFFFFF',
     },
     optionText: {
       flex: 1,
@@ -603,7 +607,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     submitBtnText: {
       fontSize: 12.5,
       fontWeight: '700',
-      color: '#FFFFFF',
+      color: isDark ? '#0B1018' : '#FFFFFF',
     },
     // RESULT STYLES
     resultScroll: {
@@ -779,7 +783,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       padding: 12,
       borderRadius: 8,
       borderLeftWidth: 3,
-      borderLeftColor: isDark ? '#FFFFFF' : '#1C2433',
+      borderLeftColor: isDark ? '#F0F4F8' : '#1C2433',
       gap: 6,
       marginTop: 4,
     },

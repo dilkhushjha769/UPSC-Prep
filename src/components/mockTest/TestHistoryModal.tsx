@@ -16,6 +16,7 @@ import {
   BookOpen,
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
+import { useAppTheme } from '@/context/ThemeContext';
 import { MockTestService } from '@/services/mockTestService';
 import { MockTestRecord } from '@/types/mockTest';
 
@@ -30,8 +31,10 @@ export function TestHistoryModal({
   visible,
   onClose,
   onSelectTest,
-  isDark = true,
+  isDark: propIsDark,
 }: TestHistoryModalProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const [loading, setLoading] = useState(false);
   const [tests, setTests] = useState<MockTestRecord[]>([]);

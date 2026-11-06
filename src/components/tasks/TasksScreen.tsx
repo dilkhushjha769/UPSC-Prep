@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { FONT_FAMILY } from '@/constants/designTokens';
+import { FONT_FAMILY, primaryButtonStyle } from '@/constants/designTokens';
 import {
   Platform,
   ScrollView,
@@ -29,6 +29,7 @@ import { TaskFormModal } from './TaskFormModal';
 import { Button } from '@/components/ui/Button';
 import { ProgressBar } from '@/components/ui';
 import { resolveTaskColorTag } from '@/constants/taskColors';
+import { useAppTheme } from '@/context/ThemeContext';
 
 type TaskFilter = 'today' | 'todo' | 'done' | 'all';
 type TaskSortOption = 'newest' | 'title';
@@ -48,11 +49,13 @@ interface TasksScreenProps {
 }
 
 export function TasksScreen({
-  isDark = false,
+  isDark: propIsDark,
   onOpenNotifications,
   onBackToHome,
   onToggleTheme,
 }: TasksScreenProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const { tasks, toggleTask, addTask, deleteTask } = useStudy();
   const theme = isDark ? SemanticColors.dark : SemanticColors.light;
   const { width } = useWindowDimensions();
@@ -272,7 +275,7 @@ export function TasksScreen({
                 backgroundColor: isSearchActive
                   ? 'rgba(185, 87, 10, 0.12)'
                   : (isDark ? PALETTE.neutral.dark.surface : '#FFFFFF'),
-                borderColor: isSearchActive ? PALETTE.highlight.primary : (isDark ? '#333D52' : '#F0EDE6'),
+                borderColor: isSearchActive ? PALETTE.highlight.primary : (isDark ? '#253244' : '#F0EDE6'),
               },
             ]}>
             <Search
@@ -292,7 +295,7 @@ export function TasksScreen({
                 styles.circleIconBtn,
                 {
                   backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                  borderColor: isDark ? '#333D52' : '#F0EDE6',
+                  borderColor: isDark ? '#253244' : '#F0EDE6',
                 },
               ]}>
               {isDark ? (
@@ -312,7 +315,7 @@ export function TasksScreen({
               styles.circleIconBtn,
               {
                 backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                borderColor: isDark ? '#333D52' : '#F0EDE6',
+                borderColor: isDark ? '#253244' : '#F0EDE6',
               },
             ]}>
             <Bell size={18} color={theme.textPrimary} strokeWidth={2.2} />
@@ -336,7 +339,7 @@ export function TasksScreen({
             styles.searchBarContainer,
             {
               backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-              borderColor: isDark ? '#333D52' : '#EAE5DC',
+              borderColor: isDark ? '#253244' : '#EAE5DC',
             },
           ]}>
           <Search size={16} color={theme.textMuted} />
@@ -379,11 +382,11 @@ export function TasksScreen({
                 styles.filterPill,
                 {
                   backgroundColor: isActive
-                    ? PALETTE.highlight.primary // #B9570A (Primary Blue)
-                    : (isDark ? PALETTE.neutral.dark.surface : '#FFFFFF'),
+                    ? '#F58235'
+                    : (isDark ? '#141C28' : '#FFFFFF'),
                   borderColor: isActive
-                    ? PALETTE.highlight.primary
-                    : (isDark ? '#333D52' : '#EAE5DC'),
+                    ? '#F58235'
+                    : (isDark ? '#253244' : '#EAE5DC'),
                 },
               ]}>
               <Text
@@ -409,7 +412,7 @@ export function TasksScreen({
           styles.scheduleStripCard,
           {
             backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-            borderColor: isDark ? '#333D52' : '#F0EDE6',
+            borderColor: isDark ? '#253244' : '#F0EDE6',
           },
         ]}>
         <View style={styles.scheduleHeaderRow}>
@@ -435,23 +438,23 @@ export function TasksScreen({
               styles.todayCapsuleBtn,
               {
                 backgroundColor: (selectedDate === todayKey && activeFilter === 'today')
-                  ? PALETTE.highlight.primary // #B9570A (Solid Blue)
-                  : (isDark ? PALETTE.neutral.dark.darkest : '#FAF9F6'),
+                  ? (isDark ? '#F4F6FB' : '#1C2433')
+                  : (isDark ? '#141C28' : '#FFFFFF'),
                 borderColor: (selectedDate === todayKey && activeFilter === 'today')
-                  ? PALETTE.highlight.primary
-                  : (isDark ? '#333D52' : '#EAE5DC'),
+                  ? (isDark ? '#F4F6FB' : '#1C2433')
+                  : (isDark ? '#253244' : '#EAE5DC'),
               },
             ]}>
             <CalendarIcon
               size={12}
-              color={(selectedDate === todayKey && activeFilter === 'today') ? '#FFFFFF' : (isDark ? '#FFFFFF' : PALETTE.highlight.primary)}
+              color={(selectedDate === todayKey && activeFilter === 'today') ? (isDark ? '#0D1520' : '#FFFFFF') : (isDark ? '#9DA8B9' : '#1C2433')}
               strokeWidth={2.2}
             />
             <Text
               style={[
                 styles.todayCapsuleText,
                 {
-                  color: (selectedDate === todayKey && activeFilter === 'today') ? '#FFFFFF' : theme.textPrimary,
+                  color: (selectedDate === todayKey && activeFilter === 'today') ? (isDark ? '#0D1520' : '#FFFFFF') : theme.textPrimary,
                   fontWeight: (selectedDate === todayKey && activeFilter === 'today') ? '700' : '600',
                 },
               ]}>
@@ -481,18 +484,21 @@ export function TasksScreen({
                   styles.dayStripCapsule,
                   {
                     backgroundColor: isSelected
-                      ? PALETTE.highlight.primary // #B9570A (Primary Blue)
-                      : (isDark ? PALETTE.neutral.dark.darkest : '#FAF9F6'),
+                      ? (isDark ? '#F4F6FB' : '#1C2433')
+                      : (isDark ? '#141C28' : '#FFFFFF'),
                     borderColor: isSelected
-                      ? PALETTE.highlight.primary
-                      : (isDark ? '#333D52' : '#EAE5DC'),
+                      ? (isDark ? '#F4F6FB' : '#1C2433')
+                      : (isDark ? '#253244' : '#EAE5DC'),
                   },
                 ]}>
                 <Text
                   style={[
                     styles.dayStripAbbr,
                     {
-                      color: isSelected ? '#FFFFFF' : theme.textSecondary,
+                      color: isSelected
+                        ? (isDark ? '#0D1520' : '#FFFFFF')
+                        : (isDark ? '#94A3B8' : '#64748B'),
+                      fontWeight: isSelected ? '700' : '600',
                     },
                   ]}>
                   {day.dayAbbr}
@@ -501,7 +507,9 @@ export function TasksScreen({
                   style={[
                     styles.dayStripNumber,
                     {
-                      color: isSelected ? '#FFFFFF' : theme.textPrimary,
+                      color: isSelected
+                        ? (isDark ? '#0D1520' : '#FFFFFF')
+                        : (isDark ? '#F1F5F9' : '#1E293B'),
                       fontWeight: isSelected ? '800' : '700',
                     },
                   ]}>
@@ -521,8 +529,8 @@ export function TasksScreen({
           style={[
             styles.tasksProgressBarCard,
             {
-              backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
-              borderColor: isDark ? '#262E40' : '#EAE5DC',
+              backgroundColor: isDark ? '#141C28' : '#FAF9F6',
+              borderColor: isDark ? '#253244' : '#EAE5DC',
             },
           ]}>
           <View style={styles.tasksProgressBarHeader}>
@@ -545,7 +553,7 @@ export function TasksScreen({
             progress={tasksProgressPct}
             height={3}
             fillColor={tasksProgressPct === 100 ? '#26734D' : PALETTE.highlight.primary}
-            trackColor={isDark ? 'rgba(255, 255, 255, 0.08)' : '#EAE5DC'}
+            trackColor={isDark ? '#1B2534' : '#EAE5DC'}
             borderRadius={2}
           />
         </View>
@@ -562,8 +570,8 @@ export function TasksScreen({
             style={[
               styles.controlBtn,
               {
-                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.05)' : '#FAF9F6',
-                borderColor: isDark ? '#333D52' : '#EAE5DC',
+                backgroundColor: isDark ? '#1B2534' : '#FAF9F6',
+                borderColor: isDark ? '#253244' : '#EAE5DC',
               },
             ]}>
             <SlidersHorizontal size={13} color={theme.textPrimary} strokeWidth={2.2} />
@@ -573,10 +581,11 @@ export function TasksScreen({
           </TouchableOpacity>
         </View>
 
-        {/* Primary Blue "+ Add Task" Button */}
+        {/* Primary "+ Add Task" Button */}
         <Button
           variant="primary"
           size="sm"
+          isDark={isDark}
           title="Add Task"
           leftIcon={<Plus size={14} color="#FFFFFF" strokeWidth={2.5} />}
           onPress={() => setIsFormModalOpen(true)}
@@ -597,7 +606,7 @@ export function TasksScreen({
                 <View
                   style={[
                     styles.dateGroupCountBadge,
-                    { backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6' },
+                    { backgroundColor: isDark ? '#1B2534' : '#F0EDE6' },
                   ]}>
                   <Text style={[styles.dateGroupCountText, { color: theme.textSecondary }]}>
                     {group.tasks.length}
@@ -636,7 +645,7 @@ export function TasksScreen({
               styles.cleanEmptyCard,
               {
                 backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                borderColor: isDark ? '#333D52' : '#F0EDE6',
+                borderColor: isDark ? '#253244' : '#F0EDE6',
               },
             ]}>
             <View
@@ -663,7 +672,7 @@ export function TasksScreen({
               isDark={isDark}
               leftIcon={<X size={14} color={theme.textPrimary} strokeWidth={2.5} />}
               onPress={() => setSearchQuery('')}
-              style={styles.emptyAddBtn}
+              style={[styles.emptyAddBtn, primaryButtonStyle(isDark)]}
             />
           </View>
         ) : activeFilter === 'todo' ? (
@@ -672,7 +681,7 @@ export function TasksScreen({
               styles.cleanEmptyCard,
               {
                 backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                borderColor: isDark ? '#333D52' : '#F0EDE6',
+                borderColor: isDark ? '#253244' : '#F0EDE6',
               },
             ]}>
             <View
@@ -695,10 +704,11 @@ export function TasksScreen({
             <Button
               variant="primary"
               size="sm"
+              isDark={isDark}
               title="Add New Task"
-              leftIcon={<Plus size={14} color="#FFFFFF" strokeWidth={2.5} />}
+              leftIcon={<Plus size={14} color={isDark ? "#0D1520" : "#FFFFFF"} strokeWidth={2.5} />}
               onPress={() => setIsFormModalOpen(true)}
-              style={styles.emptyAddBtn}
+              style={[styles.emptyAddBtn, primaryButtonStyle(isDark)]}
             />
           </View>
         ) : activeFilter === 'done' ? (
@@ -707,7 +717,7 @@ export function TasksScreen({
               styles.cleanEmptyCard,
               {
                 backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                borderColor: isDark ? '#333D52' : '#F0EDE6',
+                borderColor: isDark ? '#253244' : '#F0EDE6',
               },
             ]}>
             <View
@@ -733,7 +743,7 @@ export function TasksScreen({
               title="View To Do Tasks"
               isDark={isDark}
               onPress={() => setActiveFilter('todo')}
-              style={styles.emptyAddBtn}
+              style={[styles.emptyAddBtn, primaryButtonStyle(isDark)]}
             />
           </View>
         ) : activeFilter === 'all' ? (
@@ -742,7 +752,7 @@ export function TasksScreen({
               styles.cleanEmptyCard,
               {
                 backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                borderColor: isDark ? '#333D52' : '#F0EDE6',
+                borderColor: isDark ? '#253244' : '#F0EDE6',
               },
             ]}>
             <View
@@ -765,10 +775,11 @@ export function TasksScreen({
             <Button
               variant="primary"
               size="sm"
+              isDark={isDark}
               title="Create Task"
-              leftIcon={<Plus size={14} color="#FFFFFF" strokeWidth={2.5} />}
+              leftIcon={<Plus size={14} color={isDark ? "#0D1520" : "#FFFFFF"} strokeWidth={2.5} />}
               onPress={() => setIsFormModalOpen(true)}
-              style={styles.emptyAddBtn}
+              style={[styles.emptyAddBtn, primaryButtonStyle(isDark)]}
             />
           </View>
         ) : (
@@ -777,7 +788,7 @@ export function TasksScreen({
               styles.cleanEmptyCard,
               {
                 backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                borderColor: isDark ? '#333D52' : '#F0EDE6',
+                borderColor: isDark ? '#253244' : '#F0EDE6',
               },
             ]}>
             <View
@@ -800,10 +811,11 @@ export function TasksScreen({
             <Button
               variant="primary"
               size="sm"
+              isDark={isDark}
               title="Add Task for Today"
-              leftIcon={<Plus size={14} color="#FFFFFF" strokeWidth={2.5} />}
+              leftIcon={<Plus size={14} color={isDark ? "#0D1520" : "#FFFFFF"} strokeWidth={2.5} />}
               onPress={() => setIsFormModalOpen(true)}
-              style={styles.emptyAddBtn}
+              style={[styles.emptyAddBtn, primaryButtonStyle(isDark)]}
             />
           </View>
         )}
@@ -1071,7 +1083,7 @@ const styles = StyleSheet.create({
   emptyAddBtn: {
     marginTop: 8,
     alignSelf: 'center',
-    backgroundColor: PALETTE.highlight.primary, // #B9570A
+    backgroundColor: '#1C2433',
   },
   tasksProgressBarCard: {
     marginHorizontal: 16,

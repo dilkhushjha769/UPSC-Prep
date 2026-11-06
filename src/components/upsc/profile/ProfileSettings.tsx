@@ -1,6 +1,8 @@
+import { useAppTheme } from '@/context/ThemeContext';
 /// <reference path="../../../types/react-native-fix.d.ts" />
 // @ts-ignore
 import React, { Fragment, useState } from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   StyleSheet,
   Text,
@@ -22,7 +24,7 @@ import {
 } from '@/types/study';
 
 interface ProfileSettingsProps {
-  isDark: boolean;
+  isDark?: boolean;
   onSaved?: () => void;
 }
 
@@ -46,7 +48,9 @@ const STAGES: PreparationStage[] = [
 const TARGET_YEARS = [2025, 2026, 2027, 2028];
 const MEDIUMS: ExamMedium[] = ['English', 'Hindi'];
 
-export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
+export function ProfileSettings({ isDark: propIsDark, onSaved }: ProfileSettingsProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { config, updateConfig, resetToDefaults } = useStudy();
   const { width } = useWindowDimensions();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
@@ -135,7 +139,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
           style={[
             styles.noticeBox,
             {
-              backgroundColor: isDark ? '#1E2535' : '#EAE5DC',
+              backgroundColor: isDark ? '#141C28' : '#EAE5DC',
               borderColor: theme.cardBorder,
             },
           ]}>
@@ -173,7 +177,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
               style={[
                 styles.textInput,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                   color: theme.textPrimary,
                 },
@@ -193,7 +197,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
               style={[
                 styles.textInput,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                   color: theme.textPrimary,
                 },
@@ -217,7 +221,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
               style={[
                 styles.textInput,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                   color: theme.textPrimary,
                 },
@@ -238,7 +242,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
               style={[
                 styles.textInput,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                   color: theme.textPrimary,
                 },
@@ -261,7 +265,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
               style={[
                 styles.textInput,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                   color: theme.textPrimary,
                 },
@@ -281,7 +285,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
               style={[
                 styles.textInput,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                   color: theme.textPrimary,
                 },
@@ -304,7 +308,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
               style={[
                 styles.textInput,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                   color: theme.textPrimary,
                 },
@@ -324,7 +328,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
               style={[
                 styles.textInput,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                   color: theme.textPrimary,
                 },
@@ -347,7 +351,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
               style={[
                 styles.textInput,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                   color: theme.textPrimary,
                 },
@@ -367,7 +371,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
               style={[
                 styles.textInput,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                   color: theme.textPrimary,
                 },
@@ -389,7 +393,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
             style={[
               styles.textInput,
               {
-                backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                 borderColor: theme.cardBorder,
                 color: theme.textPrimary,
               },
@@ -411,7 +415,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
               style={[
                 styles.textInput,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                   color: theme.textPrimary,
                 },
@@ -457,7 +461,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
                         backgroundColor: selected
                           ? theme.buttonPrimaryBg
                           : isDark
-                          ? '#151A25'
+                          ? '#0B1018'
                           : '#F0EDE6',
                         borderColor: selected ? theme.buttonPrimaryBg : theme.cardBorder,
                       },
@@ -499,7 +503,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
                         backgroundColor: selected
                           ? theme.buttonPrimaryBg
                           : isDark
-                          ? '#151A25'
+                          ? '#0B1018'
                           : '#F0EDE6',
                         borderColor: selected ? theme.buttonPrimaryBg : theme.cardBorder,
                       },
@@ -541,7 +545,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
                         backgroundColor: selected
                           ? theme.buttonPrimaryBg
                           : isDark
-                          ? '#151A25'
+                          ? '#0B1018'
                           : '#F0EDE6',
                         borderColor: selected ? theme.buttonPrimaryBg : theme.cardBorder,
                       },
@@ -577,7 +581,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
             style={[
               styles.textInput,
               {
-                backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                 borderColor: theme.cardBorder,
                 color: theme.textPrimary,
               },
@@ -593,7 +597,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
                   style={[
                     styles.miniTag,
                     {
-                      backgroundColor: isDark ? '#1E2535' : '#E9EDF9',
+                      backgroundColor: isDark ? '#141C28' : '#E9EDF9',
                       borderColor: theme.cardBorder,
                     },
                   ]}>
@@ -632,7 +636,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
               style={[
                 styles.textInput,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                   color: theme.textPrimary,
                 },
@@ -651,7 +655,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
               style={[
                 styles.textInput,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                   color: theme.textPrimary,
                 },
@@ -672,7 +676,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
               style={[
                 styles.textInput,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                   color: theme.textPrimary,
                 },
@@ -691,7 +695,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
               style={[
                 styles.textInput,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                   borderColor: theme.cardBorder,
                   color: theme.textPrimary,
                 },
@@ -706,7 +710,7 @@ export function ProfileSettings({ isDark, onSaved }: ProfileSettingsProps) {
         activeOpacity={0.85}
         onPress={handleSave}
         style={[
-          styles.saveBtn,
+          styles.saveBtn, primaryButtonStyle(isDark),
           { backgroundColor: theme.buttonPrimaryBg },
         ]}>
         <Save size={16} color={theme.buttonPrimaryText} />

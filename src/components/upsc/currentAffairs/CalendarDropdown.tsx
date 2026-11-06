@@ -11,6 +11,7 @@ import {
 import Svg, { Path } from 'react-native-svg';
 import { Check } from 'lucide-react-native';
 import { PALETTE, Typography } from '@/constants/colors';
+import { useAppTheme } from '@/context/ThemeContext';
 import { DAILY_EVENTS_DATA, getTodayDateKey } from '@/data/currentAffairsData';
 
 // ============================================================================
@@ -98,9 +99,11 @@ export function CalendarDropdown({
   topOffset = 180,
   rightOffset = 16,
   leftOffset,
-  isDark = true,
+  isDark: propIsDark,
   completedDates = [],
 }: CalendarDropdownProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const { width, height } = useWindowDimensions();
   const isMobile = width < 768;
 
@@ -152,23 +155,23 @@ export function CalendarDropdown({
     if (isDark) {
       return {
         cardBg: PALETTE.neutral.dark.darkest, // #1C2433
-        cardBorder: PALETTE.neutral.dark.textMuted, // #333D52
-        divider: PALETTE.neutral.dark.surface, // #1E2535
+        cardBorder: PALETTE.neutral.dark.textMuted, // #253244
+        divider: PALETTE.neutral.dark.surface, // #141C28
         titleText: PALETTE.neutral.light.lightest, // #FFFFFF
         arrowColor: PALETTE.neutral.light.lightest, // #FFFFFF
-        arrowHoverBg: PALETTE.neutral.dark.surface, // #1E2535
+        arrowHoverBg: PALETTE.neutral.dark.surface, // #141C28
         weekdayText: PALETTE.neutral.dark.textSecondary, // #7A8499
         dayText: PALETTE.neutral.light.lightest, // #FFFFFF
-        dayTextDisabled: PALETTE.neutral.dark.textMuted, // #333D52
-        todayBg: PALETTE.neutral.dark.surface, // #1E2535
+        dayTextDisabled: PALETTE.neutral.dark.textMuted, // #253244
+        todayBg: PALETTE.neutral.dark.surface, // #141C28
         todayText: PALETTE.neutral.light.lightest, // #FFFFFF
-        selectedBg: PALETTE.highlight.primary, // #B9570A
-        selectedText: PALETTE.neutral.light.lightest, // #FFFFFF
-        curatedDot: PALETTE.highlight.tint80, // #D9822B
+        selectedBg: '#F4F6FB', // Crisp White in dark mode
+        selectedText: '#0D1520', // Dark Ash text in dark mode
+        curatedDot: '#F58235',
         completedDot: PALETTE.support.success.medium, // #3FA573
-        pillBg: PALETTE.neutral.dark.surface, // #1E2535
-        pillBorder: PALETTE.neutral.dark.textMuted, // #333D52
-        pillText: PALETTE.neutral.light.muted, // #C9CFDB
+        pillBg: PALETTE.neutral.dark.surface, // #141C28
+        pillBorder: PALETTE.neutral.dark.textMuted, // #253244
+        pillText: PALETTE.neutral.light.muted, // #CFCFCF
       };
     }
 
@@ -181,11 +184,11 @@ export function CalendarDropdown({
       arrowHoverBg: PALETTE.neutral.light.surface, // #FAF9F6
       weekdayText: PALETTE.neutral.dark.textSecondary, // #7A8499
       dayText: PALETTE.neutral.dark.darkest, // #1C2433
-      dayTextDisabled: PALETTE.neutral.light.muted, // #C9CFDB
-      todayBg: PALETTE.highlight.tint20, // #FCEBDD
-      todayText: PALETTE.highlight.primary, // #B9570A
-      selectedBg: PALETTE.highlight.primary, // #B9570A
-      selectedText: PALETTE.neutral.light.lightest, // #FFFFFF
+      dayTextDisabled: PALETTE.neutral.light.muted, // #CFCFCF
+      todayBg: '#F5F3EE',
+      todayText: '#1C2433',
+      selectedBg: '#1C2433', // Dark Ash in light mode
+      selectedText: '#FFFFFF', // Crisp White text in light mode
       curatedDot: PALETTE.highlight.primary, // #B9570A
       completedDot: PALETTE.support.success.medium, // #3FA573
       pillBg: PALETTE.neutral.light.surface, // #FAF9F6

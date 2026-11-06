@@ -182,7 +182,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     timerPill: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
       paddingVertical: 5,
       paddingHorizontal: 10,
       borderRadius: 6,
@@ -207,7 +207,7 @@ const getStyles = (theme: PrelimsThemeType) => {
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,
-      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+      backgroundColor: isDark ? '#141C28' : '#FAF9F6',
     },
     statBorderAnswered: {
       borderColor: isDark ? '#1D5C3D' : '#BFDECB',
@@ -219,8 +219,8 @@ const getStyles = (theme: PrelimsThemeType) => {
       borderColor: isDark ? '#B9570A' : '#F2C9A3',
     },
     statBorderNotVisited: {
-      borderColor: isDark ? '#4A5568' : '#DDD6CA',
-      backgroundColor: isDark ? '#1C2433' : '#F0EDE6',
+      borderColor: isDark ? '#2B384D' : '#DDD6CA',
+      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
     },
     summaryStatNum: {
       fontSize: 18,
@@ -235,7 +235,7 @@ const getStyles = (theme: PrelimsThemeType) => {
       textAlign: 'center',
     },
     warningBox: {
-      backgroundColor: isDark ? '#1E2535' : '#FCEBDD',
+      backgroundColor: isDark ? '#141C28' : '#FCEBDD',
       borderColor: isDark ? '#2A1D12' : '#F2D2A8',
       borderWidth: 1,
       borderRadius: 10,
@@ -255,7 +255,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     },
     cancelBtn: {
       flex: 1,
-      backgroundColor: isDark ? '#262E40' : '#F0EDE6',
+      backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
       paddingVertical: 12,
       borderRadius: 10,
       alignItems: 'center',

@@ -13,6 +13,7 @@ import {
 import Svg, { Path } from 'react-native-svg';
 import { Calendar as CalendarIcon, X } from 'lucide-react-native';
 import { PALETTE, Typography } from '@/constants/colors';
+import { useAppTheme } from '@/context/ThemeContext';
 import { Calendar } from './Calendar';
 import { Button } from './Button';
 
@@ -165,10 +166,12 @@ export function WeeklyCalendar({
   days,
   selectedDate,
   onSelectDate,
-  isDark = true,
+  isDark: propIsDark,
   style,
   markedDates,
 }: WeeklyCalendarProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
   const isCompact = width < 420;
@@ -196,18 +199,19 @@ export function WeeklyCalendar({
 
   // Theme tokens
   const theme = {
-    cardBg: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-    cardBorder: isDark ? '#333D52' : '#F0EDE6',
-    weekdayNormal: isDark ? '#8892A6' : '#7A8499',
-    dateNormal: isDark ? '#FFFFFF' : '#1C2433',
+    cardBg: isDark ? '#141C28' : '#FFFFFF',
+    cardBorder: isDark ? '#253244' : '#EAE5DC',
+    weekdayNormal: isDark ? '#94A3B8' : '#64748B',
+    dateNormal: isDark ? '#F1F5F9' : '#1E293B',
 
     // Future disabled text tokens (clearly legible)
-    futureWeekdayText: isDark ? '#7A8499' : '#8892A6',
-    futureDateText: isDark ? '#8892A6' : '#7A8499',
+    futureWeekdayText: isDark ? '#6E7A8E' : '#8892A6',
+    futureDateText: isDark ? '#6E7A8E' : '#7A8499',
 
-    // Solid circle badges
-    solidBlueBg: PALETTE.highlight.primary, // #B9570A (Current day)
-    solidGreenBg: PALETTE.support.success.medium, // #3FA573 (Past streak days)
+    // Solid circle badges:
+    todayCircleBg: isDark ? '#F4F6FB' : '#1C2433',
+    todayTextColor: isDark ? '#0D1520' : '#FFFFFF',
+    pastCircleBg: isDark ? '#3FA573' : '#26734D',
 
     whiteText: '#FFFFFF',
   };
@@ -254,8 +258,8 @@ export function WeeklyCalendar({
                 width: isCompact ? 28 : isMobile ? 30 : 32,
                 height: isCompact ? 28 : isMobile ? 30 : 32,
                 borderRadius: isCompact ? 14 : isMobile ? 15 : 16,
-                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F0EDE6',
-                borderColor: isDark ? '#333D52' : '#EAE5DC',
+                backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
+                borderColor: isDark ? '#253244' : '#EAE5DC',
               },
               pressed && { opacity: 0.7 },
               Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
@@ -275,8 +279,8 @@ export function WeeklyCalendar({
                 width: isCompact ? 28 : isMobile ? 30 : 32,
                 height: isCompact ? 28 : isMobile ? 30 : 32,
                 borderRadius: isCompact ? 14 : isMobile ? 15 : 16,
-                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F0EDE6',
-                borderColor: isDark ? '#333D52' : '#EAE5DC',
+                backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
+                borderColor: isDark ? '#253244' : '#EAE5DC',
                 opacity: weekOffset >= 0 ? 0.35 : 1,
               },
               pressed && weekOffset < 0 && { opacity: 0.7 },
@@ -295,22 +299,22 @@ export function WeeklyCalendar({
             title="Calendar"
             isDark={isDark}
             style={{
-              backgroundColor: isDark ? 'rgba(255, 255, 255, 0.05)' : '#FAF9F6',
-              borderColor: isDark ? '#333D52' : '#DDD6CA',
+              backgroundColor: isDark ? '#1B2534' : '#FAF9F6',
+              borderColor: isDark ? '#253244' : '#DDD6CA',
               borderWidth: 1,
               paddingHorizontal: isCompact ? 8 : isMobile ? 10 : 14,
               paddingVertical: isCompact ? 5 : isMobile ? 6 : 8,
               borderRadius: isCompact ? 8 : 10,
             }}
             textStyle={{
-              color: isDark ? '#FFFFFF' : '#1C2433',
+              color: isDark ? '#F0F4F8' : '#1C2433',
               fontWeight: '600',
               fontSize: isCompact ? 11 : 12,
             }}
             leftIcon={
               <CalendarIcon
                 size={isCompact ? 11 : 13}
-                color={isDark ? '#8892A6' : '#7A8499'}
+                color={isDark ? '#6E7A8E' : '#7A8499'}
               />
             }
             onPress={() => setIsCalendarModalOpen(true)}
@@ -330,36 +334,36 @@ export function WeeklyCalendar({
 
           // Circle background & borders
           let circleBg: string = 'transparent';
-          let circleBorderColor: string = isDark ? '#333D52' : '#EAE5DC';
+          let circleBorderColor: string = isDark ? '#253244' : '#EAE5DC';
           let circleBorderWidth: number = 1;
           let labelColor: string = theme.weekdayNormal;
           let numberColor: string = theme.dateNormal;
 
           if (isToday) {
-            // Current day is solid blue circle with white text
-            circleBg = theme.solidBlueBg;
-            numberColor = theme.whiteText;
-            circleBorderWidth = isSelected ? 2.5 : 1;
+            // Current day is solid circle with white text
+            circleBg = theme.todayCircleBg;
+            numberColor = theme.todayTextColor;
+            circleBorderWidth = isSelected ? 2.5 : 0;
             circleBorderColor = isSelected
-              ? isDark ? '#FFFFFF' : '#1C2433'
-              : theme.solidBlueBg;
-            labelColor = PALETTE.highlight.primary;
+              ? (isDark ? '#F4F6FB' : '#1C2433')
+              : 'transparent';
+            labelColor = isDark ? '#F4F6FB' : '#1C2433';
           } else if (isPast) {
             // Past days are solid green circles with white text
-            circleBg = theme.solidGreenBg;
+            circleBg = theme.pastCircleBg;
             numberColor = theme.whiteText;
-            circleBorderWidth = isSelected ? 2.5 : 1;
+            circleBorderWidth = isSelected ? 2.5 : 0;
             circleBorderColor = isSelected
-              ? isDark ? '#FFFFFF' : '#1C2433'
-              : theme.solidGreenBg;
+              ? (isDark ? '#F0F4F8' : '#0D1520')
+              : 'transparent';
             labelColor = theme.weekdayNormal;
           } else {
             // Future days: Disabled circle outline with muted text
-            circleBg = 'transparent';
+            circleBg = isDark ? 'rgba(27, 37, 53, 0.4)' : 'transparent';
             circleBorderWidth = 1;
-            circleBorderColor = isDark ? '#333D52' : '#EAE5DC';
+            circleBorderColor = isDark ? '#253244' : '#EAE5DC';
             labelColor = theme.futureWeekdayText;
-            numberColor = theme.futureDateText;
+            numberColor = isDark ? '#6E7A8E' : '#7A8499';
           }
 
           return (
@@ -436,7 +440,7 @@ export function WeeklyCalendar({
               styles.modalContentCard,
               {
                 backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                borderColor: isDark ? '#333D52' : '#EAE5DC',
+                borderColor: isDark ? '#253244' : '#EAE5DC',
               },
             ]}
             onPress={(e) => e.stopPropagation()}>
@@ -455,8 +459,8 @@ export function WeeklyCalendar({
                 style={({ pressed }) => [
                   styles.modalCloseBtn,
                   {
-                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6',
-                    borderColor: isDark ? '#333D52' : '#EAE5DC',
+                    backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
+                    borderColor: isDark ? '#253244' : '#EAE5DC',
                   },
                   pressed && { opacity: 0.7 },
                   Platform.OS === 'web' && ({ cursor: 'pointer' } as object),

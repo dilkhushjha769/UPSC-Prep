@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   Modal,
   View,
@@ -19,8 +19,7 @@ import {
   ShieldCheck,
   Compass,
   ExternalLink,
-  AlertTriangle,
-  Camera,
+    Camera,
   Landmark,
   FileCheck2,
   Sparkles,
@@ -36,6 +35,9 @@ import {
   EventSourceItem,
 } from '@/data/currentAffairsData';
 import { BW_THEME } from '@/constants/bwTheme';
+import { VisualLearningSection } from './VisualLearningSection';
+import { verifyNewsImageRelevance } from '@/utils/imageVerification';
+import { useAppTheme } from '@/context/ThemeContext';
 
 type DetailItem =
   | { type: 'event'; data: DailyEventItem }
@@ -55,12 +57,15 @@ export function ArticleDetailModal({
   visible,
   item,
   onClose,
-  isDark,
+  isDark: propIsDark,
   isSaved = false,
   onToggleSave,
 }: ArticleDetailModalProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const styles = useMemo(() => getStyles(theme, isDark), [theme, isDark]);
+  const [imageLoadFailed, setImageLoadFailed] = useState(false);
 
   if (!visible || !item) return null;
 
@@ -213,9 +218,30 @@ export function ArticleDetailModal({
         ];
 
   const itemId = item.data.id;
-  const imageUrl =
+
+  const rawCandidateImageUrl =
     imageMetadata?.imageUrl ||
-    (item.type === 'event' ? item.data.imageUrl : (item.data as any).imageUrl);
+    (item.type === 'event' ? item.data.imageUrl : (item.data as any).imageUrl) ||
+    null;
+
+  const imageVerification = verifyNewsImageRelevance({
+    headline: title,
+    summary: whyItMatters || (executiveBullets ? executiveBullets.join(' ') : ''),
+    imageUrl: rawCandidateImageUrl,
+    caption: imageMetadata?.caption,
+    credit: imageMetadata?.credit,
+    source,
+  });
+
+  const verifiedImageUrl =
+    !imageLoadFailed && imageVerification.status === 'VERIFIED' ? imageVerification.verifiedImageUrl : null;
+
+  const visualLearningAssets =
+    item.type === 'event'
+      ? item.data.visualLearningAssets
+      : item.type === 'article'
+      ? (item.data as any).visualLearningAssets
+      : undefined;
 
   const getImageTypeBadgeLabel = (imgType?: ImageProvenanceMetadata['imageType']) => {
     switch (imgType) {
@@ -273,7 +299,7 @@ export function ArticleDetailModal({
         </View>
 
         <ScrollView style={styles.scrollArea} contentContainerStyle={styles.scrollContent}>
-          {/* 1. Metadata & Subject Group / Subcategory Badges */}
+          {/* Metadata Badges */}
           <View style={styles.badgeRow}>
             <View style={styles.paperBadge}>
               <Text style={styles.paperBadgeText}>{paper}</Text>
@@ -286,94 +312,67 @@ export function ArticleDetailModal({
             <View style={styles.secondaryTagBadge}>
               <Text style={styles.secondaryTagText}>{category}</Text>
             </View>
-            {secondaryTags
-              .filter((t) => t !== subjectGroup && t !== category)
-              .slice(0, 1)
-              .map((tag) => (
-                <View key={tag} style={styles.secondaryTagBadge}>
-                  <Text style={styles.secondaryTagText}>{tag}</Text>
-                </View>
-              ))}
             <Text style={styles.dateText}>{date}</Text>
           </View>
 
-          {/* 2. Headline */}
+          {/* 1. News Headline */}
           <Text style={styles.titleText}>{title}</Text>
 
-          {/* 2B. Editorial Opinion vs. AI Educational Explanation Attribution */}
-          {Boolean(editorialAuthor || aiExplanationDisclaimer) && (
-            <View style={styles.whyItMattersCard}>
-              <View style={styles.sectionHeaderRow}>
-                <BookOpen size={15} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2.2} />
-                <Text style={styles.whyItMattersHeading}>
-                  Original Editorial Attribution vs. AI UPSC Synthesis
-                </Text>
-              </View>
-              <Text style={styles.whyItMattersText}>
-                {editorialAuthor ? `Author / Desk: ${editorialAuthor} • Publisher: ${source} (${date}). ` : ''}
-                {aiExplanationDisclaimer ||
-                  'Original editorial viewpoints belong to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains practice question below are AI-structured educational explanations.'}
-              </Text>
-            </View>
-          )}
-
-          {/* 3. Why This Event Matters for UPSC Preparation */}
-          {Boolean(whyItMatters) && (
-            <View style={styles.whyItMattersCard}>
-              <View style={styles.sectionHeaderRow}>
-                <Sparkles size={15} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2.2} />
-                <Text style={styles.whyItMattersHeading}>Why This Event Matters for UPSC</Text>
-              </View>
-              <Text style={styles.whyItMattersText}>{whyItMatters}</Text>
-            </View>
-          )}
-
-          {/* 4. Authentic Images & Provenance Credits */}
-          {Boolean(imageUrl) ? (
+          {/* 2. Relevant Image (Render ONLY when verified; otherwise clean text layout without placeholders) */}
+          {Boolean(verifiedImageUrl) && (
             <View style={styles.imageProvenanceCard}>
               <View style={styles.heroImageWrapper}>
                 <Image
-                  source={{ uri: imageUrl }}
+                  source={{ uri: verifiedImageUrl! }}
                   style={styles.heroImage}
                   contentFit="cover"
                   transition={180}
+                  onError={() => setImageLoadFailed(true)}
                 />
                 <View style={styles.imageTypeOverlayBadge}>
                   <Camera size={11} color="#FFFFFF" strokeWidth={2.2} />
                   <Text style={styles.imageTypeOverlayText}>
-                    {getImageTypeBadgeLabel(imageMetadata?.imageType)}
+                    {imageVerification.sourceCredibility === 'official_gov' ? 'Verified Official Visual' : 'Verified Editorial Photograph'}
                   </Text>
                 </View>
               </View>
               <View style={styles.imageCreditFooter}>
                 <Text style={styles.imageCaptionText}>
-                  {imageMetadata?.caption || `Authentic editorial photograph accompanying ${source}.`}
+                  {imageVerification.caption || imageMetadata?.caption || `Authentic news photograph verified for ${title}.`}
                 </Text>
                 <View style={styles.imageCreditMetaRow}>
                   <Text style={styles.imageCreditLabel}>
-                    Credit: {imageMetadata?.credit || source}
+                    Credit: {imageVerification.credit || imageMetadata?.credit || source}
                   </Text>
                   <Text style={styles.imageLicenseLabel}>
-                    {imageMetadata?.license || 'Authorized RSS Syndication & Attribution'}
+                    {imageMetadata?.license || 'Authentic Press Release / Editorial License'}
                   </Text>
                 </View>
               </View>
             </View>
-          ) : (
-            <View style={styles.placeholderProvenanceBar}>
-              <Camera size={14} color={theme.textMuted} strokeWidth={2} />
-              <Text style={styles.placeholderProvenanceText}>
-                {imageMetadata?.caption ||
-                  `No external photograph was embedded by ${source}; using clean topic layout (zero AI-generated images).`}
-              </Text>
+          )}
+
+          {/* 3. Why is it in the News? */}
+          {Boolean(whyItMatters) && (
+            <View style={styles.whyItMattersCard}>
+              <View style={styles.sectionHeaderRow}>
+                <Sparkles size={15} color="#F58235" strokeWidth={2.4} />
+                <Text style={styles.whyItMattersHeading}>Why is it in the News?</Text>
+              </View>
+              <Text style={styles.whyItMattersText}>{whyItMatters}</Text>
             </View>
           )}
 
-          {/* 5. Executive Brief (2–3 Concise Points) */}
+          {/* 4. Visual Explanation & Infographics (When Useful) */}
+          {Boolean(visualLearningAssets && visualLearningAssets.length > 0) && (
+            <VisualLearningSection assets={visualLearningAssets} isDark={isDark} />
+          )}
+
+          {/* 5. Key Facts & Figures */}
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeaderRow}>
-              <ListChecks size={15} color={isDark ? '#D9822B' : '#B9570A'} strokeWidth={2} />
-              <Text style={styles.sectionLabel}>Executive Brief</Text>
+              <ListChecks size={15} color={isDark ? '#E0963A' : '#B9570A'} strokeWidth={2.2} />
+              <Text style={styles.sectionLabel}>Key Facts & Essential Takeaways</Text>
             </View>
             <View style={styles.bulletsList}>
               {executiveBullets.map((b, idx) => (
@@ -385,39 +384,11 @@ export function ArticleDetailModal({
                 </View>
               ))}
             </View>
-          </View>
-
-          {/* 6. Detailed News Analysis & Institutional Background */}
-          <View style={styles.sectionCard}>
-            <View style={styles.sectionHeaderRow}>
-              <BookOpen size={15} color={isDark ? '#7C93D1' : '#3D4A66'} strokeWidth={2} />
-              <Text style={styles.sectionLabel}>Detailed News Analysis & Background</Text>
-            </View>
-
-            <View style={styles.paragraphStack}>
-              {detailedAnalysisParagraphs.map((para, pIdx) => (
-                <Text key={pIdx} style={styles.analysisParagraphText}>
-                  {para.replace(/\*\*/g, '')}
-                </Text>
-              ))}
-            </View>
-
-            {Boolean(backgroundContext) && (
-              <View style={styles.backgroundContextBox}>
-                <View style={styles.sectionHeaderRow}>
-                  <Landmark size={13} color={isDark ? '#CBD3EB' : '#3D5A99'} strokeWidth={2} />
-                  <Text style={styles.backgroundContextTitle}>
-                    Background & Institutional Context
-                  </Text>
-                </View>
-                <Text style={styles.backgroundContextText}>{backgroundContext}</Text>
-              </View>
-            )}
 
             {importantFiguresProvisions.length > 0 && (
               <View style={styles.provisionsStack}>
                 <Text style={styles.subSectionLabel}>
-                  Important Figures, Dates, Provisions & Official Terminology
+                  Statutory Figures, Dates & Legal Provisions
                 </Text>
                 {importantFiguresProvisions.map((prov, idx) => (
                   <View key={idx} style={styles.provisionRowCard}>
@@ -429,11 +400,39 @@ export function ArticleDetailModal({
             )}
           </View>
 
-          {/* 7. UPSC Syllabus Mapping */}
+          {/* 6. Background and Context */}
+          <View style={styles.sectionCard}>
+            <View style={styles.sectionHeaderRow}>
+              <BookOpen size={15} color={isDark ? '#E8A25E' : '#3D4A66'} strokeWidth={2} />
+              <Text style={styles.sectionLabel}>Background & Institutional Context</Text>
+            </View>
+
+            {Boolean(backgroundContext) ? (
+              <View style={styles.backgroundContextBox}>
+                <View style={styles.sectionHeaderRow}>
+                  <Landmark size={13} color={isDark ? '#CBD3EB' : '#3D5A99'} strokeWidth={2} />
+                  <Text style={styles.backgroundContextTitle}>
+                    Institutional & Historical Backdrop
+                  </Text>
+                </View>
+                <Text style={styles.backgroundContextText}>{backgroundContext}</Text>
+              </View>
+            ) : (
+              <View style={styles.paragraphStack}>
+                {detailedAnalysisParagraphs.slice(0, 3).map((para, pIdx) => (
+                  <Text key={pIdx} style={styles.analysisParagraphText}>
+                    {para.replace(/\*\*/g, '')}
+                  </Text>
+                ))}
+              </View>
+            )}
+          </View>
+
+          {/* 7. UPSC Syllabus Mapping (GS1, GS2, GS3, GS4) */}
           {Boolean(syllabusRelevance) && (
             <View style={styles.syllabusBox}>
               <View style={styles.sectionHeaderRow}>
-                <Compass size={15} color={isDark ? '#7C93D1' : '#3D5A99'} strokeWidth={2} />
+                <Compass size={15} color={isDark ? '#E8A25E' : '#3D5A99'} strokeWidth={2} />
                 <Text style={styles.syllabusTitle}>UPSC Syllabus Mapping ({paper})</Text>
               </View>
               {Boolean(syllabusRelevance?.paperTopic) && (
@@ -457,12 +456,12 @@ export function ArticleDetailModal({
             </View>
           )}
 
-          {/* 8. Prelims Facts & High-Yield Matrix */}
+          {/* 8. Prelims Important Facts */}
           {(prelimsMatrix.length > 0 || prelimsFacts.length > 0) && (
             <View style={styles.prelimsBox}>
               <View style={styles.sectionHeaderRow}>
-                <ShieldCheck size={15} color={isDark ? '#3FA573' : '#26734D'} strokeWidth={2} />
-                <Text style={styles.prelimsTitle}>Verified Prelims Facts & Matrix</Text>
+                <ShieldCheck size={15} color={isDark ? '#4DB383' : '#26734D'} strokeWidth={2} />
+                <Text style={styles.prelimsTitle}>Prelims Important Facts & Elimination Matrix</Text>
               </View>
 
               {prelimsMatrix.length > 0 && (
@@ -489,182 +488,85 @@ export function ArticleDetailModal({
             </View>
           )}
 
-          {/* 9. Mains Dimensions & Practice Question */}
-          {(item.type === 'article' || item.type === 'event') && (
-            <View style={styles.mainsBox}>
-              <View style={styles.sectionHeaderRow}>
-                <Scale size={15} color={isDark ? '#D9822B' : '#A65A0A'} strokeWidth={2} />
-                <Text style={styles.mainsTitle}>Mains-Oriented Dimensions & Implications</Text>
-              </View>
-              <Text style={styles.mainsText}>
-                {item.type === 'article'
-                  ? item.data.analyticalAngle
-                  : item.data.syllabusRelevance?.mainsDimensions ||
-                    item.data.mainsRelevance ||
-                    'Evaluate constitutional, institutional, and socio-economic trade-offs for GS Mains answers.'}
-              </Text>
-
-              {Boolean(
-                item.type === 'article'
-                  ? item.data.mainsQuestion
-                  : `Examine the institutional and policy significance of "${title}" in the context of UPSC ${paper}. (15 Marks, 250 Words)`
-              ) && (
-                <View style={styles.mainsQBox}>
-                  <Text style={styles.mainsQTitle}>Mains Practice Question:</Text>
-                  <Text style={styles.mainsQText}>
-                    {item.type === 'article' && item.data.mainsQuestion
-                      ? item.data.mainsQuestion
-                      : `Examine the institutional and policy significance of "${title}" in the context of UPSC ${paper}. (15 Marks, 250 Words)`}
-                  </Text>
-                </View>
-              )}
+          {/* 9. Mains Perspective */}
+          <View style={styles.mainsBox}>
+            <View style={styles.sectionHeaderRow}>
+              <Scale size={15} color={isDark ? '#E0963A' : '#A65A0A'} strokeWidth={2} />
+              <Text style={styles.mainsTitle}>Mains Perspective & Multi-Dimensional Analysis</Text>
             </View>
-          )}
+            <Text style={styles.mainsText}>
+              {item.type === 'article'
+                ? item.data.analyticalAngle
+                : item.type === 'event'
+                ? item.data.syllabusRelevance?.mainsDimensions ||
+                  item.data.mainsRelevance ||
+                  'Evaluate constitutional balance, administrative efficiency, and fiscal trade-offs for GS Mains answers.'
+                : 'Evaluate constitutional balance, administrative efficiency, and fiscal trade-offs for GS Mains answers.'}
+            </Text>
 
-          {/* 10. Related Verified UPSC PYQs (Linked from `public.questions`) */}
-          {(relatedPyqs.length > 0 || Boolean(syllabusRelevance?.relatedPYQ)) && (
+            {/* 10. Possible Mains Question */}
+            <View style={styles.mainsQBox}>
+              <Text style={styles.mainsQTitle}>Possible Mains Practice Question (15 Marks, 250 Words):</Text>
+              <Text style={styles.mainsQText}>
+                {item.type === 'article' && item.data.mainsQuestion
+                  ? item.data.mainsQuestion
+                  : `Critically analyze "${title}" in the context of Indian governance and policy implementation. Discuss the key constitutional, economic, and administrative challenges involved. (250 Words, 15 Marks)`}
+              </Text>
+            </View>
+          </View>
+
+          {/* PYQs & Source Links */}
+          {relatedPyqs.length > 0 && (
             <View style={styles.sectionCard}>
               <View style={styles.sectionHeaderRow}>
-                <FileCheck2 size={15} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2} />
-                <Text style={styles.sectionLabel}>Related Verified UPSC PYQs</Text>
+                <FileCheck2 size={15} color={isDark ? '#CBD3EB' : '#3D4A66'} strokeWidth={2} />
+                <Text style={styles.sectionLabel}>Directly Linked UPSC Past Year Questions</Text>
               </View>
-
-              {relatedPyqs.length > 0 ? (
-                relatedPyqs.map((pyq) => (
-                  <View key={pyq.id} style={styles.pyqCard}>
-                    <View style={styles.pyqHeaderRow}>
-                      <View style={styles.pyqYearBadge}>
-                        <Text style={styles.pyqYearBadgeText}>UPSC CSE {pyq.year}</Text>
-                      </View>
-                      <Text style={styles.pyqSubjectText}>
-                        {pyq.subject} {pyq.topic ? `• ${pyq.topic}` : ''}
-                      </Text>
+              {relatedPyqs.map((pyq) => (
+                <View key={pyq.id} style={styles.pyqCard}>
+                  <View style={styles.pyqHeaderRow}>
+                    <View style={styles.pyqYearBadge}>
+                      <Text style={styles.pyqYearBadgeText}>UPSC CSE {pyq.year}</Text>
                     </View>
-                    <Text style={styles.pyqQuestionText}>{pyq.questionText}</Text>
-                    {Boolean(pyq.explanation) && (
-                      <Text style={styles.pyqExplanationText} numberOfLines={4}>
-                        Official Key / Note: {pyq.explanation}
-                      </Text>
-                    )}
+                    <Text style={styles.pyqSubjectText}>{pyq.subject}</Text>
                   </View>
-                ))
-              ) : (
-                <View style={styles.pyqCard}>
-                  <Text style={styles.pyqQuestionText}>{syllabusRelevance?.relatedPYQ}</Text>
+                  <Text style={styles.pyqQuestionText}>{pyq.questionText}</Text>
                 </View>
-              )}
+              ))}
             </View>
           )}
 
-          {/* 11. Original Source & Additional Independent Reports (Clickable Links) */}
+          {/* Source Attribution & Official Verification Footnote */}
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeaderRow}>
-              <ExternalLink size={15} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2} />
-              <Text style={styles.sectionLabel}>
-                Original Source & Corroborating Reports ({sourcesList.length})
-              </Text>
+              <Landmark size={14} color={theme.textMuted} strokeWidth={2} />
+              <Text style={styles.sectionLabel}>Official Sources & Verification Dossier</Text>
             </View>
-
             <View style={styles.sourcesListStack}>
-              {sourcesList.map((src, sIdx) => (
+              {sourcesList.map((src, idx) => (
                 <Pressable
-                  key={sIdx}
-                  style={({ pressed }) => [
-                    styles.sourceLinkCard,
-                    pressed && styles.sourceLinkCardPressed,
-                  ]}
+                  key={idx}
+                  style={styles.sourceLinkCard}
                   onPress={() => handleOpenSourceUrl(src.url)}
+                  disabled={!src.url}
                 >
                   <View style={styles.sourceLinkLeft}>
                     <View style={styles.sourceTierRow}>
-                      <View
-                        style={[
-                          styles.sourceTypePill,
-                          src.type === 'Official' && styles.sourceTypePillOfficial,
-                        ]}
-                      >
-                        <Text
-                          style={[
-                            styles.sourceTypePillText,
-                            src.type === 'Official' && styles.sourceTypePillTextOfficial,
-                          ]}
-                        >
-                          {sIdx === 0 ? `Primary • ${src.type || 'Verified'}` : src.type || 'Report'}
+                      <View style={[styles.sourceTypePill, styles.sourceTypePillOfficial]}>
+                        <Text style={[styles.sourceTypePillText, styles.sourceTypePillTextOfficial]}>
+                          {src.type || 'Official Release'}
                         </Text>
                       </View>
-                      {Boolean(src.date) && (
-                        <Text style={styles.sourceItemDate}>{src.date}</Text>
-                      )}
+                      {Boolean(src.date) && <Text style={styles.sourceItemDate}>{src.date}</Text>}
                     </View>
                     <Text style={styles.sourceItemName}>{src.name}</Text>
-                    {Boolean(src.url) && (
-                      <Text style={styles.sourceItemUrl} numberOfLines={1}>
-                        {src.url}
-                      </Text>
-                    )}
                   </View>
                   {Boolean(src.url) && (
-                    <ExternalLink size={15} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2} />
+                    <ExternalLink size={13} color={isDark ? '#E0963A' : '#B9570A'} strokeWidth={2} />
                   )}
                 </Pressable>
               ))}
             </View>
-          </View>
-
-          {/* 12. Cross-Verification & Limitations */}
-          <View style={styles.verificationCard}>
-            <View style={styles.sectionHeaderRow}>
-              <ShieldCheck size={15} color={isDark ? '#3FA573' : '#26734D'} strokeWidth={2.2} />
-              <Text style={styles.verificationHeading}>Cross-Verification & Limitations</Text>
-            </View>
-
-            <Text style={styles.verificationSummaryText}>
-              {crossVerification?.summaryNote ||
-                `Verified from ${source}. Factual claims are anchored to official press releases and established editorial reporting.`}
-            </Text>
-
-            {Boolean(crossVerification?.officialStatement) && (
-              <View style={styles.verificationDetailRow}>
-                <Text style={styles.verificationDetailLabel}>Official / Primary Evidence:</Text>
-                <Text style={styles.verificationDetailValue}>
-                  {crossVerification?.officialStatement}
-                </Text>
-              </View>
-            )}
-
-            {Boolean(crossVerification?.independentReporting) && (
-              <View style={styles.verificationDetailRow}>
-                <Text style={styles.verificationDetailLabel}>Independent Reporting:</Text>
-                <Text style={styles.verificationDetailValue}>
-                  {crossVerification?.independentReporting}
-                </Text>
-              </View>
-            )}
-
-            {Boolean(crossVerification?.analysisVsOpinionNote) && (
-              <View style={styles.verificationDetailRow}>
-                <Text style={styles.verificationDetailLabel}>
-                  Statement vs. Opinion Distinction:
-                </Text>
-                <Text style={styles.verificationDetailValue}>
-                  {crossVerification?.analysisVsOpinionNote}
-                </Text>
-              </View>
-            )}
-
-            {crossVerification?.limitations && crossVerification.limitations.length > 0 && (
-              <View style={styles.limitationsBox}>
-                <View style={styles.sectionHeaderRow}>
-                  <AlertTriangle size={13} color={isDark ? '#D9822B' : '#A65A0A'} strokeWidth={2} />
-                  <Text style={styles.limitationsTitle}>Source Access & Licensing Notes</Text>
-                </View>
-                {crossVerification.limitations.map((lim, lIdx) => (
-                  <Text key={lIdx} style={styles.limitationItemText}>
-                    • {lim}
-                  </Text>
-                ))}
-              </View>
-            )}
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -692,9 +594,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       width: 36,
       height: 36,
       borderRadius: 18,
-      backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
+      backgroundColor: isDark ? '#141C28' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#333D52' : '#EAE5DC',
+      borderColor: isDark ? '#253244' : '#EAE5DC',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -713,9 +615,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       paddingHorizontal: 14,
       paddingVertical: 8,
       borderRadius: 10,
-      backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
+      backgroundColor: isDark ? '#141C28' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#333D52' : '#EAE5DC',
+      borderColor: isDark ? '#253244' : '#EAE5DC',
     },
     saveBtnActive: {
       backgroundColor: '#B9570A',
@@ -826,7 +728,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     heroImageWrapper: {
       width: '100%',
       height: 220,
-      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
       position: 'relative',
     },
     heroImage: {
@@ -1015,7 +917,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     prelimsTitle: {
       fontSize: 12,
       fontWeight: '800',
-      color: isDark ? '#3FA573' : '#26734D',
+      color: isDark ? '#4DB383' : '#26734D',
       textTransform: 'uppercase',
       letterSpacing: 0.5,
     },
@@ -1033,7 +935,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     matrixItemLabel: {
       fontSize: 10.5,
       fontWeight: '800',
-      color: isDark ? '#3FA573' : '#26734D',
+      color: isDark ? '#4DB383' : '#26734D',
       textTransform: 'uppercase',
       letterSpacing: 0.4,
     },
@@ -1055,7 +957,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       width: 5,
       height: 5,
       borderRadius: 2.5,
-      backgroundColor: isDark ? '#3FA573' : '#26734D',
+      backgroundColor: isDark ? '#4DB383' : '#26734D',
       marginTop: 7,
     },
     prelimsFactText: {
@@ -1075,7 +977,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     syllabusTitle: {
       fontSize: 12,
       fontWeight: '800',
-      color: isDark ? '#7C93D1' : '#3D5A99',
+      color: isDark ? '#E8A25E' : '#3D5A99',
       textTransform: 'uppercase',
       letterSpacing: 0.5,
     },
@@ -1085,7 +987,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     syllabusItemLabel: {
       fontSize: 11,
       fontWeight: '800',
-      color: isDark ? '#3FA573' : '#34508F',
+      color: isDark ? '#4DB383' : '#34508F',
     },
     syllabusItemValue: {
       fontSize: 13,
@@ -1103,7 +1005,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     mainsTitle: {
       fontSize: 12,
       fontWeight: '800',
-      color: isDark ? '#D9822B' : '#A65A0A',
+      color: isDark ? '#E0963A' : '#A65A0A',
       textTransform: 'uppercase',
       letterSpacing: 0.5,
     },
@@ -1122,7 +1024,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     mainsQTitle: {
       fontSize: 11,
       fontWeight: '800',
-      color: isDark ? '#D9822B' : '#6B3A12',
+      color: isDark ? '#E0963A' : '#6B3A12',
       textTransform: 'uppercase',
     },
     mainsQText: {
@@ -1199,7 +1101,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       gap: 8,
     },
     sourceTypePill: {
-      backgroundColor: isDark ? '#1E2535' : '#EAE5DC',
+      backgroundColor: isDark ? '#141C28' : '#EAE5DC',
       paddingHorizontal: 7,
       paddingVertical: 2,
       borderRadius: 4,
@@ -1213,7 +1115,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       color: theme.textSecondary,
     },
     sourceTypePillTextOfficial: {
-      color: isDark ? '#3FA573' : '#26734D',
+      color: isDark ? '#4DB383' : '#26734D',
     },
     sourceItemDate: {
       fontSize: 11,
@@ -1239,7 +1141,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     verificationHeading: {
       fontSize: 12,
       fontWeight: '800',
-      color: isDark ? '#3FA573' : '#26734D',
+      color: isDark ? '#4DB383' : '#26734D',
       textTransform: 'uppercase',
       letterSpacing: 0.5,
     },
@@ -1274,7 +1176,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     limitationsTitle: {
       fontSize: 11,
       fontWeight: '800',
-      color: isDark ? '#D9822B' : '#A65A0A',
+      color: isDark ? '#E0963A' : '#A65A0A',
     },
     limitationItemText: {
       fontSize: 11.5,

@@ -13,6 +13,7 @@
  */
 
 import React, { useMemo } from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   Modal,
   View,
@@ -35,6 +36,7 @@ import {
   Layers,
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
+import { useAppTheme } from '@/context/ThemeContext';
 import {
   CACategoryStatusItem,
   CAIngestionLogItem,
@@ -43,7 +45,7 @@ import {
 interface PipelineStatusModalProps {
   visible: boolean;
   onClose: () => void;
-  isDark: boolean;
+  isDark?: boolean;
   categoryStatuses: CACategoryStatusItem[];
   ingestionLogs: CAIngestionLogItem[];
   onTriggerRefresh?: () => void;
@@ -53,12 +55,14 @@ interface PipelineStatusModalProps {
 export function PipelineStatusModal({
   visible,
   onClose,
-  isDark,
+  isDark: propIsDark,
   categoryStatuses,
   ingestionLogs,
   onTriggerRefresh,
   isRefreshing = false,
 }: PipelineStatusModalProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const styles = useMemo(() => getStyles(theme, isDark), [theme, isDark]);
 
@@ -94,7 +98,7 @@ export function PipelineStatusModal({
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerTitleGroup}>
-            <Activity size={18} color={isDark ? '#3FA573' : '#26734D'} strokeWidth={2.2} />
+            <Activity size={18} color={isDark ? '#4DB383' : '#26734D'} strokeWidth={2.2} />
             <Text style={styles.headerTitle}>Current Affairs Pipeline Status</Text>
           </View>
 
@@ -102,7 +106,7 @@ export function PipelineStatusModal({
             {onTriggerRefresh && (
               <Pressable
                 style={({ pressed }) => [
-                  styles.refreshBtn,
+                  styles.refreshBtn, primaryButtonStyle(isDark),
                   pressed && styles.pressed,
                 ]}
                 onPress={onTriggerRefresh}
@@ -126,7 +130,7 @@ export function PipelineStatusModal({
           <View style={styles.summaryHeroCard}>
             <View style={styles.summaryTopRow}>
               <View style={styles.statusPillSuccess}>
-                <CheckCircle2 size={13} color={isDark ? '#3FA573' : '#26734D'} strokeWidth={2.4} />
+                <CheckCircle2 size={13} color={isDark ? '#4DB383' : '#26734D'} strokeWidth={2.4} />
                 <Text style={styles.statusPillSuccessText}>
                   {latestLog?.status === 'completed'
                     ? 'All Sources Healthy'
@@ -180,7 +184,7 @@ export function PipelineStatusModal({
           {(latestLog?.failedJobs?.length || 0) > 0 || staleCategories.length > 0 ? (
             <View style={styles.warningCard}>
               <View style={styles.sectionHeaderRow}>
-                <AlertTriangle size={15} color={isDark ? '#D9822B' : '#A65A0A'} strokeWidth={2.2} />
+                <AlertTriangle size={15} color={isDark ? '#E0963A' : '#A65A0A'} strokeWidth={2.2} />
                 <Text style={styles.warningTitle}>
                   Failed Jobs ({latestLog?.failedJobs?.length || 0}) & Stale Categories ({staleCategories.length})
                 </Text>
@@ -198,7 +202,7 @@ export function PipelineStatusModal({
             </View>
           ) : (
             <View style={styles.healthyBanner}>
-              <ShieldCheck size={15} color={isDark ? '#3FA573' : '#26734D'} strokeWidth={2.2} />
+              <ShieldCheck size={15} color={isDark ? '#4DB383' : '#26734D'} strokeWidth={2.2} />
               <Text style={styles.healthyBannerText}>
                 Zero failed jobs and zero stale categories in the latest pipeline run.
               </Text>
@@ -257,7 +261,7 @@ export function PipelineStatusModal({
           {/* 4. Configured Official & Editorial Sources */}
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeaderRow}>
-              <Database size={15} color={isDark ? '#7C93D1' : '#3D4A66'} strokeWidth={2.2} />
+              <Database size={15} color={isDark ? '#E8A25E' : '#3D4A66'} strokeWidth={2.2} />
               <Text style={styles.sectionTitle}>Authorized Source Hierarchy & Licensing</Text>
             </View>
             <Text style={styles.sourcePolicyText}>
@@ -312,7 +316,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: 6,
-      backgroundColor: '#B9570A',
+      backgroundColor: '#1C2433',
       paddingHorizontal: 12,
       paddingVertical: 7,
       borderRadius: 8,
@@ -326,9 +330,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       width: 34,
       height: 34,
       borderRadius: 17,
-      backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
+      backgroundColor: isDark ? '#141C28' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#333D52' : '#EAE5DC',
+      borderColor: isDark ? '#253244' : '#EAE5DC',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -373,7 +377,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     statusPillSuccessText: {
       fontSize: 11.5,
       fontWeight: '800',
-      color: isDark ? '#3FA573' : '#26734D',
+      color: isDark ? '#4DB383' : '#26734D',
     },
     scheduleNoteText: {
       fontSize: 11.5,
@@ -422,7 +426,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     warningTitle: {
       fontSize: 12,
       fontWeight: '800',
-      color: isDark ? '#D9822B' : '#A65A0A',
+      color: isDark ? '#E0963A' : '#A65A0A',
     },
     warningItemText: {
       fontSize: 12,

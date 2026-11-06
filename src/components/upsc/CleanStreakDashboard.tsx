@@ -19,6 +19,7 @@ import {
 } from 'lucide-react-native';
 import { PALETTE, SemanticColors, Typography } from '@/constants/colors';
 import { useStudy } from '@/context/StudyContext';
+import { useAppTheme } from '@/context/ThemeContext';
 import { ExamReadinessCard } from './ExamReadinessCard';
 import { PrelimsCountdownCard } from './PrelimsCountdownCard';
 import { DailyQuestionGoalTracker } from './DailyQuestionGoalTracker';
@@ -30,6 +31,7 @@ import { TaskCard, TaskFormModal } from '@/components/tasks';
 interface CleanStreakDashboardProps {
   isDark: boolean;
   onOpenPrelims?: () => void;
+  onOpenMains?: () => void;
   onOpenMockTests?: () => void;
   onOpenTasks?: () => void;
   onOpenProfile?: () => void;
@@ -38,14 +40,27 @@ interface CleanStreakDashboardProps {
 }
 
 export function CleanStreakDashboard({
-  isDark,
+  isDark: propIsDark,
   onOpenPrelims,
+  onOpenMains,
   onOpenMockTests,
   onOpenTasks,
   onOpenProfile,
   onOpenNotifications,
-  onToggleTheme,
-}: CleanStreakDashboardProps) {
+  onToggleTheme: propToggleTheme,
+}: {
+  isDark?: boolean;
+  onOpenPrelims?: () => void;
+  onOpenMains?: () => void;
+  onOpenMockTests?: () => void;
+  onOpenTasks?: () => void;
+  onOpenProfile?: () => void;
+  onOpenNotifications?: () => void;
+  onToggleTheme?: () => void;
+}) {
+  const { isDark: contextIsDark, toggleTheme: contextToggleTheme } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
+  const onToggleTheme = propToggleTheme || contextToggleTheme;
   const {
     weekDays,
     sessions,
@@ -182,7 +197,7 @@ export function CleanStreakDashboard({
                   backgroundColor: isDark
                     ? PALETTE.neutral.dark.surface
                     : '#FFFFFF',
-                  borderColor: isDark ? '#333D52' : '#F0EDE6',
+                  borderColor: isDark ? '#253244' : '#F0EDE6',
                 },
               ]}>
               {isDark ? (
@@ -210,7 +225,7 @@ export function CleanStreakDashboard({
                 backgroundColor: isDark
                   ? PALETTE.neutral.dark.surface
                   : '#FFFFFF',
-                borderColor: isDark ? '#333D52' : '#F0EDE6',
+                borderColor: isDark ? '#253244' : '#F0EDE6',
               },
             ]}>
             <Bell size={20} color={theme.textPrimary} strokeWidth={2.2} />
@@ -265,7 +280,7 @@ export function CleanStreakDashboard({
             backgroundColor: isDark
               ? PALETTE.neutral.dark.surface
               : '#FFFFFF',
-            borderColor: isDark ? '#333D52' : '#F0EDE6',
+            borderColor: isDark ? '#253244' : '#F0EDE6',
           },
         ]}>
         <View style={[styles.cleanDetailHeader, !isTasksSectionExpanded && { marginBottom: 0 }]}>
@@ -280,7 +295,7 @@ export function CleanStreakDashboard({
               style={[
                 styles.cleanTodayBadge,
                 {
-                  backgroundColor: PALETTE.highlight.primary,
+                  backgroundColor: '#F58235',
                 },
               ]}>
               <Text
@@ -338,7 +353,7 @@ export function CleanStreakDashboard({
                   progress={tasksProgressPct}
                   height={3}
                   fillColor={tasksProgressPct === 100 ? '#26734D' : PALETTE.highlight.primary}
-                  trackColor={isDark ? 'rgba(255, 255, 255, 0.08)' : '#EAE5DC'}
+                  trackColor={isDark ? '#1B2534' : '#EAE5DC'}
                   borderRadius={2}
                 />
               </View>

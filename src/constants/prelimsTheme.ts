@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useMemo } from 'react';
 import { BW_THEME } from './bwTheme';
 import { getTokens } from './designTokens';
+import { useAppTheme } from '@/context/ThemeContext';
 
 export const getPrelimsTheme = (isDark: boolean = false) => {
   const bw = isDark ? BW_THEME.dark : BW_THEME.light;
@@ -17,15 +18,19 @@ export const getPrelimsTheme = (isDark: boolean = false) => {
       borderSubtle: bw.borderSubtle,
       borderCard: bw.cardBorder,
 
-      // Accent (burnt orange) — used selectively
+      // Primary action buttons (warm orange #F58235)
       primary: t.accent,
       primaryLight: t.accentHover,
       primarySoft: t.accentSoft,
       primarySoftBorder: t.borderStrong,
 
-      // Primary action buttons (navy in light mode)
-      darkButton: t.primary,
-      darkButtonText: t.primaryForeground,
+      // Accent (burnt orange #F58235) - used selectively for highlights & active filters
+      accent: t.accent,
+      accentSoft: t.accentSoft,
+
+      // Buttons
+      darkButton: t.accent,
+      darkButtonText: '#FFFFFF',
 
       // Badges & pills
       badgeBg: t.accentSoft,
@@ -76,24 +81,31 @@ export const getPrelimsTheme = (isDark: boolean = false) => {
     },
   };
 };
+
 export type PrelimsThemeType = ReturnType<typeof getPrelimsTheme>;
 
 // Default (light editorial) theme instance for backward compatibility
 export const PrelimsTheme = getPrelimsTheme(false);
 
-const PrelimsThemeContext = createContext<PrelimsThemeType>(PrelimsTheme);
+const PrelimsThemeContext = createContext<PrelimsThemeType | null>(null);
 
 export function PrelimsThemeProvider({
-  isDark = false,
+  isDark: propIsDark,
   children,
 }: {
   isDark?: boolean;
   children: React.ReactNode;
 }) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const theme = useMemo(() => getPrelimsTheme(isDark), [isDark]);
   return React.createElement(PrelimsThemeContext.Provider, { value: theme }, children);
 }
 
 export function usePrelimsTheme(): PrelimsThemeType {
-  return useContext(PrelimsThemeContext);
+  const context = useContext(PrelimsThemeContext);
+  const { isDark: appIsDark } = useAppTheme();
+  const fallback = useMemo(() => getPrelimsTheme(appIsDark), [appIsDark]);
+  return context ?? fallback;
 }
+

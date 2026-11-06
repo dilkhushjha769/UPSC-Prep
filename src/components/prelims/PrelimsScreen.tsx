@@ -12,6 +12,7 @@ import { Search } from 'lucide-react-native';
 import {
   PrelimsThemeProvider,
 } from '@/constants/prelimsTheme';
+import { useAppTheme } from '@/context/ThemeContext';
 import { BottomTabInset, MaxContentWidth } from '@/constants/theme';
 import {
   ALL_CLASSIFIED_PYQS,
@@ -35,7 +36,7 @@ import {
 } from '@/components/prelims/YearRangePickerModal';
 
 export function PrelimsScreen({
-  isDark = true,
+  isDark: propIsDark,
   onBack,
   onToggleTheme,
 }: {
@@ -43,6 +44,8 @@ export function PrelimsScreen({
   onBack?: () => void;
   onToggleTheme?: () => void;
 }) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   return (
     <PrelimsThemeProvider isDark={isDark}>
       <PrelimsScreenContent
@@ -55,7 +58,7 @@ export function PrelimsScreen({
 }
 
 function PrelimsScreenContent({
-  isDark = true,
+  isDark: propIsDark,
   onBack,
   onToggleTheme,
 }: {
@@ -63,6 +66,8 @@ function PrelimsScreenContent({
   onBack?: () => void;
   onToggleTheme?: () => void;
 } = {}) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   // Navigation states
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
   const [selectedChapterForDetail, setSelectedChapterForDetail] = useState<Chapter | null>(null);
@@ -321,11 +326,11 @@ function PrelimsScreenContent({
   };
 
   return (
-    <View style={[styles.safeArea, { backgroundColor: isDark ? '#1C2433' : '#FAF9F6' }]}>
+    <View style={[styles.safeArea, { backgroundColor: isDark ? '#0B1018' : '#FAF9F6' }]}>
       <StatusBar style={isDark ? 'light' : 'dark'} />
 
       <ScrollView
-        style={[styles.scrollView, { backgroundColor: isDark ? '#1C2433' : '#FAF9F6' }]}
+        style={[styles.scrollView, { backgroundColor: isDark ? '#0B1018' : '#FAF9F6' }]}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
@@ -335,7 +340,7 @@ function PrelimsScreenContent({
             /* VIEW 1: Main Prelims Preparation Page (Reference Image)   */
             /* ========================================================= */
             <>
-              {/* Header with Back button, Title, Subtitle, Year button, and Search */}
+              {/* Header with Back button, Title, Subtitle, Year button, Search, and Paper Selection Tabs */}
               <PrelimsHeader
                 isDark={isDark}
                 onBack={onBack}
@@ -344,62 +349,9 @@ function PrelimsScreenContent({
                 onOpenYearPicker={() => setYearPickerVisible(true)}
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
+                selectedPaperTab={selectedPaperTab}
+                onSelectPaperTab={setSelectedPaperTab}
               />
-
-              {/* Accessible Paper Selection Tabs: Paper 1 - GS-1 vs Paper 2 - CSAT */}
-              <View style={styles.paperTabsContainer}>
-                <Pressable
-                  style={({ pressed }) => [
-                    styles.paperTabBtn,
-                    {
-                      backgroundColor:
-                        selectedPaperTab === 'gs1' ? '#B9570A' : isDark ? '#1E2535' : '#FFFFFF',
-                      borderColor:
-                        selectedPaperTab === 'gs1' ? '#B9570A' : isDark ? '#333D52' : '#EAE5DC',
-                    },
-                    pressed && styles.tabPressed,
-                  ]}
-                  onPress={() => setSelectedPaperTab('gs1')}
-                  accessibilityRole="tab"
-                  accessibilityState={{ selected: selectedPaperTab === 'gs1' }}
-                >
-                  <Text
-                    style={[
-                      styles.paperTabText,
-                      { color: selectedPaperTab === 'gs1' ? '#FFFFFF' : isDark ? '#A4ADBF' : '#7A8499' },
-                      selectedPaperTab === 'gs1' && styles.paperTabTextActive,
-                    ]}
-                  >
-                    Paper 1 - GS-1
-                  </Text>
-                </Pressable>
-
-                <Pressable
-                  style={({ pressed }) => [
-                    styles.paperTabBtn,
-                    {
-                      backgroundColor:
-                        selectedPaperTab === 'gs2' ? '#B9570A' : isDark ? '#1E2535' : '#FFFFFF',
-                      borderColor:
-                        selectedPaperTab === 'gs2' ? '#B9570A' : isDark ? '#333D52' : '#EAE5DC',
-                    },
-                    pressed && styles.tabPressed,
-                  ]}
-                  onPress={() => setSelectedPaperTab('gs2')}
-                  accessibilityRole="tab"
-                  accessibilityState={{ selected: selectedPaperTab === 'gs2' }}
-                >
-                  <Text
-                    style={[
-                      styles.paperTabText,
-                      { color: selectedPaperTab === 'gs2' ? '#FFFFFF' : isDark ? '#A4ADBF' : '#7A8499' },
-                      selectedPaperTab === 'gs2' && styles.paperTabTextActive,
-                    ]}
-                  >
-                    Paper 2 - CSAT
-                  </Text>
-                </Pressable>
-              </View>
 
               {/* Compact Overview Card with File Icon, Total Questions, Solved & Circular Gauge */}
               <PrelimsOverviewCard
@@ -416,10 +368,10 @@ function PrelimsScreenContent({
 
               {/* Section Header: Subject-wise Progress */}
               <View style={styles.sectionHeaderRow}>
-                <Text style={[styles.sectionHeaderTitle, { color: isDark ? '#F2EFE8' : '#1C2433' }]}>
+                <Text style={[styles.sectionHeaderTitle, { color: isDark ? '#F0F4F8' : '#1C2433' }]}>
                   Subject-wise Progress
                 </Text>
-                <Text style={[styles.sectionHeaderCount, { color: isDark ? '#A4ADBF' : '#7A8499' }]}>
+                <Text style={[styles.sectionHeaderCount, { color: isDark ? '#9DA8B9' : '#7A8499' }]}>
                   {filteredSubjects.length} Subjects • {totalVerifiedQuestions.toLocaleString()} Qs
                 </Text>
               </View>
@@ -430,8 +382,8 @@ function PrelimsScreenContent({
                   style={[
                     styles.emptyStateCard,
                     {
-                      backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
-                      borderColor: isDark ? '#333D52' : '#EAE5DC',
+                      backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+                      borderColor: isDark ? '#253244' : '#EAE5DC',
                     },
                   ]}
                 >
@@ -439,17 +391,17 @@ function PrelimsScreenContent({
                     style={[
                       styles.emptyIconBadge,
                       {
-                        backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
-                        borderColor: isDark ? '#333D52' : '#EAE5DC',
+                        backgroundColor: isDark ? '#141C28' : '#FAF9F6',
+                        borderColor: isDark ? '#253244' : '#EAE5DC',
                       },
                     ]}
                   >
-                    <Search size={22} color={isDark ? '#A4ADBF' : '#7A8499'} strokeWidth={2} />
+                    <Search size={22} color={isDark ? '#9DA8B9' : '#7A8499'} strokeWidth={2} />
                   </View>
-                  <Text style={[styles.emptyTitle, { color: isDark ? '#F2EFE8' : '#1C2433' }]}>
+                  <Text style={[styles.emptyTitle, { color: isDark ? '#F0F4F8' : '#1C2433' }]}>
                     No matching topics found
                   </Text>
-                  <Text style={[styles.emptySubtitle, { color: isDark ? '#A4ADBF' : '#7A8499' }]}>
+                  <Text style={[styles.emptySubtitle, { color: isDark ? '#9DA8B9' : '#7A8499' }]}>
                     No subjects or chapters match &ldquo;{searchQuery}&rdquo;. Try another keyword like
                     &ldquo;Polity&rdquo;, &ldquo;Monetary&rdquo;, or &ldquo;Climate&rdquo;.
                   </Text>
@@ -457,14 +409,14 @@ function PrelimsScreenContent({
                     style={({ pressed }) => [
                       styles.clearSearchBtn,
                       {
-                        backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
-                        borderColor: isDark ? '#333D52' : '#EAE5DC',
+                        backgroundColor: isDark ? '#141C28' : '#FAF9F6',
+                        borderColor: isDark ? '#253244' : '#EAE5DC',
                       },
                       pressed && styles.tabPressed,
                     ]}
                     onPress={() => setSearchQuery('')}
                   >
-                    <Text style={[styles.clearSearchText, { color: isDark ? '#F2EFE8' : '#1C2433' }]}>
+                    <Text style={[styles.clearSearchText, { color: isDark ? '#F0F4F8' : '#1C2433' }]}>
                       Clear Search
                     </Text>
                   </Pressable>
@@ -597,18 +549,18 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderRadius: 8,
-    backgroundColor: '#1E2535',
+    backgroundColor: '#141C28',
     borderWidth: 1,
-    borderColor: '#333D52',
+    borderColor: '#253244',
   },
   paperTabBtnActive: {
-    backgroundColor: '#B9570A', // Primary action blue
-    borderColor: '#B9570A',
+    backgroundColor: '#1C2433',
+    borderColor: '#1C2433',
   },
   paperTabText: {
     fontSize: 12.5,
     fontWeight: '600',
-    color: '#A4ADBF',
+    color: '#9DA8B9',
     letterSpacing: -0.1,
   },
   paperTabTextActive: {
@@ -628,22 +580,22 @@ const styles = StyleSheet.create({
   sectionHeaderTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#F2EFE8',
+    color: '#F0F4F8',
     letterSpacing: -0.2,
   },
   sectionHeaderCount: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#A4ADBF',
+    color: '#9DA8B9',
   },
   subjectsList: {
     paddingHorizontal: 20,
   },
   emptyStateCard: {
     marginHorizontal: 20,
-    backgroundColor: '#1E2535',
+    backgroundColor: '#141C28',
     borderWidth: 1,
-    borderColor: '#333D52',
+    borderColor: '#253244',
     borderRadius: 14,
     padding: 32,
     alignItems: 'center',
@@ -653,9 +605,9 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 12,
-    backgroundColor: '#1E2535',
+    backgroundColor: '#141C28',
     borderWidth: 1,
-    borderColor: '#333D52',
+    borderColor: '#253244',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 14,
@@ -663,12 +615,12 @@ const styles = StyleSheet.create({
   emptyTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#F2EFE8',
+    color: '#F0F4F8',
     marginBottom: 6,
   },
   emptySubtitle: {
     fontSize: 13,
-    color: '#A4ADBF',
+    color: '#9DA8B9',
     textAlign: 'center',
     lineHeight: 19,
     maxWidth: 380,
@@ -678,13 +630,13 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     paddingHorizontal: 16,
     borderRadius: 8,
-    backgroundColor: '#1E2535',
+    backgroundColor: '#141C28',
     borderWidth: 1,
-    borderColor: '#333D52',
+    borderColor: '#253244',
   },
   clearSearchText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#F2EFE8',
+    color: '#F0F4F8',
   },
 });

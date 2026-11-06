@@ -1,4 +1,6 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React, { useState } from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   Modal,
   ScrollView,
@@ -106,10 +108,12 @@ const UPSC_QUESTIONS: Question[] = [
 ];
 
 interface MCQPracticeModalProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function MCQPracticeModal({ isDark }: MCQPracticeModalProps) {
+export function MCQPracticeModal({ isDark: propIsDark }: MCQPracticeModalProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { isMCQModalOpen, setIsMCQModalOpen, recordMCQSession } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 
@@ -213,7 +217,7 @@ export function MCQPracticeModal({ isDark }: MCQPracticeModalProps) {
                 style={[
                   styles.scoreBanner,
                   {
-                    backgroundColor: isDark ? '#16382A' : '#E3F1E8',
+                    backgroundColor: isDark ? '#17301F' : '#E3F1E8',
                     borderColor: colors.accentEmerald,
                   },
                 ]}>
@@ -240,7 +244,7 @@ export function MCQPracticeModal({ isDark }: MCQPracticeModalProps) {
                     style={[
                       styles.questionCard,
                       {
-                        backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                        backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                         borderColor: colors.cardBorderSubtle,
                       },
                     ]}>
@@ -267,17 +271,17 @@ export function MCQPracticeModal({ isDark }: MCQPracticeModalProps) {
                         const isChosen = userChoice === oIdx;
                         const isCorrect = q.correctIndex === oIdx;
 
-                        let optBg = isDark ? '#262E40' : '#FFFFFF';
+                        let optBg = isDark ? '#1B2534' : '#FFFFFF';
                         let optBorder = colors.cardBorderSubtle;
                         let optTextColor = colors.textPrimary;
 
                         if (showResults) {
                           if (isCorrect) {
-                            optBg = isDark ? '#16382A' : '#E3F1E8';
+                            optBg = isDark ? '#17301F' : '#E3F1E8';
                             optBorder = colors.accentEmerald;
-                            optTextColor = isDark ? '#3FA573' : '#1D5C3D';
+                            optTextColor = isDark ? '#4DB383' : '#1D5C3D';
                           } else if (isChosen && !isCorrect) {
-                            optBg = isDark ? '#3D1B18' : '#FBE4E1';
+                            optBg = isDark ? '#3B1A17' : '#FBE4E1';
                             optBorder = '#B42318';
                             optTextColor = '#B42318';
                           }
@@ -389,7 +393,7 @@ export function MCQPracticeModal({ isDark }: MCQPracticeModalProps) {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => setIsMCQModalOpen(false)}
-                  style={[styles.doneBtn, { backgroundColor: colors.primary }]}>
+                  style={[styles.doneBtn, primaryButtonStyle(isDark)]}>
                   <Text style={styles.doneBtnText}>Done</Text>
                 </TouchableOpacity>
               </View>

@@ -537,7 +537,7 @@ function getStyles(theme: PrelimsThemeType) {
       paddingHorizontal: 6,
       paddingVertical: 1.5,
       borderRadius: 5,
-      backgroundColor: isDark ? '#262E40' : '#F0EDE6',
+      backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
       borderColor: theme.colors.borderSubtle,
       borderWidth: 1,
     },
@@ -553,7 +553,7 @@ function getStyles(theme: PrelimsThemeType) {
     },
     rangeSelectorPills: {
       flexDirection: 'row',
-      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
       borderColor: theme.colors.borderSubtle,
       borderWidth: 1,
       borderRadius: 7,
@@ -566,7 +566,7 @@ function getStyles(theme: PrelimsThemeType) {
       borderRadius: 5,
     },
     rangePillBtnActive: {
-      backgroundColor: isDark ? '#262E40' : '#FFFFFF',
+      backgroundColor: isDark ? '#1B2534' : '#FFFFFF',
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 1 },
       shadowOpacity: 0.15,
@@ -631,7 +631,7 @@ function getStyles(theme: PrelimsThemeType) {
       fontWeight: '900',
     },
     barCountTextPeak: {
-      color: isDark ? '#D9822B' : '#A65A0A',
+      color: isDark ? '#E0963A' : '#A65A0A',
       fontWeight: '800',
     },
     barCanvas: {
@@ -641,7 +641,7 @@ function getStyles(theme: PrelimsThemeType) {
     },
     barPill: {
       width: 13,
-      backgroundColor: isDark ? '#333D52' : '#DDD6CA',
+      backgroundColor: isDark ? '#253244' : '#DDD6CA',
       borderTopLeftRadius: 4,
       borderTopRightRadius: 4,
       borderBottomLeftRadius: 2,
@@ -650,7 +650,7 @@ function getStyles(theme: PrelimsThemeType) {
     barPillZero: {
       width: 10,
       height: 3,
-      backgroundColor: isDark ? '#262E40' : '#EAE5DC',
+      backgroundColor: isDark ? '#1B2534' : '#EAE5DC',
       borderRadius: 2,
     },
     barPillSelected: {
@@ -668,12 +668,12 @@ function getStyles(theme: PrelimsThemeType) {
       borderTopRightRadius: 4,
     },
     barPillHovered: {
-      backgroundColor: isDark ? '#4A5568' : '#7A8499',
+      backgroundColor: isDark ? '#2B384D' : '#7A8499',
     },
     baselineSegment: {
       width: '100%',
       height: 1.5,
-      backgroundColor: isDark ? '#262E40' : '#EAE5DC',
+      backgroundColor: isDark ? '#1B2534' : '#EAE5DC',
       marginVertical: 3,
     },
     baselineSegmentActive: {
@@ -690,15 +690,15 @@ function getStyles(theme: PrelimsThemeType) {
       fontWeight: '900',
     },
     yearLabelTextPeak: {
-      color: isDark ? '#D9822B' : '#A65A0A',
+      color: isDark ? '#E0963A' : '#A65A0A',
       fontWeight: '800',
     },
     actionStrip: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
-      borderColor: isDark ? '#262E40' : '#EAE5DC',
+      backgroundColor: isDark ? '#141C28' : '#FAF9F6',
+      borderColor: isDark ? '#253244' : '#EAE5DC',
       borderWidth: 1,
       borderRadius: 10,
       paddingVertical: 8,
@@ -718,13 +718,13 @@ function getStyles(theme: PrelimsThemeType) {
       color: theme.colors.textPrimary,
     },
     countBadge: {
-      backgroundColor: isDark ? '#262E40' : '#FCEBDD',
+      backgroundColor: isDark ? '#1B2534' : '#FCEBDD',
       paddingHorizontal: 7,
       paddingVertical: 2,
       borderRadius: 5,
     },
     countBadgeZero: {
-      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
     },
     countBadgeText: {
       fontSize: 10.5,
@@ -749,17 +749,17 @@ function getStyles(theme: PrelimsThemeType) {
       backgroundColor: isDark ? 'rgba(220, 38, 38, 0.15)' : '#FBE4E1',
     },
     yoyBadgeNeutral: {
-      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
     },
     yoyBadgeText: {
       fontSize: 9.5,
       fontWeight: '700',
     },
     yoyBadgeTextIncrease: {
-      color: isDark ? '#3FA573' : '#26734D',
+      color: isDark ? '#4DB383' : '#26734D',
     },
     yoyBadgeTextDecrease: {
-      color: isDark ? '#E0675B' : '#B42318',
+      color: isDark ? '#E5766B' : '#B42318',
     },
     yoyBadgeTextNeutral: {
       color: theme.colors.textMuted,
@@ -774,8 +774,8 @@ function getStyles(theme: PrelimsThemeType) {
       gap: 6,
     },
     practiceBtnCompactZero: {
-      backgroundColor: isDark ? '#262E40' : '#F0EDE6',
-      borderColor: isDark ? '#262E40' : '#DDD6CA',
+      backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
+      borderColor: isDark ? '#253244' : '#DDD6CA',
       borderWidth: 1,
     },
     practiceBtnText: {
@@ -815,7 +815,7 @@ function getStyles(theme: PrelimsThemeType) {
       color: theme.colors.darkButtonText,
     },
     skeletonBar: {
-      backgroundColor: isDark ? '#262E40' : '#EAE5DC',
+      backgroundColor: isDark ? '#1B2534' : '#EAE5DC',
       borderRadius: 4,
     },
   });

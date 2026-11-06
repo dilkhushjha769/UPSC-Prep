@@ -32,6 +32,7 @@ import { MockTestResultsView } from './MockTestResultsView';
 import { ProgressBar } from '@/components/ui';
 import { EditorialExplanationView } from '@/components/common/EditorialExplanationView';
 import { examFocusService } from '@/services/examFocusService';
+import { useAppTheme } from '@/context/ThemeContext';
 
 interface ActiveMockTestScreenProps {
   testId: string;
@@ -39,7 +40,9 @@ interface ActiveMockTestScreenProps {
   isDark?: boolean;
 }
 
-export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveMockTestScreenProps) {
+export function ActiveMockTestScreen({ testId, onClose, isDark: propIsDark }: ActiveMockTestScreenProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const isDesktop = width >= 1024;
@@ -388,7 +391,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
               style={[
                 styles.timerCapsule,
                 {
-                  backgroundColor: isTimerCritical ? 'rgba(180, 35, 24, 0.15)' : isDark ? '#1E2535' : '#FCEBDD',
+                  backgroundColor: isTimerCritical ? 'rgba(180, 35, 24, 0.15)' : isDark ? '#141C28' : '#FCEBDD',
                   borderColor: isTimerCritical ? '#B42318' : theme.cardBorder,
                 },
               ]}>
@@ -402,7 +405,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
               </Text>
             </View>
           ) : (
-            <View style={[styles.timerCapsule, { backgroundColor: isDark ? '#1E2535' : '#FCEBDD' }]}>
+            <View style={[styles.timerCapsule, { backgroundColor: isDark ? '#141C28' : '#FCEBDD' }]}>
               <Clock size={14} color={theme.textSecondary} />
               <Text style={[styles.timerText, { color: theme.textSecondary }]}>Practice</Text>
             </View>
@@ -441,7 +444,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
           style={[
             styles.testProgressBanner,
             {
-              backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+              backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
               borderBottomColor: theme.cardBorder,
             },
           ]}>
@@ -457,7 +460,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
             progress={Math.min(100, (submitStats.answered / questions.length) * 100)}
             height={3}
             fillColor="#B9570A"
-            trackColor={isDark ? 'rgba(255, 255, 255, 0.08)' : '#EAE5DC'}
+            trackColor={isDark ? '#1B2534' : '#EAE5DC'}
             borderRadius={2}
           />
         </View>
@@ -491,7 +494,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
 
           {/* Reading Comprehension Passage (for CSAT or passage-linked questions) */}
           {snap.passage_text && (
-            <View style={[styles.passageCard, { backgroundColor: isDark ? '#151A25' : '#FAF9F6', borderColor: theme.cardBorder }]}>
+            <View style={[styles.passageCard, { backgroundColor: isDark ? '#0B1018' : '#FAF9F6', borderColor: theme.cardBorder }]}>
               <View style={styles.passageHeader}>
                 <BookOpen size={16} color={theme.textPrimary} />
                 <Text style={[styles.passageTitle, { color: theme.textPrimary }]}>
@@ -508,7 +511,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
 
             {/* Statements List if present */}
             {snap.statements && snap.statements.length > 0 && (
-              <View style={[styles.statementsContainer, { backgroundColor: isDark ? '#151A25' : '#FAF9F6', borderColor: theme.divider }]}>
+              <View style={[styles.statementsContainer, { backgroundColor: isDark ? '#0B1018' : '#FAF9F6', borderColor: theme.divider }]}>
                 {snap.statements.map((stmt, sIdx) => (
                   <Text key={sIdx} style={[styles.statementItemText, { color: theme.textSecondary }]}>
                     {stmt}
@@ -524,9 +527,9 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
                 const isCorrect = snap.correct_answer?.toUpperCase() === opt.id.toUpperCase();
                 const showFeedback = isPracticeMode && Boolean(currentResponse?.selected_answer);
 
-                let rowBg = isDark ? '#151A25' : '#FFFFFF';
+                let rowBg = isDark ? '#0B1018' : '#FFFFFF';
                 let rowBorder = theme.divider;
-                let circleBg = isDark ? '#1E2535' : '#F0EDE6';
+                let circleBg = isDark ? '#141C28' : '#F0EDE6';
                 let circleTextColor = theme.textPrimary;
                 let showCorrectBadge = false;
                 let showIncorrectBadge = false;
@@ -546,7 +549,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
                     showIncorrectBadge = true;
                   }
                 } else if (isSelected) {
-                  rowBg = isDark ? '#1E2535' : '#E9EDF9';
+                  rowBg = isDark ? '#141C28' : '#E9EDF9';
                   rowBorder = '#B9570A';
                   circleBg = '#B9570A';
                   circleTextColor = '#FFFFFF';
@@ -756,7 +759,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark = true }: ActiveM
                 <Text style={styles.confirmStatNumber}>{submitStats.marked}</Text>
                 <Text style={styles.confirmStatLabel}>Marked</Text>
               </View>
-              <View style={[styles.confirmStatPill, { backgroundColor: isDark ? '#1E2535' : '#DDD6CA' }]}>
+              <View style={[styles.confirmStatPill, { backgroundColor: isDark ? '#141C28' : '#DDD6CA' }]}>
                 <Text style={[styles.confirmStatNumber, { color: theme.textPrimary }]}>{submitStats.unattempted}</Text>
                 <Text style={[styles.confirmStatLabel, { color: theme.textSecondary }]}>Unattempted</Text>
               </View>

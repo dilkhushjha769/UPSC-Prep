@@ -39,15 +39,15 @@ export type SemanticTokens = {
 export const LIGHT_TOKENS: SemanticTokens = {
   background: '#FAF9F6',
   surface: '#FFFFFF',
-  surfaceRaised: '#FFFFFF',
-  foreground: '#1C2433',
-  mutedForeground: '#5F6B80',
+  surfaceRaised: '#F5F3EE',
+  foreground: '#1E293B',
+  mutedForeground: '#64748B',
   subtleForeground: '#7A8499',
-  primary: '#1C2433',
-  primaryHover: '#2B3547',
+  primary: '#F58235', // Unified vibrant brand orange
+  primaryHover: '#E07328',
   primaryForeground: '#FFFFFF',
-  accent: '#B9570A',
-  accentHover: '#974606',
+  accent: '#F58235', // Refined burnt orange for accents
+  accentHover: '#E07328',
   accentForeground: '#FFFFFF',
   accentSoft: '#FCEBDD',
   border: '#EAE5DC',
@@ -67,41 +67,61 @@ export const LIGHT_TOKENS: SemanticTokens = {
 };
 
 export const DARK_TOKENS: SemanticTokens = {
-  background: '#151A25',
-  surface: '#1E2535',
-  surfaceRaised: '#262E40',
-  foreground: '#F2EFE8',
-  mutedForeground: '#A4ADBF',
-  subtleForeground: '#8892A6',
-  primary: '#B9570A',
-  primaryHover: '#D06A1A',
+  // Midnight Navy & Charcoal design system directly matched from editorial visual design mockup:
+  // Deep dark blue-black background #0B1018, navy-slate card surfaces #141C28,
+  // card border #253244, crisp white text #F1F5F9,
+  // Primary action button: crisp white #F4F6FB with dark text #0D1520
+  // Secondary button: dark navy-slate #1B2534 with border #253244 and light text #F1F5F9
+  // Active pill / accent: vibrant warm orange #F58235
+  background: '#0B1018',
+  surface: '#141C28',
+  surfaceRaised: '#1B2534',
+  foreground: '#F1F5F9',
+  mutedForeground: '#94A3B8',
+  subtleForeground: '#6E7A8E',
+  primary: '#F58235', // Unified vibrant brand orange matching light mode
+  primaryHover: '#E07328',
   primaryForeground: '#FFFFFF',
-  accent: '#D9822B',
-  accentHover: '#E8963F',
-  accentForeground: '#151A25',
-  accentSoft: '#3A2614',
-  border: '#333D52',
-  borderStrong: '#46526B',
-  muted: '#262E40',
+  accent: '#F58235', // Vibrant warm editorial orange
+  accentHover: '#E07328',
+  accentForeground: '#FFFFFF',
+  accentSoft: '#2B1E16',
+  border: '#253244', // Refined deep navy-slate border
+  borderStrong: '#334155',
+  muted: '#182130',
   success: '#3FA573',
-  successSoft: '#16382A',
-  warning: '#D9822B',
-  warningSoft: '#3A2614',
-  destructive: '#E0675B',
-  destructiveSoft: '#3D1B18',
-  infoSoft: '#232D44',
-  infoForeground: '#B8C4E6',
-  disabledBackground: '#262E40',
-  disabledForeground: '#6B7487',
-  overlay: 'rgba(0, 0, 0, 0.6)',
+  successSoft: '#13281E',
+  warning: '#F58235',
+  warningSoft: '#2B1E16',
+  destructive: '#E56D60',
+  destructiveSoft: '#331715',
+  infoSoft: '#162338',
+  infoForeground: '#8EAEE0',
+  disabledBackground: '#1B2534',
+  disabledForeground: '#525E73',
+  overlay: 'rgba(5, 8, 14, 0.75)',
 };
-
 export const getTokens = (isDark: boolean): SemanticTokens => (isDark ? DARK_TOKENS : LIGHT_TOKENS);
+
+/**
+ * Standard primary-button appearance: vibrant warm orange (#F58235), white text,
+ * no border, 12px radius, semibold 600.
+ */
+export const primaryButtonStyle = (isDark: boolean = false) => ({
+  backgroundColor: '#F58235',
+  borderWidth: 0,
+  borderRadius: 12,
+});
+
+export const primaryButtonTextStyle = (isDark: boolean = false) => ({
+  color: '#FFFFFF',
+  fontWeight: '600' as const,
+});
 
 /** Data-visualisation series: navy first, burnt orange for emphasis. */
 export const CHART_COLORS = {
   light: { primary: '#1C2433', secondary: '#B9570A', tertiary: '#5F6B80', grid: '#EAE5DC', label: '#5F6B80' },
-  dark: { primary: '#F2EFE8', secondary: '#D9822B', tertiary: '#A4ADBF', grid: '#333D52', label: '#A4ADBF' },
+  dark: { primary: '#F4F6FB', secondary: '#EB853C', tertiary: '#9DA8B9', grid: '#253244', label: '#9DA8B9' },
 };
 
 export const FONT_FAMILY = {
@@ -124,5 +144,4 @@ export const SPACING = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 } as cons
 
 export const RADIUS = { control: 10, compact: 12, card: 16, pill: 9999 } as const;
 
-export const CONTROL_HEIGHT = { sm: 36, md: 44, lg: 48 } as const;
-
+export const CONTROL_HEIGHT = { sm: 36, md: 40, lg: 48 } as const;

@@ -1,4 +1,6 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React, { useState } from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   Modal,
   ScrollView,
@@ -13,10 +15,12 @@ import { useStudy } from '@/context/StudyContext';
 import { UPSC_THEME } from '@/constants/themeColors';
 
 interface ConfigModalProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function ConfigModal({ isDark }: ConfigModalProps) {
+export function ConfigModal({ isDark: propIsDark }: ConfigModalProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { isConfigModalOpen, setIsConfigModalOpen, config, updateConfig } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 
@@ -84,7 +88,7 @@ export function ConfigModal({ isDark }: ConfigModalProps) {
               style={[
                 styles.input,
                 {
-                  backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                  backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },
@@ -103,7 +107,7 @@ export function ConfigModal({ isDark }: ConfigModalProps) {
               style={[
                 styles.input,
                 {
-                  backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                  backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },
@@ -122,7 +126,7 @@ export function ConfigModal({ isDark }: ConfigModalProps) {
               style={[
                 styles.input,
                 {
-                  backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                  backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },
@@ -142,7 +146,7 @@ export function ConfigModal({ isDark }: ConfigModalProps) {
               style={[
                 styles.input,
                 {
-                  backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                  backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },
@@ -162,7 +166,7 @@ export function ConfigModal({ isDark }: ConfigModalProps) {
               style={[
                 styles.input,
                 {
-                  backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                  backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },
@@ -171,7 +175,7 @@ export function ConfigModal({ isDark }: ConfigModalProps) {
 
             <TouchableOpacity
               onPress={handleSave}
-              style={[styles.saveBtn, { backgroundColor: colors.primary }]}>
+              style={[styles.saveBtn, primaryButtonStyle(isDark)]}>
               <Save size={16} color="#FFFFFF" />
               <Text style={styles.saveBtnText}>Save Preferences</Text>
             </TouchableOpacity>

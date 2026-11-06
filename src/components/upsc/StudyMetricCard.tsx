@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React from 'react';
 import {
   StyleSheet,
@@ -16,10 +17,12 @@ import { UPSC_THEME } from '@/constants/themeColors';
 import { ArcGauge } from './CircularGauge';
 
 interface StudyMetricCardProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function StudyMetricCard({ isDark }: StudyMetricCardProps) {
+export function StudyMetricCard({ isDark: propIsDark }: StudyMetricCardProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { metrics, config, setIsConfigModalOpen } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 
@@ -87,15 +90,15 @@ export function StudyMetricCard({ isDark }: StudyMetricCardProps) {
           style={[
             styles.metricCard,
             {
-              backgroundColor: isDark ? '#1E2535' : '#E9EDF9',
-              borderColor: isDark ? '#262E40' : '#E9EDF9',
+              backgroundColor: isDark ? '#141C28' : '#E9EDF9',
+              borderColor: isDark ? '#253244' : '#E9EDF9',
             },
           ]}>
           <View style={styles.cardTop}>
             <View
               style={[
                 styles.iconBadge,
-                { backgroundColor: isDark ? '#262E40' : '#FCEBDD' },
+                { backgroundColor: isDark ? '#1B2534' : '#FCEBDD' },
               ]}>
               <BookMarked size={16} color={colors.primary} />
             </View>
@@ -118,7 +121,7 @@ export function StudyMetricCard({ isDark }: StudyMetricCardProps) {
               size={58}
               strokeWidth={5}
               progress={gsProgressRatio}
-              trackColor={isDark ? '#262E40' : '#CBD3EB'}
+              trackColor={isDark ? '#1B2534' : '#CBD3EB'}
               fillColor={colors.primary}>
               <Text style={[styles.miniGaugeText, { color: colors.primary }]}>
                 GS
@@ -136,15 +139,15 @@ export function StudyMetricCard({ isDark }: StudyMetricCardProps) {
           style={[
             styles.metricCard,
             {
-              backgroundColor: isDark ? '#1E2535' : '#E9EDF9',
-              borderColor: isDark ? '#262E40' : '#CBD3EB',
+              backgroundColor: isDark ? '#141C28' : '#E9EDF9',
+              borderColor: isDark ? '#253244' : '#CBD3EB',
             },
           ]}>
           <View style={styles.cardTop}>
             <View
               style={[
                 styles.iconBadge,
-                { backgroundColor: isDark ? '#262E40' : '#F2C9A3' },
+                { backgroundColor: isDark ? '#1B2534' : '#F2C9A3' },
               ]}>
               <Newspaper size={16} color="#B9570A" />
             </View>
@@ -167,7 +170,7 @@ export function StudyMetricCard({ isDark }: StudyMetricCardProps) {
               size={58}
               strokeWidth={5}
               progress={caProgressRatio}
-              trackColor={isDark ? '#262E40' : '#CBD3EB'}
+              trackColor={isDark ? '#1B2534' : '#CBD3EB'}
               fillColor="#B9570A">
               <Text style={[styles.miniGaugeText, { color: '#B9570A' }]}>
                 CA
@@ -185,15 +188,15 @@ export function StudyMetricCard({ isDark }: StudyMetricCardProps) {
           style={[
             styles.metricCard,
             {
-              backgroundColor: isDark ? '#16382A' : '#E3F1E8',
-              borderColor: isDark ? '#16382A' : '#BFDECB',
+              backgroundColor: isDark ? '#17301F' : '#E3F1E8',
+              borderColor: isDark ? '#17301F' : '#BFDECB',
             },
           ]}>
           <View style={styles.cardTop}>
             <View
               style={[
                 styles.iconBadge,
-                { backgroundColor: isDark ? '#16382A' : '#E3F1E8' },
+                { backgroundColor: isDark ? '#17301F' : '#E3F1E8' },
               ]}>
               <PenTool size={16} color={colors.accentEmerald} />
             </View>
@@ -216,7 +219,7 @@ export function StudyMetricCard({ isDark }: StudyMetricCardProps) {
               size={58}
               strokeWidth={5}
               progress={accuracy / 100}
-              trackColor={isDark ? '#16382A' : '#BFDECB'}
+              trackColor={isDark ? '#17301F' : '#BFDECB'}
               fillColor={colors.accentEmerald}>
               <Text style={[styles.miniGaugeText, { color: colors.accentEmerald }]}>
                 MCQ

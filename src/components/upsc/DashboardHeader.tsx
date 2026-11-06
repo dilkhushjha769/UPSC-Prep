@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React from 'react';
 import {
   Platform,
@@ -18,11 +19,13 @@ import { useStudy } from '@/context/StudyContext';
 import { UPSC_THEME } from '@/constants/themeColors';
 
 interface DashboardHeaderProps {
-  isDark: boolean;
+  isDark?: boolean;
   onToggleTheme: () => void;
 }
 
-export function DashboardHeader({ isDark, onToggleTheme }: DashboardHeaderProps) {
+export function DashboardHeader({ isDark: propIsDark, onToggleTheme }: DashboardHeaderProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { config, setIsNotificationsModalOpen, setIsConfigModalOpen } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 

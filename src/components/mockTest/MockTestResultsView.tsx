@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   View,
   Text,
@@ -18,6 +19,7 @@ import {
   BookOpen,
 } from '@/components/common/LucideIcons';
 import { BW_THEME } from '@/constants/bwTheme';
+import { useAppTheme } from '@/context/ThemeContext';
 import { MockTestQuestionRecord, MockTestRecord, MockTestResponseRecord } from '@/types/mockTest';
 import { EditorialExplanationView } from '@/components/common/EditorialExplanationView';
 
@@ -36,8 +38,10 @@ export function MockTestResultsView({
   responses,
   onBackToDashboard,
   onRetakeTest,
-  isDark = true,
+  isDark: propIsDark,
 }: MockTestResultsViewProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
 
   const [reviewFilter, setReviewFilter] = useState<'all' | 'incorrect' | 'correct' | 'unattempted'>('all');
@@ -111,7 +115,7 @@ export function MockTestResultsView({
             <Text style={[styles.heroSubTitle, { color: theme.textMuted }]}>TEST COMPLETED</Text>
             <Text style={[styles.heroTitle, { color: theme.textPrimary }]}>{test.test_title}</Text>
           </View>
-          <View style={[styles.scoreBadge, { backgroundColor: isDark ? '#1E2535' : '#F2C9A3' }]}>
+          <View style={[styles.scoreBadge, { backgroundColor: isDark ? '#141C28' : '#F2C9A3' }]}>
             <Award size={22} color={theme.textPrimary} />
           </View>
         </View>
@@ -238,7 +242,7 @@ export function MockTestResultsView({
                 style={[
                   styles.questionCard,
                   {
-                    backgroundColor: isDark ? '#151A25' : '#FAF9F6',
+                    backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
                     borderColor: isCorrect ? '#26734D' : userAns ? '#B42318' : theme.divider,
                   },
                 ]}>
@@ -262,7 +266,7 @@ export function MockTestResultsView({
                         <Text style={styles.badgeIncorrectText}>Incorrect (-{test.negative_marks})</Text>
                       </View>
                     ) : (
-                      <View style={[styles.badgeUnattempted, { backgroundColor: isDark ? '#1E2535' : '#EAE5DC' }]}>
+                      <View style={[styles.badgeUnattempted, { backgroundColor: isDark ? '#141C28' : '#EAE5DC' }]}>
                         <HelpCircle size={13} color={theme.textMuted} />
                         <Text style={[styles.badgeUnattemptedText, { color: theme.textMuted }]}>Unattempted (0)</Text>
                       </View>
@@ -275,7 +279,7 @@ export function MockTestResultsView({
 
                 {/* Statements if present */}
                 {snap.statements && snap.statements.length > 0 && (
-                  <View style={[styles.statementsBox, { backgroundColor: isDark ? '#151A25' : '#FFFFFF', borderColor: theme.divider }]}>
+                  <View style={[styles.statementsBox, { backgroundColor: isDark ? '#0B1018' : '#FFFFFF', borderColor: theme.divider }]}>
                     {snap.statements.map((stmt: string, sIdx: number) => (
                       <Text key={sIdx} style={[styles.statementText, { color: theme.textSecondary }]}>
                         {stmt}
@@ -290,12 +294,12 @@ export function MockTestResultsView({
                     const isUserPick = userAns === opt.id.toUpperCase();
                     const isOfficialCorrect = correctAns === opt.id.toUpperCase();
 
-                    let optBg = isDark ? '#151A25' : '#FFFFFF';
+                    let optBg = isDark ? '#0B1018' : '#FFFFFF';
                     let optBorder = theme.divider;
                     let optTextColor = theme.textPrimary;
 
                     if (isOfficialCorrect) {
-                      optBg = isDark ? '#16382A' : '#E3F1E8';
+                      optBg = isDark ? '#17301F' : '#E3F1E8';
                       optBorder = '#26734D';
                       optTextColor = isDark ? '#BFDECB' : '#1D5C3D';
                     } else if (isUserPick && !isCorrect) {
@@ -340,7 +344,7 @@ export function MockTestResultsView({
                   <View style={styles.explanationSection}>
                     <Pressable
                       onPress={() => toggleExplanation(q.id)}
-                      style={[styles.explanationToggle, { backgroundColor: isDark ? '#1E2535' : '#E9EDF9' }]}>
+                      style={[styles.explanationToggle, { backgroundColor: isDark ? '#141C28' : '#E9EDF9' }]}>
                       <BookOpen size={15} color={theme.textPrimary} />
                       <Text style={[styles.explanationToggleText, { color: theme.textPrimary }]}>
                         {isExpanded ? 'Hide Explanation' : 'View Official Solution & Analysis'}
@@ -370,7 +374,7 @@ export function MockTestResultsView({
       <View style={styles.footerActions}>
         <Pressable
           onPress={onBackToDashboard}
-          style={[styles.primaryActionBtn, { backgroundColor: theme.buttonPrimaryBg }]}>
+          style={[styles.primaryActionBtn, primaryButtonStyle(isDark), { backgroundColor: theme.buttonPrimaryBg }]}>
           <Text style={[styles.primaryActionText, { color: theme.buttonPrimaryText }]}>Return to Mock Test Dashboard</Text>
         </Pressable>
       </View>

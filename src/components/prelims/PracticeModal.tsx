@@ -16,6 +16,7 @@ import {
   XCircle,
   RotateCcw,
 } from '@/components/common/LucideIcons';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import { PYQQuestion, Chapter } from '@/types/prelims';
 import { PrelimsThemeType, usePrelimsTheme } from '@/constants/prelimsTheme';
 import { useStudy } from '@/context/StudyContext';
@@ -1249,7 +1250,7 @@ export function PracticeModal({
 
               <Pressable
                 style={({ pressed }) => [
-                  styles.navBtnNext,
+                  styles.navBtnNext, primaryButtonStyle(theme.isDark),
                   !hasNext && styles.navBtnDisabledDark,
                   hasNext && pressed && styles.pressed,
                 ]}
@@ -1319,11 +1320,11 @@ const getStyles = (theme: PrelimsThemeType) => {
   return StyleSheet.create({
   fullScreenSafeArea: {
     flex: 1,
-    backgroundColor: isDark ? '#1C2433' : '#FAF9F6',
+    backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
   },
   viewContainer: {
     flex: 1,
-    backgroundColor: isDark ? '#1C2433' : '#FAF9F6',
+    backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
   },
   topNavBar: {
     flexDirection: 'row',
@@ -1371,7 +1372,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     paddingVertical: 12,
     backgroundColor: isDark ? 'rgba(17, 21, 36, 0.85)' : 'rgba(234, 241, 253, 0.85)',
     borderBottomWidth: 1,
-    borderBottomColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(199, 210, 254, 0.5)',
+    borderBottomColor: isDark ? '#253244' : 'rgba(199, 210, 254, 0.5)',
     position: 'relative',
   },
   attemptBackBtn: {
@@ -1382,7 +1383,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     borderColor: theme.colors.borderSubtle,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+    backgroundColor: isDark ? '#141C28' : '#F0EDE6',
   },
   attemptTitleCol: {
     flex: 1,
@@ -1408,7 +1409,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+    backgroundColor: isDark ? '#141C28' : '#F0EDE6',
     paddingHorizontal: 9,
     paddingVertical: 6,
     borderRadius: 7,
@@ -1424,7 +1425,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+    backgroundColor: isDark ? '#141C28' : '#F0EDE6',
     paddingHorizontal: 9,
     paddingVertical: 6,
     borderRadius: 7,
@@ -1441,7 +1442,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     color: theme.colors.textSecondary,
   },
   attemptBookmarkBtnTextActive: {
-    color: isDark ? '#D9822B' : '#A65A0A',
+    color: isDark ? '#E0963A' : '#A65A0A',
     fontWeight: '800',
   },
   topProgressBarTrack: {
@@ -1468,7 +1469,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     gap: 8,
   },
   metaYearTag: {
-    backgroundColor: isDark ? '#262E40' : '#FCEBDD',
+    backgroundColor: isDark ? '#1B2534' : '#FCEBDD',
     paddingHorizontal: 7,
     paddingVertical: 2.5,
     borderRadius: 5,
@@ -1479,7 +1480,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     color: isDark ? '#F2C9A3' : '#B9570A',
   },
   metaDifficultyTag: {
-    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+    backgroundColor: isDark ? '#141C28' : '#F0EDE6',
     paddingHorizontal: 7,
     paddingVertical: 2.5,
     borderRadius: 5,
@@ -1493,7 +1494,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     textTransform: 'capitalize',
   },
   metaTopicTag: {
-    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+    backgroundColor: isDark ? '#141C28' : '#F0EDE6',
     paddingHorizontal: 7,
     paddingVertical: 2.5,
     borderRadius: 5,
@@ -1509,7 +1510,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+    backgroundColor: isDark ? '#141C28' : '#F0EDE6',
     paddingHorizontal: 9,
     paddingVertical: 4.5,
     borderRadius: 7,
@@ -1947,11 +1948,11 @@ const getStyles = (theme: PrelimsThemeType) => {
     gap: 12,
   },
   optionItemDefault: {
-    backgroundColor: isDark ? '#151A25' : '#FFFFFF',
-    borderColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#EAE5DC',
+    backgroundColor: isDark ? '#0B1018' : '#FFFFFF',
+    borderColor: isDark ? '#253244' : '#EAE5DC',
   },
   optionItemSelected: {
-    backgroundColor: isDark ? '#1E2535' : '#E9EDF9',
+    backgroundColor: isDark ? '#141C28' : '#E9EDF9',
     borderColor: '#B9570A',
   },
   optionItemCorrect: {
@@ -1970,10 +1971,10 @@ const getStyles = (theme: PrelimsThemeType) => {
     justifyContent: 'center',
   },
   keyBoxDefault: {
-    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6',
+    backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
   },
   keyBoxSelected: {
-    backgroundColor: '#B9570A',
+    backgroundColor: '#1C2433',
   },
   keyBoxCorrect: {
     backgroundColor: '#26734D',
@@ -1986,10 +1987,10 @@ const getStyles = (theme: PrelimsThemeType) => {
     fontWeight: '800',
   },
   keyTextDefault: {
-    color: isDark ? '#8892A6' : '#4A5568',
+    color: isDark ? '#6E7A8E' : '#4A5568',
   },
   keyTextSelected: {
-    color: '#FFFFFF',
+    color: isDark ? '#0B1018' : '#FFFFFF',
   },
   keyTextCorrect: {
     color: '#FFFFFF',
@@ -2026,7 +2027,7 @@ const getStyles = (theme: PrelimsThemeType) => {
   solutionContainer: {
     backgroundColor: 'transparent',
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: isDark ? 'rgba(255, 255, 255, 0.1)' : '#F0EDE6',
+    borderTopColor: isDark ? '#253244' : '#F0EDE6',
     paddingTop: 18,
     gap: 16,
     marginBottom: 24,
@@ -2068,7 +2069,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     width: 22,
     height: 22,
     borderRadius: 11,
-    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6',
+    backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 1,
@@ -2135,7 +2136,7 @@ const getStyles = (theme: PrelimsThemeType) => {
   trendInsightRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.04)' : '#FAF9F6',
+    backgroundColor: isDark ? '#1B2534' : '#FAF9F6',
     borderRadius: 8,
     padding: 10,
     gap: 4,
@@ -2156,7 +2157,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: isDark ? '#151A25' : '#FFFFFF',
+    backgroundColor: isDark ? '#0B1018' : '#FFFFFF',
     borderTopWidth: 1,
     borderTopColor: theme.colors.borderSubtle,
     paddingHorizontal: 16,
@@ -2169,7 +2170,7 @@ const getStyles = (theme: PrelimsThemeType) => {
   navBtnPrev: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+    backgroundColor: isDark ? '#141C28' : '#F0EDE6',
     paddingVertical: 9,
     paddingHorizontal: 14,
     borderRadius: 8,
@@ -2185,7 +2186,7 @@ const getStyles = (theme: PrelimsThemeType) => {
   navBtnListToggle: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+    backgroundColor: isDark ? '#141C28' : '#FAF9F6',
     borderWidth: 1,
     borderColor: theme.colors.borderSubtle,
     borderRadius: 8,

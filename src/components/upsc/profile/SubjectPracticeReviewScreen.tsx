@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React, { useMemo, useState } from 'react';
 import {
   Platform,
@@ -37,7 +38,7 @@ export interface SubjectPracticeGroup {
 }
 
 interface SubjectPracticeReviewScreenProps {
-  isDark: boolean;
+  isDark?: boolean;
   subjectGroup: SubjectPracticeGroup;
   onBack: () => void;
   onToggleTheme?: () => void;
@@ -150,11 +151,13 @@ function parseExplanationText(raw: string, correctAnswerId?: string): ParsedExpl
 }
 
 export function SubjectPracticeReviewScreen({
-  isDark,
+  isDark: propIsDark,
   subjectGroup,
   onBack,
   onToggleTheme,
 }: SubjectPracticeReviewScreenProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { width } = useWindowDimensions();
   const isDesktop = width >= 768;
 
@@ -170,16 +173,16 @@ export function SubjectPracticeReviewScreen({
 
   // Color tokens matching the reference design:
   // Light: Pure white surface (#FFFFFF), crisp border (#F0EDE6), high contrast text (#1C2433).
-  // Dark: Deep charcoal surface (#151A25), subtle border (rgba(255,255,255,0.08)), crisp text (#FFFFFF).
-  const pageBg = isDark ? '#151A25' : '#FAF9F6';
-  const cardBg = isDark ? '#151A25' : '#FFFFFF';
+  // Dark: Deep charcoal surface (#0B1018), subtle border (rgba(255,255,255,0.08)), crisp text (#FFFFFF).
+  const pageBg = isDark ? '#0B1018' : '#FAF9F6';
+  const cardBg = isDark ? '#0B1018' : '#FFFFFF';
   const cardBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6';
-  const optionNeutralBg = isDark ? '#1E2535' : '#FFFFFF';
+  const optionNeutralBg = isDark ? '#141C28' : '#FFFFFF';
   const optionNeutralBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : '#EAE5DC';
   const dividerColor = isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6';
-  const textPrimary = isDark ? '#FFFFFF' : '#1C2433';
-  const textSecondary = isDark ? '#8892A6' : '#4A5568';
-  const textMuted = isDark ? '#5F6B80' : '#5F6B80';
+  const textPrimary = isDark ? '#F0F4F8' : '#1C2433';
+  const textSecondary = isDark ? '#6E7A8E' : '#4A5568';
+  const textMuted = isDark ? '#6E7A8E' : '#5F6B80';
   const primaryBlue = GLOBAL_PRIMARY_BLUE;
 
   // Aggregate metrics
@@ -243,7 +246,7 @@ export function SubjectPracticeReviewScreen({
               styles.backButton,
               Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
               {
-                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F0EDE6',
+                backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
                 borderColor: cardBorder,
               },
             ]}>
@@ -270,7 +273,7 @@ export function SubjectPracticeReviewScreen({
                 styles.iconActionBtn,
                 Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
-                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F0EDE6',
+                  backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
                   borderColor: cardBorder,
                 },
               ]}>
@@ -432,10 +435,10 @@ export function SubjectPracticeReviewScreen({
                             }
                           : {
                               backgroundColor: isDark
-                                ? 'rgba(255, 255, 255, 0.06)'
+                                ? '#1B2534'
                                 : '#F0EDE6',
                               borderColor: isDark
-                                ? 'rgba(255, 255, 255, 0.1)'
+                                ? '#253244'
                                 : '#EAE5DC',
                             },
                       ]}>
@@ -497,7 +500,7 @@ export function SubjectPracticeReviewScreen({
                       let rowBg = optionNeutralBg;
                       let rowBorder = optionNeutralBorder;
                       let markerBg = isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6';
-                      let markerText = isDark ? '#8892A6' : '#4A5568';
+                      let markerText = isDark ? '#6E7A8E' : '#4A5568';
                       let showCorrectLabel = false;
                       let showIncorrectLabel = false;
 
@@ -607,7 +610,7 @@ export function SubjectPracticeReviewScreen({
                                 styles.stepBadgeCircle,
                                 {
                                   backgroundColor: isDark
-                                    ? 'rgba(255, 255, 255, 0.08)'
+                                    ? '#1B2534'
                                     : '#F0EDE6',
                                 },
                               ]}>
@@ -652,7 +655,7 @@ export function SubjectPracticeReviewScreen({
                         <Text
                           style={[
                             styles.conclusionTitleText,
-                            { color: isDark ? '#3FA573' : '#26734D' },
+                            { color: isDark ? '#4DB383' : '#26734D' },
                           ]}>
                           Conclusion
                         </Text>

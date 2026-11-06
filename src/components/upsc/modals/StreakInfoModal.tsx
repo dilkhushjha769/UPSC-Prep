@@ -1,4 +1,6 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   Modal,
   ScrollView,
@@ -19,10 +21,12 @@ import { useStudy } from '@/context/StudyContext';
 import { UPSC_THEME } from '@/constants/themeColors';
 
 interface StreakInfoModalProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function StreakInfoModal({ isDark }: StreakInfoModalProps) {
+export function StreakInfoModal({ isDark: propIsDark }: StreakInfoModalProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { isStreakInfoModalOpen, setIsStreakInfoModalOpen, config } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 
@@ -100,14 +104,14 @@ export function StreakInfoModal({ isDark }: StreakInfoModalProps) {
                     style={[
                       styles.ruleCard,
                       {
-                        backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                        backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                         borderColor: colors.cardBorderSubtle,
                       },
                     ]}>
                     <View
                       style={[
                         styles.iconCircle,
-                        { backgroundColor: isDark ? '#262E40' : '#FCEBDD' },
+                        { backgroundColor: isDark ? '#1B2534' : '#FCEBDD' },
                       ]}>
                       <Icon size={16} color={rule.color} />
                     </View>
@@ -131,7 +135,7 @@ export function StreakInfoModal({ isDark }: StreakInfoModalProps) {
 
             <TouchableOpacity
               onPress={() => setIsStreakInfoModalOpen(false)}
-              style={[styles.gotItBtn, { backgroundColor: colors.primary }]}>
+              style={[styles.gotItBtn, primaryButtonStyle(isDark)]}>
               <Text style={styles.gotItBtnText}>Understood — Keep Streak Alive</Text>
             </TouchableOpacity>
           </ScrollView>

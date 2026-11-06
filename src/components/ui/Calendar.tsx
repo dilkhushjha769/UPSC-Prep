@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { PALETTE, Typography } from '@/constants/colors';
+import { useAppTheme } from '@/context/ThemeContext';
 
 // ============================================================================
 // ICONS
@@ -142,12 +143,14 @@ export function Calendar({
   onSelectDate,
   initialDate,
   today = new Date(),
-  isDark = true,
+  isDark: propIsDark,
   minDate,
   maxDate,
   markedDates,
   style,
 }: CalendarProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const todayKey = useMemo(() => toDateKey(today), [today]);
 
   // Selected date key
@@ -247,18 +250,18 @@ export function Calendar({
     if (isDark) {
       return {
         cardBg: PALETTE.neutral.dark.darkest, // #1C2433
-        cardBorder: PALETTE.neutral.dark.textMuted, // #333D52
+        cardBorder: PALETTE.neutral.dark.textMuted, // #253244
         titleText: PALETTE.neutral.light.lightest, // #FFFFFF
         arrowColor: PALETTE.neutral.light.lightest, // #FFFFFF
-        arrowHoverBg: PALETTE.neutral.dark.surface, // #1E2535
+        arrowHoverBg: PALETTE.neutral.dark.surface, // #141C28
         weekdayText: PALETTE.neutral.dark.textSecondary, // #7A8499
         dayText: PALETTE.neutral.light.lightest, // #FFFFFF
-        dayTextDisabled: PALETTE.neutral.dark.textMuted, // #333D52
-        todayBg: PALETTE.neutral.dark.surface, // #1E2535 (Pure constant neutral)
+        dayTextDisabled: PALETTE.neutral.dark.textMuted, // #253244
+        todayBg: PALETTE.neutral.dark.surface, // #141C28 (Pure constant neutral)
         todayText: PALETTE.neutral.light.lightest,
-        selectedBg: PALETTE.highlight.primary, // #B9570A
-        selectedText: PALETTE.neutral.light.lightest, // #FFFFFF
-        markedDot: PALETTE.highlight.primary, // #B9570A
+        selectedBg: '#F4F6FB', // Crisp White in dark mode
+        selectedText: '#0D1520', // Dark Ash text in dark mode
+        markedDot: '#F58235',
       };
     }
 
@@ -270,12 +273,12 @@ export function Calendar({
       arrowHoverBg: PALETTE.neutral.light.surface, // #FAF9F6
       weekdayText: PALETTE.neutral.dark.textSecondary, // #7A8499
       dayText: PALETTE.neutral.dark.darkest, // #1C2433
-      dayTextDisabled: PALETTE.neutral.light.muted, // #C9CFDB
+      dayTextDisabled: PALETTE.neutral.light.muted, // #CFCFCF
       todayBg: PALETTE.highlight.tint20, // #FCEBDD
-      todayText: PALETTE.highlight.primary, // #B9570A
-      selectedBg: PALETTE.highlight.primary, // #B9570A
-      selectedText: PALETTE.neutral.light.lightest, // #FFFFFF
-      markedDot: PALETTE.highlight.primary,
+      todayText: '#1C2433',
+      selectedBg: '#1C2433', // Dark Ash in light mode
+      selectedText: '#FFFFFF', // White text in light mode
+      markedDot: '#F58235',
     };
   }, [isDark]);
 

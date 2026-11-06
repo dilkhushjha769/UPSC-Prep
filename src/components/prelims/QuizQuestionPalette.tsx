@@ -304,7 +304,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       letterSpacing: -0.2,
     },
     progressCounterBadge: {
-      backgroundColor: isDark ? '#262E40' : '#FCEBDD',
+      backgroundColor: isDark ? '#1B2534' : '#FCEBDD',
       paddingHorizontal: 8,
       paddingVertical: 3,
       borderRadius: 6,
@@ -326,24 +326,24 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,
-      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+      backgroundColor: isDark ? '#141C28' : '#FAF9F6',
       borderColor: theme.colors.borderSubtle,
     },
     statBoxAnswered: {
       borderColor: isDark ? '#1D5C3D' : '#BFDECB',
-      backgroundColor: isDark ? '#16382A' : '#E3F1E8',
+      backgroundColor: isDark ? '#17301F' : '#E3F1E8',
     },
     statBoxUnanswered: {
       borderColor: isDark ? '#6E1F18' : '#F3C4BF',
-      backgroundColor: isDark ? '#3D1B18' : '#FBE4E1',
+      backgroundColor: isDark ? '#3B1A17' : '#FBE4E1',
     },
     statBoxMarked: {
       borderColor: isDark ? '#B9570A' : '#F2C9A3',
-      backgroundColor: isDark ? '#1E2535' : '#FCEBDD',
+      backgroundColor: isDark ? '#141C28' : '#FCEBDD',
     },
     statBoxNotVisited: {
-      borderColor: isDark ? '#4A5568' : '#DDD6CA',
-      backgroundColor: isDark ? '#1C2433' : '#F0EDE6',
+      borderColor: isDark ? '#2B384D' : '#DDD6CA',
+      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
     },
     statBoxNum: {
       fontSize: 14,
@@ -362,7 +362,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       borderBottomWidth: 1,
       borderBottomColor: theme.colors.borderSubtle,
       gap: 6,
-      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+      backgroundColor: isDark ? '#141C28' : '#FAF9F6',
     },
     legendRow: {
       flexDirection: 'row',
@@ -441,7 +441,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
     },
     bubbleNotVisited: {
       backgroundColor: isDark ? '#3F4A5E' : '#FFFFFF',
-      borderColor: isDark ? '#5F6B80' : '#7A8499',
+      borderColor: isDark ? '#6E7A8E' : '#7A8499',
     },
     bubbleCurrent: {
       borderWidth: 2.5,
@@ -455,7 +455,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
     bubbleCurrentLegend: {
       borderWidth: 2,
       borderColor: theme.colors.textPrimary,
-      backgroundColor: isDark ? '#262E40' : '#EAE5DC',
+      backgroundColor: isDark ? '#1B2534' : '#EAE5DC',
     },
     bubblePressed: {
       transform: [{ scale: 0.94 }],
@@ -500,7 +500,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       padding: 14,
       borderTopWidth: 1,
       borderTopColor: theme.colors.borderSubtle,
-      backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+      backgroundColor: isDark ? '#141C28' : '#FAF9F6',
     },
     submitExamBtn: {
       backgroundColor: '#26734D',

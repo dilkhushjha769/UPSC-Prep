@@ -10,21 +10,22 @@ import {
 import { ChevronLeft } from 'lucide-react-native';
 import { PrimaryToggle } from '@/components/common/PrimaryToggle';
 import { BW_THEME } from '@/constants/bwTheme';
-import { PALETTE } from '@/constants/colors';
 import { useStudy } from '@/context/StudyContext';
 import { NotificationPreferences } from '@/types/study';
 import { examFocusService } from '@/services/examFocusService';
-import { Platform } from 'react-native';
+import { useAppTheme } from '@/context/ThemeContext';
 
-interface NotificationSettingsScreenProps {
-  isDark: boolean;
+export interface NotificationSettingsScreenProps {
+  isDark?: boolean;
   onBack: () => void;
 }
 
 export function NotificationSettingsScreen({
-  isDark,
+  isDark: propIsDark,
   onBack,
 }: NotificationSettingsScreenProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const { config, updateConfig } = useStudy();
   const { width } = useWindowDimensions();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
@@ -68,20 +69,20 @@ export function NotificationSettingsScreen({
     }, 450);
   };
 
-  const cardBg = isDark ? '#1E2535' : '#FFFFFF';
+  const cardBg = isDark ? '#141C28' : '#FFFFFF';
   const cardBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)';
   const dividerColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.05)';
 
 
   return (
-    <View style={[styles.container, { backgroundColor: isDark ? '#151A25' : '#FAF9F6' }]}>
+    <View style={[styles.container, { backgroundColor: isDark ? '#0B1018' : '#FAF9F6' }]}>
       {/* Header matching design reference: Back arrow on left, Centered Title, Blue 'Save' link on right */}
       <View
         style={[
           styles.headerBar,
           {
-            backgroundColor: isDark ? '#151A25' : '#FAF9F6',
-            borderBottomColor: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.05)',
+            backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
+            borderBottomColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.05)',
           },
         ]}>
         <TouchableOpacity

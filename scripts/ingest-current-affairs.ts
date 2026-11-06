@@ -242,7 +242,7 @@ function get20DayHistoricalArchiveStories(): RawFeedStory[] {
         rawDescription: rawDesc,
         rawContent: `${rawDesc} ${(ev.bullets || []).join(' ')} ${(ev.prelimsFacts || []).join(' ')}`,
         publishedAt: new Date(publishedIso).toISOString(),
-        extractedImageUrl: ev.imageUrl,
+        extractedImageUrl: ev.imageUrl || undefined,
         extractedImageCaption: `${ev.headline} (${ev.source})`,
         extractedImageCredit: ev.source,
       });
@@ -287,7 +287,7 @@ function get20DayHistoricalArchiveStories(): RawFeedStory[] {
         rawDescription: `${art.summary} ${(art.keyPoints || []).join(' ')}`,
         rawContent: `${art.summary} ${(art.keyPoints || []).join(' ')} ${art.analyticalAngle || ''}`,
         publishedAt: new Date(publishedIso).toISOString(),
-        extractedImageUrl: art.imageUrl,
+        extractedImageUrl: art.imageUrl || undefined,
         extractedImageCaption: `${art.title} (${art.source})`,
         extractedImageCredit: art.source,
       });

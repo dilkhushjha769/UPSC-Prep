@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { FONT_FAMILY } from '@/constants/designTokens';
+import { FONT_FAMILY, primaryButtonStyle } from '@/constants/designTokens';
+import { usePrelimsTheme } from '@/constants/prelimsTheme';
 import {
   Platform,
   Pressable,
@@ -43,7 +44,7 @@ interface SubjectChaptersViewProps {
 export function SubjectChaptersView({
   subject,
   serialNumber,
-  isDark = true,
+  isDark: propIsDark,
   onToggleTheme,
   solvedCount = 0,
   solvedStatsByChapterId = {},
@@ -51,6 +52,8 @@ export function SubjectChaptersView({
   onSelectChapter,
   onGenerateSubjectQuiz,
 }: SubjectChaptersViewProps) {
+  const prelimsTheme = usePrelimsTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : prelimsTheme.isDark;
   const formattedSerial = serialNumber ? String(serialNumber).padStart(2, '0') + '. ' : '';
 
   const totalSubjectQuestions = useMemo(() => {
@@ -98,16 +101,16 @@ export function SubjectChaptersView({
   }, [subject.id]);
 
   const colors = {
-    controlBg: isDark ? '#1E2535' : '#FFFFFF',
-    controlBorder: isDark ? '#333D52' : '#EAE5DC',
-    cardBg: isDark ? '#1E2535' : '#FFFFFF',
-    cardBorder: isDark ? '#333D52' : '#EAE5DC',
-    textPrimary: isDark ? '#F2EFE8' : '#1C2433',
-    textSecondary: isDark ? '#A4ADBF' : '#7A8499',
-    progressTrack: isDark ? '#262E40' : '#EAE5DC',
-    divider: isDark ? '#262E40' : '#EAE5DC',
-    paperBadgeBg: isDark ? '#1E2535' : '#FCEBDD',
-    paperBadgeText: isDark ? '#E8A25E' : '#B9570A',
+    controlBg: isDark ? '#141C28' : '#FFFFFF',
+    controlBorder: isDark ? '#253244' : '#EAE5DC',
+    cardBg: isDark ? '#141C28' : '#FFFFFF',
+    cardBorder: isDark ? '#253244' : '#EAE5DC',
+    textPrimary: isDark ? '#F0F4F8' : '#1C2433',
+    textSecondary: isDark ? '#9DA8B9' : '#7A8499',
+    progressTrack: isDark ? '#253244' : '#EAE5DC',
+    divider: isDark ? '#253244' : '#EAE5DC',
+    paperBadgeBg: isDark ? '#1B2534' : '#FCEBDD',
+    paperBadgeText: isDark ? '#F58235' : '#E07328',
   };
 
   return (
@@ -135,7 +138,7 @@ export function SubjectChaptersView({
           {/* Quick Subject Quiz Action */}
           <Pressable
             style={({ pressed }) => [
-              styles.subjectQuizBtn,
+              styles.subjectQuizBtn, primaryButtonStyle(isDark),
               pressed && styles.pressed,
               Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
             ]}
@@ -158,7 +161,7 @@ export function SubjectChaptersView({
                 Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
                   backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                  borderColor: isDark ? '#333D52' : '#F0EDE6',
+                  borderColor: isDark ? '#253244' : '#F0EDE6',
                 },
               ]}
             >
@@ -181,8 +184,20 @@ export function SubjectChaptersView({
       >
         <View style={styles.heroTopRow}>
           {/* Colored Subject Icon Tile */}
-          <View style={[styles.heroIconTile, { backgroundColor: subjectAccentColor }]}>
-            <SubjectIconComponent size={24} color="#FFFFFF" strokeWidth={2.2} />
+          <View
+            style={[
+              styles.heroIconTile,
+              {
+                backgroundColor: isDark ? '#1B2534' : '#F5F3EE',
+                borderColor: isDark ? '#253244' : '#EAE5DC',
+              },
+            ]}
+          >
+            <SubjectIconComponent
+              size={24}
+              color={isDark ? '#F58235' : '#E07328'}
+              strokeWidth={2.2}
+            />
           </View>
 
           {/* Subject Hierarchy Title & Metadata */}
@@ -217,7 +232,7 @@ export function SubjectChaptersView({
         {/* Hero Bottom Row: Solved Metrics & Progress Bar */}
         <View style={[styles.heroProgressRow, { borderTopColor: colors.divider }]}>
           <View style={styles.heroProgressLeft}>
-            <CircleCheck size={16} color={subjectAccentColor} strokeWidth={2.4} />
+            <CircleCheck size={16} color={solvedCount > 0 ? "#3FA573" : colors.textSecondary} strokeWidth={2.4} />
             <Text style={[styles.heroProgressLabel, { color: colors.textSecondary }]}>
               Subject Solved:
             </Text>
@@ -231,7 +246,7 @@ export function SubjectChaptersView({
               <View
                 style={[
                   styles.heroProgressFill,
-                  { width: `${subjectPercentage}%`, backgroundColor: subjectAccentColor },
+                  { width: `${subjectPercentage}%`, backgroundColor: solvedCount > 0 ? "#3FA573" : "#F58235" },
                 ]}
               />
             </View>
@@ -306,7 +321,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 7,
-    backgroundColor: '#B9570A',
+    backgroundColor: '#F58235',
     paddingVertical: 9,
     paddingHorizontal: 16,
     borderRadius: 8,
@@ -343,9 +358,10 @@ const styles = StyleSheet.create({
     gap: 14,
   },
   heroIconTile: {
-    width: 46,
-    height: 46,
+    width: 48,
+    height: 48,
     borderRadius: 12,
+    borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },

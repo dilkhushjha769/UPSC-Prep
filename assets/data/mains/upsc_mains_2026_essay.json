@@ -1,0 +1,99 @@
+{
+  "exam": "Civil Services (Main) Examination",
+  "year": 2026,
+  "paper": "Essay",
+  "paper_code": "KVMS-G-ESSY",
+  "subject": "Essay",
+  "total_marks": 250,
+  "time_allowed_hours": 3,
+  "instructions": [
+    "Write two essays, choosing one topic from each of Sections A and B, in about 1000-1200 words each.",
+    "The ESSAY must be written in the medium authorized in the Admission Certificate.",
+    "Word limit, as specified, should be adhered to.",
+    "Any page or portion of the page left blank in the QCA Booklet must be clearly struck off."
+  ],
+  "sections": [
+    {
+      "section_name": "Section A",
+      "section_code": "SECTION A",
+      "marks_per_question": 125,
+      "required_count": 1,
+      "word_limit": "1000-1200 words",
+      "questions": [
+        {
+          "question_number": 1,
+          "id": "2026_ESSAY_Q1",
+          "text_english": "Oxymorons reflect the ironies of life.",
+          "text_hindi": "विरोधाभास जीवन की विडंबनाओं को दर्शाते हैं।",
+          "marks": 125,
+          "topic": "Philosophical / Reflections"
+        },
+        {
+          "question_number": 2,
+          "id": "2026_ESSAY_Q2",
+          "text_english": "A grateful mind is very beautiful.",
+          "text_hindi": "एक कृतज्ञ मन अति सुंदर होता है।",
+          "marks": 125,
+          "topic": "Ethics / Mindset"
+        },
+        {
+          "question_number": 3,
+          "id": "2026_ESSAY_Q3",
+          "text_english": "A thorn is a changed bud.",
+          "text_hindi": "काँटा, कली का बदला हुआ रूप है।",
+          "marks": 125,
+          "topic": "Philosophical / Transformation"
+        },
+        {
+          "question_number": 4,
+          "id": "2026_ESSAY_Q4",
+          "text_english": "When two elephants fight, it is the grass that gets trampled.",
+          "text_hindi": "जब दो हाथी लड़ते हैं, तब घास ही रौंदी जाती है।",
+          "marks": 125,
+          "topic": "Geopolitics / Society / Impact of Conflict"
+        }
+      ]
+    },
+    {
+      "section_name": "Section B",
+      "section_code": "SECTION B",
+      "marks_per_question": 125,
+      "required_count": 1,
+      "word_limit": "1000-1200 words",
+      "questions": [
+        {
+          "question_number": 5,
+          "id": "2026_ESSAY_Q5",
+          "text_english": "Nature is the symbol of the spirit.",
+          "text_hindi": "प्रकृति ही जीवात्मा का प्रतीक है।",
+          "marks": 125,
+          "topic": "Environment / Spirituality"
+        },
+        {
+          "question_number": 6,
+          "id": "2026_ESSAY_Q6",
+          "text_english": "A well-educated mind will always have more questions than answers.",
+          "text_hindi": "एक अच्छे शिक्षित दिमाग में, हमेशा उत्तर से अधिक प्रश्न होंगे।",
+          "marks": 125,
+          "topic": "Education / Critical Thinking"
+        },
+        {
+          "question_number": 7,
+          "id": "2026_ESSAY_Q7",
+          "text_english": "Shelving hard decisions is the least ethical course.",
+          "text_hindi": "कठोर निर्णयों को टालना सबसे कम नैतिक मार्ग है।",
+          "marks": 125,
+          "topic": "Governance / Ethics & Decision Making"
+        },
+        {
+          "question_number": 8,
+          "id": "2026_ESSAY_Q8",
+          "text_english": "A good leader is one who follows the followers.",
+          "text_hindi": "उत्तम नेता वह है जो अपने अनुयायियों का अनुसरण करता है।",
+          "marks": 125,
+          "topic": "Leadership / Governance"
+        }
+      ]
+    }
+  ]
+}

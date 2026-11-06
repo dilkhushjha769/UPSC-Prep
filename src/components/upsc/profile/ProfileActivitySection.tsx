@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
@@ -36,16 +37,18 @@ import {
 export { SubjectPracticeGroup } from './SubjectPracticeReviewScreen';
 
 interface ProfileActivitySectionProps {
-  isDark: boolean;
+  isDark?: boolean;
   onNavigateToTab?: (tabKey: any) => void;
   onOpenSubjectReview?: (group: SubjectPracticeGroup) => void;
 }
 
 export function ProfileActivitySection({
-  isDark,
+  isDark: propIsDark,
   onNavigateToTab,
   onOpenSubjectReview,
 }: ProfileActivitySectionProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { sessions, metrics, config, todayQuestionsSolved } = useStudy();
 
   const [recentMocks, setRecentMocks] = useState<MockTestRecord[]>([]);
@@ -254,13 +257,13 @@ export function ProfileActivitySection({
   }, [allAttempts, subjectGroups.length]);
 
   // Color tokens - grey icon color matches the other two tabs
-  const cardBg = isDark ? '#1E2535' : '#FFFFFF';
+  const cardBg = isDark ? '#141C28' : '#FFFFFF';
   const cardBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6';
-  const innerCardBg = isDark ? '#1E2535' : '#FAF9F6';
+  const innerCardBg = isDark ? '#141C28' : '#FAF9F6';
   const dividerColor = isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.06)';
-  const textPrimary = isDark ? '#FFFFFF' : '#1C2433';
-  const textSecondary = isDark ? '#8892A6' : '#4A5568'; // The exact grey used in other tabs
-  const textMuted = isDark ? '#5F6B80' : '#8892A6';
+  const textPrimary = isDark ? '#F0F4F8' : '#1C2433';
+  const textSecondary = isDark ? '#6E7A8E' : '#4A5568'; // The exact grey used in other tabs
+  const textMuted = isDark ? '#6E7A8E' : '#8892A6';
   const iconGrey = textSecondary; // Grey icon color matching other tabs
   const primaryBlue = GLOBAL_PRIMARY_BLUE; // '#B9570A'
 
@@ -391,7 +394,7 @@ export function ProfileActivitySection({
         style={[
           styles.historyToggleRow,
           {
-            backgroundColor: isDark ? '#1E2535' : '#E9EDF9',
+            backgroundColor: isDark ? '#141C28' : '#F5F3EE',
             borderColor: cardBorder,
           },
         ]}>
@@ -402,8 +405,8 @@ export function ProfileActivitySection({
             styles.historyTabBtn,
             activeHistoryTab === 'mock'
               ? {
-                  backgroundColor: primaryBlue,
-                  shadowColor: primaryBlue,
+                  backgroundColor: '#F58235',
+                  shadowColor: '#F58235',
                   shadowOffset: { width: 0, height: 2 },
                   shadowOpacity: 0.25,
                   shadowRadius: 4,
@@ -435,8 +438,8 @@ export function ProfileActivitySection({
             styles.historyTabBtn,
             activeHistoryTab === 'practice'
               ? {
-                  backgroundColor: primaryBlue,
-                  shadowColor: primaryBlue,
+                  backgroundColor: '#F58235',
+                  shadowColor: '#F58235',
                   shadowOffset: { width: 0, height: 2 },
                   shadowOpacity: 0.25,
                   shadowRadius: 4,
@@ -511,7 +514,7 @@ export function ProfileActivitySection({
                 <Text style={[styles.perfValue, { color: accuracyColor }]}>
                   {mockPerformance.avgAccuracy}%
                 </Text>
-                <View style={[styles.perfMiniProgressTrack, { backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#EAE5DC' }]}>
+                <View style={[styles.perfMiniProgressTrack, { backgroundColor: isDark ? '#1B2534' : '#EAE5DC' }]}>
                   <View
                     style={[
                       styles.perfMiniProgressFill,
@@ -594,7 +597,7 @@ export function ProfileActivitySection({
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => onNavigateToTab?.('mockTest')}
-                    style={[styles.actionBtn, { backgroundColor: primaryBlue }]}>
+                    style={[styles.actionBtn, { backgroundColor: '#F58235' }]}>
                     <Sparkles size={13} color="#FFFFFF" />
                     <Text style={styles.actionBtnText}>Start Mock Test</Text>
                   </TouchableOpacity>
@@ -735,7 +738,7 @@ export function ProfileActivitySection({
                   ]}>
                   {practicePerformance.accuracy}%
                 </Text>
-                <View style={[styles.perfMiniProgressTrack, { backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#EAE5DC' }]}>
+                <View style={[styles.perfMiniProgressTrack, { backgroundColor: isDark ? '#1B2534' : '#EAE5DC' }]}>
                   <View
                     style={[
                       styles.perfMiniProgressFill,
@@ -831,7 +834,7 @@ export function ProfileActivitySection({
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => onNavigateToTab?.('prelims')}
-                    style={[styles.actionBtn, { backgroundColor: primaryBlue }]}>
+                    style={[styles.actionBtn, { backgroundColor: '#F58235' }]}>
                     <Sparkles size={13} color="#FFFFFF" />
                     <Text style={styles.actionBtnText}>Start Practice Drill</Text>
                   </TouchableOpacity>
@@ -872,7 +875,7 @@ export function ProfileActivitySection({
                             {grp.accuracy}% Accuracy
                           </Text>
                         </View>
-                        <View style={[styles.subjectProgressTrack, { backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#EAE5DC' }]}>
+                        <View style={[styles.subjectProgressTrack, { backgroundColor: isDark ? '#1B2534' : '#EAE5DC' }]}>
                           <View
                             style={[
                               styles.subjectProgressFill,
@@ -939,8 +942,8 @@ export function ProfileActivitySection({
                           borderColor: primaryBlue,
                         }
                       : {
-                          backgroundColor: isDark ? 'rgba(255, 255, 255, 0.05)' : '#F0EDE6',
-                          borderColor: isDark ? '#262E40' : '#EAE5DC',
+                          backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
+                          borderColor: isDark ? '#253244' : '#EAE5DC',
                         },
                   ]}>
                   {d.hasActivity && (

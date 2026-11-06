@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { X } from '@/components/common/LucideIcons';
 import { BW_THEME } from '@/constants/bwTheme';
+import { useAppTheme } from '@/context/ThemeContext';
 import { MockTestQuestionRecord, MockTestResponseRecord } from '@/types/mockTest';
 
 interface MockTestQuestionPaletteProps {
@@ -26,8 +27,10 @@ export function MockTestQuestionPalette({
   currentIndex,
   onSelectQuestion,
   onClose,
-  isDark = true,
+  isDark: propIsDark,
 }: MockTestQuestionPaletteProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
@@ -97,7 +100,7 @@ export function MockTestQuestionPalette({
       </View>
 
       {/* Legend & Stats Summary */}
-      <View style={[styles.legendContainer, { backgroundColor: isDark ? '#151A25' : '#FAF9F6' }]}>
+      <View style={[styles.legendContainer, { backgroundColor: isDark ? '#0B1018' : '#FAF9F6' }]}>
         <View style={styles.legendItem}>
           <View style={[styles.legendDot, { backgroundColor: '#26734D' }]} />
           <Text style={[styles.legendText, { color: theme.textSecondary }]}>Answered ({stats.answered})</Text>
@@ -146,8 +149,8 @@ export function MockTestQuestionPalette({
           {filteredQuestions.map(({ q, index, status }) => {
             const isCurrent = index === currentIndex;
 
-            let bgColor = isDark ? '#1E2535' : '#EAE5DC';
-            let textColor = isDark ? '#7A8499' : '#4A5568';
+            let bgColor = isDark ? '#141C28' : '#EAE5DC';
+            let textColor = isDark ? '#6E7A8E' : '#4A5568';
             let borderColor = 'transparent';
 
             if (status === 'answered') {

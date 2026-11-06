@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   Alert,
   Image,
@@ -17,6 +18,7 @@ import { Camera, Trash2, X } from 'lucide-react-native';
 import { PALETTE, SemanticColors, Typography } from '@/constants/colors';
 import { useStudy } from '@/context/StudyContext';
 import { Button } from '@/components/ui/Button';
+import { useAppTheme } from '@/context/ThemeContext';
 
 interface QuickEditProfileModalProps {
   isOpen: boolean;
@@ -103,7 +105,7 @@ function QuickEditProfileForm({
         styles.card,
         {
           backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-          borderColor: isDark ? '#333D52' : '#EAE5DC',
+          borderColor: isDark ? '#253244' : '#EAE5DC',
         },
       ]}
       onPress={(e) => {
@@ -126,8 +128,8 @@ function QuickEditProfileForm({
           style={[
             styles.closeBtn,
             {
-              backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6',
-              borderColor: isDark ? '#333D52' : '#EAE5DC',
+              backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
+              borderColor: isDark ? '#253244' : '#EAE5DC',
             },
           ]}>
           <X size={16} color={theme.textPrimary} />
@@ -154,7 +156,7 @@ function QuickEditProfileForm({
                 styles.avatarCircle,
                 {
                   backgroundColor: PALETTE.highlight.primary,
-                  borderColor: isDark ? '#333D52' : '#EAE5DC',
+                  borderColor: isDark ? '#253244' : '#EAE5DC',
                 },
               ]}>
               {avatarUri ? (
@@ -216,7 +218,7 @@ function QuickEditProfileForm({
               styles.textInput,
               {
                 backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#FAF9F6',
-                borderColor: isDark ? '#333D52' : '#EAE5DC',
+                borderColor: isDark ? '#253244' : '#EAE5DC',
                 color: theme.textPrimary,
               },
             ]}
@@ -230,7 +232,7 @@ function QuickEditProfileForm({
           title={isSaving ? 'Saving...' : 'Save Profile'}
           disabled={isSaving}
           onPress={handleSave}
-          style={styles.saveBtn}
+          style={[styles.saveBtn, primaryButtonStyle(isDark)]}
         />
       </ScrollView>
     </Pressable>
@@ -240,8 +242,10 @@ function QuickEditProfileForm({
 export function QuickEditProfileModal({
   isOpen,
   onClose,
-  isDark = false,
+  isDark: propIsDark,
 }: QuickEditProfileModalProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   return (
     <Modal
       visible={isOpen}
@@ -392,6 +396,6 @@ const styles = StyleSheet.create({
   saveBtn: {
     marginTop: 6,
     alignSelf: 'stretch',
-    backgroundColor: PALETTE.highlight.primary,
+    backgroundColor: '#1C2433',
   },
 });

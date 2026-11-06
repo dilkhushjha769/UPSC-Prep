@@ -10,18 +10,21 @@ import {
 } from 'react-native';
 import { ChevronLeft } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
+import { useAppTheme } from '@/context/ThemeContext';
 
 interface LegalScreenProps {
-  isDark: boolean;
+  isDark?: boolean;
   initialTab?: 'privacy' | 'terms';
   onBack: () => void;
 }
 
 export function LegalScreen({
-  isDark,
+  isDark: propIsDark,
   initialTab = 'privacy',
   onBack,
 }: LegalScreenProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const [activeSegment, setActiveSegment] = useState<'privacy' | 'terms'>(initialTab);
   const { width } = useWindowDimensions();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
@@ -35,7 +38,7 @@ export function LegalScreen({
           styles.headerBar,
           {
             backgroundColor: theme.bg,
-            borderBottomColor: isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.06)',
+            borderBottomColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.06)',
           },
         ]}>
         <TouchableOpacity
@@ -46,8 +49,8 @@ export function LegalScreen({
             styles.backBtn,
             Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
             {
-              backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.04)',
-              borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.06)',
+              backgroundColor: isDark ? '#1B2534' : 'rgba(0, 0, 0, 0.04)',
+              borderColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.06)',
             },
           ]}>
           <ChevronLeft size={20} color={theme.textPrimary} strokeWidth={2.4} />
@@ -66,8 +69,8 @@ export function LegalScreen({
           styles.segmentContainer,
           isDesktop && styles.desktopSegment,
           {
-            backgroundColor: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.04)',
-            borderColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)',
+            backgroundColor: isDark ? '#1B2534' : 'rgba(0, 0, 0, 0.04)',
+            borderColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.06)',
           },
         ]}>
         <TouchableOpacity
@@ -77,7 +80,7 @@ export function LegalScreen({
             styles.segmentButton,
             activeSegment === 'privacy' && [
               styles.segmentActive,
-              { backgroundColor: isDark ? '#FFFFFF' : '#1C2433' },
+              { backgroundColor: isDark ? '#F1F5F9' : '#1C2433' },
             ],
           ]}>
           <Text
@@ -87,7 +90,7 @@ export function LegalScreen({
                 color:
                   activeSegment === 'privacy'
                     ? isDark
-                      ? '#151A25'
+                      ? '#0B1018'
                       : '#FFFFFF'
                     : theme.textMuted,
               },
@@ -103,7 +106,7 @@ export function LegalScreen({
             styles.segmentButton,
             activeSegment === 'terms' && [
               styles.segmentActive,
-              { backgroundColor: isDark ? '#FFFFFF' : '#1C2433' },
+              { backgroundColor: isDark ? '#F1F5F9' : '#1C2433' },
             ],
           ]}>
           <Text
@@ -113,7 +116,7 @@ export function LegalScreen({
                 color:
                   activeSegment === 'terms'
                     ? isDark
-                      ? '#151A25'
+                      ? '#0B1018'
                       : '#FFFFFF'
                     : theme.textMuted,
               },

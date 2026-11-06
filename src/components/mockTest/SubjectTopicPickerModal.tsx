@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Search, X, Check } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
+import { useAppTheme } from '@/context/ThemeContext';
 import { PaperType } from '@/types/mockTest';
 
 interface SubjectTopicPickerModalProps {
@@ -46,8 +47,10 @@ function SubjectTopicPickerInner({
   selectedTopic,
   onSelect,
   paperType,
-  isDark = true,
+  isDark: propIsDark,
 }: SubjectTopicPickerModalProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const [searchQuery, setSearchQuery] = useState('');
   const [activeSubject, setActiveSubject] = useState<string>(selectedSubject);
@@ -82,8 +85,8 @@ function SubjectTopicPickerInner({
           style={[
             styles.modalContent,
             {
-              backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
-              borderColor: isDark ? '#262E40' : '#EAE5DC',
+              backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+              borderColor: isDark ? '#253244' : '#EAE5DC',
             },
           ]}>
           {/* Header */}
@@ -101,7 +104,7 @@ function SubjectTopicPickerInner({
               hitSlop={8}
               style={[
                 styles.closeBtn,
-                { backgroundColor: isDark ? '#1E2535' : '#F0EDE6' },
+                { backgroundColor: isDark ? '#141C28' : '#F0EDE6' },
               ]}>
               <X size={15} color={theme.textSecondary} />
             </Pressable>
@@ -112,8 +115,8 @@ function SubjectTopicPickerInner({
             style={[
               styles.searchBox,
               {
-                backgroundColor: isDark ? '#151A25' : '#FAF9F6',
-                borderColor: isDark ? '#262E40' : '#EAE5DC',
+                backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
+                borderColor: isDark ? '#253244' : '#EAE5DC',
               },
             ]}>
             <Search size={15} color={theme.textMuted} />
@@ -149,8 +152,8 @@ function SubjectTopicPickerInner({
                   : [
                       styles.chipInactive,
                       {
-                        backgroundColor: isDark ? '#151A25' : '#FAF9F6',
-                        borderColor: isDark ? '#262E40' : '#EAE5DC',
+                        backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
+                        borderColor: isDark ? '#253244' : '#EAE5DC',
                       },
                     ],
               ]}>
@@ -160,7 +163,7 @@ function SubjectTopicPickerInner({
                   {
                     color: !activeSubject
                       ? isDark
-                        ? '#151A25'
+                        ? '#0B1018'
                         : '#FFFFFF'
                       : theme.textSecondary,
                     fontWeight: !activeSubject ? '600' : '500',
@@ -202,11 +205,11 @@ function SubjectTopicPickerInner({
                         isSelected && [
                           styles.subjectRowActive,
                           {
-                            backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+                            backgroundColor: isDark ? '#141C28' : '#F0EDE6',
                           },
                         ],
                         {
-                          borderBottomColor: isDark ? '#1E2535' : '#FAF9F6',
+                          borderBottomColor: isDark ? '#141C28' : '#FAF9F6',
                         },
                       ]}>
                       <View style={styles.subjectInfo}>
@@ -240,8 +243,8 @@ function SubjectTopicPickerInner({
                         style={[
                           styles.topicsContainer,
                           {
-                            backgroundColor: isDark ? '#151A25' : '#FAF9F6',
-                            borderColor: isDark ? '#262E40' : '#EAE5DC',
+                            backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
+                            borderColor: isDark ? '#253244' : '#EAE5DC',
                           },
                         ]}>
                         <Text style={[styles.topicsHeading, { color: theme.textMuted }]}>
@@ -262,8 +265,8 @@ function SubjectTopicPickerInner({
                                 : [
                                     styles.topicPillInactive,
                                     {
-                                      backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
-                                      borderColor: isDark ? '#262E40' : '#EAE5DC',
+                                      backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+                                      borderColor: isDark ? '#253244' : '#EAE5DC',
                                     },
                                   ],
                             ]}>
@@ -273,7 +276,7 @@ function SubjectTopicPickerInner({
                                 {
                                   color: !activeTopic
                                     ? isDark
-                                      ? '#151A25'
+                                      ? '#0B1018'
                                       : '#FFFFFF'
                                     : theme.textSecondary,
                                 },
@@ -302,8 +305,8 @@ function SubjectTopicPickerInner({
                                     : [
                                         styles.topicPillInactive,
                                         {
-                                          backgroundColor: isDark ? '#1E2535' : '#FFFFFF',
-                                          borderColor: isDark ? '#262E40' : '#EAE5DC',
+                                          backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+                                          borderColor: isDark ? '#253244' : '#EAE5DC',
                                         },
                                       ],
                                 ]}>
@@ -313,7 +316,7 @@ function SubjectTopicPickerInner({
                                     {
                                       color: isTopActive
                                         ? isDark
-                                          ? '#151A25'
+                                          ? '#0B1018'
                                           : '#FFFFFF'
                                         : theme.textSecondary,
                                     },
@@ -336,13 +339,13 @@ function SubjectTopicPickerInner({
           <View
             style={[
               styles.modalFooter,
-              { borderTopColor: isDark ? '#262E40' : '#F0EDE6' },
+              { borderTopColor: isDark ? '#253244' : '#F0EDE6' },
             ]}>
             <Pressable
               onPress={handleReset}
               style={[
                 styles.secondaryBtn,
-                { borderColor: isDark ? '#262E40' : '#EAE5DC' },
+                { borderColor: isDark ? '#253244' : '#EAE5DC' },
               ]}>
               <Text style={[styles.secondaryBtnText, { color: theme.textSecondary }]}>
                 Clear
@@ -358,7 +361,7 @@ function SubjectTopicPickerInner({
               <Text
                 style={[
                   styles.applyBtnText,
-                  { color: isDark ? '#151A25' : '#FFFFFF' },
+                  { color: isDark ? '#0B1018' : '#FFFFFF' },
                 ]}>
                 Done
               </Text>

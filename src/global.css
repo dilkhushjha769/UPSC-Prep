@@ -1,23 +1,33 @@
-:root {
-  /* Editorial design tokens (mirrors src/constants/designTokens.ts) */
+:root,
+[data-theme='light'],
+html.light,
+body.light {
+  /* Editorial design tokens - Light Mode */
   --background: #FAF9F6;
   --surface: #FFFFFF;
-  --foreground: #1C2433;
-  --muted-foreground: #5F6B80;
-  --primary: #1C2433;
-  --primary-hover: #2B3547;
-  --accent: #B9570A;
-  --accent-hover: #974606;
-  --border: #EAE5DC;
-  --muted: #F0EDE6;
+  --surface-raised: #F5F3EE;
+  --foreground: #1E293B;
+  --muted-foreground: #64748B;
+  --subtle-foreground: #7A8499;
+  --primary: #F58235;
+  --primary-hover: #E07328;
+  --primary-foreground: #FFFFFF;
+  --accent: #F58235;
+  --accent-hover: #E07328;
   --accent-soft: #FCEBDD;
-  --success-soft: #E3F1E8;
-  --info-soft: #E9EDF9;
+  --border: #EAE5DC;
+  --border-strong: #DDD6CA;
+  --muted: #F0EDE6;
   --success: #26734D;
+  --success-soft: #E3F1E8;
   --warning: #A65A0A;
+  --warning-soft: #FCEBDD;
   --destructive: #B42318;
+  --destructive-soft: #FBE4E1;
+  --info-soft: #E9EDF9;
   --disabled-bg: #EAE7E1;
   --disabled-fg: #858585;
+  --shadow: rgba(28, 36, 51, 0.06);
 
   --font-display:
     Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -27,33 +37,51 @@
   --font-serif: Georgia, 'Times New Roman', serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #151A25;
-    --surface: #1E2535;
-    --foreground: #F2EFE8;
-    --muted-foreground: #A4ADBF;
-    --primary: #B9570A;
-    --primary-hover: #D06A1A;
-    --accent: #D9822B;
-    --accent-hover: #E8963F;
-    --border: #333D52;
-    --muted: #262E40;
-    --accent-soft: #3A2614;
-    --success-soft: #16382A;
-    --info-soft: #232D44;
-    --success: #3FA573;
-    --warning: #D9822B;
-    --destructive: #E0675B;
-    --disabled-bg: #262E40;
-    --disabled-fg: #6B7487;
-  }
+[data-theme='dark'],
+html.dark,
+body.dark {
+  /* Editorial design tokens - Dark Mode */
+  --background: #0B1018;
+  --surface: #141C28;
+  --surface-raised: #1B2534;
+  --foreground: #F1F5F9;
+  --muted-foreground: #94A3B8;
+  --subtle-foreground: #6E7A8E;
+  --primary: #F58235;
+  --primary-hover: #E07328;
+  --primary-foreground: #FFFFFF;
+  --accent: #F58235;
+  --accent-hover: #E07328;
+  --accent-soft: #2B1E16;
+  --border: #253244;
+  --border-strong: #334155;
+  --muted: #182130;
+  --success: #3FA573;
+  --success-soft: #13281E;
+  --warning: #F58235;
+  --warning-soft: #2B1E16;
+  --destructive: #E56D60;
+  --destructive-soft: #331715;
+  --info-soft: #162338;
+  --disabled-bg: #1B2534;
+  --disabled-fg: #525E73;
+  --shadow: rgba(0, 0, 0, 0.35);
 }
 
-html, body { background-color: var(--background); color: var(--foreground); }
+html, body {
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
 
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

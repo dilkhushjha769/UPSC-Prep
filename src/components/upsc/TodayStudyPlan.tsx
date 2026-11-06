@@ -1,4 +1,6 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   StyleSheet,
   Text,
@@ -17,10 +19,12 @@ import { SUBJECT_COLORS, UPSC_THEME } from '@/constants/themeColors';
 import { StudyTask } from '@/types/study';
 
 interface TodayStudyPlanProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
+export function TodayStudyPlan({ isDark: propIsDark }: TodayStudyPlanProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { tasks, toggleTask, deleteTask, setIsAddTaskModalOpen } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 
@@ -76,8 +80,7 @@ export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
           activeOpacity={0.8}
           onPress={() => setIsAddTaskModalOpen(true)}
           style={[
-            styles.addTaskBtn,
-            { backgroundColor: colors.primary },
+            styles.addTaskBtn, primaryButtonStyle(isDark),
           ]}>
           <Plus size={15} color="#FFFFFF" />
           <Text style={styles.addTaskBtnText}>Add Task</Text>
@@ -95,7 +98,7 @@ export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
             Build your momentum by scheduling your first study session for today.
           </Text>
           <TouchableOpacity
-            style={[styles.emptyAddBtn, { backgroundColor: colors.primary }]}
+            style={[styles.emptyAddBtn, primaryButtonStyle(isDark)]}
             onPress={() => setIsAddTaskModalOpen(true)}>
             <Text style={styles.emptyAddBtnText}>Add Your First Study Task</Text>
           </TouchableOpacity>
@@ -106,10 +109,10 @@ export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
             const subjectStyle =
               (task.subject && SUBJECT_COLORS[task.subject]) || SUBJECT_COLORS.Polity;
 
-            let priorityBg = isDark ? '#1E2535' : '#F0EDE6';
+            let priorityBg = isDark ? '#141C28' : '#F0EDE6';
             let priorityText = colors.textSecondary;
             if (task.priority === 'High') {
-              priorityBg = isDark ? '#3D1B18' : '#FBE4E1';
+              priorityBg = isDark ? '#3B1A17' : '#FBE4E1';
               priorityText = '#B42318';
             } else if (task.priority === 'Medium') {
               priorityBg = isDark ? '#2A1D12' : '#FCEBDD';
@@ -122,10 +125,10 @@ export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
                 style={[
                   styles.taskItem,
                   {
-                    backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                    backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                     borderColor: task.completed
                       ? isDark
-                        ? '#16382A'
+                        ? '#17301F'
                         : '#E3F1E8'
                       : colors.cardBorderSubtle,
                   },
@@ -158,7 +161,7 @@ export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
                       style={[
                         styles.subjectBadge,
                         {
-                          backgroundColor: isDark ? '#262E40' : subjectStyle.bg,
+                          backgroundColor: isDark ? '#1B2534' : subjectStyle.bg,
                           borderColor: subjectStyle.border,
                         },
                       ]}>

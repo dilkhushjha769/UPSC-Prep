@@ -1,4 +1,6 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React, { useState } from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   Modal,
   ScrollView,
@@ -29,10 +31,12 @@ const SUBJECT_OPTIONS: UPSCSubject[] = [
 ];
 
 interface AddTaskModalProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function AddTaskModal({ isDark }: AddTaskModalProps) {
+export function AddTaskModal({ isDark: propIsDark }: AddTaskModalProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { isAddTaskModalOpen, setIsAddTaskModalOpen, addTask } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 
@@ -109,7 +113,7 @@ export function AddTaskModal({ isDark }: AddTaskModalProps) {
                         backgroundColor: isSelected
                           ? colors.primary
                           : isDark
-                          ? '#1E2535'
+                          ? '#141C28'
                           : '#F0EDE6',
                       },
                     ]}>
@@ -137,7 +141,7 @@ export function AddTaskModal({ isDark }: AddTaskModalProps) {
               style={[
                 styles.input,
                 {
-                  backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                  backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },
@@ -166,7 +170,7 @@ export function AddTaskModal({ isDark }: AddTaskModalProps) {
                             : colors.primary,
                       },
                       !isSelected && {
-                        backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
+                        backgroundColor: isDark ? '#141C28' : '#F0EDE6',
                       },
                     ]}>
                     <Text
@@ -194,7 +198,7 @@ export function AddTaskModal({ isDark }: AddTaskModalProps) {
               style={[
                 styles.input,
                 {
-                  backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                  backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },
@@ -215,7 +219,7 @@ export function AddTaskModal({ isDark }: AddTaskModalProps) {
                 styles.input,
                 {
                   minHeight: 50,
-                  backgroundColor: isDark ? '#1E2535' : '#FAF9F6',
+                  backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },
@@ -225,7 +229,7 @@ export function AddTaskModal({ isDark }: AddTaskModalProps) {
             {/* Add Button */}
             <TouchableOpacity
               onPress={handleAddTask}
-              style={[styles.saveBtn, { backgroundColor: colors.primary }]}>
+              style={[styles.saveBtn, primaryButtonStyle(isDark)]}>
               <Plus size={17} color="#FFFFFF" />
               <Text style={styles.saveBtnText}>{"Add to Today's Plan"}</Text>
             </TouchableOpacity>

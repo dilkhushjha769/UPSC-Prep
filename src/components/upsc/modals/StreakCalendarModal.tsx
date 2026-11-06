@@ -14,11 +14,12 @@ import {
   X,
 } from 'lucide-react-native';
 import { useStudy } from '@/context/StudyContext';
+import { useAppTheme } from '@/context/ThemeContext';
 import { BW_THEME } from '@/constants/bwTheme';
 import { aggregateDailyStudyMinutes, getLocalDateString } from '@/services/streakCalculator';
 
 interface StreakCalendarModalProps {
-  isDark: boolean;
+  isDark?: boolean;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -50,10 +51,12 @@ interface CalendarDayItem {
 }
 
 export function StreakCalendarModal({
-  isDark,
+  isDark: propIsDark,
   isOpen,
   onClose,
 }: StreakCalendarModalProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { sessions, streak, config } = useStudy();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
 
@@ -129,8 +132,8 @@ export function StreakCalendarModal({
           style={[
             styles.modalContainer,
             {
-              backgroundColor: isDark ? '#151A25' : '#FFFFFF',
-              borderColor: isDark ? '#262E40' : '#EAE5DC',
+              backgroundColor: isDark ? '#0B1018' : '#FFFFFF',
+              borderColor: isDark ? '#253244' : '#EAE5DC',
             },
             Platform.OS === 'web' && ({
               boxShadow: isDark
@@ -153,7 +156,7 @@ export function StreakCalendarModal({
                   },
                 ]}>
                 <Flame size={11} color="#A65A0A" fill="#D9822B" />
-                <Text style={[styles.streakBadgeText, { color: isDark ? '#D9822B' : '#A65A0A' }]}>
+                <Text style={[styles.streakBadgeText, { color: isDark ? '#E0963A' : '#A65A0A' }]}>
                   {streak.currentStreak}d streak
                 </Text>
               </View>
@@ -165,8 +168,8 @@ export function StreakCalendarModal({
               style={[
                 styles.closeBtn,
                 {
-                  backgroundColor: isDark ? '#1C2433' : '#FAF9F6',
-                  borderColor: isDark ? '#333D52' : '#EAE5DC',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
+                  borderColor: isDark ? '#253244' : '#EAE5DC',
                 },
               ]}>
               <X size={14} color={theme.textPrimary} />
@@ -180,7 +183,7 @@ export function StreakCalendarModal({
               onPress={handlePrevMonth}
               style={[
                 styles.navArrow,
-                { borderColor: isDark ? '#333D52' : '#EAE5DC' },
+                { borderColor: isDark ? '#253244' : '#EAE5DC' },
               ]}>
               <ChevronLeft size={15} color={theme.textPrimary} />
             </TouchableOpacity>
@@ -194,7 +197,7 @@ export function StreakCalendarModal({
               onPress={handleNextMonth}
               style={[
                 styles.navArrow,
-                { borderColor: isDark ? '#333D52' : '#EAE5DC' },
+                { borderColor: isDark ? '#253244' : '#EAE5DC' },
               ]}>
               <ChevronRight size={15} color={theme.textPrimary} />
             </TouchableOpacity>
@@ -205,7 +208,7 @@ export function StreakCalendarModal({
             {WEEKDAY_NAMES.map((name, i) => (
               <Text
                 key={`${name}-${i}`}
-                style={[styles.weekdayText, { color: isDark ? '#5F6B80' : '#7A8499' }]}>
+                style={[styles.weekdayText, { color: isDark ? '#6E7A8E' : '#7A8499' }]}>
                 {name}
               </Text>
             ))}
@@ -222,17 +225,17 @@ export function StreakCalendarModal({
 
               let circleBg = 'transparent';
               let circleBorder = 'transparent';
-              let numColor = isDark ? '#7A8499' : '#5F6B80';
+              let numColor = isDark ? '#6E7A8E' : '#5F6B80';
 
               if (item.isCompleted) {
                 circleBg = isDark ? 'rgba(38, 115, 77, 0.14)' : '#E3F1E8';
                 circleBorder = isDark ? 'rgba(52, 211, 153, 0.35)' : '#BFDECB';
-                numColor = isDark ? '#3FA573' : '#26734D';
+                numColor = isDark ? '#4DB383' : '#26734D';
               } else if (item.isToday) {
-                circleBorder = isDark ? '#FFFFFF' : '#151A25';
+                circleBorder = isDark ? '#FFFFFF' : '#0B1018';
                 numColor = theme.textPrimary;
               } else if (isMissed) {
-                numColor = isDark ? '#5F6B80' : '#7A8499';
+                numColor = isDark ? '#6E7A8E' : '#7A8499';
               }
 
               return (
@@ -262,7 +265,7 @@ export function StreakCalendarModal({
                       <View
                         style={[
                           styles.dotIndicator,
-                          { backgroundColor: isDark ? '#3FA573' : '#26734D' },
+                          { backgroundColor: isDark ? '#4DB383' : '#26734D' },
                         ]}
                       />
                     )}
@@ -286,10 +289,10 @@ export function StreakCalendarModal({
               <View
                 style={[
                   styles.legendDot,
-                  { backgroundColor: isDark ? '#3FA573' : '#26734D' },
+                  { backgroundColor: isDark ? '#4DB383' : '#26734D' },
                 ]}
               />
-              <Text style={[styles.legendText, { color: isDark ? '#8892A6' : '#5F6B80' }]}>
+              <Text style={[styles.legendText, { color: isDark ? '#6E7A8E' : '#5F6B80' }]}>
                 Done
               </Text>
             </View>
@@ -301,7 +304,7 @@ export function StreakCalendarModal({
                   { backgroundColor: isDark ? '#B42318' : '#B42318', opacity: 0.75 },
                 ]}
               />
-              <Text style={[styles.legendText, { color: isDark ? '#8892A6' : '#5F6B80' }]}>
+              <Text style={[styles.legendText, { color: isDark ? '#6E7A8E' : '#5F6B80' }]}>
                 Missed
               </Text>
             </View>
@@ -310,10 +313,10 @@ export function StreakCalendarModal({
               <View
                 style={[
                   styles.todayDot,
-                  { borderColor: isDark ? '#FFFFFF' : '#151A25' },
+                  { borderColor: isDark ? '#FFFFFF' : '#0B1018' },
                 ]}
               />
-              <Text style={[styles.legendText, { color: isDark ? '#8892A6' : '#5F6B80' }]}>
+              <Text style={[styles.legendText, { color: isDark ? '#6E7A8E' : '#5F6B80' }]}>
                 Today
               </Text>
             </View>

@@ -26,6 +26,7 @@ import {
 import { BW_THEME } from '@/constants/bwTheme';
 import { TOGGLE_ACTIVE_COLOR } from '@/constants/colors';
 import { useStudy } from '@/context/StudyContext';
+import { useAppTheme } from '@/context/ThemeContext';
 
 interface SettingsScreenProps {
   isDark: boolean;
@@ -57,7 +58,7 @@ function PrimaryToggleSwitch({
         width: 44,
         height: 24,
         borderRadius: 12,
-        backgroundColor: value ? TOGGLE_ACTIVE_COLOR : isDark ? '#262E40' : '#DDD6CA',
+        backgroundColor: value ? TOGGLE_ACTIVE_COLOR : isDark ? '#1B2534' : '#DDD6CA',
         justifyContent: 'center',
         paddingHorizontal: 2,
       }}>
@@ -80,15 +81,27 @@ function PrimaryToggleSwitch({
 }
 
 export function SettingsScreen({
-  isDark,
+  isDark: propIsDark,
   onBack,
-  onToggleTheme,
+  onToggleTheme: propToggleTheme,
   onOpenPrivacy,
   onOpenTerms,
   onOpenNotificationSettings,
   onOpenFocusSettings,
   onNavigateToNotifications,
-}: SettingsScreenProps) {
+}: {
+  isDark?: boolean;
+  onBack: () => void;
+  onToggleTheme?: () => void;
+  onOpenPrivacy: () => void;
+  onOpenTerms: () => void;
+  onOpenNotificationSettings?: () => void;
+  onOpenFocusSettings?: () => void;
+  onNavigateToNotifications?: () => void;
+}) {
+  const { isDark: contextIsDark, toggleTheme: contextToggleTheme } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
+  const onToggleTheme = propToggleTheme || contextToggleTheme;
   const { resetToDefaults } = useStudy();
   const { width } = useWindowDimensions();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
@@ -98,7 +111,7 @@ export function SettingsScreen({
 
   const dividerStyle = [
     styles.rowDivider,
-    { borderBottomColor: isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.06)' },
+    { borderBottomColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.06)' },
   ];
 
   const handleResetData = () => {
@@ -127,7 +140,7 @@ export function SettingsScreen({
           styles.headerBar,
           {
             backgroundColor: theme.bg,
-            borderBottomColor: isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.06)',
+            borderBottomColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.06)',
           },
         ]}>
         <TouchableOpacity
@@ -138,8 +151,8 @@ export function SettingsScreen({
             styles.backBtn,
             Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
             {
-              backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.04)',
-              borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.06)',
+              backgroundColor: isDark ? '#1B2534' : 'rgba(0, 0, 0, 0.04)',
+              borderColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.06)',
             },
           ]}>
           <ChevronLeft size={20} color={theme.textPrimary} strokeWidth={2.4} />
@@ -334,8 +347,8 @@ export function SettingsScreen({
             onPress={handleResetData}
             style={[styles.listRow, dividerStyle]}>
             <View style={styles.rowLeftGroup}>
-              <RotateCcw size={16} color={isDark ? '#E0675B' : '#B42318'} strokeWidth={2} />
-              <Text style={[styles.rowLabel, { color: isDark ? '#E0675B' : '#B42318' }]}>
+              <RotateCcw size={16} color={isDark ? '#E5766B' : '#B42318'} strokeWidth={2} />
+              <Text style={[styles.rowLabel, { color: isDark ? '#E5766B' : '#B42318' }]}>
                 Reset Study Data to Defaults
               </Text>
             </View>

@@ -1,12 +1,15 @@
-import React, { useMemo } from 'react';
+import { useAppTheme } from '@/context/ThemeContext';
+import { verifyNewsImageRelevance } from '@/utils/imageVerification';
+import { Image } from 'expo-image';
+import { Bookmark, Sparkles } from 'lucide-react-native';
+import { useMemo, useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
   Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
-import { Bookmark } from 'lucide-react-native';
 
 export interface EditorialNewsItem {
   id: string;
@@ -27,7 +30,7 @@ export interface EditorialNewsItem {
   isMainsRelevant?: boolean;
   date?: string;
   dateKey?: string;
-  imageUrl?: string;
+  imageUrl?: string | null;
   [key: string]: any;
 }
 
@@ -44,8 +47,10 @@ export function EditorialNewsCard({
   isBookmarked,
   onToggleBookmark,
   onReadSummary,
-  isDark = false,
+  isDark: propIsDark,
 }: EditorialNewsCardProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   // Normalize title
   const title = (item.headline || item.title || 'UPSC Current Affairs Update').trim();
 
@@ -176,6 +181,26 @@ export function EditorialNewsCard({
     return 'Prelims';
   }, [item.isPrelimsRelevant, item.isMainsRelevant]);
 
+  const [imageLoadFailed, setImageLoadFailed] = useState(false);
+
+  const verification = useMemo(() => {
+    const candidate = item.imageUrl || item.imageMetadata?.imageUrl || null;
+    return verifyNewsImageRelevance({
+      headline: title,
+      summary: whyItMattersText,
+      imageUrl: candidate,
+      caption: item.imageMetadata?.caption,
+      credit: item.imageMetadata?.credit,
+      source: cleanSource,
+      category: categoryLabel,
+    });
+  }, [title, whyItMattersText, item.imageUrl, item.imageMetadata, cleanSource, categoryLabel]);
+
+  const verifiedImageUrl =
+    !imageLoadFailed && verification.status === 'VERIFIED' ? verification.verifiedImageUrl : null;
+
+  const hasVisualLearning = Boolean(item.visualLearningAssets && item.visualLearningAssets.length > 0);
+
   return (
     <View style={[styles.card, isDark && styles.cardDark]}>
       {/* Top Meta Line: GS Badge + Source + Read Time */}
@@ -194,10 +219,41 @@ export function EditorialNewsCard({
           </Text>
         </View>
 
-        <Text style={[styles.metaInfoText, isDark && styles.metaInfoTextDark]}>
-          {cleanSource} · {readTime}
-        </Text>
+        <View style={styles.metaRightGroup}>
+          {hasVisualLearning && (
+            <View style={[styles.visualTagPill, isDark && styles.visualTagPillDark]}>
+              <Sparkles size={11} color="#F58235" strokeWidth={2.5} />
+              <Text style={styles.visualTagText}>Visuals</Text>
+            </View>
+          )}
+          <Text style={[styles.metaInfoText, isDark && styles.metaInfoTextDark]}>
+            {cleanSource} · {readTime}
+          </Text>
+        </View>
       </View>
+
+      {/* Authentic Editorial Photograph Banner */}
+      {Boolean(verifiedImageUrl) && (
+        <Pressable
+          onPress={() => onReadSummary(item)}
+          style={[styles.imageCardWrapper, isDark && styles.imageCardWrapperDark]}
+          accessibilityRole="button"
+          accessibilityLabel={`Open full article: ${title}`}
+        >
+          <Image
+            source={{ uri: verifiedImageUrl! }}
+            style={styles.articleImage}
+            contentFit="cover"
+            transition={200}
+            onError={() => setImageLoadFailed(true)}
+          />
+          <View style={[styles.imageOverlaySourceBadge, isDark && styles.imageOverlaySourceBadgeDark]}>
+            <Text style={styles.imageOverlaySourceText}>
+              {verification.sourceCredibility === 'official_gov' ? 'Verified Official' : cleanSource}
+            </Text>
+          </View>
+        </Pressable>
+      )}
 
       {/* Article Title in Elegant Serif Typography */}
       <Pressable onPress={() => onReadSummary(item)}>
@@ -231,7 +287,7 @@ export function EditorialNewsCard({
             style={({ pressed }: any) => [
               styles.bookmarkBtn,
               isDark && styles.bookmarkBtnDark,
-              isBookmarked && styles.bookmarkBtnActive,
+              isBookmarked && (isDark ? styles.bookmarkBtnActiveDark : styles.bookmarkBtnActive),
               pressed && styles.btnPressed,
             ]}
             onPress={() => onToggleBookmark(item.id)}
@@ -241,8 +297,8 @@ export function EditorialNewsCard({
           >
             <Bookmark
               size={17}
-              color={isBookmarked ? '#B9570A' : isDark ? '#8892A6' : '#4A5568'}
-              fill={isBookmarked ? '#B9570A' : 'none'}
+              color={isBookmarked ? '#F58235' : isDark ? '#8892A6' : '#4A5568'}
+              fill={isBookmarked ? '#F58235' : 'none'}
               strokeWidth={2}
             />
           </Pressable>
@@ -267,6 +323,47 @@ export function EditorialNewsCard({
 }
 
 const styles = StyleSheet.create({
+  imageCardWrapper: {
+    width: '100%',
+    height: 190,
+    borderRadius: 10,
+    overflow: 'hidden',
+    marginTop: 12,
+    marginBottom: 14,
+    borderWidth: 1,
+    borderColor: '#EAE5DC',
+    position: 'relative',
+    backgroundColor: '#F0EDE6',
+  },
+  imageCardWrapperDark: {
+    borderColor: '#253244',
+    backgroundColor: '#1B2534',
+  },
+  articleImage: {
+    width: '100%',
+    height: '100%',
+  },
+  imageOverlaySourceBadge: {
+    position: 'absolute',
+    bottom: 8,
+    left: 8,
+    backgroundColor: 'rgba(15, 20, 30, 0.78)',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.15)',
+  },
+  imageOverlaySourceBadgeDark: {
+    backgroundColor: 'rgba(11, 16, 24, 0.85)',
+    borderColor: 'rgba(255, 255, 255, 0.12)',
+  },
+  imageOverlaySourceText: {
+    color: '#F1F5F9',
+    fontSize: 11,
+    fontWeight: '600',
+    letterSpacing: 0.2,
+  },
   card: {
     backgroundColor: '#FFFFFF',
     borderRadius: 14,
@@ -288,6 +385,29 @@ const styles = StyleSheet.create({
   cardDark: {
     backgroundColor: '#151A25',
     borderColor: '#333D52',
+  },
+  metaRightGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  visualTagPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: '#FCEBDD',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+  },
+  visualTagPillDark: {
+    backgroundColor: 'rgba(245, 130, 53, 0.15)',
+  },
+  visualTagText: {
+    color: '#F58235',
+    fontSize: 10.5,
+    fontWeight: '800',
+    letterSpacing: 0.2,
   },
   topMetaRow: {
     flexDirection: 'row',
@@ -388,23 +508,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   bookmarkBtnDark: {
-    backgroundColor: '#1E2535',
-    borderColor: '#333D52',
+    backgroundColor: '#1B2534',
+    borderColor: '#253244',
   },
   bookmarkBtnActive: {
-    borderColor: '#D9822B',
+    borderColor: '#F58235',
     backgroundColor: '#FCEBDD',
   },
+  bookmarkBtnActiveDark: {
+    borderColor: '#F58235',
+    backgroundColor: 'rgba(245, 130, 53, 0.16)',
+  },
   readSummaryBtn: {
-    backgroundColor: '#151A25',
-    paddingHorizontal: 16,
+    backgroundColor: '#F58235',
+    paddingHorizontal: 18,
     height: 38,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
   },
   readSummaryBtnDark: {
-    backgroundColor: '#F0EDE6',
+    backgroundColor: '#F58235',
   },
   readSummaryBtnPressed: {
     opacity: 0.85,
@@ -413,7 +537,8 @@ const styles = StyleSheet.create({
   readSummaryBtnText: {
     color: '#FFFFFF',
     fontSize: 13.5,
-    fontWeight: '600',
+    fontWeight: '700',
+    letterSpacing: -0.1,
   },
   btnPressed: {
     opacity: 0.8,

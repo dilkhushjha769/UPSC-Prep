@@ -6,6 +6,7 @@ import {
   Pressable,
   Platform,
 } from 'react-native';
+import { useAppTheme } from '@/context/ThemeContext';
 
 interface SavedItem {
   id: string;
@@ -28,8 +29,10 @@ export function EditorialSidebarWidgets({
   savedItems,
   onStartQuiz,
   onSelectSavedItem,
-  isDark = false,
+  isDark: propIsDark,
 }: EditorialSidebarWidgetsProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   // Ensure progress is bounded between 0 and 1
   const progressRatio = totalCount > 0 ? Math.min(1, Math.max(0, readCount / totalCount)) : 0;
   const progressPercent = Math.round(progressRatio * 100);
@@ -65,6 +68,7 @@ export function EditorialSidebarWidgets({
         <Pressable
           style={({ pressed }: any) => [
             styles.quizBtn,
+            isDark && styles.quizBtnDark,
             pressed && styles.quizBtnPressed,
           ]}
           onPress={onStartQuiz}
@@ -136,8 +140,8 @@ const styles = StyleSheet.create({
     }),
   },
   cardDark: {
-    backgroundColor: '#151A25',
-    borderColor: '#333D52',
+    backgroundColor: '#141C28',
+    borderColor: '#253244',
   },
   widgetTitle: {
     fontSize: 16,
@@ -146,17 +150,17 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   widgetTitleDark: {
-    color: '#FAF9F6',
+    color: '#F0F4F8',
   },
   progressTrack: {
-    height: 8,
+    height: 6,
     borderRadius: 999,
-    backgroundColor: '#F2C9A3',
+    backgroundColor: '#F0EDE6',
     overflow: 'hidden',
     marginBottom: 10,
   },
   progressTrackDark: {
-    backgroundColor: '#1E2535',
+    backgroundColor: '#1B2534',
   },
   progressFill: {
     height: '100%',
@@ -169,17 +173,17 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   progressSubtextDark: {
-    color: '#8892A6',
+    color: '#9DA8B9',
   },
   quizCard: {
-    backgroundColor: '#151A25',
+    backgroundColor: '#1C2433',
     borderRadius: 14,
     padding: 20,
     borderWidth: 1,
     borderColor: '#1C2433',
     ...Platform.select({
       web: {
-        boxShadow: '0 4px 12px rgba(17, 24, 39, 0.12)',
+        boxShadow: '0 2px 8px rgba(28, 36, 51, 0.08)',
       },
       default: {
         elevation: 2,
@@ -187,8 +191,8 @@ const styles = StyleSheet.create({
     }),
   },
   quizCardDark: {
-    backgroundColor: '#151A25',
-    borderColor: '#333D52',
+    backgroundColor: '#182438',
+    borderColor: '#243247',
   },
   quizTitle: {
     fontSize: 17,
@@ -198,25 +202,28 @@ const styles = StyleSheet.create({
   },
   quizSubtitle: {
     fontSize: 13.5,
-    color: '#8892A6',
+    color: '#9DA8B9',
     lineHeight: 19,
     marginBottom: 16,
+  },
+  quizBtnDark: {
+    backgroundColor: '#F4F6FB',
   },
   quizBtn: {
     backgroundColor: '#FFFFFF',
     height: 40,
-    borderRadius: 8,
+    borderRadius: 11,
     alignItems: 'center',
     justifyContent: 'center',
   },
   quizBtnPressed: {
     opacity: 0.9,
-    transform: [{ scale: 0.98 }],
+    transform: [{ scale: 0.985 }],
   },
   quizBtnText: {
-    color: '#151A25',
+    color: '#1C2433',
     fontSize: 14,
-    fontWeight: '700',
+    fontWeight: '600',
   },
   savedList: {
     marginTop: 2,
@@ -238,15 +245,14 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   savedItemTextDark: {
-    color: '#EAE5DC',
+    color: '#F0F4F8',
   },
   emptySavedText: {
     fontSize: 13,
     color: '#8892A6',
     lineHeight: 19,
-    fontStyle: 'italic',
   },
   emptySavedTextDark: {
-    color: '#5F6B80',
+    color: '#6E7A8E',
   },
 });

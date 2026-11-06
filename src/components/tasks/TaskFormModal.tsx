@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/Button';
+import { PALETTE, SemanticColors, Typography } from '@/constants/colors';
+import { primaryButtonStyle } from '@/constants/designTokens';
+import { TASK_COLOR_PALETTES, TaskColorScheme } from '@/constants/taskColors';
+import { useAppTheme } from '@/context/ThemeContext';
+import { StudyTask, TaskColorTag } from '@/types/study';
+import { Check, Clock, X } from 'lucide-react-native';
+import { useState } from 'react';
 import {
   Modal,
-  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import { Check, Clock, X } from 'lucide-react-native';
-import { PALETTE, SemanticColors, Typography } from '@/constants/colors';
-import { StudyTask, TaskColorTag } from '@/types/study';
-import { TASK_COLOR_PALETTES, TaskColorScheme } from '@/constants/taskColors';
-import { Button } from '@/components/ui/Button';
 
 interface TaskFormModalProps {
   isOpen: boolean;
@@ -37,8 +38,10 @@ export function TaskFormModal({
   onClose,
   onSave,
   initialDate,
-  isDark = false,
+  isDark: propIsDark,
 }: TaskFormModalProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const theme = isDark ? SemanticColors.dark : SemanticColors.light;
 
   const [title, setTitle] = useState('');
@@ -103,7 +106,7 @@ export function TaskFormModal({
             styles.modalCard,
             {
               backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-              borderColor: isDark ? '#333D52' : '#EAE5DC',
+              borderColor: isDark ? '#253244' : '#EAE5DC',
             },
           ]}
           onPress={(e) => e.stopPropagation()}>
@@ -124,8 +127,8 @@ export function TaskFormModal({
               style={[
                 styles.closeBtn,
                 {
-                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6',
-                  borderColor: isDark ? '#333D52' : '#EAE5DC',
+                  backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
+                  borderColor: isDark ? '#253244' : '#EAE5DC',
                 },
               ]}>
               <X size={16} color={theme.textPrimary} />
@@ -157,7 +160,7 @@ export function TaskFormModal({
                   styles.textInput,
                   {
                     backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#FAF9F6',
-                    borderColor: isDark ? '#333D52' : '#EAE5DC',
+                    borderColor: isDark ? '#253244' : '#EAE5DC',
                     color: theme.textPrimary,
                   },
                 ]}
@@ -181,7 +184,7 @@ export function TaskFormModal({
                   styles.textArea,
                   {
                     backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#FAF9F6',
-                    borderColor: isDark ? '#333D52' : '#EAE5DC',
+                    borderColor: isDark ? '#253244' : '#EAE5DC',
                     color: theme.textPrimary,
                   },
                 ]}
@@ -208,7 +211,7 @@ export function TaskFormModal({
                   styles.timeInputContainer,
                   {
                     backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#FAF9F6',
-                    borderColor: isDark ? '#333D52' : '#EAE5DC',
+                    borderColor: isDark ? '#253244' : '#EAE5DC',
                   },
                 ]}>
                 <Clock size={15} color={theme.textMuted} strokeWidth={2} />
@@ -244,7 +247,7 @@ export function TaskFormModal({
                             : (isDark ? PALETTE.neutral.dark.darkest : '#F0EDE6'),
                           borderColor: isSelected
                             ? PALETTE.highlight.primary
-                            : (isDark ? '#333D52' : '#EAE5DC'),
+                            : (isDark ? '#253244' : '#EAE5DC'),
                         },
                       ]}>
                       <Text
@@ -300,7 +303,7 @@ export function TaskFormModal({
               title={isSaving ? 'Adding...' : 'Add Task'}
               onPress={handleSave}
               disabled={isSaving}
-              style={styles.saveSubmitBtn}
+              style={[styles.saveSubmitBtn, primaryButtonStyle(isDark)]}
             />
           </ScrollView>
         </Pressable>
@@ -445,6 +448,6 @@ const styles = StyleSheet.create({
   },
   saveSubmitBtn: {
     marginTop: 6,
-    backgroundColor: PALETTE.highlight.primary, // #B9570A
+    backgroundColor: '#F58235',
   },
 });

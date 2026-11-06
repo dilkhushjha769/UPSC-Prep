@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React from 'react';
 import {
   StyleSheet,
@@ -9,7 +10,6 @@ import {
   FileQuestion,
   History,
   Newspaper,
-  PenLine,
   Play,
   PlusCircle,
 } from 'lucide-react-native';
@@ -17,15 +17,16 @@ import { useStudy } from '@/context/StudyContext';
 import { UPSC_THEME } from '@/constants/themeColors';
 
 interface QuickActionsProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function QuickActions({ isDark }: QuickActionsProps) {
+export function QuickActions({ isDark: propIsDark }: QuickActionsProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const {
     setIsFocusModalOpen,
     setIsAddTaskModalOpen,
     setIsMCQModalOpen,
-    setIsMainsModalOpen,
     setIsHistoryModalOpen,
     recordArticleRead,
   } = useStudy();
@@ -48,7 +49,7 @@ export function QuickActions({ isDark }: QuickActionsProps) {
       subtitle: 'Schedule target',
       icon: PlusCircle,
       color: '#B9570A',
-      bgColor: isDark ? '#1E2535' : '#E9EDF9',
+      bgColor: isDark ? '#141C28' : '#E9EDF9',
       onPress: () => setIsAddTaskModalOpen(true),
     },
     {
@@ -57,7 +58,7 @@ export function QuickActions({ isDark }: QuickActionsProps) {
       subtitle: 'Prelims quiz',
       icon: FileQuestion,
       color: colors.accentEmerald,
-      bgColor: isDark ? '#16382A' : '#E3F1E8',
+      bgColor: isDark ? '#17301F' : '#E3F1E8',
       onPress: () => setIsMCQModalOpen(true),
     },
     {
@@ -66,17 +67,8 @@ export function QuickActions({ isDark }: QuickActionsProps) {
       subtitle: 'Editorial note',
       icon: Newspaper,
       color: colors.accentSky,
-      bgColor: isDark ? '#1E2535' : '#E9EDF9',
+      bgColor: isDark ? '#141C28' : '#E9EDF9',
       onPress: () => recordArticleRead(),
-    },
-    {
-      id: 'mains',
-      title: 'Mains Answer',
-      subtitle: 'Draft 150w prompt',
-      icon: PenLine,
-      color: colors.accentPink,
-      bgColor: isDark ? '#1E2535' : '#E9EDF9',
-      onPress: () => setIsMainsModalOpen(true),
     },
     {
       id: 'history',

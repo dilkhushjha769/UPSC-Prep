@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React from 'react';
 import {
   Modal,
@@ -26,10 +27,12 @@ import { BW_THEME } from '@/constants/bwTheme';
 import { formatHumanDuration } from '@/services/focusTimerService';
 
 interface FocusSummaryModalProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
+export function FocusSummaryModal({ isDark: propIsDark }: FocusSummaryModalProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const {
     isFocusSummaryModalOpen,
     setIsFocusSummaryModalOpen,
@@ -68,7 +71,7 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
             styles.modalContainer,
             {
               backgroundColor: theme.cardBg,
-              borderColor: isDark ? '#262E40' : theme.cardBorder,
+              borderColor: isDark ? '#253244' : theme.cardBorder,
             },
             Platform.OS === 'web' && ({
               boxShadow: isDark
@@ -87,7 +90,7 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
                     borderColor: isDark ? 'rgba(52, 211, 153, 0.3)' : 'rgba(38, 115, 77, 0.2)',
                   },
                 ]}>
-                <CheckCircle2 size={16} color={isDark ? '#3FA573' : '#26734D'} />
+                <CheckCircle2 size={16} color={isDark ? '#4DB383' : '#26734D'} />
               </View>
               <View>
                 <Text style={[styles.headerTitle, { color: theme.textPrimary }]}>
@@ -105,8 +108,8 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
               style={[
                 styles.closeBtn,
                 {
-                  backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
-                  borderColor: isDark ? '#262E40' : '#EAE5DC',
+                  backgroundColor: isDark ? '#141C28' : '#F0EDE6',
+                  borderColor: isDark ? '#253244' : '#EAE5DC',
                 },
               ]}>
               <X size={15} color={theme.textPrimary} />
@@ -121,8 +124,8 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
               style={[
                 styles.subjectBanner,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
-                  borderColor: isDark ? '#262E40' : '#EAE5DC',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
+                  borderColor: isDark ? '#253244' : '#EAE5DC',
                 },
               ]}>
               <View style={styles.bannerRow}>
@@ -130,7 +133,7 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
                   style={[
                     styles.subjectBadge,
                     {
-                      backgroundColor: isDark ? '#262E40' : '#EAE5DC',
+                      backgroundColor: isDark ? '#1B2534' : '#EAE5DC',
                     },
                   ]}>
                   <BookOpen size={11} color={theme.textPrimary} />
@@ -166,8 +169,8 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
                 style={[
                   styles.statCard,
                   {
-                    backgroundColor: isDark ? '#151A25' : '#FFFFFF',
-                    borderColor: isDark ? '#262E40' : '#EAE5DC',
+                    backgroundColor: isDark ? '#0B1018' : '#FFFFFF',
+                    borderColor: isDark ? '#253244' : '#EAE5DC',
                   },
                 ]}>
                 <Text style={[styles.statLabel, { color: theme.textMuted }]}>
@@ -176,7 +179,7 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
                 <Text
                   style={[
                     styles.statValueLarge,
-                    { color: isDark ? '#3FA573' : '#26734D' },
+                    { color: isDark ? '#4DB383' : '#26734D' },
                   ]}>
                   {formatHumanDuration(lastSessionSummary.focusedSeconds)}
                 </Text>
@@ -190,8 +193,8 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
                 style={[
                   styles.statCard,
                   {
-                    backgroundColor: isDark ? '#151A25' : '#FFFFFF',
-                    borderColor: isDark ? '#262E40' : '#EAE5DC',
+                    backgroundColor: isDark ? '#0B1018' : '#FFFFFF',
+                    borderColor: isDark ? '#253244' : '#EAE5DC',
                   },
                 ]}>
                 <Text style={[styles.statLabel, { color: theme.textMuted }]}>
@@ -210,8 +213,8 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
                 style={[
                   styles.statCard,
                   {
-                    backgroundColor: isDark ? '#151A25' : '#FFFFFF',
-                    borderColor: isDark ? '#262E40' : '#EAE5DC',
+                    backgroundColor: isDark ? '#0B1018' : '#FFFFFF',
+                    borderColor: isDark ? '#253244' : '#EAE5DC',
                   },
                 ]}>
                 <View style={styles.statLabelRow}>
@@ -235,8 +238,8 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
                 style={[
                   styles.statCard,
                   {
-                    backgroundColor: isDark ? '#151A25' : '#FFFFFF',
-                    borderColor: isDark ? '#262E40' : '#EAE5DC',
+                    backgroundColor: isDark ? '#0B1018' : '#FFFFFF',
+                    borderColor: isDark ? '#253244' : '#EAE5DC',
                   },
                 ]}>
                 <View style={styles.statLabelRow}>
@@ -250,7 +253,7 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
                     styles.statValue,
                     {
                       color: lastSessionSummary.distractionCount === 0
-                        ? isDark ? '#3FA573' : '#26734D'
+                        ? isDark ? '#4DB383' : '#26734D'
                         : '#A65A0A',
                     },
                   ]}>
@@ -269,8 +272,8 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
               style={[
                 styles.goalProgressCard,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#FAF9F6',
-                  borderColor: isDark ? '#262E40' : '#EAE5DC',
+                  backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
+                  borderColor: isDark ? '#253244' : '#EAE5DC',
                 },
               ]}>
               <View style={styles.goalHeaderRow}>
@@ -289,14 +292,14 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
               <View
                 style={[
                   styles.progressBarTrack,
-                  { backgroundColor: isDark ? '#262E40' : '#EAE5DC' },
+                  { backgroundColor: isDark ? '#1B2534' : '#EAE5DC' },
                 ]}>
                 <View
                   style={[
                     styles.progressBarFill,
                     {
                       width: `${Math.min(100, lastSessionSummary.goalCompletionPercent)}%`,
-                      backgroundColor: isDark ? '#FFFFFF' : '#151A25',
+                      backgroundColor: isDark ? '#FFFFFF' : '#0B1018',
                     },
                   ]}
                 />
@@ -326,8 +329,8 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
               style={[
                 styles.quoteCard,
                 {
-                  backgroundColor: isDark ? '#151A25' : '#F0EDE6',
-                  borderColor: isDark ? '#262E40' : '#EAE5DC',
+                  backgroundColor: isDark ? '#0B1018' : '#F0EDE6',
+                  borderColor: isDark ? '#253244' : '#EAE5DC',
                 },
               ]}>
               <Sparkles size={14} color={theme.textPrimary} />
@@ -344,14 +347,14 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
                 style={[
                   styles.primaryBtn,
                   {
-                    backgroundColor: isDark ? '#FFFFFF' : '#151A25',
+                    backgroundColor: isDark ? '#FFFFFF' : '#0B1018',
                   },
                 ]}>
-                <CheckCircle2 size={16} color={isDark ? '#151A25' : '#FFFFFF'} />
+                <CheckCircle2 size={16} color={isDark ? '#0B1018' : '#FFFFFF'} />
                 <Text
                   style={[
                     styles.primaryBtnText,
-                    { color: isDark ? '#151A25' : '#FFFFFF' },
+                    { color: isDark ? '#0B1018' : '#FFFFFF' },
                   ]}>
                   Save and Finish
                 </Text>
@@ -364,8 +367,8 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
                   style={[
                     styles.secondaryBtn,
                     {
-                      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
-                      borderColor: isDark ? '#262E40' : '#EAE5DC',
+                      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
+                      borderColor: isDark ? '#253244' : '#EAE5DC',
                     },
                   ]}>
                   <Play size={14} color={theme.textPrimary} />
@@ -380,8 +383,8 @@ export function FocusSummaryModal({ isDark }: FocusSummaryModalProps) {
                   style={[
                     styles.secondaryBtn,
                     {
-                      backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
-                      borderColor: isDark ? '#262E40' : '#EAE5DC',
+                      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
+                      borderColor: isDark ? '#253244' : '#EAE5DC',
                     },
                   ]}>
                   <RotateCcw size={14} color={theme.textSecondary} />

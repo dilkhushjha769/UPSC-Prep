@@ -19,6 +19,8 @@ import {
   BookOpen,
   LayoutGrid,
   ChevronDown,
+  PenLine,
+  FileText,
 } from 'lucide-react-native';
 import { PrimaryToggle } from '@/components/common/PrimaryToggle';
 import { MockTestService } from '@/services/mockTestService';
@@ -29,8 +31,10 @@ import {
   QuestionOrderMode,
   TestMode,
 } from '@/types/mockTest';
+import { MainsPaperId } from '@/types/mains';
 import { TestHistoryModal } from './TestHistoryModal';
 import { SubjectTopicPickerModal } from './SubjectTopicPickerModal';
+import { ActiveMainsMockScreen } from './ActiveMainsMockScreen';
 
 export type MockScope = 'full' | 'subject';
 
@@ -57,6 +61,12 @@ export function MockTestDashboard({
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [completedTestsCount, setCompletedTestsCount] = useState(0);
   const [showSubjectModal, setShowSubjectModal] = useState(false);
+
+  // Exam category: Prelims MCQ vs Mains Written/Uploaded
+  const [examCategory, setExamCategory] = useState<'prelims' | 'mains'>('prelims');
+  const [selectedMainsPaper, setSelectedMainsPaper] = useState<MainsPaperId>('GS4');
+  const [mainsMode, setMainsMode] = useState<'timed' | 'practice'>('timed');
+  const [activeMainsMockPaper, setActiveMainsMockPaper] = useState<MainsPaperId | null>(null);
 
   // Available filters from backend
   const [filtersData, setFiltersData] = useState<AvailableFiltersData>({
@@ -366,6 +376,17 @@ export function MockTestDashboard({
     return `${selectedYears.slice(0, 3).join(', ')} +${selectedYears.length - 3} more`;
   }, [selectedYears]);
 
+  if (activeMainsMockPaper) {
+    return (
+      <ActiveMainsMockScreen
+        paperId={activeMainsMockPaper}
+        testMode={mainsMode}
+        onClose={() => setActiveMainsMockPaper(null)}
+        isDark={isDark}
+      />
+    );
+  }
+
   return (
     <View style={[styles.screenWrapper, { backgroundColor: colors.bg }]}>
       <ScrollView
@@ -434,21 +455,349 @@ export function MockTestDashboard({
           </View>
         </View>
 
-        {/* Hero Title Section */}
-        <View style={styles.heroSection}>
-          <Text style={[styles.eyebrowText, { color: colors.eyebrow }]}>
-            CIVIL SERVICES PRELIMINARY EXAMINATION
-          </Text>
-          <Text style={[styles.heroTitle, { color: colors.textPrimary }]}>
-            Build your mock test
-          </Text>
-          <Text style={[styles.heroSubtitle, { color: colors.textMuted }]}>
-            Pick a paper, choose previous year question sets, then decide how strict the sitting should be.
-          </Text>
+        {/* Category Switcher: Prelims MCQ vs Mains Mock */}
+        <View style={styles.examCategorySwitchContainer}>
+          <Pressable
+            onPress={() => setExamCategory('prelims')}
+            style={[
+              styles.examCategoryPill,
+              {
+                backgroundColor: examCategory === 'prelims' ? colors.primary : colors.cardBg,
+                borderColor: examCategory === 'prelims' ? colors.primary : colors.cardBorder,
+              },
+            ]}>
+            <Text
+              style={[
+                styles.examCategoryPillText,
+                {
+                  color: examCategory === 'prelims' ? '#FFFFFF' : colors.textPrimary,
+                  fontWeight: examCategory === 'prelims' ? '700' : '500',
+                },
+              ]}>
+              🎯 Prelims Mock (MCQs)
+            </Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => setExamCategory('mains')}
+            style={[
+              styles.examCategoryPill,
+              {
+                backgroundColor: examCategory === 'mains' ? colors.primary : colors.cardBg,
+                borderColor: examCategory === 'mains' ? colors.primary : colors.cardBorder,
+              },
+            ]}>
+            <Text
+              style={[
+                styles.examCategoryPillText,
+                {
+                  color: examCategory === 'mains' ? '#FFFFFF' : colors.textPrimary,
+                  fontWeight: examCategory === 'mains' ? '700' : '500',
+                },
+              ]}>
+              📝 Mains Mock (Written / Upload)
+            </Text>
+          </Pressable>
         </View>
 
-        {/* Main 2-Column Responsive Layout */}
-        <View style={[styles.mainLayout, isWide && styles.mainLayoutWide]}>
+        {examCategory === 'mains' ? (
+          <View>
+            <View style={styles.heroSection}>
+              <Text style={[styles.eyebrowText, { color: colors.eyebrow }]}>
+                CIVIL SERVICES (MAIN) EXAMINATION SIMULATION
+              </Text>
+              <Text style={[styles.heroTitle, { color: colors.textPrimary }]}>
+                Full Paper Mains Mock Test
+              </Text>
+              <Text style={[styles.heroSubtitle, { color: colors.textMuted }]}>
+                Simulate a complete 3-hour examination sitting. Write answers or upload photos of handwritten sheets for AI evaluation.
+              </Text>
+            </View>
+
+            <View style={[styles.mainLayout, isWide && styles.mainLayoutWide]}>
+              <View style={[styles.leftColumn, isWide && styles.leftColumnWide]}>
+                {/* Step 1: Choose Mains Paper */}
+                <View
+                  style={[
+                    styles.stepCard,
+                    { backgroundColor: colors.cardBg, borderColor: colors.cardBorder },
+                  ]}>
+                  <View style={styles.stepCardHeader}>
+                    <View style={[styles.stepNumberBadge, { backgroundColor: colors.stepBadgeBg }]}>
+                      <Text style={[styles.stepNumberText, { color: colors.stepBadgeText }]}>1</Text>
+                    </View>
+                    <Text style={[styles.stepCardTitle, { color: colors.textPrimary }]}>
+                      Choose Mains Question Paper
+                    </Text>
+                  </View>
+
+                  <View style={{ gap: 10, marginTop: 12 }}>
+                    {[
+                      {
+                        id: 'GS4',
+                        title: 'General Studies Paper IV',
+                        sub: 'Ethics, Integrity & Aptitude',
+                        desc: '19 Questions • Section A Theory (13 Qs) + Section B Case Studies (6 Qs)',
+                        marks: '250 M',
+                        time: '3 Hours',
+                      },
+                      {
+                        id: 'GS1',
+                        title: 'General Studies Paper I',
+                        sub: 'Indian Heritage, History & Geography',
+                        desc: '20 Questions • 10 Marks (150w) & 15 Marks (250w)',
+                        marks: '250 M',
+                        time: '3 Hours',
+                      },
+                      {
+                        id: 'GS2',
+                        title: 'General Studies Paper II',
+                        sub: 'Governance, Constitution & Polity',
+                        desc: '20 Questions • 10 Marks (150w) & 15 Marks (250w)',
+                        marks: '250 M',
+                        time: '3 Hours',
+                      },
+                      {
+                        id: 'GS3',
+                        title: 'General Studies Paper III',
+                        sub: 'Technology, Economy & Biodiversity',
+                        desc: '20 Questions • 10 Marks (150w) & 15 Marks (250w)',
+                        marks: '250 M',
+                        time: '3 Hours',
+                      },
+                      {
+                        id: 'ESSAY',
+                        title: 'Essay Paper',
+                        sub: 'Philosophical & Socio-Economic Themes',
+                        desc: '8 Topics across Section A & Section B • Write 2 full essays',
+                        marks: '250 M',
+                        time: '3 Hours',
+                      },
+                    ].map((p) => {
+                      const isSelected = selectedMainsPaper === p.id;
+                      return (
+                        <Pressable
+                          key={p.id}
+                          onPress={() => setSelectedMainsPaper(p.id as MainsPaperId)}
+                          style={[
+                            styles.paperOptionBox,
+                            {
+                              backgroundColor: isSelected ? colors.primaryTint : 'transparent',
+                              borderColor: isSelected ? colors.primaryBorder : colors.cardBorder,
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              padding: 14,
+                            },
+                          ]}>
+                          <View style={{ flex: 1, marginRight: 12, gap: 2 }}>
+                            <Text style={[styles.paperOptionTitle, { color: colors.textPrimary }]}>
+                              {p.title}
+                            </Text>
+                            <Text style={[styles.paperOptionSub, { color: colors.textSecondary }]}>
+                              {p.sub}
+                            </Text>
+                            <Text style={[styles.paperOptionSub, { color: colors.textMuted, fontSize: 11 }]}>
+                              {p.desc}
+                            </Text>
+                          </View>
+                          <View style={{ alignItems: 'flex-end', gap: 2 }}>
+                            <Text style={{ color: colors.primary, fontWeight: '800', fontSize: 12 }}>
+                              {p.marks}
+                            </Text>
+                            <Text style={{ color: colors.textMuted, fontSize: 11 }}>{p.time}</Text>
+                          </View>
+                        </Pressable>
+                      );
+                    })}
+                  </View>
+                </View>
+
+                {/* Step 2: Exam Mode */}
+                <View
+                  style={[
+                    styles.stepCard,
+                    { backgroundColor: colors.cardBg, borderColor: colors.cardBorder },
+                  ]}>
+                  <View style={styles.stepCardHeader}>
+                    <View style={[styles.stepNumberBadge, { backgroundColor: colors.stepBadgeBg }]}>
+                      <Text style={[styles.stepNumberText, { color: colors.stepBadgeText }]}>2</Text>
+                    </View>
+                    <Text style={[styles.stepCardTitle, { color: colors.textPrimary }]}>
+                      Exam Sitting Mode
+                    </Text>
+                  </View>
+
+                  <View style={[styles.paperOptionsRow, { marginTop: 12 }]}>
+                    <Pressable
+                      onPress={() => setMainsMode('timed')}
+                      style={[
+                        styles.paperOptionBox,
+                        {
+                          backgroundColor: mainsMode === 'timed' ? colors.primaryTint : 'transparent',
+                          borderColor: mainsMode === 'timed' ? colors.primaryBorder : colors.cardBorder,
+                        },
+                      ]}>
+                      <View style={styles.modeOptionTopRow}>
+                        <Clock size={16} color={colors.textPrimary} strokeWidth={2.2} />
+                        <Text style={[styles.modeHeading, { color: colors.textPrimary }]}>
+                          Timed Exam (3 Hours)
+                        </Text>
+                      </View>
+                      <Text style={[styles.modeDescription, { color: colors.textMuted }]}>
+                        Strict 180-minute countdown with time warnings simulating authentic UPSC hall pressure.
+                      </Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={() => setMainsMode('practice')}
+                      style={[
+                        styles.paperOptionBox,
+                        {
+                          backgroundColor: mainsMode === 'practice' ? colors.primaryTint : 'transparent',
+                          borderColor: mainsMode === 'practice' ? colors.primaryBorder : colors.cardBorder,
+                        },
+                      ]}>
+                      <View style={styles.modeOptionTopRow}>
+                        <BookOpen size={16} color={colors.textPrimary} strokeWidth={2.2} />
+                        <Text style={[styles.modeHeading, { color: colors.textPrimary }]}>
+                          Self-Paced Practice
+                        </Text>
+                      </View>
+                      <Text style={[styles.modeDescription, { color: colors.textMuted }]}>
+                        No timer stress. Answer and upload your answer sheets at your own comfortable pace.
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+                {/* Step 3: Dual Submission Options */}
+                <View
+                  style={[
+                    styles.stepCard,
+                    { backgroundColor: colors.cardBg, borderColor: colors.cardBorder },
+                  ]}>
+                  <View style={styles.stepCardHeader}>
+                    <View style={[styles.stepNumberBadge, { backgroundColor: colors.stepBadgeBg }]}>
+                      <Text style={[styles.stepNumberText, { color: colors.stepBadgeText }]}>3</Text>
+                    </View>
+                    <Text style={[styles.stepCardTitle, { color: colors.textPrimary }]}>
+                      Dual Answer Submission Options
+                    </Text>
+                  </View>
+
+                  <View style={{ gap: 12, marginTop: 12 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+                      <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: colors.primaryTint, alignItems: 'center', justifyContent: 'center' }}>
+                        <PenLine size={18} color={colors.primary} />
+                      </View>
+                      <View style={{ flex: 1, gap: 2 }}>
+                        <Text style={{ color: colors.textPrimary, fontSize: 13, fontWeight: '700' }}>
+                          Option 1: Type Answers Directly
+                        </Text>
+                        <Text style={{ color: colors.textMuted, fontSize: 12, lineHeight: 17 }}>
+                          Clean distraction-free text editor with live word count tracking against the prescribed word limit.
+                        </Text>
+                      </View>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+                      <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: colors.primaryTint, alignItems: 'center', justifyContent: 'center' }}>
+                        <FileText size={18} color={colors.primary} />
+                      </View>
+                      <View style={{ flex: 1, gap: 2 }}>
+                        <Text style={{ color: colors.textPrimary, fontSize: 13, fontWeight: '700' }}>
+                          Option 2: Upload Handwritten Answer Sheets
+                        </Text>
+                        <Text style={{ color: colors.textMuted, fontSize: 12, lineHeight: 17 }}>
+                          Photograph your handwritten sheets with your camera or select multi-page images from your gallery with OCR evaluation.
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+
+              {/* Right Column: Sticky Summary & CTA */}
+              <View style={[styles.rightColumn, isWide && styles.rightColumnWide]}>
+                <View style={[styles.summaryCard, { backgroundColor: colors.cardBg, borderColor: colors.cardBorder }]}>
+                  <Text style={[styles.summaryCardTitle, { color: colors.textPrimary }]}>
+                    Mains Mock Summary
+                  </Text>
+                  <Text style={[styles.summaryCardSubtitle, { color: colors.textMuted }]}>
+                    Complete UPSC Main Examination
+                  </Text>
+
+                  <View style={styles.breakdownList}>
+                    <View style={styles.breakdownRow}>
+                      <Text style={[styles.breakdownLabel, { color: colors.textMuted }]}>Paper</Text>
+                      <Text style={[styles.breakdownValue, { color: colors.textPrimary }]}>
+                        {selectedMainsPaper === 'ESSAY' ? 'Essay' : selectedMainsPaper}
+                      </Text>
+                    </View>
+                    <View style={styles.breakdownRow}>
+                      <Text style={[styles.breakdownLabel, { color: colors.textMuted }]}>Total Marks</Text>
+                      <Text style={[styles.breakdownValue, { color: colors.primary, fontWeight: '800' }]}>
+                        250 Marks
+                      </Text>
+                    </View>
+                    <View style={styles.breakdownRow}>
+                      <Text style={[styles.breakdownLabel, { color: colors.textMuted }]}>Time Allowed</Text>
+                      <Text style={[styles.breakdownValue, { color: colors.textPrimary }]}>
+                        {mainsMode === 'timed' ? '3h 00m (180 mins)' : 'Self-Paced'}
+                      </Text>
+                    </View>
+                    <View style={styles.breakdownRow}>
+                      <Text style={[styles.breakdownLabel, { color: colors.textMuted }]}>Evaluation</Text>
+                      <Text style={[styles.breakdownValue, { color: '#10B981', fontWeight: '700' }]}>
+                        Strict UPSC Rubric AI
+                      </Text>
+                    </View>
+                  </View>
+
+                  <Pressable
+                    onPress={() => setActiveMainsMockPaper(selectedMainsPaper)}
+                    accessibilityRole="button"
+                    accessibilityLabel="Start Mains Mock Test"
+                    style={({ pressed }) => [
+                      styles.startMockBtn,
+                      {
+                        backgroundColor: colors.primary,
+                        opacity: pressed ? 0.9 : 1,
+                      },
+                    ]}>
+                    <View style={styles.btnContentRow}>
+                      <Text style={[styles.startMockBtnText, { color: '#FFFFFF' }]}>
+                        Start {selectedMainsPaper} Mock Exam
+                      </Text>
+                      <ArrowRight size={16} color="#FFFFFF" strokeWidth={2.4} />
+                    </View>
+                  </Pressable>
+
+                  <Text style={[styles.summaryFooterNote, { color: colors.textMuted }]}>
+                    Full simulated test paper with comprehensive evaluation and model answers upon submission.
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        ) : (
+          <View>
+            {/* Hero Title Section */}
+            <View style={styles.heroSection}>
+              <Text style={[styles.eyebrowText, { color: colors.eyebrow }]}>
+                CIVIL SERVICES PRELIMINARY EXAMINATION
+              </Text>
+              <Text style={[styles.heroTitle, { color: colors.textPrimary }]}>
+                Build your mock test
+              </Text>
+              <Text style={[styles.heroSubtitle, { color: colors.textMuted }]}>
+                Pick a paper, choose previous year question sets, then decide how strict the sitting should be.
+              </Text>
+            </View>
+
+            {/* Main 2-Column Responsive Layout */}
+            <View style={[styles.mainLayout, isWide && styles.mainLayoutWide]}>
           {/* LEFT COLUMN: 4 Step Cards */}
           <View style={[styles.leftColumn, isWide && styles.leftColumnWide]}>
             {/* CARD 1: Choose the paper */}
@@ -1010,8 +1359,10 @@ export function MockTestDashboard({
             </View>
           </View>
         </View>
+      </View>
+    )}
 
-        <View style={{ height: 40 }} />
+    <View style={{ height: 40 }} />
       </ScrollView>
 
       {/* Subject Modal */}
@@ -1061,6 +1412,25 @@ const getStyles = (colors: any, isWide: boolean, isMobile: boolean) =>
       maxWidth: 1180,
       alignSelf: 'center',
       width: '100%',
+    },
+
+    /* Category Switch */
+    examCategorySwitchContainer: {
+      flexDirection: 'row',
+      gap: 10,
+      marginBottom: isWide ? 20 : 14,
+    },
+    examCategoryPill: {
+      flex: 1,
+      paddingVertical: 10,
+      paddingHorizontal: 14,
+      borderRadius: 10,
+      borderWidth: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    examCategoryPillText: {
+      fontSize: 13,
     },
 
     /* Top Navbar */
@@ -1424,6 +1794,19 @@ const getStyles = (colors: any, isWide: boolean, isMobile: boolean) =>
       fontSize: 16.5,
       fontWeight: '800',
       letterSpacing: -0.3,
+    },
+    summaryCardSubtitle: {
+      fontSize: 12,
+      fontWeight: '500',
+      marginTop: -12,
+    },
+    paperOptionTitle: {
+      fontSize: 14,
+      fontWeight: '700',
+    },
+    paperOptionSub: {
+      fontSize: 12,
+      fontWeight: '400',
     },
     metricBoxesRow: {
       flexDirection: 'row',

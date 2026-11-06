@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { ChevronRight, CircleCheck } from 'lucide-react-native';
+import { usePrelimsTheme } from '@/constants/prelimsTheme';
 import { Chapter } from '@/types/prelims';
 
 interface ChapterItemCardProps {
@@ -24,11 +25,13 @@ interface ChapterItemCardProps {
 export function ChapterItemCard({
   chapter,
   serialNumber,
-  isDark = true,
+  isDark: propIsDark,
   solvedCount = 0,
-  subjectColor = '#B9570A',
+  subjectColor = '#F58235',
   onPress,
 }: ChapterItemCardProps) {
+  const prelimsTheme = usePrelimsTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : prelimsTheme.isDark;
   const { width: windowWidth } = useWindowDimensions();
   const [containerWidth, setContainerWidth] = useState<number>(0);
 
@@ -46,19 +49,19 @@ export function ChapterItemCard({
   const percentage = totalQs > 0 ? Math.min(100, Math.round((solvedCount / totalQs) * 100)) : 0;
 
   const colors = {
-    cardBg: isDark ? '#1E2535' : '#FFFFFF',
-    cardBorder: isDark ? '#333D52' : '#EAE5DC',
-    serialBg: isDark ? '#1E2535' : '#FAF9F6',
-    serialBorder: isDark ? '#333D52' : '#EAE5DC',
-    serialText: isDark ? '#A4ADBF' : '#7A8499',
-    textPrimary: isDark ? '#F2EFE8' : '#1C2433',
-    textSecondary: isDark ? '#A4ADBF' : '#7A8499',
-    progressTrack: isDark ? '#262E40' : '#EAE5DC',
-    divider: isDark ? '#262E40' : '#EAE5DC',
-    weightageBg: isDark ? '#1E2535' : '#FAF9F6',
-    weightageBorder: isDark ? '#333D52' : '#EAE5DC',
-    chevron: isDark ? '#7A8499' : '#8892A6',
-    pressedBg: isDark ? '#262E40' : '#E9EDF9',
+    cardBg: isDark ? '#141C28' : '#FFFFFF',
+    cardBorder: isDark ? '#253244' : '#EAE5DC',
+    serialBg: isDark ? '#141C28' : '#FAF9F6',
+    serialBorder: isDark ? '#253244' : '#EAE5DC',
+    serialText: isDark ? '#9DA8B9' : '#7A8499',
+    textPrimary: isDark ? '#F0F4F8' : '#1C2433',
+    textSecondary: isDark ? '#9DA8B9' : '#7A8499',
+    progressTrack: isDark ? '#253244' : '#EAE5DC',
+    divider: isDark ? '#253244' : '#EAE5DC',
+    weightageBg: isDark ? '#141C28' : '#FAF9F6',
+    weightageBorder: isDark ? '#253244' : '#EAE5DC',
+    chevron: isDark ? '#6E7A8E' : '#8892A6',
+    pressedBg: isDark ? '#1B2534' : '#E9EDF9',
   };
 
   if (isMobile) {

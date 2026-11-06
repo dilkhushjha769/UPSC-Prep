@@ -354,7 +354,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 8,
-    backgroundColor: '#1E2535',
+    backgroundColor: '#141C28',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 2,
@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   timedTag: {
-    backgroundColor: '#1E2535',
+    backgroundColor: '#141C28',
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 4,
@@ -484,7 +484,7 @@ const styles = StyleSheet.create({
   },
   insightText: {
     fontSize: 12,
-    color: '#333D52',
+    color: '#253244',
     lineHeight: 18,
   },
   themesCard: {

@@ -611,7 +611,7 @@ export function FormatFeedModal({
                 >
                   <RotateCw
                     size={16}
-                    color={isDark ? '#8892A6' : '#4A5568'}
+                    color={isDark ? '#6E7A8E' : '#4A5568'}
                     strokeWidth={2}
                   />
                 </Pressable>
@@ -677,7 +677,7 @@ export function FormatFeedModal({
                     accessibilityRole="button"
                     accessibilityLabel="More dates calendar"
                   >
-                    <Calendar size={18} color={isDark ? '#8892A6' : '#4A5568'} strokeWidth={2} />
+                    <Calendar size={18} color={isDark ? '#6E7A8E' : '#4A5568'} strokeWidth={2} />
                   </Pressable>
                 </View>
               </ScrollView>
@@ -854,14 +854,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#FCEBDD',
   },
   safeAreaDark: {
-    backgroundColor: '#151A25',
+    backgroundColor: '#0B1018',
   },
   container: {
     flex: 1,
     backgroundColor: '#FCEBDD',
   },
   containerDark: {
-    backgroundColor: '#151A25',
+    backgroundColor: '#0B1018',
   },
   contentContainer: {
     paddingBottom: 60,
@@ -902,8 +902,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   backBtnDark: {
-    backgroundColor: '#151A25',
-    borderColor: '#333D52',
+    backgroundColor: '#0B1018',
+    borderColor: '#253244',
   },
   heading: {
     fontSize: 28,
@@ -918,7 +918,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.4,
   },
   headingDark: {
-    color: '#FAF9F6',
+    color: '#F0F4F8',
   },
   subtitle: {
     fontSize: 14,
@@ -927,7 +927,7 @@ const styles = StyleSheet.create({
     marginLeft: 48,
   },
   subtitleDark: {
-    color: '#8892A6',
+    color: '#6E7A8E',
   },
   headerRight: {
     flexDirection: 'row',
@@ -941,7 +941,7 @@ const styles = StyleSheet.create({
     padding: 3,
   },
   segmentedToggleDark: {
-    backgroundColor: '#1E2535',
+    backgroundColor: '#141C28',
   },
   toggleBtn: {
     paddingHorizontal: 16,
@@ -949,10 +949,10 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   toggleBtnActive: {
-    backgroundColor: '#151A25',
+    backgroundColor: '#0B1018',
   },
   toggleBtnActiveDark: {
-    backgroundColor: '#333D52',
+    backgroundColor: '#253244',
   },
   toggleBtnText: {
     fontSize: 13.5,
@@ -963,7 +963,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   toggleBtnTextInactiveDark: {
-    color: '#8892A6',
+    color: '#6E7A8E',
   },
   iconBtn: {
     width: 36,
@@ -976,8 +976,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   iconBtnDark: {
-    backgroundColor: '#151A25',
-    borderColor: '#333D52',
+    backgroundColor: '#0B1018',
+    borderColor: '#253244',
   },
   btnPressed: {
     opacity: 0.8,
@@ -1012,16 +1012,16 @@ const styles = StyleSheet.create({
     }),
   },
   dateCardDark: {
-    backgroundColor: '#151A25',
-    borderColor: '#333D52',
+    backgroundColor: '#0B1018',
+    borderColor: '#253244',
   },
   dateCardSelected: {
-    backgroundColor: '#151A25',
-    borderColor: '#151A25',
+    backgroundColor: '#0B1018',
+    borderColor: '#0B1018',
   },
   dateCardSelectedDark: {
-    backgroundColor: '#333D52',
-    borderColor: '#333D52',
+    backgroundColor: '#253244',
+    borderColor: '#253244',
   },
   dateCardDay: {
     fontSize: 12,
@@ -1030,7 +1030,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   dateCardDayDark: {
-    color: '#8892A6',
+    color: '#6E7A8E',
   },
   dateCardDaySelected: {
     color: '#8892A6',
@@ -1041,7 +1041,7 @@ const styles = StyleSheet.create({
     color: '#1C2433',
   },
   dateCardNumDark: {
-    color: '#FAF9F6',
+    color: '#F0F4F8',
   },
   dateCardNumSelected: {
     color: '#FFFFFF',
@@ -1057,8 +1057,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   moreDatesBtnDark: {
-    backgroundColor: '#151A25',
-    borderColor: '#333D52',
+    backgroundColor: '#0B1018',
+    borderColor: '#253244',
   },
   categoryPillsWrapper: {
     marginBottom: 16,
@@ -1078,8 +1078,8 @@ const styles = StyleSheet.create({
     borderColor: '#EAE5DC',
   },
   categoryPillDark: {
-    backgroundColor: '#151A25',
-    borderColor: '#333D52',
+    backgroundColor: '#0B1018',
+    borderColor: '#253244',
   },
   categoryPillSelected: {
     backgroundColor: '#B9570A',
@@ -1088,10 +1088,10 @@ const styles = StyleSheet.create({
   categoryPillText: {
     fontSize: 13.5,
     fontWeight: '600',
-    color: '#333D52',
+    color: '#253244',
   },
   categoryPillTextDark: {
-    color: '#DDD6CA',
+    color: '#C4C4C4',
   },
   categoryPillTextSelected: {
     color: '#FFFFFF',
@@ -1114,12 +1114,12 @@ const styles = StyleSheet.create({
     borderColor: '#EAE5DC',
   },
   subcatChipDark: {
-    backgroundColor: '#1E2535',
-    borderColor: '#333D52',
+    backgroundColor: '#141C28',
+    borderColor: '#253244',
   },
   subcatChipSelected: {
-    backgroundColor: '#151A25',
-    borderColor: '#151A25',
+    backgroundColor: '#0B1018',
+    borderColor: '#0B1018',
   },
   subcatChipText: {
     fontSize: 12,
@@ -1127,7 +1127,7 @@ const styles = StyleSheet.create({
     color: '#4A5568',
   },
   subcatChipTextDark: {
-    color: '#8892A6',
+    color: '#6E7A8E',
   },
   subcatChipTextSelected: {
     color: '#FFFFFF',
@@ -1168,8 +1168,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   emptyCardDark: {
-    backgroundColor: '#151A25',
-    borderColor: '#333D52',
+    backgroundColor: '#0B1018',
+    borderColor: '#253244',
   },
   emptyCardTitle: {
     fontSize: 17,
@@ -1178,7 +1178,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   emptyCardTitleDark: {
-    color: '#FAF9F6',
+    color: '#F0F4F8',
   },
   emptyCardSubtitle: {
     fontSize: 14,
@@ -1188,6 +1188,6 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   emptyCardSubtitleDark: {
-    color: '#8892A6',
+    color: '#6E7A8E',
   },
 });

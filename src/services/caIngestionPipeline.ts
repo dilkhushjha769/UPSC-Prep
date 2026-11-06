@@ -7,6 +7,7 @@
  * 3. Client-triggered incremental sync (`src/services/newsFeedService.ts`)
  */
 
+import { verifyNewsImageRelevance } from '@/utils/imageVerification';
 import {
   CANONICAL_CA_CATEGORIES,
   CanonicalCategoryName,
@@ -506,6 +507,32 @@ export function resolveImageProvenance(
   primaryCategory: CanonicalCategoryName
 ): ImageProvenanceMetadata {
   const { source, canonicalUrl, externalId, extractedImageUrl, extractedImageCaption, extractedImageCredit } = story;
+
+  // Run image relevance verification
+  const verification = verifyNewsImageRelevance({
+    headline: story.headline,
+    summary: story.rawDescription,
+    imageUrl: extractedImageUrl,
+    caption: extractedImageCaption,
+    credit: extractedImageCredit,
+    source: source.name,
+    articleUrl: canonicalUrl,
+    category: primaryCategory,
+  });
+
+  if (verification.status === 'VERIFIED' && verification.verifiedImageUrl) {
+    const isInfographic = /infographic|chart|graph|map|diagram|pib/i.test(verification.verifiedImageUrl);
+    return {
+      imageUrl: verification.verifiedImageUrl,
+      credit: verification.credit || extractedImageCredit || `${source.name} Photo Desk`,
+      sourceUrl: canonicalUrl,
+      associatedArticleId: externalId,
+      imageType: isInfographic ? 'official_infographic' : 'event_photo',
+      license: source.licenseType,
+      verificationStatus: verification.sourceCredibility === 'official_gov' ? 'verified_official' : 'verified_agency',
+      caption: verification.caption || extractedImageCaption || `Authentic news photograph published by ${source.shortName}.`,
+    };
+  }
 
   // Tier 1: Official Government / Institutional Release Photograph or Infographic
   if (extractedImageUrl && (source.sourceTier === 'official' || source.sourceTier === 'institution')) {

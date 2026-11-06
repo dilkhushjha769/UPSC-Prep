@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Linking, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { ChevronLeft, ExternalLink, Check } from 'lucide-react-native';
 import { PrimaryToggle } from '@/components/common/PrimaryToggle';
+import { useAppTheme } from '@/context/ThemeContext';
 import { examFocusService } from '@/services/examFocusService';
+import { Check, ChevronLeft, ExternalLink } from 'lucide-react-native';
+import { useEffect, useState } from 'react';
+import { Linking, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 interface Props {
-  isDark: boolean;
+  isDark?: boolean;
   onBack: () => void;
 }
 
@@ -22,7 +23,9 @@ const APPS: { id: string; name: string; pkg: string }[] = [
   { id: 'games', name: 'Games', pkg: '' },
 ];
 
-export function FocusModeSettingsScreen({ isDark, onBack }: Props) {
+export function FocusModeSettingsScreen({ isDark: propIsDark, onBack }: Props) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const [enabled, setEnabled] = useState(examFocusService.isEnabledByUser());
   const [selected, setSelected] = useState<string[]>(examFocusService.getFocusApps());
   const isAndroid = Platform.OS === 'android';
@@ -32,12 +35,12 @@ export function FocusModeSettingsScreen({ isDark, onBack }: Props) {
     return () => clearTimeout(t);
   }, []);
 
-  const bg = isDark ? '#1C2433' : '#FAF9F6';
-  const card = isDark ? '#1E2535' : '#FFFFFF';
-  const border = isDark ? '#333D52' : '#EAE5DC';
-  const text = isDark ? '#F2EFE8' : '#1C2433';
-  const muted = isDark ? '#A4ADBF' : '#5F6B80';
-  const track = { false: isDark ? '#262E40' : '#DDD6CA', true: '#B9570A' };
+  const bg = isDark ? '#0B1018' : '#FAF9F6';
+  const card = isDark ? '#141C28' : '#FFFFFF';
+  const border = isDark ? '#253244' : '#EAE5DC';
+  const text = isDark ? '#F1F5F9' : '#1E293B';
+  const muted = isDark ? '#94A3B8' : '#64748B';
+  const track = { false: isDark ? '#1B2534' : '#DDD6CA', true: '#F58235' };
 
   const toggleApp = (id: string) => {
     const next = selected.includes(id) ? selected.filter((x) => x !== id) : [...selected, id];
@@ -77,7 +80,7 @@ export function FocusModeSettingsScreen({ isDark, onBack }: Props) {
         </View>
 
         <Text style={[styles.section, { color: muted }]}>APPS TO SILENCE DURING TESTS</Text>
-        <View style={[styles.note, { backgroundColor: isDark ? '#262E40' : '#E9EDF9', borderColor: border }]}>
+        <View style={[styles.note, { backgroundColor: isDark ? '#1B2534' : '#E9EDF9', borderColor: border }]}>
           <Text style={[styles.noteText, { color: muted }]}>
             {isAndroid
               ? 'Android does not let one app block or mute another app. Pick the apps that distract you, then tap "Mute" to open that app’s own notification settings and turn its notifications off yourself.'
@@ -122,7 +125,7 @@ export function FocusModeSettingsScreen({ isDark, onBack }: Props) {
         )}
 
         {Platform.OS === 'web' && (
-          <Pressable onPress={() => Linking.openSettings().catch(() => {})} style={{ display: 'none' }} />
+          <Pressable onPress={() => Linking.openSettings().catch(() => { })} style={{ display: 'none' }} />
         )}
       </ScrollView>
     </View>

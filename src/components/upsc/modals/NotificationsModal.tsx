@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React, { useState } from 'react';
 import {
   Modal,
@@ -24,7 +25,7 @@ import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
 
 interface NotificationsModalProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
 type NotificationCategory = 'all' | 'unread' | 'streak' | 'mocks' | 'study';
@@ -45,7 +46,9 @@ interface NotificationItem {
   actionType?: 'focus' | 'mock';
 }
 
-export function NotificationsModal({ isDark }: NotificationsModalProps) {
+export function NotificationsModal({ isDark: propIsDark }: NotificationsModalProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const {
     isNotificationsModalOpen,
     setIsNotificationsModalOpen,
@@ -250,7 +253,7 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
                     Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                     {
                       backgroundColor: isDark
-                        ? 'rgba(255, 255, 255, 0.06)'
+                        ? '#1B2534'
                         : 'rgba(0, 0, 0, 0.04)',
                       borderColor: theme.cardBorder,
                     },
@@ -271,7 +274,7 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
                   Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                   {
                     backgroundColor: isDark
-                      ? 'rgba(255, 255, 255, 0.06)'
+                      ? '#1B2534'
                       : 'rgba(0, 0, 0, 0.04)',
                     borderColor: theme.cardBorder,
                   },
@@ -357,10 +360,10 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
                             {
                               backgroundColor: !item.isRead
                                 ? isDark
-                                  ? '#1E2535'
+                                  ? '#141C28'
                                   : '#E9EDF9'
                                 : isDark
-                                ? '#151A25'
+                                ? '#0B1018'
                                 : '#FFFFFF',
                               borderColor: !item.isRead
                                 ? isDark
@@ -440,7 +443,7 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
                                     styles.actionPill,
                                     {
                                       backgroundColor: isDark
-                                        ? 'rgba(255, 255, 255, 0.08)'
+                                        ? '#1B2534'
                                         : 'rgba(0, 0, 0, 0.05)',
                                       borderColor: theme.cardBorder,
                                     },
@@ -471,7 +474,7 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
                     styles.emptyIconHalo,
                     {
                       backgroundColor: isDark
-                        ? 'rgba(255, 255, 255, 0.04)'
+                        ? '#1B2534'
                         : 'rgba(0, 0, 0, 0.03)',
                       borderColor: theme.cardBorder,
                     },

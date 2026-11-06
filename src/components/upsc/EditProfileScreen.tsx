@@ -28,6 +28,7 @@ import { ExamMedium } from '@/types/study';
 import { supabase } from '@/services/supabase';
 import { PhotoCropModal } from './PhotoCropModal';
 import { PhotoViewerModal } from './PhotoViewerModal';
+import { useAppTheme } from '@/context/ThemeContext';
 
 interface EditProfileScreenProps {
   isDark: boolean;
@@ -49,10 +50,16 @@ const POPULAR_OPTIONALS = [
 ];
 
 export function EditProfileScreen({
-  isDark,
+  isDark: propIsDark,
   onBack,
   onSaved,
-}: EditProfileScreenProps) {
+}: {
+  isDark?: boolean;
+  onBack: () => void;
+  onSaved?: () => void;
+}) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const { config, updateConfig } = useStudy();
   const { width } = useWindowDimensions();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
@@ -247,7 +254,7 @@ export function EditProfileScreen({
           styles.headerBar,
           {
             backgroundColor: theme.bg,
-            borderBottomColor: isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.06)',
+            borderBottomColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.06)',
           },
         ]}>
         <TouchableOpacity
@@ -258,8 +265,8 @@ export function EditProfileScreen({
             styles.backBtn,
             Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
             {
-              backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.04)',
-              borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.06)',
+              backgroundColor: isDark ? '#1B2534' : 'rgba(0, 0, 0, 0.04)',
+              borderColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.06)',
             },
           ]}>
           <ChevronLeft size={20} color={theme.textPrimary} strokeWidth={2.4} />
@@ -277,19 +284,19 @@ export function EditProfileScreen({
             styles.saveHeaderBtn,
             Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
             {
-              backgroundColor: isDark ? '#FFFFFF' : '#1C2433',
+              backgroundColor: isDark ? '#F0F4F8' : '#1C2433',
               opacity: isSaving ? 0.7 : 1,
             },
           ]}>
           {isSaving ? (
-            <ActivityIndicator size="small" color={isDark ? '#000000' : '#FFFFFF'} />
+            <ActivityIndicator size="small" color={isDark ? '#0D1520' : '#FFFFFF'} />
           ) : saveSuccess ? (
             <View style={styles.savedRow}>
-              <Check size={14} color={isDark ? '#151A25' : '#FFFFFF'} strokeWidth={3} />
+              <Check size={14} color={isDark ? '#0D1520' : '#FFFFFF'} strokeWidth={3} />
               <Text
                 style={[
                   styles.saveBtnText,
-                  { color: isDark ? '#151A25' : '#FFFFFF' },
+                  { color: isDark ? '#0D1520' : '#FFFFFF' },
                 ]}>
                 Saved
               </Text>
@@ -298,7 +305,7 @@ export function EditProfileScreen({
             <Text
               style={[
                 styles.saveBtnText,
-                { color: isDark ? '#151A25' : '#FFFFFF' },
+                { color: isDark ? '#0D1520' : '#FFFFFF' },
               ]}>
               Save
             </Text>
@@ -329,8 +336,8 @@ export function EditProfileScreen({
               style={[
                 styles.avatarCircleFrame,
                 {
-                  backgroundColor: isDark ? '#1E2535' : '#F0EDE6',
-                  borderColor: isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)',
+                  backgroundColor: isDark ? '#141C28' : '#F0EDE6',
+                  borderColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.1)',
                 },
               ]}>
               {avatarUri ? (
@@ -359,14 +366,14 @@ export function EditProfileScreen({
               style={[
                 styles.avatarEditBadge,
                 {
-                  backgroundColor: isDark ? '#FFFFFF' : '#1C2433',
-                  borderColor: isDark ? '#151A25' : '#FFFFFF',
+                  backgroundColor: isDark ? '#F0F4F8' : '#1C2433',
+                  borderColor: isDark ? '#0B1018' : '#FFFFFF',
                 },
               ]}>
               {avatarUri ? (
-                <Maximize2 size={11} color={isDark ? '#151A25' : '#FFFFFF'} strokeWidth={2.6} />
+                <Maximize2 size={11} color={isDark ? '#0B1018' : '#FFFFFF'} strokeWidth={2.6} />
               ) : (
-                <Camera size={12} color={isDark ? '#151A25' : '#FFFFFF'} strokeWidth={2.4} />
+                <Camera size={12} color={isDark ? '#0B1018' : '#FFFFFF'} strokeWidth={2.4} />
               )}
             </View>
           </TouchableOpacity>
@@ -380,8 +387,8 @@ export function EditProfileScreen({
               style={[
                 styles.iconCircleBtn,
                 {
-                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
-                  borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
+                  backgroundColor: isDark ? '#1B2534' : 'rgba(0, 0, 0, 0.05)',
+                  borderColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.08)',
                 },
               ]}>
               <Upload size={18} color={theme.textPrimary} strokeWidth={2.2} />
@@ -394,8 +401,8 @@ export function EditProfileScreen({
               style={[
                 styles.iconCircleBtn,
                 {
-                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
-                  borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
+                  backgroundColor: isDark ? '#1B2534' : 'rgba(0, 0, 0, 0.05)',
+                  borderColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.08)',
                 },
               ]}>
               <Camera size={18} color={theme.textPrimary} strokeWidth={2.2} />
@@ -409,8 +416,8 @@ export function EditProfileScreen({
                 style={[
                   styles.iconCircleBtn,
                   {
-                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
-                    borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
+                    backgroundColor: isDark ? '#1B2534' : 'rgba(0, 0, 0, 0.05)',
+                    borderColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.08)',
                   },
                 ]}>
                 <Maximize2 size={17} color={theme.textPrimary} strokeWidth={2.2} />
@@ -425,8 +432,8 @@ export function EditProfileScreen({
                 style={[
                   styles.iconCircleBtn,
                   {
-                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
-                    borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
+                    backgroundColor: isDark ? '#1B2534' : 'rgba(0, 0, 0, 0.05)',
+                    borderColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.08)',
                   },
                 ]}>
                 <Crop size={17} color={theme.textPrimary} strokeWidth={2.2} />
@@ -470,8 +477,8 @@ export function EditProfileScreen({
               style={[
                 styles.cleanInput,
                 {
-                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.02)',
-                  borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)',
+                  backgroundColor: isDark ? '#1B2534' : 'rgba(0, 0, 0, 0.02)',
+                  borderColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.08)',
                   color: theme.textPrimary,
                 },
               ]}
@@ -493,8 +500,8 @@ export function EditProfileScreen({
               style={[
                 styles.cleanInput,
                 {
-                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.02)',
-                  borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)',
+                  backgroundColor: isDark ? '#1B2534' : 'rgba(0, 0, 0, 0.02)',
+                  borderColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.08)',
                   color: theme.textPrimary,
                 },
               ]}
@@ -515,8 +522,8 @@ export function EditProfileScreen({
               style={[
                 styles.cleanInput,
                 {
-                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.02)',
-                  borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)',
+                  backgroundColor: isDark ? '#1B2534' : 'rgba(0, 0, 0, 0.02)',
+                  borderColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.08)',
                   color: theme.textPrimary,
                 },
               ]}
@@ -565,7 +572,7 @@ export function EditProfileScreen({
                         {
                           color: isSelected
                             ? isDark
-                              ? '#151A25'
+                              ? '#0D1520'
                               : '#FFFFFF'
                             : theme.textSecondary,
                           fontWeight: isSelected ? '700' : '500',
@@ -592,8 +599,8 @@ export function EditProfileScreen({
               style={[
                 styles.cleanInput,
                 {
-                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.02)',
-                  borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)',
+                  backgroundColor: isDark ? '#1B2534' : 'rgba(0, 0, 0, 0.02)',
+                  borderColor: isDark ? '#253244' : 'rgba(0, 0, 0, 0.08)',
                   color: theme.textPrimary,
                   marginBottom: 8,
                 },
@@ -633,7 +640,7 @@ export function EditProfileScreen({
                         color:
                           optionalSubject === opt
                             ? isDark
-                              ? '#151A25'
+                              ? '#0D1520'
                               : '#FFFFFF'
                             : theme.textMuted,
                       },
@@ -683,7 +690,7 @@ export function EditProfileScreen({
                         {
                           color: isSelected
                             ? isDark
-                              ? '#151A25'
+                              ? '#0D1520'
                               : '#FFFFFF'
                             : theme.textSecondary,
                           fontWeight: isSelected ? '700' : '500',
@@ -735,7 +742,7 @@ export function EditProfileScreen({
                         {
                           color: isSelected
                             ? isDark
-                              ? '#151A25'
+                              ? '#0D1520'
                               : '#FFFFFF'
                             : theme.textSecondary,
                           fontWeight: isSelected ? '700' : '500',
@@ -758,16 +765,16 @@ export function EditProfileScreen({
           style={[
             styles.bottomSaveBtn,
             {
-              backgroundColor: isDark ? '#FFFFFF' : '#1C2433',
+              backgroundColor: isDark ? '#F0F4F8' : '#1C2433',
             },
           ]}>
           {isSaving ? (
-            <ActivityIndicator size="small" color={isDark ? '#000000' : '#FFFFFF'} />
+            <ActivityIndicator size="small" color={isDark ? '#0D1520' : '#FFFFFF'} />
           ) : (
             <Text
               style={[
                 styles.bottomSaveBtnText,
-                { color: isDark ? '#151A25' : '#FFFFFF' },
+                { color: isDark ? '#0D1520' : '#FFFFFF' },
               ]}>
               Save Changes
             </Text>

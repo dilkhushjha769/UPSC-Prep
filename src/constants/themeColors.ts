@@ -9,10 +9,11 @@ const build = (t: SemanticTokens, isDark: boolean) => ({
   textPrimary: t.foreground,
   textSecondary: t.mutedForeground,
   textMuted: t.subtleForeground,
-  primary: t.accent,
+  primary: t.accent, // #F58235 (Vibrant warm orange for primary actions)
   primaryLight: t.accentHover,
   primarySoft: t.accentSoft,
   primarySurface: t.accentSoft,
+  accent: t.accent, // #F58235 (Burnt orange for accents)
   accentPink: t.destructive,
   accentAmber: t.warning,
   accentEmerald: t.success,

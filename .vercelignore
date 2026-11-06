@@ -1,0 +1,13 @@
+# Native folders
+/android
+/ios
+
+# Test scripts
+/scripts
+/supabase
+
+# Assets that are mobile-only or raw
+*.apk
+*.aab
+*.ipa
+

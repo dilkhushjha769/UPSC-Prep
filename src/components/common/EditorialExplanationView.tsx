@@ -115,11 +115,11 @@ export function EditorialExplanationView({
   }, [coreConcept, detailedAnalysis, eliminationTechnique, explanationText, correctAnswer]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { borderTopColor: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)' }]}>
       {/* 1. Header: Explanation Title & Official UPSC Key Badge */}
       <View style={styles.headerRow}>
         <View style={styles.headerTitleGroup}>
-          <Text style={[styles.sectionHeading, { color: isDark ? '#FFFFFF' : '#111827' }]}>
+          <Text style={[styles.sectionHeading, { color: isDark ? '#F0F4F8' : '#1C2433' }]}>
             Explanation
           </Text>
         </View>
@@ -133,22 +133,22 @@ export function EditorialExplanationView({
             style={[
               styles.stepBadge,
               {
-                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F3F4F6',
+                backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
               },
             ]}>
-            <Text style={[styles.stepBadgeText, { color: isDark ? '#FFFFFF' : '#111827' }]}>
+            <Text style={[styles.stepBadgeText, { color: isDark ? '#F0F4F8' : '#1C2433' }]}>
               {step.number}
             </Text>
           </View>
 
           <View style={styles.stepContentCol}>
-            <Text style={[styles.stepTitle, { color: isDark ? '#FFFFFF' : '#111827' }]}>
+            <Text style={[styles.stepTitle, { color: isDark ? '#F0F4F8' : '#1C2433' }]}>
               {step.title}
             </Text>
             {step.content.map((line, lIdx) => (
               <Text
                 key={`line-${lIdx}`}
-                style={[styles.stepBodyLine, { color: isDark ? '#9CA3AF' : '#4B5563' }]}>
+                style={[styles.stepBodyLine, { color: isDark ? '#6E7A8E' : '#4A5568' }]}>
                 {line}
               </Text>
             ))}
@@ -161,19 +161,19 @@ export function EditorialExplanationView({
         style={[
           styles.conclusionCard,
           {
-            backgroundColor: isDark ? 'rgba(16, 185, 129, 0.08)' : '#F0FDF4',
-            borderColor: isDark ? 'rgba(16, 185, 129, 0.25)' : '#BBF7D0',
+            backgroundColor: isDark ? 'rgba(38, 115, 77, 0.08)' : '#E3F1E8',
+            borderColor: isDark ? 'rgba(38, 115, 77, 0.25)' : '#BFDECB',
           },
         ]}>
         <View style={styles.conclusionHeaderRow}>
-          <Lightbulb size={16} color="#10B981" strokeWidth={2.2} />
+          <Lightbulb size={16} color="#26734D" strokeWidth={2.2} />
           <Text style={styles.conclusionHeaderTitle}>
             {eliminationTechnique ? 'Examiner Elimination Strategy' : 'Conclusion'}
           </Text>
         </View>
 
         {Boolean(conclusionText) && (
-          <Text style={[styles.conclusionBody, { color: isDark ? '#E5E7EB' : '#1F2937' }]}>
+          <Text style={[styles.conclusionBody, { color: isDark ? '#EAE5DC' : '#1C2433' }]}>
             {conclusionText}
           </Text>
         )}
@@ -191,15 +191,15 @@ export function EditorialExplanationView({
           style={[
             styles.metaInfoCard,
             {
-              backgroundColor: isDark ? 'rgba(255, 255, 255, 0.04)' : '#F8FAFC',
-              borderColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#E5E7EB',
+              backgroundColor: isDark ? '#1B2534' : '#FAF9F6',
+              borderColor: isDark ? '#253244' : '#EAE5DC',
             },
           ]}>
-          <BookOpen size={13} color={isDark ? '#60A5FA' : '#2563EB'} strokeWidth={2} />
-          <Text style={[styles.metaInfoLabel, { color: isDark ? '#FFFFFF' : '#111827' }]}>
+          <BookOpen size={13} color={isDark ? '#E0963A' : '#B9570A'} strokeWidth={2} />
+          <Text style={[styles.metaInfoLabel, { color: isDark ? '#F0F4F8' : '#1C2433' }]}>
             Syllabus Linkage:
           </Text>
-          <Text style={[styles.metaInfoText, { color: isDark ? '#9CA3AF' : '#4B5563' }]}>
+          <Text style={[styles.metaInfoText, { color: isDark ? '#6E7A8E' : '#4A5568' }]}>
             {syllabusRelevance}
           </Text>
         </View>
@@ -207,7 +207,7 @@ export function EditorialExplanationView({
 
       {/* 5. Optional Source Citation */}
       {Boolean(source) && (
-        <Text style={[styles.sourceText, { color: isDark ? '#6B7280' : '#9CA3AF' }]}>
+        <Text style={[styles.sourceText, { color: isDark ? '#6E7A8E' : '#8892A6' }]}>
           Source: {source}
         </Text>
       )}
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
   officialBadgeText: {
     fontSize: 11.5,
     fontWeight: '700',
-    color: '#10B981',
+    color: '#26734D',
   },
   stepRow: {
     flexDirection: 'row',
@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
   conclusionHeaderTitle: {
     fontSize: 13.5,
     fontWeight: '700',
-    color: '#10B981',
+    color: '#26734D',
   },
   conclusionBody: {
     fontSize: 13.5,
@@ -309,7 +309,7 @@ const styles = StyleSheet.create({
   verdictHighlight: {
     fontSize: 13.5,
     fontWeight: '700',
-    color: '#10B981',
+    color: '#26734D',
     lineHeight: 20,
   },
   metaInfoCard: {

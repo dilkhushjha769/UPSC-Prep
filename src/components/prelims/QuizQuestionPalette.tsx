@@ -120,28 +120,28 @@ export function QuizQuestionPalette({
         {/* Compact 4-Box Stats Overview */}
         <View style={styles.statsGrid}>
           <View style={[styles.statBox, styles.statBoxAnswered]}>
-            <Text style={[styles.statBoxNum, { color: '#10B981' }]}>
+            <Text style={[styles.statBoxNum, { color: '#26734D' }]}>
               {stats.totalAnswered}
             </Text>
             <Text style={styles.statBoxLabel}>Answered</Text>
           </View>
 
           <View style={[styles.statBox, styles.statBoxUnanswered]}>
-            <Text style={[styles.statBoxNum, { color: '#EF4444' }]}>
+            <Text style={[styles.statBoxNum, { color: '#B42318' }]}>
               {stats.unanswered}
             </Text>
             <Text style={styles.statBoxLabel}>Unanswered</Text>
           </View>
 
           <View style={[styles.statBox, styles.statBoxMarked]}>
-            <Text style={[styles.statBoxNum, { color: '#FF8A3D' }]}>
+            <Text style={[styles.statBoxNum, { color: '#D9822B' }]}>
               {stats.totalMarked}
             </Text>
             <Text style={styles.statBoxLabel}>Review</Text>
           </View>
 
           <View style={[styles.statBox, styles.statBoxNotVisited]}>
-            <Text style={[styles.statBoxNum, { color: theme.isDark ? '#E2E8F0' : '#475569' }]}>
+            <Text style={[styles.statBoxNum, { color: theme.isDark ? '#EAE5DC' : '#4A5568' }]}>
               {stats.notVisited}
             </Text>
             <Text style={styles.statBoxLabel}>Not Visited</Text>
@@ -304,7 +304,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       letterSpacing: -0.2,
     },
     progressCounterBadge: {
-      backgroundColor: isDark ? '#262D3D' : '#FFEDE0',
+      backgroundColor: isDark ? '#1B2534' : '#FCEBDD',
       paddingHorizontal: 8,
       paddingVertical: 3,
       borderRadius: 6,
@@ -312,7 +312,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
     progressCounterText: {
       fontSize: 11,
       fontWeight: '700',
-      color: isDark ? '#FFC9A3' : '#EA4E00',
+      color: isDark ? '#F2C9A3' : '#B9570A',
     },
     statsGrid: {
       flexDirection: 'row',
@@ -326,24 +326,24 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,
-      backgroundColor: isDark ? '#1C202B' : '#F8FAFC',
+      backgroundColor: isDark ? '#141C28' : '#FAF9F6',
       borderColor: theme.colors.borderSubtle,
     },
     statBoxAnswered: {
-      borderColor: isDark ? '#065F46' : '#A7F3D0',
-      backgroundColor: isDark ? '#06281E' : '#ECFDF5',
+      borderColor: isDark ? '#1D5C3D' : '#BFDECB',
+      backgroundColor: isDark ? '#17301F' : '#E3F1E8',
     },
     statBoxUnanswered: {
-      borderColor: isDark ? '#7F1D1D' : '#FECACA',
-      backgroundColor: isDark ? '#2A1215' : '#FEF2F2',
+      borderColor: isDark ? '#6E1F18' : '#F3C4BF',
+      backgroundColor: isDark ? '#3B1A17' : '#FBE4E1',
     },
     statBoxMarked: {
-      borderColor: isDark ? '#A63D05' : '#FFD9BD',
-      backgroundColor: isDark ? '#23153C' : '#FFF3EA',
+      borderColor: isDark ? '#B9570A' : '#F2C9A3',
+      backgroundColor: isDark ? '#141C28' : '#FCEBDD',
     },
     statBoxNotVisited: {
-      borderColor: isDark ? '#475569' : '#CBD5E1',
-      backgroundColor: isDark ? '#1F2937' : '#F1F5F9',
+      borderColor: isDark ? '#2B384D' : '#DDD6CA',
+      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
     },
     statBoxNum: {
       fontSize: 14,
@@ -362,7 +362,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       borderBottomWidth: 1,
       borderBottomColor: theme.colors.borderSubtle,
       gap: 6,
-      backgroundColor: isDark ? '#181B24' : '#F8FAFC',
+      backgroundColor: isDark ? '#141C28' : '#FAF9F6',
     },
     legendRow: {
       flexDirection: 'row',
@@ -424,24 +424,24 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       position: 'relative',
     },
     bubbleAnswered: {
-      backgroundColor: '#10B981',
-      borderColor: '#059669',
+      backgroundColor: '#26734D',
+      borderColor: '#26734D',
     },
     bubbleUnanswered: {
-      backgroundColor: '#EF4444',
-      borderColor: '#DC2626',
+      backgroundColor: '#B42318',
+      borderColor: '#B42318',
     },
     bubbleMarked: {
-      backgroundColor: '#FF8A3D',
-      borderColor: '#FF5500',
+      backgroundColor: '#D9822B',
+      borderColor: '#B9570A',
     },
     bubbleAnsweredMarked: {
-      backgroundColor: '#FF8A3D',
-      borderColor: '#FF5500',
+      backgroundColor: '#D9822B',
+      borderColor: '#B9570A',
     },
     bubbleNotVisited: {
-      backgroundColor: isDark ? '#334155' : '#FFFFFF',
-      borderColor: isDark ? '#64748B' : '#94A3B8',
+      backgroundColor: isDark ? '#3F4A5E' : '#FFFFFF',
+      borderColor: isDark ? '#6E7A8E' : '#7A8499',
     },
     bubbleCurrent: {
       borderWidth: 2.5,
@@ -455,7 +455,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
     bubbleCurrentLegend: {
       borderWidth: 2,
       borderColor: theme.colors.textPrimary,
-      backgroundColor: isDark ? '#262D3D' : '#E2E8F0',
+      backgroundColor: isDark ? '#1B2534' : '#EAE5DC',
     },
     bubblePressed: {
       transform: [{ scale: 0.94 }],
@@ -467,7 +467,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       color: '#FFFFFF',
     },
     textNotVisited: {
-      color: isDark ? '#F1F5F9' : '#334155',
+      color: isDark ? '#F0EDE6' : '#3F4A5E',
     },
     textCurrent: {
       fontWeight: '900',
@@ -479,7 +479,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       width: 6,
       height: 6,
       borderRadius: 3,
-      backgroundColor: '#10B981',
+      backgroundColor: '#26734D',
       borderWidth: 1,
       borderColor: '#FFFFFF',
     },
@@ -487,7 +487,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       width: 7,
       height: 7,
       borderRadius: 3.5,
-      backgroundColor: '#10B981',
+      backgroundColor: '#26734D',
       borderWidth: 1,
       borderColor: '#FFFFFF',
     },
@@ -500,15 +500,15 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       padding: 14,
       borderTopWidth: 1,
       borderTopColor: theme.colors.borderSubtle,
-      backgroundColor: isDark ? '#1A1D27' : '#F8FAFC',
+      backgroundColor: isDark ? '#141C28' : '#FAF9F6',
     },
     submitExamBtn: {
-      backgroundColor: '#10B981',
+      backgroundColor: '#26734D',
       paddingVertical: 12,
       borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
-      shadowColor: '#10B981',
+      shadowColor: '#26734D',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.3,
       shadowRadius: 4,

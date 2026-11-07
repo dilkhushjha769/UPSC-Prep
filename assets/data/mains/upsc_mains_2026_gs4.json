@@ -1,0 +1,251 @@
+{
+  "exam": "Civil Services (Main) Examination",
+  "year": 2026,
+  "paper": "General Studies Paper IV",
+  "paper_code": "KVMS-G-GSD/36",
+  "subject": "General Studies IV (Ethics, Integrity, and Aptitude)",
+  "total_marks": 250,
+  "time_allowed_hours": 3,
+  "instructions": [
+    "There are TWELVE questions divided in two Sections and printed both in HINDI and in ENGLISH.",
+    "All questions are compulsory.",
+    "The number of marks carried by a question/part is indicated against it.",
+    "Answers must be written in the medium authorized in the Admission Certificate.",
+    "Keep the word limit indicated in the questions in mind.",
+    "Any page or portion of the page left blank in the Question-cum-Answer Booklet must be clearly struck off."
+  ],
+  "sections": [
+    {
+      "section_name": "Section A",
+      "section_code": "SECTION A",
+      "questions": [
+        {
+          "question_number": "1(a)",
+          "id": "2026_GS4_Q1A",
+          "text_english": "Owing to paucity of time, a university professor generates a Ph.D. evaluation report using Artificial Intelligence and submits it with some modifications. Discuss this from the perspective of accountability and integrity.",
+          "text_hindi": "समय के अभाव में विश्वविद्यालय का एक प्रोफेसर कृत्रिम बुद्धिमत्ता (आर्टिफिशियल इंटेलिजेंस) की मदद से एक Ph.D. के मूल्यांकन का प्रतिवेदन लेकर और उसे कुछ संशोधित कर जमा कर देता है। जवाबदेही और निष्ठा के परिप्रेक्ष्य में इस पर विचार कीजिए।",
+          "marks": 10,
+          "word_limit": 150,
+          "subject_area": "Ethics & Academic Integrity",
+          "topic": "Use of AI in Evaluation / Professional Integrity & Accountability"
+        },
+        {
+          "question_number": "1(b)",
+          "id": "2026_GS4_Q1B",
+          "text_english": "A business house is working on a project that could displace a forest community from their habitat. As the administrative officer of that district, what ethical challenges are you likely to face?",
+          "text_hindi": "एक औद्योगिक घराना एक ऐसी परियोजना पर काम कर रहा है, जिसके कारण एक वन-समुदाय अपने प्राकृतिक वासस्थान से विस्थापित हो सकता है। उक्त ज़िले के प्रशासनिक अधिकारी के रूप में आप किन नैतिक चुनौतियों का सामना करेंगे?",
+          "marks": 10,
+          "word_limit": 150,
+          "subject_area": "Administrative Ethics",
+          "topic": "Development vs Displacement / Rights of Forest Communities"
+        },
+        {
+          "question_number": "2(a)",
+          "id": "2026_GS4_Q2A",
+          "text_english": "An endangered tribe has developed a severe skeletal deformity. A university research has identified a mineral supplement as a possible remedy, though clinical trials are yet to be conducted. Should the District Magistrate (DM) use this research on the tribe? Discuss from the perspective of medical and administrative ethics.",
+          "text_hindi": "एक विलुप्तप्राय जनजाति गहन कंकालीय विरूपता (स्केलेटल डिफॉर्मिटी) से ग्रस्त है। एक विश्वविद्यालयी शोध ने एक खनिज-पूरक को इसके संभावित उपचार के लिए चिह्नित किया है, यद्यपि इसका चिकित्सकीय परीक्षण होना अभी शेष है। क्या जिलाधिकारी (डी० एम०) को इस शोध का उपयोग इस जनजाति पर करवाना चाहिए? आयुर्वैज्ञानिक एवं प्रशासनिक नैतिकता की दृष्टि से इस पर विचार कीजिए।",
+          "marks": 10,
+          "word_limit": 150,
+          "subject_area": "Medical & Administrative Ethics",
+          "topic": "Experimental Treatments / Informed Consent / Vulnerable Groups"
+        },
+        {
+          "question_number": "2(b)",
+          "id": "2026_GS4_Q2B",
+          "text_english": "Discuss how national security can be balanced with concerns of human rights.",
+          "text_hindi": "राष्ट्रीय सुरक्षा एवं मानवाधिकार के हितों के बीच किस तरह से संतुलन स्थापित किया जा सकता है? विचार कीजिए।",
+          "marks": 10,
+          "word_limit": 150,
+          "subject_area": "Ethics & Security",
+          "topic": "National Security vs Human Rights Balance"
+        },
+        {
+          "question_number": "3(a)",
+          "id": "2026_GS4_Q3A",
+          "text_english": "Dr. B. R. Ambedkar had cautioned that employing civil disobedience within a constitutional democracy equates to endorsing 'anarchy'. How should modern democracies navigate the ethical dilemmas posed by civil disobedience movements that aim to promote social justice against policies that may raise genuine concerns?",
+          "text_hindi": "डॉ० बी० आर० अम्बेडकर ने सचेत किया था कि किसी संवैधानिक प्रजातंत्र में सविनय अवज्ञा का क्रियान्वयन 'अराजकता' का अनुमोदन करने जैसा है। आधुनिक लोकतांत्रिक प्रणालियों को उन सविनय अवज्ञा आंदोलनों से उत्पन्न नैतिक दुविधाओं का सामना किस प्रकार करना चाहिए, जो सामाजिक न्याय को बढ़ावा देने के उद्देश्य से उन नीतियों का विरोध करते हैं, जिनके संबंध में वास्तविक और उचित चिंताएँ हैं?",
+          "marks": 10,
+          "word_limit": 150,
+          "subject_area": "Political & Governance Ethics",
+          "topic": "Civil Disobedience / Constitutional Democracy vs Social Justice"
+        },
+        {
+          "question_number": "3(b)",
+          "id": "2026_GS4_Q3B",
+          "text_english": "In what ways can an Indian Administrative Officer apply Gandhi's notion of 'trusteeship' to ensure fairness in governance?",
+          "text_hindi": "एक भारतीय प्रशासनिक अधिकारी गाँधीजी के 'ट्रस्टीशिप' के बोध का प्रयोग निष्पक्ष प्रशासन को सुनिश्चित करने के लिए कैसे कर सकता है?",
+          "marks": 10,
+          "word_limit": 150,
+          "subject_area": "Gandhian Ethics",
+          "topic": "Trusteeship in Governance / Public Trust"
+        },
+        {
+          "question_number": "3(c)",
+          "id": "2026_GS4_Q3C",
+          "text_english": "Shakespeare in Henry IV says, \"The arms are fair when the intent of bearing them is just\". What ethical implications does this have in governance?",
+          "text_hindi": "हेनरी IV में शेक्सपीयर का कथन है कि \"हथियार का तभी औचित्य है जब उसे रखना न्यायसंगत हो\"। प्रशासन में इसके क्या नैतिक आशय हैं?",
+          "marks": 10,
+          "word_limit": 150,
+          "subject_area": "Philosophical / Governance Ethics",
+          "topic": "Just War / Ethical Use of Power and Authority"
+        },
+        {
+          "question_number": "4(a)",
+          "id": "2026_GS4_Q4A",
+          "text_english": "Citing the serious adverse effects of long-term medication, a doctor convinces the family of a female patient for surgery. This led the patient to reluctantly consent for the surgery, though her original choice was to opt for medication. Explain the concepts of paternalism and beneficence by analysing the doctor's action.",
+          "text_hindi": "लम्बी अवधि तक दवाओं के प्रयोग से उत्पन्न इसके गंभीर कुप्रभावों पर बल देते हुए एक चिकित्सक एक महिला रोगी के परिवार वालों को सर्जरी के लिए राजी कर लेता है। रोगी हिचकिचाती हुई अपनी सर्जरी की स्वीकृति देती है, जबकि उसका प्राथमिक चुनाव दवाओं से ही इलाज कराने का था। इस प्रसंग में चिकित्सक की गतिविधि की विवेचना करते हुए पितृवाद (पैटर्नलिज़्म) एवं उपकार (बेनीफिसेन्स) की अवधारणा को व्याख्यायित कीजिए।",
+          "marks": 10,
+          "word_limit": 150,
+          "subject_area": "Bioethics & Medical Ethics",
+          "topic": "Paternalism vs Beneficence / Patient Autonomy"
+        },
+        {
+          "question_number": "4(b)",
+          "id": "2026_GS4_Q4B",
+          "text_english": "Efficiency is doing things right, while effectiveness is doing the right thing. How do you strike a balance between the two to enhance productivity?",
+          "text_hindi": "दक्षता है-काम को सही तरीके से करना, प्रभावशीलता है- सही काम करना। उत्पादकता को बढ़ाने के लिए आप इनके बीच किस प्रकार संतुलन स्थापित करेंगे?",
+          "marks": 10,
+          "word_limit": 150,
+          "subject_area": "Public Administration Ethics",
+          "topic": "Efficiency vs Effectiveness / Productivity & Integrity"
+        },
+        {
+          "question_number": "5(a)",
+          "id": "2026_GS4_Q5A",
+          "text_english": "Usually schools, working in remote areas, do not fully comply with government regulations. However, if the rules are enforced strictly, it would lead to most schools closing down. How should an administrator strike a balance between enforcement of rules and educational rights of children?",
+          "text_hindi": "सुदूर क्षेत्रों में स्थित विद्यालय प्रायः सरकारी नियमों के अनुसार पूर्ण रूप से काम नहीं कर पाते हैं। हालाँकि, यदि उन पर ये नियम कठोरता से लागू किए जाएँ, तो अधिकतर विद्यालय बंद हो जाएँगे। एक प्रशासनिक अधिकारी को नियमों को लागू करने और विद्यार्थियों के शैक्षणिक अधिकारों के बीच कैसे संतुलन स्थापित करना चाहिए?",
+          "marks": 10,
+          "word_limit": 150,
+          "subject_area": "Administrative Ethics",
+          "topic": "Rule Compliance vs Right to Education / Pragmatic Governance"
+        },
+        {
+          "question_number": "5(b)",
+          "id": "2026_GS4_Q5B",
+          "text_english": "In international relations, ethical considerations are often subjugated to the strategic interests of nation-states. Discuss this from an ethical perspective.",
+          "text_hindi": "अंतर्राष्ट्रीय संबंधों में नैतिक मूल्यों एवं मानदंडों की अपेक्षा राष्ट्र राज्यों के रणनीतिक हितों को अकसर अधिक महत्त्व दिया जाता है। नैतिक दृष्टिकोण से इसकी विवेचना कीजिए।",
+          "marks": 10,
+          "word_limit": 150,
+          "subject_area": "International Ethics",
+          "topic": "Realpolitik vs Ethics in International Relations"
+        },
+        {
+          "question_number": "6(a)",
+          "id": "2026_GS4_Q6A",
+          "text_english": "On the request of his Personal Assistant (PA), the District Magistrate (DM) stops the transfer of a schoolteacher who takes private tuition for his daughter diagnosed with learning disability. In this context, discuss the aspects of empathy versus compliance with rules.",
+          "text_hindi": "अपने निजी सहायक (पी० ए०) के निवेदन पर जिलाधिकारी (डी० एम०) विद्यालय के एक अध्यापक का स्थानांतरण रोक देता है, जो इस निजी सहायक की अधिगम अक्षमता वाली बेटी को ट्यूशन पढ़ाता है। इस संदर्भ में समानुभूति बनाम कर्तव्यपालन के पक्षों पर विचार कीजिए।",
+          "marks": 10,
+          "word_limit": 150,
+          "subject_area": "Administrative Ethics",
+          "topic": "Empathy vs Rule Compliance / Favoritism vs Compassion"
+        },
+        {
+          "question_number": "6(b)",
+          "id": "2026_GS4_Q6B",
+          "text_english": "Some moral philosophers argue that spending some of your resources- without significantly affecting your financial stability to help other people who badly suffer is our moral duty and not merely a matter of charity. Justify this claim by explaining the distinction between duty and charity.",
+          "text_hindi": "कुछ नीतिवादी दार्शनिकों का तर्क है कि जो आर्थिक रूप से अत्यंत कमज़ोर हैं, उनके लिए अपनी आर्थिक स्थिति को विशेष रूप से प्रभावित किए बगैर, अपने संसाधनों में से कुछ खर्च करना सिर्फ परोपकार नहीं, हमारा नैतिक कर्तव्य है। परोपकार एवं कर्तव्य के बीच अंतर को स्पष्ट करते हुए इस कथन की पुष्टि कीजिए।",
+          "marks": 10,
+          "word_limit": 150,
+          "subject_area": "Moral Philosophy",
+          "topic": "Duty vs Charity / Moral Obligation to Help"
+        }
+      ]
+    },
+    {
+      "section_name": "Section B (Case Studies)",
+      "section_code": "SECTION B",
+      "questions": [
+        {
+          "question_number": 7,
+          "id": "2026_GS4_Q7",
+          "title": "Medical Ethics & Informed Consent Case Study (Lata & Dr. Mansi)",
+          "scenario_english": "Lata underwent diagnostic laparoscopy under general anesthesia. During surgery, Dr. Mansi found a potentially malignant tumor in the uterus. Instead of taking a sample for biopsy and subjecting Lata to a second surgery later, Dr. Mansi obtained written consent from Lata's sister-in-law (Sujatha) and performed a total hysterectomy immediately. Lata felt betrayed upon waking up as her consent wasn't obtained, and decided to approach the court.",
+          "scenario_hindi": "लता को पेट दर्द के कारण भर्ती कराया गया और लैप्रोस्कोपी के दौरान गर्भाशय में ट्यूमर मिला। डॉक्टर मानसी ने ननद सुजाता की सहमति से लता का गर्भाशय निकाल दिया ताकि दूसरा ऑपरेशन न करना पड़े। होश में आने पर लता ने इसे धोखा माना और अदालत जाने का फैसला किया।",
+          "sub_questions": [
+            "(a) Discuss the ethical issues involved in this case.",
+            "(b) Discuss the moral conduct of the doctor in this situation."
+          ],
+          "marks": 20,
+          "word_limit": 250,
+          "subject_area": "Case Study - Medical Ethics",
+          "topic": "Informed Consent / Patient Autonomy / Emergency Intervention"
+        },
+        {
+          "question_number": 8,
+          "id": "2026_GS4_Q8",
+          "title": "Predictive AI Policing & Social Bias Case Study (SP Ravi)",
+          "scenario_english": "SP Ravi implemented an AI-enabled software for predictive policing using biometric data, which successfully reduced crime. However, the system flagged a low-income immigrant neighborhood as a crime hotspot, leading to focused surveillance. Activists submitted a memorandum claiming the AI system is biased due to incorrect historical data and discriminates against residents who lack transparency about their data records.",
+          "scenario_hindi": "एसपी रवि ने अनुमानात्मक पुलिसिंग के लिए AI लागू किया। AI ने एक प्रवासी/निम्न आय वाले क्षेत्र को हॉटस्पॉट के रूप में चिह्नित किया। नागरिक कार्यकर्ताओं ने ज्ञापन दिया कि यह AI ऐतिहासिक पूर्वाग्रहों से ग्रस्त है और तनाव पैदा कर रहा है।",
+          "sub_questions": [
+            "(a) What are the ethical issues including biases involved in the use of AI in data-driven policing?",
+            "(b) Place yourself in Ravi's role and discuss the alternatives available. Justify the action that optimises compliance with ethics."
+          ],
+          "marks": 20,
+          "word_limit": 250,
+          "subject_area": "Case Study - AI Ethics & Policing",
+          "topic": "AI Bias in Law Enforcement / Civil Liberties vs Predictive Policing"
+        },
+        {
+          "question_number": 9,
+          "id": "2026_GS4_Q9",
+          "title": "Corruption Network in Land Use Conversion Case Study (DC Seema)",
+          "scenario_english": "District Collector Seema uncovered a backlog of Change of Land Use (CLU) applications controlled by a tout-subordinate network taking heavy bribes. Employees were terrified to process files. Seema faces the challenge of breaking this corruption network without halting daily administrative operations or causing institutional/labor union backlash.",
+          "scenario_hindi": "जिलाधिकारी सीमा को पता चला कि सी.एल.यू. आवेदनों की मंजूरी में दलालों और कर्मचारियों का गिरोह रिश्वत ले रहा है। सीमा के सामने प्रशासनिक कार्यों को बिना रोके इस भ्रष्टाचार नेटवर्क को तोड़ने की चुनौती है।",
+          "sub_questions": [
+            "(a) What are the ethical issues involved in this case?",
+            "(b) Discuss the options open to Seema. Identify the recommended option and justify it."
+          ],
+          "marks": 20,
+          "word_limit": 250,
+          "subject_area": "Case Study - Administrative Integrity",
+          "topic": "Dismantling Corruption Networks / Administrative Reforms / Whistleblowing & Enforcement"
+        },
+        {
+          "question_number": 10,
+          "id": "2026_GS4_Q10",
+          "title": "Biometric PDS Gatekeeping & EWS Welfare Case Study (DC Vikas)",
+          "scenario_english": "DC Vikas discovered that mandatory real-time biometric identification for PDS food distribution in a remote hilly district failed frequently for children, manual laborers, senior citizens, and under poor Wi-Fi connectivity. Strictly following rules denies food to EWS beneficiaries (impinging on Article 21), while leaving it to distributor discretion causes leakages.",
+          "scenario_hindi": "डीसी विकास ने पाया कि राशन वितरण में बायोमेट्रिक मिलान न होने (बच्चों, मजदूरों, बुजुर्गों, खराब वाई-फाई) के कारण पात्र लोगों को राशन नहीं मिल पा रहा था। नियम पालन से भुखमरी/अधिकार हनन और विवेकाधिकार से कालाबाजारी का खतरा है।",
+          "sub_questions": [
+            "(a) What are the options open to Vikas? How should he balance fiscal probity with empathy towards the designated beneficiaries?",
+            "(b) Discuss the ethics of using technology as a gatekeeper for welfare schemes."
+          ],
+          "marks": 20,
+          "word_limit": 250,
+          "subject_area": "Case Study - Welfare Governance & Technology",
+          "topic": "Biometric Exclusion / Digital Inclusion / Fiscal Probity vs Compassion"
+        },
+        {
+          "question_number": 11,
+          "id": "2026_GS4_Q11",
+          "title": "Ethnic Conflict & Administrative Neutrality Case Study (DM Rajan)",
+          "scenario_english": "DM Rajan was posted to border district Rajapuram suffering from violent ethnic clashes between Jhara and Biru communities over land and resources. The inter-community rivalry had seeped into local administration and police, destroying public trust. Neighboring country could exploit the situation for insurgency.",
+          "scenario_hindi": "राजपुरम में झारा और बीरू समुदायों के बीच भयंकर जातीय हिंसा हुई। स्थानीय प्रशासन और पुलिस भी पूर्वाग्रह ग्रस्त हो गई, जिससे सरकार से जनता का विश्वास उठ गया। पड़ोसी देश भी घुसपैठ करा सकता है।",
+          "sub_questions": [
+            "(a) Discuss the ethical issues that need to be addressed in this case.",
+            "(b) What are the options open to Rajan? Which option would ensure protection of his non-partisan image without compromising ethics?"
+          ],
+          "marks": 20,
+          "word_limit": 250,
+          "subject_area": "Case Study - Law & Order & Peacekeeping",
+          "topic": "Non-Partisanship in Crisis / Restoring Public Trust / Conflict Resolution"
+        },
+        {
+          "question_number": 12,
+          "id": "2026_GS4_Q12",
+          "title": "International Arms Sales & Strategic Ethics Case Study (DWS Head Ajit)",
+          "scenario_english": "Ajit, Head of Weapon Sales, must choose between selling long-range artillery/missiles to Country A or Country B. Country A is a developing non-aligned nation needing defense against an aggressive neighbor, offering R&D collaboration but requesting a long-term loan. Country B is in a superpower alliance, possesses small nuclear weapons, supports foreign guerrillas, has non-transparent budgets, but offers partial advance cash payment.",
+          "scenario_hindi": "अजीत (हथियार बिक्री प्रमुख) को देश A या देश B में से किसी एक को हथियार बेचने हैं। देश A शोध साझेदारी और लंबी अवधि का कर्ज चाहता है। देश B गुरिल्ला बलों का समर्थन करता है, परमाणु संपन्न है, लेकिन नकद भुगतान करने को तैयार है।",
+          "sub_questions": [
+            "(a) Discuss the options available to Ajit. Which option should he select and why?",
+            "(b) How can Ajit balance nation's economic and strategic interests with ethical considerations?"
+          ],
+          "marks": 20,
+          "word_limit": 250,
+          "subject_area": "Case Study - Defense & International Ethics",
+          "topic": "Arms Export Ethics / Strategic Alliances vs Moral Responsibilities"
+        }
+      ]
+    }
+  ]
+}

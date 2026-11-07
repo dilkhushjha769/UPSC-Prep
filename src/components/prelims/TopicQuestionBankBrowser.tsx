@@ -496,7 +496,7 @@ export function TopicQuestionBankBrowser({
           >
             <AlertTriangle
               size={12}
-              color={onlyNeedsReview ? theme.colors.darkButtonText : '#D97706'}
+              color={onlyNeedsReview ? theme.colors.darkButtonText : '#A65A0A'}
               strokeWidth={2.2}
             />
             <Text style={[styles.pillText, onlyNeedsReview && styles.pillTextActive]}>
@@ -514,7 +514,7 @@ export function TopicQuestionBankBrowser({
           </Text>
           {hasActiveFilters && (
             <Pressable style={styles.clearFiltersLink} onPress={handleResetFilters}>
-              <RotateCcw size={12} color="#006FFD" strokeWidth={2.2} />
+              <RotateCcw size={12} color="#B9570A" strokeWidth={2.2} />
               <Text style={styles.clearFiltersText}>Clear filters</Text>
             </Pressable>
           )}
@@ -746,7 +746,7 @@ const getStyles = (theme: PrelimsThemeType) =>
     clearFiltersText: {
       fontSize: 12,
       fontWeight: '600',
-      color: '#006FFD',
+      color: '#B9570A',
     },
     actionButtonsRow: {
       flexDirection: 'row',
@@ -812,7 +812,7 @@ const getStyles = (theme: PrelimsThemeType) =>
     yearBadgeText: {
       fontSize: 11,
       fontWeight: '800',
-      color: '#006FFD',
+      color: '#B9570A',
     },
     metaDot: {
       fontSize: 11,
@@ -838,7 +838,7 @@ const getStyles = (theme: PrelimsThemeType) =>
     reviewFlagText: {
       fontSize: 10,
       fontWeight: '700',
-      color: '#D97706',
+      color: '#A65A0A',
     },
     difficultyText: {
       fontSize: 11,

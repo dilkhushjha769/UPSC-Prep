@@ -19,6 +19,7 @@ import {
 } from 'lucide-react-native';
 import { PALETTE, SemanticColors, Typography } from '@/constants/colors';
 import { useStudy } from '@/context/StudyContext';
+import { useAppTheme } from '@/context/ThemeContext';
 import { ExamReadinessCard } from './ExamReadinessCard';
 import { PrelimsCountdownCard } from './PrelimsCountdownCard';
 import { DailyQuestionGoalTracker } from './DailyQuestionGoalTracker';
@@ -30,6 +31,7 @@ import { TaskCard, TaskFormModal } from '@/components/tasks';
 interface CleanStreakDashboardProps {
   isDark: boolean;
   onOpenPrelims?: () => void;
+  onOpenMains?: () => void;
   onOpenMockTests?: () => void;
   onOpenTasks?: () => void;
   onOpenProfile?: () => void;
@@ -38,14 +40,27 @@ interface CleanStreakDashboardProps {
 }
 
 export function CleanStreakDashboard({
-  isDark,
+  isDark: propIsDark,
   onOpenPrelims,
+  onOpenMains,
   onOpenMockTests,
   onOpenTasks,
   onOpenProfile,
   onOpenNotifications,
-  onToggleTheme,
-}: CleanStreakDashboardProps) {
+  onToggleTheme: propToggleTheme,
+}: {
+  isDark?: boolean;
+  onOpenPrelims?: () => void;
+  onOpenMains?: () => void;
+  onOpenMockTests?: () => void;
+  onOpenTasks?: () => void;
+  onOpenProfile?: () => void;
+  onOpenNotifications?: () => void;
+  onToggleTheme?: () => void;
+}) {
+  const { isDark: contextIsDark, toggleTheme: contextToggleTheme } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
+  const onToggleTheme = propToggleTheme || contextToggleTheme;
   const {
     weekDays,
     sessions,
@@ -182,11 +197,11 @@ export function CleanStreakDashboard({
                   backgroundColor: isDark
                     ? PALETTE.neutral.dark.surface
                     : '#FFFFFF',
-                  borderColor: isDark ? '#383A42' : '#F0F1F5',
+                  borderColor: isDark ? '#253244' : '#F0EDE6',
                 },
               ]}>
               {isDark ? (
-                <Sun size={18} color="#FBBF24" strokeWidth={2.3} />
+                <Sun size={18} color="#D9822B" strokeWidth={2.3} />
               ) : (
                 <Moon size={18} color={PALETTE.highlight.primary} strokeWidth={2.3} />
               )}
@@ -210,7 +225,7 @@ export function CleanStreakDashboard({
                 backgroundColor: isDark
                   ? PALETTE.neutral.dark.surface
                   : '#FFFFFF',
-                borderColor: isDark ? '#383A42' : '#F0F1F5',
+                borderColor: isDark ? '#253244' : '#F0EDE6',
               },
             ]}>
             <Bell size={20} color={theme.textPrimary} strokeWidth={2.2} />
@@ -265,7 +280,7 @@ export function CleanStreakDashboard({
             backgroundColor: isDark
               ? PALETTE.neutral.dark.surface
               : '#FFFFFF',
-            borderColor: isDark ? '#383A42' : '#F0F1F5',
+            borderColor: isDark ? '#253244' : '#F0EDE6',
           },
         ]}>
         <View style={[styles.cleanDetailHeader, !isTasksSectionExpanded && { marginBottom: 0 }]}>
@@ -280,7 +295,7 @@ export function CleanStreakDashboard({
               style={[
                 styles.cleanTodayBadge,
                 {
-                  backgroundColor: PALETTE.highlight.primary,
+                  backgroundColor: '#F58235',
                 },
               ]}>
               <Text
@@ -315,7 +330,7 @@ export function CleanStreakDashboard({
               size="sm"
               title="Add"
               isDark={isDark}
-              leftIcon={<Plus size={12} color={isDark ? '#6FBAFF' : PALETTE.highlight.primary} />}
+              leftIcon={<Plus size={12} color={isDark ? '#E8A25E' : PALETTE.highlight.primary} />}
               onPress={() => setIsTaskModalOpen(true)}
             />
           </View>
@@ -330,15 +345,15 @@ export function CleanStreakDashboard({
                   <Text style={[styles.taskProgressBarLabel, { color: theme.textSecondary }]}>
                     Daily Completion
                   </Text>
-                  <Text style={[styles.taskProgressBarValue, { color: tasksProgressPct === 100 ? '#10B981' : theme.textPrimary }]}>
+                  <Text style={[styles.taskProgressBarValue, { color: tasksProgressPct === 100 ? '#26734D' : theme.textPrimary }]}>
                     {completedTasksCount} of {selectedDateTasks.length} tasks ({Math.round(tasksProgressPct)}%)
                   </Text>
                 </View>
                 <ProgressBar
                   progress={tasksProgressPct}
                   height={3}
-                  fillColor={tasksProgressPct === 100 ? '#10B981' : PALETTE.highlight.primary}
-                  trackColor={isDark ? 'rgba(255, 255, 255, 0.08)' : '#E8E9F1'}
+                  fillColor={tasksProgressPct === 100 ? '#26734D' : PALETTE.highlight.primary}
+                  trackColor={isDark ? '#1B2534' : '#EAE5DC'}
                   borderRadius={2}
                 />
               </View>
@@ -386,7 +401,12 @@ export function CleanStreakDashboard({
       {/* ========================================================= */}
       {/* 6. EXAM READINESS & ALL INDIA RANK CARD                   */}
       {/* ========================================================= */}
-      <ExamReadinessCard isDark={isDark} onOpenPrelims={onOpenPrelims} />
+      <ExamReadinessCard
+        isDark={isDark}
+        onOpenPrelims={onOpenPrelims}
+        onOpenMains={onOpenMains}
+        onOpenMockTests={onOpenMockTests}
+      />
 
       {/* Monthly Streak History Modal */}
       <StreakCalendarModal
@@ -446,11 +466,11 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#38BDF8',
+    backgroundColor: '#7C93D1',
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
-    shadowColor: '#38BDF8',
+    shadowColor: '#7C93D1',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.25,
     shadowRadius: 6,

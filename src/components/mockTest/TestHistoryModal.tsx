@@ -16,6 +16,7 @@ import {
   BookOpen,
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
+import { useAppTheme } from '@/context/ThemeContext';
 import { MockTestService } from '@/services/mockTestService';
 import { MockTestRecord } from '@/types/mockTest';
 
@@ -30,8 +31,10 @@ export function TestHistoryModal({
   visible,
   onClose,
   onSelectTest,
-  isDark = true,
+  isDark: propIsDark,
 }: TestHistoryModalProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const [loading, setLoading] = useState(false);
   const [tests, setTests] = useState<MockTestRecord[]>([]);
@@ -182,14 +185,14 @@ export function TestHistoryModal({
                           styles.statusBadge,
                           {
                             backgroundColor: isSubmitted
-                              ? 'rgba(16, 185, 129, 0.12)'
-                              : 'rgba(245, 158, 11, 0.12)',
+                              ? 'rgba(38, 115, 77, 0.12)'
+                              : 'rgba(166, 90, 10, 0.12)',
                           },
                         ]}>
                         <Text
                           style={[
                             styles.statusBadgeText,
-                            { color: isSubmitted ? '#10B981' : '#F59E0B' },
+                            { color: isSubmitted ? '#26734D' : '#A65A0A' },
                           ]}>
                           {isSubmitted ? 'Completed' : 'In Progress'}
                         </Text>
@@ -218,7 +221,7 @@ export function TestHistoryModal({
                               styles.statVal,
                               {
                                 color:
-                                  scoreNum >= 0 ? theme.textPrimary : '#EF4444',
+                                  scoreNum >= 0 ? theme.textPrimary : '#B42318',
                               },
                             ]}>
                             {scoreNum.toFixed(1)} / {totalNum.toFixed(0)}
@@ -263,7 +266,7 @@ export function TestHistoryModal({
                           <Text
                             style={[
                               styles.statVal,
-                              { color: '#10B981' },
+                              { color: '#26734D' },
                             ]}>
                             {t.correct_count} / {t.question_count}
                           </Text>
@@ -275,7 +278,7 @@ export function TestHistoryModal({
                           styles.inProgressRow,
                           { backgroundColor: theme.activeBg },
                         ]}>
-                        <Clock size={14} color="#F59E0B" />
+                        <Clock size={14} color="#A65A0A" />
                         <Text
                           style={[
                             styles.inProgressText,

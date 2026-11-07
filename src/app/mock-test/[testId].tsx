@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, StyleSheet, useColorScheme } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import { ActiveMockTestScreen } from '@/components/mockTest/ActiveMockTestScreen';
 import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
 import { BW_THEME } from '@/constants/bwTheme';
+import { useAppTheme } from '@/context/ThemeContext';
 
 export default function ActiveMockTestRoute() {
   const { testId } = useLocalSearchParams<{ testId: string }>();
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
+  const { isDark } = useAppTheme();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
 
   if (!testId) {

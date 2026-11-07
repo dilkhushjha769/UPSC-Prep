@@ -1,0 +1,220 @@
+{
+  "exam": "Civil Services (Main) Examination",
+  "year": 2026,
+  "paper": "General Studies Paper III",
+  "paper_code": "KVMS-G-GSC",
+  "subject": "General Studies III (Technology, Economic Development, Bio-diversity, Environment, Security and Disaster Management)",
+  "total_marks": 250,
+  "time_allowed_hours": 3,
+  "instructions": [
+    "There are TWENTY questions printed both in HINDI and in ENGLISH.",
+    "All questions are compulsory.",
+    "The number of marks carried by a question/part is indicated against it.",
+    "Answers must be written in the medium authorized in the Admission Certificate.",
+    "Answers to Questions No. 1 to 10 should be in 150 words, whereas answers to Questions No. 11 to 20 should be in 250 words.",
+    "Keep the word limit indicated in the questions in mind.",
+    "Any page or portion of the page left blank in the Question-cum-Answer (QCA) Booklet must be clearly struck off."
+  ],
+  "questions": [
+    {
+      "question_number": 1,
+      "id": "2026_GS3_Q1",
+      "text_english": "What do you mean by Digital Rupee? In this context, explain the working and progress of India's Central Bank Digital Currency (CBDC).",
+      "text_hindi": "डिजिटल रुपये से आप क्या समझते हैं ? इस सन्दर्भ में, भारत के केन्द्रीय बैंक डिजिटल मुद्रा (सीबीडीसी) की कार्यप्रणाली तथा प्रगति का वर्णन कीजिए।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Indian Economy",
+      "topic": "Digital Rupee / CBDC / Banking & Monetary Policy"
+    },
+    {
+      "question_number": 2,
+      "id": "2026_GS3_Q2",
+      "text_english": "Examine the view that financial inclusion is an integral part of social and economic inclusion in a country like India. Also throw light on the usefulness of the R.B.I.'s Financial Inclusion Index.",
+      "text_hindi": "इस दृष्टिकोण का परीक्षण कीजिए कि वित्तीय समावेशन भारत जैसे देश में सामाजिक तथा आर्थिक समावेशन का अभिन्न हिस्सा है। आर.बी.आई. के वित्तीय समावेशन सूचकांक की उपयोगिता पर भी प्रकाश डालिए ।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Indian Economy",
+      "topic": "Financial Inclusion / RBI Financial Inclusion Index"
+    },
+    {
+      "question_number": 3,
+      "id": "2026_GS3_Q3",
+      "text_english": "Describe the various Technology Missions initiated in Indian agriculture and examine their role in food security.",
+      "text_hindi": "भारतीय कृषि में लागू किए गए विभिन्न तकनीकी मिशनों का वर्णन कीजिए एवं खाद्य सुरक्षा में उनकी भूमिका का परीक्षण कीजिए ।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Agriculture",
+      "topic": "Technology Missions / Food Security"
+    },
+    {
+      "question_number": 4,
+      "id": "2026_GS3_Q4",
+      "text_english": "Explain the factors responsible for inefficiency of agri-produce marketing. How e-commerce helps to reduce inefficiency of agri-produce marketing? Explain.",
+      "text_hindi": "कृषि-उत्पाद विपणन की अदक्षता हेतु उत्तरदायी कारकों को समझाइए । कृषि उत्पाद विपणन की अदक्षता को कम करने में ई-वाणिज्य किस प्रकार सहायता करता है ? समझाइए ।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Agriculture",
+      "topic": "Agri-Marketing / E-Commerce in Agriculture"
+    },
+    {
+      "question_number": 5,
+      "id": "2026_GS3_Q5",
+      "text_english": "Explain by giving two examples, how biotechnology has helped the Indian farmers in processing their perishable crops.",
+      "text_hindi": "दो उदाहरण देकर समझाइए कि जैवप्रौद्योगिकी ने भारतीय किसानों को उनकी नाशवान् फसलों के प्रसंस्करण में कैसे सहायता की है।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Science & Technology",
+      "topic": "Biotechnology / Crop Processing / Food Processing"
+    },
+    {
+      "question_number": 6,
+      "id": "2026_GS3_Q6",
+      "text_english": "Distinguish between a Fast Breeder Reactor (FBR) and a thermal nuclear reactor. In the context of first indigenously developed prototype FBR at Kalpakkam, explain the term 'criticality'. What are its implications for clean energy future of our country?",
+      "text_hindi": "एक द्रुत प्रजनक रिएक्टर (एफ बी आर) और एक तापीय परमाणुक रिएक्टर के बीच भेद बताइए । कल्पक्कम में स्वदेशी रूप से विकसित प्रथम प्रारूपी (प्रोटोटाइप) एफ बी आर के संदर्भ में, 'क्रान्तिकता (क्रिटकलिटी)' पद की व्याख्या कीजिये । हमारे देश के स्वच्छ ऊर्जा भविष्य के लिये इसके निहितार्थ क्या हैं ?",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Science & Technology",
+      "topic": "Nuclear Technology / FBR Kalpakkam / Clean Energy"
+    },
+    {
+      "question_number": 7,
+      "id": "2026_GS3_Q7",
+      "text_english": "Discuss how the contradiction between 'rapid infrastructure development' and 'disaster-risk reduction' in ecologically-sensitive areas of India can be managed, with suitable examples.",
+      "text_hindi": "उपयुक्त उदाहरणों सहित चर्चा कीजिए कि भारत के पारिस्थितिक रूप से संवेदनशील क्षेत्रों में 'द्रुत अवसंरचना विकास' और 'आपदा जोखिम में कमी' के बीच के विरोधाभास का प्रबंधन किस प्रकार किया जा सकता है।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Disaster Management & Environment",
+      "topic": "Infrastructure Development vs Disaster Risk Reduction"
+    },
+    {
+      "question_number": 8,
+      "id": "2026_GS3_Q8",
+      "text_english": "Discuss the aim and goals of Kunming-Montreal global biodiversity framework. Mention India's commitments and initiatives to achieve the goals and targets of this framework giving suitable examples.",
+      "text_hindi": "कुनमिंग-मॉन्ट्रियल वैश्विक जैव-विविधता फ्रेमवर्क के उद्देश्य एवं लक्ष्यों की चर्चा कीजिए । उपयुक्त उदाहरण देते हुए इस फ्रेमवर्क के लक्ष्यों और उद्देश्यों को प्राप्त करने के लिए भारत की प्रतिबद्धताओं और पहलों का उल्लेख कीजिए ।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Environment & Biodiversity",
+      "topic": "Kunming-Montreal Biodiversity Framework / India Conservation Goals"
+    },
+    {
+      "question_number": 9,
+      "id": "2026_GS3_Q9",
+      "text_english": "Explain how fake news and disinformation pose threat to Internal Security and Public Order in Indian context? In this regard, discuss salient features of amendments in respect of Information Technology (Intermediatory Guidelines and Digital Media Ethics Code) Rules 2021.",
+      "text_hindi": "भारतीय संदर्भ में, फर्जी समाचार और दुष्प्रचार किस प्रकार आंतरिक सुरक्षा और सार्वजनिक व्यवस्था के लिये खतरा पैदा करते हैं, इसका वर्णन कीजिये। इस संदर्भ में, सूचना प्रौद्योगिकी (मध्यस्थ दिशानिर्देश और डिजिटल मीडिया आचार संहिता) नियम-2021 के संबंध में किये गये संशोधनों की प्रमुख विशेषताओं पर चर्चा कीजिए ।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Internal Security & Cyber",
+      "topic": "Fake News & Disinformation / IT Rules Amendments"
+    },
+    {
+      "question_number": 10,
+      "id": "2026_GS3_Q10",
+      "text_english": "Ladakh is strategically located between China and Pakistan. As a measure to win hearts and minds of locals, discuss the Border Area Development Programmes (BADP) by the Central Government and civic actions by the Army. Also discuss demand of promulgation of provision of the Sixth Schedule of constitution for Ladakh.",
+      "text_hindi": "लद्दाख रणनीतिक रूप से चीन और पाकिस्तान के मध्य स्थित है। स्थानीय लोगों का दिल और दिमाग जीतने के लिये, केन्द्र सरकार द्वारा सीमा क्षेत्र विकास कार्यक्रमों (बी ए डी पी) और सेना द्वारा नागरिक कार्यवाही की विवेचना कीजिए । लद्दाख के लिये संविधान की छठी अनुसूची के प्रावधान की घोषणा की मांग की भी विवेचना कीजिए ।",
+      "marks": 10,
+      "word_limit": 150,
+      "subject_area": "Internal Security & Border Areas",
+      "topic": "Ladakh Border Management / BADP / Sixth Schedule Demand"
+    },
+    {
+      "question_number": 11,
+      "id": "2026_GS3_Q11",
+      "text_english": "Explain the key challenges for India's energy security. What measures do you suggest for ensuring energy security along with economic growth and sustainability?",
+      "text_hindi": "भारत की ऊर्जा सुरक्षा की प्रमुख चुनौतियों को समझाइए । आर्थिक संवृद्धि तथा संधारणीयता के साथ, ऊर्जा सुरक्षा को सुनिश्चित करने हेतु आप किन उपायों का सुझाव देंगे ?",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Indian Economy & Infrastructure",
+      "topic": "Energy Security / Sustainable Economic Growth"
+    },
+    {
+      "question_number": 12,
+      "id": "2026_GS3_Q12",
+      "text_english": "How are startups in India promoting entrepreneurship, innovation and employment? Discuss the global and domestic challenges in their working and suggest suitable measures to overcome these challenges.",
+      "text_hindi": "भारत में नवोन्मेषी उद्यम (स्टार्टअप्स) किस प्रकार उद्यमिता, नवाचार तथा रोजगार को प्रोत्साहित कर रहे हैं ? उनकी कार्यप्रणाली में वैश्विक तथा घरेलू चुनौतियों की विवेचना कीजिए तथा उन चुनौतियों को पराजित करने हेतु उपयुक्त सुझाव दीजिए ।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Indian Economy & Innovation",
+      "topic": "Startups / Entrepreneurship & Employment / Startup Ecosystem"
+    },
+    {
+      "question_number": 13,
+      "id": "2026_GS3_Q13",
+      "text_english": "How Indian agriculture has been transformed from food scarcity to food surplus level? Explain the various government policies implemented for diversification of Indian agriculture.",
+      "text_hindi": "भारतीय कृषि किस प्रकार खाद्य के अभाव से खाद्य अतिरेक स्तर तक रूपान्तरित हुई है ? भारतीय कृषि के विविधीकरण हेतु की गईं विभिन्न सरकारी नीतियों का वर्णन कीजिए ।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Agriculture",
+      "topic": "Agricultural Transformation / Food Surplus / Agri Diversification"
+    },
+    {
+      "question_number": 14,
+      "id": "2026_GS3_Q14",
+      "text_english": "Discuss the different types of subsidies and supports provided by the Government of India to agricultural sector. Examine the related issues pertaining to Agreement on Agriculture of World Trade Organisation (WTO).",
+      "text_hindi": "भारत सरकार द्वारा कृषि क्षेत्र में प्रदान किए जाने वाले विभिन्न प्रकार के अनुदानों एवं सहायता की विवेचना कीजिए । विश्व व्यापार संगठन (डब्ल्यू टी ओ) के कृषि समझौते से संबंधित मुद्दों का परीक्षण कीजिए ।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Agriculture & Trade",
+      "topic": "Agri Subsidies / WTO Agreement on Agriculture"
+    },
+    {
+      "question_number": 15,
+      "id": "2026_GS3_Q15",
+      "text_english": "Mention salient features of 'Mission Drishti'. Discuss the imaging techniques used in the satellite launched on 3rd May 2026. Why it is being considered world's first satellite of its kind?",
+      "text_hindi": "'मिशन दृष्टि' की प्रमुख विशेषताओं का उल्लेख कीजिए । 3 मई 2026 को प्रक्षेपित उपग्रह में प्रयुक्त प्रतिबिम्बीकरण की तकनीकियों (इमेजिंग टेक्नीक्स) की विवेचना कीजिए। यह विश्व में अपने प्रकार का प्रथम उपग्रह क्यों माना जा रहा है ?",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Science & Technology",
+      "topic": "Space Tech / Mission Drishti / Satellite Imaging"
+    },
+    {
+      "question_number": 16,
+      "id": "2026_GS3_Q16",
+      "text_english": "What is agentic Artificial Intelligence (AI)? Explain its working. Describe its applications with suitable examples. Discuss the advantages, risks and challenges associated with agentic AI systems.",
+      "text_hindi": "एजेंटिक कृत्रिम बुद्धिमत्ता (ए आई) क्या है ? इसकी कार्य प्रणाली को समझाइए । इसके अनुप्रयोगों का वर्णन उचित उदाहरणों के साथ कीजिये । एजेंटिक ए आई प्रणालियों से सम्बद्ध लाभों, जोखिमों और चुनौतियों की चर्चा कीजिये ।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Science & Technology",
+      "topic": "Emerging Tech / Agentic Artificial Intelligence (AI)"
+    },
+    {
+      "question_number": 17,
+      "id": "2026_GS3_Q17",
+      "text_english": "What are the challenges to solid waste management in India? Discuss the governmental policy framework on solid waste management. Discuss the success/failure cases of Delhi and Indore cities highlighting the salient feature of their solid waste management initiatives.",
+      "text_hindi": "भारत में ठोस अपशिष्ट प्रबंधन में क्या चुनौतियाँ हैं ? ठोस अपशिष्ट प्रबंधन पर सरकारी नीति फ्रेमवर्क की चर्चा कीजिए । ठोस अपशिष्ट प्रबंधन पहलों की मुख्य विशेषताओं पर प्रकाश डालते हुए दिल्ली और इन्दौर शहरों के सफलता/विफलता मामलों की चर्चा कीजिए ।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Environment & Ecology",
+      "topic": "Solid Waste Management / Policy Framework / Case Studies (Indore vs Delhi)"
+    },
+    {
+      "question_number": 18,
+      "id": "2026_GS3_Q18",
+      "text_english": "\"Community participation is the cornerstone of effective disaster management\". Analyse this statement with suitable examples from India. Also discuss the challenges to community participation and measures to strengthen it.",
+      "text_hindi": "“सामुदायिक सहभागिता प्रभावी आपदा प्रबंधन की आधारशिला है।\" इस कथन का विश्लेषण भारत से उपयुक्त उदाहरणों के साथ कीजिए । सामुदायिक सहभागिता की चुनौतियों और इसे मजबूत करने के उपायों की चर्चा भी कीजिए।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Disaster Management",
+      "topic": "Community-Based Disaster Management (CBDM)"
+    },
+    {
+      "question_number": 19,
+      "id": "2026_GS3_Q19",
+      "text_english": "Separatist movements have been one of the major factors contributing to militancy and instability in Jammu & Kashmir (J & K). Bring out actions taken by the Government to bring J & K into national mainstream. Discuss pre and post abrogation status of Articles 370 and 35A. Also bring out positive impacts of abrogation of both articles in mainstreaming the state.",
+      "text_hindi": "जम्मू व कश्मीर (जे एण्ड के) में उग्रवाद और अस्थिरता के प्रमुख कारणों में से एक अलगाववादी आंदोलन भी रहे हैं। जम्मू-कश्मीर को राष्ट्रीय मुख्यधारा में लाने के लिए सरकार द्वारा की गई कार्यवाही को स्पष्ट कीजिए । अनुच्छेद 370 और 35 ए को निरस्त करने से पहले और बाद की स्थिति पर चर्चा कीजिए। साथ ही, राज्य को राष्ट्रीय मुख्यधारा में लाने में इन दोनों अनुच्छेदों को निरस्त करने के सकारात्मक प्रभावों को भी स्पष्ट कीजिए ।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Internal Security",
+      "topic": "Jammu & Kashmir / Abrogation of Article 370 & 35A / Mainstreaming"
+    },
+    {
+      "question_number": 20,
+      "id": "2026_GS3_Q20",
+      "text_english": "Discuss counterfeit currency and money laundering as major sources of terror funding in India. State the actions being taken at International level to check these menaces. Highlight the role of Financial Action Task Force (FATF) and methods of compliance by its member states in preventing terror funding.",
+      "text_hindi": "भारत में आतंकवाद के वित्तपोषण के प्रमुख स्रोतों के रूप में नकली मुद्रा और धन शोधन मनी लाउन्ड्रिंग पर चर्चा कीजिए। इन खतरों को रोकने के लिए अंतर्राष्ट्रीय स्तर पर की जा रही कार्रवाइयों का विवरण प्रस्तुत कीजिए । आतंकी वित्तपोषण को रोकने में वित्तीय कार्रवाई कार्यबल (फायनान्शीयाल एक्शन टास्क फोर्स) (एफ ए टी एफ) की भूमिका और इसके सदस्य देशों द्वारा अपनाये जा रहे अनुपालन के तरीकों पर प्रकाश डालिए ।",
+      "marks": 15,
+      "word_limit": 250,
+      "subject_area": "Internal Security",
+      "topic": "Terror Funding / Money Laundering / FATF Role"
+    }
+  ]
+}

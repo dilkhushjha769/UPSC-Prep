@@ -1,4 +1,6 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React, { useState } from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   Modal,
   ScrollView,
@@ -30,10 +32,12 @@ const SUBJECT_OPTIONS: UPSCSubject[] = [
 ];
 
 interface LogSessionModalProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function LogSessionModal({ isDark }: LogSessionModalProps) {
+export function LogSessionModal({ isDark: propIsDark }: LogSessionModalProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { isLogModalOpen, setIsLogModalOpen, logManualSession } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 
@@ -119,8 +123,8 @@ export function LogSessionModal({ isDark }: LogSessionModalProps) {
                         backgroundColor: isSelected
                           ? colors.primary
                           : isDark
-                          ? '#232036'
-                          : '#F1F5F9',
+                          ? '#141C28'
+                          : '#F0EDE6',
                       },
                     ]}>
                     <Text
@@ -147,7 +151,7 @@ export function LogSessionModal({ isDark }: LogSessionModalProps) {
               style={[
                 styles.input,
                 {
-                  backgroundColor: isDark ? '#1C1B2A' : '#F8FAFC',
+                  backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },
@@ -195,7 +199,7 @@ export function LogSessionModal({ isDark }: LogSessionModalProps) {
                 styles.input,
                 {
                   marginTop: 8,
-                  backgroundColor: isDark ? '#1C1B2A' : '#F8FAFC',
+                  backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },
@@ -216,7 +220,7 @@ export function LogSessionModal({ isDark }: LogSessionModalProps) {
                 styles.input,
                 {
                   minHeight: 60,
-                  backgroundColor: isDark ? '#1C1B2A' : '#F8FAFC',
+                  backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                   borderColor: colors.cardBorderSubtle,
                   color: colors.textPrimary,
                 },
@@ -226,7 +230,7 @@ export function LogSessionModal({ isDark }: LogSessionModalProps) {
             {/* Save Button */}
             <TouchableOpacity
               onPress={handleSave}
-              style={[styles.saveBtn, { backgroundColor: colors.primary }]}>
+              style={[styles.saveBtn, primaryButtonStyle(isDark)]}>
               <PlusCircle size={17} color="#FFFFFF" />
               <Text style={styles.saveBtnText}>Log Study Session</Text>
             </TouchableOpacity>
@@ -313,13 +317,13 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   errorBox: {
-    backgroundColor: '#FEE2E2',
+    backgroundColor: '#FBE4E1',
     padding: 10,
     borderRadius: 12,
     marginBottom: 12,
   },
   errorText: {
-    color: '#DC2626',
+    color: '#B42318',
     fontSize: 12,
     fontWeight: '600',
   },

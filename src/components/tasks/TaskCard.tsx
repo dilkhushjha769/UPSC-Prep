@@ -9,6 +9,7 @@ import { Check, Clock, Trash2 } from 'lucide-react-native';
 import { Typography } from '@/constants/colors';
 import { StudyTask, TaskColorTag } from '@/types/study';
 import { getTaskColors } from '@/constants/taskColors';
+import { useAppTheme } from '@/context/ThemeContext';
 
 interface TaskCardProps {
   task: StudyTask;
@@ -22,13 +23,15 @@ interface TaskCardProps {
 
 export function TaskCard({
   task,
-  isDark = false,
+  isDark: propIsDark,
   colorTagOverride,
   showNotes = true,
   onToggleComplete,
   onPress,
   onDelete,
 }: TaskCardProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const [isExpanded, setIsExpanded] = useState(false);
 
   const effectiveTag = colorTagOverride || (task.colorTag && task.colorTag !== 'default' ? task.colorTag : undefined);
@@ -48,7 +51,7 @@ export function TaskCard({
     return task.startTime;
   }, [task.startTime, task.endTime]);
 
-  const metaColor = colorTheme.isColored ? colorTheme.subtext : (isDark ? '#9EA0AA' : '#6B6E7D');
+  const metaColor = colorTheme.isColored ? colorTheme.subtext : (isDark ? '#9DA8B9' : '#5F6B80');
 
   const handleCardPress = () => {
     if (taskDesc) {
@@ -77,7 +80,7 @@ export function TaskCard({
           {
             backgroundColor: colorTheme.isColored
               ? colorTheme.chipDot
-              : (isDark ? '#494A50' : '#D4D6DD'),
+              : (isDark ? '#253244' : '#DDD6CA'),
           },
         ]}
       />
@@ -134,7 +137,7 @@ export function TaskCard({
             accessibilityLabel="Delete task">
             <Trash2
               size={15}
-              color={colorTheme.isColored ? colorTheme.subtext : (isDark ? '#71727A' : '#8F9098')}
+              color={colorTheme.isColored ? colorTheme.subtext : (isDark ? '#6E7A8E' : '#8892A6')}
               strokeWidth={2}
             />
           </TouchableOpacity>
@@ -152,10 +155,10 @@ export function TaskCard({
             styles.checkCircle,
             {
               borderColor: isCompleted
-                ? '#10B981'
-                : (colorTheme.isColored ? colorTheme.subtext : (isDark ? '#494A50' : '#D4D6DD')),
+                ? '#26734D'
+                : (colorTheme.isColored ? colorTheme.subtext : (isDark ? '#253244' : '#DDD6CA')),
               backgroundColor: isCompleted
-                ? '#10B981'
+                ? '#26734D'
                 : 'transparent',
             },
           ]}>

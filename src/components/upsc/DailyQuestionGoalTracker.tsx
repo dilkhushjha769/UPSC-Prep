@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   Modal,
   StyleSheet,
@@ -11,6 +12,7 @@ import {
 import { BookOpen, Check, GraduationCap, X } from 'lucide-react-native';
 import { PALETTE, Typography } from '@/constants/colors';
 import { useStudy } from '@/context/StudyContext';
+import { useAppTheme } from '@/context/ThemeContext';
 
 interface DailyQuestionGoalTrackerProps {
   isDark: boolean;
@@ -18,8 +20,10 @@ interface DailyQuestionGoalTrackerProps {
 }
 
 export function DailyQuestionGoalTracker({
-  isDark,
-}: DailyQuestionGoalTrackerProps) {
+  isDark: propIsDark,
+}: { isDark?: boolean; onOpenPractice?: () => void }) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
 
@@ -38,23 +42,23 @@ export function DailyQuestionGoalTracker({
   const percentage = Math.min(100, Math.round((solved / goal) * 100));
 
   // Color tokens matching the reference capsule design
-  const cardBg = isDark ? '#20232A' : '#FFFFFF';
-  const cardBorder = isDark ? '#2D3039' : '#EEF0F4';
-  const textPrimary = isDark ? '#FFFFFF' : '#111827';
-  const textSecondary = isDark ? '#9CA3AF' : '#6B7280';
-  const textMuted = isDark ? '#6B7280' : '#9CA3AF';
-  const trackBg = isDark ? '#2C2E38' : '#EEF1F6';
+  const cardBg = isDark ? '#141C28' : '#FFFFFF';
+  const cardBorder = isDark ? '#253244' : '#EAE5DC';
+  const textPrimary = isDark ? '#F1F5F9' : '#1E293B';
+  const textSecondary = isDark ? '#94A3B8' : '#64748B';
+  const textMuted = isDark ? '#6E7A8E' : '#7A8499';
+  const trackBg = isDark ? '#1B2534' : '#F5F3EE';
 
   // Badge icon colors
   const badgeBg = isTargetAchieved
-    ? (isDark ? '#064E3B' : '#D1FAE5')
-    : (isDark ? '#1E2D4A' : '#9EBFF8');
+    ? (isDark ? '#13281E' : '#E3F1E8')
+    : (isDark ? '#1B2534' : '#FCEBDD');
 
   const badgeIconColor = isTargetAchieved
-    ? (isDark ? '#6EE7B7' : '#065F46')
-    : (isDark ? '#93C5FD' : '#1A2333');
+    ? (isDark ? '#3FA573' : '#26734D')
+    : (isDark ? '#F58235' : '#B9570A');
 
-  const fillBarColor = isTargetAchieved ? '#10B981' : PALETTE.highlight.primary;
+  const fillBarColor = isTargetAchieved ? '#26734D' : PALETTE.highlight.primary;
 
   const handleSaveGoal = async (newGoal: number) => {
     const valid = Math.max(1, Math.min(200, newGoal));
@@ -138,7 +142,7 @@ export function DailyQuestionGoalTracker({
               style={[
                 styles.percentageText,
                 {
-                  color: isTargetAchieved ? '#10B981' : textPrimary,
+                  color: isTargetAchieved ? '#26734D' : textPrimary,
                   fontSize: isMobile ? 19 : 21,
                 },
               ]}>
@@ -196,8 +200,8 @@ export function DailyQuestionGoalTracker({
             style={[
               styles.modalCard,
               {
-                backgroundColor: isDark ? '#20232A' : '#FFFFFF',
-                borderColor: isDark ? '#383A42' : '#E5E7EB',
+                backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+                borderColor: isDark ? '#253244' : '#EAE5DC',
               },
             ]}>
             <View style={styles.modalHeaderRow}>
@@ -240,8 +244,8 @@ export function DailyQuestionGoalTracker({
                             borderColor: PALETTE.highlight.primary,
                           }
                         : {
-                            backgroundColor: isDark ? '#282A33' : '#F3F4F6',
-                            borderColor: isDark ? '#3D3F4A' : '#E5E7EB',
+                            backgroundColor: isDark ? '#141C28' : '#F0EDE6',
+                            borderColor: isDark ? '#253244' : '#EAE5DC',
                           },
                     ]}>
                     <Text
@@ -274,8 +278,8 @@ export function DailyQuestionGoalTracker({
                 style={[
                   styles.customInput,
                   {
-                    backgroundColor: isDark ? '#282A33' : '#F9FAFB',
-                    borderColor: isDark ? '#3D3F4A' : '#D1D5DB',
+                    backgroundColor: isDark ? '#141C28' : '#FAF9F6',
+                    borderColor: isDark ? '#253244' : '#DDD6CA',
                     color: textPrimary,
                   },
                 ]}
@@ -288,7 +292,7 @@ export function DailyQuestionGoalTracker({
                     void handleSaveGoal(num);
                   }
                 }}
-                style={styles.saveGoalBtn}>
+                style={[styles.saveGoalBtn, primaryButtonStyle(isDark)]}>
                 <Check size={16} color="#FFFFFF" strokeWidth={2.8} />
                 <Text style={styles.saveGoalBtnText}>Save</Text>
               </TouchableOpacity>
@@ -446,7 +450,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    backgroundColor: PALETTE.highlight.primary,
+    backgroundColor: '#1C2433',
     height: 42,
     paddingHorizontal: 16,
     borderRadius: 8,

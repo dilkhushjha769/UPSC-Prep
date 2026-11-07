@@ -1,4 +1,6 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   Modal,
   ScrollView,
@@ -19,10 +21,12 @@ import { useStudy } from '@/context/StudyContext';
 import { UPSC_THEME } from '@/constants/themeColors';
 
 interface StreakInfoModalProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function StreakInfoModal({ isDark }: StreakInfoModalProps) {
+export function StreakInfoModal({ isDark: propIsDark }: StreakInfoModalProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { isStreakInfoModalOpen, setIsStreakInfoModalOpen, config } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 
@@ -37,7 +41,7 @@ export function StreakInfoModal({ isDark }: StreakInfoModalProps) {
       title: 'Current Day Active Streak Preservation',
       desc: 'If you completed yesterday and today is currently in progress, your active streak is fully preserved throughout today until midnight.',
       icon: Flame,
-      color: '#EF4444',
+      color: '#B42318',
     },
     {
       title: 'Longest Streak Never Resets',
@@ -76,7 +80,7 @@ export function StreakInfoModal({ isDark }: StreakInfoModalProps) {
           ]}>
           <View style={styles.header}>
             <View style={styles.headerTitleRow}>
-              <Flame size={18} color="#D97706" fill="#FBBF24" />
+              <Flame size={18} color="#A65A0A" fill="#D9822B" />
               <Text style={[styles.headerTitle, { color: colors.textPrimary }]}>
                 UPSC Streak System Rules
               </Text>
@@ -100,14 +104,14 @@ export function StreakInfoModal({ isDark }: StreakInfoModalProps) {
                     style={[
                       styles.ruleCard,
                       {
-                        backgroundColor: isDark ? '#1C1B2A' : '#FBFBFE',
+                        backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                         borderColor: colors.cardBorderSubtle,
                       },
                     ]}>
                     <View
                       style={[
                         styles.iconCircle,
-                        { backgroundColor: isDark ? '#262238' : '#FFEDE0' },
+                        { backgroundColor: isDark ? '#1B2534' : '#FCEBDD' },
                       ]}>
                       <Icon size={16} color={rule.color} />
                     </View>
@@ -131,7 +135,7 @@ export function StreakInfoModal({ isDark }: StreakInfoModalProps) {
 
             <TouchableOpacity
               onPress={() => setIsStreakInfoModalOpen(false)}
-              style={[styles.gotItBtn, { backgroundColor: colors.primary }]}>
+              style={[styles.gotItBtn, primaryButtonStyle(isDark)]}>
               <Text style={styles.gotItBtnText}>Understood — Keep Streak Alive</Text>
             </TouchableOpacity>
           </ScrollView>

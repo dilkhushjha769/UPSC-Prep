@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React from 'react';
 import {
   Platform,
@@ -18,11 +19,13 @@ import { useStudy } from '@/context/StudyContext';
 import { UPSC_THEME } from '@/constants/themeColors';
 
 interface DashboardHeaderProps {
-  isDark: boolean;
+  isDark?: boolean;
   onToggleTheme: () => void;
 }
 
-export function DashboardHeader({ isDark, onToggleTheme }: DashboardHeaderProps) {
+export function DashboardHeader({ isDark: propIsDark, onToggleTheme }: DashboardHeaderProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { config, setIsNotificationsModalOpen, setIsConfigModalOpen } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 
@@ -105,7 +108,7 @@ export function DashboardHeader({ isDark, onToggleTheme }: DashboardHeaderProps)
               },
             ]}>
             {isDark ? (
-              <Sun size={18} color="#FBBF24" />
+              <Sun size={18} color="#D9822B" />
             ) : (
               <Moon size={18} color={colors.textPrimary} />
             )}
@@ -171,7 +174,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    shadowColor: '#FF5500',
+    shadowColor: '#B9570A',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
     shadowRadius: 6,

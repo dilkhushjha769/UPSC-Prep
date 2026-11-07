@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 /// <reference path="../../../types/react-native-fix.d.ts" />
 import React, { Fragment } from 'react';
 import {
@@ -22,14 +23,16 @@ import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
 
 interface ProfilePersonalDetailsProps {
-  isDark: boolean;
+  isDark?: boolean;
   onNavigateToTab?: (tabKey: 'overview' | 'analytics' | 'settings') => void;
 }
 
 export function ProfilePersonalDetails({
-  isDark,
+  isDark: propIsDark,
   onNavigateToTab,
 }: ProfilePersonalDetailsProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { config } = useStudy();
   const { width } = useWindowDimensions();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
@@ -108,7 +111,7 @@ export function ProfilePersonalDetails({
                 style={[
                   styles.verifiedBadge,
                   {
-                    backgroundColor: isDark ? '#1C2028' : '#F1F5F9',
+                    backgroundColor: isDark ? '#141C28' : '#F0EDE6',
                     borderColor: theme.cardBorder,
                   },
                 ]}>
@@ -137,7 +140,7 @@ export function ProfilePersonalDetails({
             style={[
               styles.editBtn,
               {
-                backgroundColor: isDark ? '#1E222B' : '#F1F5F9',
+                backgroundColor: isDark ? '#141C28' : '#F0EDE6',
                 borderColor: theme.cardBorder,
               },
             ]}>
@@ -179,7 +182,7 @@ export function ProfilePersonalDetails({
                   styles.detailCell,
                   isNarrow ? styles.cellFull : styles.cellHalf,
                 ]}>
-                <Text style={[styles.fieldLabel, { color: isDark ? '#8E95A5' : '#64748B' }]}>
+                <Text style={[styles.fieldLabel, { color: isDark ? '#6E7A8E' : '#5F6B80' }]}>
                   {item.label}
                 </Text>
                 <Text
@@ -200,7 +203,7 @@ export function ProfilePersonalDetails({
         style={[
           styles.switchBanner,
           {
-            backgroundColor: isDark ? '#141416' : '#F8FAFC',
+            backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
             borderColor: theme.cardBorder,
           },
         ]}>

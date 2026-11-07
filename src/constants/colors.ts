@@ -1,4 +1,5 @@
 import { Platform } from 'react-native';
+import { DARK_TOKENS, LIGHT_TOKENS, SemanticTokens } from './designTokens';
 
 /**
  * Design System Color Palette & Typography
@@ -10,177 +11,88 @@ import { Platform } from 'react-native';
 // ============================================================================
 
 export const PALETTE = {
-  // Highlight / Primary Blues
+  // Primary brand navy/charcoal for buttons & main actions
   highlight: {
-    primary: '#006FFD',
-    tint80: '#2897FF',
-    tint60: '#6FBAFF',
-    tint40: '#B4DBFF',
-    tint20: '#EAF2FF',
+    primary: LIGHT_TOKENS.primary, // #1C2433
+    tint80: DARK_TOKENS.primary, // #1B2534
+    tint60: '#3D4A66',
+    tint40: '#7A8499',
+    tint20: '#F0EDE6',
+    accent: LIGHT_TOKENS.accent, // #B9570A
   },
 
   // Neutral Scales (Light & Dark)
   neutral: {
     light: {
-      lightest: '#FFFFFF',
-      surface: '#F8F9FE',
-      borderSubtle: '#E8E9F1',
-      border: '#D4D6DD',
-      muted: '#C5C6CC',
+      lightest: LIGHT_TOKENS.surface, // #FFFFFF
+      surface: LIGHT_TOKENS.background, // #FAF9F6
+      borderSubtle: LIGHT_TOKENS.border, // #EAE5DC
+      border: LIGHT_TOKENS.borderStrong, // #DDD6CA
+      muted: LIGHT_TOKENS.muted, // #F0EDE6
     },
     dark: {
-      darkest: '#1F2024',
-      surface: '#2F3036',
-      textMuted: '#494A50',
-      textSecondary: '#71727A',
-      muted: '#8F9098',
+      darkest: DARK_TOKENS.background, // #0B1018
+      surface: DARK_TOKENS.surface, // #141C28
+      textMuted: DARK_TOKENS.border, // #253244
+      textSecondary: LIGHT_TOKENS.mutedForeground,
+      muted: LIGHT_TOKENS.subtleForeground,
     },
   },
 
   // Support / Status Colors
   support: {
-    success: {
-      dark: '#298267',
-      medium: '#3AC0A0',
-      light: '#E7F4E8',
-    },
-    warning: {
-      dark: '#E86339',
-      medium: '#FFB37C',
-      light: '#FFF4E4',
-    },
-    error: {
-      dark: '#ED3241',
-      medium: '#FF616D',
-      light: '#FFE2E5',
-    },
+    success: { dark: LIGHT_TOKENS.success, medium: DARK_TOKENS.success, light: LIGHT_TOKENS.successSoft },
+    warning: { dark: LIGHT_TOKENS.warning, medium: DARK_TOKENS.warning, light: LIGHT_TOKENS.warningSoft },
+    error: { dark: LIGHT_TOKENS.destructive, medium: DARK_TOKENS.destructive, light: LIGHT_TOKENS.destructiveSoft },
   },
 } as const;
 
-export const GLOBAL_PRIMARY_BLUE = '#006FFD';
-export const TOGGLE_ACTIVE_COLOR = '#006FFD';
+export const GLOBAL_PRIMARY_BLUE = LIGHT_TOKENS.accent; // #F58235 (Brand Orange)
+export const TOGGLE_ACTIVE_COLOR = LIGHT_TOKENS.accent; // #F58235 (Brand Orange)
 
 // ============================================================================
-// 2. FLAT COLOR TOKENS
+// 2. SEMANTIC THEME (LIGHT & DARK MODES) - derived from designTokens.ts
 // ============================================================================
 
-export const ColorTokens = {
-  // Highlight
-  highlight_006FFD: '#006FFD',
-  highlight_2897FF: '#2897FF',
-  highlight_6FBAFF: '#6FBAFF',
-  highlight_B4DBFF: '#B4DBFF',
-  highlight_EAF2FF: '#EAF2FF',
+const semantic = (t: SemanticTokens) => ({
+  background: t.background,
+  surface: t.surface,
+  surfaceMuted: t.muted,
+  surfaceHighlight: t.accentSoft,
 
-  // Neutral Light
-  neutral_C5C6CC: '#C5C6CC',
-  neutral_D4D6DD: '#D4D6DD',
-  neutral_E8E9F1: '#E8E9F1',
-  neutral_F8F9FE: '#F8F9FE',
-  neutral_FFFFFF: '#FFFFFF',
+  border: t.border,
+  borderMedium: t.borderStrong,
+  borderFocus: t.accent,
 
-  // Neutral Dark
-  neutral_1F2024: '#1F2024',
-  neutral_2F3036: '#2F3036',
-  neutral_494A50: '#494A50',
-  neutral_71727A: '#71727A',
-  neutral_8F9098: '#8F9098',
+  textPrimary: t.foreground,
+  textSecondary: t.mutedForeground,
+  textMuted: t.subtleForeground,
+  textInverse: '#FFFFFF',
 
-  // Support - Success
-  success_298267: '#298267',
-  success_3AC0A0: '#3AC0A0',
-  success_E7F4E8: '#E7F4E8',
+  primary: t.accent, // #F58235
+  primaryHover: t.accentHover,
+  primarySoft: t.accentSoft,
+  primaryText: '#FFFFFF',
 
-  // Support - Warning
-  warning_E86339: '#E86339',
-  warning_FFB37C: '#FFB37C',
-  warning_FFF4E4: '#FFF4E4',
+  accent: t.accent, // #F58235
+  accentHover: t.accentHover,
 
-  // Support - Error
-  error_ED3241: '#ED3241',
-  error_FF616D: '#FF616D',
-  error_FFE2E5: '#FFE2E5',
-} as const;
+  success: t.success,
+  successSoft: t.successSoft,
+  successAccent: t.success,
 
-// ============================================================================
-// 3. SEMANTIC THEME (LIGHT & DARK MODES)
-// ============================================================================
+  warning: t.warning,
+  warningSoft: t.warningSoft,
+  warningAccent: t.warning,
+
+  error: t.destructive,
+  errorSoft: t.destructiveSoft,
+  errorAccent: t.destructive,
+});
 
 export const SemanticColors = {
-  light: {
-    // Backgrounds & Surfaces
-    background: PALETTE.neutral.light.surface, // #F8F9FE
-    surface: PALETTE.neutral.light.lightest, // #FFFFFF
-    surfaceMuted: PALETTE.neutral.light.borderSubtle, // #E8E9F1
-    surfaceHighlight: PALETTE.highlight.tint20, // #EAF2FF
-
-    // Borders & Dividers
-    border: PALETTE.neutral.light.borderSubtle, // #E8E9F1
-    borderMedium: PALETTE.neutral.light.border, // #D4D6DD
-    borderFocus: PALETTE.highlight.primary, // #006FFD
-
-    // Typography
-    textPrimary: PALETTE.neutral.dark.darkest, // #1F2024
-    textSecondary: PALETTE.neutral.dark.textSecondary, // #71727A
-    textMuted: PALETTE.neutral.dark.muted, // #8F9098
-    textInverse: PALETTE.neutral.light.lightest, // #FFFFFF
-
-    // Primary Brand & Actions
-    primary: PALETTE.highlight.primary, // #006FFD
-    primaryHover: PALETTE.highlight.tint80, // #2897FF
-    primarySoft: PALETTE.highlight.tint20, // #EAF2FF
-    primaryText: PALETTE.neutral.light.lightest, // #FFFFFF
-
-    // Feedback & Badges
-    success: PALETTE.support.success.dark, // #298267
-    successSoft: PALETTE.support.success.light, // #E7F4E8
-    successAccent: PALETTE.support.success.medium, // #3AC0A0
-
-    warning: PALETTE.support.warning.dark, // #E86339
-    warningSoft: PALETTE.support.warning.light, // #FFF4E4
-    warningAccent: PALETTE.support.warning.medium, // #FFB37C
-
-    error: PALETTE.support.error.dark, // #ED3241
-    errorSoft: PALETTE.support.error.light, // #FFE2E5
-    errorAccent: PALETTE.support.error.medium, // #FF616D
-  },
-  dark: {
-    // Backgrounds & Surfaces
-    background: PALETTE.neutral.dark.darkest, // #1F2024
-    surface: PALETTE.neutral.dark.surface, // #2F3036
-    surfaceMuted: PALETTE.neutral.dark.textMuted, // #494A50
-    surfaceHighlight: '#102A4C',
-
-    // Borders & Dividers
-    border: PALETTE.neutral.dark.textMuted, // #494A50
-    borderMedium: PALETTE.neutral.dark.textSecondary, // #71727A
-    borderFocus: PALETTE.highlight.tint80, // #2897FF
-
-    // Typography
-    textPrimary: PALETTE.neutral.light.lightest, // #FFFFFF
-    textSecondary: PALETTE.neutral.light.muted, // #C5C6CC
-    textMuted: PALETTE.neutral.dark.muted, // #8F9098
-    textInverse: PALETTE.neutral.dark.darkest, // #1F2024
-
-    // Primary Brand & Actions
-    primary: PALETTE.highlight.tint80, // #2897FF
-    primaryHover: PALETTE.highlight.primary, // #006FFD
-    primarySoft: '#183661',
-    primaryText: PALETTE.neutral.light.lightest, // #FFFFFF
-
-    // Feedback & Badges
-    success: PALETTE.support.success.medium, // #3AC0A0
-    successSoft: '#13352A',
-    successAccent: PALETTE.support.success.dark, // #298267
-
-    warning: PALETTE.support.warning.medium, // #FFB37C
-    warningSoft: '#422415',
-    warningAccent: PALETTE.support.warning.dark, // #E86339
-
-    error: PALETTE.support.error.medium, // #FF616D
-    errorSoft: '#42161A',
-    errorAccent: PALETTE.support.error.dark, // #ED3241
-  },
+  light: semantic(LIGHT_TOKENS),
+  dark: semantic(DARK_TOKENS),
 } as const;
 
 export const Typography = {
@@ -215,3 +127,4 @@ export const Typography = {
 } as const;
 
 export default PALETTE;
+

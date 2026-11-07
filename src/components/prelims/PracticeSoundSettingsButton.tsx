@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Settings, X } from 'lucide-react-native';
 import { PrimaryToggle } from '@/components/common/PrimaryToggle';
+import { useAppTheme } from '@/context/ThemeContext';
 import { practiceSoundService, PracticeSoundSettings } from '@/services/practiceSoundService';
 
 interface Props {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
 interface SoundRowProps {
@@ -27,23 +28,25 @@ function SoundRow({ label, value, onChange, disabled, border, text, isDark }: So
         onValueChange={onChange}
         disabled={disabled}
         isDark={isDark}
-        activeTrackColor="#006FFD"
+        activeTrackColor="#B9570A"
       />
     </View>
   );
 }
 
 /** Grey gear button that opens a small sound-effects settings sheet. */
-export function PracticeSoundSettingsButton({ isDark }: Props) {
+export function PracticeSoundSettingsButton({ isDark: propIsDark }: Props) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const [open, setOpen] = useState(false);
   const [s, setS] = useState<PracticeSoundSettings>(practiceSoundService.getSettings());
 
   useEffect(() => practiceSoundService.subscribe(setS), []);
 
-  const grey = isDark ? '#9CA3AF' : '#6B7280';
-  const text = isDark ? '#F5F5F7' : '#0F172A';
-  const card = isDark ? '#1F2024' : '#FFFFFF';
-  const border = isDark ? '#35373F' : '#E2E8F0';
+  const grey = isDark ? '#94A3B8' : '#64748B';
+  const text = isDark ? '#F1F5F9' : '#1E293B';
+  const card = isDark ? '#141C28' : '#FFFFFF';
+  const border = isDark ? '#253244' : '#EAE5DC';
 
   return (
     <>
@@ -53,7 +56,7 @@ export function PracticeSoundSettingsButton({ isDark }: Props) {
         accessibilityLabel="Practice settings"
         style={({ pressed }) => [
           styles.gearBtn,
-          { borderColor: border, backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : '#F3F4F6' },
+          { borderColor: border, backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : '#F0EDE6' },
           pressed && { opacity: 0.7 },
         ]}>
         <Settings size={16} color={grey} strokeWidth={2.2} />

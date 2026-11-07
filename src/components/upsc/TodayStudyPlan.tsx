@@ -1,4 +1,6 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   StyleSheet,
   Text,
@@ -17,10 +19,12 @@ import { SUBJECT_COLORS, UPSC_THEME } from '@/constants/themeColors';
 import { StudyTask } from '@/types/study';
 
 interface TodayStudyPlanProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
+export function TodayStudyPlan({ isDark: propIsDark }: TodayStudyPlanProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { tasks, toggleTask, deleteTask, setIsAddTaskModalOpen } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 
@@ -76,8 +80,7 @@ export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
           activeOpacity={0.8}
           onPress={() => setIsAddTaskModalOpen(true)}
           style={[
-            styles.addTaskBtn,
-            { backgroundColor: colors.primary },
+            styles.addTaskBtn, primaryButtonStyle(isDark),
           ]}>
           <Plus size={15} color="#FFFFFF" />
           <Text style={styles.addTaskBtnText}>Add Task</Text>
@@ -95,7 +98,7 @@ export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
             Build your momentum by scheduling your first study session for today.
           </Text>
           <TouchableOpacity
-            style={[styles.emptyAddBtn, { backgroundColor: colors.primary }]}
+            style={[styles.emptyAddBtn, primaryButtonStyle(isDark)]}
             onPress={() => setIsAddTaskModalOpen(true)}>
             <Text style={styles.emptyAddBtnText}>Add Your First Study Task</Text>
           </TouchableOpacity>
@@ -106,14 +109,14 @@ export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
             const subjectStyle =
               (task.subject && SUBJECT_COLORS[task.subject]) || SUBJECT_COLORS.Polity;
 
-            let priorityBg = isDark ? '#1A2130' : '#F1F5F9';
+            let priorityBg = isDark ? '#141C28' : '#F0EDE6';
             let priorityText = colors.textSecondary;
             if (task.priority === 'High') {
-              priorityBg = isDark ? '#3D1E24' : '#FEE2E2';
-              priorityText = '#DC2626';
+              priorityBg = isDark ? '#3B1A17' : '#FBE4E1';
+              priorityText = '#B42318';
             } else if (task.priority === 'Medium') {
-              priorityBg = isDark ? '#3A2E1A' : '#FEF3C7';
-              priorityText = '#D97706';
+              priorityBg = isDark ? '#2A1D12' : '#FCEBDD';
+              priorityText = '#A65A0A';
             }
 
             return (
@@ -122,11 +125,11 @@ export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
                 style={[
                   styles.taskItem,
                   {
-                    backgroundColor: isDark ? '#1C1B2B' : '#FBFBFE',
+                    backgroundColor: isDark ? '#141C28' : '#FAF9F6',
                     borderColor: task.completed
                       ? isDark
-                        ? '#26332E'
-                        : '#DCFCE7'
+                        ? '#17301F'
+                        : '#E3F1E8'
                       : colors.cardBorderSubtle,
                   },
                 ]}>
@@ -158,7 +161,7 @@ export function TodayStudyPlan({ isDark }: TodayStudyPlanProps) {
                       style={[
                         styles.subjectBadge,
                         {
-                          backgroundColor: isDark ? '#28233C' : subjectStyle.bg,
+                          backgroundColor: isDark ? '#1B2534' : subjectStyle.bg,
                           borderColor: subjectStyle.border,
                         },
                       ]}>
@@ -233,7 +236,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 20,
     marginBottom: 24,
-    shadowColor: '#FF5500',
+    shadowColor: '#B9570A',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
     shadowRadius: 12,
@@ -278,7 +281,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 13,
     paddingVertical: 7,
     borderRadius: 14,
-    shadowColor: '#FF5500',
+    shadowColor: '#B9570A',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,

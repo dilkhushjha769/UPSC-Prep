@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
@@ -36,16 +37,18 @@ import {
 export { SubjectPracticeGroup } from './SubjectPracticeReviewScreen';
 
 interface ProfileActivitySectionProps {
-  isDark: boolean;
+  isDark?: boolean;
   onNavigateToTab?: (tabKey: any) => void;
   onOpenSubjectReview?: (group: SubjectPracticeGroup) => void;
 }
 
 export function ProfileActivitySection({
-  isDark,
+  isDark: propIsDark,
   onNavigateToTab,
   onOpenSubjectReview,
 }: ProfileActivitySectionProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { sessions, metrics, config, todayQuestionsSolved } = useStudy();
 
   const [recentMocks, setRecentMocks] = useState<MockTestRecord[]>([]);
@@ -254,22 +257,22 @@ export function ProfileActivitySection({
   }, [allAttempts, subjectGroups.length]);
 
   // Color tokens - grey icon color matches the other two tabs
-  const cardBg = isDark ? '#20232A' : '#FFFFFF';
-  const cardBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : '#EAEDF2';
-  const innerCardBg = isDark ? '#181A20' : '#F9FAFB';
+  const cardBg = isDark ? '#141C28' : '#FFFFFF';
+  const cardBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0EDE6';
+  const innerCardBg = isDark ? '#141C28' : '#FAF9F6';
   const dividerColor = isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.06)';
-  const textPrimary = isDark ? '#FFFFFF' : '#111827';
-  const textSecondary = isDark ? '#9CA3AF' : '#4B5563'; // The exact grey used in other tabs
-  const textMuted = isDark ? '#6B7280' : '#9CA3AF';
+  const textPrimary = isDark ? '#F0F4F8' : '#1C2433';
+  const textSecondary = isDark ? '#6E7A8E' : '#4A5568'; // The exact grey used in other tabs
+  const textMuted = isDark ? '#6E7A8E' : '#8892A6';
   const iconGrey = textSecondary; // Grey icon color matching other tabs
-  const primaryBlue = GLOBAL_PRIMARY_BLUE; // '#006FFD'
+  const primaryBlue = GLOBAL_PRIMARY_BLUE; // '#B9570A'
 
   const accuracyColor =
     mockPerformance.avgAccuracy >= 60
-      ? '#10B981'
+      ? '#26734D'
       : mockPerformance.avgAccuracy >= 40
       ? primaryBlue
-      : '#F59E0B';
+      : '#A65A0A';
 
   const handleOpenSubjectQuestions = (group: SubjectPracticeGroup) => {
     if (onOpenSubjectReview) {
@@ -391,7 +394,7 @@ export function ProfileActivitySection({
         style={[
           styles.historyToggleRow,
           {
-            backgroundColor: isDark ? '#191B22' : '#EFF1F5',
+            backgroundColor: isDark ? '#141C28' : '#F5F3EE',
             borderColor: cardBorder,
           },
         ]}>
@@ -402,8 +405,8 @@ export function ProfileActivitySection({
             styles.historyTabBtn,
             activeHistoryTab === 'mock'
               ? {
-                  backgroundColor: primaryBlue,
-                  shadowColor: primaryBlue,
+                  backgroundColor: '#F58235',
+                  shadowColor: '#F58235',
                   shadowOffset: { width: 0, height: 2 },
                   shadowOpacity: 0.25,
                   shadowRadius: 4,
@@ -435,8 +438,8 @@ export function ProfileActivitySection({
             styles.historyTabBtn,
             activeHistoryTab === 'practice'
               ? {
-                  backgroundColor: primaryBlue,
-                  shadowColor: primaryBlue,
+                  backgroundColor: '#F58235',
+                  shadowColor: '#F58235',
                   shadowOffset: { width: 0, height: 2 },
                   shadowOpacity: 0.25,
                   shadowRadius: 4,
@@ -511,7 +514,7 @@ export function ProfileActivitySection({
                 <Text style={[styles.perfValue, { color: accuracyColor }]}>
                   {mockPerformance.avgAccuracy}%
                 </Text>
-                <View style={[styles.perfMiniProgressTrack, { backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#E5E7EB' }]}>
+                <View style={[styles.perfMiniProgressTrack, { backgroundColor: isDark ? '#1B2534' : '#EAE5DC' }]}>
                   <View
                     style={[
                       styles.perfMiniProgressFill,
@@ -532,7 +535,7 @@ export function ProfileActivitySection({
                 <Text style={[styles.perfLabel, { color: textMuted }]}>
                   Best Score
                 </Text>
-                <Text style={[styles.perfValue, { color: '#10B981' }]}>
+                <Text style={[styles.perfValue, { color: '#26734D' }]}>
                   {bestMockScore > 0 ? bestMockScore.toFixed(1) : '—'} <Text style={styles.perfSub}>/ 200</Text>
                 </Text>
               </View>
@@ -594,7 +597,7 @@ export function ProfileActivitySection({
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => onNavigateToTab?.('mockTest')}
-                    style={[styles.actionBtn, { backgroundColor: primaryBlue }]}>
+                    style={[styles.actionBtn, { backgroundColor: '#F58235' }]}>
                     <Sparkles size={13} color="#FFFFFF" />
                     <Text style={styles.actionBtnText}>Start Mock Test</Text>
                   </TouchableOpacity>
@@ -663,7 +666,7 @@ export function ProfileActivitySection({
                             <Text
                               style={[
                                 styles.accPillText,
-                                { color: accPercent >= 50 ? '#10B981' : primaryBlue },
+                                { color: accPercent >= 50 ? '#26734D' : primaryBlue },
                               ]}>
                               {accPercent}%
                             </Text>
@@ -674,8 +677,8 @@ export function ProfileActivitySection({
                               styles.inProgressBadge,
                               {
                                 backgroundColor: isDark
-                                  ? 'rgba(245, 158, 11, 0.15)'
-                                  : '#FFFBEB',
+                                  ? 'rgba(166, 90, 10, 0.15)'
+                                  : '#FCEBDD',
                               },
                             ]}>
                             <Text style={styles.inProgressText}>In Progress</Text>
@@ -730,18 +733,18 @@ export function ProfileActivitySection({
                     styles.perfValue,
                     {
                       color:
-                        practicePerformance.accuracy >= 60 ? '#10B981' : primaryBlue,
+                        practicePerformance.accuracy >= 60 ? '#26734D' : primaryBlue,
                     },
                   ]}>
                   {practicePerformance.accuracy}%
                 </Text>
-                <View style={[styles.perfMiniProgressTrack, { backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#E5E7EB' }]}>
+                <View style={[styles.perfMiniProgressTrack, { backgroundColor: isDark ? '#1B2534' : '#EAE5DC' }]}>
                   <View
                     style={[
                       styles.perfMiniProgressFill,
                       {
                         width: `${Math.min(100, Math.max(0, practicePerformance.accuracy))}%`,
-                        backgroundColor: practicePerformance.accuracy >= 60 ? '#10B981' : primaryBlue,
+                        backgroundColor: practicePerformance.accuracy >= 60 ? '#26734D' : primaryBlue,
                       },
                     ]}
                   />
@@ -831,7 +834,7 @@ export function ProfileActivitySection({
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => onNavigateToTab?.('prelims')}
-                    style={[styles.actionBtn, { backgroundColor: primaryBlue }]}>
+                    style={[styles.actionBtn, { backgroundColor: '#F58235' }]}>
                     <Sparkles size={13} color="#FFFFFF" />
                     <Text style={styles.actionBtnText}>Start Practice Drill</Text>
                   </TouchableOpacity>
@@ -867,18 +870,18 @@ export function ProfileActivitySection({
                           <Text
                             style={[
                               styles.subjectMetaAcc,
-                              { color: grp.accuracy >= 60 ? '#10B981' : primaryBlue },
+                              { color: grp.accuracy >= 60 ? '#26734D' : primaryBlue },
                             ]}>
                             {grp.accuracy}% Accuracy
                           </Text>
                         </View>
-                        <View style={[styles.subjectProgressTrack, { backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#E5E7EB' }]}>
+                        <View style={[styles.subjectProgressTrack, { backgroundColor: isDark ? '#1B2534' : '#EAE5DC' }]}>
                           <View
                             style={[
                               styles.subjectProgressFill,
                               {
                                 width: `${Math.min(100, Math.max(0, grp.accuracy))}%`,
-                                backgroundColor: grp.accuracy >= 60 ? '#10B981' : primaryBlue,
+                                backgroundColor: grp.accuracy >= 60 ? '#26734D' : primaryBlue,
                               },
                             ]}
                           />
@@ -939,8 +942,8 @@ export function ProfileActivitySection({
                           borderColor: primaryBlue,
                         }
                       : {
-                          backgroundColor: isDark ? 'rgba(255, 255, 255, 0.05)' : '#F3F4F6',
-                          borderColor: isDark ? '#353740' : '#E5E7EB',
+                          backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
+                          borderColor: isDark ? '#253244' : '#EAE5DC',
                         },
                   ]}>
                   {d.hasActivity && (
@@ -1095,7 +1098,7 @@ const styles = StyleSheet.create({
   perfSub: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#9CA3AF',
+    color: '#8892A6',
   },
   perfMiniProgressTrack: {
     height: 3,
@@ -1184,7 +1187,7 @@ const styles = StyleSheet.create({
   inProgressText: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#F59E0B',
+    color: '#A65A0A',
   },
   subjectListWrap: {
     gap: 0,
@@ -1442,7 +1445,7 @@ const styles = StyleSheet.create({
     gap: 4,
     paddingLeft: 8,
     borderLeftWidth: 2,
-    borderLeftColor: '#3B82F6',
+    borderLeftColor: '#3D5A99',
     marginTop: 4,
   },
   detailStatementText: {

@@ -1,13 +1,13 @@
 import React from 'react';
-import { useColorScheme, View } from 'react-native';
+import { View } from 'react-native';
 import { router } from 'expo-router';
 import { TasksScreen } from '@/components/tasks';
 import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
 import { SemanticColors } from '@/constants/colors';
+import { useAppTheme } from '@/context/ThemeContext';
 
 export default function TasksRoute() {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
+  const { isDark, toggleTheme } = useAppTheme();
   const shellBg = SemanticColors[isDark ? 'dark' : 'light'].background;
 
   return (
@@ -16,6 +16,7 @@ export default function TasksRoute() {
       <TasksScreen
         isDark={isDark}
         onBackToHome={() => router.push('/')}
+        onToggleTheme={toggleTheme}
       />
     </View>
   );

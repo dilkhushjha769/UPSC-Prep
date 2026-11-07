@@ -31,20 +31,21 @@ import {
   StreakInfoModal,
 } from '@/components/upsc';
 import { PrelimsScreen } from '@/components/prelims/PrelimsScreen';
+import { MainsDashboard } from '@/components/mains';
 import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
 import { MockTestDashboard, ActiveMockTestScreen } from '@/components/mockTest';
 import { TasksScreen } from '@/components/tasks';
 
 import { SemanticColors } from '@/constants/colors';
+import { useAppTheme } from '@/context/ThemeContext';
 
 export default function AppScreen() {
   const [activeTab, setActiveTab] = useState<NavTab>('home');
   const [activeMockTestId, setActiveMockTestId] = useState<string | null>(null);
-  const [themeMode, setThemeMode] = useState<'dark' | 'light'>('dark');
+  const { isDark, themeMode, toggleTheme } = useAppTheme();
   const { isLoading } = useStudy();
   const { width } = useWindowDimensions();
 
-  const isDark = themeMode === 'dark';
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const isDesktop = width >= 768;
 
@@ -55,10 +56,6 @@ export default function AppScreen() {
   const shellEdges: Edge[] = isDesktop
     ? ['top', 'bottom', 'left', 'right']
     : ['top', 'left', 'right'];
-
-  const toggleTheme = () => {
-    setThemeMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
 
   if (isLoading) {
     return (
@@ -99,9 +96,9 @@ export default function AppScreen() {
               },
             ]}>
             {isDark ? (
-              <Sun size={19} color="#FBBF24" strokeWidth={2.3} />
+              <Sun size={19} color="#D9822B" strokeWidth={2.3} />
             ) : (
-              <Moon size={19} color="#FF5500" strokeWidth={2.3} />
+              <Moon size={19} color="#B9570A" strokeWidth={2.3} />
             )}
           </TouchableOpacity>
         )}
@@ -133,6 +130,7 @@ export default function AppScreen() {
             <CleanStreakDashboard
               isDark={isDark}
               onOpenPrelims={() => setActiveTab('prelims')}
+              onOpenMains={() => setActiveTab('mains')}
               onOpenMockTests={() => setActiveTab('mock-test')}
               onOpenTasks={() => setActiveTab('tasks')}
               onOpenProfile={() => setActiveTab('profile')}
@@ -155,6 +153,14 @@ export default function AppScreen() {
               isDark={isDark}
               onBack={() => setActiveTab('home')}
               onToggleTheme={toggleTheme}
+            />
+          )}
+
+          {activeTab === 'mains' && (
+            <MainsDashboard
+              isDark={isDark}
+              onToggleTheme={toggleTheme}
+              onBackToHome={() => setActiveTab('home')}
             />
           )}
 
@@ -197,6 +203,7 @@ export default function AppScreen() {
         activeTab !== 'notifications' &&
         activeTab !== 'profile' &&
         activeTab !== 'mock-test' &&
+        activeTab !== 'mains' &&
         activeTab !== 'prelims' && (
         <TouchableOpacity
           activeOpacity={0.7}
@@ -215,9 +222,9 @@ export default function AppScreen() {
             },
           ]}>
           {isDark ? (
-            <Sun size={19} color="#FBBF24" strokeWidth={2.3} />
+            <Sun size={19} color="#D9822B" strokeWidth={2.3} />
           ) : (
-            <Moon size={19} color="#FF5500" strokeWidth={2.3} />
+            <Moon size={19} color="#B9570A" strokeWidth={2.3} />
           )}
         </TouchableOpacity>
       )}

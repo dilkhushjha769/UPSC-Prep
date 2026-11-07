@@ -20,8 +20,8 @@ export function CircularGauge({
   size = 120,
   strokeWidth = 10,
   progress = 0,
-  trackColor = '#FFEDE0',
-  fillColor = '#FF5500',
+  trackColor = '#FCEBDD',
+  fillColor = '#B9570A',
   gradientColors,
   gradientId = 'gaugeGradient',
   children,
@@ -45,7 +45,7 @@ export function CircularGauge({
           <Defs>
             <LinearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
               <Stop offset="0%" stopColor={gradientColors[0]} />
-              <Stop offset="100%" stopColor={gradientColors[1]} />
+              <Stop offset="100%" stopColor={gradientColors[0]} />
             </LinearGradient>
           </Defs>
         )}
@@ -112,8 +112,8 @@ export function ArcGauge({
   size = 110,
   strokeWidth = 9,
   progress = 0,
-  trackColor = '#FFEDE0',
-  fillColor = '#FF5500',
+  trackColor = '#FCEBDD',
+  fillColor = '#B9570A',
   gradientColors,
   gradientId = 'arcGrad',
   children,
@@ -159,7 +159,7 @@ export function ArcGauge({
           <Defs>
             <LinearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
               <Stop offset="0%" stopColor={gradientColors[0]} />
-              <Stop offset="100%" stopColor={gradientColors[1]} />
+              <Stop offset="100%" stopColor={gradientColors[0]} />
             </LinearGradient>
           </Defs>
         )}

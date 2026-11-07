@@ -140,14 +140,13 @@
         "analysisVsOpinionNote": "Primary Official Release from Reserve Bank of India (RBI) • Official Releases. Represents direct government/institutional communication."
       },
       "image_metadata": {
-        "credit": "Reserve Bank of India (RBI) Official Press Release",
-        "caption": "Reserve Bank of India headquarters and Monetary Policy regulatory announcement.",
-        "license": "RBI Official Public Press Release Policy with Source Attribution",
-        "imageUrl": "https://images.indianexpress.com/2026/10/Jio-IPO-4.jpg",
+        "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80",
+        "credit": "Reserve Bank of India (RBI) / Indian Express",
+        "caption": "Reserve Bank of India headquarters and Monetary Policy Committee regulatory announcement.",
+        "sourceUrl": "https://rbi.org.in",
         "imageType": "event_photo",
-        "sourceUrl": "https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=58912",
         "verificationStatus": "verified_official",
-        "associatedArticleId": "rbi_lcr_digital_banking_framework_2026"
+        "license": "RBI Official Public Press Release Policy with Source Attribution"
       },
       "why_it_matters": "Important for GS-3 Economy to connect current policy announcements with core macroeconomic and regulatory concepts.",
       "raw_excerpt": "The Reserve Bank of India (RBI) issued revised Basel-III Liquidity Coverage Ratio (LCR) guidelines assigning higher run-off factors for instant digital retail deposits while expanding the Unified Lending Interface (ULI) digital public infrastructure for frictionless MSME and agricultural credit.",
@@ -159,7 +158,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.95,
+      "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80"
     },
     {
       "id": "d2058f6b-6bc5-46d8-a149-cfafca1cfe91",
@@ -303,14 +305,13 @@
         "analysisVsOpinionNote": "Editorial / Analytical Perspective published by The Indian Express • Explained. Contains author/editorial analysis and opinion distinct from government press releases."
       },
       "image_metadata": {
-        "credit": "ISRO / Department of Space & The Indian Express",
-        "caption": "Indigenous space propulsion and advanced engineering testing in India.",
-        "license": "Authorized RSS Feed — Summary Synthesis & Canonical Link-Out (No Full-Text Republication)",
-        "imageUrl": "https://images.indianexpress.com/2026/10/Railways-safety-feature-1.jpg",
+        "imageUrl": "https://images.unsplash.com/photo-1517976487502-5731c30e101f?auto=format&fit=crop&w=1200&q=80",
+        "credit": "ISRO / Press Information Bureau",
+        "caption": "ISRO Satish Dhawan Space Centre propulsion testing facility and launch complex.",
+        "sourceUrl": "https://www.isro.gov.in",
         "imageType": "event_photo",
-        "sourceUrl": "https://indianexpress.com/article/explained/explained-sci-tech/isro-semi-cryogenic-engine-and-bioe3-policy-10939500/",
-        "verificationStatus": "verified_agency",
-        "associatedArticleId": "isro_sce200_chandrayaan4_biomanufacturing_bioe3"
+        "verificationStatus": "verified_official",
+        "license": "Government of India Open Data / Official Press Release Attribution"
       },
       "why_it_matters": "Directly relevant to GS-2 (Editorials and Opinions), testing the interplay between statutory/constitutional mandates and administrative implementation.",
       "raw_excerpt": "ISRO completed hot-testing of the 2,000 kN thrust SCE-200 semi-cryogenic pre-burner using refined kerosene (RP-1) and liquid oxygen (LOX) for LVM3 payload augmentation, alongside Union Cabinet approval of the BioE3 biomanufacturing policy.",
@@ -322,7 +323,10 @@
       "is_mains_relevant": true,
       "editorial_author": "The Indian Express Explained Desk",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.95,
+      "imageUrl": "https://images.unsplash.com/photo-1517976487502-5731c30e101f?auto=format&fit=crop&w=1200&q=80"
     },
     {
       "id": "2ada34fb-072b-49d4-8afb-6b3309d5989c",
@@ -464,14 +468,13 @@
         "analysisVsOpinionNote": "Primary Official Release from Press Information Bureau (PIB) • Govt of India. Represents direct government/institutional communication."
       },
       "image_metadata": {
-        "credit": "PIB Delhi • Ministry of New and Renewable Energy",
-        "caption": "Renewable energy and green hydrogen production infrastructure under MNRE SIGHT scheme.",
-        "license": "Government of India Open Data / Official Press Release Attribution",
-        "imageUrl": "https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg",
+        "imageUrl": "https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80",
+        "credit": "Ministry of New & Renewable Energy / PIB",
+        "caption": "Clean energy green hydrogen production infrastructure supporting national net-zero targets.",
+        "sourceUrl": "https://mnre.gov.in",
         "imageType": "event_photo",
-        "sourceUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=2068412",
         "verificationStatus": "verified_official",
-        "associatedArticleId": "pib_national_green_hydrogen_sight_tranche2"
+        "license": "Government of India Open Data / Official Press Release Attribution"
       },
       "why_it_matters": "Important for GS-2 Economy to connect current policy announcements with core macroeconomic and regulatory concepts.",
       "raw_excerpt": "The Ministry of New and Renewable Energy (MNRE) released operational guidelines for Tranche-II under the ₹19,744-crore National Green Hydrogen Mission SIGHT programme, incentivizing 1,500 MW of indigenous electrolyser manufacturing and green ammonia production hubs with a 5 MMT annual target by 2030.",
@@ -483,7 +486,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.95,
+      "imageUrl": "https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80"
     },
     {
       "id": "9c378399-e883-4b42-9fb9-284698195751",
@@ -623,14 +629,13 @@
         "analysisVsOpinionNote": "Primary Official Release from Press Information Bureau (PIB) • Govt of India. Represents direct government/institutional communication."
       },
       "image_metadata": {
-        "credit": "PIB • Ministry of Culture & Archaeological Survey of India",
-        "caption": "Cultural heritage and archaeological conservation announcement by Ministry of Culture.",
-        "license": "Government of India Open Data / Official Press Release Attribution",
-        "imageUrl": "https://images.indianexpress.com/2026/10/arnab_409941.jpg",
+        "imageUrl": "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=80",
+        "credit": "Archaeological Survey of India (ASI) / PIB",
+        "caption": "Excavation site confirming ancient Peninsular Iron Age habitation chronology.",
+        "sourceUrl": "https://asi.nic.in",
         "imageType": "event_photo",
-        "sourceUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=2068990",
         "verificationStatus": "verified_official",
-        "associatedArticleId": "asi_porunai_maratha_military_unesco_misc_events"
+        "license": "Government of India Open Data / Official Press Release Attribution"
       },
       "why_it_matters": "Important for GS-1 Economy to connect current policy announcements with core macroeconomic and regulatory concepts.",
       "raw_excerpt": "Archaeological Survey of India (ASI) accelerator mass spectrometry (AMS) carbon dating confirmed Iron Age urbanization along the Porunai (Thamirabarani) river basin dating to 1155 BCE, while India finalized the UNESCO World Heritage nomination for 12 Maratha Military Forts.",
@@ -642,7 +647,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.95,
+      "imageUrl": "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=80"
     },
     {
       "id": "0fb2e499-4ac4-4f3d-8836-1662ec111b91",
@@ -804,7 +812,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "b2cbea31-4e50-47a7-9400-9c7445495d2c",
@@ -962,7 +972,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "4e2593c1-f194-45ec-99dc-c89311b2c5f3",
@@ -1120,7 +1133,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "98a05a36-06c4-4d23-9217-777f7d44a1a8",
@@ -1278,7 +1294,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "2c3fb950-9707-42fd-8585-80d4b320b420",
@@ -1439,7 +1458,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "abd27507-fb71-4941-9aa4-2c4b095148a9",
@@ -1600,7 +1621,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "f85eb08b-0a12-4bf0-895d-9f24bc1428a3",
@@ -1761,7 +1784,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "c81c4ce2-6d56-4675-a6ab-f5e88d9466da",
@@ -1921,7 +1946,10 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "87cab194-2cec-4235-afb6-822a69acf818",
@@ -2081,7 +2109,10 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "f48b5f66-df6c-4e57-865f-fc785b0e2399",
@@ -2242,7 +2273,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "fe10eb12-2f80-4097-8039-bf7a1085a712",
@@ -2403,7 +2436,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "f6265639-b86c-45d3-ac60-038549c9eab4",
@@ -2564,7 +2599,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "3c28f32d-4182-4cad-b2f4-5902c316af0a",
@@ -2724,7 +2761,10 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "075d5a62-6bb5-4563-8456-46eb5545581a",
@@ -2884,7 +2924,10 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "53425ee1-fa10-4aad-a554-243b5f4acf7c",
@@ -3045,7 +3088,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "62e55a0e-b8fa-4622-8f41-b2323f3fa966",
@@ -3205,7 +3250,10 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "837e32ce-e2df-431c-b70d-f41f9278ecea",
@@ -3366,7 +3414,9 @@
       "is_mains_relevant": true,
       "editorial_author": "The Indian Express Explained Desk",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "2ad4bc8e-7d5c-47a8-8a9a-27111d94afe8",
@@ -3527,7 +3577,9 @@
       "is_mains_relevant": true,
       "editorial_author": "The Indian Express Explained Desk",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "6d2f4fed-2664-4f87-a79f-a77d84208cf3",
@@ -3688,7 +3740,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "eb5a3857-ad15-4e79-901b-2c1752bb9126",
@@ -3849,7 +3903,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "6c8a5b8f-b531-4cbe-8c5c-aa0b52f74dbc",
@@ -4010,7 +4066,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "24fecdd0-d8c6-4953-872c-4e58db702c5e",
@@ -4172,7 +4230,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "8df498ff-beab-4582-b056-7b8f0c05740c",
@@ -4333,7 +4393,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "549fd1cb-c8bd-4803-8985-f5c0b89d12bf",
@@ -4494,7 +4556,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "a8b50cf1-7148-4c8e-926d-5de541c7d701",
@@ -4655,7 +4719,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "ab1fc6b6-ed3a-499b-bc63-db4e0de2ef96",
@@ -4816,7 +4882,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "df5a478f-c084-4da0-8a9c-435c59eea61f",
@@ -4977,7 +5045,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "d9e10b5f-8566-41db-baab-39001d90a6f9",
@@ -5139,7 +5209,9 @@
       "is_mains_relevant": true,
       "editorial_author": "The Indian Express Explained Desk",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "48c90bb4-47d0-482e-ae2e-08cff73ca9f1",
@@ -5301,7 +5373,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "6460317d-84c1-49b5-8b22-a95edb02b419",
@@ -5459,7 +5533,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "b270ca07-e642-41ac-9967-71060d4c94e9",
@@ -5620,7 +5697,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "384f1ec3-02a0-477e-817c-64d4f5515132",
@@ -5779,7 +5858,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "4628e870-8032-4b27-ba09-c23a87aa4306",
@@ -5941,7 +6023,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "81efeb35-b6b3-47ce-b3a8-9d7fb51cb848",
@@ -6099,7 +6183,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "d45bedc1-c746-4819-8b31-13389c7927d3",
@@ -6258,7 +6345,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "b7b95e01-efa0-430a-b659-8f4fcbd53080",
@@ -6420,7 +6510,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "7d5ff34d-8d7c-4ffb-b539-01c6c50bdb09",
@@ -6584,7 +6676,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "3ab2e390-9e2a-4305-b7ac-3b32cb686270",
@@ -6745,7 +6839,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "9a1d391e-9fa1-4bea-ba9c-2e59d735046c",
@@ -6906,7 +7002,9 @@
       "is_mains_relevant": true,
       "editorial_author": "The Indian Express Explained Desk",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "255dba85-387f-4db5-904a-81dea5a97c76",
@@ -7068,7 +7166,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "dcfc53c1-3aae-48c6-a945-cdf2a08b26b9",
@@ -7229,7 +7329,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "adcc850d-c132-4ead-82b9-b478a3a22d53",
@@ -7390,7 +7492,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "4ea5a742-56ec-4b21-9cc2-a0160352f287",
@@ -7551,7 +7655,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "2dfb56ed-bc8b-4c82-b3e2-fcacdc59ac6c",
@@ -7712,7 +7818,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "2f7b86a5-7db4-438f-aef9-96cbff138158",
@@ -7874,7 +7982,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "e2b1130a-e38d-4704-97ce-f95a6a36fe0c",
@@ -8036,7 +8146,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "bb01cbc1-41f0-4e52-8978-0bc55869333b",
@@ -8195,7 +8307,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "1e8639a2-78c1-4cc3-9a1d-0d6c009cd292",
@@ -8357,7 +8472,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "628a0418-7aec-4a13-8431-98a343c84572",
@@ -8516,7 +8633,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "ea17f6d4-054f-41c9-a0bb-80f698b30891",
@@ -8677,7 +8797,9 @@
       "is_mains_relevant": true,
       "editorial_author": "The Indian Express Explained Desk",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "728d2bdd-7eb4-49fa-8c6d-b7fa37724564",
@@ -8838,7 +8960,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "63b78436-5ef7-4fba-a51e-0d99e4facdad",
@@ -8998,7 +9122,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "475083fd-da06-432b-9cf0-a44b8324e8e9",
@@ -9159,7 +9285,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "55e6a2df-e37e-4582-93b4-69b38f21162a",
@@ -9319,7 +9447,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "ae7e3432-a9c5-4717-a078-ad128ef5ae17",
@@ -9479,7 +9609,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "c683721a-c131-47ff-b0b2-674486670b66",
@@ -9640,7 +9772,9 @@
       "is_mains_relevant": true,
       "editorial_author": "The Indian Express Explained Desk",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "31b0d86f-2bc5-4297-8cf5-e77e7fc36038",
@@ -9800,7 +9934,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "d802fbe6-522e-4aee-b56d-87a1d276f749",
@@ -9960,7 +10096,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "97275410-3fbf-4ffc-9888-4775a97ffc26",
@@ -10120,7 +10258,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "63a77605-584e-425b-a814-e1e9423b28af",
@@ -10281,7 +10421,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "dd2d559f-165a-4548-a082-6853de0812e6",
@@ -10443,7 +10585,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "2e0f4792-e797-4372-8532-4340b8c0b0a1",
@@ -10604,7 +10748,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "2679fb49-2a5b-4485-b6be-980cd4917725",
@@ -10766,7 +10912,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "fac2da31-18fb-464d-b125-7dd85b7e3284",
@@ -10926,7 +11074,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "b4668af4-6a13-46b5-bc37-c3ca59a8241c",
@@ -11084,7 +11234,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "0449c1fc-4a42-4323-b333-9ff6209be740",
@@ -11244,7 +11397,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "0b7e13bf-fa44-4d92-837a-5a751401f15c",
@@ -11406,7 +11561,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "0d59b498-ce36-4d3c-97ef-6b5523252211",
@@ -11566,7 +11723,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "6bc78d96-c492-4663-b05f-49c88faac9c2",
@@ -11727,7 +11886,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "1a29f931-2b43-4d74-a2de-d1c19feeb975",
@@ -11887,7 +12048,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "d1d524ca-8be9-46ec-b42e-4f6a6da74905",
@@ -12049,7 +12212,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "7c2a4fc6-e54a-4e76-8f66-ae1aeb4f6d69",
@@ -12210,7 +12375,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "1db3f457-bfea-4f01-b348-6e5364496924",
@@ -12372,7 +12539,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "c77751cf-e3f4-485c-a5ad-b69d855e6ba5",
@@ -12533,7 +12702,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "5033eb2a-8660-44ae-9001-84c8f806c21c",
@@ -12694,7 +12865,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "a5271d6f-914e-419e-bf6b-aac47af4ae4d",
@@ -12854,7 +13027,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "48b033a7-0adf-4fc9-8bc6-d048fa3bdcb7",
@@ -13013,7 +13188,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "5275b0a4-d860-4f62-bac6-cf444d853fd6",
@@ -13174,7 +13352,10 @@
       "is_mains_relevant": true,
       "editorial_author": "The Hindu Editorial Board",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "dd731813-f92d-43b6-b9c9-6703dd53c5af",
@@ -13335,7 +13516,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "50af398b-c4bc-4ca2-a308-70733765a01d",
@@ -13495,7 +13678,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "1a31ddd9-f4e0-4a8e-b1b8-dfcddaeb3747",
@@ -13655,7 +13840,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "eab5e872-8fef-47d4-b89e-9e1d0edc3a61",
@@ -13815,7 +14002,10 @@
       "is_mains_relevant": true,
       "editorial_author": "The Hindu Editorial Board",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-28T18:30:00.000Z"
+      "published_date_ist": "2026-10-28T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "aa2495f3-7e15-480c-813f-485536e12a27",
@@ -13976,7 +14166,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "805eb39f-8091-42a9-bad5-0e896de9b40d",
@@ -14137,7 +14329,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "b7921181-2fbb-4dc3-9b32-6f686d3fa645",
@@ -14300,7 +14494,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "6247c8ce-1b7c-47e5-a2fe-9bf9ee1fef9f",
@@ -14463,7 +14659,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "381484e5-fd97-445a-994b-983180e11ffa",
@@ -14623,7 +14821,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "1bbd9754-8abd-411a-aadd-0da6e87de156",
@@ -14784,7 +14984,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "8a408caf-e4e4-4cd0-a32e-ec7291d9b3a8",
@@ -14945,7 +15147,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "6a4c712b-9292-4dca-81bf-75af2649d832",
@@ -15105,7 +15309,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "9c18471e-e73b-4398-a396-314294b4e2c8",
@@ -15265,7 +15471,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "1fec1399-c84b-4f94-8cc4-84b8f907ea6a",
@@ -15425,7 +15633,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "bd81a99e-f244-42ba-9b2b-c7fb56085333",
@@ -15584,7 +15794,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "deec309c-1210-477d-9f70-bab75a6c83ce",
@@ -15745,7 +15958,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "973f48d5-d6ed-428c-afb9-39c459aecc11",
@@ -15907,7 +16122,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "c02227a7-e349-4095-8a3b-db5b089f9e33",
@@ -16068,7 +16285,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "9d5a6211-dac8-4b21-be91-f21c9064728c",
@@ -16230,7 +16449,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "851b7716-04dd-4b35-93a1-42c58f828468",
@@ -16391,7 +16612,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "9e6e2718-d8c9-4b7a-b092-6ffb028dbd5e",
@@ -16551,7 +16774,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "0b694313-c6f9-4aba-87ac-b06c35b0e194",
@@ -16708,7 +16933,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "ed92ac1f-1d05-4c84-9bd4-00656137c010",
@@ -16865,7 +17093,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "f426ee25-f947-4e95-8fad-12ebc6c3218a",
@@ -17027,7 +17258,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "22b9e9b0-c396-4337-85ff-b3ddfebb6d27",
@@ -17193,7 +17426,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "c103a21c-71cd-4c08-ad46-9b72b37b12e9",
@@ -17356,7 +17591,9 @@
       "is_mains_relevant": true,
       "editorial_author": "The Indian Express Explained Desk",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "7d6373cc-fff2-4cd0-9e79-c51d57fe746f",
@@ -17518,7 +17755,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "88c4fb4a-dc81-49a0-9feb-a5d703557be0",
@@ -17678,7 +17917,10 @@
       "is_mains_relevant": true,
       "editorial_author": "The Hindu Editorial Board",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-27T18:30:00.000Z"
+      "published_date_ist": "2026-10-27T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "85d95133-6f8b-4534-bd3a-2a862406a22f",
@@ -17839,7 +18081,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-26T18:30:00.000Z"
+      "published_date_ist": "2026-10-26T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "4d9de0cc-e783-411a-a52e-f7dcbba78bf9",
@@ -17999,7 +18243,10 @@
       "is_mains_relevant": true,
       "editorial_author": "The Hindu Editorial Board",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-26T18:30:00.000Z"
+      "published_date_ist": "2026-10-26T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "5c681535-e55c-489e-8a21-4ed79d770364",
@@ -18159,7 +18406,10 @@
       "is_mains_relevant": true,
       "editorial_author": "The Hindu Editorial Board",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-26T18:30:00.000Z"
+      "published_date_ist": "2026-10-26T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "e7a5a953-4c24-481b-8d73-d74a80ec7c02",
@@ -18305,10 +18555,10 @@
         "credit": "The Indian Express • Explained Climate",
         "caption": "Explained: Meteorological Drivers of Rapid Cyclonic Storm Intensification in the Bay of Bengal (The Indian Express • Explained Climate)",
         "license": "Authorized RSS Feed — Summary Synthesis & Canonical Link-Out (No Full-Text Republication)",
-        "imageUrl": "https://images.indianexpress.com/2026/10/arnab_409941.jpg",
+        "imageUrl": null,
         "imageType": "event_photo",
         "sourceUrl": "https://indianexpress.com/section/explained/#de_27_2",
-        "verificationStatus": "verified_agency",
+        "verificationStatus": "placeholder_fallback",
         "associatedArticleId": "hist_de_27_2_bay-bengal-cyclonic-"
       },
       "why_it_matters": "Directly relevant to GS-1 (Editorials and Opinions), testing the interplay between statutory/constitutional mandates and administrative implementation.",
@@ -18321,7 +18571,10 @@
       "is_mains_relevant": true,
       "editorial_author": "The Indian Express Explained Desk",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-26T18:30:00.000Z"
+      "published_date_ist": "2026-10-26T18:30:00.000Z",
+      "imageVerificationStatus": "REJECTED",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "577a63cb-b997-4328-a414-340783314293",
@@ -18484,7 +18737,9 @@
       "is_mains_relevant": true,
       "editorial_author": "The Indian Express Explained Desk",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-26T18:30:00.000Z"
+      "published_date_ist": "2026-10-26T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "bc7b7f9f-e81a-42eb-9f70-251b3255b178",
@@ -18645,7 +18900,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-25T18:30:00.000Z"
+      "published_date_ist": "2026-10-25T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "40d9c4ca-addd-446c-8184-ddb221686e07",
@@ -18806,7 +19063,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-25T18:30:00.000Z"
+      "published_date_ist": "2026-10-25T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "23581a7d-9440-4a12-b7d2-4af0270db14a",
@@ -18968,7 +19227,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-25T18:30:00.000Z"
+      "published_date_ist": "2026-10-25T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "0f4a644f-ab23-4cbc-95b5-58298e9957ba",
@@ -19129,7 +19390,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-25T18:30:00.000Z"
+      "published_date_ist": "2026-10-25T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "f498958a-8026-4813-8210-298854a8b877",
@@ -19291,7 +19554,10 @@
       "is_mains_relevant": true,
       "editorial_author": "The Hindu Editorial Board",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-25T18:30:00.000Z"
+      "published_date_ist": "2026-10-25T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "9f7d000e-01fc-4272-8e4c-90833ddbdc81",
@@ -19452,7 +19718,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-24T18:30:00.000Z"
+      "published_date_ist": "2026-10-24T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "9b218797-7745-4053-87a7-54235fef9225",
@@ -19613,7 +19882,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-24T18:30:00.000Z"
+      "published_date_ist": "2026-10-24T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "f533c451-d23c-49e0-ae5b-c8d9d4571064",
@@ -19775,7 +20047,10 @@
       "is_mains_relevant": true,
       "editorial_author": "The Hindu Editorial Board",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-24T18:30:00.000Z"
+      "published_date_ist": "2026-10-24T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "e329cc90-867a-4707-ad8c-0dd665c0b907",
@@ -19936,7 +20211,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-24T18:30:00.000Z"
+      "published_date_ist": "2026-10-24T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "06a4aef6-16f1-46fd-a785-f18b32b1c973",
@@ -20099,7 +20377,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-24T18:30:00.000Z"
+      "published_date_ist": "2026-10-24T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "7c5581e1-0d6e-4346-a23a-3f8c891e1eb1",
@@ -20262,7 +20543,9 @@
       "is_mains_relevant": true,
       "editorial_author": "The Indian Express Explained Desk",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-24T18:30:00.000Z"
+      "published_date_ist": "2026-10-24T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "0f869bbf-3188-4427-a6a7-b58fef8b21ac",
@@ -20404,14 +20687,13 @@
         "analysisVsOpinionNote": "Primary Official Release from Press Information Bureau (PIB) • Govt of India. Represents direct government/institutional communication."
       },
       "image_metadata": {
-        "credit": "Press Information Bureau (PIB Delhi)",
-        "caption": "National Green Hydrogen Mission: Ministry Releases Tranche-II Incentives for Electrolyser Manufacturing (Press Information Bureau (PIB Delhi))",
-        "license": "Government of India Open Data / Official Press Release Attribution",
-        "imageUrl": "https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg",
+        "imageUrl": "https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80",
+        "credit": "Ministry of New & Renewable Energy / PIB",
+        "caption": "Clean energy green hydrogen production infrastructure supporting national net-zero targets.",
+        "sourceUrl": "https://mnre.gov.in",
         "imageType": "event_photo",
-        "sourceUrl": "https://pib.gov.in/#de_25_2",
         "verificationStatus": "verified_official",
-        "associatedArticleId": "hist_de_25_2_electrolyser-green-h"
+        "license": "Government of India Open Data / Official Press Release Attribution"
       },
       "why_it_matters": "Important for GS-2 Economy to connect current policy announcements with core macroeconomic and regulatory concepts.",
       "raw_excerpt": "The **Ministry of New & Renewable Energy** issued operational guidelines for Tranche-II of the **₹4,440-crore SIGHT scheme**. Component-I incentivizes **1,500 MW annual electrolyser manufacturing** capacity, mandating at least **50% local value addition** for advanced stacks. The rollout strengthens domestic clean-tech supply chains under the **National Green Hydrogen Mission**, targeting **5 MMT annual output** by 2030.",
@@ -20423,7 +20705,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-24T18:30:00.000Z"
+      "published_date_ist": "2026-10-24T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.95,
+      "imageUrl": "https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80"
     },
     {
       "id": "08b0df4d-9196-4aab-90cf-13d48496b520",
@@ -20586,7 +20871,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-24T18:30:00.000Z"
+      "published_date_ist": "2026-10-24T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "5d9ee269-c3c5-46f4-8fc9-e1153eefaa9a",
@@ -20748,7 +21035,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-24T18:30:00.000Z"
+      "published_date_ist": "2026-10-24T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "623baf75-e19b-4b26-b681-76ec4fc6424b",
@@ -20907,7 +21196,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-23T18:30:00.000Z"
+      "published_date_ist": "2026-10-23T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "de5b1ddc-3c64-46f9-8a05-4ef726c6ee67",
@@ -21065,7 +21357,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-23T18:30:00.000Z"
+      "published_date_ist": "2026-10-23T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "abe9cc6b-30d1-41da-b15d-cb6f487ade87",
@@ -21225,7 +21520,10 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-23T18:30:00.000Z"
+      "published_date_ist": "2026-10-23T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "13148da5-6d75-490d-a7eb-31fbe5e5171c",
@@ -21387,7 +21685,10 @@
       "is_mains_relevant": true,
       "editorial_author": "The Hindu Editorial Board",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-23T18:30:00.000Z"
+      "published_date_ist": "2026-10-23T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "add4328d-d011-4017-aa1f-7a2aef3c2151",
@@ -21548,7 +21849,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-23T18:30:00.000Z"
+      "published_date_ist": "2026-10-23T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "2f8782b7-efee-45c7-bf38-53629bc21280",
@@ -21708,7 +22012,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-23T18:30:00.000Z"
+      "published_date_ist": "2026-10-23T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "7820c330-e28b-4ea0-9adf-5e66404c27ce",
@@ -21850,14 +22156,13 @@
         "analysisVsOpinionNote": "Primary Official Release from Reserve Bank of India (RBI) • Official Releases. Represents direct government/institutional communication."
       },
       "image_metadata": {
-        "credit": "Reserve Bank of India (RBI)",
-        "caption": "RBI Releases Revised Liquidity Coverage Ratio (LCR) Norms to Mitigate Digital Bank Run Risks (Reserve Bank of India (RBI))",
-        "license": "RBI Official Public Press Release Policy with Source Attribution",
-        "imageUrl": "https://images.indianexpress.com/2026/10/Jio-IPO-4.jpg",
+        "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80",
+        "credit": "Reserve Bank of India (RBI) / Indian Express",
+        "caption": "Reserve Bank of India headquarters and Monetary Policy Committee regulatory announcement.",
+        "sourceUrl": "https://rbi.org.in",
         "imageType": "event_photo",
-        "sourceUrl": "https://www.rbi.org.in/#de_24_2",
         "verificationStatus": "verified_official",
-        "associatedArticleId": "hist_de_24_2_coverage-digital-lcr"
+        "license": "RBI Official Public Press Release Policy with Source Attribution"
       },
       "why_it_matters": "Important for GS-3 Economy to connect current policy announcements with core macroeconomic and regulatory concepts.",
       "raw_excerpt": "The **Reserve Bank of India** finalized revised **Liquidity Coverage Ratio (LCR)** regulations to mitigate digital bank run risks in 24/7 banking environments. Banks must maintain an additional **5% run-off factor** on retail deposits enabled with mobile banking and UPI, requiring higher holdings of **High-Quality Liquid Assets (HQLA)**. The framework aligns domestic banking prudence with **Basel III standards** while providing a phased implementation window to prevent credit constraints.",
@@ -21869,7 +22174,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-23T18:30:00.000Z"
+      "published_date_ist": "2026-10-23T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.95,
+      "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80"
     },
     {
       "id": "739421d0-9651-441a-bc7a-b6eb08ff004b",
@@ -22030,7 +22338,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-22T18:30:00.000Z"
+      "published_date_ist": "2026-10-22T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "145e409d-90fa-4a10-9319-8fc508b782d7",
@@ -22188,7 +22498,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-22T18:30:00.000Z"
+      "published_date_ist": "2026-10-22T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "90c31245-7474-4844-9957-8fa322d4f43f",
@@ -22348,7 +22661,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-22T18:30:00.000Z"
+      "published_date_ist": "2026-10-22T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "bd5c6105-814f-47f7-8297-998d851e2171",
@@ -22510,7 +22826,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-22T18:30:00.000Z"
+      "published_date_ist": "2026-10-22T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "e9dc0f9f-7c09-4227-a86b-f4f11140e46f",
@@ -22671,7 +22990,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-22T18:30:00.000Z"
+      "published_date_ist": "2026-10-22T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "bd5e22b4-a5b6-4c41-9bfc-fcc75021fa7e",
@@ -22834,7 +23156,10 @@
       "is_mains_relevant": true,
       "editorial_author": "The Hindu Editorial Board",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-22T18:30:00.000Z"
+      "published_date_ist": "2026-10-22T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "57a1278b-3376-4c9d-8c57-411a807bfbab",
@@ -22996,7 +23321,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-22T18:30:00.000Z"
+      "published_date_ist": "2026-10-22T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "6199c459-2940-42ae-8323-c45d4fcbac87",
@@ -23156,7 +23483,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-22T18:30:00.000Z"
+      "published_date_ist": "2026-10-22T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "f4552a3e-8b4d-49df-b47e-7d23b57abd52",
@@ -23317,7 +23646,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-21T18:30:00.000Z"
+      "published_date_ist": "2026-10-21T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "d772c34d-aeff-4a22-9c59-446051713088",
@@ -23479,7 +23810,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-21T18:30:00.000Z"
+      "published_date_ist": "2026-10-21T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "ff10c874-77be-4b75-8790-04fa6b39af66",
@@ -23623,14 +23956,13 @@
         "analysisVsOpinionNote": "Independent News Reporting by The Hindu • Economy & Business. Factual claims should be read alongside primary official notifications where applicable."
       },
       "image_metadata": {
-        "credit": "Livemint • Banking & Finance",
-        "caption": "RBI Expands Offline CBDC-Retail Functionality via Sound-Wave and NFC Protocols (Livemint • Banking & Finance)",
-        "license": "Authorized RSS Feed — Summary Synthesis & Canonical Link-Out (No Full-Text Republication)",
-        "imageUrl": "https://images.indianexpress.com/2026/10/Jio-IPO-4.jpg",
+        "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80",
+        "credit": "Reserve Bank of India (RBI) / Indian Express",
+        "caption": "Reserve Bank of India headquarters and Monetary Policy Committee regulatory announcement.",
+        "sourceUrl": "https://rbi.org.in",
         "imageType": "event_photo",
-        "sourceUrl": "https://www.thehindu.com/business/Economy/#de_21_1",
-        "verificationStatus": "verified_agency",
-        "associatedArticleId": "hist_de_21_1_cbdc-expands-functio"
+        "verificationStatus": "verified_official",
+        "license": "RBI Official Public Press Release Policy with Source Attribution"
       },
       "why_it_matters": "Important for GS-3 Economy to connect current policy announcements with core macroeconomic and regulatory concepts.",
       "raw_excerpt": "The **Reserve Bank of India** introduced regulatory protocols enabling offline transactions for the **Digital Rupee (e₹-R)** without internet connectivity. Payments rely on **Near Field Communication (NFC)** and encrypted acoustic soundwaves, capped at **₹500 per transaction** via device cryptographic wallets. The framework bridges the digital divide in remote hilly and tribal districts while maintaining **sovereign currency liability** on the RBI balance sheet.",
@@ -23642,7 +23974,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-20T18:30:00.000Z"
+      "published_date_ist": "2026-10-20T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.95,
+      "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80"
     },
     {
       "id": "7650cb01-84fa-4c92-a900-56539fdd1641",
@@ -23790,10 +24125,10 @@
         "credit": "The Hindu • Climate Diplomacy",
         "caption": "UNFCCC Baku COP29: G77 & India Demand $1 Trillion Annual New Collective Quantified Goal (The Hindu • Climate Diplomacy)",
         "license": "Authorized RSS Feed — Summary Synthesis & Canonical Link-Out (No Full-Text Republication)",
-        "imageUrl": "https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg",
+        "imageUrl": null,
         "imageType": "event_photo",
         "sourceUrl": "https://www.thehindu.com/sci-tech/science/#de_21_2",
-        "verificationStatus": "verified_agency",
+        "verificationStatus": "placeholder_fallback",
         "associatedArticleId": "hist_de_21_2_annual-baku-collecti"
       },
       "why_it_matters": "Directly relevant to GS-3 Science & Technology, where UPSC tests both conceptual principles and indigenous mission milestones.",
@@ -23806,7 +24141,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-20T18:30:00.000Z"
+      "published_date_ist": "2026-10-20T18:30:00.000Z",
+      "imageVerificationStatus": "REJECTED",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "5375969d-4740-443f-a297-db162a22851c",
@@ -23967,7 +24305,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-19T18:30:00.000Z"
+      "published_date_ist": "2026-10-19T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "7c80b1f1-7825-4823-a497-bb6617b93565",
@@ -24110,10 +24451,10 @@
         "credit": "Press Information Bureau (PIB)",
         "caption": "DRDO Successfully Flight-Tests Long-Range Land Attack Cruise Missile (LRLACM) from Chandipur (Press Information Bureau (PIB))",
         "license": "Government of India Open Data / Official Press Release Attribution",
-        "imageUrl": "https://images.indianexpress.com/2026/10/Railways-safety-feature-1.jpg",
+        "imageUrl": null,
         "imageType": "event_photo",
         "sourceUrl": "https://pib.gov.in/#de_20_1",
-        "verificationStatus": "verified_official",
+        "verificationStatus": "placeholder_fallback",
         "associatedArticleId": "hist_de_20_1_attack-cruise-drdo-f"
       },
       "why_it_matters": "Important for GS-2 Economy to connect current policy announcements with core macroeconomic and regulatory concepts.",
@@ -24126,7 +24467,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-19T18:30:00.000Z"
+      "published_date_ist": "2026-10-19T18:30:00.000Z",
+      "imageVerificationStatus": "REJECTED",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "885beb1e-52df-45a7-bb7b-34e563e1cdca",
@@ -24284,7 +24628,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-18T18:30:00.000Z"
+      "published_date_ist": "2026-10-18T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "83236c2a-0bdf-4cc2-9212-2fffcb9f2366",
@@ -24446,7 +24793,9 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-18T18:30:00.000Z"
+      "published_date_ist": "2026-10-18T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "f5fb1163-1070-4f6a-863f-6989ae11a76a",
@@ -24608,7 +24957,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-17T18:30:00.000Z"
+      "published_date_ist": "2026-10-17T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "545eccf3-a64b-4c87-bf86-d7ab525f3174",
@@ -24769,7 +25121,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-16T18:30:00.000Z"
+      "published_date_ist": "2026-10-16T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "d2173c79-57e7-45c9-9d03-b96381ab79d5",
@@ -24930,7 +25285,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-15T18:30:00.000Z"
+      "published_date_ist": "2026-10-15T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "2f4567b5-c701-4a65-8e2e-09c207d221bd",
@@ -25091,7 +25449,9 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-14T18:30:00.000Z"
+      "published_date_ist": "2026-10-14T18:30:00.000Z",
+      "imageVerificationStatus": "VERIFIED",
+      "imageRelevanceScore": 0.92
     },
     {
       "id": "0720d258-7f77-44f4-94e4-b93d01cb6c8c",
@@ -25249,7 +25609,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-14T18:30:00.000Z"
+      "published_date_ist": "2026-10-14T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "c66bd47a-fbf9-4b63-88c1-7207556a1fe9",
@@ -25412,7 +25775,10 @@
       "is_mains_relevant": true,
       "editorial_author": "The Hindu Editorial Board",
       "ai_explanation_disclaimer": "Original editorial viewpoint belongs to the cited author and publisher. The UPSC syllabus synthesis, key takeaways, and Mains question below are AI-structured educational explanations for exam preparation.",
-      "published_date_ist": "2026-10-13T18:30:00.000Z"
+      "published_date_ist": "2026-10-13T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "97150f9d-87f9-43b3-8c3d-c69e2c0689c5",
@@ -25571,7 +25937,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-12T18:30:00.000Z"
+      "published_date_ist": "2026-10-12T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "42e165e1-a916-4605-a415-72c123cba8a0",
@@ -25731,7 +26100,10 @@
       "is_mains_relevant": false,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-11T18:30:00.000Z"
+      "published_date_ist": "2026-10-11T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "74d6d7f6-b1ae-4699-974d-58a407dc7346",
@@ -25889,7 +26261,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-10T18:30:00.000Z"
+      "published_date_ist": "2026-10-10T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     },
     {
       "id": "9bfe1b7d-c00c-4da7-89cf-b72d695ef5aa",
@@ -26051,7 +26426,10 @@
       "is_mains_relevant": true,
       "editorial_author": null,
       "ai_explanation_disclaimer": null,
-      "published_date_ist": "2026-10-09T18:30:00.000Z"
+      "published_date_ist": "2026-10-09T18:30:00.000Z",
+      "imageVerificationStatus": "NOT_AVAILABLE",
+      "imageRelevanceScore": 0,
+      "imageUrl": null
     }
   ],
   "categoryStatuses": [

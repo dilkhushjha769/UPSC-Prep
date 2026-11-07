@@ -1,4 +1,5 @@
 import React from 'react';
+import { usePrelimsTheme } from '@/constants/prelimsTheme';
 import {
   Modal,
   Platform,
@@ -25,22 +26,24 @@ export function YearRangePickerModal({
   visible,
   selectedRange,
   paper,
-  isDark = true,
+  isDark: propIsDark,
   onSelect,
   onClose,
 }: YearRangePickerModalProps) {
+  const prelimsTheme = usePrelimsTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : prelimsTheme.isDark;
   const colors = {
-    dialogBg: isDark ? '#25272D' : '#FFFFFF',
-    dialogBorder: isDark ? '#35373F' : '#E8E9F1',
-    headerBorder: isDark ? '#35373F' : '#E8E9F1',
-    iconBg: isDark ? '#2A2C33' : '#F8F9FE',
-    iconBorder: isDark ? '#35373F' : '#E8E9F1',
-    textPrimary: isDark ? '#F5F5F7' : '#1F2024',
-    textSecondary: isDark ? '#A7ABB5' : '#71727A',
-    rowBg: isDark ? '#2A2C33' : '#F8F9FE',
-    rowBorder: isDark ? '#35373F' : '#E8E9F1',
-    chipBg: isDark ? '#2A2C33' : '#F8F9FE',
-    chipBorder: isDark ? '#35373F' : '#E8E9F1',
+    dialogBg: isDark ? '#141C28' : '#FFFFFF',
+    dialogBorder: isDark ? '#253244' : '#EAE5DC',
+    headerBorder: isDark ? '#253244' : '#EAE5DC',
+    iconBg: isDark ? '#141C28' : '#FAF9F6',
+    iconBorder: isDark ? '#253244' : '#EAE5DC',
+    textPrimary: isDark ? '#F0F4F8' : '#1C2433',
+    textSecondary: isDark ? '#9DA8B9' : '#7A8499',
+    rowBg: isDark ? '#141C28' : '#FAF9F6',
+    rowBorder: isDark ? '#253244' : '#EAE5DC',
+    chipBg: isDark ? '#141C28' : '#FAF9F6',
+    chipBorder: isDark ? '#253244' : '#EAE5DC',
   };
   const isGS1 = paper === 'gs1';
   const years = isGS1
@@ -85,7 +88,7 @@ export function YearRangePickerModal({
               onPress={onClose}
               accessibilityLabel="Close year picker"
             >
-              <X size={16} color="#A7ABB5" strokeWidth={2.2} />
+              <X size={16} color="#9DA8B9" strokeWidth={2.2} />
             </Pressable>
           </View>
 
@@ -99,7 +102,7 @@ export function YearRangePickerModal({
                   key={preset.key}
                   style={({ pressed }) => [
                     styles.rowItem,
-                    { backgroundColor: isSelected ? (isDark ? '#152843' : '#EAF2FF') : colors.rowBg, borderColor: isSelected ? '#0D6EFD' : colors.rowBorder },
+                    { backgroundColor: isSelected ? (isDark ? '#1B2534' : '#FCEBDD') : colors.rowBg, borderColor: isSelected ? '#B9570A' : colors.rowBorder },
                     pressed && styles.pressed,
                   ]}
                   onPress={() => {
@@ -108,12 +111,12 @@ export function YearRangePickerModal({
                   }}
                 >
                   <View style={styles.rowInfo}>
-                    <Text style={[styles.rowLabel, { color: isSelected ? '#0D6EFD' : colors.textPrimary }]}>
+                    <Text style={[styles.rowLabel, { color: isSelected ? '#B9570A' : colors.textPrimary }]}>
                       {preset.label}
                     </Text>
                     <Text style={[styles.rowSub, { color: colors.textSecondary }]}>{preset.sub}</Text>
                   </View>
-                  {isSelected && <Check size={18} color="#0D6EFD" strokeWidth={2.5} />}
+                  {isSelected && <Check size={18} color="#B9570A" strokeWidth={2.5} />}
                 </Pressable>
               );
             })}
@@ -128,7 +131,7 @@ export function YearRangePickerModal({
                     key={yr}
                     style={({ pressed }) => [
                       styles.yearChip,
-                      { backgroundColor: isSelected ? '#0D6EFD' : colors.chipBg, borderColor: isSelected ? '#0D6EFD' : colors.chipBorder },
+                      { backgroundColor: isSelected ? '#B9570A' : colors.chipBg, borderColor: isSelected ? '#B9570A' : colors.chipBorder },
                       pressed && styles.pressed,
                     ]}
                     onPress={() => {
@@ -162,9 +165,9 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 440,
     maxHeight: '85%',
-    backgroundColor: '#25272D',
+    backgroundColor: '#141C28',
     borderWidth: 1,
-    borderColor: '#35373F',
+    borderColor: '#253244',
     borderRadius: 14,
     padding: 18,
     ...Platform.select({
@@ -178,7 +181,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingBottom: 14,
     borderBottomWidth: 1,
-    borderBottomColor: '#35373F',
+    borderBottomColor: '#253244',
   },
   headerLeft: {
     flexDirection: 'row',
@@ -189,21 +192,21 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 8,
-    backgroundColor: '#2A2C33',
+    backgroundColor: '#141C28',
     borderWidth: 1,
-    borderColor: '#35373F',
+    borderColor: '#253244',
     alignItems: 'center',
     justifyContent: 'center',
   },
   title: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#F5F5F7',
+    color: '#F0F4F8',
     letterSpacing: -0.2,
   },
   subtitle: {
     fontSize: 12,
-    color: '#A7ABB5',
+    color: '#9DA8B9',
     fontWeight: '500',
     marginTop: 1,
   },
@@ -211,9 +214,9 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 8,
-    backgroundColor: '#2A2C33',
+    backgroundColor: '#141C28',
     borderWidth: 1,
-    borderColor: '#35373F',
+    borderColor: '#253244',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -223,7 +226,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#A7ABB5',
+    color: '#9DA8B9',
     letterSpacing: 0.8,
     marginBottom: 8,
   },
@@ -237,11 +240,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'transparent',
     marginBottom: 4,
-    backgroundColor: '#202227',
+    backgroundColor: '#141C28',
   },
   rowItemActive: {
-    backgroundColor: '#1E293B',
-    borderColor: '#0D6EFD',
+    backgroundColor: '#1C2433',
+    borderColor: '#B9570A',
   },
   rowInfo: {
     flex: 1,
@@ -249,7 +252,7 @@ const styles = StyleSheet.create({
   rowLabel: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#F5F5F7',
+    color: '#F0F4F8',
   },
   rowLabelActive: {
     color: '#FFFFFF',
@@ -257,7 +260,7 @@ const styles = StyleSheet.create({
   },
   rowSub: {
     fontSize: 12,
-    color: '#A7ABB5',
+    color: '#9DA8B9',
     marginTop: 2,
   },
   yearsGrid: {
@@ -272,20 +275,20 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingVertical: 10,
     borderRadius: 8,
-    backgroundColor: '#202227',
+    backgroundColor: '#141C28',
     borderWidth: 1,
-    borderColor: '#35373F',
+    borderColor: '#253244',
     alignItems: 'center',
     justifyContent: 'center',
   },
   yearChipActive: {
-    backgroundColor: '#0D6EFD',
-    borderColor: '#0D6EFD',
+    backgroundColor: '#B9570A',
+    borderColor: '#B9570A',
   },
   yearChipText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#F5F5F7',
+    color: '#F0F4F8',
   },
   yearChipTextActive: {
     color: '#FFFFFF',

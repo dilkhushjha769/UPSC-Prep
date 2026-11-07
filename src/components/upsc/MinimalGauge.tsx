@@ -18,7 +18,7 @@ export function MinimalArcGauge({
   size = 130,
   strokeWidth = 8,
   progress = 0,
-  trackColor = '#222222',
+  trackColor = '#141C28',
   fillColor = '#FFFFFF',
   children,
 }: MinimalGaugeProps) {

@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React, { useState } from 'react';
 import {
   Modal,
@@ -24,7 +25,7 @@ import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
 
 interface NotificationsModalProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
 type NotificationCategory = 'all' | 'unread' | 'streak' | 'mocks' | 'study';
@@ -45,7 +46,9 @@ interface NotificationItem {
   actionType?: 'focus' | 'mock';
 }
 
-export function NotificationsModal({ isDark }: NotificationsModalProps) {
+export function NotificationsModal({ isDark: propIsDark }: NotificationsModalProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const {
     isNotificationsModalOpen,
     setIsNotificationsModalOpen,
@@ -72,8 +75,8 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
       time: '12m ago',
       section: 'Today',
       icon: Flame,
-      accentColor: '#F59E0B',
-      bgTint: isDark ? 'rgba(245, 158, 11, 0.15)' : 'rgba(245, 158, 11, 0.12)',
+      accentColor: '#A65A0A',
+      bgTint: isDark ? 'rgba(166, 90, 10, 0.15)' : 'rgba(166, 90, 10, 0.12)',
       isRead: false,
       actionLabel: 'Start Focus Session',
       actionType: 'focus',
@@ -88,7 +91,7 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
       time: '2h ago',
       section: 'Today',
       icon: Award,
-      accentColor: '#FF5500',
+      accentColor: '#B9570A',
       bgTint: isDark ? 'rgba(255, 106, 19, 0.15)' : 'rgba(255, 106, 19, 0.1)',
       isRead: false,
       actionLabel: 'View Test Paper',
@@ -104,7 +107,7 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
       time: '5h ago',
       section: 'Today',
       icon: Sparkles,
-      accentColor: '#FF8A3D',
+      accentColor: '#D9822B',
       bgTint: isDark ? 'rgba(255, 138, 61, 0.15)' : 'rgba(255, 138, 61, 0.1)',
       isRead: true,
     },
@@ -118,8 +121,8 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
       time: 'Yesterday, 8:30 PM',
       section: 'Yesterday',
       icon: BookOpen,
-      accentColor: '#10B981',
-      bgTint: isDark ? 'rgba(16, 185, 129, 0.15)' : 'rgba(16, 185, 129, 0.1)',
+      accentColor: '#26734D',
+      bgTint: isDark ? 'rgba(38, 115, 77, 0.15)' : 'rgba(38, 115, 77, 0.1)',
       isRead: true,
     },
     {
@@ -132,7 +135,7 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
       time: '2 days ago',
       section: 'Earlier',
       icon: Target,
-      accentColor: '#06B6D4',
+      accentColor: '#26734D',
       bgTint: isDark ? 'rgba(6, 182, 212, 0.15)' : 'rgba(6, 182, 212, 0.1)',
       isRead: true,
     },
@@ -221,11 +224,11 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
                       styles.unreadPill,
                       {
                         backgroundColor: isDark
-                          ? 'rgba(239, 68, 68, 0.18)'
-                          : '#FEE2E2',
+                          ? 'rgba(180, 35, 24, 0.18)'
+                          : '#FBE4E1',
                         borderColor: isDark
-                          ? 'rgba(239, 68, 68, 0.35)'
-                          : '#FCA5A5',
+                          ? 'rgba(180, 35, 24, 0.35)'
+                          : '#F3C4BF',
                       },
                     ]}>
                     <Text style={styles.unreadPillText}>
@@ -250,7 +253,7 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
                     Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                     {
                       backgroundColor: isDark
-                        ? 'rgba(255, 255, 255, 0.06)'
+                        ? '#1B2534'
                         : 'rgba(0, 0, 0, 0.04)',
                       borderColor: theme.cardBorder,
                     },
@@ -271,7 +274,7 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
                   Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                   {
                     backgroundColor: isDark
-                      ? 'rgba(255, 255, 255, 0.06)'
+                      ? '#1B2534'
                       : 'rgba(0, 0, 0, 0.04)',
                     borderColor: theme.cardBorder,
                   },
@@ -357,10 +360,10 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
                             {
                               backgroundColor: !item.isRead
                                 ? isDark
-                                  ? '#192033'
-                                  : '#F8FAFF'
+                                  ? '#141C28'
+                                  : '#E9EDF9'
                                 : isDark
-                                ? '#121622'
+                                ? '#0B1018'
                                 : '#FFFFFF',
                               borderColor: !item.isRead
                                 ? isDark
@@ -394,7 +397,7 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
                               size={19}
                               color={item.accentColor}
                               strokeWidth={2.3}
-                              fill={item.category === 'streak' ? '#FBBF24' : undefined}
+                              fill={item.category === 'streak' ? '#D9822B' : undefined}
                             />
                           </View>
 
@@ -440,7 +443,7 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
                                     styles.actionPill,
                                     {
                                       backgroundColor: isDark
-                                        ? 'rgba(255, 255, 255, 0.08)'
+                                        ? '#1B2534'
                                         : 'rgba(0, 0, 0, 0.05)',
                                       borderColor: theme.cardBorder,
                                     },
@@ -471,7 +474,7 @@ export function NotificationsModal({ isDark }: NotificationsModalProps) {
                     styles.emptyIconHalo,
                     {
                       backgroundColor: isDark
-                        ? 'rgba(255, 255, 255, 0.04)'
+                        ? '#1B2534'
                         : 'rgba(0, 0, 0, 0.03)',
                       borderColor: theme.cardBorder,
                     },
@@ -571,7 +574,7 @@ const styles = StyleSheet.create({
   unreadPillText: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#EF4444',
+    color: '#B42318',
     letterSpacing: -0.2,
   },
   headerSubtitle: {

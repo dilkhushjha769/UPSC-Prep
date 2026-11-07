@@ -1,3 +1,7 @@
+import { BW_THEME } from '@/constants/bwTheme';
+import { useStudy } from '@/context/StudyContext';
+import { useAppTheme } from '@/context/ThemeContext';
+import { Calendar } from 'lucide-react-native';
 import React, { useEffect, useState } from 'react';
 import {
   Platform,
@@ -8,9 +12,6 @@ import {
   View,
 } from 'react-native';
 import Svg, { Circle, Line, Path } from 'react-native-svg';
-import { Calendar } from 'lucide-react-native';
-import { BW_THEME } from '@/constants/bwTheme';
-import { useStudy } from '@/context/StudyContext';
 
 interface PrelimsCountdownCardProps {
   isDark: boolean;
@@ -56,8 +57,8 @@ function calculateRemaining(targetDateStr: string): TimeRemaining {
 // =============================================================================
 
 function StopwatchTimerIcon({ isDark }: { isDark: boolean }) {
-  const stroke = isDark ? '#FFFFFF' : '#09090B';
-  const sectorFill = isDark ? '#FFFFFF' : '#09090B';
+  const stroke = isDark ? '#FFFFFF' : '#0B1018';
+  const sectorFill = isDark ? '#FFFFFF' : '#0B1018';
 
   return (
     <Svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -90,7 +91,9 @@ function StopwatchTimerIcon({ isDark }: { isDark: boolean }) {
 // MAIN COMPONENT
 // =============================================================================
 
-export function PrelimsCountdownCard({ isDark, onOpenPrelims }: PrelimsCountdownCardProps) {
+export function PrelimsCountdownCard({ isDark: propIsDark, onOpenPrelims }: { isDark?: boolean; onOpenPrelims?: () => void }) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const { config } = useStudy();
   const { width } = useWindowDimensions();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
@@ -121,7 +124,7 @@ export function PrelimsCountdownCard({ isDark, onOpenPrelims }: PrelimsCountdown
         styles.barContainer,
         {
           backgroundColor: theme.cardBg,
-          borderColor: isDark ? '#2D3444' : theme.cardBorder,
+          borderColor: isDark ? '#253244' : theme.cardBorder,
           flexDirection: isDesktop ? 'row' : 'column',
           alignItems: isDesktop ? 'center' : 'stretch',
         },
@@ -142,8 +145,8 @@ export function PrelimsCountdownCard({ isDark, onOpenPrelims }: PrelimsCountdown
             style={[
               styles.iconCircle,
               {
-                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F4F4F5',
-                borderColor: isDark ? 'rgba(255, 255, 255, 0.20)' : '#E4E4E7',
+                backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
+                borderColor: isDark ? '#253244' : '#EAE5DC',
               },
             ]}>
             <StopwatchTimerIcon isDark={isDark} />
@@ -160,11 +163,11 @@ export function PrelimsCountdownCard({ isDark, onOpenPrelims }: PrelimsCountdown
           style={[
             styles.dateBadge,
             {
-              backgroundColor: isDark ? '#1F2430' : '#F4F4F5',
-              borderColor: isDark ? '#313849' : '#E4E4E7',
+              backgroundColor: isDark ? '#141C28' : '#F0EDE6',
+              borderColor: isDark ? '#253244' : '#EAE5DC',
             },
           ]}>
-          <Calendar size={10} color={isDark ? '#F0E2D5' : '#71717A'} />
+          <Calendar size={10} color={isDark ? '#F2C9A3' : '#7A8499'} />
           <Text style={[styles.dateText, { color: theme.textSecondary }]}>
             {timeLeft.targetFormatted}
           </Text>
@@ -176,14 +179,14 @@ export function PrelimsCountdownCard({ isDark, onOpenPrelims }: PrelimsCountdown
         {units.map((unit, index) => {
           const isLast = index === units.length - 1;
 
-          let boxBg = isDark ? '#1F2024' : '#F8F9FE';
-          let boxBorder = isDark ? '#494A50' : '#E8E9F1';
+          let boxBg = isDark ? '#0B1018' : '#FAF9F6';
+          let boxBorder = isDark ? '#253244' : '#EAE5DC';
           let numColor: string = theme.textPrimary;
           let labelColor: string = theme.textMuted;
 
           if (unit.isHero) {
-            boxBg = '#006FFD';
-            boxBorder = '#006FFD';
+            boxBg = '#B9570A';
+            boxBorder = '#B9570A';
             numColor = '#FFFFFF';
             labelColor = '#FFFFFF';
           }
@@ -220,10 +223,10 @@ export function PrelimsCountdownCard({ isDark, onOpenPrelims }: PrelimsCountdown
                         backgroundColor: isDark
                           ? index === 0
                             ? '#FFFFFF'
-                            : '#4F4036'
+                            : '#6B3A12'
                           : index === 0
-                          ? '#09090B'
-                          : '#D9C7B8',
+                            ? '#0B1018'
+                            : '#DDD6CA',
                       },
                     ]}
                   />
@@ -234,10 +237,10 @@ export function PrelimsCountdownCard({ isDark, onOpenPrelims }: PrelimsCountdown
                         backgroundColor: isDark
                           ? index === 0
                             ? '#FFFFFF'
-                            : '#4F4036'
+                            : '#6B3A12'
                           : index === 0
-                          ? '#09090B'
-                          : '#D9C7B8',
+                            ? '#0B1018'
+                            : '#DDD6CA',
                       },
                     ]}
                   />

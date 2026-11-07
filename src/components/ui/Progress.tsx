@@ -21,9 +21,9 @@ export interface ProgressBarProps {
   progress?: number;
   /** Height of the progress bar in pixels. Defaults to 8. */
   height?: number;
-  /** Active bar fill color. Defaults to #006FFD (Highlight Primary). */
+  /** Active bar fill color. Defaults to #B9570A (Highlight Primary). */
   fillColor?: string;
-  /** Inactive track background color. Defaults to #E8E9F1 (Neutral Light Border Subtle). */
+  /** Inactive track background color. Defaults to #EAE5DC (Neutral Light Border Subtle). */
   trackColor?: string;
   /** If true, animates progress changes smoothly. Defaults to true. */
   animated?: boolean;
@@ -165,9 +165,9 @@ export interface SegmentedProgressProps {
   height?: number;
   /** Gap between pill segments. Defaults to 6. */
   gap?: number;
-  /** Active pill color. Defaults to #006FFD. */
+  /** Active pill color. Defaults to #B9570A. */
   fillColor?: string;
-  /** Inactive pill color. Defaults to #E8E9F1. */
+  /** Inactive pill color. Defaults to #EAE5DC. */
   trackColor?: string;
   /** If true, runs a sequential wave loading animation across pills. */
   indeterminate?: boolean;
@@ -270,9 +270,9 @@ export interface CircularProgressProps {
   strokeWidth?: number;
   /** Progress from 0 to 1 (or 0 to 100). */
   progress?: number;
-  /** Active arc color. Defaults to #006FFD. */
+  /** Active arc color. Defaults to #B9570A. */
   fillColor?: string;
-  /** Background track color. Defaults to #E8E9F1. */
+  /** Background track color. Defaults to #EAE5DC. */
   trackColor?: string;
   /** Continuous rotation spinner mode. Defaults to false. */
   indeterminate?: boolean;

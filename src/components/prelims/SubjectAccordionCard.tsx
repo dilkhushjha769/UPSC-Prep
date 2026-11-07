@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#EFE7FB',
+    borderColor: '#E9EDF9',
     ...PrelimsTheme.shadows.card,
   },
   headerRow: {
@@ -115,9 +115,9 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   weightageBadge: {
-    backgroundColor: '#FAF5FF',
+    backgroundColor: '#E9EDF9',
     borderWidth: 1,
-    borderColor: '#E9D5FF',
+    borderColor: '#CBD3EB',
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 8,
@@ -126,19 +126,19 @@ const styles = StyleSheet.create({
   weightageNumber: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#FF5500',
+    color: '#B9570A',
   },
   weightageSub: {
     fontSize: 8,
     fontWeight: '600',
-    color: '#FF5500',
+    color: '#B9570A',
   },
   chaptersContainer: {
     marginTop: 12,
   },
   divider: {
     height: 1,
-    backgroundColor: '#F3EDFA',
+    backgroundColor: '#E9EDF9',
     marginBottom: 12,
   },
   pressed: {

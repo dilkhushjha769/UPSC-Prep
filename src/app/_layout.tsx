@@ -1,9 +1,10 @@
 import { DarkTheme, DefaultTheme, Slot, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
 import { StudyProvider } from '@/context/StudyContext';
+import { AppThemeProvider, useAppTheme } from '@/context/ThemeContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -11,9 +12,11 @@ const customLightTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: '#F8FAFC',
+    background: '#FAF9F6',
     card: '#FFFFFF',
-    border: 'rgba(215, 226, 248, 0.9)',
+    text: '#1E293B',
+    border: '#EAE5DC',
+    primary: '#F58235',
   },
 };
 
@@ -21,18 +24,21 @@ const customDarkTheme = {
   ...DarkTheme,
   colors: {
     ...DarkTheme.colors,
-    background: '#0A0D14',
-    card: '#121622',
-    border: '#1E2536',
+    background: '#0B1018',
+    card: '#141C28',
+    text: '#F1F5F9',
+    border: '#253244',
+    primary: '#F58235',
   },
 };
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const theme = colorScheme === 'dark' ? customDarkTheme : customLightTheme;
+function RootContent() {
+  const { isDark } = useAppTheme();
+  const theme = isDark ? customDarkTheme : customLightTheme;
 
   return (
     <ThemeProvider value={theme}>
+      <StatusBar style={isDark ? 'light' : 'dark'} />
       <StudyProvider>
         <AnimatedSplashOverlay />
         <Slot />
@@ -41,3 +47,10 @@ export default function RootLayout() {
   );
 }
 
+export default function RootLayout() {
+  return (
+    <AppThemeProvider>
+      <RootContent />
+    </AppThemeProvider>
+  );
+}

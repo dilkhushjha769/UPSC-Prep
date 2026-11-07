@@ -1,33 +1,41 @@
 import React, { createContext, useContext, useMemo } from 'react';
 import { BW_THEME } from './bwTheme';
+import { getTokens } from './designTokens';
+import { useAppTheme } from '@/context/ThemeContext';
 
-export const getPrelimsTheme = (isDark: boolean = true) => {
+export const getPrelimsTheme = (isDark: boolean = false) => {
   const bw = isDark ? BW_THEME.dark : BW_THEME.light;
+  const t = getTokens(isDark);
 
   return {
     isDark,
+    tokens: t,
     colors: {
       bgCanvas: bw.bg,
       bgGradientTop: bw.bg,
       bgSurface: bw.cardBg,
-      bgSurfaceMuted: isDark ? '#26272C' : '#F8F9FE',
+      bgSurfaceMuted: t.muted,
       borderSubtle: bw.borderSubtle,
       borderCard: bw.cardBorder,
 
-      // Primary Accents (Figma Primary Blue)
-      primary: '#006FFD',
-      primaryLight: isDark ? '#6FBAFF' : '#2897FF',
-      primarySoft: isDark ? '#183661' : '#EAF2FF',
-      primarySoftBorder: isDark ? '#385885' : '#B4DBFF',
+      // Primary action buttons (warm orange #F58235)
+      primary: t.accent,
+      primaryLight: t.accentHover,
+      primarySoft: t.accentSoft,
+      primarySoftBorder: t.borderStrong,
+
+      // Accent (burnt orange #F58235) - used selectively for highlights & active filters
+      accent: t.accent,
+      accentSoft: t.accentSoft,
 
       // Buttons
-      darkButton: '#006FFD',
+      darkButton: t.accent,
       darkButtonText: '#FFFFFF',
 
-      // Badges & Pills
-      badgeBg: isDark ? '#183661' : '#EAF2FF',
-      badgeText: isDark ? '#6FBAFF' : '#006FFD',
-      badgeBorder: isDark ? '#385885' : '#B4DBFF',
+      // Badges & pills
+      badgeBg: t.accentSoft,
+      badgeText: t.accent,
+      badgeBorder: t.borderStrong,
 
       // Text
       textPrimary: bw.textPrimary,
@@ -36,45 +44,39 @@ export const getPrelimsTheme = (isDark: boolean = true) => {
       textWhite: '#FFFFFF',
 
       // Status
-      correct: isDark ? '#3AC0A0' : '#298267',
-      incorrect: isDark ? '#FF616D' : '#ED3241',
-      warning: isDark ? '#FFB37C' : '#E86339',
+      correct: t.success,
+      incorrect: t.destructive,
+      warning: t.warning,
     },
     shadows: {
-      card: isDark ? {
-        shadowColor: '#000000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 8,
-        elevation: 2,
-      } : {
-        shadowColor: '#000000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.06,
-        shadowRadius: 6,
+      card: {
+        shadowColor: '#1C2433',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: isDark ? 0.25 : 0.04,
+        shadowRadius: 3,
         elevation: 1,
       },
       cardHover: {
-        shadowColor: '#000000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: isDark ? 0.35 : 0.08,
-        shadowRadius: 12,
-        elevation: 4,
+        shadowColor: '#1C2433',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: isDark ? 0.3 : 0.06,
+        shadowRadius: 8,
+        elevation: 2,
       },
       floating: {
-        shadowColor: '#000000',
+        shadowColor: '#1C2433',
         shadowOffset: { width: 0, height: 6 },
-        shadowOpacity: isDark ? 0.45 : 0.12,
+        shadowOpacity: isDark ? 0.4 : 0.1,
         shadowRadius: 16,
         elevation: 6,
       },
     },
     radius: {
-      small: 6,
+      small: 8,
       medium: 10,
-      large: 14,
-      card: 14,
-      sheet: 24,
+      large: 12,
+      card: 16,
+      sheet: 20,
       pill: 9999,
     },
   };
@@ -82,22 +84,28 @@ export const getPrelimsTheme = (isDark: boolean = true) => {
 
 export type PrelimsThemeType = ReturnType<typeof getPrelimsTheme>;
 
-// Default dark theme instance for backward compatibility
-export const PrelimsTheme = getPrelimsTheme(true);
+// Default (light editorial) theme instance for backward compatibility
+export const PrelimsTheme = getPrelimsTheme(false);
 
-const PrelimsThemeContext = createContext<PrelimsThemeType>(PrelimsTheme);
+const PrelimsThemeContext = createContext<PrelimsThemeType | null>(null);
 
 export function PrelimsThemeProvider({
-  isDark = true,
+  isDark: propIsDark,
   children,
 }: {
   isDark?: boolean;
   children: React.ReactNode;
 }) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const theme = useMemo(() => getPrelimsTheme(isDark), [isDark]);
   return React.createElement(PrelimsThemeContext.Provider, { value: theme }, children);
 }
 
 export function usePrelimsTheme(): PrelimsThemeType {
-  return useContext(PrelimsThemeContext);
+  const context = useContext(PrelimsThemeContext);
+  const { isDark: appIsDark } = useAppTheme();
+  const fallback = useMemo(() => getPrelimsTheme(appIsDark), [appIsDark]);
+  return context ?? fallback;
 }
+

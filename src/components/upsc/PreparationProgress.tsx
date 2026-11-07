@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React from 'react';
 import {
   StyleSheet,
@@ -18,10 +19,12 @@ import { useStudy } from '@/context/StudyContext';
 import { UPSC_THEME } from '@/constants/themeColors';
 
 interface PreparationProgressProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function PreparationProgress({ isDark }: PreparationProgressProps) {
+export function PreparationProgress({ isDark: propIsDark }: PreparationProgressProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { config, setIsConfigModalOpen } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 
@@ -46,7 +49,7 @@ export function PreparationProgress({ isDark }: PreparationProgressProps) {
       subtitle: 'Quant, Reasoning & Comprehension',
       progress: 74,
       completedLabel: '74% prepared',
-      color: '#FF5500',
+      color: '#B9570A',
       icon: Layers,
     },
     {
@@ -122,7 +125,7 @@ export function PreparationProgress({ isDark }: PreparationProgressProps) {
         style={[
           styles.countdownBanner,
           {
-            backgroundColor: isDark ? '#201A38' : '#F6F2FF',
+            backgroundColor: isDark ? '#141C28' : '#E9EDF9',
             borderColor: colors.cardBorder,
           },
         ]}>
@@ -182,7 +185,7 @@ export function PreparationProgress({ isDark }: PreparationProgressProps) {
               <View
                 style={[
                   styles.progressBarTrack,
-                  { backgroundColor: isDark ? '#232136' : '#FFEDE0' },
+                  { backgroundColor: isDark ? '#1B2534' : '#FCEBDD' },
                 ]}>
                 <View
                   style={[
@@ -208,7 +211,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 20,
     marginBottom: 24,
-    shadowColor: '#FF5500',
+    shadowColor: '#B9570A',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
     shadowRadius: 12,

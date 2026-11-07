@@ -59,7 +59,7 @@ export function TrendAnalysisModal({
               </View>
               <View style={styles.metricDivider} />
               <View style={styles.metricItem}>
-                <Text style={[styles.metricBigNum, { color: '#059669' }]}>
+                <Text style={[styles.metricBigNum, { color: '#26734D' }]}>
                   {chapter.isHighYield ? 'Very High' : 'Moderate'}
                 </Text>
                 <Text style={styles.metricLabel}>Yield Priority</Text>
@@ -79,7 +79,7 @@ export function TrendAnalysisModal({
             {/* Qualitative Trend Analysis Card */}
             <View style={styles.analysisCard}>
               <View style={styles.analysisHeader}>
-                <Ionicons name="bulb-outline" size={18} color="#FF5500" />
+                <Ionicons name="bulb-outline" size={18} color="#B9570A" />
                 <Text style={styles.analysisCardTitle}>Key Focus Areas</Text>
               </View>
               <Text style={styles.trendSummaryText}>{chapter.trendSummary}</Text>
@@ -110,7 +110,7 @@ export function TrendAnalysisModal({
                 onStartPractice(chapter);
               }}
             >
-              <Ionicons name="book-outline" size={16} color="#FF5500" />
+              <Ionicons name="book-outline" size={16} color="#B9570A" />
               <Text style={styles.dockPracticeText}>Practice (Study Mode)</Text>
             </Pressable>
 
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     width: 38,
     height: 4,
     borderRadius: 2,
-    backgroundColor: '#E4E4E7',
+    backgroundColor: '#EAE5DC',
     alignSelf: 'center',
     marginTop: 10,
     marginBottom: 6,
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#F4F2F8',
+    borderBottomColor: '#E9EDF9',
   },
   headerInfo: {
     flexDirection: 'row',
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   codeBadge: {
-    backgroundColor: '#FFEDE0',
+    backgroundColor: '#FCEBDD',
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 8,
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   codeText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#FF5500',
+    color: '#B9570A',
   },
   headerTitle: {
     fontSize: 16,
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: '#F4F4F5',
+    backgroundColor: '#F0EDE6',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -205,11 +205,11 @@ const styles = StyleSheet.create({
   },
   metricsCard: {
     flexDirection: 'row',
-    backgroundColor: '#FAF8FE',
+    backgroundColor: '#E9EDF9',
     borderRadius: 20,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#EFE7FB',
+    borderColor: '#E9EDF9',
     marginBottom: 16,
     alignItems: 'center',
   },
@@ -232,14 +232,14 @@ const styles = StyleSheet.create({
   metricDivider: {
     width: 1,
     height: 30,
-    backgroundColor: '#E2E8F0',
+    backgroundColor: '#EAE5DC',
   },
   chartCard: {
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#EFE7FB',
+    borderColor: '#E9EDF9',
     marginBottom: 16,
     ...PrelimsTheme.shadows.card,
   },
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   chartBadge: {
-    backgroundColor: '#ECFDF5',
+    backgroundColor: '#E3F1E8',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
   chartBadgeText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#059669',
+    color: '#26734D',
   },
   chartArea: {
     flexDirection: 'row',
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     height: 140,
     paddingTop: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#F3F4F6',
+    borderBottomColor: '#F0EDE6',
     paddingBottom: 4,
   },
   colWrapper: {
@@ -287,16 +287,16 @@ const styles = StyleSheet.create({
   barCountLabel: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#FF5500',
+    color: '#B9570A',
     marginBottom: 4,
   },
   chartBar: {
     width: 14,
-    backgroundColor: '#E9D5FF',
+    backgroundColor: '#CBD3EB',
     borderRadius: 6,
   },
   chartBarHighlight: {
-    backgroundColor: '#FF5500',
+    backgroundColor: '#B9570A',
   },
   yearLabel: {
     fontSize: 10,
@@ -305,15 +305,15 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   yearLabelHighlight: {
-    color: '#FF5500',
+    color: '#B9570A',
     fontWeight: '700',
   },
   analysisCard: {
-    backgroundColor: '#FBF9FE',
+    backgroundColor: '#E9EDF9',
     borderRadius: 18,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#EDE6F9',
+    borderColor: '#CBD3EB',
     marginBottom: 16,
   },
   analysisHeader: {
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
   analysisCardTitle: {
     fontSize: 13,
     fontWeight: '800',
-    color: '#FF5500',
+    color: '#B9570A',
   },
   trendSummaryText: {
     fontSize: 13,
@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#EFE7FB',
+    borderColor: '#E9EDF9',
     marginBottom: 16,
     ...PrelimsTheme.shadows.card,
   },
@@ -357,7 +357,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: '#FFEDE0',
+    backgroundColor: '#FCEBDD',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 1,
@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
   topicIndex: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#FF5500',
+    color: '#B9570A',
   },
   topicText: {
     fontSize: 13,
@@ -379,7 +379,7 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     gap: 10,
     borderTopWidth: 1,
-    borderTopColor: '#F4F2F8',
+    borderTopColor: '#E9EDF9',
   },
   dockPracticeBtn: {
     flex: 1,
@@ -388,7 +388,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FFFFFF',
     borderWidth: 1.5,
-    borderColor: '#FF5500',
+    borderColor: '#B9570A',
     paddingVertical: 13,
     borderRadius: PrelimsTheme.radius.pill,
     gap: 6,
@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
   dockPracticeText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#FF5500',
+    color: '#B9570A',
   },
   dockQuizBtn: {
     flex: 1,

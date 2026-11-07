@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, useColorScheme } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
 import { MockTestDashboard } from '@/components/mockTest/MockTestDashboard';
 import { BlueTextureBackground } from '@/components/common/BlueTextureBackground';
 import { BW_THEME } from '@/constants/bwTheme';
+import { useAppTheme } from '@/context/ThemeContext';
 
 export default function MockTestIndexScreen() {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
+  const { isDark, toggleTheme } = useAppTheme();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
 
   const handleStartTest = (testId: string) => {
@@ -23,6 +23,7 @@ export default function MockTestIndexScreen() {
       <MockTestDashboard
         onStartTest={handleStartTest}
         onBack={() => router.back()}
+        onToggleTheme={toggleTheme}
         isDark={isDark}
       />
     </View>

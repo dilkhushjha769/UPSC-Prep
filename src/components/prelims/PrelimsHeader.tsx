@@ -1,5 +1,7 @@
 import React from 'react';
+import { FONT_FAMILY } from '@/constants/designTokens';
 import { PALETTE } from '@/constants/colors';
+import { usePrelimsTheme } from '@/constants/prelimsTheme';
 import {
   Platform,
   Pressable,
@@ -28,33 +30,39 @@ interface PrelimsHeaderProps {
   onOpenYearPicker: () => void;
   searchQuery: string;
   onSearchChange: (text: string) => void;
+  selectedPaperTab?: 'gs1' | 'gs2';
+  onSelectPaperTab?: (tab: 'gs1' | 'gs2') => void;
 }
 
 export function PrelimsHeader({
-  isDark = true,
+  isDark: propIsDark,
   onBack,
   onToggleTheme,
   yearRangeLabel,
   onOpenYearPicker,
   searchQuery,
   onSearchChange,
+  selectedPaperTab = 'gs1',
+  onSelectPaperTab,
 }: PrelimsHeaderProps) {
+  const prelimsTheme = usePrelimsTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : prelimsTheme.isDark;
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
 
   const colors = {
-    controlBg: isDark ? '#26282E' : '#FFFFFF',
-    controlBorder: isDark ? '#35373F' : '#E8E9F1',
-    textPrimary: isDark ? '#F5F5F7' : '#1F2024',
-    textSecondary: isDark ? '#A7ABB5' : '#71727A',
-    placeholder: isDark ? '#71727A' : '#9CA3AF',
-    searchBg: isDark ? '#25272D' : '#FFFFFF',
-    searchBorder: isDark ? '#35373F' : '#E8E9F1',
+    controlBg: isDark ? '#141C28' : '#FFFFFF',
+    controlBorder: isDark ? '#253244' : '#EAE5DC',
+    textPrimary: isDark ? '#F0F4F8' : '#1C2433',
+    textSecondary: isDark ? '#9DA8B9' : '#7A8499',
+    placeholder: isDark ? '#6E7A8E' : '#8892A6',
+    searchBg: isDark ? '#141C28' : '#FFFFFF',
+    searchBorder: isDark ? '#253244' : '#EAE5DC',
   };
 
   return (
     <View style={styles.container}>
-      {/* Top Controls Row: Back Button on Left; Year Range Dropdown + Theme Toggle on Right */}
+      {/* 1. Top Controls Row: Back Button on Left; Year Range Dropdown + Theme Toggle on Right */}
       <View style={styles.topControlRow}>
         {Boolean(onBack) ? (
           <Pressable
@@ -92,7 +100,7 @@ export function PrelimsHeader({
             <ChevronDown size={14} color={colors.textSecondary} strokeWidth={2.2} />
           </Pressable>
 
-          {/* Theme Toggle Button (Exact To-Do List design) */}
+          {/* Theme Toggle Button */}
           {Boolean(onToggleTheme) && (
             <TouchableOpacity
               activeOpacity={0.7}
@@ -103,12 +111,12 @@ export function PrelimsHeader({
                 Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
                 {
                   backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
-                  borderColor: isDark ? '#383A42' : '#F0F1F5',
+                  borderColor: isDark ? '#253244' : '#F0EDE6',
                 },
               ]}
             >
               {isDark ? (
-                <Sun size={17} color="#FBBF24" strokeWidth={2.2} />
+                <Sun size={17} color="#D9822B" strokeWidth={2.2} />
               ) : (
                 <Moon size={17} color={PALETTE.highlight.primary} strokeWidth={2.2} />
               )}
@@ -117,15 +125,73 @@ export function PrelimsHeader({
         </View>
       </View>
 
-      {/* Main Title, Subtitle & Topic Search Block */}
-      <View style={[styles.mainRow, isMobile && styles.mainRowMobile]}>
-        {/* Title & Subtitle */}
-        <View style={styles.titleBlock}>
-          <Text style={[styles.titleText, isMobile && styles.titleTextMobile, { color: colors.textPrimary }]}>Prelims Preparation</Text>
-          <Text style={[styles.subtitleText, isMobile && styles.subtitleTextMobile, { color: colors.textSecondary }]}>
-            Practice topic-wise, build your concepts and track your progress.
-          </Text>
-        </View>
+      {/* 2. Main Title & Subtitle with Clean Breathing Space */}
+      <View style={styles.titleBlock}>
+        <Text style={[styles.titleText, isMobile && styles.titleTextMobile, { color: colors.textPrimary }]}>
+          Prelims Preparation
+        </Text>
+        <Text style={[styles.subtitleText, isMobile && styles.subtitleTextMobile, { color: colors.textSecondary }]}>
+          Practice topic-wise, build your concepts and track your progress.
+        </Text>
+      </View>
+
+      {/* 3. Unified Action Toolbar: Paper Selection Tabs on Left + Search Box on Right */}
+      <View style={[styles.toolbarRow, isMobile && styles.toolbarRowMobile]}>
+        {Boolean(onSelectPaperTab) && (
+          <View style={styles.paperTabsContainer}>
+            <Pressable
+              style={({ pressed }) => [
+                styles.paperTabBtn,
+                {
+                  backgroundColor:
+                    selectedPaperTab === 'gs1' ? '#F58235' : isDark ? '#141C28' : '#FFFFFF',
+                  borderColor:
+                    selectedPaperTab === 'gs1' ? '#F58235' : isDark ? '#253244' : '#EAE5DC',
+                },
+                pressed && styles.pressed,
+              ]}
+              onPress={() => onSelectPaperTab?.('gs1')}
+              accessibilityRole="tab"
+              accessibilityState={{ selected: selectedPaperTab === 'gs1' }}
+            >
+              <Text
+                style={[
+                  styles.paperTabText,
+                  { color: selectedPaperTab === 'gs1' ? '#FFFFFF' : colors.textSecondary },
+                  selectedPaperTab === 'gs1' && styles.paperTabTextActive,
+                ]}
+              >
+                Paper 1 - GS-1
+              </Text>
+            </Pressable>
+
+            <Pressable
+              style={({ pressed }) => [
+                styles.paperTabBtn,
+                {
+                  backgroundColor:
+                    selectedPaperTab === 'gs2' ? '#F58235' : isDark ? '#141C28' : '#FFFFFF',
+                  borderColor:
+                    selectedPaperTab === 'gs2' ? '#F58235' : isDark ? '#253244' : '#EAE5DC',
+                },
+                pressed && styles.pressed,
+              ]}
+              onPress={() => onSelectPaperTab?.('gs2')}
+              accessibilityRole="tab"
+              accessibilityState={{ selected: selectedPaperTab === 'gs2' }}
+            >
+              <Text
+                style={[
+                  styles.paperTabText,
+                  { color: selectedPaperTab === 'gs2' ? '#FFFFFF' : colors.textSecondary },
+                  selectedPaperTab === 'gs2' && styles.paperTabTextActive,
+                ]}
+              >
+                Paper 2 - CSAT
+              </Text>
+            </Pressable>
+          </View>
+        )}
 
         {/* Search Input Box */}
         <View
@@ -213,9 +279,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   themeToggleBtn: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 38,
+    height: 38,
+    borderRadius: 19,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -226,28 +292,18 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 1,
   },
-  mainRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    gap: 20,
-  },
-  mainRowMobile: {
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    gap: 14,
-  },
   titleBlock: {
-    flex: 1,
+    marginBottom: 16,
   },
   titleText: {
-    fontSize: 27,
+    fontFamily: FONT_FAMILY.serif,
+    fontSize: 28,
     fontWeight: '800',
     letterSpacing: -0.6,
     marginBottom: 5,
   },
   titleTextMobile: {
-    fontSize: 21,
+    fontSize: 22,
     fontWeight: '700',
     letterSpacing: -0.4,
     marginBottom: 3,
@@ -259,21 +315,52 @@ const styles = StyleSheet.create({
     }),
   },
   subtitleText: {
-    fontSize: 13.5,
+    fontSize: 14,
     fontWeight: '500',
-    lineHeight: 19,
+    lineHeight: 20,
   },
   subtitleTextMobile: {
     fontSize: 12.5,
     lineHeight: 17,
   },
+  toolbarRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 16,
+  },
+  toolbarRowMobile: {
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    gap: 12,
+  },
+  paperTabsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  paperTabBtn: {
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
+  paperTabText: {
+    fontSize: 13,
+    fontWeight: '600',
+    letterSpacing: -0.1,
+  },
+  paperTabTextActive: {
+    color: '#FFFFFF',
+    fontWeight: '700',
+  },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: 280,
-    height: 40,
+    width: 270,
+    height: 38,
     borderWidth: 1,
-    borderRadius: 9,
+    borderRadius: 8,
     paddingHorizontal: 12,
   },
   searchContainerMobile: {

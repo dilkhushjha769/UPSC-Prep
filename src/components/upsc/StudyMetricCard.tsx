@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import React from 'react';
 import {
   StyleSheet,
@@ -16,10 +17,12 @@ import { UPSC_THEME } from '@/constants/themeColors';
 import { ArcGauge } from './CircularGauge';
 
 interface StudyMetricCardProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-export function StudyMetricCard({ isDark }: StudyMetricCardProps) {
+export function StudyMetricCard({ isDark: propIsDark }: StudyMetricCardProps) {
+  const { isDark: appIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : appIsDark;
   const { metrics, config, setIsConfigModalOpen } = useStudy();
   const colors = isDark ? UPSC_THEME.dark : UPSC_THEME.light;
 
@@ -87,15 +90,15 @@ export function StudyMetricCard({ isDark }: StudyMetricCardProps) {
           style={[
             styles.metricCard,
             {
-              backgroundColor: isDark ? '#1C192E' : '#F9F8FE',
-              borderColor: isDark ? '#2D284C' : '#EDE8FE',
+              backgroundColor: isDark ? '#141C28' : '#E9EDF9',
+              borderColor: isDark ? '#253244' : '#E9EDF9',
             },
           ]}>
           <View style={styles.cardTop}>
             <View
               style={[
                 styles.iconBadge,
-                { backgroundColor: isDark ? '#2A234E' : '#FFEDE0' },
+                { backgroundColor: isDark ? '#1B2534' : '#FCEBDD' },
               ]}>
               <BookMarked size={16} color={colors.primary} />
             </View>
@@ -118,7 +121,7 @@ export function StudyMetricCard({ isDark }: StudyMetricCardProps) {
               size={58}
               strokeWidth={5}
               progress={gsProgressRatio}
-              trackColor={isDark ? '#2B2648' : '#E2DCF8'}
+              trackColor={isDark ? '#1B2534' : '#CBD3EB'}
               fillColor={colors.primary}>
               <Text style={[styles.miniGaugeText, { color: colors.primary }]}>
                 GS
@@ -136,19 +139,19 @@ export function StudyMetricCard({ isDark }: StudyMetricCardProps) {
           style={[
             styles.metricCard,
             {
-              backgroundColor: isDark ? '#161D2E' : '#F7F9FF',
-              borderColor: isDark ? '#23304C' : '#E1E9FE',
+              backgroundColor: isDark ? '#141C28' : '#E9EDF9',
+              borderColor: isDark ? '#253244' : '#CBD3EB',
             },
           ]}>
           <View style={styles.cardTop}>
             <View
               style={[
                 styles.iconBadge,
-                { backgroundColor: isDark ? '#1E2C4A' : '#FFEBDB' },
+                { backgroundColor: isDark ? '#1B2534' : '#F2C9A3' },
               ]}>
-              <Newspaper size={16} color="#FF5500" />
+              <Newspaper size={16} color="#B9570A" />
             </View>
-            <Text style={[styles.cardTag, { color: '#FF5500' }]}>
+            <Text style={[styles.cardTag, { color: '#B9570A' }]}>
               {caPercent}%
             </Text>
           </View>
@@ -167,9 +170,9 @@ export function StudyMetricCard({ isDark }: StudyMetricCardProps) {
               size={58}
               strokeWidth={5}
               progress={caProgressRatio}
-              trackColor={isDark ? '#222F4D' : '#DCE5FD'}
-              fillColor="#FF5500">
-              <Text style={[styles.miniGaugeText, { color: '#FF5500' }]}>
+              trackColor={isDark ? '#1B2534' : '#CBD3EB'}
+              fillColor="#B9570A">
+              <Text style={[styles.miniGaugeText, { color: '#B9570A' }]}>
                 CA
               </Text>
             </ArcGauge>
@@ -185,15 +188,15 @@ export function StudyMetricCard({ isDark }: StudyMetricCardProps) {
           style={[
             styles.metricCard,
             {
-              backgroundColor: isDark ? '#142322' : '#F4FBF8',
-              borderColor: isDark ? '#1D3B38' : '#D1F4E6',
+              backgroundColor: isDark ? '#17301F' : '#E3F1E8',
+              borderColor: isDark ? '#17301F' : '#BFDECB',
             },
           ]}>
           <View style={styles.cardTop}>
             <View
               style={[
                 styles.iconBadge,
-                { backgroundColor: isDark ? '#1B3835' : '#D1FAE5' },
+                { backgroundColor: isDark ? '#17301F' : '#E3F1E8' },
               ]}>
               <PenTool size={16} color={colors.accentEmerald} />
             </View>
@@ -216,7 +219,7 @@ export function StudyMetricCard({ isDark }: StudyMetricCardProps) {
               size={58}
               strokeWidth={5}
               progress={accuracy / 100}
-              trackColor={isDark ? '#1D3633' : '#D2F2E5'}
+              trackColor={isDark ? '#17301F' : '#BFDECB'}
               fillColor={colors.accentEmerald}>
               <Text style={[styles.miniGaugeText, { color: colors.accentEmerald }]}>
                 MCQ

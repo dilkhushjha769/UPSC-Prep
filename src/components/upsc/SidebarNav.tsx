@@ -17,14 +17,16 @@ import {
   Home,
   Moon,
   Newspaper,
+  PenLine,
   Sun,
   User,
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
+import { useAppTheme } from '@/context/ThemeContext';
 import { QuickEditProfileModal } from './modals/QuickEditProfileModal';
 
-export type NavTab = 'home' | 'tasks' | 'prelims' | 'mock-test' | 'current-affairs' | 'profile' | 'notifications';
+export type NavTab = 'home' | 'tasks' | 'prelims' | 'mains' | 'mock-test' | 'current-affairs' | 'profile' | 'notifications';
 
 interface SidebarNavProps {
   activeTab: NavTab;
@@ -36,9 +38,17 @@ interface SidebarNavProps {
 export function SidebarNav({
   activeTab,
   onSelectTab,
-  isDark,
-  onToggleTheme,
-}: SidebarNavProps) {
+  isDark: propIsDark,
+  onToggleTheme: propToggleTheme,
+}: {
+  activeTab: NavTab;
+  onSelectTab: (tab: NavTab) => void;
+  isDark?: boolean;
+  onToggleTheme?: () => void;
+}) {
+  const { isDark: contextIsDark, toggleTheme: contextToggleTheme } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
+  const onToggleTheme = propToggleTheme || contextToggleTheme;
   const { config, streak } = useStudy();
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const [isQuickEditOpen, setIsQuickEditOpen] = useState(false);
@@ -58,6 +68,11 @@ export function SidebarNav({
       id: 'prelims' as NavTab,
       label: 'Prelims',
       icon: BookOpen,
+    },
+    {
+      id: 'mains' as NavTab,
+      label: 'Mains Practice',
+      icon: PenLine,
     },
     {
       id: 'mock-test' as NavTab,
@@ -113,19 +128,22 @@ export function SidebarNav({
                 styles.navItemBtn,
                 {
                   backgroundColor: isActive
-                    ? theme.activeBg
+                    ? (isDark ? 'rgba(245, 130, 53, 0.12)' : 'rgba(245, 130, 53, 0.08)')
                     : 'transparent',
+                  borderWidth: 0,
+                  borderColor: 'transparent',
                 },
               ]}>
+              {isActive && <View style={styles.activeIndicatorBar} />}
               <Icon
                 size={18}
-                color={isActive ? theme.textPrimary : theme.textSecondary}
+                color={isActive ? '#F58235' : (isDark ? '#9DA8B9' : theme.textSecondary)}
               />
               <Text
                 style={[
                   styles.navItemText,
                   {
-                    color: isActive ? theme.textPrimary : theme.textSecondary,
+                    color: isActive ? (isDark ? '#F58235' : '#D96E14') : (isDark ? '#9DA8B9' : theme.textSecondary),
                     fontWeight: isActive ? '700' : '500',
                   },
                 ]}>
@@ -136,17 +154,17 @@ export function SidebarNav({
                   style={[
                     styles.streakMiniPill,
                     {
-                      backgroundColor: isDark ? '#261E0A' : '#FEF3C7',
+                      backgroundColor: isDark ? '#2B1E16' : '#FCEBDD',
                       flexDirection: 'row',
                       alignItems: 'center',
                       gap: 3,
                     },
                   ]}>
-                  <Flame size={11} color="#D97706" fill="#FBBF24" />
+                  <Flame size={11} color="#A65A0A" fill="#D9822B" />
                   <Text
                     style={[
                       styles.streakMiniPillText,
-                      { color: isDark ? '#FBBF24' : '#B45309' },
+                      { color: isDark ? '#EB853C' : '#A65A0A' },
                     ]}>
                     {streak.currentStreak}d
                   </Text>
@@ -227,8 +245,8 @@ export function SidebarNav({
             style={[
               styles.editProfileBtn,
               {
-                backgroundColor: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F0F1F5',
-                borderColor: isDark ? '#383A42' : '#E8E9F1',
+                backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
+                borderColor: isDark ? '#253244' : '#EAE5DC',
               },
             ]}
             accessibilityLabel="Edit name and profile photo">
@@ -265,10 +283,10 @@ export function MobileBottomNav({
 
   const items = [
     { id: 'home' as NavTab, label: 'Home', icon: Home },
-    { id: 'tasks' as NavTab, label: 'Tasks', icon: CheckSquare },
-    { id: 'current-affairs' as NavTab, label: 'Affairs', icon: Newspaper },
     { id: 'prelims' as NavTab, label: 'Prelims', icon: BookOpen },
+    { id: 'mains' as NavTab, label: 'Mains', icon: PenLine },
     { id: 'mock-test' as NavTab, label: 'Mocks', icon: Award },
+    { id: 'current-affairs' as NavTab, label: 'Affairs', icon: Newspaper },
   ];
 
   return (
@@ -277,9 +295,9 @@ export function MobileBottomNav({
         styles.mobileBottomBar,
         {
           backgroundColor: isDark
-            ? 'rgba(31, 32, 36, 0.98)'
+            ? '#0B1018'
             : 'rgba(255, 255, 255, 0.98)',
-          borderTopColor: isDark ? '#494A50' : '#E8E9F1',
+          borderTopColor: isDark ? '#253244' : '#EAE5DC',
           paddingBottom: Math.max(insets.bottom, 6) + 4,
         },
       ]}>
@@ -296,19 +314,20 @@ export function MobileBottomNav({
             <View
               style={[
                 styles.mobileIconCapsule,
-                isActive && {
-                  borderColor: '#006FFD',
-                  backgroundColor: isDark
-                    ? 'rgba(0, 111, 253, 0.10)'
-                    : 'rgba(0, 111, 253, 0.06)',
+                {
+                  backgroundColor: isActive
+                    ? '#F58235'
+                    : 'transparent',
+                  borderWidth: 0,
+                  borderColor: 'transparent',
                 },
               ]}>
               <Icon
                 size={19}
                 color={
                   isActive
-                    ? '#006FFD'
-                    : theme.textMuted
+                    ? '#FFFFFF'
+                    : (isDark ? '#9DA8B9' : theme.textMuted)
                 }
                 strokeWidth={isActive ? 2.2 : 1.8}
               />
@@ -320,8 +339,8 @@ export function MobileBottomNav({
                 styles.mobileNavText,
                 {
                   color: isActive
-                    ? '#006FFD'
-                    : theme.textMuted,
+                    ? '#F58235'
+                    : (isDark ? '#9DA8B9' : theme.textMuted),
                   fontWeight: isActive ? '700' : '500',
                 },
               ]}>
@@ -376,7 +395,19 @@ const styles = StyleSheet.create({
     gap: 12,
     paddingVertical: 10,
     paddingHorizontal: 12,
+    paddingLeft: 16,
     borderRadius: 10,
+    position: 'relative',
+  },
+  activeIndicatorBar: {
+    position: 'absolute',
+    left: 4,
+    top: '50%',
+    marginTop: -10,
+    width: 3.5,
+    height: 20,
+    borderRadius: 2,
+    backgroundColor: '#F58235',
   },
   navItemText: {
     fontSize: 14,

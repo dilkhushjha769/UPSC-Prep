@@ -1,8 +1,7 @@
 import { Button } from '@/components/ui/Button';
 import { BW_THEME } from '@/constants/bwTheme';
-import { FONT_FAMILY, SemanticTokens, getTokens } from '@/constants/designTokens';
+import { FONT_FAMILY, getTokens, SemanticTokens } from '@/constants/designTokens';
 import { useAppTheme } from '@/context/ThemeContext';
-import { PALETTE } from '@/constants/colors';
 import {
   CACategoryStatusItem,
   CAIngestionLogItem,
@@ -18,7 +17,14 @@ import {
   NEWS_AGENCIES,
   RECENT_MAJOR_EVENTS,
 } from '@/data/currentAffairsData';
+import {
+  fetchCategoryStatuses,
+  fetchIngestionOperationalLogs,
+  fetchLiveNewsFromAgencies,
+  getCachedAuthenticNews,
+} from '@/services/newsFeedService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Image } from 'expo-image';
 import {
   Activity,
   Bookmark,
@@ -53,7 +59,6 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import { Image } from 'expo-image';
 import { ArticleDetailModal } from './currentAffairs/ArticleDetailModal';
 import { CalendarDropdown } from './currentAffairs/CalendarDropdown';
 import { CAQuizModal } from './currentAffairs/CAQuizModal';
@@ -63,12 +68,6 @@ import { FormatFeedModal } from './currentAffairs/FormatFeedModal';
 import { MonthlyRevisionModal } from './currentAffairs/MonthlyRevisionModal';
 import { NotesLibraryModal } from './currentAffairs/NotesLibraryModal';
 import { PipelineStatusModal } from './currentAffairs/PipelineStatusModal';
-import {
-  fetchCategoryStatuses,
-  fetchIngestionOperationalLogs,
-  fetchLiveNewsFromAgencies,
-  getCachedAuthenticNews,
-} from '@/services/newsFeedService';
 
 type DetailItem =
   | { type: 'event'; data: DailyEventItem }

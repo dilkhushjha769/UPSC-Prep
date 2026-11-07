@@ -16,21 +16,18 @@ import {
 } from 'lucide-react-native';
 import { MONTHLY_OVERVIEWS, MonthlyOverview } from '@/data/currentAffairsData';
 import { BW_THEME } from '@/constants/bwTheme';
-import { useAppTheme } from '@/context/ThemeContext';
 
 interface MonthlyRevisionModalProps {
   visible: boolean;
   onClose: () => void;
-  isDark?: boolean;
+  isDark: boolean;
 }
 
 export function MonthlyRevisionModal({
   visible,
   onClose,
-  isDark: propIsDark,
+  isDark,
 }: MonthlyRevisionModalProps) {
-  const { isDark: contextIsDark } = useAppTheme();
-  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const styles = useMemo(() => getStyles(theme, isDark), [theme, isDark]);
 
@@ -245,9 +242,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       width: 36,
       height: 36,
       borderRadius: 18,
-      backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+      backgroundColor: isDark ? '#2F3036' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#253244' : '#EAE5DC',
+      borderColor: isDark ? '#383A42' : '#E8E9F1',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -268,9 +265,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       paddingHorizontal: 16,
       paddingVertical: 9,
       borderRadius: 10,
-      backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+      backgroundColor: isDark ? '#2F3036' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#253244' : '#EAE5DC',
+      borderColor: isDark ? '#383A42' : '#E8E9F1',
     },
     monthTabActive: {
       backgroundColor: '#FF9500',
@@ -318,9 +315,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       paddingHorizontal: 14,
       paddingVertical: 8,
       borderRadius: 20,
-      backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+      backgroundColor: isDark ? '#2F3036' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#253244' : '#EAE5DC',
+      borderColor: isDark ? '#383A42' : '#E8E9F1',
     },
     navTabActive: {
       backgroundColor: '#FF9500',

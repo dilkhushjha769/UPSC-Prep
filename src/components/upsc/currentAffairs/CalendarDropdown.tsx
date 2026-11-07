@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { Check } from 'lucide-react-native';
+import { getTokens } from '@/constants/designTokens';
 import { PALETTE, Typography } from '@/constants/colors';
-import { useAppTheme } from '@/context/ThemeContext';
 import { DAILY_EVENTS_DATA, getTodayDateKey } from '@/data/currentAffairsData';
 
 // ============================================================================
@@ -99,11 +99,9 @@ export function CalendarDropdown({
   topOffset = 180,
   rightOffset = 16,
   leftOffset,
-  isDark: propIsDark,
+  isDark = true,
   completedDates = [],
 }: CalendarDropdownProps) {
-  const { isDark: contextIsDark } = useAppTheme();
-  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const { width, height } = useWindowDimensions();
   const isMobile = width < 768;
 
@@ -175,6 +173,8 @@ export function CalendarDropdown({
       };
     }
 
+  // Design tokens theme matching the whole app
+  const theme = useMemo(() => {
     return {
       cardBg: PALETTE.neutral.light.lightest, // #FFFFFF
       cardBorder: PALETTE.neutral.light.borderSubtle, // #EAE5DC
@@ -195,7 +195,7 @@ export function CalendarDropdown({
       pillBorder: PALETTE.neutral.light.borderSubtle, // #EAE5DC
       pillText: PALETTE.neutral.dark.textSecondary, // #7A8499
     };
-  }, [isDark]);
+  }, [tokens]);
 
   // Calendar cells (Monday = 0 ... Sunday = 6)
   const calendarCells = useMemo(() => {

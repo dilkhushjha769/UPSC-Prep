@@ -109,7 +109,7 @@ export const EES_SUBJECT_GROUPS: SubjectGroupDefinition[] = [
     shortTitle: 'Economy',
     defaultGsPaper: 'GS 3',
     defaultDailyEventCategory: 'Economy',
-    accentColor: '#3D5A99',
+    accentColor: '#0284C7',
     subcategories: [
       'Banking, Finance and Monetary Policy',
       'Growth, Budget, Taxation and Economic Indicators',
@@ -123,7 +123,7 @@ export const EES_SUBJECT_GROUPS: SubjectGroupDefinition[] = [
     shortTitle: 'Environment & Ecology',
     defaultGsPaper: 'GS 3',
     defaultDailyEventCategory: 'Environment',
-    accentColor: '#26734D',
+    accentColor: '#16A34A',
     subcategories: [
       'Climate Change, Pollution and Environmental Policies',
       'Biodiversity, Wildlife and Conservation',
@@ -137,7 +137,7 @@ export const EES_SUBJECT_GROUPS: SubjectGroupDefinition[] = [
     shortTitle: 'Science & Technology',
     defaultGsPaper: 'GS 3',
     defaultDailyEventCategory: 'Sci-Tech',
-    accentColor: '#3D5A99',
+    accentColor: '#7C3AED',
     subcategories: [
       'Space, Defence and Nuclear Technology',
       'AI, Digital Technology and Emerging Technologies',
@@ -242,7 +242,7 @@ export const MAIN_CA_CATEGORIES: MainCategoryDefinition[] = [
         shortTitle: 'Reports, Schemes & Data',
         defaultGsPaper: 'GS 2',
         defaultDailyEventCategory: 'Economy',
-        accentColor: '#26734D',
+        accentColor: '#0D9488',
         subcategories: [
           'Government Schemes and Programmes',
           'National Reports, Surveys and Official Statistics',
@@ -272,7 +272,7 @@ export const MAIN_CA_CATEGORIES: MainCategoryDefinition[] = [
         shortTitle: 'Editorials & Explainers',
         defaultGsPaper: 'GS 2',
         defaultDailyEventCategory: 'Polity',
-        accentColor: '#B42318',
+        accentColor: '#E11D48',
         subcategories: [
           'Newspaper Editorials and Expert Opinions',
           'Governance, Constitution and Public Policy',

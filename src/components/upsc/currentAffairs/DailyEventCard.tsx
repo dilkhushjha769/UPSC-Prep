@@ -17,6 +17,7 @@ import {
 import { Button } from '@/components/ui/Button';
 import { DailyEventItem } from '@/data/currentAffairsData';
 import { BW_THEME } from '@/constants/bwTheme';
+import { FONT_FAMILY, SemanticTokens, getTokens } from '@/constants/designTokens';
 import { PALETTE } from '@/constants/colors';
 import {
   parseExecutiveBrief,
@@ -72,8 +73,9 @@ export function DailyEventCard({
   const { width } = useWindowDimensions();
   const isDesktop = width >= 768;
 
+  const tokens = useMemo(() => getTokens(isDark), [isDark]);
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
-  const styles = useMemo(() => getStyles(theme, isDark, isDesktop), [theme, isDark, isDesktop]);
+  const styles = useMemo(() => getStyles(tokens, isDark, isDesktop, theme), [tokens, isDark, isDesktop, theme]);
 
   // Track if current event's image failed so we fallback cleanly to category image
   const [failedEventId, setFailedEventId] = useState<string | null>(null);
@@ -169,7 +171,7 @@ export function DailyEventCard({
       {briefBullets.length > 0 ? (
         <View style={styles.summaryOverviewCard}>
           <View style={styles.summaryOverviewHeader}>
-            <Compass size={12} color={isDark ? '#6E7A8E' : '#253244'} strokeWidth={2.2} />
+            <Compass size={12} color={isDark ? '#9CA3AF' : '#243B5E'} strokeWidth={2.2} />
             <Text style={styles.summaryOverviewTag}>EXECUTIVE BRIEF</Text>
           </View>
 
@@ -253,7 +255,7 @@ export function DailyEventCard({
             >
               <ChevronLeft
                 size={13}
-                color={!hasPrevEvent ? (isDark ? '#253244' : '#CFCFCF') : (isDark ? '#F0F4F8' : '#1C2433')}
+                color={!hasPrevEvent ? (isDark ? '#494A50' : '#C5C6CC') : (isDark ? '#FFFFFF' : '#1F2024')}
                 strokeWidth={2.2}
               />
               <Text style={[styles.geminiNavBtnText, !hasPrevEvent && styles.geminiNavBtnTextDisabled]}>
@@ -289,7 +291,7 @@ export function DailyEventCard({
               </Text>
               <ChevronRight
                 size={13}
-                color={!hasNextEvent ? (isDark ? '#253244' : '#CFCFCF') : (isDark ? '#F0F4F8' : '#1C2433')}
+                color={!hasNextEvent ? (isDark ? '#494A50' : '#C5C6CC') : (isDark ? '#FFFFFF' : '#1F2024')}
                 strokeWidth={2.2}
               />
             </Pressable>
@@ -315,7 +317,7 @@ export function DailyEventCard({
         >
           <ChevronLeft
             size={18}
-            color={!hasPrevEvent ? (isDark ? '#2B384D' : '#DDD6CA') : (isDark ? '#F0EDE6' : '#1C2433')}
+            color={!hasPrevEvent ? (isDark ? '#475569' : '#CBD5E1') : (isDark ? '#F1F5F9' : '#1E293B')}
             strokeWidth={2.4}
           />
         </Pressable>
@@ -339,7 +341,7 @@ export function DailyEventCard({
         >
           <ChevronRight
             size={18}
-            color={!hasNextEvent ? (isDark ? '#2B384D' : '#DDD6CA') : (isDark ? '#F0EDE6' : '#1C2433')}
+            color={!hasNextEvent ? (isDark ? '#475569' : '#CBD5E1') : (isDark ? '#F1F5F9' : '#1E293B')}
             strokeWidth={2.4}
           />
         </Pressable>
@@ -348,15 +350,20 @@ export function DailyEventCard({
   );
 }
 
-const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: boolean) =>
+const getStyles = (
+  tokens: SemanticTokens,
+  isDark: boolean,
+  isDesktop: boolean,
+  theme: typeof BW_THEME.dark
+) =>
   StyleSheet.create({
     card: {
-      backgroundColor: isDark ? '#141C28' : '#E9EDF9',
+      backgroundColor: tokens.surface,
       borderRadius: 14,
       paddingVertical: isDesktop ? 20 : 13,
       paddingHorizontal: isDesktop ? 28 : 16,
       borderWidth: 1,
-      borderColor: isDark ? '#141C28' : '#CBD3EB',
+      borderColor: tokens.border,
       marginBottom: 0,
       position: 'relative',
       minHeight: isDesktop ? 390 : 540,
@@ -390,46 +397,46 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingVertical: isDesktop ? 8 : 7.5,
       paddingHorizontal: isDesktop ? 10 : 6,
       borderRadius: 7,
-      backgroundColor: isDark ? '#141C28' : '#FAF9F6',
+      backgroundColor: isDark ? '#101B2B' : '#F8FAFC',
       borderWidth: 1,
-      borderColor: isDark ? '#253244' : '#EAE5DC',
+      borderColor: isDark ? '#1E2F46' : '#E2E8F0',
     },
     prominentRecallBtnHover: {
       opacity: 0.9,
     },
     eventRecallActionBtn: {
-      backgroundColor: isDark ? 'rgba(45, 212, 191, 0.08)' : '#E3F1E8',
-      borderColor: isDark ? 'rgba(45, 212, 191, 0.35)' : '#3FA573',
+      backgroundColor: isDark ? 'rgba(45, 212, 191, 0.08)' : '#F0FDFA',
+      borderColor: isDark ? 'rgba(45, 212, 191, 0.35)' : '#99F6E4',
     },
     eventRecallActionBtnActive: {
-      backgroundColor: isDark ? '#26734D' : '#26734D',
-      borderColor: isDark ? '#4DB383' : '#1D5C3D',
+      backgroundColor: isDark ? '#0D9488' : '#0F766E',
+      borderColor: isDark ? '#5EEAD4' : '#115E59',
     },
     eventRecallActionBtnText: {
       fontSize: 12,
       fontWeight: '700',
-      color: isDark ? '#E3F1E8' : '#26734D',
+      color: isDark ? '#CCFBF1' : '#0F766E',
       letterSpacing: -0.1,
     },
     eventRecallActionBtnTextActive: {
-      color: isDark ? '#0B1018' : '#FFFFFF',
+      color: '#FFFFFF',
     },
     eventRecallActionBadge: {
       paddingHorizontal: 5,
       paddingVertical: 1.5,
       borderRadius: 4,
-      backgroundColor: isDark ? 'rgba(45, 212, 191, 0.2)' : '#E3F1E8',
+      backgroundColor: isDark ? 'rgba(45, 212, 191, 0.2)' : '#CCFBF1',
     },
     eventRecallActionBadgeActive: {
-      backgroundColor: isDark ? '#1B2534' : 'rgba(255, 255, 255, 0.3)',
+      backgroundColor: isDark ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 255, 255, 0.3)',
     },
     eventRecallActionBadgeText: {
       fontSize: 10,
       fontWeight: '700',
-      color: isDark ? '#26734D' : '#26734D',
+      color: isDark ? '#2DD4BF' : '#0D9488',
     },
     eventRecallActionBadgeTextActive: {
-      color: isDark ? '#0B1018' : '#FFFFFF',
+      color: '#FFFFFF',
     },
     sectionTabBtn: {
       flexDirection: 'row',
@@ -439,28 +446,28 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingVertical: isDesktop ? 8 : 7.5,
       paddingHorizontal: isDesktop ? 13 : 8.5,
       borderRadius: 7,
-      backgroundColor: isDark ? '#141C28' : '#FAF9F6',
+      backgroundColor: isDark ? '#101B2B' : '#F8FAFC',
       borderWidth: 1,
-      borderColor: isDark ? '#253244' : '#EAE5DC',
+      borderColor: isDark ? '#1E2F46' : '#E2E8F0',
     },
     sectionTabBtnHover: {
-      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
-      borderColor: isDark ? '#253244' : '#DDD6CA',
+      backgroundColor: isDark ? '#16253B' : '#F1F5F9',
+      borderColor: isDark ? '#2B4263' : '#CBD5E1',
     },
     sectionTabBtnPressed: {
       opacity: 0.85,
     },
     sectionTabBtnActiveTakeaways: {
-      backgroundColor: isDark ? '#141C28' : '#E9EDF9',
-      borderColor: isDark ? '#E0963A' : '#3D5A99',
+      backgroundColor: isDark ? '#17263A' : '#EFF6FF',
+      borderColor: isDark ? '#60A5FA' : '#3B82F6',
     },
     sectionTabBtnActiveRecall: {
-      backgroundColor: isDark ? '#17301F' : '#E3F1E8',
-      borderColor: isDark ? '#4DB383' : '#26734D',
+      backgroundColor: isDark ? '#103A3A' : '#F0FDFA',
+      borderColor: isDark ? '#5EEAD4' : '#0D9488',
     },
     sectionTabBtnActiveMatrix: {
-      backgroundColor: isDark ? '#17301F' : '#E3F1E8',
-      borderColor: isDark ? '#4DB383' : '#26734D',
+      backgroundColor: isDark ? '#142D25' : '#ECFDF5',
+      borderColor: isDark ? '#4ADE80' : '#059669',
     },
     sectionTabBtnActiveNotes: {
       backgroundColor: isDark ? 'rgba(166, 90, 10, 0.12)' : '#FFF7ED',
@@ -469,18 +476,18 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     sectionTabBtnText: {
       fontSize: 12,
       fontWeight: '600',
-      color: isDark ? '#F0EDE6' : '#3F4A5E',
+      color: isDark ? '#F1F5F9' : '#334155',
     },
     sectionTabBtnTextActiveTakeaways: {
       color: isDark ? '#E0963A' : '#C25E00',
       fontWeight: '700',
     },
     sectionTabBtnTextActiveRecall: {
-      color: isDark ? '#4DB383' : '#26734D',
+      color: isDark ? '#5EEAD4' : '#0F766E',
       fontWeight: '700',
     },
     sectionTabBtnTextActiveMatrix: {
-      color: isDark ? '#4DB383' : '#26734D',
+      color: isDark ? '#4ADE80' : '#047857',
       fontWeight: '700',
     },
     sectionTabBtnTextActiveNotes: {
@@ -491,33 +498,33 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingHorizontal: 5,
       paddingVertical: 1.5,
       borderRadius: 4,
-      backgroundColor: isDark ? '#141C28' : '#EAE5DC',
+      backgroundColor: isDark ? '#18283E' : '#E2E8F0',
     },
     tabCountBadgeActiveTakeaways: {
       backgroundColor: isDark ? 'rgba(96, 165, 250, 0.2)' : '#FFF7ED',
     },
     tabCountBadgeActiveRecall: {
-      backgroundColor: isDark ? 'rgba(94, 234, 212, 0.2)' : '#E3F1E8',
+      backgroundColor: isDark ? 'rgba(94, 234, 212, 0.2)' : '#CCFBF1',
     },
     tabCountBadgeActiveMatrix: {
-      backgroundColor: isDark ? 'rgba(74, 222, 128, 0.2)' : '#E3F1E8',
+      backgroundColor: isDark ? 'rgba(74, 222, 128, 0.2)' : '#D1FAE5',
     },
     tabCountBadgeActiveNotes: {
-      backgroundColor: isDark ? 'rgba(166, 90, 10, 0.25)' : '#F2D2A8',
+      backgroundColor: isDark ? 'rgba(245, 158, 11, 0.25)' : '#FDE68A',
     },
     tabCountBadgeText: {
       fontSize: 10,
       fontWeight: '700',
-      color: isDark ? '#6E7A8E' : '#5F6B80',
+      color: isDark ? '#94A3B8' : '#64748B',
     },
     tabCountBadgeTextActiveTakeaways: {
       color: isDark ? '#E0963A' : '#C25E00',
     },
     tabCountBadgeTextActiveRecall: {
-      color: isDark ? '#4DB383' : '#26734D',
+      color: isDark ? '#5EEAD4' : '#0F766E',
     },
     tabCountBadgeTextActiveMatrix: {
-      color: isDark ? '#4DB383' : '#26734D',
+      color: isDark ? '#4ADE80' : '#047857',
     },
     tabCountBadgeTextActiveNotes: {
       color: isDark ? '#E0963A' : '#FF9500',
@@ -570,7 +577,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       letterSpacing: -0.1,
     },
     topEventRecallTextActive: {
-      color: isDark ? '#0B1018' : '#FFFFFF',
+      color: '#FFFFFF',
       fontWeight: '700',
     },
     topEventRecallBadge: {
@@ -588,30 +595,30 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       color: theme.buttonSecondaryText,
     },
     topEventRecallBadgeTextActive: {
-      color: isDark ? '#0B1018' : '#FFFFFF',
+      color: '#FFFFFF',
     },
     subjectCategoryText: {
       fontSize: 12,
       fontWeight: '600',
-      color: isDark ? '#6E7A8E' : '#5F6B80',
+      color: isDark ? '#94A3B8' : '#64748B',
       letterSpacing: 0.1,
     },
     dotSeparator: {
       fontSize: 12,
-      color: isDark ? '#6E7A8E' : theme.textMuted,
+      color: isDark ? '#64748B' : theme.textMuted,
     },
     sourceDateText: {
       fontSize: 12,
-      color: isDark ? '#6E7A8E' : theme.textMuted,
+      color: isDark ? '#94A3B8' : theme.textMuted,
     },
 
     /* Notes Section Styles */
     notesSection: {
       marginBottom: 16,
       borderRadius: 10,
-      backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
+      backgroundColor: isDark ? '#0D1522' : '#F8FAFC',
       borderWidth: 1,
-      borderColor: isDark ? '#253244' : '#EAE5DC',
+      borderColor: isDark ? '#1C2B3F' : '#E2E8F0',
       padding: 14,
       gap: 12,
     },
@@ -643,7 +650,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     },
     notesSubheading: {
       fontSize: 11.5,
-      color: isDark ? '#6E7A8E' : '#5F6B80',
+      color: isDark ? '#94A3B8' : '#64748B',
       lineHeight: 16,
     },
     openFullNotesBtn: {
@@ -653,9 +660,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingHorizontal: 9,
       paddingVertical: 5,
       borderRadius: 6,
-      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.12)' : '#E9EDF9',
+      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.12)' : '#EFF6FF',
       borderWidth: 1,
-      borderColor: isDark ? 'rgba(56, 189, 248, 0.3)' : '#CBD3EB',
+      borderColor: isDark ? 'rgba(56, 189, 248, 0.3)' : '#BFDBFE',
     },
     openFullNotesBtnText: {
       fontSize: 11,
@@ -664,16 +671,16 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     },
     noteInputCard: {
       borderRadius: 8,
-      backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+      backgroundColor: isDark ? '#131F30' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#253244' : '#EAE5DC',
+      borderColor: isDark ? '#23354E' : '#E2E8F0',
       padding: 10,
       gap: 8,
     },
     noteTextInput: {
       fontSize: 13,
       lineHeight: 19,
-      color: isDark ? '#F0EDE6' : '#1C2433',
+      color: isDark ? '#F1F5F9' : '#0F172A',
       minHeight: 56,
       textAlignVertical: 'top',
     },
@@ -682,12 +689,12 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       alignItems: 'center',
       justifyContent: 'space-between',
       borderTopWidth: 1,
-      borderTopColor: isDark ? '#253244' : '#F0EDE6',
+      borderTopColor: isDark ? '#1E2F46' : '#F1F5F9',
       paddingTop: 8,
     },
     noteCharHint: {
       fontSize: 11,
-      color: isDark ? '#6E7A8E' : '#7A8499',
+      color: isDark ? '#64748B' : '#94A3B8',
     },
     saveNoteBtn: {
       flexDirection: 'row',
@@ -696,7 +703,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingHorizontal: 10,
       paddingVertical: 5,
       borderRadius: 6,
-      backgroundColor: isDark ? '#D9D9D9' : '#3D5A99',
+      backgroundColor: isDark ? '#0284C7' : '#0284C7',
     },
     saveNoteBtnDisabled: {
       opacity: 0.45,
@@ -704,16 +711,16 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     saveNoteBtnText: {
       fontSize: 11.5,
       fontWeight: '700',
-      color: isDark ? '#0B1018' : '#FFFFFF',
+      color: '#FFFFFF',
     },
     savedNotesList: {
       gap: 8,
     },
     savedNoteCard: {
       borderRadius: 8,
-      backgroundColor: isDark ? '#141C28' : '#FFFFFF',
+      backgroundColor: isDark ? '#142033' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#253244' : '#EAE5DC',
+      borderColor: isDark ? '#22354F' : '#E2E8F0',
       borderLeftWidth: 3.5,
       borderLeftColor: isDark ? '#FF9500' : '#FF9500',
       padding: 10,
@@ -727,12 +734,12 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     savedNoteDate: {
       fontSize: 10.5,
       fontWeight: '600',
-      color: isDark ? '#6E7A8E' : '#5F6B80',
+      color: isDark ? '#94A3B8' : '#64748B',
     },
     savedNoteContent: {
       fontSize: 12.5,
       lineHeight: 18,
-      color: isDark ? '#EAE5DC' : '#1C2433',
+      color: isDark ? '#E2E8F0' : '#1E293B',
     },
     notesEmptyCard: {
       alignItems: 'center',
@@ -742,27 +749,28 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     },
     notesEmptyText: {
       fontSize: 11.5,
-      color: isDark ? '#6E7A8E' : '#7A8499',
+      color: isDark ? '#64748B' : '#94A3B8',
       textAlign: 'center',
       maxWidth: 280,
     },
 
     /* B. Headline & Overview */
     headline: {
-      fontSize: isDesktop ? 19 : 17.5,
+      fontFamily: FONT_FAMILY.serif,
+      fontSize: isDesktop ? 20 : 18,
       fontWeight: '700',
-      lineHeight: isDesktop ? 26.5 : 24.5,
-      color: isDark ? '#FAF9F6' : theme.textPrimary,
+      lineHeight: isDesktop ? 28 : 25,
+      color: tokens.foreground,
       letterSpacing: -0.2,
       maxWidth: isDesktop ? 780 : '96%',
       marginBottom: 10,
       minHeight: isDesktop ? 54 : 48,
     },
     summaryOverviewCard: {
-      backgroundColor: isDark ? '#1B2534' : '#FFFFFF',
-      borderRadius: 9,
+      backgroundColor: tokens.surfaceRaised,
+      borderRadius: 10,
       borderWidth: 1,
-      borderColor: isDark ? '#253244' : '#CBD3EB',
+      borderColor: tokens.border,
       paddingHorizontal: 14,
       paddingVertical: 12,
       marginBottom: 14,
@@ -779,7 +787,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     summaryOverviewTag: {
       fontSize: 11,
       fontWeight: '700',
-      color: isDark ? '#EAE5DC' : '#253244',
+      color: tokens.accent,
       letterSpacing: 0.8,
       textTransform: 'uppercase',
     },
@@ -799,9 +807,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       height: isDesktop ? 136 : 150,
       borderRadius: isDesktop ? 10 : 8,
       overflow: 'hidden',
-      backgroundColor: isDark ? '#0B1018' : '#E9EDF9',
+      backgroundColor: isDark ? '#141619' : '#EDF2F7',
       borderWidth: 1,
-      borderColor: isDark ? '#253244' : '#CBD3EB',
+      borderColor: isDark ? '#2A2E35' : '#DFE6F0',
       flexShrink: 0,
       marginTop: isDesktop ? 2 : 0,
       marginBottom: isDesktop ? 0 : 8,
@@ -819,7 +827,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       width: 5,
       height: 5,
       borderRadius: 2.5,
-      backgroundColor: isDark ? '#6E7A8E' : '#3D5A99',
+      backgroundColor: isDark ? '#9CA3AF' : '#718198',
       marginTop: 9,
       flexShrink: 0,
     },
@@ -830,12 +838,12 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       fontSize: 15,
       lineHeight: 24,
       fontWeight: '400',
-      color: isDark ? '#EAE5DC' : '#1B2534',
+      color: tokens.foreground,
       letterSpacing: 0.05,
     },
     summaryBoldText: {
       fontWeight: '700',
-      color: isDark ? '#FFFFFF' : '#141C28',
+      color: tokens.foreground,
     },
 
     /* C. Key Takeaways */
@@ -853,29 +861,29 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       fontWeight: '700',
       textTransform: 'uppercase',
       letterSpacing: 0.6,
-      color: isDark ? '#6E7A8E' : '#34508F',
+      color: isDark ? '#94A3B8' : '#0369A1',
     },
     takeawayCountBadge: {
       paddingHorizontal: 8,
       paddingVertical: 2,
       borderRadius: 5,
-      backgroundColor: isDark ? '#141C28' : '#E9EDF9',
+      backgroundColor: isDark ? '#162234' : '#E0F2FE',
       borderWidth: 1,
-      borderColor: isDark ? '#253244' : '#F2C9A3',
+      borderColor: isDark ? '#263750' : '#BAE6FD',
     },
     takeawayCountText: {
       fontSize: 10.5,
       fontWeight: '600',
-      color: isDark ? '#F2C9A3' : '#3D5A99',
+      color: isDark ? '#93C5FD' : '#0284C7',
     },
     takeawaysList: {
       gap: 10,
-      backgroundColor: isDark ? '#141C28' : '#E9EDF9',
+      backgroundColor: isDark ? '#17263A' : '#F0F9FF',
       borderRadius: 9,
       borderLeftWidth: 4,
-      borderLeftColor: isDark ? '#E0963A' : '#3D5A99',
+      borderLeftColor: isDark ? '#60A5FA' : '#0284C7',
       borderWidth: isDark ? 0 : 1,
-      borderColor: isDark ? 'transparent' : '#E9EDF9',
+      borderColor: isDark ? 'transparent' : '#E0F2FE',
       paddingHorizontal: 14,
       paddingVertical: 12,
     },
@@ -902,15 +910,15 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       flex: 1,
       fontSize: 14,
       lineHeight: 21,
-      color: isDark ? '#EAE5DC' : '#1C2433',
+      color: isDark ? '#E2E8F0' : '#0F172A',
     },
 
     /* D & E. Collapsible Blocks */
     collapsibleBlock: {
       borderRadius: 10,
-      backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
+      backgroundColor: isDark ? '#0F1522' : '#F8FAFC',
       borderWidth: 1,
-      borderColor: isDark ? '#253244' : '#EAE5DC',
+      borderColor: isDark ? '#1E2D42' : '#E2E8F0',
       marginBottom: 12,
       overflow: 'hidden',
     },
@@ -929,15 +937,15 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     collapsibleTitle: {
       fontSize: 13,
       fontWeight: '600',
-      color: isDark ? '#FAF9F6' : theme.textPrimary,
+      color: isDark ? '#F8FAFC' : theme.textPrimary,
     },
     factCounterBadge: {
       fontSize: 10.5,
       fontWeight: '700',
-      color: isDark ? '#4DB383' : '#26734D',
-      backgroundColor: isDark ? '#17301F' : '#E3F1E8',
+      color: isDark ? '#6EE7B7' : '#047857',
+      backgroundColor: isDark ? '#064E3B' : '#ECFDF5',
       borderWidth: isDark ? 1 : 0,
-      borderColor: isDark ? '#26734D' : 'transparent',
+      borderColor: isDark ? '#059669' : 'transparent',
       paddingHorizontal: 6,
       paddingVertical: 2,
       borderRadius: 4,
@@ -945,10 +953,10 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     syllabusPaperTag: {
       fontSize: 10.5,
       fontWeight: '700',
-      color: isDark ? '#CBD3EB' : '#3D4A66',
-      backgroundColor: isDark ? '#253244' : '#E9EDF9',
+      color: isDark ? '#DDD6FE' : '#6D28D9',
+      backgroundColor: isDark ? '#3B1A6E' : '#F5F3FF',
       borderWidth: isDark ? 1 : 0,
-      borderColor: isDark ? '#253244' : 'transparent',
+      borderColor: isDark ? '#581C87' : 'transparent',
       paddingHorizontal: 6,
       paddingVertical: 2,
       borderRadius: 4,
@@ -958,7 +966,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingBottom: 14,
       paddingTop: 10,
       borderTopWidth: 1,
-      borderTopColor: isDark ? '#253244' : '#EAE5DC',
+      borderTopColor: isDark ? '#1E2D42' : '#E2E8F0',
     },
 
     /* D. Matrix Table */
@@ -966,13 +974,13 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       gap: 8,
     },
     matrixCardItem: {
-      backgroundColor: isDark ? '#17301F' : '#E3F1E8',
+      backgroundColor: isDark ? '#142D25' : '#F0FDF4',
       borderRadius: 9,
       padding: 12,
       borderWidth: 1,
-      borderColor: isDark ? '#17301F' : '#BFDECB',
+      borderColor: isDark ? '#1D4539' : '#BBF7D0',
       borderLeftWidth: 4,
-      borderLeftColor: isDark ? '#4DB383' : '#26734D',
+      borderLeftColor: isDark ? '#4ADE80' : '#059669',
     },
     matrixLabelRow: {
       flexDirection: 'row',
@@ -984,19 +992,19 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       width: 5,
       height: 5,
       borderRadius: 2.5,
-      backgroundColor: isDark ? '#4DB383' : '#26734D',
+      backgroundColor: isDark ? '#4ADE80' : '#059669',
     },
     matrixLabel: {
       fontSize: 11,
       fontWeight: '700',
       textTransform: 'uppercase',
-      color: isDark ? '#4DB383' : '#26734D',
+      color: isDark ? '#4ADE80' : '#047857',
       letterSpacing: 0.3,
     },
     matrixValue: {
       fontSize: 13.5,
       lineHeight: 19,
-      color: isDark ? '#E3F1E8' : '#16382A',
+      color: isDark ? '#F0FDF4' : '#064E3B',
     },
     matrixListFallback: {
       gap: 6,
@@ -1004,7 +1012,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     matrixFallbackItem: {
       fontSize: 13,
       lineHeight: 19,
-      color: isDark ? '#6E7A8E' : theme.textSecondary,
+      color: isDark ? '#94A3B8' : theme.textSecondary,
     },
 
     /* E. Active Recall Section (Gemini AI) */
@@ -1019,9 +1027,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingHorizontal: 12,
       paddingVertical: 10,
       borderRadius: 10,
-      backgroundColor: isDark ? '#17301F' : '#E3F1E8',
+      backgroundColor: isDark ? '#103A3A' : '#F0FDFA',
       borderWidth: 1,
-      borderColor: isDark ? '#1D4A38' : '#E3F1E8',
+      borderColor: isDark ? '#195454' : '#CCFBF1',
       flexWrap: 'wrap',
       gap: 8,
     },
@@ -1035,7 +1043,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       alignItems: 'center',
       gap: 5,
       alignSelf: 'flex-start',
-      backgroundColor: isDark ? '#26734D' : '#26734D',
+      backgroundColor: isDark ? '#0F766E' : '#0D9488',
       paddingHorizontal: 8,
       paddingVertical: 3,
       borderRadius: 6,
@@ -1048,7 +1056,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     },
     recallSubheading: {
       fontSize: 12,
-      color: isDark ? '#4DB383' : '#26734D',
+      color: isDark ? '#5EEAD4' : '#0F766E',
       lineHeight: 16,
     },
     recallHeaderRight: {
@@ -1060,14 +1068,14 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingHorizontal: 8,
       paddingVertical: 4,
       borderRadius: 6,
-      backgroundColor: isDark ? '#17301F' : '#E3F1E8',
+      backgroundColor: isDark ? '#0B2929' : '#CCFBF1',
       borderWidth: 1,
-      borderColor: isDark ? '#1D4A38' : '#3FA573',
+      borderColor: isDark ? '#195454' : '#99F6E4',
     },
     recallScoreText: {
       fontSize: 11,
       fontWeight: '700',
-      color: isDark ? '#4DB383' : '#26734D',
+      color: isDark ? '#5EEAD4' : '#0F766E',
     },
     recallResetBtn: {
       flexDirection: 'row',
@@ -1076,14 +1084,14 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingHorizontal: 8,
       paddingVertical: 4,
       borderRadius: 6,
-      backgroundColor: isDark ? '#17301F' : '#F0EDE6',
+      backgroundColor: isDark ? '#154A4A' : '#F1F5F9',
       borderWidth: 1,
-      borderColor: isDark ? '#1D4A38' : '#EAE5DC',
+      borderColor: isDark ? '#195454' : '#E2E8F0',
     },
     recallResetBtnText: {
       fontSize: 11,
       fontWeight: '600',
-      color: isDark ? '#4DB383' : '#5F6B80',
+      color: isDark ? '#5EEAD4' : '#64748B',
     },
     recallQuestionsList: {
       gap: 12,
@@ -1091,9 +1099,9 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     recallQuestionCard: {
       borderRadius: 10,
       padding: 12,
-      backgroundColor: isDark ? '#17301F' : '#FFFFFF',
+      backgroundColor: isDark ? '#103A3A' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#1D4A38' : '#EAE5DC',
+      borderColor: isDark ? '#195454' : '#E2E8F0',
     },
     recallQMetaRow: {
       flexDirection: 'row',
@@ -1105,24 +1113,24 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingHorizontal: 6,
       paddingVertical: 2,
       borderRadius: 4,
-      backgroundColor: isDark ? '#17301F' : '#E3F1E8',
+      backgroundColor: isDark ? '#0A2626' : '#CCFBF1',
     },
     recallQBadgeText: {
       fontSize: 10,
       fontWeight: '800',
-      color: isDark ? '#4DB383' : '#26734D',
+      color: isDark ? '#5EEAD4' : '#0D9488',
     },
     recallTopicTag: {
       fontSize: 11,
       fontWeight: '600',
-      color: isDark ? '#4DB383' : '#5F6B80',
+      color: isDark ? '#5EEAD4' : '#64748B',
       flex: 1,
     },
     recallQuestionPrompt: {
       fontSize: 13.5,
       fontWeight: '600',
       lineHeight: 20,
-      color: isDark ? '#E3F1E8' : '#1C2433',
+      color: isDark ? '#F0FDFA' : '#0F172A',
       marginBottom: 10,
     },
     recallOptionsList: {
@@ -1135,21 +1143,21 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingHorizontal: 10,
       paddingVertical: 8,
       borderRadius: 7,
-      backgroundColor: isDark ? '#17301F' : '#FAF9F6',
+      backgroundColor: isDark ? '#0D3131' : '#F8FAFC',
       borderWidth: 1,
-      borderColor: isDark ? '#1D4A38' : '#EAE5DC',
+      borderColor: isDark ? '#195454' : '#E2E8F0',
     },
     recallOptionBtnHover: {
-      backgroundColor: isDark ? '#17301F' : '#F0EDE6',
-      borderColor: isDark ? '#1D5C3D' : '#DDD6CA',
+      backgroundColor: isDark ? '#154A4A' : '#F1F5F9',
+      borderColor: isDark ? '#237373' : '#CBD5E1',
     },
     recallOptionBtnCorrect: {
-      backgroundColor: isDark ? 'rgba(38, 115, 77, 0.15)' : '#E3F1E8',
-      borderColor: isDark ? '#26734D' : '#26734D',
+      backgroundColor: isDark ? 'rgba(16, 185, 129, 0.15)' : '#ECFDF5',
+      borderColor: isDark ? '#10B981' : '#059669',
     },
     recallOptionBtnWrong: {
-      backgroundColor: isDark ? 'rgba(180, 35, 24, 0.15)' : '#FBE4E1',
-      borderColor: isDark ? '#B42318' : '#B42318',
+      backgroundColor: isDark ? 'rgba(239, 68, 68, 0.15)' : '#FEF2F2',
+      borderColor: isDark ? '#EF4444' : '#DC2626',
     },
     recallOptionKeyBadge: {
       width: 20,
@@ -1157,18 +1165,18 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: isDark ? '#17301F' : '#EAE5DC',
+      backgroundColor: isDark ? '#103A3A' : '#E2E8F0',
     },
     recallOptionKeyBadgeCorrect: {
-      backgroundColor: isDark ? '#26734D' : '#26734D',
+      backgroundColor: isDark ? '#10B981' : '#059669',
     },
     recallOptionKeyBadgeWrong: {
-      backgroundColor: isDark ? '#B42318' : '#B42318',
+      backgroundColor: isDark ? '#EF4444' : '#DC2626',
     },
     recallOptionKeyText: {
       fontSize: 10.5,
       fontWeight: '700',
-      color: isDark ? '#4DB383' : '#4A5568',
+      color: isDark ? '#5EEAD4' : '#475569',
     },
     recallOptionKeyTextHighlight: {
       color: '#FFFFFF',
@@ -1177,14 +1185,14 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       flex: 1,
       fontSize: 12.5,
       lineHeight: 17,
-      color: isDark ? '#E3F1E8' : '#3F4A5E',
+      color: isDark ? '#CCFBF1' : '#334155',
     },
     recallOptionTextCorrect: {
-      color: isDark ? '#BFDECB' : '#1D5C3D',
+      color: isDark ? '#A7F3D0' : '#065F46',
       fontWeight: '600',
     },
     recallOptionTextWrong: {
-      color: isDark ? '#F3C4BF' : '#6E1F18',
+      color: isDark ? '#FECACA' : '#991B1B',
     },
     recallFeedbackCard: {
       marginTop: 10,
@@ -1195,14 +1203,14 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       gap: 6,
     },
     recallFeedbackCorrect: {
-      backgroundColor: isDark ? 'rgba(38, 115, 77, 0.08)' : '#E3F1E8',
-      borderLeftColor: isDark ? '#26734D' : '#26734D',
-      borderColor: isDark ? '#17301F' : '#BFDECB',
+      backgroundColor: isDark ? 'rgba(16, 185, 129, 0.08)' : '#F0FDF4',
+      borderLeftColor: isDark ? '#10B981' : '#059669',
+      borderColor: isDark ? '#064E3B' : '#BBF7D0',
     },
     recallFeedbackWrong: {
-      backgroundColor: isDark ? 'rgba(180, 35, 24, 0.08)' : '#FBE4E1',
-      borderLeftColor: isDark ? '#B42318' : '#B42318',
-      borderColor: isDark ? '#6E1F18' : '#F3C4BF',
+      backgroundColor: isDark ? 'rgba(239, 68, 68, 0.08)' : '#FEF2F2',
+      borderLeftColor: isDark ? '#EF4444' : '#DC2626',
+      borderColor: isDark ? '#7F1D1D' : '#FECACA',
     },
     recallFeedbackHeading: {
       fontSize: 11,
@@ -1211,34 +1219,34 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       textTransform: 'uppercase',
     },
     recallFeedbackHeadingCorrect: {
-      color: isDark ? '#4DB383' : '#26734D',
+      color: isDark ? '#34D399' : '#059669',
     },
     recallFeedbackHeadingWrong: {
-      color: isDark ? '#E5766B' : '#B42318',
+      color: isDark ? '#F87171' : '#DC2626',
     },
     recallExplanationText: {
       fontSize: 12,
       lineHeight: 17.5,
-      color: isDark ? '#EAE5DC' : '#1C2433',
+      color: isDark ? '#E2E8F0' : '#1E293B',
     },
     recallSyllabusBox: {
       marginTop: 4,
       paddingTop: 6,
       borderTopWidth: 1,
-      borderTopColor: isDark ? '#1D4A38' : 'rgba(0, 0, 0, 0.06)',
+      borderTopColor: isDark ? '#195454' : 'rgba(0, 0, 0, 0.06)',
       gap: 2,
     },
     recallSyllabusTag: {
       fontSize: 10.5,
       fontWeight: '700',
-      color: isDark ? '#4DB383' : '#26734D',
+      color: isDark ? '#5EEAD4' : '#0F766E',
       textTransform: 'uppercase',
       letterSpacing: 0.3,
     },
     recallSyllabusText: {
       fontSize: 11.5,
       lineHeight: 16.5,
-      color: isDark ? '#4DB383' : '#1D5C3D',
+      color: isDark ? '#99F6E4' : '#115E59',
       fontStyle: 'italic',
     },
 
@@ -1251,7 +1259,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingTop: 12,
       marginTop: 'auto',
       borderTopWidth: 1,
-      borderTopColor: isDark ? '#141C28' : '#EAE5DC',
+      borderTopColor: isDark ? '#262930' : '#E2E8F0',
     },
     fullAnalysisBtn: {
       flexDirection: 'row',
@@ -1292,7 +1300,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       borderRadius: 10,
       backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#253244' : '#EAE5DC',
+      borderColor: isDark ? '#383A42' : '#E8E9F1',
     },
     geminiNavBtnDisabled: {
       opacity: 0.35,
@@ -1302,10 +1310,10 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     geminiNavBtnText: {
       fontSize: 12,
       fontWeight: '600',
-      color: isDark ? '#F0F4F8' : '#1C2433',
+      color: isDark ? '#FFFFFF' : '#1F2024',
     },
     geminiNavBtnTextDisabled: {
-      color: isDark ? '#253244' : '#CFCFCF',
+      color: isDark ? '#494A50' : '#C5C6CC',
     },
     geminiNavDots: {
       flexDirection: 'row',
@@ -1317,13 +1325,13 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       width: 5,
       height: 5,
       borderRadius: 2.5,
-      backgroundColor: isDark ? '#253244' : '#DDD6CA',
+      backgroundColor: isDark ? '#383A42' : '#D4D6DD',
     },
     geminiNavDotActive: {
       width: 14,
       height: 5,
       borderRadius: 2.5,
-      backgroundColor: PALETTE.highlight.primary,
+      backgroundColor: tokens.accent,
     },
 
     /* Middle Side Navigation Arrow Buttons */
@@ -1336,12 +1344,12 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       borderRadius: 18,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
+      backgroundColor: tokens.surface,
       borderWidth: 1,
-      borderColor: isDark ? '#253244' : '#EAE5DC',
+      borderColor: tokens.border,
       shadowColor: '#000000',
       shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: isDark ? 0.35 : 0.12,
+      shadowOpacity: isDark ? 0.35 : 0.08,
       shadowRadius: 4,
       elevation: 4,
       zIndex: 20,
@@ -1353,8 +1361,8 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       right: isDesktop ? 6 : 4,
     },
     sideNavArrowBtnHover: {
-      backgroundColor: isDark ? '#1B2534' : '#FAF9F6',
-      borderColor: isDark ? '#253244' : '#8892A6',
+      backgroundColor: tokens.surfaceRaised,
+      borderColor: tokens.borderStrong,
       transform: [{ scale: 1.06 }],
     },
     sideNavArrowBtnPressed: {
@@ -1363,7 +1371,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     },
     sideNavArrowBtnDisabled: {
       opacity: 0.28,
-      borderColor: isDark ? '#141C28' : '#EAE5DC',
+      borderColor: isDark ? '#1E293B' : '#E5E7EB',
       backgroundColor: isDark ? 'rgba(15, 23, 42, 0.4)' : 'rgba(255, 255, 255, 0.6)',
     },
   });

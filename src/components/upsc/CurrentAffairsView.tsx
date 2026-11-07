@@ -1,5 +1,56 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Button } from '@/components/ui/Button';
+import { BW_THEME } from '@/constants/bwTheme';
+import { FONT_FAMILY, getTokens, SemanticTokens } from '@/constants/designTokens';
+import { useAppTheme } from '@/context/ThemeContext';
 import {
+  CACategoryStatusItem,
+  CAIngestionLogItem,
+  CuratedArticle,
+  DAILY_EVENTS_DATA,
+  DailyEventItem,
+  DayEventsSummary,
+  FORMAT_CATEGORIES,
+  FormatCategory,
+  getDailyEventsSummary,
+  getTodayDateKey,
+  MajorEvent,
+  NEWS_AGENCIES,
+  RECENT_MAJOR_EVENTS,
+} from '@/data/currentAffairsData';
+import {
+  fetchCategoryStatuses,
+  fetchIngestionOperationalLogs,
+  fetchLiveNewsFromAgencies,
+  getCachedAuthenticNews,
+} from '@/services/newsFeedService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Image } from 'expo-image';
+import {
+  Activity,
+  Bookmark,
+  BookOpen,
+  Calendar,
+  CalendarDays,
+  Check,
+  ChevronDown,
+  ChevronRight,
+  FileText,
+  Filter,
+  Globe,
+  Landmark,
+  Layers,
+  Leaf,
+  ListChecks,
+  MessagesSquare,
+  Newspaper,
+  Scale,
+} from 'lucide-react-native';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  Animated,
+  Easing,
+  Modal,
+  PanResponder,
   Platform,
   Pressable,
   ScrollView,
@@ -8,42 +59,15 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  Activity,
-  Bookmark,
-  FileText,
-  RotateCcw,
-} from 'lucide-react-native';
-
-import { FONT_FAMILY } from '@/constants/designTokens';
-import {
-  CACategoryStatusItem,
-  CAIngestionLogItem,
-  CuratedArticle,
-  DAILY_EVENTS_DATA,
-  DailyEventItem,
-  DayEventsSummary,
-  getDailyEventsSummary,
-  getTodayDateKey,
-  MajorEvent,
-} from '@/data/currentAffairsData';
-import {
-  fetchCategoryStatuses,
-  fetchIngestionOperationalLogs,
-  fetchLiveNewsFromAgencies,
-  getCachedAuthenticNews,
-} from '@/services/newsFeedService';
-
 import { ArticleDetailModal } from './currentAffairs/ArticleDetailModal';
+import { CalendarDropdown } from './currentAffairs/CalendarDropdown';
 import { CAQuizModal } from './currentAffairs/CAQuizModal';
+import { DailyEventCard } from './currentAffairs/DailyEventCard';
 import { DailyRecallModal } from './currentAffairs/DailyRecallModal';
-import { EditorialNewsCard } from './currentAffairs/EditorialNewsCard';
-import { EditorialSidebarWidgets } from './currentAffairs/EditorialSidebarWidgets';
+import { FormatFeedModal } from './currentAffairs/FormatFeedModal';
 import { MonthlyRevisionModal } from './currentAffairs/MonthlyRevisionModal';
 import { NotesLibraryModal } from './currentAffairs/NotesLibraryModal';
 import { PipelineStatusModal } from './currentAffairs/PipelineStatusModal';
-import { useAppTheme } from '@/context/ThemeContext';
 
 type DetailItem =
   | { type: 'event'; data: DailyEventItem }
@@ -55,64 +79,19 @@ interface CurrentAffairsViewProps {
   onToggleTheme?: () => void;
 }
 
-// 7 days date strip matching the Figma editorial reference
-const DATE_STRIP_DAYS = [
-  { dateKey: '2026-10-23', dayName: 'Fri', dayNum: '23' },
-  { dateKey: '2026-10-24', dayName: 'Sat', dayNum: '24' },
-  { dateKey: '2026-10-25', dayName: 'Sun', dayNum: '25' },
-  { dateKey: '2026-10-26', dayName: 'Mon', dayNum: '26' },
-  { dateKey: '2026-10-27', dayName: 'Tue', dayNum: '27' },
-  { dateKey: '2026-10-28', dayName: 'Wed', dayNum: '28' },
-  { dateKey: '2026-10-29', dayName: 'Thu', dayNum: '29' },
-];
-
-const CATEGORY_FILTERS = [
-  { id: 'all', label: 'All' },
-  { id: 'polity', label: 'Polity' },
-  { id: 'economy', label: 'Economy' },
-  { id: 'ir', label: 'International Relations' },
-  { id: 'environment', label: 'Environment' },
-  { id: 'scitech', label: 'Science & Tech' },
-];
-
-function formatHeaderDate(dateKey: string): string {
-  try {
-    const [y, m, d] = dateKey.split('-').map(Number);
-    const date = new Date(y, m - 1, d);
-    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const monthNames = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December',
-    ];
-    const dayName = dayNames[date.getDay()];
-    const monthName = monthNames[date.getMonth()];
-    return `${dayName}, ${d} ${monthName} ${y}`;
-  } catch {
-    return 'Thursday, 29 October 2026';
-  }
-}
-
-export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewProps) {
-  const { isDark: contextIsDark } = useAppTheme();
+export function CurrentAffairsView({ isDark: propIsDark, onToggleTheme: propToggleTheme }: CurrentAffairsViewProps) {
+  const { isDark: contextIsDark, toggleTheme: contextToggleTheme } = useAppTheme();
   const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
+  const onToggleTheme = propToggleTheme || contextToggleTheme;
+  const tokens = useMemo(() => getTokens(isDark), [isDark]);
   const { width } = useWindowDimensions();
-  const isDesktop = width >= 860;
+  const isDesktop = width >= 768;
 
-  // Selected date (defaults to 2026-10-29 as in reference image)
-  const [selectedDateKey, setSelectedDateKey] = useState<string>('2026-10-29');
+  const theme = isDark ? BW_THEME.dark : BW_THEME.light;
+  const styles = useMemo(() => getStyles(tokens, isDark, isDesktop), [tokens, isDark, isDesktop]);
 
-  // Selected category filter
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-
-  // Exam mode toggle: 'prelims' | 'mains'
-  const [examMode, setExamMode] = useState<'prelims' | 'mains'>('prelims');
-
-  // Bookmarking state (initialized with 2 items from reference image for exact visual match)
-  const [savedItemIds, setSavedItemIds] = useState<string[]>([
-    'ca_29_standing_committees',
-    'ca_29_ramsar_wetlands',
-  ]);
-
+  // Bookmarking state
+  const [savedItemIds, setSavedItemIds] = useState<string[]>(['de_25_1', 'me_1']);
   const toggleBookmark = (id: string) => {
     setSavedItemIds((prev) =>
       prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
@@ -120,7 +99,13 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
   };
   const isBookmarked = (id: string) => savedItemIds.includes(id);
 
-  // Set of read/completed dates
+  // Selected date for Daily Events (defaults to dynamic today)
+  const [selectedDateKey, setSelectedDateKey] = useState<string>(() => getTodayDateKey());
+
+  // Slide state for Daily Event Summary inside container (one event at a time)
+  const [activeEventIndex, setActiveEventIndex] = useState<number>(0);
+
+  // Set of read/completed dates by the user
   const [readDates, setReadDates] = useState<string[]>(['2026-10-24']);
 
   useEffect(() => {
@@ -134,43 +119,123 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
           }
         }
       } catch {
-        // Fallback
+        // Fallback to initial state
       }
     })();
   }, []);
 
+  const handleToggleDayRead = () => {
+    setReadDates((prev) => {
+      const isRead = prev.includes(selectedDateKey);
+      const next = isRead ? prev.filter((d) => d !== selectedDateKey) : [...prev, selectedDateKey];
+      void AsyncStorage.setItem('@upsc_ca_read_dates', JSON.stringify(next));
+      return next;
+    });
+  };
+
   const isCurrentDayRead = readDates.includes(selectedDateKey);
 
+  // Compact Calendar Dropdown state
+  const [calendarDropdownVisible, setCalendarDropdownVisible] = useState<boolean>(false);
+  const [calendarDropdownPos, setCalendarDropdownPos] = useState<{ top: number; left?: number; right?: number }>({
+    top: 210,
+    left: 16,
+  });
+  const calendarBtnRef = useRef<React.ElementRef<typeof View>>(null);
+
+  const handleToggleCalendar = () => {
+    if (calendarDropdownVisible) {
+      setCalendarDropdownVisible(false);
+      return;
+    }
+
+    if (calendarBtnRef.current) {
+      calendarBtnRef.current.measureInWindow((x: number, y: number, btnWidth: number, btnHeight: number) => {
+        const top = Math.max(120, y + btnHeight + 8);
+        const left = Math.max(12, Math.min(x, width - 336));
+        setCalendarDropdownPos({ top, left });
+        setCalendarDropdownVisible(true);
+      });
+    } else {
+      setCalendarDropdownVisible(true);
+    }
+  };
+
+  // Selected News Agency Filter for Explore Current Affairs (Dropdown Menu)
+  const [selectedAgencyId, setSelectedAgencyId] = useState<string>('all');
+  const [agencyDropdownVisible, setAgencyDropdownVisible] = useState<boolean>(false);
+  const [agencyDropdownPos, setAgencyDropdownPos] = useState<{ top: number; left: number }>({
+    top: 320,
+    left: 16,
+  });
+  const agencyBtnRef = useRef<React.ElementRef<typeof View>>(null);
+
+  const selectedAgency = useMemo(
+    () => NEWS_AGENCIES.find((a) => a.id === selectedAgencyId) || NEWS_AGENCIES[0],
+    [selectedAgencyId]
+  );
+
+  const handleToggleAgencyDropdown = () => {
+    if (agencyDropdownVisible) {
+      setAgencyDropdownVisible(false);
+      return;
+    }
+
+    if (agencyBtnRef.current) {
+      agencyBtnRef.current.measureInWindow((x: number, y: number, btnWidth: number, btnHeight: number) => {
+        const menuWidth = 220;
+        const top = Math.max(80, y + btnHeight + 6);
+        const left = Math.max(12, Math.min(x + btnWidth - menuWidth, width - menuWidth - 12));
+        setAgencyDropdownPos({ top, left });
+        setAgencyDropdownVisible(true);
+      });
+    } else {
+      setAgencyDropdownVisible(true);
+    }
+  };
+
   // Modals state
-  const [activeDetailItem, setActiveDetailItem] = useState<DetailItem | null>(null);
-  const [articleModalVisible, setArticleModalVisible] = useState(false);
   const [quizModalVisible, setQuizModalVisible] = useState(false);
-  const [dailyRecallModalVisible, setDailyRecallModalVisible] = useState(false);
+  const [monthlyModalVisible, setMonthlyModalVisible] = useState(false);
+  const [selectedFormatCategory, setSelectedFormatCategory] = useState<FormatCategory | null>(null);
+  const [formatModalVisible, setFormatModalVisible] = useState(false);
+
   const [notesLibraryModalVisible, setNotesLibraryModalVisible] = useState(false);
   const [notesLibraryInitialTab, setNotesLibraryInitialTab] = useState<'notes' | 'library'>('notes');
   const [initialNoteTitle, setInitialNoteTitle] = useState<string>('');
-  const [monthlyModalVisible, setMonthlyModalVisible] = useState(false);
+
+  const [activeDetailItem, setActiveDetailItem] = useState<DetailItem | null>(null);
+  const [articleModalVisible, setArticleModalVisible] = useState(false);
+
+  const [dailyRecallModalVisible, setDailyRecallModalVisible] = useState(false);
+  const [recallTargetEvent, setRecallTargetEvent] = useState<DailyEventItem | null>(null);
   const [pipelineStatusModalVisible, setPipelineStatusModalVisible] = useState(false);
 
-  // Live news & pipeline telemetry
+  // Live authentic news state + operational telemetry from Supabase / verified snapshot
   const [liveAgencyEvents, setLiveAgencyEvents] = useState<DailyEventItem[]>([]);
   const [categoryStatuses, setCategoryStatuses] = useState<CACategoryStatusItem[]>([]);
   const [ingestionLogs, setIngestionLogs] = useState<CAIngestionLogItem[]>([]);
   const [isPipelineSyncing, setIsPipelineSyncing] = useState(false);
 
-  const loadPipelineData = useCallback(async () => {
+  const loadPipelineData = useCallback(async (agencyId: string) => {
     setIsPipelineSyncing(true);
     try {
       const [liveItems, statuses, logs] = await Promise.all([
-        fetchLiveNewsFromAgencies('all'),
+        fetchLiveNewsFromAgencies(agencyId),
         fetchCategoryStatuses(),
         fetchIngestionOperationalLogs(),
       ]);
-      if (liveItems && liveItems.length > 0) setLiveAgencyEvents(liveItems);
-      if (statuses && statuses.length > 0) setCategoryStatuses(statuses);
-      if (logs && logs.length > 0) setIngestionLogs(logs);
+      if (liveItems && liveItems.length > 0) {
+        setLiveAgencyEvents(liveItems);
+      }
+      if (statuses && statuses.length > 0) {
+        setCategoryStatuses(statuses);
+      }
+      if (logs && logs.length > 0) {
+        setIngestionLogs(logs);
+      }
     } catch {
-      // Keep cached
+      // Fallback to cached/pre-seeded items
     } finally {
       setIsPipelineSyncing(false);
     }
@@ -179,400 +244,711 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
   useEffect(() => {
     let isMounted = true;
     void (async () => {
+      // 1. Load cached authentic news immediately for instant display
       const cached = await getCachedAuthenticNews();
       if (isMounted && cached && cached.length > 0) {
         setLiveAgencyEvents(cached);
       }
+
+      // 2. Fetch fresh verified news + category status + operational logs
       if (isMounted) {
-        await loadPipelineData();
+        await loadPipelineData(selectedAgencyId);
       }
     })();
+
     return () => {
       isMounted = false;
     };
-  }, [loadPipelineData]);
+  }, [selectedAgencyId, loadPipelineData]);
 
-  // Current day summary & curated events
+
+  // Active day data retrieved from data or dynamic fallback
   const activeDaySummary: DayEventsSummary = useMemo(() => {
     return getDailyEventsSummary(selectedDateKey);
   }, [selectedDateKey]);
 
+  const isToday = selectedDateKey === getTodayDateKey() || selectedDateKey === DAILY_EVENTS_DATA[0].dateKey;
+
+  /**
+   * The Daily Brief strictly curates 3 to 7 most important must-know UPSC news items for the selected day.
+   * All remaining news items are available in Explore Current Affairs -> Daily News & Category Feeds.
+   */
   const activeDailyEvents: DailyEventItem[] = useMemo(() => {
-    const baseEvents = activeDaySummary.events || [];
+    const baseEvents = activeDaySummary.events;
+
+    // Match live events belonging to the selected date (or today)
     const dateMatchedLive = liveAgencyEvents.filter((item) => {
       if (item.dateKey) return item.dateKey === selectedDateKey;
-      return selectedDateKey === getTodayDateKey();
+      return isToday;
     });
 
-    const seen = new Set<string>();
-    const merged: DailyEventItem[] = [];
-
-    for (const item of [...baseEvents, ...dateMatchedLive]) {
-      const key = (item.headline || item.id).toLowerCase().slice(0, 36);
-      if (!seen.has(key)) {
-        seen.add(key);
-        merged.push(item);
-      }
-    }
-
-    return merged;
-  }, [activeDaySummary.events, liveAgencyEvents, selectedDateKey]);
-
-  // Filtered articles list based on Category and Exam Mode (Prelims / Mains)
-  const displayedArticles = useMemo(() => {
-    let list = activeDailyEvents;
-
-    // Filter by Exam Mode
-    if (examMode === 'prelims') {
-      list = list.filter((item) => item.isPrelimsRelevant !== false);
-    } else if (examMode === 'mains') {
-      list = list.filter((item) => item.isMainsRelevant === true);
-    }
-
-    // Filter by Category
-    if (selectedCategory === 'all') return list;
-
-    const catMap: Record<string, string[]> = {
-      polity: ['polity'],
-      economy: ['economy'],
-      ir: ['international', 'ir', 'foreign', 'diplomacy'],
-      environment: ['environment', 'ecology', 'biodiversity', 'wetland'],
-      scitech: ['sci-tech', 'science', 'tech', 'isro', 'space', 'defence'],
-    };
-
-    const keywords = catMap[selectedCategory] || [selectedCategory];
-
-    return list.filter((item) => {
-      const c = (item.category || '').toLowerCase();
-      const p = (item.primaryCategory || '').toLowerCase();
-      const h = (item.headline || '').toLowerCase();
-      return keywords.some((kw) => c.includes(kw) || p.includes(kw) || h.includes(kw));
+    // Prioritize high-relevance UPSC stories (Official PIB/RBI/SC releases, UPSC Essentials, and stories with verified images)
+    const rankedLive = [...dateMatchedLive].sort((a, b) => {
+      const scoreA =
+        (a.relevanceScore || 0.8) +
+        (a.sourceTier === 'official' ? 0.25 : 0) +
+        (a.imageUrl ? 0.15 : 0);
+      const scoreB =
+        (b.relevanceScore || 0.8) +
+        (b.sourceTier === 'official' ? 0.25 : 0) +
+        (b.imageUrl ? 0.15 : 0);
+      return scoreB - scoreA;
     });
-  }, [activeDailyEvents, examMode, selectedCategory]);
 
-  // Saved items mapped for sidebar widget
-  const savedItemsForSidebar = useMemo(() => {
-    const list: { id: string; title: string; data?: any }[] = [];
-    for (const id of savedItemIds) {
-      let found: DailyEventItem | undefined;
-      for (const day of DAILY_EVENTS_DATA) {
-        const ev = day.events.find((e) => e.id === id);
-        if (ev) {
-          found = ev;
-          break;
+    let pool: DailyEventItem[] = [...baseEvents];
+
+    if (rankedLive.length > 0) {
+      const seen = new Set<string>();
+      const merged: DailyEventItem[] = [];
+      // Place curated must-know base events first, then top-ranked live stories up to 7 items
+      for (const item of [...baseEvents, ...rankedLive]) {
+        const key = item.headline.toLowerCase().slice(0, 32);
+        if (!seen.has(key)) {
+          seen.add(key);
+          merged.push(item);
         }
       }
-      if (found) {
-        let shortTitle = found.headline;
-        if (found.id === 'ca_29_standing_committees') shortTitle = 'Standing committees';
-        else if (found.id === 'ca_29_ramsar_wetlands') shortTitle = 'Ramsar Convention';
-        else if (shortTitle.length > 38) shortTitle = shortTitle.slice(0, 38) + '...';
+      pool = merged;
+    }
 
-        list.push({ id: found.id, title: shortTitle, data: found });
+    // Filter by selected agency if chosen
+    if (selectedAgencyId !== 'all') {
+      const agency = NEWS_AGENCIES.find((a) => a.id === selectedAgencyId);
+      if (agency?.matchKeyword) {
+        const kw = agency.matchKeyword.toLowerCase();
+        const matched = pool.filter(
+          (e) => e.agencyId === selectedAgencyId || e.source.toLowerCase().includes(kw)
+        );
+        if (matched.length >= 3) {
+          return matched.slice(0, 7);
+        }
+        // Ensure at least 3 items in The Daily Brief by supplementing from the day's top events
+        const supplemented = [...matched];
+        for (const item of pool) {
+          if (supplemented.length >= 3) break;
+          if (!supplemented.some((s) => s.id === item.id)) {
+            supplemented.push(item);
+          }
+        }
+        return supplemented.slice(0, 7);
       }
     }
 
-    if (list.length === 0) {
-      return [
-        { id: 'ca_29_standing_committees', title: 'Standing committees' },
-        { id: 'ca_29_ramsar_wetlands', title: 'Ramsar Convention' },
-      ];
-    }
-    return list;
-  }, [savedItemIds]);
+    // Enforce 3 to 7 most important UPSC events per day in The Daily Brief
+    return pool.slice(0, 7);
+  }, [activeDaySummary.events, isToday, liveAgencyEvents, selectedAgencyId, selectedDateKey]);
 
-  const handleOpenDailyEvent = (item: any) => {
+  // Safe active event item
+  const currentDailyEvent: DailyEventItem | undefined =
+    activeDailyEvents[activeEventIndex] || activeDailyEvents[0];
+
+  // Handlers for modal interactions
+  const handleOpenDailyEvent = (item: DailyEventItem) => {
     setActiveDetailItem({ type: 'event', data: item });
     setArticleModalVisible(true);
   };
 
-  const handleSelectSavedItem = (saved: { id: string; data?: any }) => {
-    if (saved.data) {
-      handleOpenDailyEvent(saved.data);
+  const handleAddNoteForEvent = (item: DailyEventItem) => {
+    setInitialNoteTitle(item.headline);
+    setNotesLibraryInitialTab('notes');
+    setNotesLibraryModalVisible(true);
+  };
+
+  const handleOpenFormatModal = (cat: FormatCategory) => {
+    setSelectedFormatCategory(cat);
+    setFormatModalVisible(true);
+  };
+
+  const handleSelectArticleFromFormat = (art: CuratedArticle) => {
+    setActiveDetailItem({ type: 'article', data: art });
+    setArticleModalVisible(true);
+  };
+
+  // Card sliding animation values for mobile gestures & transitions
+  const [translateX] = useState(() => new Animated.Value(0));
+  const [cardOpacity] = useState(() => new Animated.Value(1));
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Prefetch event images into memory/disk cache so transitions and rendering are instant
+  useEffect(() => {
+    const eventUrls = activeDailyEvents
+      .map((e) => {
+        if (!e.imageUrl) return null;
+        try {
+          return decodeURI(e.imageUrl);
+        } catch {
+          return e.imageUrl;
+        }
+      })
+      .filter((url): url is string => Boolean(url));
+
+    if (eventUrls.length > 0) {
+      Image.prefetch(eventUrls);
+    }
+  }, [activeDailyEvents]);
+
+  // Reset animations when date changes
+  useEffect(() => {
+    translateX.setValue(0);
+    cardOpacity.setValue(1);
+  }, [selectedDateKey, cardOpacity, translateX]);
+
+  const animateCardTransition = useCallback(
+    (direction: 'next' | 'prev', callback: () => void) => {
+      if (isTransitioning) return;
+      setIsTransitioning(true);
+
+      const exitValue = direction === 'next' ? -42 : 42;
+      const enterValue = direction === 'next' ? 42 : -42;
+
+      // Phase 1: Smoothly fade and glide out to complete invisibility (0 opacity)
+      Animated.parallel([
+        Animated.timing(translateX, {
+          toValue: exitValue,
+          duration: 140,
+          easing: Easing.bezier(0.4, 0, 0.2, 1),
+          useNativeDriver: true,
+        }),
+        Animated.timing(cardOpacity, {
+          toValue: 0,
+          duration: 140,
+          easing: Easing.bezier(0.4, 0, 0.2, 1),
+          useNativeDriver: true,
+        }),
+      ]).start(() => {
+        // Swap event data while card is completely invisible
+        callback();
+        translateX.setValue(enterValue);
+
+        // Phase 2: Smoothly glide and fade in to full visibility
+        Animated.parallel([
+          Animated.timing(translateX, {
+            toValue: 0,
+            duration: 180,
+            easing: Easing.bezier(0, 0, 0.2, 1),
+            useNativeDriver: true,
+          }),
+          Animated.timing(cardOpacity, {
+            toValue: 1,
+            duration: 180,
+            easing: Easing.bezier(0, 0, 0.2, 1),
+            useNativeDriver: true,
+          }),
+        ]).start(() => {
+          setIsTransitioning(false);
+        });
+      });
+    },
+    [cardOpacity, isTransitioning, translateX]
+  );
+
+  const handlePrevEvent = useCallback(() => {
+    if (activeEventIndex > 0) {
+      animateCardTransition('prev', () => {
+        setActiveEventIndex((prev) => Math.max(0, prev - 1));
+      });
+    }
+  }, [activeEventIndex, animateCardTransition]);
+
+  const handleNextEvent = useCallback(() => {
+    if (activeEventIndex < activeDailyEvents.length - 1) {
+      animateCardTransition('next', () => {
+        setActiveEventIndex((prev) => Math.min(activeDailyEvents.length - 1, prev + 1));
+      });
+    }
+  }, [activeDailyEvents.length, activeEventIndex, animateCardTransition]);
+
+  const handleSelectEvent = useCallback(
+    (index: number) => {
+      if (index === activeEventIndex) return;
+      const direction = index > activeEventIndex ? 'next' : 'prev';
+      animateCardTransition(direction, () => {
+        setActiveEventIndex(index);
+      });
+    },
+    [activeEventIndex, animateCardTransition]
+  );
+
+  // Auto-advance event card every 6.5s (pauses on hover or touch/press hold)
+  const [isAutoPlayPaused, setIsAutoPlayPaused] = useState(false);
+
+  useEffect(() => {
+    if (activeDailyEvents.length <= 1) return;
+    if (isAutoPlayPaused) return;
+    if (
+      articleModalVisible ||
+      notesLibraryModalVisible ||
+      dailyRecallModalVisible ||
+      formatModalVisible ||
+      calendarDropdownVisible
+    ) {
       return;
     }
-    for (const day of DAILY_EVENTS_DATA) {
-      const ev = day.events.find((e) => e.id === saved.id);
-      if (ev) {
-        handleOpenDailyEvent(ev);
-        return;
-      }
+
+    const timer = setInterval(() => {
+      animateCardTransition('next', () => {
+        setActiveEventIndex((prev) => (prev + 1) % activeDailyEvents.length);
+      });
+    }, 6500);
+
+    return () => clearInterval(timer);
+  }, [
+    activeDailyEvents.length,
+    isAutoPlayPaused,
+    articleModalVisible,
+    notesLibraryModalVisible,
+    dailyRecallModalVisible,
+    formatModalVisible,
+    calendarDropdownVisible,
+    animateCardTransition,
+  ]);
+
+  // Horizontal Slide/Swipe gesture responder for mobile & touch views
+  const panResponder = useMemo(
+    () =>
+      PanResponder.create({
+        onStartShouldSetPanResponder: () => false,
+        onMoveShouldSetPanResponderCapture: (_, gestureState) => {
+          return (
+            Math.abs(gestureState.dx) > 14 &&
+            Math.abs(gestureState.dx) > Math.abs(gestureState.dy) * 1.3
+          );
+        },
+        onMoveShouldSetPanResponder: (_, gestureState) => {
+          return (
+            Math.abs(gestureState.dx) > 14 &&
+            Math.abs(gestureState.dx) > Math.abs(gestureState.dy) * 1.3
+          );
+        },
+        onPanResponderGrant: () => {
+          setIsAutoPlayPaused(true);
+          cardOpacity.setValue(1);
+          translateX.stopAnimation();
+        },
+        onPanResponderMove: (_, gestureState) => {
+          const isAtStart = activeEventIndex === 0 && gestureState.dx > 0;
+          const isAtEnd = activeEventIndex >= activeDailyEvents.length - 1 && gestureState.dx < 0;
+          if (isAtStart || isAtEnd) {
+            translateX.setValue(gestureState.dx * 0.25);
+          } else {
+            translateX.setValue(gestureState.dx);
+          }
+        },
+        onPanResponderTerminationRequest: () => false,
+        onPanResponderRelease: (_, gestureState) => {
+          setIsAutoPlayPaused(false);
+          const swipeThreshold = 45;
+          const velocityThreshold = 0.25;
+
+          // Swipe Left -> Next Event
+          if (
+            (gestureState.dx < -swipeThreshold || gestureState.vx < -velocityThreshold) &&
+            activeEventIndex < activeDailyEvents.length - 1
+          ) {
+            handleNextEvent();
+          }
+          // Swipe Right -> Prev Event
+          else if (
+            (gestureState.dx > swipeThreshold || gestureState.vx > velocityThreshold) &&
+            activeEventIndex > 0
+          ) {
+            handlePrevEvent();
+          }
+          // Snap back
+          else {
+            Animated.spring(translateX, {
+              toValue: 0,
+              friction: 7,
+              tension: 50,
+              useNativeDriver: true,
+            }).start();
+          }
+        },
+      }),
+    [activeDailyEvents.length, activeEventIndex, cardOpacity, handleNextEvent, handlePrevEvent, translateX]
+  );
+
+  const renderFormatIcon = (iconName: string) => {
+    // Elegant, crisp category icons aligned with the overall theme (image 2)
+    const iconColor = isDark ? '#38BDF8' : '#2563EB';
+    const iconProps = { size: 21, color: iconColor, strokeWidth: 2 };
+    switch (iconName) {
+      case 'Newspaper':
+        return <Newspaper {...iconProps} />;
+      case 'BookOpen':
+        return <BookOpen {...iconProps} />;
+      case 'Layers':
+        return <Layers {...iconProps} />;
+      case 'Scale':
+        return <Scale {...iconProps} />;
+      case 'Landmark':
+        return <Landmark {...iconProps} />;
+      case 'MessagesSquare':
+        return <MessagesSquare {...iconProps} />;
+      case 'Globe':
+        return <Globe {...iconProps} />;
+      case 'Leaf':
+        return <Leaf {...iconProps} />;
+      default:
+        return <BookOpen {...iconProps} />;
     }
   };
 
-  const totalCount = Math.max(activeDailyEvents.length, 8);
-  const readCount = isCurrentDayRead ? totalCount : 3;
-
   return (
     <ScrollView
-      style={[styles.scrollView, isDark && styles.scrollViewDark]}
+      style={styles.scrollView}
       contentContainerStyle={styles.scrollContent}
       showsVerticalScrollIndicator={false}
     >
+      {/* Centred Content Container (Max-Width 980px on desktop) */}
       <View style={styles.centerContainer}>
         {/* ======================================================== */}
-        {/* 1. TOP NAV / BREADCRUMB ROW                              */}
+        {/* 1. TOP HEADER - Current Affairs                          */}
         {/* ======================================================== */}
-        <View style={styles.topNavRow}>
-          <View style={styles.navLeftCluster}>
-            <View style={styles.navLinksRow}>
-              <Text style={[styles.navLinkItem, isDark && styles.navLinkItemDark]}>
-                Home
-              </Text>
-              <View style={styles.activeNavLinkWrapper}>
-                <Text style={[styles.navLinkActiveItem, isDark && styles.navLinkActiveItemDark]}>
-                  Current Affairs
-                </Text>
-                <View style={styles.activeNavUnderline} />
-              </View>
-              <Text style={[styles.navLinkItem, isDark && styles.navLinkItemDark]}>
-                Practice
-              </Text>
-              <Text style={[styles.navLinkItem, isDark && styles.navLinkItemDark]}>
-                Notes
-              </Text>
-            </View>
-          </View>
+        <View style={styles.header}>
+          <View style={styles.headerTopRow}>
+            <Text style={styles.pageHeading}>Current Affairs</Text>
 
-          {/* Right Top Cluster: Prelims / Mains Segmented Toggle + Utility icons */}
-          <View style={styles.navRightCluster}>
-            <View style={[styles.segmentedToggleContainer, isDark && styles.segmentedToggleContainerDark]}>
+            {/* Symbols only: Pipeline Health, Notes, and My Library */}
+            <View style={styles.headerActions}>
               <Pressable
-                onPress={() => setExamMode('prelims')}
-                style={[
-                  styles.segmentBtn,
-                  examMode === 'prelims' && (isDark ? styles.segmentBtnActiveDark : styles.segmentBtnActive),
+                style={({ pressed }: any) => [
+                  styles.headerIconBtn,
+                  pressed && styles.cardPressed,
                 ]}
+                onPress={() => setPipelineStatusModalVisible(true)}
+                accessibilityLabel="Pipeline Operational Status"
                 accessibilityRole="button"
-                accessibilityLabel="Switch to Prelims"
+                hitSlop={6}
               >
-                <Text
-                  style={[
-                    styles.segmentBtnText,
-                    isDark ? (examMode === 'prelims' ? styles.segmentBtnTextActiveDark : styles.segmentBtnTextDark) : (examMode === 'prelims' ? styles.segmentBtnTextActive : undefined),
-                  ]}
-                >
-                  Prelims
-                </Text>
-              </Pressable>
-
-              <Pressable
-                onPress={() => setExamMode('mains')}
-                style={[
-                  styles.segmentBtn,
-                  examMode === 'mains' && (isDark ? styles.segmentBtnActiveDark : styles.segmentBtnActive),
-                ]}
-                accessibilityRole="button"
-                accessibilityLabel="Switch to Mains"
-              >
-                <Text
-                  style={[
-                    styles.segmentBtnText,
-                    isDark ? (examMode === 'mains' ? styles.segmentBtnTextActiveDark : styles.segmentBtnTextDark) : (examMode === 'mains' ? styles.segmentBtnTextActive : undefined),
-                  ]}
-                >
-                  Mains
-                </Text>
-              </Pressable>
-            </View>
-
-            {/* Quick Header Utilities */}
-            <Pressable
-              style={({ pressed }) => [
-                styles.headerIconBtn,
-                isDark && styles.headerIconBtnDark,
-                pressed && styles.pressed,
-              ]}
-              onPress={() => setPipelineStatusModalVisible(true)}
-              accessibilityLabel="Pipeline status"
-              accessibilityRole="button"
-              hitSlop={6}
-            >
-              <Activity size={15} color={isDark ? '#4DB383' : '#26734D'} strokeWidth={2.2} />
-            </Pressable>
-
-            <Pressable
-              style={({ pressed }) => [
-                styles.headerIconBtn,
-                isDark && styles.headerIconBtnDark,
-                pressed && styles.pressed,
-              ]}
-              onPress={() => {
-                setInitialNoteTitle('');
-                setNotesLibraryInitialTab('notes');
-                setNotesLibraryModalVisible(true);
-              }}
-              accessibilityLabel="Notes library"
-              accessibilityRole="button"
-              hitSlop={6}
-            >
-              <FileText size={15} color={isDark ? '#F0F4F8' : '#1C2433'} strokeWidth={2} />
-            </Pressable>
-
-            <Pressable
-              style={({ pressed }) => [
-                styles.headerIconBtn,
-                isDark && styles.headerIconBtnDark,
-                pressed && styles.pressed,
-              ]}
-              onPress={() => {
-                setNotesLibraryInitialTab('library');
-                setNotesLibraryModalVisible(true);
-              }}
-              accessibilityLabel="Bookmarks library"
-              accessibilityRole="button"
-              hitSlop={6}
-            >
-              <Bookmark size={15} color={isDark ? '#F0F4F8' : '#1C2433'} strokeWidth={2} />
-            </Pressable>
-          </View>
-        </View>
-
-        {/* ======================================================== */}
-        {/* 2. PAGE TITLE & SUBTITLE                                 */}
-        {/* ======================================================== */}
-        <View style={styles.titleSection}>
-          <Text style={[styles.pageMainTitle, isDark && styles.pageMainTitleDark]}>
-            Current Affairs
-          </Text>
-          <Text style={[styles.pageSubtitleText, isDark && styles.pageSubtitleTextDark]}>
-            Curated for UPSC · {formatHeaderDate(selectedDateKey)}
-          </Text>
-        </View>
-
-        {/* ======================================================== */}
-        {/* 3. CALENDAR DATE STRIP (7 DAYS)                          */}
-        {/* ======================================================== */}
-        <View style={styles.dateStripRow}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.dateStripScroll}
-          >
-            {DATE_STRIP_DAYS.map((day) => {
-              const isSelected = selectedDateKey === day.dateKey;
-              return (
-                <Pressable
-                  key={day.dateKey}
-                  onPress={() => setSelectedDateKey(day.dateKey)}
-                  style={({ pressed }) => [
-                    styles.dateStripCard,
-                    isDark && styles.dateStripCardDark,
-                    isSelected && (isDark ? styles.dateStripCardActiveDark : styles.dateStripCardActive),
-                    pressed && styles.pressed,
-                  ]}
-                  accessibilityRole="button"
-                  accessibilityLabel={`Select date ${day.dayName} ${day.dayNum}`}
-                >
-                  <Text
-                    style={[
-                      styles.dateStripDayName,
-                      isDark && styles.dateStripDayNameDark,
-                      isSelected && (isDark ? styles.dateStripDayNameActiveDark : styles.dateStripDayNameActive),
-                    ]}
-                  >
-                    {day.dayName}
-                  </Text>
-                  <Text
-                    style={[
-                      styles.dateStripDayNum,
-                      isDark && styles.dateStripDayNumDark,
-                      isSelected && (isDark ? styles.dateStripDayNumActiveDark : styles.dateStripDayNumActive),
-                    ]}
-                  >
-                    {day.dayNum}
-                  </Text>
-                </Pressable>
-              );
-            })}
-          </ScrollView>
-        </View>
-
-        {/* ======================================================== */}
-        {/* 4. CATEGORY FILTER CHIPS                                 */}
-        {/* ======================================================== */}
-        <View style={styles.filterChipsRow}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.filterChipsScroll}
-          >
-            {CATEGORY_FILTERS.map((cat) => {
-              const isSelected = selectedCategory === cat.id;
-              return (
-                <Pressable
-                  key={cat.id}
-                  onPress={() => setSelectedCategory(cat.id)}
-                  style={({ pressed }) => [
-                    styles.filterChip,
-                    isDark && styles.filterChipDark,
-                    isSelected && styles.filterChipActive,
-                    pressed && styles.pressed,
-                  ]}
-                  accessibilityRole="button"
-                  accessibilityLabel={`Filter by ${cat.label}`}
-                >
-                  <Text
-                    style={[
-                      styles.filterChipText,
-                      isDark && styles.filterChipTextDark,
-                      isSelected && styles.filterChipTextActive,
-                    ]}
-                  >
-                    {cat.label}
-                  </Text>
-                </Pressable>
-              );
-            })}
-          </ScrollView>
-        </View>
-
-        {/* ======================================================== */}
-        {/* 5. MAIN TWO-COLUMN EDITORIAL CONTENT AREA                */}
-        {/* ======================================================== */}
-        <View style={[styles.mainContentRow, !isDesktop && styles.mainContentColumn]}>
-          {/* LEFT COLUMN: Article Feed */}
-          <View style={styles.feedColumn}>
-            {displayedArticles.length === 0 ? (
-              <View style={[styles.emptyFeedCard, isDark && styles.emptyFeedCardDark]}>
-                <Text style={[styles.emptyFeedTitle, isDark && styles.emptyFeedTitleDark]}>
-                  No articles found for this filter
-                </Text>
-                <Text style={[styles.emptyFeedSubtitle, isDark && styles.emptyFeedSubtitleDark]}>
-                  Try selecting &quot;All&quot; categories or switching dates to explore news.
-                </Text>
-                <Pressable
-                  style={styles.emptyResetBtn}
-                  onPress={() => setSelectedCategory('all')}
-                >
-                  <RotateCcw size={14} color="#FFFFFF" strokeWidth={2.2} />
-                  <Text style={styles.emptyResetBtnText}>Reset to All</Text>
-                </Pressable>
-              </View>
-            ) : (
-              displayedArticles.map((article) => (
-                <EditorialNewsCard
-                  key={article.id}
-                  item={article}
-                  isBookmarked={isBookmarked(article.id)}
-                  onToggleBookmark={toggleBookmark}
-                  onReadSummary={handleOpenDailyEvent}
-                  isDark={isDark}
+                <Activity
+                  size={16}
+                  color={tokens.success}
+                  strokeWidth={2}
                 />
-              ))
-            )}
+              </Pressable>
+
+              <Pressable
+                style={({ pressed }: any) => [
+                  styles.headerIconBtn,
+                  pressed && styles.cardPressed,
+                ]}
+                onPress={() => {
+                  setInitialNoteTitle('');
+                  setNotesLibraryInitialTab('notes');
+                  setNotesLibraryModalVisible(true);
+                }}
+                accessibilityLabel="Notes"
+                accessibilityRole="button"
+                hitSlop={6}
+              >
+                <FileText size={16} color={tokens.foreground} strokeWidth={1.9} />
+              </Pressable>
+
+              <Pressable
+                style={({ pressed }: any) => [
+                  styles.headerIconBtn,
+                  pressed && styles.cardPressed,
+                ]}
+                onPress={() => {
+                  setNotesLibraryInitialTab('library');
+                  setNotesLibraryModalVisible(true);
+                }}
+                accessibilityLabel="My Library"
+                accessibilityRole="button"
+                hitSlop={6}
+              >
+                <Bookmark size={16} color={tokens.foreground} strokeWidth={1.9} />
+              </Pressable>
+            </View>
           </View>
 
-          {/* RIGHT COLUMN: Editorial Sidebar Widgets */}
-          <View style={[styles.sidebarColumn, !isDesktop && styles.sidebarColumnMobile]}>
-            <EditorialSidebarWidgets
-              readCount={readCount}
-              totalCount={totalCount}
-              savedItems={savedItemsForSidebar}
-              onStartQuiz={() => setQuizModalVisible(true)}
-              onSelectSavedItem={handleSelectSavedItem}
-              isDark={isDark}
-            />
+          <Text style={styles.pageSubtitle}>
+            Decode Today. Prepare for Tomorrow.
+          </Text>
+        </View>
+
+        {/* Divider Border between Current Affairs and Summary of Daily Events */}
+        <View style={styles.headerDivider} />
+        {/* ======================================================== */}
+        {/* 2. THE DAILY BRIEF (RESPONSIVE SCREEN USAGE)             */}
+        {/* ======================================================== */}
+        <View style={styles.summarySection}>
+          {isDesktop ? (
+            /* Desktop Layout: Single unified horizontal row */
+            <View style={styles.summaryDatesRow}>
+              {/* Left Side: "The Daily Brief" Heading + Calendar Date Picker Button + Read Status */}
+              <View style={styles.summaryTitleBlock}>
+                <Text style={styles.summaryContainerHeading}>The Daily Brief</Text>
+
+                {/* Calendar Button with Today's / Active Date */}
+                <View ref={calendarBtnRef} collapsable={false}>
+                  <Pressable
+                    style={({ pressed, hovered }: any) => [
+                      styles.calendarDatePillBtn,
+                      calendarDropdownVisible && styles.calendarDatePillBtnOpen,
+                      hovered && styles.calendarDatePillBtnHover,
+                      pressed && styles.cardPressed,
+                    ]}
+                    onPress={handleToggleCalendar}
+                    accessibilityLabel={`Select date. Currently showing ${activeDaySummary.label}`}
+                    accessibilityRole="button"
+                  >
+                    <Calendar size={14} color={tokens.accent} strokeWidth={2.2} />
+                    <Text style={styles.calendarDatePillText}>
+                      {activeDaySummary.label}
+                    </Text>
+                    <ChevronDown
+                      size={13}
+                      color={calendarDropdownVisible ? tokens.accent : tokens.mutedForeground}
+                      strokeWidth={2.2}
+                    />
+                  </Pressable>
+                </View>
+
+                {/* Day Read Checkmark Toggle (Tick mark only) */}
+                <Pressable
+                  style={({ pressed }) => [
+                    styles.dayReadTickBtn,
+                    isCurrentDayRead && styles.dayReadTickBtnActive,
+                    pressed && styles.cardPressed,
+                  ]}
+                  onPress={handleToggleDayRead}
+                  accessibilityLabel={isCurrentDayRead ? "Mark day as unread" : "Mark day as read"}
+                  accessibilityRole="checkbox"
+                  accessibilityState={{ checked: isCurrentDayRead }}
+                  hitSlop={8}
+                >
+                  <Check
+                    size={13}
+                    color={isCurrentDayRead ? '#FFFFFF' : tokens.mutedForeground}
+                    strokeWidth={2.8}
+                  />
+                </Pressable>
+              </View>
+
+              {/* Right Corner: Standard App Primary Button for Daily Quiz */}
+              <Button
+                variant="primary"
+                size="sm"
+                title="Daily Quiz"
+                isDark={isDark}
+                leftIcon={<ListChecks size={14} color="#FFFFFF" strokeWidth={2.2} />}
+                onPress={() => {
+                  setRecallTargetEvent(null);
+                  setDailyRecallModalVisible(true);
+                }}
+              />
+            </View>
+          ) : (
+            /* Mobile Layout: 2-Tier Clean Hierarchy */
+            <View style={styles.mobileSummaryHeader}>
+              {/* Row 1: The Daily Brief Title on Left + Daily Quiz Button on Right */}
+              <View style={styles.mobileSummaryTopRow}>
+                <Text style={styles.summaryContainerHeading}>The Daily Brief</Text>
+
+                <Button
+                  variant="primary"
+                  size="sm"
+                  title="Daily Quiz"
+                  isDark={isDark}
+                  leftIcon={<ListChecks size={13} color="#FFFFFF" strokeWidth={2.2} />}
+                  onPress={() => {
+                    setRecallTargetEvent(null);
+                    setDailyRecallModalVisible(true);
+                  }}
+                />
+              </View>
+
+              {/* Row 2: Date Selector on Left + Read Status on Right */}
+              <View style={styles.mobileSummarySubRow}>
+                {/* Calendar Button with Today's / Active Date */}
+                <View ref={calendarBtnRef} collapsable={false}>
+                  <Pressable
+                    style={({ pressed }: any) => [
+                      styles.calendarDatePillBtn,
+                      calendarDropdownVisible && styles.calendarDatePillBtnOpen,
+                      pressed && styles.cardPressed,
+                    ]}
+                    onPress={handleToggleCalendar}
+                    accessibilityLabel={`Select date. Currently showing ${activeDaySummary.label}`}
+                    accessibilityRole="button"
+                  >
+                    <Calendar size={14} color={tokens.accent} strokeWidth={2.2} />
+                    <Text style={styles.calendarDatePillText}>
+                      {activeDaySummary.label}
+                    </Text>
+                    <ChevronDown
+                      size={13}
+                      color={calendarDropdownVisible ? tokens.accent : tokens.mutedForeground}
+                      strokeWidth={2.2}
+                    />
+                  </Pressable>
+                </View>
+
+                {/* Day Read Checkmark Toggle (Tick mark only) */}
+                <Pressable
+                  style={({ pressed }) => [
+                    styles.dayReadTickBtn,
+                    isCurrentDayRead && styles.dayReadTickBtnActive,
+                    pressed && styles.cardPressed,
+                  ]}
+                  onPress={handleToggleDayRead}
+                  accessibilityLabel={isCurrentDayRead ? "Mark day as unread" : "Mark day as read"}
+                  accessibilityRole="checkbox"
+                  accessibilityState={{ checked: isCurrentDayRead }}
+                  hitSlop={8}
+                >
+                  <Check
+                    size={13}
+                    color={isCurrentDayRead ? '#FFFFFF' : tokens.mutedForeground}
+                    strokeWidth={2.8}
+                  />
+                </Pressable>
+              </View>
+            </View>
+          )}
+
+          {/* D. Adaptive Attractive Interior Event Card with Slide/Swipe Support */}
+          {currentDailyEvent ? (
+            <View
+              // Mouse hover hold on desktop:
+              onMouseEnter={() => setIsAutoPlayPaused(true)}
+              onMouseLeave={() => setIsAutoPlayPaused(false)}
+              // Touch press and hold on mobile:
+              onTouchStart={() => setIsAutoPlayPaused(true)}
+              onTouchEnd={() => setIsAutoPlayPaused(false)}
+              onTouchCancel={() => setIsAutoPlayPaused(false)}
+              style={styles.eventCardOuterContainer}
+            >
+              <Animated.View
+                style={[
+                  styles.eventCardLightWrapper,
+                  {
+                    transform: [{ translateX }],
+                    opacity: cardOpacity,
+                  },
+                ]}
+                {...panResponder.panHandlers}
+              >
+                <DailyEventCard
+                  key={currentDailyEvent.id}
+                  event={currentDailyEvent}
+                  isBookmarked={isBookmarked(currentDailyEvent.id)}
+                  onToggleBookmark={toggleBookmark}
+                  onOpenDetail={handleOpenDailyEvent}
+                  onAddNote={handleAddNoteForEvent}
+                  isDark={isDark}
+                  onPrevEvent={handlePrevEvent}
+                  onNextEvent={handleNextEvent}
+                  onSelectEvent={handleSelectEvent}
+                  onOpenDailyRecall={() => {
+                    setRecallTargetEvent(null);
+                    setDailyRecallModalVisible(true);
+                  }}
+                  onOpenEventRecall={(item) => {
+                    setRecallTargetEvent(item);
+                    setDailyRecallModalVisible(true);
+                  }}
+                  hasPrevEvent={activeEventIndex > 0}
+                  hasNextEvent={activeEventIndex < activeDailyEvents.length - 1}
+                  eventIndex={activeEventIndex}
+                  totalEvents={activeDailyEvents.length}
+                />
+              </Animated.View>
+            </View>
+          ) : (
+            <View style={styles.emptyContainer}>
+              <Text style={styles.emptyText}>No events available for this date.</Text>
+            </View>
+          )}
+        </View>
+
+        {/* ======================================================== */}
+        {/* 4. EXPLORE BY FORMAT (SECONDARY PUBLICATION HUBS)        */}
+        {/* ======================================================== */}
+        <View style={styles.secondarySection}>
+          <View style={styles.sectionHeaderRow}>
+            <View style={styles.sectionTitleBlock}>
+              <Text style={styles.sectionHeading}>Explore Current Affairs</Text>
+              <Text style={styles.sectionMetaHint}>Browse by subject & comprehensive modules</Text>
+            </View>
+
+            {/* News Agency Dropdown Menu Button at Right Side */}
+            <View ref={agencyBtnRef} collapsable={false}>
+              <Pressable
+                style={({ pressed, hovered }: any) => [
+                  styles.agencyDropdownBtn,
+                  agencyDropdownVisible && styles.agencyDropdownBtnOpen,
+                  hovered && styles.agencyDropdownBtnHover,
+                  pressed && styles.cardPressed,
+                ]}
+                onPress={handleToggleAgencyDropdown}
+                accessibilityRole="button"
+                accessibilityLabel={`Filter by agency. Currently selected: ${selectedAgency.name}`}
+              >
+                <Filter size={13} color={tokens.accent} strokeWidth={2.2} />
+                <Text style={styles.agencyDropdownBtnText} numberOfLines={1}>
+                  {selectedAgency.name}
+                </Text>
+                <ChevronDown
+                  size={13}
+                  color={agencyDropdownVisible ? tokens.accent : tokens.mutedForeground}
+                  strokeWidth={2.2}
+                />
+              </Pressable>
+            </View>
+          </View>
+
+          <View style={styles.formatGrid}>
+            {FORMAT_CATEGORIES.map((cat) => (
+              <Pressable
+                key={cat.id}
+                style={({ pressed }) => [
+                  styles.formatCard,
+                  styles.formatCardDivider,
+                  pressed && styles.formatCardPressed,
+                ]}
+                onPress={() => handleOpenFormatModal(cat)}
+              >
+                {renderFormatIcon(cat.iconName)}
+                <View style={styles.formatTextContent}>
+                  <Text style={styles.formatCardTitle}>{cat.title}</Text>
+                </View>
+                <ChevronRight size={16} color={tokens.mutedForeground} strokeWidth={2} />
+              </Pressable>
+            ))}
+          </View>
+        </View>
+
+        {/* ======================================================== */}
+        {/* 5. PRACTISE & REVISE                                     */}
+        {/* ======================================================== */}
+        <View style={styles.practiseSection}>
+          <Text style={styles.sectionHeading}>Practise & Revise</Text>
+
+          <View style={styles.reviseGrid}>
+            <Pressable
+              style={({ pressed }) => [styles.reviseCard, pressed && styles.cardPressed]}
+              onPress={() => setQuizModalVisible(true)}
+            >
+              <View style={styles.reviseIconBox}>
+                <ListChecks size={20} color={tokens.accent} strokeWidth={2} />
+              </View>
+              <Text style={styles.reviseCardTitle}>Daily Quiz</Text>
+              <Text style={styles.reviseCardSubtitle}>Prelims MCQs with explanations.</Text>
+            </Pressable>
+
+            <Pressable
+              style={({ pressed }) => [styles.reviseCard, pressed && styles.cardPressed]}
+              onPress={() => setMonthlyModalVisible(true)}
+            >
+              <View style={styles.reviseIconBox}>
+                <CalendarDays size={20} color={tokens.accent} strokeWidth={2} />
+              </View>
+              <Text style={styles.reviseCardTitle}>Monthly Revision</Text>
+              <Text style={styles.reviseCardSubtitle}>Monthly compilation, topic-wise recap and tests.</Text>
+            </Pressable>
           </View>
         </View>
       </View>
@@ -580,6 +956,41 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
       {/* ======================================================== */}
       {/* MODALS                                                   */}
       {/* ======================================================== */}
+      <DailyRecallModal
+        visible={dailyRecallModalVisible}
+        onClose={() => {
+          setDailyRecallModalVisible(false);
+          setRecallTargetEvent(null);
+        }}
+        dateKey={selectedDateKey}
+        events={activeDailyEvents}
+        singleEvent={recallTargetEvent}
+        isDark={isDark}
+      />
+
+      <CAQuizModal
+        visible={quizModalVisible}
+        onClose={() => setQuizModalVisible(false)}
+        isDark={isDark}
+      />
+
+      <MonthlyRevisionModal
+        visible={monthlyModalVisible}
+        onClose={() => setMonthlyModalVisible(false)}
+        isDark={isDark}
+      />
+
+      <FormatFeedModal
+        visible={formatModalVisible}
+        onClose={() => setFormatModalVisible(false)}
+        formatCategory={selectedFormatCategory}
+        onSelectArticle={handleSelectArticleFromFormat}
+        isDark={isDark}
+        savedItemIds={savedItemIds}
+        onToggleBookmark={toggleBookmark}
+        selectedAgencyId={selectedAgencyId}
+      />
+
       <ArticleDetailModal
         visible={articleModalVisible}
         onClose={() => setArticleModalVisible(false)}
@@ -589,24 +1000,14 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
         onToggleSave={toggleBookmark}
       />
 
-      <CAQuizModal
-        visible={quizModalVisible}
-        onClose={() => setQuizModalVisible(false)}
+      <PipelineStatusModal
+        visible={pipelineStatusModalVisible}
+        onClose={() => setPipelineStatusModalVisible(false)}
         isDark={isDark}
-      />
-
-      <DailyRecallModal
-        visible={dailyRecallModalVisible}
-        onClose={() => setDailyRecallModalVisible(false)}
-        dateKey={selectedDateKey}
-        events={activeDailyEvents}
-        isDark={isDark}
-      />
-
-      <MonthlyRevisionModal
-        visible={monthlyModalVisible}
-        onClose={() => setMonthlyModalVisible(false)}
-        isDark={isDark}
+        categoryStatuses={categoryStatuses}
+        ingestionLogs={ingestionLogs}
+        onTriggerRefresh={() => void loadPipelineData(selectedAgencyId)}
+        isRefreshing={isPipelineSyncing}
       />
 
       <NotesLibraryModal
@@ -621,22 +1022,104 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
           for (const day of DAILY_EVENTS_DATA) {
             const ev = day.events.find((e) => e.id === id);
             if (ev) {
-              handleOpenDailyEvent(ev);
+              setActiveDetailItem({ type: 'event', data: ev });
+              setArticleModalVisible(true);
+              return;
+            }
+          }
+          const me = RECENT_MAJOR_EVENTS.find((m) => m.id === id);
+          if (me) {
+            setActiveDetailItem({ type: 'major', data: me });
+            setArticleModalVisible(true);
+            return;
+          }
+          for (const cat of FORMAT_CATEGORIES) {
+            const art = cat.articles.find((a) => a.id === id);
+            if (art) {
+              setActiveDetailItem({ type: 'article', data: art });
+              setArticleModalVisible(true);
               return;
             }
           }
         }}
       />
 
-      <PipelineStatusModal
-        visible={pipelineStatusModalVisible}
-        onClose={() => setPipelineStatusModalVisible(false)}
+      <CalendarDropdown
+        visible={calendarDropdownVisible}
+        onClose={() => setCalendarDropdownVisible(false)}
+        selectedDateKey={selectedDateKey}
+        onSelectDate={(newDate) => {
+          setSelectedDateKey(newDate);
+          setActiveEventIndex(0);
+        }}
+        topOffset={calendarDropdownPos.top}
+        leftOffset={calendarDropdownPos.left}
+        rightOffset={calendarDropdownPos.right}
         isDark={isDark}
-        categoryStatuses={categoryStatuses}
-        ingestionLogs={ingestionLogs}
-        onTriggerRefresh={() => void loadPipelineData()}
-        isRefreshing={isPipelineSyncing}
+        completedDates={readDates}
       />
+
+      {/* Agency Filter Dropdown Menu */}
+      {agencyDropdownVisible && (
+        <Modal
+          visible={agencyDropdownVisible}
+          transparent
+          animationType="fade"
+          onRequestClose={() => setAgencyDropdownVisible(false)}
+        >
+          <View style={styles.dropdownOverlay}>
+            <Pressable
+              style={styles.dropdownBackdrop}
+              onPress={() => setAgencyDropdownVisible(false)}
+            />
+            <View
+              style={[
+                styles.agencyDropdownMenu,
+                {
+                  top: agencyDropdownPos.top,
+                  left: agencyDropdownPos.left,
+                },
+              ]}
+            >
+              <Text style={styles.agencyDropdownHeader}>Filter by News Agency</Text>
+              {NEWS_AGENCIES.map((agency) => {
+                const isSelected = selectedAgencyId === agency.id;
+                return (
+                  <Pressable
+                    key={agency.id}
+                    style={({ pressed }) => [
+                      styles.agencyDropdownItem,
+                      isSelected && styles.agencyDropdownItemActive,
+                      pressed && styles.cardPressed,
+                    ]}
+                    onPress={() => {
+                      setSelectedAgencyId(agency.id);
+                      setActiveEventIndex(0);
+                      setAgencyDropdownVisible(false);
+                    }}
+                  >
+                    <Text
+                      style={[
+                        styles.agencyDropdownItemText,
+                        isSelected && styles.agencyDropdownItemTextActive,
+                      ]}
+                    >
+                      {agency.name}
+                    </Text>
+                    {isSelected && (
+                      <Check
+                        size={14}
+                        color={isDark ? '#6FBAFF' : '#006FFD'}
+                        strokeWidth={2.5}
+                      />
+                    )}
+                  </Pressable>
+                );
+              })}
+            </View>
+          </View>
+        </Modal>
+      )}
     </ScrollView>
   );
 }
@@ -788,104 +1271,117 @@ const styles = StyleSheet.create({
     borderColor: '#243247',
   },
 
-  /* Title Section */
-  titleSection: {
-    marginBottom: 16,
-  },
-  pageMainTitle: {
-    fontFamily: FONT_FAMILY.serif,
-    fontSize: 34,
-    fontWeight: '800',
-    color: '#1C2433',
-    lineHeight: 42,
-    letterSpacing: -0.5,
-  },
-  pageMainTitleDark: {
-    color: '#F0F4F8',
-  },
-  pageSubtitleText: {
-    fontSize: 14,
-    color: '#5F6B80',
-    marginTop: 4,
-    fontWeight: '400',
-  },
-  pageSubtitleTextDark: {
-    color: '#9DA8B9',
-  },
+    /* 1. Header */
+    header: {
+      marginBottom: 20,
+    },
+    headerTopRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 12,
+      marginBottom: 3,
+    },
+    pageHeading: {
+      fontFamily: FONT_FAMILY.serif,
+      fontSize: isDesktop ? 32 : 26,
+      fontWeight: '700',
+      color: tokens.foreground,
+      letterSpacing: -0.4,
+    },
+    pageSubtitle: {
+      fontSize: 14,
+      lineHeight: 20,
+      color: tokens.mutedForeground,
+    },
+    headerActions: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    headerIconBtn: {
+      width: 38,
+      height: 38,
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: tokens.surface,
+      borderWidth: 1,
+      borderColor: tokens.border,
+      ...Platform.select({
+        web: {
+          cursor: 'pointer',
+        },
+      }),
+    },
+    headerDivider: {
+      height: 1,
+      backgroundColor: tokens.border,
+      marginBottom: 20,
+      marginTop: 2,
+    },
 
-  /* Date Strip */
-  dateStripRow: {
-    marginBottom: 16,
-  },
-  dateStripScroll: {
-    flexDirection: 'row',
-    gap: 10,
-    paddingVertical: 2,
-  },
-  dateStripCard: {
-    width: 52,
-    height: 60,
-    borderRadius: 11,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#EAE5DC',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 2,
-    ...Platform.select({
-      web: {
-        cursor: 'pointer',
-        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
-      },
-      default: {
-        elevation: 1,
-      },
-    }),
-  },
-  dateStripCardDark: {
-    backgroundColor: '#141C28',
-    borderColor: '#253244',
-  },
-  dateStripCardActiveDark: {
-    backgroundColor: '#F4F6FB',
-    borderColor: '#F4F6FB',
-  },
-  dateStripCardActive: {
-    backgroundColor: '#1C2433',
-    borderColor: '#1C2433',
-  },
-  dateStripDayName: {
-    fontSize: 11.5,
-    fontWeight: '600',
-    color: '#5F6B80',
-  },
-  dateStripDayNameDark: {
-    color: '#6E7A8E',
-  },
-  dateStripDayNameActiveDark: {
-    color: '#0D1520',
-    fontWeight: '700',
-  },
-  dateStripDayNameActive: {
-    color: '#FFFFFF',
-    fontWeight: '700',
-  },
-  dateStripDayNum: {
-    fontSize: 16,
-    fontWeight: '800',
-    color: '#1C2433',
-  },
-  dateStripDayNumDark: {
-    color: '#F0F4F8',
-  },
-  dateStripDayNumActiveDark: {
-    color: '#0D1520',
-    fontWeight: '800',
-  },
-  dateStripDayNumActive: {
-    color: '#FFFFFF',
-    fontWeight: '800',
-  },
+    /* 2. Daily Events Summary Section (Unwrapped & Clean for full mobile width) */
+    summarySection: {
+      marginBottom: 32,
+    },
+    summarySectionHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: 12,
+      marginBottom: 14,
+    },
+    summaryTitleBlock: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+      flexWrap: 'wrap',
+    },
+    summaryContainerHeading: {
+      fontFamily: FONT_FAMILY.serif,
+      fontSize: 20,
+      fontWeight: '700',
+      color: tokens.foreground,
+      letterSpacing: -0.2,
+    },
+    summaryDateBadge: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
+      paddingHorizontal: 9,
+      paddingVertical: 4.5,
+      borderRadius: 7,
+      backgroundColor: tokens.infoSoft,
+      borderWidth: 1,
+      borderColor: tokens.border,
+    },
+    summaryDateBadgeRead: {
+      backgroundColor: tokens.successSoft,
+      borderColor: tokens.success,
+    },
+    summaryDateBadgeText: {
+      fontSize: 11.5,
+      fontWeight: '700',
+      color: tokens.infoForeground,
+    },
+    summaryDateBadgeTextRead: {
+      color: tokens.success,
+    },
+    readCheckCircle: {
+      width: 16,
+      height: 16,
+      borderRadius: 8,
+      borderWidth: 1.3,
+      borderColor: tokens.borderStrong,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'transparent',
+    },
+    readCheckCircleActive: {
+      backgroundColor: tokens.success,
+      borderColor: tokens.success,
+    },
 
   /* Category Filter Chips */
   filterChipsRow: {
@@ -930,77 +1426,315 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 
-  /* Two Column Layout */
-  mainContentRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 24,
-    width: '100%',
-  },
-  mainContentColumn: {
-    flexDirection: 'column',
-    gap: 20,
-  },
-  feedColumn: {
-    flex: 1,
-    minWidth: 0,
-  },
-  sidebarColumn: {
-    width: 320,
-  },
-  sidebarColumnMobile: {
-    width: '100%',
-  },
+    /* Mobile 2-Tier Header Layout */
+    mobileSummaryHeader: {
+      marginBottom: 14,
+      gap: 10,
+    },
+    mobileSummaryTopRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 10,
+    },
+    mobileSummarySubRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 10,
+    },
 
-  /* Empty State */
-  emptyFeedCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: '#EAE5DC',
-    padding: 36,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  emptyFeedCardDark: {
-    backgroundColor: '#141C28',
-    borderColor: '#253244',
-  },
-  emptyFeedTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#1C2433',
-    marginBottom: 6,
-  },
-  emptyFeedTitleDark: {
-    color: '#F0F4F8',
-  },
-  emptyFeedSubtitle: {
-    fontSize: 13.5,
-    color: '#5F6B80',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  emptyFeedSubtitleDark: {
-    color: '#9DA8B9',
-  },
-  emptyResetBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    backgroundColor: '#1C2433',
-    paddingHorizontal: 16,
-    paddingVertical: 9,
-    borderRadius: 11,
-  },
-  emptyResetBtnText: {
-    color: '#FFFFFF',
-    fontSize: 13.5,
-    fontWeight: '600',
-  },
+    /* Calendar Button with Today's Date */
+    calendarDatePillBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 7,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      borderRadius: 10,
+      backgroundColor: tokens.surface,
+      borderWidth: 1,
+      borderColor: tokens.border,
+      ...Platform.select({
+        web: {
+          cursor: 'pointer',
+        },
+      }),
+    },
+    calendarDatePillBtnOpen: {
+      borderColor: tokens.accent,
+      backgroundColor: tokens.accentSoft,
+    },
+    calendarDatePillBtnHover: {
+      backgroundColor: tokens.surfaceRaised,
+      borderColor: tokens.borderStrong,
+    },
+    calendarDatePillText: {
+      fontSize: 13,
+      fontWeight: '600',
+      color: tokens.foreground,
+      letterSpacing: -0.1,
+    },
 
-  pressed: {
-    opacity: 0.85,
-    transform: [{ scale: 0.985 }],
-  },
-});
+    /* Day Read Status Tick Mark Button */
+    dayReadTickBtn: {
+      width: 36,
+      height: 36,
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: tokens.surface,
+      borderWidth: 1,
+      borderColor: tokens.border,
+      ...Platform.select({
+        web: {
+          cursor: 'pointer',
+        },
+      }),
+    },
+    dayReadTickBtnActive: {
+      backgroundColor: tokens.success,
+      borderColor: tokens.success,
+    },
+
+    /* Adaptive Interior Event Card Wrapper */
+    eventCardOuterContainer: {
+      width: '100%',
+      position: 'relative',
+      minHeight: isDesktop ? 390 : 540,
+    },
+    eventCardLightWrapper: {
+      width: '100%',
+      borderRadius: 14,
+      overflow: 'hidden',
+      position: 'relative',
+      minHeight: isDesktop ? 390 : 540,
+      backgroundColor: tokens.surface,
+      borderWidth: 1,
+      borderColor: tokens.border,
+      ...Platform.select({
+        web: {
+          boxShadow: isDark
+            ? '0 2px 10px rgba(0, 0, 0, 0.28)'
+            : '0 2px 8px rgba(0, 0, 0, 0.04)',
+        },
+        default: {
+          elevation: isDark ? 1 : 2,
+        },
+      }),
+    },
+    emptyContainer: {
+      padding: 30,
+      alignItems: 'center',
+    },
+    emptyText: {
+      fontSize: 13,
+      color: tokens.mutedForeground,
+    },
+
+    /* 4 & 5. Secondary Sections */
+    secondarySection: {
+      marginBottom: 32,
+      paddingTop: 16,
+      borderTopWidth: 1,
+      borderTopColor: tokens.border,
+    },
+    practiseSection: {
+      marginBottom: 36,
+      paddingTop: 4,
+    },
+    sectionHeaderRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 16,
+      gap: 12,
+      flexWrap: 'wrap',
+    },
+    sectionTitleBlock: {
+      flexShrink: 1,
+    },
+    sectionHeading: {
+      fontFamily: FONT_FAMILY.serif,
+      fontSize: 20,
+      fontWeight: '700',
+      color: tokens.foreground,
+      letterSpacing: -0.2,
+      marginBottom: 2,
+    },
+    sectionMetaHint: {
+      fontSize: 13,
+      color: tokens.mutedForeground,
+    },
+    agencyDropdownBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 7,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      borderRadius: 10,
+      backgroundColor: tokens.surface,
+      borderWidth: 1,
+      borderColor: tokens.border,
+      ...Platform.select({
+        web: {
+          cursor: 'pointer',
+        },
+      }),
+    },
+    agencyDropdownBtnOpen: {
+      borderColor: tokens.accent,
+      backgroundColor: tokens.accentSoft,
+    },
+    agencyDropdownBtnHover: {
+      backgroundColor: tokens.surfaceRaised,
+      borderColor: tokens.borderStrong,
+    },
+    agencyDropdownBtnText: {
+      fontSize: 13,
+      fontWeight: '600',
+      color: tokens.foreground,
+      letterSpacing: -0.1,
+    },
+    dropdownOverlay: {
+      flex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.45)',
+    },
+    dropdownBackdrop: {
+      ...StyleSheet.absoluteFill,
+    },
+    agencyDropdownMenu: {
+      position: 'absolute',
+      width: 220,
+      borderRadius: 14,
+      paddingVertical: 8,
+      paddingHorizontal: 6,
+      backgroundColor: tokens.surface,
+      borderWidth: 1,
+      borderColor: tokens.border,
+      shadowColor: '#000000',
+      shadowOffset: { width: 0, height: 8 },
+      shadowOpacity: isDark ? 0.35 : 0.12,
+      shadowRadius: 16,
+      elevation: 10,
+    },
+    agencyDropdownHeader: {
+      fontSize: 11,
+      fontWeight: '700',
+      color: tokens.mutedForeground,
+      textTransform: 'uppercase',
+      letterSpacing: 0.5,
+      paddingHorizontal: 10,
+      paddingVertical: 6,
+    },
+    agencyDropdownItem: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 10,
+      paddingVertical: 9,
+      borderRadius: 8,
+    },
+    agencyDropdownItemActive: {
+      backgroundColor: tokens.accentSoft,
+    },
+    agencyDropdownItemText: {
+      fontSize: 13.5,
+      fontWeight: '600',
+      color: tokens.foreground,
+    },
+    agencyDropdownItemTextActive: {
+      color: tokens.accent,
+      fontWeight: '700',
+    },
+    formatGrid: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+    },
+    formatCard: {
+      width: isDesktop ? '48.2%' : '100%',
+      backgroundColor: 'transparent',
+      paddingVertical: 16,
+      paddingHorizontal: 4,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 14,
+      ...Platform.select({
+        web: {
+          cursor: 'pointer',
+        },
+      }),
+    },
+    formatCardDivider: {
+      borderBottomWidth: 1,
+      borderBottomColor: tokens.border,
+    },
+    formatCardPressed: {
+      opacity: 0.7,
+    },
+    cardPressed: {
+      opacity: 0.88,
+    },
+    formatTextContent: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+    formatCardTitle: {
+      fontSize: 15.5,
+      fontWeight: '600',
+      color: tokens.foreground,
+      letterSpacing: -0.2,
+    },
+    categoryLiveStatusDot: {
+      width: 6,
+      height: 6,
+      borderRadius: 3,
+    },
+    reviseGrid: {
+      flexDirection: isDesktop ? 'row' : 'column',
+      gap: 14,
+    },
+    reviseCard: {
+      flex: 1,
+      backgroundColor: tokens.surface,
+      borderRadius: 14,
+      padding: 18,
+      borderWidth: 1,
+      borderColor: tokens.border,
+      ...Platform.select({
+        web: {
+          cursor: 'pointer',
+          boxShadow: isDark
+            ? '0 1px 3px rgba(0, 0, 0, 0.2)'
+            : '0 1px 3px rgba(0, 0, 0, 0.03)',
+        },
+        default: {
+          elevation: 1,
+        },
+      }),
+    },
+    reviseIconBox: {
+      width: 44,
+      height: 44,
+      borderRadius: 11,
+      backgroundColor: tokens.accentSoft,
+      borderWidth: 1,
+      borderColor: isDark ? 'rgba(245, 130, 53, 0.25)' : '#FCEBDD',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 12,
+    },
+    reviseCardTitle: {
+      fontFamily: FONT_FAMILY.serif,
+      fontSize: 16.5,
+      fontWeight: '700',
+      color: tokens.foreground,
+      marginBottom: 4,
+    },
+    reviseCardSubtitle: {
+      fontSize: 13,
+      lineHeight: 19,
+      color: tokens.mutedForeground,
+    },
+  });

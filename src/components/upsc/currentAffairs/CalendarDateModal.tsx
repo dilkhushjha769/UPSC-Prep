@@ -14,7 +14,6 @@ import {
   Calendar as CalendarIcon,
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
-import { useAppTheme } from '@/context/ThemeContext';
 import { DAILY_EVENTS_DATA } from '@/data/currentAffairsData';
 
 interface CalendarDateModalProps {
@@ -47,10 +46,8 @@ export function CalendarDateModal({
   onClose,
   selectedDateKey,
   onSelectDate,
-  isDark: propIsDark,
+  isDark = true,
 }: CalendarDateModalProps) {
-  const { isDark: contextIsDark } = useAppTheme();
-  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const { width } = useWindowDimensions();
   const isDesktop = width >= 768;
 
@@ -395,10 +392,10 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     modalCard: {
       width: '100%',
       maxWidth: 420,
-      backgroundColor: isDark ? '#0B1018' : '#FFFFFF',
+      backgroundColor: isDark ? '#141414' : '#FFFFFF',
       borderRadius: 12,
       borderWidth: 1,
-      borderColor: isDark ? '#141C28' : '#EAE5DC',
+      borderColor: isDark ? '#2A2A2A' : '#E5E5E5',
       padding: 20,
       shadowColor: '#000000',
       shadowOffset: { width: 0, height: 10 },
@@ -425,7 +422,7 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       width: 34,
       height: 34,
       borderRadius: 8,
-      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
+      backgroundColor: isDark ? '#1E1E1E' : '#F5F5F5',
       justifyContent: 'center',
       alignItems: 'center',
       borderWidth: 1,
@@ -458,7 +455,7 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingVertical: 5,
       paddingHorizontal: 10,
       borderRadius: 6,
-      backgroundColor: isDark ? '#141C28' : '#F0EDE6',
+      backgroundColor: isDark ? '#1C1C1C' : '#F0F0F0',
       borderWidth: 1,
       borderColor: theme.cardBorder,
     },
@@ -472,7 +469,7 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       color: theme.textSecondary,
     },
     shortcutTextActive: {
-      color: isDark ? '#0D1520' : '#FFFFFF',
+      color: isDark ? '#000000' : '#FFFFFF',
       fontWeight: '600',
     },
     monthNavigator: {
@@ -482,7 +479,7 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingVertical: 10,
       paddingHorizontal: 6,
       marginBottom: 8,
-      backgroundColor: isDark ? '#0B1018' : '#FAF9F6',
+      backgroundColor: isDark ? '#181818' : '#FAFAFA',
       borderRadius: 8,
       borderWidth: 1,
       borderColor: theme.cardBorder,
@@ -490,7 +487,7 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     navArrowBtn: {
       padding: 6,
       borderRadius: 6,
-      backgroundColor: isDark ? '#141C28' : '#EAE5DC',
+      backgroundColor: isDark ? '#222222' : '#EEEEEE',
     },
     navArrowDisabled: {
       opacity: 0.25,
@@ -551,7 +548,7 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       color: theme.textPrimary,
     },
     dayCellTextSelected: {
-      color: isDark ? '#0D1520' : '#FFFFFF',
+      color: isDark ? '#000000' : '#FFFFFF',
       fontWeight: '700',
     },
     dayCellTextFuture: {
@@ -561,12 +558,12 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       width: 4,
       height: 4,
       borderRadius: 2,
-      backgroundColor: '#26734D', // subtle green dot for curated
+      backgroundColor: '#10B981', // subtle green dot for curated
       position: 'absolute',
       bottom: 4,
     },
     curatedDotSelected: {
-      backgroundColor: isDark ? '#0D1520' : '#FFFFFF',
+      backgroundColor: isDark ? '#000000' : '#FFFFFF',
     },
     modalFooter: {
       marginTop: 14,
@@ -593,7 +590,7 @@ function getStyles(theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       width: 6,
       height: 6,
       borderRadius: 3,
-      backgroundColor: '#26734D',
+      backgroundColor: '#10B981',
     },
     legendDotSelected: {
       width: 6,

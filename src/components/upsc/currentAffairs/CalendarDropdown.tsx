@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { Check } from 'lucide-react-native';
+import { getTokens } from '@/constants/designTokens';
 import { PALETTE, Typography } from '@/constants/colors';
 import { DAILY_EVENTS_DATA, getTodayDateKey } from '@/data/currentAffairsData';
 
@@ -147,52 +148,31 @@ export function CalendarDropdown({
     return new Set(completedDates);
   }, [completedDates]);
 
-  // Figma Color Theme definitions (Matching src/components/ui/Calendar.tsx)
-  const theme = useMemo(() => {
-    if (isDark) {
-      return {
-        cardBg: PALETTE.neutral.dark.darkest, // #1F2024
-        cardBorder: PALETTE.neutral.dark.textMuted, // #494A50
-        divider: PALETTE.neutral.dark.surface, // #2F3036
-        titleText: PALETTE.neutral.light.lightest, // #FFFFFF
-        arrowColor: PALETTE.neutral.light.lightest, // #FFFFFF
-        arrowHoverBg: PALETTE.neutral.dark.surface, // #2F3036
-        weekdayText: PALETTE.neutral.dark.textSecondary, // #71727A
-        dayText: PALETTE.neutral.light.lightest, // #FFFFFF
-        dayTextDisabled: PALETTE.neutral.dark.textMuted, // #494A50
-        todayBg: PALETTE.neutral.dark.surface, // #2F3036
-        todayText: PALETTE.neutral.light.lightest, // #FFFFFF
-        selectedBg: PALETTE.highlight.primary, // #006FFD
-        selectedText: PALETTE.neutral.light.lightest, // #FFFFFF
-        curatedDot: PALETTE.highlight.tint80, // #2897FF
-        completedDot: PALETTE.support.success.medium, // #3AC0A0
-        pillBg: PALETTE.neutral.dark.surface, // #2F3036
-        pillBorder: PALETTE.neutral.dark.textMuted, // #494A50
-        pillText: PALETTE.neutral.light.muted, // #C5C6CC
-      };
-    }
+  const tokens = useMemo(() => getTokens(Boolean(isDark)), [isDark]);
 
+  // Design tokens theme matching the whole app
+  const theme = useMemo(() => {
     return {
-      cardBg: PALETTE.neutral.light.lightest, // #FFFFFF
-      cardBorder: PALETTE.neutral.light.borderSubtle, // #E8E9F1
-      divider: PALETTE.neutral.light.borderSubtle, // #E8E9F1
-      titleText: PALETTE.neutral.dark.darkest, // #1F2024
-      arrowColor: PALETTE.neutral.dark.textSecondary, // #71727A
-      arrowHoverBg: PALETTE.neutral.light.surface, // #F8F9FE
-      weekdayText: PALETTE.neutral.dark.textSecondary, // #71727A
-      dayText: PALETTE.neutral.dark.darkest, // #1F2024
-      dayTextDisabled: PALETTE.neutral.light.muted, // #C5C6CC
-      todayBg: PALETTE.highlight.tint20, // #EAF2FF
-      todayText: PALETTE.highlight.primary, // #006FFD
-      selectedBg: PALETTE.highlight.primary, // #006FFD
-      selectedText: PALETTE.neutral.light.lightest, // #FFFFFF
-      curatedDot: PALETTE.highlight.primary, // #006FFD
-      completedDot: PALETTE.support.success.medium, // #3AC0A0
-      pillBg: PALETTE.neutral.light.surface, // #F8F9FE
-      pillBorder: PALETTE.neutral.light.borderSubtle, // #E8E9F1
-      pillText: PALETTE.neutral.dark.textSecondary, // #71727A
+      cardBg: tokens.surface,
+      cardBorder: tokens.border,
+      divider: tokens.border,
+      titleText: tokens.foreground,
+      arrowColor: tokens.foreground,
+      arrowHoverBg: tokens.surfaceRaised,
+      weekdayText: tokens.mutedForeground,
+      dayText: tokens.foreground,
+      dayTextDisabled: tokens.subtleForeground,
+      todayBg: tokens.accentSoft,
+      todayText: tokens.accent,
+      selectedBg: tokens.accent,
+      selectedText: '#FFFFFF',
+      curatedDot: tokens.accent,
+      completedDot: tokens.success,
+      pillBg: tokens.surfaceRaised,
+      pillBorder: tokens.border,
+      pillText: tokens.foreground,
     };
-  }, [isDark]);
+  }, [tokens]);
 
   // Calendar cells (Monday = 0 ... Sunday = 6)
   const calendarCells = useMemo(() => {

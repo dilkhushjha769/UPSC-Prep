@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/Button';
 import { BW_THEME } from '@/constants/bwTheme';
+import { FONT_FAMILY, SemanticTokens, getTokens } from '@/constants/designTokens';
+import { useAppTheme } from '@/context/ThemeContext';
 import { PALETTE } from '@/constants/colors';
 import {
   CACategoryStatusItem,
@@ -43,6 +45,7 @@ import {
   Easing,
   Modal,
   PanResponder,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -77,12 +80,16 @@ interface CurrentAffairsViewProps {
   onToggleTheme?: () => void;
 }
 
-export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffairsViewProps) {
+export function CurrentAffairsView({ isDark: propIsDark, onToggleTheme: propToggleTheme }: CurrentAffairsViewProps) {
+  const { isDark: contextIsDark, toggleTheme: contextToggleTheme } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
+  const onToggleTheme = propToggleTheme || contextToggleTheme;
+  const tokens = useMemo(() => getTokens(isDark), [isDark]);
   const { width } = useWindowDimensions();
   const isDesktop = width >= 768;
 
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
-  const styles = useMemo(() => getStyles(theme, isDark, isDesktop), [theme, isDark, isDesktop]);
+  const styles = useMemo(() => getStyles(tokens, isDark, isDesktop), [tokens, isDark, isDesktop]);
 
   // Bookmarking state
   const [savedItemIds, setSavedItemIds] = useState<string[]>(['de_25_1', 'me_1']);
@@ -563,8 +570,9 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
   );
 
   const renderFormatIcon = (iconName: string) => {
-    const iconColor = isDark ? '#6FBAFF' : '#006FFD';
-    const iconProps = { size: 22, color: iconColor, strokeWidth: 2 };
+    // Elegant, crisp category icons aligned with the overall theme (image 2)
+    const iconColor = isDark ? '#38BDF8' : '#2563EB';
+    const iconProps = { size: 21, color: iconColor, strokeWidth: 2 };
     switch (iconName) {
       case 'Newspaper':
         return <Newspaper {...iconProps} />;
@@ -616,7 +624,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
               >
                 <Activity
                   size={16}
-                  color={isDark ? '#4ADE80' : '#059669'}
+                  color={tokens.success}
                   strokeWidth={2}
                 />
               </Pressable>
@@ -635,7 +643,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                 accessibilityRole="button"
                 hitSlop={6}
               >
-                <FileText size={16} color={theme.textPrimary} strokeWidth={1.9} />
+                <FileText size={16} color={tokens.foreground} strokeWidth={1.9} />
               </Pressable>
 
               <Pressable
@@ -651,7 +659,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                 accessibilityRole="button"
                 hitSlop={6}
               >
-                <Bookmark size={16} color={theme.textPrimary} strokeWidth={1.9} />
+                <Bookmark size={16} color={tokens.foreground} strokeWidth={1.9} />
               </Pressable>
             </View>
           </View>
@@ -687,13 +695,13 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                     accessibilityLabel={`Select date. Currently showing ${activeDaySummary.label}`}
                     accessibilityRole="button"
                   >
-                    <Calendar size={14} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2.2} />
+                    <Calendar size={14} color={tokens.accent} strokeWidth={2.2} />
                     <Text style={styles.calendarDatePillText}>
                       {activeDaySummary.label}
                     </Text>
                     <ChevronDown
                       size={13}
-                      color={calendarDropdownVisible ? '#006FFD' : (isDark ? '#8F9098' : '#71727A')}
+                      color={calendarDropdownVisible ? tokens.accent : tokens.mutedForeground}
                       strokeWidth={2.2}
                     />
                   </Pressable>
@@ -714,7 +722,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                 >
                   <Check
                     size={13}
-                    color={isCurrentDayRead ? '#FFFFFF' : (isDark ? '#8F9098' : '#71727A')}
+                    color={isCurrentDayRead ? '#FFFFFF' : tokens.mutedForeground}
                     strokeWidth={2.8}
                   />
                 </Pressable>
@@ -767,13 +775,13 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                     accessibilityLabel={`Select date. Currently showing ${activeDaySummary.label}`}
                     accessibilityRole="button"
                   >
-                    <Calendar size={14} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2.2} />
+                    <Calendar size={14} color={tokens.accent} strokeWidth={2.2} />
                     <Text style={styles.calendarDatePillText}>
                       {activeDaySummary.label}
                     </Text>
                     <ChevronDown
                       size={13}
-                      color={calendarDropdownVisible ? '#006FFD' : (isDark ? '#8F9098' : '#71727A')}
+                      color={calendarDropdownVisible ? tokens.accent : tokens.mutedForeground}
                       strokeWidth={2.2}
                     />
                   </Pressable>
@@ -794,7 +802,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                 >
                   <Check
                     size={13}
-                    color={isCurrentDayRead ? '#FFFFFF' : (isDark ? '#8F9098' : '#71727A')}
+                    color={isCurrentDayRead ? '#FFFFFF' : tokens.mutedForeground}
                     strokeWidth={2.8}
                   />
                 </Pressable>
@@ -880,13 +888,13 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                 accessibilityRole="button"
                 accessibilityLabel={`Filter by agency. Currently selected: ${selectedAgency.name}`}
               >
-                <Filter size={13} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2.2} />
+                <Filter size={13} color={tokens.accent} strokeWidth={2.2} />
                 <Text style={styles.agencyDropdownBtnText} numberOfLines={1}>
                   {selectedAgency.name}
                 </Text>
                 <ChevronDown
                   size={13}
-                  color={agencyDropdownVisible ? '#006FFD' : (isDark ? '#8F9098' : '#71727A')}
+                  color={agencyDropdownVisible ? tokens.accent : tokens.mutedForeground}
                   strokeWidth={2.2}
                 />
               </Pressable>
@@ -908,7 +916,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
                 <View style={styles.formatTextContent}>
                   <Text style={styles.formatCardTitle}>{cat.title}</Text>
                 </View>
-                <ChevronRight size={16} color={theme.textMuted} strokeWidth={2} />
+                <ChevronRight size={16} color={tokens.mutedForeground} strokeWidth={2} />
               </Pressable>
             ))}
           </View>
@@ -926,7 +934,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
               onPress={() => setQuizModalVisible(true)}
             >
               <View style={styles.reviseIconBox}>
-                <ListChecks size={20} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2} />
+                <ListChecks size={20} color={tokens.accent} strokeWidth={2} />
               </View>
               <Text style={styles.reviseCardTitle}>Daily Quiz</Text>
               <Text style={styles.reviseCardSubtitle}>Prelims MCQs with explanations.</Text>
@@ -937,7 +945,7 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
               onPress={() => setMonthlyModalVisible(true)}
             >
               <View style={styles.reviseIconBox}>
-                <CalendarDays size={20} color={isDark ? '#6FBAFF' : '#006FFD'} strokeWidth={2} />
+                <CalendarDays size={20} color={tokens.accent} strokeWidth={2} />
               </View>
               <Text style={styles.reviseCardTitle}>Monthly Revision</Text>
               <Text style={styles.reviseCardSubtitle}>Monthly compilation, topic-wise recap and tests.</Text>
@@ -1118,14 +1126,14 @@ export function CurrentAffairsView({ isDark = true, onToggleTheme }: CurrentAffa
 }
 
 const getStyles = (
-  theme: typeof BW_THEME.dark,
+  tokens: SemanticTokens,
   isDark: boolean,
   isDesktop: boolean
 ) =>
   StyleSheet.create({
     scrollView: {
       flex: 1,
-      backgroundColor: theme.bg,
+      backgroundColor: tokens.background,
     },
     scrollContent: {
       paddingHorizontal: isDesktop ? 24 : 12,
@@ -1150,15 +1158,16 @@ const getStyles = (
       marginBottom: 3,
     },
     pageHeading: {
-      fontSize: isDesktop ? 30 : 25,
+      fontFamily: FONT_FAMILY.serif,
+      fontSize: isDesktop ? 32 : 26,
       fontWeight: '700',
-      color: theme.textPrimary,
+      color: tokens.foreground,
       letterSpacing: -0.4,
     },
     pageSubtitle: {
-      fontSize: 13.5,
-      lineHeight: 19,
-      color: theme.textMuted,
+      fontSize: 14,
+      lineHeight: 20,
+      color: tokens.mutedForeground,
     },
     headerActions: {
       flexDirection: 'row',
@@ -1168,16 +1177,21 @@ const getStyles = (
     headerIconBtn: {
       width: 38,
       height: 38,
-      borderRadius: 19,
+      borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
+      backgroundColor: tokens.surface,
       borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#F0F1F5',
+      borderColor: tokens.border,
+      ...Platform.select({
+        web: {
+          cursor: 'pointer',
+        },
+      }),
     },
     headerDivider: {
       height: 1,
-      backgroundColor: isDark ? '#1F2E45' : '#E2E8F0',
+      backgroundColor: tokens.border,
       marginBottom: 20,
       marginTop: 2,
     },
@@ -1200,9 +1214,10 @@ const getStyles = (
       flexWrap: 'wrap',
     },
     summaryContainerHeading: {
-      fontSize: 19,
+      fontFamily: FONT_FAMILY.serif,
+      fontSize: 20,
       fontWeight: '700',
-      color: isDark ? '#F8FAFC' : theme.textPrimary,
+      color: tokens.foreground,
       letterSpacing: -0.2,
     },
     summaryDateBadge: {
@@ -1212,35 +1227,35 @@ const getStyles = (
       paddingHorizontal: 9,
       paddingVertical: 4.5,
       borderRadius: 7,
-      backgroundColor: isDark ? '#172554' : '#EFF6FF',
+      backgroundColor: tokens.infoSoft,
       borderWidth: 1,
-      borderColor: isDark ? '#1E3A8A' : '#BFDBFE',
+      borderColor: tokens.border,
     },
     summaryDateBadgeRead: {
-      backgroundColor: isDark ? 'rgba(16, 185, 129, 0.12)' : '#ECFDF5',
-      borderColor: isDark ? 'rgba(16, 185, 129, 0.35)' : '#A7F3D0',
+      backgroundColor: tokens.successSoft,
+      borderColor: tokens.success,
     },
     summaryDateBadgeText: {
       fontSize: 11.5,
       fontWeight: '700',
-      color: isDark ? '#93C5FD' : '#1E3A8A',
+      color: tokens.infoForeground,
     },
     summaryDateBadgeTextRead: {
-      color: isDark ? '#6EE7B7' : '#047857',
+      color: tokens.success,
     },
     readCheckCircle: {
       width: 16,
       height: 16,
       borderRadius: 8,
       borderWidth: 1.3,
-      borderColor: isDark ? '#475569' : '#94A3B8',
+      borderColor: tokens.borderStrong,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: 'transparent',
     },
     readCheckCircleActive: {
-      backgroundColor: isDark ? '#059669' : '#10B981',
-      borderColor: isDark ? '#059669' : '#10B981',
+      backgroundColor: tokens.success,
+      borderColor: tokens.success,
     },
 
     /* Header Row: The Daily Brief Heading on Left | Prominent Daily Quiz on Right (Desktop) */
@@ -1252,7 +1267,7 @@ const getStyles = (
       marginBottom: 14,
     },
 
-    /* Mobile 2-Tier Header Layout (Uncluttered, Mobbin inspired) */
+    /* Mobile 2-Tier Header Layout */
     mobileSummaryHeader: {
       marginBottom: 14,
       gap: 10,
@@ -1270,7 +1285,7 @@ const getStyles = (
       gap: 10,
     },
 
-    /* Calendar Button with Today's Date (Matches WeeklyCalendar button style) */
+    /* Calendar Button with Today's Date */
     calendarDatePillBtn: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -1278,39 +1293,49 @@ const getStyles = (
       paddingHorizontal: 12,
       paddingVertical: 8,
       borderRadius: 10,
-      backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
+      backgroundColor: tokens.surface,
       borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
+      borderColor: tokens.border,
+      ...Platform.select({
+        web: {
+          cursor: 'pointer',
+        },
+      }),
     },
     calendarDatePillBtnOpen: {
-      borderColor: PALETTE.highlight.primary,
-      backgroundColor: isDark ? '#383A42' : '#F8F9FE',
+      borderColor: tokens.accent,
+      backgroundColor: tokens.accentSoft,
     },
     calendarDatePillBtnHover: {
-      backgroundColor: isDark ? '#383A42' : '#F8F9FE',
-      borderColor: isDark ? '#494A50' : '#D4D6DD',
+      backgroundColor: tokens.surfaceRaised,
+      borderColor: tokens.borderStrong,
     },
     calendarDatePillText: {
       fontSize: 13,
       fontWeight: '600',
-      color: isDark ? '#FFFFFF' : '#1F2024',
+      color: tokens.foreground,
       letterSpacing: -0.1,
     },
 
-    /* Day Read Status Tick Mark Button (Matches app control button style) */
+    /* Day Read Status Tick Mark Button */
     dayReadTickBtn: {
       width: 36,
       height: 36,
       borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
+      backgroundColor: tokens.surface,
       borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
+      borderColor: tokens.border,
+      ...Platform.select({
+        web: {
+          cursor: 'pointer',
+        },
+      }),
     },
     dayReadTickBtnActive: {
-      backgroundColor: '#3AC0A0',
-      borderColor: '#3AC0A0',
+      backgroundColor: tokens.success,
+      borderColor: tokens.success,
     },
 
     /* Adaptive Interior Event Card Wrapper */
@@ -1325,16 +1350,19 @@ const getStyles = (
       overflow: 'hidden',
       position: 'relative',
       minHeight: isDesktop ? 390 : 540,
-      backgroundColor: isDark ? '#17191D' : 'transparent',
-      ...(!isDark
-        ? {
-          shadowColor: '#0F172A',
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.05,
-          shadowRadius: 10,
-          elevation: 2,
-        }
-        : {}),
+      backgroundColor: tokens.surface,
+      borderWidth: 1,
+      borderColor: tokens.border,
+      ...Platform.select({
+        web: {
+          boxShadow: isDark
+            ? '0 2px 10px rgba(0, 0, 0, 0.28)'
+            : '0 2px 8px rgba(0, 0, 0, 0.04)',
+        },
+        default: {
+          elevation: isDark ? 1 : 2,
+        },
+      }),
     },
     emptyContainer: {
       padding: 30,
@@ -1342,7 +1370,7 @@ const getStyles = (
     },
     emptyText: {
       fontSize: 13,
-      color: theme.textMuted,
+      color: tokens.mutedForeground,
     },
 
     /* 4 & 5. Secondary Sections */
@@ -1350,7 +1378,7 @@ const getStyles = (
       marginBottom: 32,
       paddingTop: 16,
       borderTopWidth: 1,
-      borderTopColor: theme.cardBorder,
+      borderTopColor: tokens.border,
     },
     practiseSection: {
       marginBottom: 36,
@@ -1368,15 +1396,16 @@ const getStyles = (
       flexShrink: 1,
     },
     sectionHeading: {
-      fontSize: 18,
+      fontFamily: FONT_FAMILY.serif,
+      fontSize: 20,
       fontWeight: '700',
-      color: theme.textPrimary,
+      color: tokens.foreground,
       letterSpacing: -0.2,
       marginBottom: 2,
     },
     sectionMetaHint: {
-      fontSize: 12.5,
-      color: theme.textMuted,
+      fontSize: 13,
+      color: tokens.mutedForeground,
     },
     agencyDropdownBtn: {
       flexDirection: 'row',
@@ -1385,27 +1414,32 @@ const getStyles = (
       paddingHorizontal: 12,
       paddingVertical: 8,
       borderRadius: 10,
-      backgroundColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
+      backgroundColor: tokens.surface,
       borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
+      borderColor: tokens.border,
+      ...Platform.select({
+        web: {
+          cursor: 'pointer',
+        },
+      }),
     },
     agencyDropdownBtnOpen: {
-      borderColor: PALETTE.highlight.primary,
-      backgroundColor: isDark ? '#383A42' : '#F8F9FE',
+      borderColor: tokens.accent,
+      backgroundColor: tokens.accentSoft,
     },
     agencyDropdownBtnHover: {
-      backgroundColor: isDark ? '#383A42' : '#F8F9FE',
-      borderColor: isDark ? '#494A50' : '#D4D6DD',
+      backgroundColor: tokens.surfaceRaised,
+      borderColor: tokens.borderStrong,
     },
     agencyDropdownBtnText: {
       fontSize: 13,
       fontWeight: '600',
-      color: isDark ? '#FFFFFF' : '#1F2024',
+      color: tokens.foreground,
       letterSpacing: -0.1,
     },
     dropdownOverlay: {
       flex: 1,
-      backgroundColor: 'rgba(0, 0, 0, 0.35)',
+      backgroundColor: 'rgba(0, 0, 0, 0.45)',
     },
     dropdownBackdrop: {
       ...StyleSheet.absoluteFill,
@@ -1413,22 +1447,22 @@ const getStyles = (
     agencyDropdownMenu: {
       position: 'absolute',
       width: 220,
-      borderRadius: 16,
+      borderRadius: 14,
       paddingVertical: 8,
       paddingHorizontal: 6,
-      backgroundColor: isDark ? PALETTE.neutral.dark.darkest : '#FFFFFF',
+      backgroundColor: tokens.surface,
       borderWidth: 1,
-      borderColor: isDark ? PALETTE.neutral.dark.textMuted : '#E8E9F1',
+      borderColor: tokens.border,
       shadowColor: '#000000',
       shadowOffset: { width: 0, height: 8 },
-      shadowOpacity: 0.25,
+      shadowOpacity: isDark ? 0.35 : 0.12,
       shadowRadius: 16,
       elevation: 10,
     },
     agencyDropdownHeader: {
       fontSize: 11,
       fontWeight: '700',
-      color: isDark ? '#8F9098' : '#71727A',
+      color: tokens.mutedForeground,
       textTransform: 'uppercase',
       letterSpacing: 0.5,
       paddingHorizontal: 10,
@@ -1440,18 +1474,18 @@ const getStyles = (
       justifyContent: 'space-between',
       paddingHorizontal: 10,
       paddingVertical: 9,
-      borderRadius: 10,
+      borderRadius: 8,
     },
     agencyDropdownItemActive: {
-      backgroundColor: isDark ? 'rgba(0, 111, 253, 0.14)' : '#EAF2FF',
+      backgroundColor: tokens.accentSoft,
     },
     agencyDropdownItemText: {
       fontSize: 13.5,
       fontWeight: '600',
-      color: isDark ? '#FFFFFF' : '#1F2024',
+      color: tokens.foreground,
     },
     agencyDropdownItemTextActive: {
-      color: isDark ? '#6FBAFF' : '#006FFD',
+      color: tokens.accent,
       fontWeight: '700',
     },
     formatGrid: {
@@ -1462,15 +1496,20 @@ const getStyles = (
     formatCard: {
       width: isDesktop ? '48.2%' : '100%',
       backgroundColor: 'transparent',
-      paddingVertical: 15,
+      paddingVertical: 16,
       paddingHorizontal: 4,
       flexDirection: 'row',
       alignItems: 'center',
       gap: 14,
+      ...Platform.select({
+        web: {
+          cursor: 'pointer',
+        },
+      }),
     },
     formatCardDivider: {
       borderBottomWidth: 1,
-      borderBottomColor: theme.cardBorder,
+      borderBottomColor: tokens.border,
     },
     formatCardPressed: {
       opacity: 0.7,
@@ -1483,9 +1522,9 @@ const getStyles = (
       justifyContent: 'center',
     },
     formatCardTitle: {
-      fontSize: 15,
-      fontWeight: '700',
-      color: theme.textPrimary,
+      fontSize: 15.5,
+      fontWeight: '600',
+      color: tokens.foreground,
       letterSpacing: -0.2,
     },
     categoryLiveStatusDot: {
@@ -1495,36 +1534,48 @@ const getStyles = (
     },
     reviseGrid: {
       flexDirection: isDesktop ? 'row' : 'column',
-      gap: 12,
+      gap: 14,
     },
     reviseCard: {
       flex: 1,
-      backgroundColor: theme.cardBg,
-      borderRadius: 12,
-      padding: 16,
+      backgroundColor: tokens.surface,
+      borderRadius: 14,
+      padding: 18,
       borderWidth: 1,
-      borderColor: theme.cardBorder,
+      borderColor: tokens.border,
+      ...Platform.select({
+        web: {
+          cursor: 'pointer',
+          boxShadow: isDark
+            ? '0 1px 3px rgba(0, 0, 0, 0.2)'
+            : '0 1px 3px rgba(0, 0, 0, 0.03)',
+        },
+        default: {
+          elevation: 1,
+        },
+      }),
     },
     reviseIconBox: {
       width: 44,
       height: 44,
-      borderRadius: 12,
-      backgroundColor: isDark ? 'rgba(0, 111, 253, 0.12)' : '#EAF2FF',
+      borderRadius: 11,
+      backgroundColor: tokens.accentSoft,
       borderWidth: 1,
-      borderColor: isDark ? 'rgba(0, 111, 253, 0.25)' : '#B4DBFF',
+      borderColor: isDark ? 'rgba(245, 130, 53, 0.25)' : '#FCEBDD',
       alignItems: 'center',
       justifyContent: 'center',
       marginBottom: 12,
     },
     reviseCardTitle: {
-      fontSize: 15,
+      fontFamily: FONT_FAMILY.serif,
+      fontSize: 16.5,
       fontWeight: '700',
-      color: theme.textPrimary,
+      color: tokens.foreground,
       marginBottom: 4,
     },
     reviseCardSubtitle: {
-      fontSize: 12.5,
-      lineHeight: 18,
-      color: theme.textMuted,
+      fontSize: 13,
+      lineHeight: 19,
+      color: tokens.mutedForeground,
     },
   });

@@ -7,6 +7,7 @@
  * 3. Client-triggered incremental sync (`src/services/newsFeedService.ts`)
  */
 
+import { verifyNewsImageRelevance } from '@/utils/imageVerification';
 import {
   evaluateDeterministicPreFilter,
   evaluateNewsStoryWithAI,

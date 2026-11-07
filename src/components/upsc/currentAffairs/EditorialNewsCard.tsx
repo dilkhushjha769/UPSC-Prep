@@ -1,3 +1,4 @@
+import { useAppTheme } from '@/context/ThemeContext';
 import { verifyNewsImageRelevance } from '@/utils/imageVerification';
 import { Image } from 'expo-image';
 import { Bookmark } from 'lucide-react-native';
@@ -48,7 +49,8 @@ export function EditorialNewsCard({
   onReadSummary,
   isDark: propIsDark,
 }: EditorialNewsCardProps) {
-  const isDark = propIsDark ?? false;
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   // Normalize title
   const title = (item.headline || item.title || 'UPSC Current Affairs Update').trim();
 
@@ -311,9 +313,7 @@ export function EditorialNewsCard({
             accessibilityRole="button"
             accessibilityLabel={`Read summary of ${title}`}
           >
-            <Text style={[styles.readSummaryBtnText, isDark && styles.readSummaryBtnTextDark]}>
-              Read summary
-            </Text>
+            <Text style={styles.readSummaryBtnText}>Read summary</Text>
           </Pressable>
         </View>
       </View>
@@ -538,9 +538,6 @@ const styles = StyleSheet.create({
     fontSize: 13.5,
     fontWeight: '700',
     letterSpacing: -0.1,
-  },
-  readSummaryBtnTextDark: {
-    color: '#151A25',
   },
   btnPressed: {
     opacity: 0.8,

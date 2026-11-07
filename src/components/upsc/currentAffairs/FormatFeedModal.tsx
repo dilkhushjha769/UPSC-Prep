@@ -539,7 +539,7 @@ export function FormatFeedModal({
                     accessibilityLabel="Back to Current Affairs Overview"
                     hitSlop={8}
                   >
-                    <ArrowLeft size={18} color={isDark ? '#F9FAFB' : '#111827'} strokeWidth={2.2} />
+                    <ArrowLeft size={18} color={isDark ? '#FAF9F6' : '#1C2433'} strokeWidth={2.2} />
                   </Pressable>
 
                   <Text style={[styles.heading, isDark && styles.headingDark]}>
@@ -611,7 +611,7 @@ export function FormatFeedModal({
                 >
                   <RotateCw
                     size={16}
-                    color={isDark ? '#9CA3AF' : '#4B5563'}
+                    color={isDark ? '#6E7A8E' : '#4A5568'}
                     strokeWidth={2}
                   />
                 </Pressable>
@@ -677,7 +677,7 @@ export function FormatFeedModal({
                     accessibilityRole="button"
                     accessibilityLabel="More dates calendar"
                   >
-                    <Calendar size={18} color={isDark ? '#9CA3AF' : '#4B5563'} strokeWidth={2} />
+                    <Calendar size={18} color={isDark ? '#6E7A8E' : '#4A5568'} strokeWidth={2} />
                   </Pressable>
                 </View>
               </ScrollView>
@@ -854,14 +854,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF7ED',
   },
   safeAreaDark: {
-    backgroundColor: '#0D1117',
+    backgroundColor: '#0B1018',
   },
   container: {
     flex: 1,
     backgroundColor: '#FFF7ED',
   },
   containerDark: {
-    backgroundColor: '#0D1117',
+    backgroundColor: '#0B1018',
   },
   contentContainer: {
     paddingBottom: 60,
@@ -897,18 +897,18 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#EAE5DC',
     alignItems: 'center',
     justifyContent: 'center',
   },
   backBtnDark: {
-    backgroundColor: '#161B22',
-    borderColor: '#30363D',
+    backgroundColor: '#0B1018',
+    borderColor: '#253244',
   },
   heading: {
     fontSize: 28,
     fontWeight: '700',
-    color: '#111827',
+    color: '#1C2433',
     fontFamily: Platform.select({
       ios: 'Georgia',
       android: 'serif',
@@ -918,16 +918,16 @@ const styles = StyleSheet.create({
     letterSpacing: -0.4,
   },
   headingDark: {
-    color: '#F9FAFB',
+    color: '#F0F4F8',
   },
   subtitle: {
     fontSize: 14,
-    color: '#6B7280',
+    color: '#5F6B80',
     fontWeight: '500',
     marginLeft: 48,
   },
   subtitleDark: {
-    color: '#9CA3AF',
+    color: '#6E7A8E',
   },
   headerRight: {
     flexDirection: 'row',
@@ -936,12 +936,12 @@ const styles = StyleSheet.create({
   },
   segmentedToggle: {
     flexDirection: 'row',
-    backgroundColor: '#EFEFEF',
+    backgroundColor: '#EAE5DC',
     borderRadius: 8,
     padding: 3,
   },
   segmentedToggleDark: {
-    backgroundColor: '#21262D',
+    backgroundColor: '#141C28',
   },
   toggleBtn: {
     paddingHorizontal: 16,
@@ -949,21 +949,21 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   toggleBtnActive: {
-    backgroundColor: '#17202A',
+    backgroundColor: '#0B1018',
   },
   toggleBtnActiveDark: {
-    backgroundColor: '#30363D',
+    backgroundColor: '#253244',
   },
   toggleBtnText: {
     fontSize: 13.5,
     fontWeight: '600',
-    color: '#4B5563',
+    color: '#4A5568',
   },
   toggleBtnTextActive: {
     color: '#FFFFFF',
   },
   toggleBtnTextInactiveDark: {
-    color: '#9CA3AF',
+    color: '#6E7A8E',
   },
   iconBtn: {
     width: 36,
@@ -971,13 +971,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#EAE5DC',
     alignItems: 'center',
     justifyContent: 'center',
   },
   iconBtnDark: {
-    backgroundColor: '#161B22',
-    borderColor: '#30363D',
+    backgroundColor: '#0B1018',
+    borderColor: '#253244',
   },
   btnPressed: {
     opacity: 0.8,
@@ -998,7 +998,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#EAE5DC',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 6,
@@ -1012,36 +1012,36 @@ const styles = StyleSheet.create({
     }),
   },
   dateCardDark: {
-    backgroundColor: '#161B22',
-    borderColor: '#30363D',
+    backgroundColor: '#0B1018',
+    borderColor: '#253244',
   },
   dateCardSelected: {
-    backgroundColor: '#17202A',
-    borderColor: '#17202A',
+    backgroundColor: '#0B1018',
+    borderColor: '#0B1018',
   },
   dateCardSelectedDark: {
-    backgroundColor: '#30363D',
-    borderColor: '#30363D',
+    backgroundColor: '#253244',
+    borderColor: '#253244',
   },
   dateCardDay: {
     fontSize: 12,
-    color: '#6B7280',
+    color: '#5F6B80',
     fontWeight: '500',
     marginBottom: 2,
   },
   dateCardDayDark: {
-    color: '#9CA3AF',
+    color: '#6E7A8E',
   },
   dateCardDaySelected: {
-    color: '#9CA3AF',
+    color: '#8892A6',
   },
   dateCardNum: {
     fontSize: 17,
     fontWeight: '700',
-    color: '#111827',
+    color: '#1C2433',
   },
   dateCardNumDark: {
-    color: '#F9FAFB',
+    color: '#F0F4F8',
   },
   dateCardNumSelected: {
     color: '#FFFFFF',
@@ -1052,13 +1052,13 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#EAE5DC',
     alignItems: 'center',
     justifyContent: 'center',
   },
   moreDatesBtnDark: {
-    backgroundColor: '#161B22',
-    borderColor: '#30363D',
+    backgroundColor: '#0B1018',
+    borderColor: '#253244',
   },
   categoryPillsWrapper: {
     marginBottom: 16,
@@ -1075,11 +1075,11 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#EAE5DC',
   },
   categoryPillDark: {
-    backgroundColor: '#161B22',
-    borderColor: '#30363D',
+    backgroundColor: '#0B1018',
+    borderColor: '#253244',
   },
   categoryPillSelected: {
     backgroundColor: '#FF9500',
@@ -1088,10 +1088,10 @@ const styles = StyleSheet.create({
   categoryPillText: {
     fontSize: 13.5,
     fontWeight: '600',
-    color: '#374151',
+    color: '#253244',
   },
   categoryPillTextDark: {
-    color: '#D1D5DB',
+    color: '#C4C4C4',
   },
   categoryPillTextSelected: {
     color: '#FFFFFF',
@@ -1109,25 +1109,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 13,
     paddingVertical: 5,
     borderRadius: 6,
-    backgroundColor: '#F3F4F6',
+    backgroundColor: '#F0EDE6',
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#EAE5DC',
   },
   subcatChipDark: {
-    backgroundColor: '#21262D',
-    borderColor: '#30363D',
+    backgroundColor: '#141C28',
+    borderColor: '#253244',
   },
   subcatChipSelected: {
-    backgroundColor: '#17202A',
-    borderColor: '#17202A',
+    backgroundColor: '#0B1018',
+    borderColor: '#0B1018',
   },
   subcatChipText: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#4B5563',
+    color: '#4A5568',
   },
   subcatChipTextDark: {
-    color: '#9CA3AF',
+    color: '#6E7A8E',
   },
   subcatChipTextSelected: {
     color: '#FFFFFF',
@@ -1162,32 +1162,32 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#EAE5DC',
     padding: 32,
     alignItems: 'center',
     justifyContent: 'center',
   },
   emptyCardDark: {
-    backgroundColor: '#161B22',
-    borderColor: '#30363D',
+    backgroundColor: '#0B1018',
+    borderColor: '#253244',
   },
   emptyCardTitle: {
     fontSize: 17,
     fontWeight: '700',
-    color: '#111827',
+    color: '#1C2433',
     marginBottom: 6,
   },
   emptyCardTitleDark: {
-    color: '#F9FAFB',
+    color: '#F0F4F8',
   },
   emptyCardSubtitle: {
     fontSize: 14,
-    color: '#6B7280',
+    color: '#5F6B80',
     textAlign: 'center',
     maxWidth: 320,
     lineHeight: 20,
   },
   emptyCardSubtitleDark: {
-    color: '#9CA3AF',
+    color: '#6E7A8E',
   },
 });

@@ -36,6 +36,7 @@ import {
   TimelineData,
   ComparisonData,
 } from '@/data/currentAffairsData';
+import { useAppTheme } from '@/context/ThemeContext';
 import { BW_THEME } from '@/constants/bwTheme';
 
 interface VisualLearningSectionProps {
@@ -47,7 +48,8 @@ export function VisualLearningSection({
   assets = [],
   isDark: propIsDark,
 }: VisualLearningSectionProps) {
-  const isDark = propIsDark ?? false;
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const { width } = useWindowDimensions();
   const isDesktop = width >= 720;

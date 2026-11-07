@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   Modal,
   View,
@@ -18,6 +19,7 @@ import {
   Trash2,
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
+import { useAppTheme } from '@/context/ThemeContext';
 
 interface NoteItem {
   id: string;
@@ -31,7 +33,7 @@ interface NotesLibraryModalProps {
   initialTab?: 'notes' | 'library';
   initialNoteTitle?: string;
   onClose: () => void;
-  isDark: boolean;
+  isDark?: boolean;
   savedItemIds: string[];
   onRemoveSavedItem: (id: string) => void;
   onOpenItem: (id: string) => void;
@@ -42,11 +44,13 @@ export function NotesLibraryModal({
   initialTab = 'notes',
   initialNoteTitle = '',
   onClose,
-  isDark,
+  isDark: propIsDark,
   savedItemIds,
   onRemoveSavedItem,
   onOpenItem,
 }: NotesLibraryModalProps) {
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const styles = useMemo(() => getStyles(theme, isDark), [theme, isDark]);
 
@@ -133,7 +137,7 @@ export function NotesLibraryModal({
               <View style={styles.sectionHeaderRow}>
                 <Text style={styles.sectionHeading}>Current Affairs Revision Notes</Text>
                 {!isAddingNote && (
-                  <Pressable style={styles.addNoteTrigger} onPress={() => setIsAddingNote(true)}>
+                  <Pressable style={[styles.addNoteTrigger, primaryButtonStyle(isDark)]} onPress={() => setIsAddingNote(true)}>
                     <Plus size={14} color="#FFFFFF" strokeWidth={2.2} />
                     <Text style={styles.addNoteTriggerText}>Add Note</Text>
                   </Pressable>
@@ -164,7 +168,7 @@ export function NotesLibraryModal({
                     <Pressable style={styles.cancelBtn} onPress={() => setIsAddingNote(false)}>
                       <Text style={styles.cancelBtnText}>Cancel</Text>
                     </Pressable>
-                    <Pressable style={styles.saveNoteBtn} onPress={handleAddNote}>
+                    <Pressable style={[styles.saveNoteBtn, primaryButtonStyle(isDark)]} onPress={handleAddNote}>
                       <Text style={styles.saveNoteBtnText}>Save Note</Text>
                     </Pressable>
                   </View>
@@ -215,7 +219,7 @@ export function NotesLibraryModal({
                         <Text style={styles.libraryItemAction}>Tap to view exam breakdown →</Text>
                       </Pressable>
                       <Pressable style={styles.removeSavedBtn} onPress={() => onRemoveSavedItem(id)}>
-                        <Trash2 size={15} color="#EF4444" strokeWidth={2} />
+                        <Trash2 size={15} color="#B42318" strokeWidth={2} />
                       </Pressable>
                     </View>
                   ))}
@@ -249,15 +253,15 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       width: 36,
       height: 36,
       borderRadius: 18,
-      backgroundColor: isDark ? '#2F3036' : '#FFFFFF',
+      backgroundColor: isDark ? '#141C28' : '#FFFFFF',
       borderWidth: 1,
-      borderColor: isDark ? '#383A42' : '#E8E9F1',
+      borderColor: isDark ? '#253244' : '#EAE5DC',
       alignItems: 'center',
       justifyContent: 'center',
     },
     tabSwitcher: {
       flexDirection: 'row',
-      backgroundColor: isDark ? '#2F3036' : '#F8F9FE',
+      backgroundColor: isDark ? '#141C28' : '#FAF9F6',
       borderRadius: 10,
       padding: 3,
       gap: 4,
@@ -307,7 +311,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: 6,
-      backgroundColor: '#006FFD',
+      backgroundColor: '#1C2433',
       paddingHorizontal: 14,
       paddingVertical: 8,
       borderRadius: 10,
@@ -372,7 +376,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       fontWeight: '700',
     },
     saveNoteBtn: {
-      backgroundColor: '#006FFD',
+      backgroundColor: '#1C2433',
       paddingHorizontal: 14,
       paddingVertical: 8,
       borderRadius: 10,

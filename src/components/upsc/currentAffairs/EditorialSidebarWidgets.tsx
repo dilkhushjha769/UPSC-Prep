@@ -6,6 +6,7 @@ import {
   Pressable,
   Platform,
 } from 'react-native';
+import { useAppTheme } from '@/context/ThemeContext';
 
 interface SavedItem {
   id: string;
@@ -30,7 +31,8 @@ export function EditorialSidebarWidgets({
   onSelectSavedItem,
   isDark: propIsDark,
 }: EditorialSidebarWidgetsProps) {
-  const isDark = propIsDark ?? false;
+  const { isDark: contextIsDark } = useAppTheme();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   // Ensure progress is bounded between 0 and 1
   const progressRatio = totalCount > 0 ? Math.min(1, Math.max(0, readCount / totalCount)) : 0;
   const progressPercent = Math.round(progressRatio * 100);

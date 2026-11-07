@@ -21,6 +21,7 @@ import {
   EventSourceItem,
 } from '@/data/currentAffairsData';
 import { supabase } from './supabase';
+import { verifyNewsImageRelevance } from '@/utils/imageVerification';
 import syncedSnapshot from '@/data/generatedSyncedCurrentAffairs.json';
 
 const CACHE_KEY = '@upsc_authentic_news_feed_v2';
@@ -208,8 +209,35 @@ export function mapDbRowToDailyEvent(row: any): DailyEventItem {
     relevanceScore: Number(row.relevance_score) || 0.85,
     summary: summaryMarkdown,
     summaryBullets: executiveBrief,
-    imageUrl: imageMetadata?.imageUrl || undefined,
-    imageMetadata,
+    ...(() => {
+      const candidateImg = imageMetadata?.imageUrl || row.image_url || row.imageUrl || null;
+      const verification = verifyNewsImageRelevance({
+        headline: row.headline || '',
+        summary: executiveBrief.join(' '),
+        imageUrl: candidateImg,
+        caption: imageMetadata?.caption,
+        credit: imageMetadata?.credit,
+        source: row.source_name,
+        articleUrl: row.canonical_url,
+        category: row.primary_category || row.ui_subject_tag,
+      });
+      const verifiedUrl = verification.status === 'VERIFIED' ? verification.verifiedImageUrl : undefined;
+      return {
+        imageUrl: verifiedUrl,
+        imageVerificationStatus: verification.status,
+        imageRelevanceScore: verification.relevanceScore,
+        imageMetadata: verifiedUrl ? {
+          ...imageMetadata,
+          imageUrl: verifiedUrl,
+          credit: verification.credit || imageMetadata?.credit || `${row.source_name} Photo Desk`,
+          caption: verification.caption || imageMetadata?.caption,
+          verificationStatus: verification.sourceCredibility === 'official_gov' ? 'verified_official' : 'verified_agency',
+          license: 'Government & Authorized Agency Press Release License',
+          imageType: verification.imageType || 'event_photo',
+          sourceUrl: row.canonical_url,
+        } : undefined,
+      };
+    })(),
     bullets:
       Array.isArray(fullAnalysis.detailedExplanation) && fullAnalysis.detailedExplanation.length > 0
         ? fullAnalysis.detailedExplanation

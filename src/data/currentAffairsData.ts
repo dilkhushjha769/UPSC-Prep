@@ -104,6 +104,89 @@ export interface SyllabusRelevanceData {
   relatedPYQ?: string;
 }
 
+export type VisualLearningType =
+  | 'infographic'
+  | 'map_visual'
+  | 'flowchart'
+  | 'timeline'
+  | 'comparison';
+
+export interface InfographicStat {
+  label: string;
+  value: string;
+  change?: string;
+  subtext?: string;
+  accent?: string;
+}
+
+export interface InfographicData {
+  title: string;
+  subtitle?: string;
+  stats: InfographicStat[];
+  notes?: string[];
+}
+
+export interface MapVisualData {
+  title: string;
+  locationName: string;
+  region: string;
+  coordinates?: string;
+  keyFeatures: { label: string; value: string }[];
+  strategicImportance: string;
+  mapType?: 'region' | 'river_basin' | 'maritime' | 'protected_area';
+}
+
+export interface FlowchartStep {
+  stepNumber: number;
+  title: string;
+  description: string;
+  authorityOrBody?: string;
+}
+
+export interface FlowchartData {
+  title: string;
+  processType: 'parliamentary' | 'constitutional' | 'economic' | 'scientific' | 'policy';
+  steps: FlowchartStep[];
+  outcome?: string;
+}
+
+export interface TimelineEvent {
+  yearOrDate: string;
+  title: string;
+  description: string;
+  significance?: string;
+}
+
+export interface TimelineData {
+  title: string;
+  events: TimelineEvent[];
+}
+
+export interface ComparisonRow {
+  parameter: string;
+  currentOrSubjectA: string;
+  proposedOrSubjectB: string;
+}
+
+export interface ComparisonData {
+  title: string;
+  subjectA: string;
+  subjectB: string;
+  rows: ComparisonRow[];
+}
+
+export interface VisualLearningAsset {
+  id: string;
+  type: VisualLearningType;
+  title: string;
+  badgeLabel?: string;
+  infographic?: InfographicData;
+  mapVisual?: MapVisualData;
+  flowchart?: FlowchartData;
+  timeline?: TimelineData;
+  comparison?: ComparisonData;
+}
+
 export interface EventSourceItem {
   name: string;
   url?: string;
@@ -141,6 +224,9 @@ export interface DailyEventItem {
   summaryBullets?: string[];
   imageUrl?: string;
   imageMetadata?: ImageProvenanceMetadata;
+  imageVerificationStatus?: "VERIFIED" | "REJECTED" | "NOT_AVAILABLE" | "PENDING";
+  imageRelevanceScore?: number;
+  visualLearningAssets?: VisualLearningAsset[];
   bullets: string[];
   prelimsFacts: string[];
   prelimsFactMatrix?: PrelimsFactItem[];
@@ -208,6 +294,9 @@ export interface CuratedArticle {
   summary: string;
   imageUrl?: string;
   imageMetadata?: ImageProvenanceMetadata;
+  imageVerificationStatus?: "VERIFIED" | "REJECTED" | "NOT_AVAILABLE" | "PENDING";
+  imageRelevanceScore?: number;
+  visualLearningAssets?: VisualLearningAsset[];
   link?: string;
   keyPoints: string[];
   analyticalAngle: string;

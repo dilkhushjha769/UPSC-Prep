@@ -28,8 +28,8 @@ import { TOGGLE_ACTIVE_COLOR } from '@/constants/colors';
 import { useStudy } from '@/context/StudyContext';
 import { useAppTheme } from '@/context/ThemeContext';
 
-interface SettingsScreenProps {
-  isDark: boolean;
+export interface SettingsScreenProps {
+  isDark?: boolean;
   onBack: () => void;
   onToggleTheme?: () => void;
   onOpenPrivacy: () => void;
@@ -89,16 +89,7 @@ export function SettingsScreen({
   onOpenNotificationSettings,
   onOpenFocusSettings,
   onNavigateToNotifications,
-}: {
-  isDark?: boolean;
-  onBack: () => void;
-  onToggleTheme?: () => void;
-  onOpenPrivacy: () => void;
-  onOpenTerms: () => void;
-  onOpenNotificationSettings?: () => void;
-  onOpenFocusSettings?: () => void;
-  onNavigateToNotifications?: () => void;
-}) {
+}: SettingsScreenProps) {
   const { isDark: contextIsDark, toggleTheme: contextToggleTheme } = useAppTheme();
   const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const onToggleTheme = propToggleTheme || contextToggleTheme;

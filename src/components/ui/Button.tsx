@@ -20,7 +20,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 export interface ButtonProps {
   /** Button title or label text */
   title?: string;
-  /** primary (solid navy #1C2433), accent (burnt orange #B9570A), secondary (neutral bordered), tertiary (text-only) */
+  /** primary (solid navy #1C2433), accent (burnt orange #FF9500), secondary (neutral bordered), tertiary (text-only) */
   variant?: ButtonVariant;
   /** Size variant */
   size?: ButtonSize;
@@ -77,17 +77,17 @@ export function Button({
   let textColor = t.primaryForeground;
 
   if (variant === 'primary') {
-    // Primary action button: Vibrant warm orange (#F58235), white text
+    // Primary action button: Vibrant warm orange (#FF9500), white text
     containerStyle = {
-      backgroundColor: disabled ? t.disabledBackground : '#F58235',
+      backgroundColor: disabled ? t.disabledBackground : '#FF9500',
       borderWidth: 0,
       borderRadius: sizeStyles.borderRadius,
     };
     textColor = disabled ? t.disabledForeground : '#FFFFFF';
   } else if (variant === 'accent') {
-    // Accent action button: Vibrant warm orange (#F58235), white text
+    // Accent action button: Vibrant warm orange (#FF9500), white text
     containerStyle = {
-      backgroundColor: disabled ? t.disabledBackground : '#F58235',
+      backgroundColor: disabled ? t.disabledBackground : '#FF9500',
       borderWidth: 0,
       borderRadius: sizeStyles.borderRadius,
     };
@@ -132,7 +132,7 @@ export function Button({
         containerStyle,
         // Hover effect for primary & accent
         (variant === 'primary' || variant === 'accent') && !inactive && hovered && {
-          backgroundColor: '#E07328',
+          backgroundColor: '#EA8300',
         },
         style,
       ]}>

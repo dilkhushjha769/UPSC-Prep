@@ -167,7 +167,7 @@ export function CalendarDropdown({
         todayText: PALETTE.neutral.light.lightest, // #FFFFFF
         selectedBg: '#F4F6FB', // Crisp White in dark mode
         selectedText: '#0D1520', // Dark Ash text in dark mode
-        curatedDot: '#F58235',
+        curatedDot: '#FF9500',
         completedDot: PALETTE.support.success.medium, // #3FA573
         pillBg: PALETTE.neutral.dark.surface, // #141C28
         pillBorder: PALETTE.neutral.dark.textMuted, // #253244
@@ -189,7 +189,7 @@ export function CalendarDropdown({
       todayText: '#1C2433',
       selectedBg: '#1C2433', // Dark Ash in light mode
       selectedText: '#FFFFFF', // Crisp White text in light mode
-      curatedDot: PALETTE.highlight.primary, // #B9570A
+      curatedDot: PALETTE.highlight.primary, // #FF9500
       completedDot: PALETTE.support.success.medium, // #3FA573
       pillBg: PALETTE.neutral.light.surface, // #FAF9F6
       pillBorder: PALETTE.neutral.light.borderSubtle, // #EAE5DC

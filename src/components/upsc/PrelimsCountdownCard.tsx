@@ -13,8 +13,8 @@ import {
 } from 'react-native';
 import Svg, { Circle, Line, Path } from 'react-native-svg';
 
-interface PrelimsCountdownCardProps {
-  isDark: boolean;
+export interface PrelimsCountdownCardProps {
+  isDark?: boolean;
   onOpenPrelims?: () => void;
 }
 
@@ -91,7 +91,7 @@ function StopwatchTimerIcon({ isDark }: { isDark: boolean }) {
 // MAIN COMPONENT
 // =============================================================================
 
-export function PrelimsCountdownCard({ isDark: propIsDark, onOpenPrelims }: { isDark?: boolean; onOpenPrelims?: () => void }) {
+export function PrelimsCountdownCard({ isDark: propIsDark, onOpenPrelims }: PrelimsCountdownCardProps) {
   const { isDark: contextIsDark } = useAppTheme();
   const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const { config } = useStudy();
@@ -185,8 +185,8 @@ export function PrelimsCountdownCard({ isDark: propIsDark, onOpenPrelims }: { is
           let labelColor: string = theme.textMuted;
 
           if (unit.isHero) {
-            boxBg = '#B9570A';
-            boxBorder = '#B9570A';
+            boxBg = '#FF9500';
+            boxBorder = '#FF9500';
             numColor = '#FFFFFF';
             labelColor = '#FFFFFF';
           }
@@ -203,7 +203,7 @@ export function PrelimsCountdownCard({ isDark: propIsDark, onOpenPrelims }: { is
                   Platform.OS === 'web' && unit.isHero && ({
                     boxShadow: isDark
                       ? '0 1px 4px rgba(0, 0, 0, 0.35)'
-                      : '0 2px 6px rgba(0, 0, 0, 0.16)',
+                      : '0 2px 6px rgba(255, 149, 0, 0.28)',
                   } as object),
                 ]}>
                 <Text style={[styles.pillNumber, { color: numColor }]}>
@@ -223,7 +223,7 @@ export function PrelimsCountdownCard({ isDark: propIsDark, onOpenPrelims }: { is
                         backgroundColor: isDark
                           ? index === 0
                             ? '#FFFFFF'
-                            : '#6B3A12'
+                            : '#78350F'
                           : index === 0
                             ? '#0B1018'
                             : '#DDD6CA',
@@ -237,7 +237,7 @@ export function PrelimsCountdownCard({ isDark: propIsDark, onOpenPrelims }: { is
                         backgroundColor: isDark
                           ? index === 0
                             ? '#FFFFFF'
-                            : '#6B3A12'
+                            : '#78350F'
                           : index === 0
                             ? '#0B1018'
                             : '#DDD6CA',

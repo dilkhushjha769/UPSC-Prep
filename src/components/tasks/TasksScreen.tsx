@@ -273,7 +273,7 @@ export function TasksScreen({
               styles.circleIconBtn,
               {
                 backgroundColor: isSearchActive
-                  ? 'rgba(185, 87, 10, 0.12)'
+                  ? 'rgba(245, 130, 53, 0.12)'
                   : (isDark ? PALETTE.neutral.dark.surface : '#FFFFFF'),
                 borderColor: isSearchActive ? PALETTE.highlight.primary : (isDark ? '#253244' : '#F0EDE6'),
               },
@@ -299,7 +299,7 @@ export function TasksScreen({
                 },
               ]}>
               {isDark ? (
-                <Sun size={17} color="#D9822B" strokeWidth={2.2} />
+                <Sun size={17} color="#FF9500" strokeWidth={2.2} />
               ) : (
                 <Moon size={17} color={PALETTE.highlight.primary} strokeWidth={2.2} />
               )}
@@ -323,7 +323,7 @@ export function TasksScreen({
               style={[
                 styles.blueNotificationDot,
                 {
-                  backgroundColor: PALETTE.highlight.primary, // #B9570A (Primary Blue)
+                  backgroundColor: PALETTE.highlight.primary, // #FF9500 (Primary Blue)
                   borderColor: isDark ? PALETTE.neutral.dark.surface : '#FFFFFF',
                 },
               ]}
@@ -382,10 +382,10 @@ export function TasksScreen({
                 styles.filterPill,
                 {
                   backgroundColor: isActive
-                    ? '#F58235'
+                    ? '#FF9500'
                     : (isDark ? '#141C28' : '#FFFFFF'),
                   borderColor: isActive
-                    ? '#F58235'
+                    ? '#FF9500'
                     : (isDark ? '#253244' : '#EAE5DC'),
                 },
               ]}>

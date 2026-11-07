@@ -85,7 +85,7 @@ export function TaskFormModal({
         estimatedMinutes: 60,
       });
       onClose();
-    } catch (e) {
+    } catch {
       setErrorMsg('Failed to save task.');
     } finally {
       setIsSaving(false);
@@ -297,7 +297,7 @@ export function TaskFormModal({
               </View>
             </View>
 
-            {/* Save Button (Solid Primary Blue #B9570A) */}
+            {/* Save Button (Solid Primary Blue #FF9500) */}
             <Button
               variant="primary"
               title={isSaving ? 'Adding...' : 'Add Task'}
@@ -448,6 +448,6 @@ const styles = StyleSheet.create({
   },
   saveSubmitBtn: {
     marginTop: 6,
-    backgroundColor: '#F58235',
+    backgroundColor: '#FF9500',
   },
 });

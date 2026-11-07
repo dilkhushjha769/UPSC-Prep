@@ -14,7 +14,6 @@ import {
   Eye,
   FileCheck,
   Plus,
-  Sparkles,
   Upload,
   Users
 } from 'lucide-react-native';
@@ -71,7 +70,7 @@ export function PeerReviewExchangeTab({
   const textPrimary = isDark ? '#F8FAFC' : '#0F172A';
   const textSecondary = isDark ? '#94A3B8' : '#64748B';
   const textMuted = isDark ? '#64748B' : '#94A3B8';
-  const accent = '#F58235';
+  const accent = '#FF9500';
 
   const myUserId = 'user_local_aspirant';
 
@@ -180,7 +179,7 @@ export function PeerReviewExchangeTab({
       case 'review_pending':
         return { label: 'Review Pending', color: '#8B5CF6', bg: '#F5F3FF' };
       case 'one_review_completed':
-        return { label: '1 Review Done', color: '#F58235', bg: '#FFF7ED' };
+        return { label: '1 Review Done', color: '#FF9500', bg: '#FFF7ED' };
       case 'completed':
         return { label: 'Exchange Completed', color: '#10B981', bg: '#ECFDF5' };
       default:
@@ -481,7 +480,7 @@ export function PeerReviewExchangeTab({
                           activeOpacity={0.8}
                           onPress={() => onOpenEvaluation(req, iAmReviewing!)}
                           style={[styles.actionBtnPrimary, { backgroundColor: '#8B5CF6' }]}>
-                          <Sparkles size={14} color="#FFFFFF" />
+                          <CheckCircle2 size={14} color="#FFFFFF" />
                           <Text style={styles.actionBtnPrimaryText}>
                             Evaluate {iAmReviewing?.user_name}&apos;s Answer
                           </Text>

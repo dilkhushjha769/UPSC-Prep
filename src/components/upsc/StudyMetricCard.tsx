@@ -98,7 +98,7 @@ export function StudyMetricCard({ isDark: propIsDark }: StudyMetricCardProps) {
             <View
               style={[
                 styles.iconBadge,
-                { backgroundColor: isDark ? '#1B2534' : '#FCEBDD' },
+                { backgroundColor: isDark ? '#1B2534' : '#FFF7ED' },
               ]}>
               <BookMarked size={16} color={colors.primary} />
             </View>
@@ -149,9 +149,9 @@ export function StudyMetricCard({ isDark: propIsDark }: StudyMetricCardProps) {
                 styles.iconBadge,
                 { backgroundColor: isDark ? '#1B2534' : '#F2C9A3' },
               ]}>
-              <Newspaper size={16} color="#B9570A" />
+              <Newspaper size={16} color="#FF9500" />
             </View>
-            <Text style={[styles.cardTag, { color: '#B9570A' }]}>
+            <Text style={[styles.cardTag, { color: '#FF9500' }]}>
               {caPercent}%
             </Text>
           </View>
@@ -171,8 +171,8 @@ export function StudyMetricCard({ isDark: propIsDark }: StudyMetricCardProps) {
               strokeWidth={5}
               progress={caProgressRatio}
               trackColor={isDark ? '#1B2534' : '#CBD3EB'}
-              fillColor="#B9570A">
-              <Text style={[styles.miniGaugeText, { color: '#B9570A' }]}>
+              fillColor="#FF9500">
+              <Text style={[styles.miniGaugeText, { color: '#FF9500' }]}>
                 CA
               </Text>
             </ArcGauge>

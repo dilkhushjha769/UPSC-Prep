@@ -48,7 +48,7 @@ export function QuickActions({ isDark: propIsDark }: QuickActionsProps) {
       title: 'Add Study Task',
       subtitle: 'Schedule target',
       icon: PlusCircle,
-      color: '#B9570A',
+      color: '#FF9500',
       bgColor: isDark ? '#141C28' : '#E9EDF9',
       onPress: () => setIsAddTaskModalOpen(true),
     },
@@ -76,7 +76,7 @@ export function QuickActions({ isDark: propIsDark }: QuickActionsProps) {
       subtitle: 'View past logs',
       icon: History,
       color: colors.accentAmber,
-      bgColor: isDark ? '#2A1D12' : '#FCEBDD',
+      bgColor: isDark ? '#2A1D12' : '#FFF7ED',
       onPress: () => setIsHistoryModalOpen(true),
     },
   ];

@@ -17,7 +17,6 @@ import {
   CheckCheck,
   ChevronRight,
   Flame,
-  Sparkles,
   Target,
   X,
 } from 'lucide-react-native';
@@ -75,7 +74,7 @@ export function NotificationsModal({ isDark: propIsDark }: NotificationsModalPro
       time: '12m ago',
       section: 'Today',
       icon: Flame,
-      accentColor: '#A65A0A',
+      accentColor: '#FF9500',
       bgTint: isDark ? 'rgba(166, 90, 10, 0.15)' : 'rgba(166, 90, 10, 0.12)',
       isRead: false,
       actionLabel: 'Start Focus Session',
@@ -91,7 +90,7 @@ export function NotificationsModal({ isDark: propIsDark }: NotificationsModalPro
       time: '2h ago',
       section: 'Today',
       icon: Award,
-      accentColor: '#B9570A',
+      accentColor: '#FF9500',
       bgTint: isDark ? 'rgba(255, 106, 19, 0.15)' : 'rgba(255, 106, 19, 0.1)',
       isRead: false,
       actionLabel: 'View Test Paper',
@@ -106,8 +105,8 @@ export function NotificationsModal({ isDark: propIsDark }: NotificationsModalPro
         '“It does not matter how slowly you go as long as you do not stop.” — Every syllabus topic revised today is one step closer to LBSNAA.',
       time: '5h ago',
       section: 'Today',
-      icon: Sparkles,
-      accentColor: '#D9822B',
+      icon: Target,
+      accentColor: '#FF9500',
       bgTint: isDark ? 'rgba(255, 138, 61, 0.15)' : 'rgba(255, 138, 61, 0.1)',
       isRead: true,
     },
@@ -397,7 +396,7 @@ export function NotificationsModal({ isDark: propIsDark }: NotificationsModalPro
                               size={19}
                               color={item.accentColor}
                               strokeWidth={2.3}
-                              fill={item.category === 'streak' ? '#D9822B' : undefined}
+                              fill={item.category === 'streak' ? '#FF9500' : undefined}
                             />
                           </View>
 

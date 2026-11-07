@@ -134,7 +134,7 @@ export function QuizQuestionPalette({
           </View>
 
           <View style={[styles.statBox, styles.statBoxMarked]}>
-            <Text style={[styles.statBoxNum, { color: '#D9822B' }]}>
+            <Text style={[styles.statBoxNum, { color: '#FF9500' }]}>
               {stats.totalMarked}
             </Text>
             <Text style={styles.statBoxLabel}>Review</Text>
@@ -304,7 +304,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       letterSpacing: -0.2,
     },
     progressCounterBadge: {
-      backgroundColor: isDark ? '#1B2534' : '#FCEBDD',
+      backgroundColor: isDark ? '#1B2534' : '#FFF7ED',
       paddingHorizontal: 8,
       paddingVertical: 3,
       borderRadius: 6,
@@ -312,7 +312,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
     progressCounterText: {
       fontSize: 11,
       fontWeight: '700',
-      color: isDark ? '#F2C9A3' : '#B9570A',
+      color: isDark ? '#F2C9A3' : '#FF9500',
     },
     statsGrid: {
       flexDirection: 'row',
@@ -338,8 +338,8 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       backgroundColor: isDark ? '#3B1A17' : '#FBE4E1',
     },
     statBoxMarked: {
-      borderColor: isDark ? '#B9570A' : '#F2C9A3',
-      backgroundColor: isDark ? '#141C28' : '#FCEBDD',
+      borderColor: isDark ? '#FF9500' : '#F2C9A3',
+      backgroundColor: isDark ? '#141C28' : '#FFF7ED',
     },
     statBoxNotVisited: {
       borderColor: isDark ? '#2B384D' : '#DDD6CA',
@@ -432,12 +432,12 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean) => {
       borderColor: '#B42318',
     },
     bubbleMarked: {
-      backgroundColor: '#D9822B',
-      borderColor: '#B9570A',
+      backgroundColor: '#FF9500',
+      borderColor: '#FF9500',
     },
     bubbleAnsweredMarked: {
-      backgroundColor: '#D9822B',
-      borderColor: '#B9570A',
+      backgroundColor: '#FF9500',
+      borderColor: '#FF9500',
     },
     bubbleNotVisited: {
       backgroundColor: isDark ? '#3F4A5E' : '#FFFFFF',

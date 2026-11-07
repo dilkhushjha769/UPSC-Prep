@@ -147,7 +147,7 @@ export function MainsQuestionBrowser({
   const textPrimary = isDark ? '#F1F5F9' : '#1E293B';
   const textSecondary = isDark ? '#9DA8B9' : '#64748B';
   const textMuted = isDark ? '#64748B' : '#94A3B8';
-  const accent = '#F58235';
+  const accent = '#FF9500';
 
   return (
     <View style={[styles.root, { backgroundColor: bg }]}>

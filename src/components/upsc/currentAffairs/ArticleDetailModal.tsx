@@ -22,7 +22,6 @@ import {
     Camera,
   Landmark,
   FileCheck2,
-  Sparkles,
   Scale,
 } from 'lucide-react-native';
 import {
@@ -30,7 +29,6 @@ import {
   CuratedArticle,
   MajorEvent,
   ImageProvenanceMetadata,
-  CrossVerificationMetadata,
   VerifiedRelatedPYQ,
   EventSourceItem,
 } from '@/data/currentAffairsData';
@@ -90,18 +88,6 @@ export function ArticleDetailModal({
       : item.type === 'article'
       ? item.data.subcategory
       : undefined;
-  const editorialAuthor =
-    item.type === 'event'
-      ? item.data.editorialAuthor
-      : item.type === 'article'
-      ? item.data.editorialAuthor
-      : undefined;
-  const aiExplanationDisclaimer =
-    item.type === 'event'
-      ? item.data.aiExplanationDisclaimer
-      : item.type === 'article'
-      ? item.data.aiExplanationDisclaimer
-      : undefined;
   const category =
     subcategory ||
     (item.type === 'event'
@@ -109,13 +95,6 @@ export function ArticleDetailModal({
       : item.type === 'article'
       ? item.data.primaryCategory || item.data.category
       : item.data.category);
-
-  const secondaryTags: string[] =
-    item.type === 'event'
-      ? item.data.secondaryTags || []
-      : item.type === 'article'
-      ? item.data.secondaryTags || []
-      : [];
 
   const paper = item.data.paper;
 
@@ -159,13 +138,6 @@ export function ArticleDetailModal({
       ? item.data.imageMetadata
       : item.type === 'article'
       ? item.data.imageMetadata
-      : undefined;
-
-  const crossVerification: CrossVerificationMetadata | undefined =
-    item.type === 'event'
-      ? item.data.crossVerification
-      : item.type === 'article'
-      ? item.data.crossVerification
       : undefined;
 
   const relatedPyqs: VerifiedRelatedPYQ[] =
@@ -332,7 +304,7 @@ export function ArticleDetailModal({
                 <View style={styles.imageTypeOverlayBadge}>
                   <Camera size={11} color="#FFFFFF" strokeWidth={2.2} />
                   <Text style={styles.imageTypeOverlayText}>
-                    {imageVerification.sourceCredibility === 'official_gov' ? 'Verified Official Visual' : 'Verified Editorial Photograph'}
+                    {getImageTypeBadgeLabel(imageVerification.imageType)}
                   </Text>
                 </View>
               </View>
@@ -356,7 +328,7 @@ export function ArticleDetailModal({
           {Boolean(whyItMatters) && (
             <View style={styles.whyItMattersCard}>
               <View style={styles.sectionHeaderRow}>
-                <Sparkles size={15} color="#F58235" strokeWidth={2.4} />
+                <Compass size={15} color="#FF9500" strokeWidth={2.4} />
                 <Text style={styles.whyItMattersHeading}>Why is it in the News?</Text>
               </View>
               <Text style={styles.whyItMattersText}>{whyItMatters}</Text>
@@ -371,7 +343,7 @@ export function ArticleDetailModal({
           {/* 5. Key Facts & Figures */}
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeaderRow}>
-              <ListChecks size={15} color={isDark ? '#E0963A' : '#B9570A'} strokeWidth={2.2} />
+              <ListChecks size={15} color={isDark ? '#E0963A' : '#FF9500'} strokeWidth={2.2} />
               <Text style={styles.sectionLabel}>Key Facts & Essential Takeaways</Text>
             </View>
             <View style={styles.bulletsList}>
@@ -491,7 +463,7 @@ export function ArticleDetailModal({
           {/* 9. Mains Perspective */}
           <View style={styles.mainsBox}>
             <View style={styles.sectionHeaderRow}>
-              <Scale size={15} color={isDark ? '#E0963A' : '#A65A0A'} strokeWidth={2} />
+              <Scale size={15} color={isDark ? '#E0963A' : '#FF9500'} strokeWidth={2} />
               <Text style={styles.mainsTitle}>Mains Perspective & Multi-Dimensional Analysis</Text>
             </View>
             <Text style={styles.mainsText}>
@@ -562,7 +534,7 @@ export function ArticleDetailModal({
                     <Text style={styles.sourceItemName}>{src.name}</Text>
                   </View>
                   {Boolean(src.url) && (
-                    <ExternalLink size={13} color={isDark ? '#E0963A' : '#B9570A'} strokeWidth={2} />
+                    <ExternalLink size={13} color={isDark ? '#E0963A' : '#FF9500'} strokeWidth={2} />
                   )}
                 </Pressable>
               ))}
@@ -620,8 +592,8 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       borderColor: isDark ? '#253244' : '#EAE5DC',
     },
     saveBtnActive: {
-      backgroundColor: '#B9570A',
-      borderColor: '#B9570A',
+      backgroundColor: '#FF9500',
+      borderColor: '#FF9500',
     },
     saveBtnText: {
       fontSize: 12.5,
@@ -649,7 +621,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       gap: 8,
     },
     paperBadge: {
-      backgroundColor: '#B9570A',
+      backgroundColor: '#FF9500',
       paddingHorizontal: 8,
       paddingVertical: 3.5,
       borderRadius: 6,
@@ -682,7 +654,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     secondaryTagText: {
       fontSize: 10.5,
       fontWeight: '600',
-      color: isDark ? '#E8A25E' : '#B9570A',
+      color: isDark ? '#E8A25E' : '#FF9500',
     },
     dateText: {
       fontSize: 11.5,
@@ -698,7 +670,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       letterSpacing: -0.3,
     },
     whyItMattersCard: {
-      backgroundColor: isDark ? 'rgba(185, 87, 10, 0.1)' : '#E9EDF9',
+      backgroundColor: isDark ? 'rgba(245, 130, 53, 0.1)' : '#E9EDF9',
       borderWidth: 1,
       borderColor: isDark ? 'rgba(111, 186, 255, 0.25)' : '#F2C9A3',
       borderRadius: 12,
@@ -708,7 +680,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     whyItMattersHeading: {
       fontSize: 12,
       fontWeight: '800',
-      color: isDark ? '#E8A25E' : '#B9570A',
+      color: isDark ? '#E8A25E' : '#FF9500',
       textTransform: 'uppercase',
       letterSpacing: 0.5,
     },
@@ -841,7 +813,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       width: 20,
       height: 20,
       borderRadius: 10,
-      backgroundColor: isDark ? 'rgba(96, 165, 250, 0.2)' : '#FCEBDD',
+      backgroundColor: isDark ? 'rgba(96, 165, 250, 0.2)' : '#FFF7ED',
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: 1,
@@ -849,7 +821,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     takeawayIndexText: {
       fontSize: 11,
       fontWeight: '800',
-      color: isDark ? '#F2C9A3' : '#974606',
+      color: isDark ? '#F2C9A3' : '#C25E00',
     },
     bulletText: {
       flex: 1,
@@ -995,7 +967,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       color: theme.textPrimary,
     },
     mainsBox: {
-      backgroundColor: isDark ? 'rgba(251, 191, 36, 0.06)' : '#FCEBDD',
+      backgroundColor: isDark ? 'rgba(251, 191, 36, 0.06)' : '#FFF7ED',
       borderWidth: 1,
       borderColor: isDark ? 'rgba(251, 191, 36, 0.22)' : '#F2D2A8',
       padding: 16,
@@ -1005,7 +977,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     mainsTitle: {
       fontSize: 12,
       fontWeight: '800',
-      color: isDark ? '#E0963A' : '#A65A0A',
+      color: isDark ? '#E0963A' : '#FF9500',
       textTransform: 'uppercase',
       letterSpacing: 0.5,
     },
@@ -1024,7 +996,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     mainsQTitle: {
       fontSize: 11,
       fontWeight: '800',
-      color: isDark ? '#E0963A' : '#6B3A12',
+      color: isDark ? '#E0963A' : '#9A3412',
       textTransform: 'uppercase',
     },
     mainsQText: {
@@ -1048,7 +1020,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       gap: 8,
     },
     pyqYearBadge: {
-      backgroundColor: '#B9570A',
+      backgroundColor: '#FF9500',
       paddingHorizontal: 7,
       paddingVertical: 2.5,
       borderRadius: 5,
@@ -1128,7 +1100,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     },
     sourceItemUrl: {
       fontSize: 11,
-      color: isDark ? '#E8A25E' : '#B9570A',
+      color: isDark ? '#E8A25E' : '#FF9500',
     },
     verificationCard: {
       backgroundColor: isDark ? 'rgba(30, 41, 59, 0.55)' : '#FAF9F6',
@@ -1168,7 +1140,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       marginTop: 4,
       padding: 10,
       borderRadius: 8,
-      backgroundColor: isDark ? 'rgba(251, 191, 36, 0.08)' : '#FCEBDD',
+      backgroundColor: isDark ? 'rgba(251, 191, 36, 0.08)' : '#FFF7ED',
       borderWidth: 1,
       borderColor: isDark ? 'rgba(251, 191, 36, 0.2)' : '#F2D2A8',
       gap: 4,
@@ -1176,7 +1148,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     limitationsTitle: {
       fontSize: 11,
       fontWeight: '800',
-      color: isDark ? '#E0963A' : '#A65A0A',
+      color: isDark ? '#E0963A' : '#FF9500',
     },
     limitationItemText: {
       fontSize: 11.5,

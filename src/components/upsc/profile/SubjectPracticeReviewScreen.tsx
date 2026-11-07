@@ -278,7 +278,7 @@ export function SubjectPracticeReviewScreen({
                 },
               ]}>
               {isDark ? (
-                <Sun size={15} color="#A65A0A" strokeWidth={2.4} />
+                <Sun size={15} color="#FF9500" strokeWidth={2.4} />
               ) : (
                 <Moon size={15} color="#7C93D1" strokeWidth={2.4} />
               )}

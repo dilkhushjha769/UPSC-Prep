@@ -103,7 +103,7 @@ export function CreateExchangeModal({
   const textPrimary = isDark ? '#F8FAFC' : '#0F172A';
   const textSecondary = isDark ? '#94A3B8' : '#64748B';
   const textMuted = isDark ? '#64748B' : '#94A3B8';
-  const accent = '#F58235';
+  const accent = '#FF9500';
 
   const handlePickFromRepo = (q: (typeof repoQuestions)[0]) => {
     setQuestionTitle(q.title || `Q${q.question_number}: ${q.text_english.slice(0, 50)}`);

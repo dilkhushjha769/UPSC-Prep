@@ -127,7 +127,7 @@ export function MockTestResultsView({
             <Text style={[styles.scoreTotal, { color: theme.textSecondary }]}>/ {test.total_marks} Marks</Text>
           </View>
           <View style={styles.accuracyBox}>
-            <Text style={[styles.accuracyPercent, { color: accuracy >= 60 ? '#26734D' : accuracy >= 40 ? '#A65A0A' : '#B42318' }]}>
+            <Text style={[styles.accuracyPercent, { color: accuracy >= 60 ? '#26734D' : accuracy >= 40 ? '#FF9500' : '#B42318' }]}>
               {accuracy}%
             </Text>
             <Text style={[styles.accuracyLabel, { color: theme.textMuted }]}>Accuracy</Text>
@@ -181,7 +181,7 @@ export function MockTestResultsView({
                   <Text style={[styles.subjectMarkText, { color: theme.textPrimary }]}>
                     {stat.marks > 0 ? `+${stat.marks}` : stat.marks} M
                   </Text>
-                  <Text style={[styles.subjectAccuracy, { color: stat.accuracy >= 60 ? '#26734D' : '#A65A0A' }]}>
+                  <Text style={[styles.subjectAccuracy, { color: stat.accuracy >= 60 ? '#26734D' : '#FF9500' }]}>
                     {stat.accuracy}% acc
                   </Text>
                 </View>

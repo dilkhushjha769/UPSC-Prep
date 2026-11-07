@@ -613,7 +613,7 @@ function getStyles(theme: PrelimsThemeType) {
       width: 4,
       height: 4,
       borderRadius: 2,
-      backgroundColor: isDark ? '#A65A0A' : '#A65A0A',
+      backgroundColor: isDark ? '#FF9500' : '#FF9500',
       marginBottom: 2,
     },
     barCountText: {
@@ -631,7 +631,7 @@ function getStyles(theme: PrelimsThemeType) {
       fontWeight: '900',
     },
     barCountTextPeak: {
-      color: isDark ? '#E0963A' : '#A65A0A',
+      color: isDark ? '#E0963A' : '#FF9500',
       fontWeight: '800',
     },
     barCanvas: {
@@ -663,7 +663,7 @@ function getStyles(theme: PrelimsThemeType) {
       elevation: 2,
     },
     barPillPeak: {
-      backgroundColor: isDark ? '#A65A0A' : '#A65A0A',
+      backgroundColor: isDark ? '#FF9500' : '#FF9500',
       borderTopLeftRadius: 4,
       borderTopRightRadius: 4,
     },
@@ -690,7 +690,7 @@ function getStyles(theme: PrelimsThemeType) {
       fontWeight: '900',
     },
     yearLabelTextPeak: {
-      color: isDark ? '#E0963A' : '#A65A0A',
+      color: isDark ? '#E0963A' : '#FF9500',
       fontWeight: '800',
     },
     actionStrip: {
@@ -718,7 +718,7 @@ function getStyles(theme: PrelimsThemeType) {
       color: theme.colors.textPrimary,
     },
     countBadge: {
-      backgroundColor: isDark ? '#1B2534' : '#FCEBDD',
+      backgroundColor: isDark ? '#1B2534' : '#FFF7ED',
       paddingHorizontal: 7,
       paddingVertical: 2,
       borderRadius: 5,
@@ -729,7 +729,7 @@ function getStyles(theme: PrelimsThemeType) {
     countBadgeText: {
       fontSize: 10.5,
       fontWeight: '700',
-      color: isDark ? '#F2C9A3' : '#B9570A',
+      color: isDark ? '#F2C9A3' : '#FF9500',
     },
     countBadgeTextZero: {
       color: theme.colors.textMuted,

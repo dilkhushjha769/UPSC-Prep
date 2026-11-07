@@ -96,9 +96,9 @@ export default function AppScreen() {
               },
             ]}>
             {isDark ? (
-              <Sun size={19} color="#D9822B" strokeWidth={2.3} />
+              <Sun size={19} color="#FF9500" strokeWidth={2.3} />
             ) : (
-              <Moon size={19} color="#B9570A" strokeWidth={2.3} />
+              <Moon size={19} color="#FF9500" strokeWidth={2.3} />
             )}
           </TouchableOpacity>
         )}
@@ -222,9 +222,9 @@ export default function AppScreen() {
             },
           ]}>
           {isDark ? (
-            <Sun size={19} color="#D9822B" strokeWidth={2.3} />
+            <Sun size={19} color="#FF9500" strokeWidth={2.3} />
           ) : (
-            <Moon size={19} color="#B9570A" strokeWidth={2.3} />
+            <Moon size={19} color="#FF9500" strokeWidth={2.3} />
           )}
         </TouchableOpacity>
       )}

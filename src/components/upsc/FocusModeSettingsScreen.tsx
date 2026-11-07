@@ -40,7 +40,6 @@ export function FocusModeSettingsScreen({ isDark: propIsDark, onBack }: Props) {
   const border = isDark ? '#253244' : '#EAE5DC';
   const text = isDark ? '#F1F5F9' : '#1E293B';
   const muted = isDark ? '#94A3B8' : '#64748B';
-  const track = { false: isDark ? '#1B2534' : '#DDD6CA', true: '#F58235' };
 
   const toggleApp = (id: string) => {
     const next = selected.includes(id) ? selected.filter((x) => x !== id) : [...selected, id];
@@ -74,7 +73,7 @@ export function FocusModeSettingsScreen({ isDark: propIsDark, onBack }: Props) {
                 void examFocusService.setEnabledByUser(v);
               }}
               isDark={isDark}
-              activeTrackColor="#B9570A"
+              activeTrackColor="#FF9500"
             />
           </View>
         </View>
@@ -94,7 +93,7 @@ export function FocusModeSettingsScreen({ isDark: propIsDark, onBack }: Props) {
             return (
               <View key={app.id} style={[styles.appRow, i > 0 && { borderTopWidth: StyleSheet.hairlineWidth, borderColor: border }]}>
                 <Pressable style={styles.appMain} onPress={() => toggleApp(app.id)} accessibilityRole="checkbox" accessibilityState={{ checked: on }}>
-                  <View style={[styles.check, { borderColor: on ? '#B9570A' : border, backgroundColor: on ? '#B9570A' : 'transparent' }]}>
+                  <View style={[styles.check, { borderColor: on ? '#FF9500' : border, backgroundColor: on ? '#FF9500' : 'transparent' }]}>
                     {on && <Check size={13} color="#FFFFFF" strokeWidth={3} />}
                   </View>
                   <Text style={[styles.appName, { color: text }]}>{app.name}</Text>
@@ -102,7 +101,7 @@ export function FocusModeSettingsScreen({ isDark: propIsDark, onBack }: Props) {
                 {isAndroid && on && app.pkg !== '' && (
                   <Pressable onPress={() => examFocusService.openAppNotificationSettings(app.pkg)} style={styles.muteBtn}>
                     <Text style={styles.muteText}>Mute</Text>
-                    <ExternalLink size={12} color="#B9570A" />
+                    <ExternalLink size={12} color="#FF9500" />
                   </Pressable>
                 )}
               </View>
@@ -150,7 +149,7 @@ const styles = StyleSheet.create({
   check: { width: 20, height: 20, borderRadius: 6, borderWidth: 1.5, alignItems: 'center', justifyContent: 'center' },
   appName: { fontSize: 14.5, fontWeight: '600' },
   muteBtn: { flexDirection: 'row', alignItems: 'center', gap: 4, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 8, backgroundColor: 'rgba(13,110,253,0.12)' },
-  muteText: { fontSize: 12, fontWeight: '700', color: '#B9570A' },
+  muteText: { fontSize: 12, fontWeight: '700', color: '#FF9500' },
   dndBtn: { flexDirection: 'row', alignItems: 'center', gap: 12, borderRadius: 14, borderWidth: 1, padding: 14 },
 });
 

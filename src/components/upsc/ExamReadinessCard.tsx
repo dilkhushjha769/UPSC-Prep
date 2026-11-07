@@ -29,8 +29,8 @@ function PrelimsIllustration({ isDark }: { isDark: boolean }) {
   const paperFill = isDark ? '#141C28' : '#FFFFFF';
   const lineStroke = isDark ? '#94A3B8' : '#64748B';
   const targetBg = isDark ? '#1B2534' : '#F5F3EE';
-  const targetBorder = '#F58235';
-  const targetDot = '#F58235';
+  const targetBorder = '#FF9500';
+  const targetDot = '#FF9500';
 
   return (
     <Svg width="36" height="36" viewBox="0 0 36 36" fill="none">
@@ -62,7 +62,7 @@ function PrelimsIllustration({ isDark }: { isDark: boolean }) {
 /** Mains: Checklist Clipboard with Angled Pen (Exact match to User Reference Image 1) */
 function MainsIllustration({ isDark }: { isDark: boolean }) {
   const stroke = isDark ? '#F1F5F9' : '#1E293B';
-  const accent = '#F58235';
+  const accent = '#FF9500';
   const penBody = isDark ? '#141C28' : '#FFFFFF';
 
   return (
@@ -125,7 +125,7 @@ function MainsIllustration({ isDark }: { isDark: boolean }) {
         <Line x1="-3.5" y1="-2.5" x2="3.5" y2="-2.5" stroke={stroke} strokeWidth="1.6" />
         <Path
           d="M -2.5 4 L 0 9 L 2.5 4 Z"
-          fill="#F58235"
+          fill="#FF9500"
           stroke={stroke}
           strokeWidth="1.6"
           strokeLinejoin="round"
@@ -143,13 +143,13 @@ function MockTestIllustration({ isDark }: { isDark: boolean }) {
   const headerFill = isDark ? '#334155' : '#EAE5DC';
   const textLineFill = isDark ? '#253244' : '#EAE5DC';
   const blueBox = isDark ? '#60A5FA' : '#3B82F6';
-  const amberBox = '#F58235';
+  const amberBox = '#FF9500';
 
   const clockBody = isDark ? '#141C28' : '#FFFFFF';
-  const clockBorder = '#F58235';
-  const crownColor = '#F58235';
+  const clockBorder = '#FF9500';
+  const crownColor = '#FF9500';
   const tickColor = isDark ? '#94A3B8' : '#64748B';
-  const handColor = '#F58235';
+  const handColor = '#FF9500';
 
   return (
     <Svg width="36" height="36" viewBox="0 0 36 36" fill="none">
@@ -248,7 +248,7 @@ export function ExamReadinessCard({
       illustration: PrelimsIllustration,
       badgeBg: isDark ? '#1B2534' : '#F5F3EE',
       badgeBorder: isDark ? '#253244' : '#EAE5DC',
-      borderHover: '#F58235',
+      borderHover: '#FF9500',
       glow: 'rgba(245, 130, 53, 0.15)',
       onPress: () => (onOpenPrelims ? onOpenPrelims() : setIsMCQModalOpen(true)),
     },
@@ -259,7 +259,7 @@ export function ExamReadinessCard({
       illustration: MainsIllustration,
       badgeBg: isDark ? '#1B2534' : '#F5F3EE',
       badgeBorder: isDark ? '#253244' : '#EAE5DC',
-      borderHover: '#F58235',
+      borderHover: '#FF9500',
       glow: 'rgba(245, 130, 53, 0.15)',
       onPress: () => (onOpenMains ? onOpenMains() : setIsMainsModalOpen(true)),
     },
@@ -270,7 +270,7 @@ export function ExamReadinessCard({
       illustration: MockTestIllustration,
       badgeBg: isDark ? '#1B2534' : '#F5F3EE',
       badgeBorder: isDark ? '#253244' : '#EAE5DC',
-      borderHover: '#F58235',
+      borderHover: '#FF9500',
       glow: 'rgba(245, 130, 53, 0.15)',
       onPress: () => (onOpenMockTests ? onOpenMockTests() : setIsMCQModalOpen(true)),
     },

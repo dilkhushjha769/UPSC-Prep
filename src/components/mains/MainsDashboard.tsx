@@ -19,7 +19,6 @@ import {
   Moon,
   RotateCcw,
   Search,
-  Sparkles,
   Sun,
   Users,
   X,
@@ -269,7 +268,7 @@ export function MainsDashboard({ isDark, onToggleTheme }: MainsDashboardProps) {
   const textPrimary = isDark ? '#F8FAFC' : '#0F172A';
   const textSecondary = isDark ? '#94A3B8' : '#64748B';
   const textMuted = isDark ? '#64748B' : '#94A3B8';
-  const accent = '#F58235';
+  const accent = '#FF9500';
 
   if (mainsMode === 'community') {
     return (
@@ -307,7 +306,7 @@ export function MainsDashboard({ isDark, onToggleTheme }: MainsDashboardProps) {
               onPress={onToggleTheme}
               accessibilityLabel="Toggle Theme"
               style={[styles.themeBtn, { backgroundColor: surfaceSubtle, borderColor: border }]}>
-              {isDark ? <Sun size={15} color="#D9822B" /> : <Moon size={15} color="#B9570A" />}
+              {isDark ? <Sun size={15} color="#FF9500" /> : <Moon size={15} color="#FF9500" />}
             </TouchableOpacity>
           )}
         </View>
@@ -578,7 +577,6 @@ export function MainsDashboard({ isDark, onToggleTheme }: MainsDashboardProps) {
                         </Text>
                         {q.is_case_study && (
                           <View style={[styles.caseStudyBadge, { backgroundColor: isDark ? 'rgba(139, 92, 246, 0.16)' : '#F3E8FF' }]}>
-                            <Sparkles size={10} color="#8B5CF6" />
                             <Text style={styles.caseStudyBadgeText}>Case Study</Text>
                           </View>
                         )}

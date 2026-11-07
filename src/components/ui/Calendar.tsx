@@ -261,7 +261,7 @@ export function Calendar({
         todayText: PALETTE.neutral.light.lightest,
         selectedBg: '#F4F6FB', // Crisp White in dark mode
         selectedText: '#0D1520', // Dark Ash text in dark mode
-        markedDot: '#F58235',
+        markedDot: '#FF9500',
       };
     }
 
@@ -274,11 +274,11 @@ export function Calendar({
       weekdayText: PALETTE.neutral.dark.textSecondary, // #7A8499
       dayText: PALETTE.neutral.dark.darkest, // #1C2433
       dayTextDisabled: PALETTE.neutral.light.muted, // #CFCFCF
-      todayBg: PALETTE.highlight.tint20, // #FCEBDD
+      todayBg: PALETTE.highlight.tint20, // #FFF7ED
       todayText: '#1C2433',
       selectedBg: '#1C2433', // Dark Ash in light mode
       selectedText: '#FFFFFF', // White text in light mode
-      markedDot: '#F58235',
+      markedDot: '#FF9500',
     };
   }, [isDark]);
 

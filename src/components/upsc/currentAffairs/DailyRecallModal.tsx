@@ -168,7 +168,7 @@ function DailyRecallContent({
         <View style={styles.header}>
           <View style={styles.headerLeft}>
             <View style={styles.iconCircle}>
-              <Zap size={16} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2.4} fill={isDark ? '#E8A25E' : '#B9570A'} />
+              <Zap size={16} color={isDark ? '#E8A25E' : '#FF9500'} strokeWidth={2.4} fill={isDark ? '#E8A25E' : '#FF9500'} />
             </View>
             <View style={{ flex: 1 }}>
               <View style={styles.headerTitleRow}>
@@ -263,7 +263,7 @@ function DailyRecallContent({
             /* COMPLETION CARD */
             <View style={styles.completedCard}>
               <View style={styles.trophyCircle}>
-                <Award size={36} color="#D9822B" strokeWidth={1.8} />
+                <Award size={36} color="#FF9500" strokeWidth={1.8} />
               </View>
               <Text style={styles.completedTitle}>
                 {singleEvent ? 'Event Recall Quiz Complete!' : 'Daily Active Recall Complete!'}
@@ -293,7 +293,7 @@ function DailyRecallContent({
                     setCurrentIndex(0);
                   }}
                 >
-                  <BookOpen size={15} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2} />
+                  <BookOpen size={15} color={isDark ? '#E8A25E' : '#FF9500'} strokeWidth={2} />
                   <Text style={styles.reviewBtnText}>Review Answers</Text>
                 </Pressable>
 
@@ -498,7 +498,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingHorizontal: 6,
       paddingVertical: 2,
       borderRadius: 5,
-      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.2)' : '#FCEBDD',
+      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.2)' : '#FFF7ED',
     },
     geminiBadgeText: {
       fontSize: 10,
@@ -568,8 +568,8 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       justifyContent: 'center',
     },
     qPillCurrent: {
-      borderColor: isDark ? '#E8A25E' : '#6B3A12',
-      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.15)' : '#FCEBDD',
+      borderColor: isDark ? '#E8A25E' : '#9A3412',
+      backgroundColor: isDark ? 'rgba(56, 189, 248, 0.15)' : '#FFF7ED',
     },
     qPillCorrect: {
       backgroundColor: isDark ? '#17301F' : '#E3F1E8',
@@ -585,7 +585,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       color: isDark ? '#6E7A8E' : '#5F6B80',
     },
     qPillTextCurrent: {
-      color: isDark ? '#E8A25E' : '#6B3A12',
+      color: isDark ? '#E8A25E' : '#9A3412',
       fontWeight: '700',
     },
     qPillTextAnswered: {
@@ -652,7 +652,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       opacity: 0.8,
     },
     optionItemSelected: {
-      borderColor: isDark ? '#E8A25E' : '#6B3A12',
+      borderColor: isDark ? '#E8A25E' : '#9A3412',
       backgroundColor: isDark ? 'rgba(56, 189, 248, 0.08)' : '#E9EDF9',
     },
     optionItemCorrect: {
@@ -803,7 +803,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       width: 72,
       height: 72,
       borderRadius: 36,
-      backgroundColor: isDark ? '#1B2534' : '#FCEBDD',
+      backgroundColor: isDark ? '#1B2534' : '#FFF7ED',
       alignItems: 'center',
       justifyContent: 'center',
       marginBottom: 16,
@@ -835,7 +835,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     scoreSummaryBig: {
       fontSize: 34,
       fontWeight: '900',
-      color: isDark ? '#E8A25E' : '#6B3A12',
+      color: isDark ? '#E8A25E' : '#9A3412',
       marginBottom: 4,
     },
     scoreSummaryLabel: {
@@ -859,12 +859,12 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       borderRadius: 10,
       backgroundColor: 'transparent',
       borderWidth: 1.5,
-      borderColor: isDark ? '#E0963A' : '#B9570A',
+      borderColor: isDark ? '#E0963A' : '#FF9500',
     },
     reviewBtnText: {
       fontSize: 13.5,
       fontWeight: '700',
-      color: isDark ? '#E8A25E' : '#B9570A',
+      color: isDark ? '#E8A25E' : '#FF9500',
     },
     retakeBtn: {
       flex: 1,

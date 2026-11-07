@@ -27,7 +27,7 @@ export function ChapterItemCard({
   serialNumber,
   isDark: propIsDark,
   solvedCount = 0,
-  subjectColor = '#F58235',
+  subjectColor = '#FF9500',
   onPress,
 }: ChapterItemCardProps) {
   const prelimsTheme = usePrelimsTheme();

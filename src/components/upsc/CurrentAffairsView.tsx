@@ -727,7 +727,7 @@ const styles = StyleSheet.create({
     right: 0,
     height: 2.5,
     borderRadius: 2,
-    backgroundColor: '#F58235',
+    backgroundColor: '#FF9500',
   },
   navRightCluster: {
     flexDirection: 'row',
@@ -752,10 +752,10 @@ const styles = StyleSheet.create({
     borderRadius: 9999,
   },
   segmentBtnActiveDark: {
-    backgroundColor: '#F58235',
+    backgroundColor: '#FF9500',
   },
   segmentBtnActive: {
-    backgroundColor: '#F58235',
+    backgroundColor: '#FF9500',
   },
   segmentBtnText: {
     fontSize: 13,
@@ -914,8 +914,8 @@ const styles = StyleSheet.create({
     borderColor: '#253244',
   },
   filterChipActive: {
-    backgroundColor: '#F58235',
-    borderColor: '#F58235',
+    backgroundColor: '#FF9500',
+    borderColor: '#FF9500',
   },
   filterChipText: {
     fontSize: 13.5,

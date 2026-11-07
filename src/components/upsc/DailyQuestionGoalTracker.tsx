@@ -14,14 +14,15 @@ import { PALETTE, Typography } from '@/constants/colors';
 import { useStudy } from '@/context/StudyContext';
 import { useAppTheme } from '@/context/ThemeContext';
 
-interface DailyQuestionGoalTrackerProps {
-  isDark: boolean;
+export interface DailyQuestionGoalTrackerProps {
+  isDark?: boolean;
   onOpenPractice?: () => void;
 }
 
 export function DailyQuestionGoalTracker({
   isDark: propIsDark,
-}: { isDark?: boolean; onOpenPractice?: () => void }) {
+  onOpenPractice,
+}: DailyQuestionGoalTrackerProps) {
   const { isDark: contextIsDark } = useAppTheme();
   const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const { width } = useWindowDimensions();
@@ -52,11 +53,11 @@ export function DailyQuestionGoalTracker({
   // Badge icon colors
   const badgeBg = isTargetAchieved
     ? (isDark ? '#13281E' : '#E3F1E8')
-    : (isDark ? '#1B2534' : '#FCEBDD');
+    : (isDark ? '#1B2534' : '#FFF7ED');
 
   const badgeIconColor = isTargetAchieved
     ? (isDark ? '#3FA573' : '#26734D')
-    : (isDark ? '#F58235' : '#B9570A');
+    : '#FF9500';
 
   const fillBarColor = isTargetAchieved ? '#26734D' : PALETTE.highlight.primary;
 

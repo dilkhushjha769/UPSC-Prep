@@ -145,7 +145,7 @@ export function DailyEventCard({
             leftIcon={
               <RotateCcw
                 size={12}
-                color={isDark ? '#E8A25E' : '#B9570A'}
+                color={isDark ? '#E8A25E' : '#FF9500'}
                 strokeWidth={2.2}
               />
             }
@@ -463,8 +463,8 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       borderColor: isDark ? '#4DB383' : '#26734D',
     },
     sectionTabBtnActiveNotes: {
-      backgroundColor: isDark ? 'rgba(166, 90, 10, 0.12)' : '#FCEBDD',
-      borderColor: isDark ? '#A65A0A' : '#A65A0A',
+      backgroundColor: isDark ? 'rgba(166, 90, 10, 0.12)' : '#FFF7ED',
+      borderColor: isDark ? '#FF9500' : '#FF9500',
     },
     sectionTabBtnText: {
       fontSize: 12,
@@ -472,7 +472,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       color: isDark ? '#F0EDE6' : '#3F4A5E',
     },
     sectionTabBtnTextActiveTakeaways: {
-      color: isDark ? '#E0963A' : '#974606',
+      color: isDark ? '#E0963A' : '#C25E00',
       fontWeight: '700',
     },
     sectionTabBtnTextActiveRecall: {
@@ -484,7 +484,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       fontWeight: '700',
     },
     sectionTabBtnTextActiveNotes: {
-      color: isDark ? '#E0963A' : '#A65A0A',
+      color: isDark ? '#E0963A' : '#FF9500',
       fontWeight: '700',
     },
     tabCountBadge: {
@@ -494,7 +494,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       backgroundColor: isDark ? '#141C28' : '#EAE5DC',
     },
     tabCountBadgeActiveTakeaways: {
-      backgroundColor: isDark ? 'rgba(96, 165, 250, 0.2)' : '#FCEBDD',
+      backgroundColor: isDark ? 'rgba(96, 165, 250, 0.2)' : '#FFF7ED',
     },
     tabCountBadgeActiveRecall: {
       backgroundColor: isDark ? 'rgba(94, 234, 212, 0.2)' : '#E3F1E8',
@@ -511,7 +511,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       color: isDark ? '#6E7A8E' : '#5F6B80',
     },
     tabCountBadgeTextActiveTakeaways: {
-      color: isDark ? '#E0963A' : '#974606',
+      color: isDark ? '#E0963A' : '#C25E00',
     },
     tabCountBadgeTextActiveRecall: {
       color: isDark ? '#4DB383' : '#26734D',
@@ -520,7 +520,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       color: isDark ? '#4DB383' : '#26734D',
     },
     tabCountBadgeTextActiveNotes: {
-      color: isDark ? '#E0963A' : '#A65A0A',
+      color: isDark ? '#E0963A' : '#FF9500',
     },
     tabContentSection: {
       marginBottom: 16,
@@ -577,7 +577,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingHorizontal: 5,
       paddingVertical: 1,
       borderRadius: 4,
-      backgroundColor: isDark ? 'rgba(111, 186, 255, 0.18)' : 'rgba(185, 87, 10, 0.12)',
+      backgroundColor: isDark ? 'rgba(111, 186, 255, 0.18)' : 'rgba(245, 130, 53, 0.12)',
     },
     topEventRecallBadgeActive: {
       backgroundColor: 'rgba(255, 255, 255, 0.25)',
@@ -633,7 +633,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       paddingHorizontal: 8,
       paddingVertical: 2.5,
       borderRadius: 5,
-      backgroundColor: isDark ? '#A65A0A' : '#A65A0A',
+      backgroundColor: isDark ? '#FF9500' : '#FF9500',
     },
     notesTagBadgeText: {
       fontSize: 10.5,
@@ -660,7 +660,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
     openFullNotesBtnText: {
       fontSize: 11,
       fontWeight: '600',
-      color: isDark ? '#4DB383' : '#974606',
+      color: isDark ? '#4DB383' : '#C25E00',
     },
     noteInputCard: {
       borderRadius: 8,
@@ -715,7 +715,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       borderWidth: 1,
       borderColor: isDark ? '#253244' : '#EAE5DC',
       borderLeftWidth: 3.5,
-      borderLeftColor: isDark ? '#A65A0A' : '#A65A0A',
+      borderLeftColor: isDark ? '#FF9500' : '#FF9500',
       padding: 10,
       gap: 5,
     },
@@ -891,7 +891,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: 2,
-      backgroundColor: isDark ? '#B9570A' : '#3D5A99',
+      backgroundColor: isDark ? '#FF9500' : '#3D5A99',
     },
     takeawayIndexText: {
       fontSize: 10,
@@ -1265,7 +1265,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean, isDesktop: bool
       borderColor: theme.buttonSecondaryBorder,
     },
     fullAnalysisBtnHover: {
-      backgroundColor: isDark ? '#253244' : '#FCEBDD',
+      backgroundColor: isDark ? '#253244' : '#FFF7ED',
       borderColor: isDark ? '#D9D9D9' : '#F2C9A3',
     },
     fullAnalysisBtnPressed: {

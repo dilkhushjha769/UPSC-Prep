@@ -106,9 +106,9 @@ function getVerifiedBaselineOfficialStories(): RawFeedStory[] {
       rawContent:
         'A 7-judge Constitution Bench of the Supreme Court ruled 6:1 in State of Punjab v. Davinder Singh that States are constitutionally empowered under Articles 15(4) and 16(4) to sub-classify Scheduled Castes based on empirical data of inadequate representation. The Court overruled the 2004 E.V. Chinnaiah judgment which had treated Scheduled Castes as a homogeneous class. The Bench clarified that sub-classification does not tinker with the Presidential Notification under Article 341(1) and requires quantifiable empirical evidence collected by the State.',
       publishedAt: nowIso,
-      extractedImageUrl: 'https://images.indianexpress.com/2026/10/Cabinet-Secretary.jpg',
+      extractedImageUrl: undefined,
       extractedImageCaption: 'Supreme Court of India Constitution Bench judgment on Articles 16(4) and 341.',
-      extractedImageCredit: 'Supreme Court of India / Official Archive',
+      extractedImageCredit: 'Supreme Court of India Official Record',
     },
     {
       source: pibSource,
@@ -121,7 +121,7 @@ function getVerifiedBaselineOfficialStories(): RawFeedStory[] {
       rawContent:
         'The Ministry of New and Renewable Energy (MNRE) released operational guidelines for Tranche-II under the ₹19,744-crore National Green Hydrogen Mission Strategic Interventions for Green Hydrogen Transition (SIGHT) programme. Implemented through the Solar Energy Corporation of India (SECI), the scheme provides financial incentives for domestic Proton Exchange Membrane (PEM) and Alkaline electrolyser manufacturing with mandatory local value addition, targeting 5 Million Metric Tonnes (MMT) of Green Hydrogen capacity per annum by 2030.',
       publishedAt: nowIso,
-      extractedImageUrl: 'https://images.indianexpress.com/2026/10/role-of-agrivoltaics-in-sustainable-agriculture-and-global-environmental-regulations.jpg',
+      extractedImageUrl: undefined,
       extractedImageCaption: 'Renewable energy and green hydrogen production infrastructure under MNRE SIGHT scheme.',
       extractedImageCredit: 'PIB Delhi • Ministry of New and Renewable Energy',
     },
@@ -136,7 +136,7 @@ function getVerifiedBaselineOfficialStories(): RawFeedStory[] {
       rawContent:
         'The Reserve Bank of India (RBI) issued revised Basel-III Liquidity Coverage Ratio (LCR) guidelines requiring scheduled commercial banks to maintain an additional High-Quality Liquid Assets (HQLA) buffer in Government Securities against instant 24/7 digital banking run-offs. Simultaneously, RBI scaled up the Unified Lending Interface (ULI) architecture, integrating consent-based land records, GST filings, and satellite crop data to reduce rural and MSME credit appraisal times.',
       publishedAt: nowIso,
-      extractedImageUrl: 'https://images.indianexpress.com/2026/10/Jio-IPO-4.jpg',
+      extractedImageUrl: undefined,
       extractedImageCaption: 'Reserve Bank of India headquarters and Monetary Policy regulatory announcement.',
       extractedImageCredit: 'Reserve Bank of India (RBI) Official Press Release',
     },
@@ -151,7 +151,7 @@ function getVerifiedBaselineOfficialStories(): RawFeedStory[] {
       rawContent:
         'NITI Aayog, in technical collaboration with the United Nations Development Programme (UNDP) and Oxford Poverty and Human Development Initiative (OPHI), published the updated National Multidimensional Poverty Index (MPI) report. While the global MPI tracks 10 indicators, India’s National MPI incorporates 12 indicators by adding Maternal Health and Bank Account access under the Alkire-Foster dual-cutoff methodology, recording steep reductions in nutrition, cooking fuel, and sanitation deprivations.',
       publishedAt: nowIso,
-      extractedImageUrl: 'https://images.indianexpress.com/2026/10/UPSC-Key-27th-Oct-2026.jpg',
+      extractedImageUrl: undefined,
       extractedImageCaption: 'NITI Aayog & UNDP Multidimensional Poverty Index (MPI) indicator framework.',
       extractedImageCredit: 'NITI Aayog / UNDP Official Publication',
     },
@@ -166,9 +166,9 @@ function getVerifiedBaselineOfficialStories(): RawFeedStory[] {
       rawContent:
         'The Indian Space Research Organisation (ISRO) successfully conducted the hot test of its 2,000 kN thrust SCE-200 semi-cryogenic engine pre-burner at the Mahendragiri Propulsion Complex. Utilizing refined kerosene (Isrosene / RP-1) and liquid oxygen (LOX), the stage replaces the core liquid stage of LVM3 to boost Geosynchronous Transfer Orbit (GTO) payload capacity for the upcoming Chandrayaan-4 Lunar Sample Return and Bharatiya Antariksha Station missions.',
       publishedAt: nowIso,
-      extractedImageUrl: 'https://images.indianexpress.com/2026/10/Railways-safety-feature-1.jpg',
+      extractedImageUrl: undefined,
       extractedImageCaption: 'Indigenous space propulsion and advanced engineering testing in India.',
-      extractedImageCredit: 'ISRO / Department of Space & The Indian Express',
+      extractedImageCredit: 'ISRO / Department of Space',
     },
     {
       source: pibSource,
@@ -181,7 +181,7 @@ function getVerifiedBaselineOfficialStories(): RawFeedStory[] {
       rawContent:
         'The Ministry of Culture and Archaeological Survey of India (ASI) released verified Accelerator Mass Spectrometry (AMS) carbon dating findings from Sivagalai and Adichanallur in the Porunai (Thamirabarani) river basin, establishing Iron Age habitation and rice cultivation around 1155 BCE. Concurrently, India submitted the "Maratha Military Landscapes of India" nomination dossier comprising 12 forts (including Raigad, Shivneri, Pratapgad, Panhala, Sindhudurg, and Gingee) for UNESCO World Heritage inscription.',
       publishedAt: nowIso,
-      extractedImageUrl: 'https://images.indianexpress.com/2026/10/arnab_409941.jpg',
+      extractedImageUrl: undefined,
       extractedImageCaption: 'Cultural heritage and archaeological conservation announcement by Ministry of Culture.',
       extractedImageCredit: 'PIB • Ministry of Culture & Archaeological Survey of India',
     },

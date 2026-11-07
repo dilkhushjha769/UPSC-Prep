@@ -79,11 +79,11 @@ export function SubjectProgressRow({
       case 'history_culture':
         return { icon: Landmark, color: '#E0675B', bg: '#E0675B' };
       case 'geography':
-        return { icon: Globe, color: '#B9570A', bg: '#B9570A' };
+        return { icon: Globe, color: '#FF9500', bg: '#FF9500' };
       case 'polity_governance':
         return { icon: Scale, color: '#5B6B99', bg: '#5B6B99' };
       case 'economy':
-        return { icon: ChartNoAxesCombined, color: '#D9822B', bg: '#D9822B' };
+        return { icon: ChartNoAxesCombined, color: '#FF9500', bg: '#FF9500' };
       case 'environment_ecology':
         return { icon: Leaf, color: '#3FA573', bg: '#3FA573' };
       case 'science_tech':
@@ -95,18 +95,18 @@ export function SubjectProgressRow({
       // CSAT Subjects
       case 'csat_reading_comprehension':
       case 'csat_reading_comp':
-        return { icon: BookOpen, color: '#B9570A', bg: '#B9570A' };
+        return { icon: BookOpen, color: '#FF9500', bg: '#FF9500' };
       case 'csat_reasoning':
       case 'csat_logical_reasoning':
         return { icon: Scale, color: '#5B6B99', bg: '#5B6B99' };
       case 'csat_quant_numeracy':
       case 'csat_quantitative_aptitude':
-        return { icon: ChartNoAxesCombined, color: '#D9822B', bg: '#D9822B' };
+        return { icon: ChartNoAxesCombined, color: '#FF9500', bg: '#FF9500' };
       case 'csat_data_interpretation':
         return { icon: Layers, color: '#3FA573', bg: '#3FA573' };
 
       default:
-        return { icon: BookOpen, color: '#B9570A', bg: '#B9570A' };
+        return { icon: BookOpen, color: '#FF9500', bg: '#FF9500' };
     }
   }, [subject.id]);
 
@@ -131,7 +131,7 @@ export function SubjectProgressRow({
           </View>
 
           <View style={[styles.iconTile, { backgroundColor: isDark ? '#1B2534' : '#F5F3EE', borderColor: isDark ? '#253244' : '#EAE5DC', borderWidth: 1 }]}>
-            <IconComponent size={20} color={isDark ? '#F58235' : '#E07328'} strokeWidth={2.2} />
+            <IconComponent size={20} color={isDark ? '#FF9500' : '#EA8300'} strokeWidth={2.2} />
           </View>
 
           <View style={styles.mobileTitleBlock}>
@@ -197,7 +197,7 @@ export function SubjectProgressRow({
 
       {/* 2. Colored Subject Icon Tile */}
       <View style={[styles.iconTile, { backgroundColor: isDark ? '#1B2534' : '#F5F3EE', borderColor: isDark ? '#253244' : '#EAE5DC', borderWidth: 1 }]}>
-        <IconComponent size={20} color={isDark ? '#F58235' : '#E07328'} strokeWidth={2.2} />
+        <IconComponent size={20} color={isDark ? '#FF9500' : '#EA8300'} strokeWidth={2.2} />
       </View>
 
       {/* 3. Subject Name & Chapters Count */}

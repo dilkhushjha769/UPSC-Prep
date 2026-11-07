@@ -12,10 +12,6 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import {
-  AlertTriangle,
-  Play,
-  Clock,
-  Layers,
   X,
   Timer,
   CheckCircle2,
@@ -62,7 +58,7 @@ function CAQuizContent({ onClose, isDark }: { onClose: () => void; isDark: boole
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, 'A' | 'B' | 'C' | 'D'>>({});
   const [timeLeft, setTimeLeft] = useState(durationSeconds);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [quizStarted, setQuizStarted] = useState(false);
+  const [quizStarted] = useState(true);
   const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   const selectedAnswersRef = useRef(selectedAnswers);

@@ -96,7 +96,7 @@ export function PrelimsOverviewCard({
               {isCSAT ? (
                 <Brain size={22} color="#7C93D1" strokeWidth={2.2} />
               ) : (
-                <BookCheck size={22} color="#F58235" strokeWidth={2.2} />
+                <BookCheck size={22} color="#FF9500" strokeWidth={2.2} />
               )}
             </View>
             <View style={styles.compactTitleBlock}>
@@ -215,7 +215,7 @@ export function PrelimsOverviewCard({
               {isCSAT ? (
                 <Brain size={24} color="#7C93D1" strokeWidth={2.2} />
               ) : (
-                <BookCheck size={24} color="#F58235" strokeWidth={2.2} />
+                <BookCheck size={24} color="#FF9500" strokeWidth={2.2} />
               )}
             </View>
             <View style={styles.desktopTitleBlock}>

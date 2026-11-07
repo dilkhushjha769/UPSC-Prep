@@ -16,7 +16,7 @@ const customLightTheme = {
     card: '#FFFFFF',
     text: '#1E293B',
     border: '#EAE5DC',
-    primary: '#F58235',
+    primary: '#FF9500',
   },
 };
 
@@ -28,7 +28,7 @@ const customDarkTheme = {
     card: '#141C28',
     text: '#F1F5F9',
     border: '#253244',
-    primary: '#F58235',
+    primary: '#FF9500',
   },
 };
 

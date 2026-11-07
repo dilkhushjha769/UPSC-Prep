@@ -143,6 +143,11 @@ export interface ImageProvenanceMetadata {
   imageUrl?: string | null;
   imageVerificationStatus?: "VERIFIED" | "REJECTED" | "NOT_AVAILABLE" | "PENDING";
   imageRelevanceScore?: number;
+  confidence?: number;
+  timestamp?: string;
+  method?: string;
+  matchedEntities?: string[];
+  rejectionReason?: string | null;
   visualLearningAssets?: VisualLearningAsset[];
   readTime?: string;
   credit: string;
@@ -223,6 +228,10 @@ export interface DailyEventItem {
   publishedAt?: string;
   updatedAt?: string;
   relevanceScore?: number;
+  importance?: 'HIGH' | 'IMPORTANT' | 'MODERATE' | 'LOW';
+  status?: 'published' | 'needs_review' | 'rejected' | 'quarantined' | 'draft';
+  rejectionReason?: string | null;
+  aiRelevanceData?: any;
   summary: string;
   summaryBullets?: string[];
   imageUrl?: string | null;
@@ -453,7 +462,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
               title: 'Department-Related Standing Committees at a Glance',
               subtitle: 'Established in 1993 under Rules of Procedure',
               stats: [
-                { label: 'Total DRSCs', value: '24', subtext: '16 Lok Sabha + 8 Rajya Sabha', accent: '#F58235' },
+                { label: 'Total DRSCs', value: '24', subtext: '16 Lok Sabha + 8 Rajya Sabha', accent: '#FF9500' },
                 { label: 'Members per Committee', value: '31', subtext: '21 LS + 10 RS MPs', accent: '#38BDF8' },
                 { label: 'Tenure of Office', value: '1 Year', subtext: 'Annual reconstitution', accent: '#3FA573' },
                 { label: 'Minister Eligibility', value: 'Barred', subtext: 'Ministers cannot be members', accent: '#F43F5E' }
@@ -531,7 +540,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
               title: 'Safeguarding Against Digital 24/7 Bank Runs',
               subtitle: 'RBI revised norms under Banking Regulation Act',
               stats: [
-                { label: 'Additional Run-Off Factor', value: '+5%', subtext: 'For internet/mobile-enabled retail deposits', change: '+500 bps', accent: '#F58235' },
+                { label: 'Additional Run-Off Factor', value: '+5%', subtext: 'For internet/mobile-enabled retail deposits', change: '+500 bps', accent: '#FF9500' },
                 { label: 'Minimum LCR Required', value: '100%', subtext: 'HQLA / Net Outflows over 30 Days', accent: '#3FA573' },
                 { label: 'Stress Period Horizon', value: '30 Days', subtext: 'Severe liquidity stress scenario', accent: '#38BDF8' },
                 { label: 'Compliance Deadline', value: 'Apr 2026', subtext: 'Phased implementation window', accent: '#A78BFA' }
@@ -644,7 +653,7 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
               subtitle: 'Treaty signed in Ramsar, Iran (1971) • India joined in 1982',
               stats: [
                 { label: 'Total Ramsar Sites', value: '85', subtext: 'Highest network in South Asia', accent: '#3FA573' },
-                { label: 'Montreux Sites in India', value: '2', subtext: 'Keoladeo (RJ) & Loktak (MN)', accent: '#F58235' },
+                { label: 'Montreux Sites in India', value: '2', subtext: 'Keoladeo (RJ) & Loktak (MN)', accent: '#FF9500' },
                 { label: 'Removed from Montreux', value: 'Chilika', subtext: 'Successfully restored in 2002', accent: '#38BDF8' }
               ],
               notes: [

@@ -30,8 +30,8 @@ import { PhotoCropModal } from './PhotoCropModal';
 import { PhotoViewerModal } from './PhotoViewerModal';
 import { useAppTheme } from '@/context/ThemeContext';
 
-interface EditProfileScreenProps {
-  isDark: boolean;
+export interface EditProfileScreenProps {
+  isDark?: boolean;
   onBack: () => void;
   onSaved?: () => void;
 }
@@ -53,11 +53,7 @@ export function EditProfileScreen({
   isDark: propIsDark,
   onBack,
   onSaved,
-}: {
-  isDark?: boolean;
-  onBack: () => void;
-  onSaved?: () => void;
-}) {
+}: EditProfileScreenProps) {
   const { isDark: contextIsDark } = useAppTheme();
   const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const { config, updateConfig } = useStudy();

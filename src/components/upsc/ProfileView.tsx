@@ -49,8 +49,8 @@ import {
   SubjectPracticeReviewScreen,
 } from './profile/SubjectPracticeReviewScreen';
 
-interface ProfileViewProps {
-  isDark: boolean;
+export interface ProfileViewProps {
+  isDark?: boolean;
   onNavigateToTab?: (tabKey: any) => void;
   onToggleTheme?: () => void;
   onBack?: () => void;
@@ -101,7 +101,7 @@ function PrimaryToggle({
         styles.primaryToggleTrack,
         {
           backgroundColor: value
-            ? PALETTE.highlight.primary // #B9570A (Primary Blue)
+            ? PALETTE.highlight.primary // #FF9500 (Primary Blue)
             : (isDark ? '#1B2534' : '#DDD6CA'),
         },
       ]}>
@@ -126,12 +126,7 @@ export function ProfileView({
   onNavigateToTab,
   onToggleTheme: propToggleTheme,
   onBack,
-}: {
-  isDark?: boolean;
-  onNavigateToTab?: (tabKey: any) => void;
-  onToggleTheme?: () => void;
-  onBack?: () => void;
-}) {
+}: ProfileViewProps) {
   const { isDark: contextIsDark, toggleTheme: contextToggleTheme } = useAppTheme();
   const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const onToggleTheme = propToggleTheme || contextToggleTheme;
@@ -140,7 +135,7 @@ export function ProfileView({
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const isDesktop = width >= 768;
 
-  const primaryBlue = PALETTE.highlight.primary; // #B9570A
+  const primaryBlue = PALETTE.highlight.primary; // #FF9500
 
   // Active full-screen flow state
   const [currentScreen, setCurrentScreen] = useState<SubScreen>('main');
@@ -152,7 +147,7 @@ export function ProfileView({
   const [activeEditField, setActiveEditField] = useState<EditableFieldType | null>(null);
   const [tempValue, setTempValue] = useState<string>('');
 
-  // Preference Toggles (uses Primary Blue #B9570A)
+  // Preference Toggles (uses Primary Blue #FF9500)
   const [studyReminders, setStudyReminders] = useState<boolean>(
     config.notificationPreferences?.studyReminders ?? true
   );
@@ -429,7 +424,7 @@ export function ProfileView({
                 },
               ]}>
               {isDark ? (
-                <Sun size={16} color="#A65A0A" strokeWidth={2.4} />
+                <Sun size={16} color="#FF9500" strokeWidth={2.4} />
               ) : (
                 <Moon size={16} color="#7C93D1" strokeWidth={2.4} />
               )}
@@ -530,14 +525,14 @@ export function ProfileView({
                 style={[
                   styles.tagPill,
                   {
-                    backgroundColor: isDark ? 'rgba(185, 87, 10, 0.15)' : '#E9EDF9',
-                    borderColor: isDark ? 'rgba(185, 87, 10, 0.3)' : '#CBD3EB',
+                    backgroundColor: isDark ? 'rgba(245, 130, 53, 0.15)' : '#E9EDF9',
+                    borderColor: isDark ? 'rgba(245, 130, 53, 0.3)' : '#CBD3EB',
                   },
                 ]}>
                 <Text
                   style={[
                     styles.tagPillText,
-                    { color: isDark ? '#F2C9A3' : '#974606' },
+                    { color: isDark ? '#F2C9A3' : '#C25E00' },
                   ]}>
                   UPSC {displayYear}
                 </Text>
@@ -565,7 +560,7 @@ export function ProfileView({
             style={[
               styles.editProfileBtn,
               {
-                backgroundColor: '#F58235',
+                backgroundColor: '#FF9500',
               },
             ]}>
             <Edit3 size={12} color="#FFFFFF" strokeWidth={2.4} />
@@ -597,8 +592,8 @@ export function ProfileView({
                   styles.tabBtn,
                   isActive
                     ? {
-                        backgroundColor: '#F58235',
-                        shadowColor: '#F58235',
+                        backgroundColor: '#FF9500',
+                        shadowColor: '#FF9500',
                         shadowOffset: { width: 0, height: 2 },
                         shadowOpacity: 0.25,
                         shadowRadius: 4,
@@ -1387,7 +1382,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 7,
     borderRadius: 9,
-    shadowColor: '#B9570A',
+    shadowColor: '#FF9500',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,

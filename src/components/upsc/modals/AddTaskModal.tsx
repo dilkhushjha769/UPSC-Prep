@@ -166,7 +166,7 @@ export function AddTaskModal({ isDark: propIsDark }: AddTaskModalProps) {
                           p === 'High'
                             ? '#B42318'
                             : p === 'Medium'
-                            ? '#A65A0A'
+                            ? '#FF9500'
                             : colors.primary,
                       },
                       !isSelected && {

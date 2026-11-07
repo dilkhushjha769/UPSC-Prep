@@ -84,7 +84,7 @@ export function QuizSubmitModal({
             </View>
 
             <View style={[styles.summaryStatItem, styles.statBorderMarked]}>
-              <Text style={[styles.summaryStatNum, { color: '#D9822B' }]}>
+              <Text style={[styles.summaryStatNum, { color: '#FF9500' }]}>
                 {markedCount}
               </Text>
               <Text style={styles.summaryStatLabel}>Marked Review</Text>
@@ -216,7 +216,7 @@ const getStyles = (theme: PrelimsThemeType) => {
       borderColor: isDark ? '#6E1F18' : '#F3C4BF',
     },
     statBorderMarked: {
-      borderColor: isDark ? '#B9570A' : '#F2C9A3',
+      borderColor: isDark ? '#FF9500' : '#F2C9A3',
     },
     statBorderNotVisited: {
       borderColor: isDark ? '#2B384D' : '#DDD6CA',
@@ -235,7 +235,7 @@ const getStyles = (theme: PrelimsThemeType) => {
       textAlign: 'center',
     },
     warningBox: {
-      backgroundColor: isDark ? '#141C28' : '#FCEBDD',
+      backgroundColor: isDark ? '#141C28' : '#FFF7ED',
       borderColor: isDark ? '#2A1D12' : '#F2D2A8',
       borderWidth: 1,
       borderRadius: 10,
@@ -243,7 +243,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     },
     warningText: {
       fontSize: 12,
-      color: isDark ? '#F2D2A8' : '#6B3A12',
+      color: isDark ? '#F2D2A8' : '#9A3412',
       lineHeight: 18,
       fontWeight: '500',
     },

@@ -102,7 +102,7 @@ export function YearRangePickerModal({
                   key={preset.key}
                   style={({ pressed }) => [
                     styles.rowItem,
-                    { backgroundColor: isSelected ? (isDark ? '#1B2534' : '#FCEBDD') : colors.rowBg, borderColor: isSelected ? '#B9570A' : colors.rowBorder },
+                    { backgroundColor: isSelected ? (isDark ? '#1B2534' : '#FFF7ED') : colors.rowBg, borderColor: isSelected ? '#FF9500' : colors.rowBorder },
                     pressed && styles.pressed,
                   ]}
                   onPress={() => {
@@ -111,12 +111,12 @@ export function YearRangePickerModal({
                   }}
                 >
                   <View style={styles.rowInfo}>
-                    <Text style={[styles.rowLabel, { color: isSelected ? '#B9570A' : colors.textPrimary }]}>
+                    <Text style={[styles.rowLabel, { color: isSelected ? '#FF9500' : colors.textPrimary }]}>
                       {preset.label}
                     </Text>
                     <Text style={[styles.rowSub, { color: colors.textSecondary }]}>{preset.sub}</Text>
                   </View>
-                  {isSelected && <Check size={18} color="#B9570A" strokeWidth={2.5} />}
+                  {isSelected && <Check size={18} color="#FF9500" strokeWidth={2.5} />}
                 </Pressable>
               );
             })}
@@ -131,7 +131,7 @@ export function YearRangePickerModal({
                     key={yr}
                     style={({ pressed }) => [
                       styles.yearChip,
-                      { backgroundColor: isSelected ? '#B9570A' : colors.chipBg, borderColor: isSelected ? '#B9570A' : colors.chipBorder },
+                      { backgroundColor: isSelected ? '#FF9500' : colors.chipBg, borderColor: isSelected ? '#FF9500' : colors.chipBorder },
                       pressed && styles.pressed,
                     ]}
                     onPress={() => {
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
   },
   rowItemActive: {
     backgroundColor: '#1C2433',
-    borderColor: '#B9570A',
+    borderColor: '#FF9500',
   },
   rowInfo: {
     flex: 1,
@@ -282,8 +282,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   yearChipActive: {
-    backgroundColor: '#B9570A',
-    borderColor: '#B9570A',
+    backgroundColor: '#FF9500',
+    borderColor: '#FF9500',
   },
   yearChipText: {
     fontSize: 13,

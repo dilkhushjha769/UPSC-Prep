@@ -19,8 +19,6 @@ import {
   Clock,
   Layers,
   Play,
-  CheckCircle2,
-  ShieldAlert,
   Timer,
   Flag,
   ArrowLeft,
@@ -427,7 +425,7 @@ function QuizModalContent({
           <View style={styles.rulesParamsGrid}>
             {/* 1. Questions */}
             <View style={[styles.paramCard, { backgroundColor: theme.colors.bgSurface, borderColor: theme.colors.borderCard }]}>
-              <HelpCircle size={18} color="#B9570A" strokeWidth={2.2} />
+              <HelpCircle size={18} color="#FF9500" strokeWidth={2.2} />
               <Text style={[styles.paramValue, { color: theme.colors.textPrimary }]}>
                 {questions.length}
               </Text>
@@ -438,7 +436,7 @@ function QuizModalContent({
 
             {/* 2. Duration */}
             <View style={[styles.paramCard, { backgroundColor: theme.colors.bgSurface, borderColor: theme.colors.borderCard }]}>
-              <Clock size={18} color="#A65A0A" strokeWidth={2.2} />
+              <Clock size={18} color="#FF9500" strokeWidth={2.2} />
               <Text style={[styles.paramValue, { color: theme.colors.textPrimary }]}>
                 {durationMinutes} Min
               </Text>
@@ -478,7 +476,7 @@ function QuizModalContent({
 
             {/* Rule 1 */}
             <View style={styles.ruleItemRow}>
-              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#141C28' : '#FCEBDD' }]}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#141C28' : '#FFF7ED' }]}>
                 <Text style={styles.ruleItemNumText}>1</Text>
               </View>
               <View style={styles.ruleItemContent}>
@@ -493,7 +491,7 @@ function QuizModalContent({
 
             {/* Rule 2 */}
             <View style={styles.ruleItemRow}>
-              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#141C28' : '#FCEBDD' }]}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#141C28' : '#FFF7ED' }]}>
                 <Text style={styles.ruleItemNumText}>2</Text>
               </View>
               <View style={styles.ruleItemContent}>
@@ -508,7 +506,7 @@ function QuizModalContent({
 
             {/* Rule 3 */}
             <View style={styles.ruleItemRow}>
-              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#141C28' : '#FCEBDD' }]}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#141C28' : '#FFF7ED' }]}>
                 <Text style={styles.ruleItemNumText}>3</Text>
               </View>
               <View style={styles.ruleItemContent}>
@@ -523,7 +521,7 @@ function QuizModalContent({
 
             {/* Rule 4 */}
             <View style={styles.ruleItemRow}>
-              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#141C28' : '#FCEBDD' }]}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#141C28' : '#FFF7ED' }]}>
                 <Text style={styles.ruleItemNumText}>4</Text>
               </View>
               <View style={styles.ruleItemContent}>
@@ -538,7 +536,7 @@ function QuizModalContent({
 
             {/* Rule 5 */}
             <View style={styles.ruleItemRow}>
-              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#141C28' : '#FCEBDD' }]}>
+              <View style={[styles.ruleItemNumber, { backgroundColor: theme.isDark ? '#141C28' : '#FFF7ED' }]}>
                 <Text style={styles.ruleItemNumText}>5</Text>
               </View>
               <View style={styles.ruleItemContent}>
@@ -617,7 +615,7 @@ function QuizModalContent({
                     ? '#B42318'
                     : theme.isDark
                     ? '#E0963A'
-                    : '#B9570A'
+                    : '#FF9500'
                 }
                 strokeWidth={2.2}
               />
@@ -696,8 +694,8 @@ function QuizModalContent({
                     >
                       <Bookmark
                         size={12}
-                        color={bookmarkedMap[currentQ.id] ? '#A65A0A' : theme.colors.textMuted}
-                        fill={bookmarkedMap[currentQ.id] ? '#A65A0A' : 'none'}
+                        color={bookmarkedMap[currentQ.id] ? '#FF9500' : theme.colors.textMuted}
+                        fill={bookmarkedMap[currentQ.id] ? '#FF9500' : 'none'}
                         strokeWidth={2}
                       />
                       <Text
@@ -724,8 +722,8 @@ function QuizModalContent({
                     >
                       <Flag
                         size={12}
-                        color={markedForReview[currentIndex] ? '#D9822B' : theme.colors.textMuted}
-                        fill={markedForReview[currentIndex] ? '#D9822B' : 'none'}
+                        color={markedForReview[currentIndex] ? '#FF9500' : theme.colors.textMuted}
+                        fill={markedForReview[currentIndex] ? '#FF9500' : 'none'}
                         strokeWidth={2}
                       />
                       <Text
@@ -946,7 +944,7 @@ function QuizModalContent({
             <View style={styles.confirmModalOverlay}>
               <View style={styles.confirmModalCard}>
                 <View style={styles.confirmIconCircle}>
-                  <AlertTriangle size={26} color="#A65A0A" strokeWidth={2.2} />
+                  <AlertTriangle size={26} color="#FF9500" strokeWidth={2.2} />
                 </View>
 
                 <Text style={styles.confirmModalTitle}>Leave Quiz?</Text>
@@ -968,7 +966,7 @@ function QuizModalContent({
                   </View>
                   <View style={styles.confirmStatDivider} />
                   <View style={styles.confirmStatItem}>
-                    <Text style={[styles.confirmStatNum, { color: theme.isDark ? '#E0963A' : '#B9570A' }]}>
+                    <Text style={[styles.confirmStatNum, { color: theme.isDark ? '#E0963A' : '#FF9500' }]}>
                       {formatTime(timeLeftSeconds)}
                     </Text>
                     <Text style={styles.confirmStatLabel}>Time Left</Text>
@@ -1214,11 +1212,11 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       left: 0,
       right: 0,
       height: 2.5,
-      backgroundColor: isDark ? 'rgba(255, 138, 61, 0.22)' : '#FCEBDD',
+      backgroundColor: isDark ? 'rgba(255, 138, 61, 0.22)' : '#FFF7ED',
     },
     topProgressBarFill: {
       height: '100%',
-      backgroundColor: '#B9570A',
+      backgroundColor: '#FF9500',
     },
     closeBtn: {
       width: 34,
@@ -1317,7 +1315,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       gap: 8,
     },
     metaYearTag: {
-      backgroundColor: isDark ? '#1B2534' : '#FCEBDD',
+      backgroundColor: isDark ? '#1B2534' : '#FFF7ED',
       paddingHorizontal: 7,
       paddingVertical: 2.5,
       borderRadius: 5,
@@ -1357,8 +1355,8 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       borderColor: theme.colors.borderSubtle,
     },
     bookmarkBtnActive: {
-      backgroundColor: isDark ? '#2A1D12' : '#FCEBDD',
-      borderColor: '#A65A0A',
+      backgroundColor: isDark ? '#2A1D12' : '#FFF7ED',
+      borderColor: '#FF9500',
     },
     bookmarkBtnText: {
       fontSize: 11,
@@ -1366,7 +1364,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       fontWeight: '600',
     },
     bookmarkBtnTextActive: {
-      color: isDark ? '#E0963A' : '#A65A0A',
+      color: isDark ? '#E0963A' : '#FF9500',
       fontWeight: '800',
     },
     markBtn: {
@@ -1381,8 +1379,8 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       borderColor: theme.colors.borderSubtle,
     },
     markBtnActive: {
-      backgroundColor: isDark ? '#1B2534' : '#FCEBDD',
-      borderColor: '#D9822B',
+      backgroundColor: isDark ? '#1B2534' : '#FFF7ED',
+      borderColor: '#FF9500',
     },
     markBtnText: {
       fontSize: 11,
@@ -1390,7 +1388,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       fontWeight: '600',
     },
     markBtnTextActive: {
-      color: isDark ? '#F2C9A3' : '#B9570A',
+      color: isDark ? '#F2C9A3' : '#FF9500',
       fontWeight: '800',
     },
     questionContainer: {
@@ -1419,8 +1417,8 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       gap: 12,
     },
     optionItemSelected: {
-      backgroundColor: isDark ? '#141C28' : '#FCEBDD',
-      borderColor: isDark ? '#E0963A' : '#B9570A',
+      backgroundColor: isDark ? '#141C28' : '#FFF7ED',
+      borderColor: isDark ? '#E0963A' : '#FF9500',
     },
     keyCircle: {
       width: 28,
@@ -1793,7 +1791,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     },
     solutionTrick: {
       fontSize: 12,
-      color: isDark ? '#F2C9A3' : '#B9570A',
+      color: isDark ? '#F2C9A3' : '#FF9500',
       fontWeight: '600',
       marginTop: 4,
       lineHeight: 17,
@@ -1836,9 +1834,9 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       width: 52,
       height: 52,
       borderRadius: 26,
-      backgroundColor: isDark ? '#2A1D12' : '#FCEBDD',
+      backgroundColor: isDark ? '#2A1D12' : '#FFF7ED',
       borderWidth: 1,
-      borderColor: isDark ? '#6B3A08' : '#F2D2A8',
+      borderColor: isDark ? '#9A3412' : '#F2D2A8',
       alignItems: 'center',
       justifyContent: 'center',
       marginBottom: 14,
@@ -1969,7 +1967,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
       marginBottom: 8,
     },
     rulesExamBadge: {
-      backgroundColor: theme.isDark ? '#141C28' : '#FCEBDD',
+      backgroundColor: theme.isDark ? '#141C28' : '#FFF7ED',
       paddingHorizontal: 8,
       paddingVertical: 3,
       borderRadius: 6,
@@ -1977,7 +1975,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     rulesExamBadgeText: {
       fontSize: 10.5,
       fontWeight: '800',
-      color: theme.isDark ? '#E8A25E' : '#B9570A',
+      color: theme.isDark ? '#E8A25E' : '#FF9500',
       letterSpacing: 0.5,
     },
     rulesPaperText: {
@@ -2052,7 +2050,7 @@ const getStyles = (theme: PrelimsThemeType, isMobile: boolean = false) => {
     ruleItemNumText: {
       fontSize: 11,
       fontWeight: '800',
-      color: '#B9570A',
+      color: '#FF9500',
     },
     ruleItemContent: {
       flex: 1,

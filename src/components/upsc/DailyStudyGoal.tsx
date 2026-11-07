@@ -14,7 +14,7 @@ import {
   Flame,
   Play,
   PlusCircle,
-  Sparkles,
+  Target,
 } from 'lucide-react-native';
 import { useStudy } from '@/context/StudyContext';
 import { UPSC_THEME } from '@/constants/themeColors';
@@ -78,7 +78,7 @@ export function DailyStudyGoal({ isDark: propIsDark }: DailyStudyGoalProps) {
                 styles.categoryChip,
                 { backgroundColor: colors.primarySoft },
               ]}>
-              <Sparkles size={12} color={colors.primary} />
+              <Target size={12} color={colors.primary} />
               <Text style={[styles.categoryText, { color: colors.primary }]}>
                 {"Today's Target"}
               </Text>
@@ -127,7 +127,7 @@ export function DailyStudyGoal({ isDark: propIsDark }: DailyStudyGoalProps) {
           <View
             style={[
               styles.progressBarTrack,
-              { backgroundColor: isDark ? '#141C28' : '#FCEBDD' },
+              { backgroundColor: isDark ? '#141C28' : '#FFF7ED' },
             ]}>
             <View
               style={[
@@ -147,7 +147,7 @@ export function DailyStudyGoal({ isDark: propIsDark }: DailyStudyGoalProps) {
             size={120}
             strokeWidth={11}
             progress={progressRatio}
-            trackColor={isDark ? '#1B2534' : '#FCEBDD'}
+            trackColor={isDark ? '#1B2534' : '#FFF7ED'}
             fillColor={colors.primary}
             gradientColors={[colors.primary, colors.primary]}
             gradientId="todayGoalGrad">
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 20,
     marginBottom: 20,
-    shadowColor: '#B9570A',
+    shadowColor: '#FF9500',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.06,
     shadowRadius: 14,
@@ -350,7 +350,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 16,
-    shadowColor: '#B9570A',
+    shadowColor: '#FF9500',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.25,
     shadowRadius: 8,

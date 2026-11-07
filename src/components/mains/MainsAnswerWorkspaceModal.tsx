@@ -99,7 +99,7 @@ export function MainsAnswerWorkspaceModal({
   const textPrimary = isDark ? '#F1F5F9' : '#1E293B';
   const textSecondary = isDark ? '#9DA8B9' : '#64748B';
   const textMuted = isDark ? '#64748B' : '#94A3B8';
-  const accent = '#F58235';
+  const accent = '#FF9500';
 
   const wordCount = answerText.trim() ? answerText.trim().split(/\s+/).length : 0;
   const wordLimit = question.word_limit;
@@ -678,7 +678,7 @@ const styles = StyleSheet.create({
     borderBottomColor: 'transparent',
   },
   modeTabBtnActive: {
-    borderBottomColor: '#F58235',
+    borderBottomColor: '#FF9500',
   },
   modeTabBtnText: { fontSize: 13, fontWeight: '600' },
   editorCard: {

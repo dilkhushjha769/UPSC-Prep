@@ -363,7 +363,7 @@ export function FocusTimerModal({ isDark: propIsDark }: FocusTimerModalProps) {
 
                     {isQualified && (
                       <View style={styles.qualifiedBadge}>
-                        <Flame size={12} color="#A65A0A" fill="#D9822B" />
+                        <Flame size={12} color="#FF9500" fill="#FF9500" />
                         <Text style={styles.qualifiedText}>Streak Qualified</Text>
                       </View>
                     )}
@@ -425,7 +425,7 @@ export function FocusTimerModal({ isDark: propIsDark }: FocusTimerModalProps) {
                             styles.statusDot,
                             {
                               backgroundColor: activeTimer.isPaused
-                                ? '#A65A0A'
+                                ? '#FF9500'
                                 : '#26734D',
                             },
                           ]}
@@ -435,7 +435,7 @@ export function FocusTimerModal({ isDark: propIsDark }: FocusTimerModalProps) {
                             styles.statusText,
                             {
                               color: activeTimer.isPaused
-                                ? '#A65A0A'
+                                ? '#FF9500'
                                 : '#26734D',
                             },
                           ]}>
@@ -488,7 +488,7 @@ export function FocusTimerModal({ isDark: propIsDark }: FocusTimerModalProps) {
                       STREAK
                     </Text>
                     <View style={styles.streakRow}>
-                      <Flame size={12} color="#A65A0A" fill="#D9822B" />
+                      <Flame size={12} color="#FF9500" fill="#FF9500" />
                       <Text style={[styles.contextValue, { color: theme.textPrimary }]}>
                         {streak.currentStreak}d
                       </Text>
@@ -836,7 +836,7 @@ const styles = StyleSheet.create({
   qualifiedText: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#A65A0A',
+    color: '#FF9500',
   },
   activeTopicTitle: {
     fontSize: 14,

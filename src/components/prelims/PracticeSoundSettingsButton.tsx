@@ -28,7 +28,7 @@ function SoundRow({ label, value, onChange, disabled, border, text, isDark }: So
         onValueChange={onChange}
         disabled={disabled}
         isDark={isDark}
-        activeTrackColor="#B9570A"
+        activeTrackColor="#FF9500"
       />
     </View>
   );

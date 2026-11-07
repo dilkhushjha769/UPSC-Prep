@@ -47,8 +47,8 @@ export const UPSC_PRELIMS_TAXONOMY: TaxonomySubject[] = [
     name: 'History and Culture',
     shortName: 'History & Culture',
     iconName: 'library-outline',
-    accentColor: '#A65A0A',
-    lightBg: '#FCEBDD',
+    accentColor: '#FF9500',
+    lightBg: '#FFF7ED',
     topics: [
       {
         id: 'ancient_indian_history',
@@ -278,7 +278,7 @@ export const UPSC_PRELIMS_TAXONOMY: TaxonomySubject[] = [
     name: 'Indian Polity and Governance',
     shortName: 'Polity & Governance',
     iconName: 'shield-checkmark-outline',
-    accentColor: '#B9570A',
+    accentColor: '#FF9500',
     lightBg: '#F2C9A3',
     topics: [
       {
@@ -816,8 +816,8 @@ export const UPSC_PRELIMS_TAXONOMY: TaxonomySubject[] = [
     name: 'Current Affairs and Miscellaneous',
     shortName: 'Current Affairs & IR',
     iconName: 'globe-outline',
-    accentColor: '#B9570A',
-    lightBg: '#FCEBDD',
+    accentColor: '#FF9500',
+    lightBg: '#FFF7ED',
     topics: [
       {
         id: 'national_and_international_developments',
@@ -1093,8 +1093,8 @@ export const UPSC_PRELIMS_TAXONOMY: TaxonomySubject[] = [
     name: 'Data Interpretation',
     shortName: 'Data Interpretation',
     iconName: 'bar-chart-outline',
-    accentColor: '#A65A0A',
-    lightBg: '#FCEBDD',
+    accentColor: '#FF9500',
+    lightBg: '#FFF7ED',
     topics: [
       {
         id: 'data_interpretation',

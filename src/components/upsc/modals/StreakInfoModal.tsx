@@ -80,7 +80,7 @@ export function StreakInfoModal({ isDark: propIsDark }: StreakInfoModalProps) {
           ]}>
           <View style={styles.header}>
             <View style={styles.headerTitleRow}>
-              <Flame size={18} color="#A65A0A" fill="#D9822B" />
+              <Flame size={18} color="#FF9500" fill="#FF9500" />
               <Text style={[styles.headerTitle, { color: colors.textPrimary }]}>
                 UPSC Streak System Rules
               </Text>
@@ -111,7 +111,7 @@ export function StreakInfoModal({ isDark: propIsDark }: StreakInfoModalProps) {
                     <View
                       style={[
                         styles.iconCircle,
-                        { backgroundColor: isDark ? '#1B2534' : '#FCEBDD' },
+                        { backgroundColor: isDark ? '#1B2534' : '#FFF7ED' },
                       ]}>
                       <Icon size={16} color={rule.color} />
                     </View>

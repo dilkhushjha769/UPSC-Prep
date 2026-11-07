@@ -139,7 +139,7 @@ export function WeeklyStudyChart({ isDark: propIsDark }: WeeklyStudyChartProps) 
           style={[
             styles.targetBadge,
             {
-              backgroundColor: isDark ? '#1B2534' : '#FCEBDD',
+              backgroundColor: isDark ? '#1B2534' : '#FFF7ED',
               borderColor: colors.cardBorderSubtle,
             },
           ]}>
@@ -235,8 +235,8 @@ export function WeeklyStudyChart({ isDark: propIsDark }: WeeklyStudyChartProps) 
         <Svg width={chartWidth} height={chartHeight} viewBox={`0 0 ${chartWidth} ${chartHeight}`}>
           <Defs>
             <LinearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-              <Stop offset="0%" stopColor="#D9822B" stopOpacity="0.4" />
-              <Stop offset="100%" stopColor="#D9822B" stopOpacity="0.4" />
+              <Stop offset="0%" stopColor="#FF9500" stopOpacity="0.4" />
+              <Stop offset="100%" stopColor="#FF9500" stopOpacity="0.4" />
             </LinearGradient>
           </Defs>
 
@@ -341,7 +341,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 20,
     marginBottom: 24,
-    shadowColor: '#B9570A',
+    shadowColor: '#FF9500',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
     shadowRadius: 12,

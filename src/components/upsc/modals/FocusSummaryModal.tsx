@@ -18,7 +18,6 @@ import {
   PauseCircle,
   Play,
   RotateCcw,
-  Sparkles,
   TrendingUp,
   X,
 } from 'lucide-react-native';
@@ -144,7 +143,7 @@ export function FocusSummaryModal({ isDark: propIsDark }: FocusSummaryModalProps
 
                 {lastSessionSummary.isStreakQualified && (
                   <View style={styles.streakBadge}>
-                    <Flame size={12} color="#A65A0A" fill="#D9822B" />
+                    <Flame size={12} color="#FF9500" fill="#FF9500" />
                     <Text style={styles.streakBadgeText}>Streak Qualifying</Text>
                   </View>
                 )}
@@ -254,7 +253,7 @@ export function FocusSummaryModal({ isDark: propIsDark }: FocusSummaryModalProps
                     {
                       color: lastSessionSummary.distractionCount === 0
                         ? isDark ? '#4DB383' : '#26734D'
-                        : '#A65A0A',
+                        : '#FF9500',
                     },
                   ]}>
                   {lastSessionSummary.distractionCount === 0
@@ -316,7 +315,7 @@ export function FocusSummaryModal({ isDark: propIsDark }: FocusSummaryModalProps
                 </Text>
 
                 <View style={styles.streakIndicator}>
-                  <Flame size={13} color="#A65A0A" fill="#D9822B" />
+                  <Flame size={13} color="#FF9500" fill="#FF9500" />
                   <Text style={[styles.streakText, { color: theme.textPrimary }]}>
                     {lastSessionSummary.currentStreak} Day Streak
                   </Text>
@@ -333,7 +332,6 @@ export function FocusSummaryModal({ isDark: propIsDark }: FocusSummaryModalProps
                   borderColor: isDark ? '#253244' : '#EAE5DC',
                 },
               ]}>
-              <Sparkles size={14} color={theme.textPrimary} />
               <Text style={[styles.quoteText, { color: theme.textSecondary }]}>
                 {lastSessionSummary.motivationalQuote}
               </Text>
@@ -495,7 +493,7 @@ const styles = StyleSheet.create({
   streakBadgeText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#A65A0A',
+    color: '#FF9500',
   },
   topicTitle: {
     fontSize: 16,

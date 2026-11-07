@@ -151,12 +151,12 @@ export function StreakCalendarModal({
                 style={[
                   styles.streakBadge,
                   {
-                    backgroundColor: isDark ? 'rgba(166, 90, 10, 0.12)' : '#FCEBDD',
+                    backgroundColor: isDark ? 'rgba(166, 90, 10, 0.12)' : '#FFF7ED',
                     borderColor: isDark ? 'rgba(166, 90, 10, 0.28)' : '#F2D2A8',
                   },
                 ]}>
-                <Flame size={11} color="#A65A0A" fill="#D9822B" />
-                <Text style={[styles.streakBadgeText, { color: isDark ? '#E0963A' : '#A65A0A' }]}>
+                <Flame size={11} color="#FF9500" fill="#FF9500" />
+                <Text style={[styles.streakBadgeText, { color: isDark ? '#E0963A' : '#FF9500' }]}>
                   {streak.currentStreak}d streak
                 </Text>
               </View>

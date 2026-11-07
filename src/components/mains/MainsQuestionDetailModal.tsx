@@ -84,7 +84,7 @@ export function MainsQuestionDetailModal({
   const textPrimary = isDark ? '#F1F5F9' : '#1E293B';
   const textSecondary = isDark ? '#9DA8B9' : '#64748B';
   const textMuted = isDark ? '#64748B' : '#94A3B8';
-  const accent = '#F58235';
+  const accent = '#FF9500';
 
   const isCaseStudy = question.is_case_study;
 
@@ -146,49 +146,39 @@ export function MainsQuestionDetailModal({
 
         <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
           <View style={styles.contentContainer}>
-            {/* Metadata Badges Bar */}
-            <View style={[styles.metaCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-              <View style={styles.metaGrid}>
-                <View style={styles.metaItem}>
-                  <Text style={[styles.metaLabel, { color: textSecondary }]}>Marks</Text>
-                  <Text style={[styles.metaVal, { color: textPrimary }]}>{question.marks} Marks</Text>
-                </View>
-
-                <View style={styles.metaDivider} />
-
-                <View style={styles.metaItem}>
-                  <Text style={[styles.metaLabel, { color: textSecondary }]}>Word Limit</Text>
-                  <Text style={[styles.metaVal, { color: textPrimary }]}>{question.word_limit} Words</Text>
-                </View>
-
-                <View style={styles.metaDivider} />
-
-                <View style={styles.metaItem}>
-                  <Text style={[styles.metaLabel, { color: textSecondary }]}>Subject Area</Text>
-                  <Text style={[styles.metaVal, { color: textPrimary }]} numberOfLines={1}>
-                    {question.subject_area}
-                  </Text>
-                </View>
-
-                <View style={styles.metaDivider} />
-
-                <View style={styles.metaItem}>
-                  <Text style={[styles.metaLabel, { color: textSecondary }]}>Topic</Text>
-                  <Text style={[styles.metaVal, { color: textPrimary }]} numberOfLines={1}>
-                    {question.topic}
-                  </Text>
-                </View>
-              </View>
-            </View>
-
-            {/* Question Text Card */}
+            {/* Clean & Focused Question Card */}
             <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
+              {/* Question Header Strip */}
+              <View style={styles.questionCardHeader}>
+                <View style={styles.questionBadgeRow}>
+                  <View style={[styles.qNumBadge, { backgroundColor: accent }]}>
+                    <Text style={styles.qNumBadgeText}>Question {question.question_number}</Text>
+                  </View>
+                  <Text style={[styles.qMetaSummary, { color: textSecondary }]}>
+                    {question.marks} Marks • {question.word_limit} Words
+                  </Text>
+                </View>
+
+                {question.text_hindi ? (
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    onPress={() => setLanguage((l) => (l === 'en' ? 'hi' : 'en'))}
+                    style={[styles.qLangToggle, { backgroundColor: isDark ? '#1E293B' : '#F1F5F9', borderColor: cardBorder }]}>
+                    <Globe size={12} color={accent} />
+                    <Text style={[styles.qLangToggleText, { color: textPrimary }]}>
+                      {language === 'en' ? 'हिंदी में देखें' : 'View in English'}
+                    </Text>
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+
               {question.title && (
                 <View style={styles.titleWrap}>
                   <Text style={[styles.questionTitleText, { color: accent }]}>{question.title}</Text>
                 </View>
               )}
 
+              {/* Question Text Body */}
               {isCaseStudy ? (
                 <View style={styles.caseStudyContainer}>
                   <View
@@ -377,29 +367,66 @@ export function MainsQuestionDetailModal({
                           </View>
                         </View>
 
-                        {/* Handwritten Sheet Preview Thumbnail */}
-                        {firstAtt?.file_uri && (
+                        {/* Compact UPSC Answer Sheet Document Card */}
+                        {firstAtt?.file_uri ? (
                           <TouchableOpacity
                             activeOpacity={0.88}
                             onPress={() => setSelectedCommunityPost(post)}
-                            style={[styles.thumbnailBox, { borderColor: cardBorder }]}>
-                            <Image source={{ uri: firstAtt.file_uri }} style={styles.thumbnailImg} />
-                            <View style={styles.thumbnailBadgeRow}>
-                              <View style={styles.pagesPill}>
-                                <Layers size={11} color="#FFFFFF" />
-                                <Text style={styles.pagesPillText}>
-                                  {post.attachments.length} {post.attachments.length === 1 ? 'Page' : 'Pages'}
-                                </Text>
+                            style={[
+                              styles.sheetDocCardRow,
+                              {
+                                backgroundColor: isDark ? '#111827' : '#FFFFFF',
+                                borderColor: cardBorder,
+                              },
+                            ]}>
+                            {/* Document Portrait Thumbnail (A4 paper proportion, bounded width) */}
+                            <View style={[styles.docThumbnailWrap, { borderColor: isDark ? '#334155' : '#E2E8F0' }]}>
+                              <Image
+                                source={{ uri: firstAtt.file_uri }}
+                                style={styles.docThumbnailImg}
+                                resizeMode="cover"
+                              />
+                              <View style={styles.docCornerBadge}>
+                                <Text style={styles.docCornerBadgeText}>QCAB</Text>
                               </View>
-                              <View style={[styles.viewPill, { backgroundColor: accent }]}>
-                                <Eye size={11} color="#FFFFFF" />
-                                <Text style={styles.viewPillText}>Inspect Sheet</Text>
+                            </View>
+
+                            {/* Document Information & Strategy */}
+                            <View style={styles.docMetaCol}>
+                              <View style={styles.docMetaTop}>
+                                <View style={[styles.qcabBadge, { backgroundColor: `${accent}15` }]}>
+                                  <FileText size={11} color={accent} />
+                                  <Text style={[styles.qcabBadgeText, { color: accent }]}>
+                                    UPSC Answer Booklet
+                                  </Text>
+                                </View>
+                                <View style={[styles.pagesBadge, { backgroundColor: isDark ? '#1E293B' : '#F1F5F9' }]}>
+                                  <Layers size={10} color={textMuted} />
+                                  <Text style={[styles.pagesBadgeText, { color: textSecondary }]}>
+                                    {post.attachments.length} {post.attachments.length === 1 ? 'Page' : 'Pages'}
+                                  </Text>
+                                </View>
+                              </View>
+
+                              {post.approach_note ? (
+                                <Text style={[styles.docApproachText, { color: textSecondary }]} numberOfLines={2}>
+                                  <Text style={{ fontWeight: '700', color: textPrimary }}>Aspirant&apos;s Strategy: </Text>
+                                  {post.approach_note}
+                                </Text>
+                              ) : null}
+
+                              <View style={styles.docActionRow}>
+                                <View style={[styles.inspectSheetBtn, { backgroundColor: accent }]}>
+                                  <Eye size={12} color="#FFFFFF" strokeWidth={2.4} />
+                                  <Text style={styles.inspectSheetBtnText}>Inspect Sheet</Text>
+                                </View>
+                                <Text style={[styles.docClickHint, { color: textMuted }]}>
+                                  Click to upscale & read
+                                </Text>
                               </View>
                             </View>
                           </TouchableOpacity>
-                        )}
-
-                        {post.approach_note ? (
+                        ) : post.approach_note ? (
                           <Text style={[styles.strategyNote, { color: textSecondary }]} numberOfLines={2}>
                             <Text style={{ fontWeight: '700', color: textPrimary }}>Aspirant&apos;s Approach: </Text>
                             {post.approach_note}
@@ -511,28 +538,54 @@ const styles = StyleSheet.create({
   },
   scrollContent: { padding: 16, paddingBottom: 60 },
   contentContainer: { maxWidth: 860, alignSelf: 'center', width: '100%', gap: 16 },
-  metaCard: {
-    padding: 14,
-    borderRadius: 10,
-    borderWidth: 1,
-  },
-  metaGrid: {
+  card: { padding: 18, borderRadius: 14, borderWidth: 1, gap: 14 },
+  questionCardHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: 10,
+    flexWrap: 'wrap',
+    marginBottom: 4,
+  },
+  questionBadgeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
     flexWrap: 'wrap',
   },
-  metaItem: { flex: 1, minWidth: 100, alignItems: 'center' },
-  metaLabel: { fontSize: 11, fontWeight: '600', textTransform: 'uppercase', marginBottom: 2 },
-  metaVal: { fontSize: 13, fontWeight: '700' },
-  metaDivider: { width: 1, height: 24, backgroundColor: 'rgba(150,150,150,0.2)' },
-  card: { padding: 18, borderRadius: 14, borderWidth: 1, gap: 14 },
+  qNumBadge: {
+    paddingHorizontal: 9,
+    paddingVertical: 4,
+    borderRadius: 6,
+  },
+  qNumBadgeText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '800',
+  },
+  qMetaSummary: {
+    fontSize: 12.5,
+    fontWeight: '600',
+  },
+  qLangToggle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingHorizontal: 9,
+    paddingVertical: 4,
+    borderRadius: 6,
+    borderWidth: 1,
+  },
+  qLangToggleText: {
+    fontSize: 11,
+    fontWeight: '700',
+  },
   titleWrap: { marginBottom: 4 },
   questionTitleText: { fontSize: 16, fontWeight: '700' },
   caseStudyContainer: { gap: 14 },
   scenarioBox: { padding: 16, borderRadius: 8, borderWidth: 1, gap: 8 },
   scenarioLabel: { fontSize: 11, fontWeight: '700', textTransform: 'uppercase' },
-  questionBodyText: { fontSize: 15, lineHeight: 26 },
+  questionBodyText: { fontSize: 16, lineHeight: 27, letterSpacing: 0.2 },
   subQuestionsBox: { gap: 10, marginTop: 4 },
   subQuestionsLabel: { fontSize: 12, fontWeight: '700', textTransform: 'uppercase' },
   subQRow: { flexDirection: 'row', gap: 8 },
@@ -656,53 +709,107 @@ const styles = StyleSheet.create({
   authorSub: {
     fontSize: 10.5,
   },
-  thumbnailBox: {
-    height: 140,
-    borderRadius: 10,
+  sheetDocCardRow: {
+    flexDirection: 'row',
+    borderRadius: 12,
+    borderWidth: 1,
+    padding: 10,
+    gap: 12,
+    alignItems: 'center',
+  },
+  docThumbnailWrap: {
+    width: 88,
+    height: 120,
+    borderRadius: 8,
     borderWidth: 1,
     overflow: 'hidden',
     position: 'relative',
+    backgroundColor: '#F8FAFC',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
   },
-  thumbnailImg: {
+  docThumbnailImg: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
   },
-  thumbnailBadgeRow: {
+  docCornerBadge: {
     position: 'absolute',
-    bottom: 6,
-    left: 6,
-    right: 6,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    top: 4,
+    right: 4,
+    backgroundColor: 'rgba(15, 23, 42, 0.75)',
+    paddingHorizontal: 4,
+    paddingVertical: 1,
+    borderRadius: 3,
   },
-  pagesPill: {
+  docCornerBadgeText: {
+    color: '#FFFFFF',
+    fontSize: 8.5,
+    fontWeight: '800',
+    letterSpacing: 0.4,
+  },
+  docMetaCol: {
+    flex: 1,
+    gap: 6,
+    justifyContent: 'center',
+  },
+  docMetaTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    flexWrap: 'wrap',
+  },
+  qcabBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: 'rgba(0,0,0,0.7)',
     paddingHorizontal: 7,
     paddingVertical: 3,
-    borderRadius: 5,
+    borderRadius: 6,
   },
-  pagesPillText: {
-    color: '#FFFFFF',
+  qcabBadgeText: {
     fontSize: 10.5,
-    fontWeight: '700',
+    fontWeight: '800',
   },
-  viewPill: {
+  pagesBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    paddingHorizontal: 8,
+    paddingHorizontal: 6,
     paddingVertical: 3,
-    borderRadius: 5,
+    borderRadius: 6,
   },
-  viewPillText: {
-    color: '#FFFFFF',
+  pagesBadgeText: {
     fontSize: 10.5,
+    fontWeight: '600',
+  },
+  docApproachText: {
+    fontSize: 12,
+    lineHeight: 16.5,
+  },
+  docActionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginTop: 2,
+  },
+  inspectSheetBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingHorizontal: 9,
+    paddingVertical: 4,
+    borderRadius: 6,
+  },
+  inspectSheetBtnText: {
+    color: '#FFFFFF',
+    fontSize: 11,
     fontWeight: '700',
+  },
+  docClickHint: {
+    fontSize: 10.5,
   },
   strategyNote: {
     fontSize: 12,

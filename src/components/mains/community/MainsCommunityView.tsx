@@ -100,7 +100,7 @@ export function MainsCommunityView({
   const border = isDark ? '#232D3F' : '#E8E3DA';
   const textPrimary = isDark ? '#F8FAFC' : '#0F172A';
   const textSecondary = isDark ? '#94A3B8' : '#64748B';
-  const accent = '#F58235';
+  const accent = '#FF9500';
 
   const unreadNotifsCount = notifications.filter((n) => !n.is_read).length;
 

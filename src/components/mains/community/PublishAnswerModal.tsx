@@ -76,7 +76,7 @@ export function PublishAnswerModal({
   const textPrimary = isDark ? '#F8FAFC' : '#0F172A';
   const textSecondary = isDark ? '#94A3B8' : '#64748B';
   const textMuted = isDark ? '#64748B' : '#94A3B8';
-  const accent = '#F58235';
+  const accent = '#FF9500';
 
   const repoQuestions = getAllMainsQuestions().filter((q) => q.paper_id === paperId);
 

@@ -115,8 +115,8 @@ export function TodayStudyPlan({ isDark: propIsDark }: TodayStudyPlanProps) {
               priorityBg = isDark ? '#3B1A17' : '#FBE4E1';
               priorityText = '#B42318';
             } else if (task.priority === 'Medium') {
-              priorityBg = isDark ? '#2A1D12' : '#FCEBDD';
-              priorityText = '#A65A0A';
+              priorityBg = isDark ? '#2A1D12' : '#FFF7ED';
+              priorityText = '#FF9500';
             }
 
             return (
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 20,
     marginBottom: 24,
-    shadowColor: '#B9570A',
+    shadowColor: '#FF9500',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
     shadowRadius: 12,
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 13,
     paddingVertical: 7,
     borderRadius: 14,
-    shadowColor: '#B9570A',
+    shadowColor: '#FF9500',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,

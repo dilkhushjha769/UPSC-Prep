@@ -15,7 +15,7 @@ export function PrimaryToggle({
   onValueChange,
   isDark: propIsDark,
   disabled = false,
-  activeTrackColor = '#F58235',
+  activeTrackColor = '#FF9500',
 }: PrimaryToggleProps) {
   const { isDark: contextIsDark } = useAppTheme();
   const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;

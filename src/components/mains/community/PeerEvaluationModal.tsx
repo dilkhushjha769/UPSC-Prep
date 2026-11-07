@@ -1,33 +1,39 @@
-import React, { useMemo, useState } from 'react';
+import { CommunityService } from '@/services/communityService';
+import {
+  CriteriaScore,
+  ExchangeSubmission,
+  PeerReviewExchangeRequest,
+} from '@/types/community';
+import {
+  AlertTriangle,
+  Bot,
+  ChevronLeft,
+  ChevronRight,
+  FileText,
+  Maximize2,
+  Plus,
+  RotateCcw,
+  Trash2,
+  X,
+  ZoomIn,
+  ZoomOut,
+} from 'lucide-react-native';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
   Image,
   Modal,
+  PanResponder,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
+  useWindowDimensions,
   View,
 } from 'react-native';
-import {
-  AlertTriangle,
-  ChevronLeft,
-  ChevronRight,
-  FileText,
-  Plus,
-  Sparkles,
-  Trash2,
-  X,
-} from 'lucide-react-native';
-import {
-  CriteriaScore,
-  ExchangeSubmission,
-  PeerReviewExchangeRequest,
-} from '@/types/community';
-import { CommunityService } from '@/services/communityService';
 
 interface PeerEvaluationModalProps {
   exchange: PeerReviewExchangeRequest | null;
@@ -122,6 +128,103 @@ export function PeerEvaluationModal({
     suggestedMissingPoints: string[];
   } | null>(null);
 
+  // Upscale / Zoom Inspection
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+  const [isUpscaled, setIsUpscaled] = useState(false);
+  const [upscaleScale, setUpscaleScale] = useState<number>(1);
+  const [upscalePanX, setUpscalePanX] = useState<number>(0);
+  const [upscalePanY, setUpscalePanY] = useState<number>(0);
+
+  const stateRef = useRef({ scale: upscaleScale, panX: upscalePanX, panY: upscalePanY });
+  useEffect(() => {
+    stateRef.current = { scale: upscaleScale, panX: upscalePanX, panY: upscalePanY };
+  }, [upscaleScale, upscalePanX, upscalePanY]);
+
+  const initialDistRef = useRef<number | null>(null);
+  const initialScaleRef = useRef<number>(1);
+  const startPanXRef = useRef<number>(0);
+  const startPanYRef = useRef<number>(0);
+  const lastTapRef = useRef<number>(0);
+
+  const getDistance = (touches: readonly any[]) => {
+    const [t1, t2] = touches;
+    const dx = t1.pageX - t2.pageX;
+    const dy = t1.pageY - t2.pageY;
+    return Math.sqrt(dx * dx + dy * dy);
+  };
+
+  const handleResetZoom = useCallback(() => {
+    setUpscaleScale(1);
+    setUpscalePanX(0);
+    setUpscalePanY(0);
+  }, []);
+
+  const handleDoubleTap = useCallback(() => {
+    setUpscaleScale((s) => {
+      if (s > 1) {
+        setUpscalePanX(0);
+        setUpscalePanY(0);
+        return 1;
+      }
+      return 2.0;
+    });
+  }, []);
+
+  const upscalePanResponder = useMemo(
+    () =>
+      // eslint-disable-next-line react-hooks/refs
+      PanResponder.create({
+        onStartShouldSetPanResponder: () => true,
+        onMoveShouldSetPanResponder: () => true,
+        onPanResponderGrant: (evt) => {
+          const now = evt.nativeEvent.timestamp || 0;
+          if (now - lastTapRef.current < 300) {
+            handleDoubleTap();
+            lastTapRef.current = 0;
+            return;
+          }
+          lastTapRef.current = now;
+
+          startPanXRef.current = stateRef.current.panX;
+          startPanYRef.current = stateRef.current.panY;
+
+          if (evt.nativeEvent.touches && evt.nativeEvent.touches.length === 2) {
+            initialDistRef.current = getDistance(evt.nativeEvent.touches);
+            initialScaleRef.current = stateRef.current.scale;
+          } else {
+            initialDistRef.current = null;
+          }
+        },
+        onPanResponderMove: (evt, gestureState) => {
+          if (evt.nativeEvent.touches && evt.nativeEvent.touches.length === 2) {
+            if (!initialDistRef.current) {
+              initialDistRef.current = getDistance(evt.nativeEvent.touches);
+              initialScaleRef.current = stateRef.current.scale;
+              return;
+            }
+            const dist = getDistance(evt.nativeEvent.touches);
+            const multiplier = dist / initialDistRef.current;
+            const newScale = Math.max(1.0, Math.min(3.5, +(initialScaleRef.current * multiplier).toFixed(2)));
+            setUpscaleScale(newScale);
+          } else if (stateRef.current.scale > 1) {
+            const maxOffset = (windowWidth * (stateRef.current.scale - 1)) / 2;
+            const maxOffsetY = (windowHeight * (stateRef.current.scale - 1)) / 2;
+            const candidateX = startPanXRef.current + gestureState.dx;
+            const candidateY = startPanYRef.current + gestureState.dy;
+            setUpscalePanX(Math.max(-maxOffset, Math.min(maxOffset, candidateX)));
+            setUpscalePanY(Math.max(-maxOffsetY, Math.min(maxOffsetY, candidateY)));
+          }
+        },
+        onPanResponderRelease: () => {
+          initialDistRef.current = null;
+        },
+        onPanResponderTerminate: () => {
+          initialDistRef.current = null;
+        },
+      }),
+    [windowWidth, windowHeight, handleDoubleTap]
+  );
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const totalEvaluatedMarks = useMemo(() => {
@@ -137,7 +240,7 @@ export function PeerEvaluationModal({
   const textPrimary = isDark ? '#F8FAFC' : '#0F172A';
   const textSecondary = isDark ? '#94A3B8' : '#64748B';
   const textMuted = isDark ? '#64748B' : '#94A3B8';
-  const accent = '#F58235';
+  const accent = '#FF9500';
 
   const attachments = targetSubmission.attachments || [];
   const currentAttachment = attachments[currentPageIndex];
@@ -296,13 +399,28 @@ export function PeerEvaluationModal({
             </View>
 
             {currentAttachment?.file_uri ? (
-              <View style={styles.imageWrap}>
+              <TouchableOpacity
+                activeOpacity={0.92}
+                onPress={() => {
+                  handleResetZoom();
+                  setIsUpscaled(true);
+                }}
+                style={[
+                  styles.imageWrap,
+                  { backgroundColor: isDark ? '#0D1522' : '#F1F5F9' },
+                ]}>
                 <Image
                   source={{ uri: currentAttachment.file_uri }}
                   style={styles.sheetImage}
                   resizeMode="contain"
                 />
-              </View>
+
+                {/* Upscale / Zoom Action Pill */}
+                <View style={styles.upscaleBadge}>
+                  <Maximize2 size={13} color="#FFFFFF" strokeWidth={2.4} />
+                  <Text style={styles.upscaleBadgeText}>Click to upscale & zoom</Text>
+                </View>
+              </TouchableOpacity>
             ) : (
               <View style={styles.emptyWrap}>
                 <FileText size={32} color={textMuted} />
@@ -354,7 +472,7 @@ export function PeerEvaluationModal({
             ]}>
             <View style={styles.aiHeader}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                <Sparkles size={16} color="#9333EA" />
+                <Bot size={16} color="#9333EA" />
                 <Text style={styles.aiTitle}>AI Peer Review Helper</Text>
               </View>
 
@@ -560,6 +678,180 @@ export function PeerEvaluationModal({
           </View>
         </ScrollView>
       </View>
+
+      {/* Fullscreen Upscale Lightbox Modal */}
+      <Modal
+        visible={isUpscaled}
+        animationType="fade"
+        transparent
+        statusBarTranslucent
+        onRequestClose={() => {
+          setIsUpscaled(false);
+          handleResetZoom();
+        }}>
+        <View style={styles.upscaleBackdrop}>
+          {/* Top Navigation & Status Bar */}
+          <View style={styles.upscaleHeader}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => {
+                setIsUpscaled(false);
+                handleResetZoom();
+              }}
+              style={styles.upscaleCircleBtn}>
+              <X size={20} color="#FFFFFF" strokeWidth={2.4} />
+            </TouchableOpacity>
+
+            <View style={styles.upscaleHeaderCenter}>
+              <Text style={styles.upscaleHeaderTitle} numberOfLines={1}>
+                {exchange?.creator_user_name || 'Aspirant'}&apos;s Answer Sheet
+              </Text>
+              <Text style={styles.upscaleHeaderSubtitle}>
+                {exchange?.paper_id} • Page {currentPageIndex + 1} of {Math.max(1, attachments.length)} • {Math.round(upscaleScale * 100)}%
+              </Text>
+            </View>
+
+            {attachments.length > 1 ? (
+              <View style={styles.upscalePageNavRow}>
+                <TouchableOpacity
+                  disabled={currentPageIndex === 0}
+                  onPress={() => {
+                    setCurrentPageIndex((p) => Math.max(0, p - 1));
+                    handleResetZoom();
+                  }}
+                  style={[styles.upscaleNavMiniBtn, currentPageIndex === 0 && { opacity: 0.35 }]}>
+                  <ChevronLeft size={16} color="#FFFFFF" />
+                </TouchableOpacity>
+                <Text style={styles.upscaleNavMiniText}>
+                  {currentPageIndex + 1} / {attachments.length}
+                </Text>
+                <TouchableOpacity
+                  disabled={currentPageIndex >= attachments.length - 1}
+                  onPress={() => {
+                    setCurrentPageIndex((p) => Math.min(attachments.length - 1, p + 1));
+                    handleResetZoom();
+                  }}
+                  style={[
+                    styles.upscaleNavMiniBtn,
+                    currentPageIndex >= attachments.length - 1 && { opacity: 0.35 },
+                  ]}>
+                  <ChevronRight size={16} color="#FFFFFF" />
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <View style={{ width: 40 }} />
+            )}
+          </View>
+
+          {/* Enlarged / Upscaled Interactive Image Canvas */}
+          <View style={styles.upscaleCanvas} {...upscalePanResponder.panHandlers}>
+            {currentAttachment?.file_uri && (
+              <Image
+                source={{ uri: currentAttachment.file_uri }}
+                style={[
+                  styles.upscaleImage,
+                  {
+                    width: windowWidth,
+                    height: Math.min(windowHeight * 0.74, windowWidth * 1.3),
+                    transform: [
+                      { scale: upscaleScale },
+                      { translateX: upscalePanX },
+                      { translateY: upscalePanY },
+                    ],
+                  },
+                ]}
+                resizeMode="contain"
+              />
+            )}
+          </View>
+
+          {/* Bottom Floating Control Dock */}
+          <View style={styles.upscaleBottomBar}>
+            <View style={styles.upscaleZoomControls}>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => setUpscaleScale((s) => Math.max(1, +(s - 0.25).toFixed(2)))}
+                disabled={upscaleScale <= 1}
+                accessibilityLabel="Zoom out"
+                style={[styles.upscaleZoomBtn, upscaleScale <= 1 && { opacity: 0.35 }]}>
+                <ZoomOut size={16} color="#FFFFFF" strokeWidth={2.2} />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={handleResetZoom}
+                style={styles.upscaleScaleBadge}>
+                <Text style={styles.upscaleScaleBadgeText}>{Math.round(upscaleScale * 100)}%</Text>
+                <RotateCcw size={12} color="#94A3B8" />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => setUpscaleScale((s) => Math.min(3.5, +(s + 0.25).toFixed(2)))}
+                disabled={upscaleScale >= 3.5}
+                accessibilityLabel="Zoom in"
+                style={[styles.upscaleZoomBtn, upscaleScale >= 3.5 && { opacity: 0.35 }]}>
+                <ZoomIn size={16} color="#FFFFFF" strokeWidth={2.2} />
+              </TouchableOpacity>
+            </View>
+
+            {/* Quick scale presets */}
+            <View style={styles.upscalePresetsRow}>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={handleResetZoom}
+                style={[
+                  styles.upscalePresetBtn,
+                  upscaleScale === 1 && styles.upscalePresetBtnActive,
+                ]}>
+                <Text
+                  style={[
+                    styles.upscalePresetText,
+                    upscaleScale === 1 && styles.upscalePresetTextActive,
+                  ]}>
+                  Fit
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => setUpscaleScale(1.5)}
+                style={[
+                  styles.upscalePresetBtn,
+                  Math.abs(upscaleScale - 1.5) < 0.1 && styles.upscalePresetBtnActive,
+                ]}>
+                <Text
+                  style={[
+                    styles.upscalePresetText,
+                    Math.abs(upscaleScale - 1.5) < 0.1 && styles.upscalePresetTextActive,
+                  ]}>
+                  1.5x
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => setUpscaleScale(2.2)}
+                style={[
+                  styles.upscalePresetBtn,
+                  Math.abs(upscaleScale - 2.2) < 0.1 && styles.upscalePresetBtnActive,
+                ]}>
+                <Text
+                  style={[
+                    styles.upscalePresetText,
+                    Math.abs(upscaleScale - 2.2) < 0.1 && styles.upscalePresetTextActive,
+                  ]}>
+                  2.2x
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            <Text style={styles.upscaleHintText}>
+              Double-tap to toggle zoom • Drag to pan handwritten sheet
+            </Text>
+          </View>
+        </View>
+      </Modal>
     </Modal>
   );
 }
@@ -688,14 +980,40 @@ const styles = StyleSheet.create({
   },
   imageWrap: {
     width: '100%',
-    height: 420,
-    backgroundColor: '#000000',
+    height: 270,
     alignItems: 'center',
     justifyContent: 'center',
+    position: 'relative',
+    overflow: 'hidden',
   },
   sheetImage: {
     width: '100%',
     height: '100%',
+  },
+  upscaleBadge: {
+    position: 'absolute',
+    bottom: 12,
+    right: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: 'rgba(15, 23, 42, 0.82)',
+    paddingHorizontal: 11,
+    paddingVertical: 6,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.22)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  upscaleBadgeText: {
+    color: '#FFFFFF',
+    fontSize: 11.5,
+    fontWeight: '700',
+    letterSpacing: 0.3,
   },
   emptyWrap: {
     height: 220,
@@ -884,6 +1202,138 @@ const styles = StyleSheet.create({
     fontSize: 13,
     minHeight: 80,
     textAlignVertical: 'top',
+  },
+  upscaleBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(10, 15, 26, 0.96)',
+    justifyContent: 'space-between',
+    paddingTop: Platform.OS === 'ios' ? 52 : Platform.OS === 'android' ? 36 : 24,
+    paddingBottom: Platform.OS === 'ios' ? 36 : 24,
+  },
+  upscaleHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    zIndex: 10,
+  },
+  upscaleCircleBtn: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.12)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  upscaleHeaderCenter: {
+    alignItems: 'center',
+    flex: 1,
+    paddingHorizontal: 12,
+  },
+  upscaleHeaderTitle: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#FFFFFF',
+  },
+  upscaleHeaderSubtitle: {
+    fontSize: 12,
+    color: '#94A3B8',
+    marginTop: 2,
+  },
+  upscaleHeaderRight: {
+    minWidth: 40,
+    alignItems: 'flex-end',
+  },
+  upscalePageNavRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: 'rgba(255, 255, 255, 0.12)',
+    paddingHorizontal: 8,
+    paddingVertical: 5,
+    borderRadius: 16,
+  },
+  upscaleNavMiniBtn: {
+    padding: 3,
+  },
+  upscaleNavMiniText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  upscaleCanvas: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  upscaleImage: {
+    width: '100%',
+    height: '100%',
+  },
+  upscaleBottomBar: {
+    alignItems: 'center',
+    gap: 10,
+    paddingHorizontal: 20,
+    paddingTop: 8,
+    zIndex: 10,
+  },
+  upscaleZoomControls: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.12)',
+    borderRadius: 24,
+    paddingHorizontal: 6,
+    paddingVertical: 4,
+    gap: 6,
+  },
+  upscaleZoomBtn: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  upscaleScaleBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  upscaleScaleBadgeText: {
+    color: '#FFFFFF',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  upscalePresetsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  upscalePresetBtn: {
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 14,
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+  },
+  upscalePresetBtnActive: {
+    backgroundColor: '#FF9500',
+  },
+  upscalePresetText: {
+    fontSize: 11.5,
+    fontWeight: '600',
+    color: '#94A3B8',
+  },
+  upscalePresetTextActive: {
+    color: '#FFFFFF',
+    fontWeight: '800',
+  },
+  upscaleHintText: {
+    fontSize: 11,
+    color: 'rgba(255, 255, 255, 0.55)',
+    textAlign: 'center',
   },
 });
 

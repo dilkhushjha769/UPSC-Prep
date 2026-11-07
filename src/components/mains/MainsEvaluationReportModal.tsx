@@ -24,7 +24,6 @@ import {
   RefreshCw,
   Scale,
   ShieldAlert,
-  Sparkles,
   Users,
   X,
 } from 'lucide-react-native';
@@ -70,7 +69,7 @@ export function MainsEvaluationReportModal({
   const textPrimary = isDark ? '#F1F5F9' : '#1E293B';
   const textSecondary = isDark ? '#9DA8B9' : '#64748B';
   const textMuted = isDark ? '#64748B' : '#94A3B8';
-  const accent = '#F58235';
+  const accent = '#FF9500';
 
   const scorePct = evalRecord ? evalRecord.score_percentage : 0;
   const scoreColor =
@@ -144,7 +143,7 @@ export function MainsEvaluationReportModal({
             activeOpacity={0.8}
             onPress={() => setActiveTab('model_answer')}
             style={[styles.tabItem, activeTab === 'model_answer' && styles.tabItemActive]}>
-            <Sparkles size={16} color={activeTab === 'model_answer' ? accent : textSecondary} />
+            <BookOpen size={16} color={activeTab === 'model_answer' ? accent : textSecondary} />
             <Text style={[styles.tabItemText, { color: activeTab === 'model_answer' ? accent : textSecondary }]}>
               Model UPSC Answer
             </Text>
@@ -512,7 +511,7 @@ const styles = StyleSheet.create({
     borderBottomColor: 'transparent',
   },
   tabItemActive: {
-    borderBottomColor: '#F58235',
+    borderBottomColor: '#FF9500',
   },
   tabItemText: { fontSize: 13, fontWeight: '600' },
   scrollContent: { padding: 16, paddingBottom: 60 },

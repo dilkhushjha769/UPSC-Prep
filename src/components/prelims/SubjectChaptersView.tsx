@@ -72,11 +72,11 @@ export function SubjectChaptersView({
       case 'history_culture':
         return { icon: Landmark, color: '#E0675B' };
       case 'geography':
-        return { icon: Globe, color: '#B9570A' };
+        return { icon: Globe, color: '#FF9500' };
       case 'polity_governance':
         return { icon: Scale, color: '#5B6B99' };
       case 'economy':
-        return { icon: ChartNoAxesCombined, color: '#D9822B' };
+        return { icon: ChartNoAxesCombined, color: '#FF9500' };
       case 'environment_ecology':
         return { icon: Leaf, color: '#3FA573' };
       case 'science_tech':
@@ -86,17 +86,17 @@ export function SubjectChaptersView({
         return { icon: Newspaper, color: '#7C93D1' };
       case 'csat_reading_comprehension':
       case 'csat_reading_comp':
-        return { icon: BookOpen, color: '#B9570A' };
+        return { icon: BookOpen, color: '#FF9500' };
       case 'csat_reasoning':
       case 'csat_logical_reasoning':
         return { icon: Scale, color: '#5B6B99' };
       case 'csat_quant_numeracy':
       case 'csat_quantitative_aptitude':
-        return { icon: ChartNoAxesCombined, color: '#D9822B' };
+        return { icon: ChartNoAxesCombined, color: '#FF9500' };
       case 'csat_data_interpretation':
         return { icon: Layers, color: '#3FA573' };
       default:
-        return { icon: BookOpen, color: '#B9570A' };
+        return { icon: BookOpen, color: '#FF9500' };
     }
   }, [subject.id]);
 
@@ -109,8 +109,8 @@ export function SubjectChaptersView({
     textSecondary: isDark ? '#9DA8B9' : '#7A8499',
     progressTrack: isDark ? '#253244' : '#EAE5DC',
     divider: isDark ? '#253244' : '#EAE5DC',
-    paperBadgeBg: isDark ? '#1B2534' : '#FCEBDD',
-    paperBadgeText: isDark ? '#F58235' : '#E07328',
+    paperBadgeBg: isDark ? '#1B2534' : '#FFF7ED',
+    paperBadgeText: isDark ? '#FF9500' : '#EA8300',
   };
 
   return (
@@ -166,7 +166,7 @@ export function SubjectChaptersView({
               ]}
             >
               {isDark ? (
-                <Sun size={17} color="#D9822B" strokeWidth={2.2} />
+                <Sun size={17} color="#FF9500" strokeWidth={2.2} />
               ) : (
                 <Moon size={17} color={PALETTE.highlight.primary} strokeWidth={2.2} />
               )}
@@ -195,7 +195,7 @@ export function SubjectChaptersView({
           >
             <SubjectIconComponent
               size={24}
-              color={isDark ? '#F58235' : '#E07328'}
+              color={isDark ? '#FF9500' : '#EA8300'}
               strokeWidth={2.2}
             />
           </View>
@@ -246,7 +246,7 @@ export function SubjectChaptersView({
               <View
                 style={[
                   styles.heroProgressFill,
-                  { width: `${subjectPercentage}%`, backgroundColor: solvedCount > 0 ? "#3FA573" : "#F58235" },
+                  { width: `${subjectPercentage}%`, backgroundColor: solvedCount > 0 ? "#3FA573" : "#FF9500" },
                 ]}
               />
             </View>
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 7,
-    backgroundColor: '#F58235',
+    backgroundColor: '#FF9500',
     paddingVertical: 9,
     paddingHorizontal: 16,
     borderRadius: 8,

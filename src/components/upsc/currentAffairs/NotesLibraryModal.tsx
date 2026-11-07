@@ -275,7 +275,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       borderRadius: 8,
     },
     tabBtnActive: {
-      backgroundColor: '#B9570A',
+      backgroundColor: '#FF9500',
     },
     tabBtnText: {
       fontSize: 12.5,
@@ -368,11 +368,11 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       paddingVertical: 8,
       borderRadius: 10,
       borderWidth: 1.5,
-      borderColor: isDark ? '#E0963A' : '#B9570A',
+      borderColor: isDark ? '#E0963A' : '#FF9500',
     },
     cancelBtnText: {
       fontSize: 12.5,
-      color: isDark ? '#E8A25E' : '#B9570A',
+      color: isDark ? '#E8A25E' : '#FF9500',
       fontWeight: '700',
     },
     saveNoteBtn: {

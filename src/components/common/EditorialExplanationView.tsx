@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { CheckCircle2, Lightbulb, BookOpen } from '@/components/common/LucideIcons';
+import { Lightbulb, BookOpen } from '@/components/common/LucideIcons';
 
 export interface EditorialExplanationViewProps {
   isDark: boolean;
@@ -195,7 +195,7 @@ export function EditorialExplanationView({
               borderColor: isDark ? '#253244' : '#EAE5DC',
             },
           ]}>
-          <BookOpen size={13} color={isDark ? '#E0963A' : '#B9570A'} strokeWidth={2} />
+          <BookOpen size={13} color={isDark ? '#E0963A' : '#FF9500'} strokeWidth={2} />
           <Text style={[styles.metaInfoLabel, { color: isDark ? '#F0F4F8' : '#1C2433' }]}>
             Syllabus Linkage:
           </Text>

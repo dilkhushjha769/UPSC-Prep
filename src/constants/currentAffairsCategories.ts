@@ -172,7 +172,7 @@ export const MAIN_CA_CATEGORIES: MainCategoryDefinition[] = [
         shortTitle: 'International Affairs',
         defaultGsPaper: 'GS 2',
         defaultDailyEventCategory: 'International Relations',
-        accentColor: '#B9570A',
+        accentColor: '#FF9500',
         subcategories: [
           'India and Neighbourhood Relations',
           'Global Relations, Geopolitics and Conflicts',
@@ -202,7 +202,7 @@ export const MAIN_CA_CATEGORIES: MainCategoryDefinition[] = [
         shortTitle: 'Polity & Governance',
         defaultGsPaper: 'GS 2',
         defaultDailyEventCategory: 'Polity',
-        accentColor: '#A65A0A',
+        accentColor: '#FF9500',
         subcategories: [
           'Constitution, Parliament and Judiciary',
           'Government Policies and Governance Reforms',

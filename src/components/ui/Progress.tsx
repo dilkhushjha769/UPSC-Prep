@@ -21,7 +21,7 @@ export interface ProgressBarProps {
   progress?: number;
   /** Height of the progress bar in pixels. Defaults to 8. */
   height?: number;
-  /** Active bar fill color. Defaults to #B9570A (Highlight Primary). */
+  /** Active bar fill color. Defaults to #FF9500 (Highlight Primary). */
   fillColor?: string;
   /** Inactive track background color. Defaults to #EAE5DC (Neutral Light Border Subtle). */
   trackColor?: string;
@@ -165,7 +165,7 @@ export interface SegmentedProgressProps {
   height?: number;
   /** Gap between pill segments. Defaults to 6. */
   gap?: number;
-  /** Active pill color. Defaults to #B9570A. */
+  /** Active pill color. Defaults to #FF9500. */
   fillColor?: string;
   /** Inactive pill color. Defaults to #EAE5DC. */
   trackColor?: string;
@@ -270,7 +270,7 @@ export interface CircularProgressProps {
   strokeWidth?: number;
   /** Progress from 0 to 1 (or 0 to 100). */
   progress?: number;
-  /** Active arc color. Defaults to #B9570A. */
+  /** Active arc color. Defaults to #FF9500. */
   fillColor?: string;
   /** Background track color. Defaults to #EAE5DC. */
   trackColor?: string;

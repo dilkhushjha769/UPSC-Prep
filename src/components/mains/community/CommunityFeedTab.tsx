@@ -69,7 +69,7 @@ export function CommunityFeedTab({
   const textPrimary = isDark ? '#F8FAFC' : '#0F172A';
   const textSecondary = isDark ? '#94A3B8' : '#64748B';
   const textMuted = isDark ? '#64748B' : '#94A3B8';
-  const accent = '#F58235';
+  const accent = '#FF9500';
 
   const filteredPosts = useMemo(() => {
     let result = [...posts];
@@ -282,18 +282,47 @@ export function CommunityFeedTab({
                   <TouchableOpacity
                     activeOpacity={0.9}
                     onPress={() => onSelectPost(post)}
-                    style={[styles.sheetPreviewBox, { backgroundColor: surfaceSubtle, borderColor: border }]}>
-                    <Image source={{ uri: firstAttachment.file_uri }} style={styles.sheetImage} />
-                    <View style={styles.previewOverlay}>
-                      <View style={styles.pageCountBadge}>
-                        <Layers size={12} color="#FFFFFF" />
-                        <Text style={styles.pageCountText}>
-                          {post.attachments.length} {post.attachments.length === 1 ? 'Page' : 'Pages'}
-                        </Text>
+                    style={[
+                      styles.sheetDocCardRow,
+                      { backgroundColor: surfaceSubtle, borderColor: border },
+                    ]}>
+                    {/* A4 Paper Portrait Thumbnail */}
+                    <View style={[styles.docThumbnailWrap, { borderColor: border }]}>
+                      <Image
+                        source={{ uri: firstAttachment.file_uri }}
+                        style={styles.docThumbnailImg}
+                        resizeMode="cover"
+                      />
+                      <View style={styles.docCornerBadge}>
+                        <Text style={styles.docCornerBadgeText}>QCAB</Text>
                       </View>
-                      <View style={[styles.openFullBadge, { backgroundColor: accent }]}>
-                        <Eye size={12} color="#FFFFFF" />
-                        <Text style={styles.openFullText}>View Answer Sheet</Text>
+                    </View>
+
+                    {/* Meta info & action */}
+                    <View style={styles.docMetaCol}>
+                      <View style={styles.docMetaTop}>
+                        <View style={[styles.qcabBadge, { backgroundColor: `${accent}15` }]}>
+                          <FileText size={11} color={accent} />
+                          <Text style={[styles.qcabBadgeText, { color: accent }]}>
+                            UPSC Answer Booklet
+                          </Text>
+                        </View>
+                        <View style={[styles.pagesBadge, { backgroundColor: surface }]}>
+                          <Layers size={10} color={textMuted} />
+                          <Text style={[styles.pagesBadgeText, { color: textSecondary }]}>
+                            {post.attachments.length} {post.attachments.length === 1 ? 'Page' : 'Pages'}
+                          </Text>
+                        </View>
+                      </View>
+
+                      <View style={styles.docActionRow}>
+                        <View style={[styles.inspectSheetBtn, { backgroundColor: accent }]}>
+                          <Eye size={12} color="#FFFFFF" strokeWidth={2.4} />
+                          <Text style={styles.inspectSheetBtnText}>Inspect Sheet</Text>
+                        </View>
+                        <Text style={[styles.docClickHint, { color: textMuted }]}>
+                          Click to upscale & read
+                        </Text>
                       </View>
                     </View>
                   </TouchableOpacity>
@@ -533,53 +562,102 @@ const styles = StyleSheet.create({
     fontSize: 12.5,
     lineHeight: 17.5,
   },
-  sheetPreviewBox: {
-    height: 180,
+  sheetDocCardRow: {
+    flexDirection: 'row',
     borderRadius: 12,
+    borderWidth: 1,
+    padding: 10,
+    gap: 12,
+    alignItems: 'center',
+  },
+  docThumbnailWrap: {
+    width: 80,
+    height: 110,
+    borderRadius: 8,
     borderWidth: 1,
     overflow: 'hidden',
     position: 'relative',
+    backgroundColor: '#F8FAFC',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
   },
-  sheetImage: {
+  docThumbnailImg: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
   },
-  previewOverlay: {
+  docCornerBadge: {
     position: 'absolute',
-    bottom: 8,
-    left: 8,
-    right: 8,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    top: 4,
+    right: 4,
+    backgroundColor: 'rgba(15, 23, 42, 0.75)',
+    paddingHorizontal: 4,
+    paddingVertical: 1,
+    borderRadius: 3,
   },
-  pageCountBadge: {
+  docCornerBadgeText: {
+    color: '#FFFFFF',
+    fontSize: 8.5,
+    fontWeight: '800',
+    letterSpacing: 0.4,
+  },
+  docMetaCol: {
+    flex: 1,
+    gap: 8,
+    justifyContent: 'center',
+  },
+  docMetaTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    flexWrap: 'wrap',
+  },
+  qcabBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    borderRadius: 6,
+  },
+  qcabBadgeText: {
+    fontSize: 10.5,
+    fontWeight: '800',
+  },
+  pagesBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+    borderRadius: 6,
+  },
+  pagesBadgeText: {
+    fontSize: 10.5,
+    fontWeight: '600',
+  },
+  docActionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  inspectSheetBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    backgroundColor: 'rgba(0,0,0,0.7)',
-    paddingHorizontal: 8,
+    paddingHorizontal: 9,
     paddingVertical: 4,
     borderRadius: 6,
   },
-  pageCountText: {
+  inspectSheetBtnText: {
     color: '#FFFFFF',
     fontSize: 11,
     fontWeight: '700',
   },
-  openFullBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 6,
-  },
-  openFullText: {
-    color: '#FFFFFF',
-    fontSize: 11,
-    fontWeight: '700',
+  docClickHint: {
+    fontSize: 10.5,
   },
   approachBox: {
     borderRadius: 8,

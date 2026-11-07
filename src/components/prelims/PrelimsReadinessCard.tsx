@@ -31,7 +31,7 @@ export function PrelimsReadinessCard({ onTrendInsightsPress }: PrelimsReadinessC
           style={({ pressed }) => [styles.infoPill, pressed && styles.pressed]}
           onPress={onTrendInsightsPress}
         >
-          <Ionicons name="analytics-outline" size={14} color="#B9570A" />
+          <Ionicons name="analytics-outline" size={14} color="#FF9500" />
           <Text style={styles.infoPillText}>Decade Trend</Text>
         </Pressable>
       </View>
@@ -85,9 +85,9 @@ export function PrelimsReadinessCard({ onTrendInsightsPress }: PrelimsReadinessC
       {/* 3 Macro Pills (Matching the exact Protein, Carbs, Fat pills in the reference image!) */}
       <View style={styles.macroPillsRow}>
         {/* Polity Pill */}
-        <View style={[styles.macroPill, { backgroundColor: '#FCEBDD', borderColor: '#F2C9A3' }]}>
+        <View style={[styles.macroPill, { backgroundColor: '#FFF7ED', borderColor: '#F2C9A3' }]}>
           <View style={styles.macroPillHeader}>
-            <View style={[styles.miniDot, { backgroundColor: '#B9570A' }]} />
+            <View style={[styles.miniDot, { backgroundColor: '#FF9500' }]} />
             <Text style={styles.macroPillValue}>78%</Text>
           </View>
           <Text style={styles.macroPillLabel}>Polity</Text>
@@ -95,9 +95,9 @@ export function PrelimsReadinessCard({ onTrendInsightsPress }: PrelimsReadinessC
         </View>
 
         {/* Economy Pill */}
-        <View style={[styles.macroPill, { backgroundColor: '#FCEBDD', borderColor: '#CBD3EB' }]}>
+        <View style={[styles.macroPill, { backgroundColor: '#FFF7ED', borderColor: '#CBD3EB' }]}>
           <View style={styles.macroPillHeader}>
-            <View style={[styles.miniDot, { backgroundColor: '#B9570A' }]} />
+            <View style={[styles.miniDot, { backgroundColor: '#FF9500' }]} />
             <Text style={styles.macroPillValue}>72%</Text>
           </View>
           <Text style={styles.macroPillLabel}>Economy</Text>
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: '#FCEBDD',
+    backgroundColor: '#FFF7ED',
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 16,
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   infoPillText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#B9570A',
+    color: '#FF9500',
   },
   gaugeContainer: {
     alignItems: 'center',

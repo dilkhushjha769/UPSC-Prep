@@ -101,7 +101,7 @@ export function NotificationSettingsScreen({
           activeOpacity={0.7}
           onPress={handleSave}
           style={styles.saveButton}>
-          <Text style={[styles.saveText, { color: isSaved ? '#26734D' : '#B9570A' }]}>
+          <Text style={[styles.saveText, { color: isSaved ? '#26734D' : '#FF9500' }]}>
             {isSaved ? 'Saved' : 'Save'}
           </Text>
         </TouchableOpacity>
@@ -137,7 +137,7 @@ export function NotificationSettingsScreen({
                 value={prefs.studyReminders}
                 onValueChange={() => handleToggle('studyReminders')}
                 isDark={isDark}
-                activeTrackColor="#B9570A"
+                activeTrackColor="#FF9500"
               />
             </View>
 
@@ -154,7 +154,7 @@ export function NotificationSettingsScreen({
                 value={prefs.streakAlerts}
                 onValueChange={() => handleToggle('streakAlerts')}
                 isDark={isDark}
-                activeTrackColor="#B9570A"
+                activeTrackColor="#FF9500"
               />
             </View>
 
@@ -171,7 +171,7 @@ export function NotificationSettingsScreen({
                 value={prefs.currentAffairsDigest}
                 onValueChange={() => handleToggle('currentAffairsDigest')}
                 isDark={isDark}
-                activeTrackColor="#B9570A"
+                activeTrackColor="#FF9500"
               />
             </View>
 
@@ -188,7 +188,7 @@ export function NotificationSettingsScreen({
                 value={prefs.mockTestAnnouncements}
                 onValueChange={() => handleToggle('mockTestAnnouncements')}
                 isDark={isDark}
-                activeTrackColor="#B9570A"
+                activeTrackColor="#FF9500"
               />
             </View>
           </View>
@@ -217,7 +217,7 @@ export function NotificationSettingsScreen({
                 value={prefs.soundEnabled}
                 onValueChange={() => handleToggle('soundEnabled')}
                 isDark={isDark}
-                activeTrackColor="#B9570A"
+                activeTrackColor="#FF9500"
               />
             </View>
 
@@ -234,7 +234,7 @@ export function NotificationSettingsScreen({
                 value={prefs.vibrationEnabled}
                 onValueChange={() => handleToggle('vibrationEnabled')}
                 isDark={isDark}
-                activeTrackColor="#B9570A"
+                activeTrackColor="#FF9500"
               />
             </View>
           </View>
@@ -263,7 +263,7 @@ export function NotificationSettingsScreen({
                 value={prefs.quietHoursEnabled}
                 onValueChange={() => handleToggle('quietHoursEnabled')}
                 isDark={isDark}
-                activeTrackColor="#B9570A"
+                activeTrackColor="#FF9500"
               />
             </View>
           </View>

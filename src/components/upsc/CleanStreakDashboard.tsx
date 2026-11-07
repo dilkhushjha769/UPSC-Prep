@@ -28,8 +28,8 @@ import { QuickEditProfileModal } from './modals/QuickEditProfileModal';
 import { WeeklyCalendar, Button, ProgressBar } from '@/components/ui';
 import { TaskCard, TaskFormModal } from '@/components/tasks';
 
-interface CleanStreakDashboardProps {
-  isDark: boolean;
+export interface CleanStreakDashboardProps {
+  isDark?: boolean;
   onOpenPrelims?: () => void;
   onOpenMains?: () => void;
   onOpenMockTests?: () => void;
@@ -48,16 +48,7 @@ export function CleanStreakDashboard({
   onOpenProfile,
   onOpenNotifications,
   onToggleTheme: propToggleTheme,
-}: {
-  isDark?: boolean;
-  onOpenPrelims?: () => void;
-  onOpenMains?: () => void;
-  onOpenMockTests?: () => void;
-  onOpenTasks?: () => void;
-  onOpenProfile?: () => void;
-  onOpenNotifications?: () => void;
-  onToggleTheme?: () => void;
-}) {
+}: CleanStreakDashboardProps) {
   const { isDark: contextIsDark, toggleTheme: contextToggleTheme } = useAppTheme();
   const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const onToggleTheme = propToggleTheme || contextToggleTheme;
@@ -201,7 +192,7 @@ export function CleanStreakDashboard({
                 },
               ]}>
               {isDark ? (
-                <Sun size={18} color="#D9822B" strokeWidth={2.3} />
+                <Sun size={18} color="#FF9500" strokeWidth={2.3} />
               ) : (
                 <Moon size={18} color={PALETTE.highlight.primary} strokeWidth={2.3} />
               )}
@@ -295,7 +286,7 @@ export function CleanStreakDashboard({
               style={[
                 styles.cleanTodayBadge,
                 {
-                  backgroundColor: '#F58235',
+                  backgroundColor: '#FF9500',
                 },
               ]}>
               <Text

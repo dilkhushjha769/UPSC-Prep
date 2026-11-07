@@ -1,37 +1,51 @@
 /**
  * imageVerification.ts
  *
- * Image Relevance Verification & Credibility Validation Layer for UPSC Current Affairs.
- * Ensures:
- * 1. Every news article only displays an image that specifically and accurately represents
- *    the actual subject of the news (institution, event, geographical location, person, or technical process).
- * 2. Unrelated images (e.g., Arnab photo on archaeology/cyclones, Jio IPO on RBI, train photo on ISRO)
- *    are strictly rejected.
- * 3. Never falls back to random stock photos or unrelated placeholders.
- * 4. If an image is rejected or unavailable, returns status 'NOT_AVAILABLE' or 'REJECTED' with null URL,
- *    allowing the UI to render a clean, high-contrast, text-first editorial layout.
+ * Strict Image Relevance Verification & Credibility Validation Layer for UPSC Current Affairs.
+ *
+ * Guiding Principles:
+ * 1. Showing NO image is vastly superior to showing the WRONG or unrelated image.
+ * 2. Never use:
+ *    - Generic stock photos pretending to represent real events (e.g. Unsplash placeholders).
+ *    - AI-generated or synthetic photographs.
+ *    - Unrelated images from the same category or organization (e.g. Jio IPO on RBI, train on ISRO).
+ *    - Outdated hardcoded image archives.
+ *    - Images inferred solely from random keyword matches in URLs.
+ * 3. Exact 4-tier selection priority:
+ *    Tier 1: Original news image from the article itself, provided by the authorized publisher.
+ *    Tier 2: Authentic official image from PIB, ISRO, RBI, Ministries, or UN.
+ *    Tier 3: Relevant contextual photograph from a credible publisher.
+ *    Tier 4: No image (render clean, text-first editorial card).
+ * 4. An image is ONLY verified if confidence >= 0.85 AND clear subject-matter correspondence is established.
+ *    A high-trust domain alone is NEVER sufficient.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export type ImageVerificationStatus = 'VERIFIED' | 'REJECTED' | 'NOT_AVAILABLE' | 'PENDING';
+export type ImageVerificationStatus = 'VERIFIED' | 'REJECTED' | 'NOT_AVAILABLE';
+export type ImageType = 'event_photo' | 'official_infographic' | 'contextual_photo';
 
-export interface ImageVerificationResult {
+export interface ImageProvenanceRecord {
+  originalImageUrl: string | null;
+  verifiedImageUrl?: string | null;
+  publisher: string;
+  credit: string;
+  caption: string;
   status: ImageVerificationStatus;
-  relevanceScore: number; // 0.0 to 1.0
-  verifiedImageUrl: string | null;
-  caption?: string;
-  credit?: string;
-  sourceUrl?: string;
-  imageType?: 'event_photo' | 'official_infographic' | 'contextual_photo' | 'map_graphic';
-  rejectionReason?: string;
+  confidence: number; // 0.0 to 1.0
+  relevanceScore?: number;
+  sourceCredibility?: string;
+  timestamp: string;
+  method: 'multimodal_ai' | 'entity_cross_reference';
   matchedEntities: string[];
-  sourceCredibility: 'official_gov' | 'official_institution' | 'credible_news' | 'unverified';
+  imageType?: ImageType;
+  rejectionReason: string | null;
 }
 
 export interface VerifyImageParams {
   headline: string;
   summary?: string;
+  content?: string;
   imageUrl?: string | null;
   caption?: string;
   credit?: string;
@@ -40,29 +54,36 @@ export interface VerifyImageParams {
   category?: string;
 }
 
-// In-memory verification cache to eliminate repetitive processing
-const VERIFICATION_CACHE = new Map<string, ImageVerificationResult>();
-const CACHE_STORAGE_KEY = '@upsc_image_verification_cache_v1';
+// In-memory verification cache with article-specific keys to prevent old mappings from overriding new verification
+const VERIFICATION_CACHE = new Map<string, ImageProvenanceRecord>();
+const CACHE_STORAGE_KEY = '@upsc_image_provenance_cache_v2';
 
-// Blacklisted keywords in image URLs/slugs that indicate advertisements, logos, unrelated personalities, or stock fillers
-const BLOCKED_URL_PATTERNS = [
-  /arnab/i,
-  /default_avatar/i,
+// Blocked patterns: ads, tracking pixels, logos, avatars, stock photography, synthetic/AI tags
+const BLOCKED_IMAGE_PATTERNS = [
+  /avatar/i,
+  /logo/i,
+  /pixel/i,
+  /1x1/i,
+  /tracker/i,
+  /doubleclick/i,
+  /gravatar/i,
   /placeholder/i,
-  /spacer\.(gif|png)/i,
-  /1x1\.(gif|png)/i,
-  /banner_ad/i,
-  /advertisement/i,
-  /sponsor/i,
-  /stock-photo/i,
   /shutterstock/i,
   /istockphoto/i,
-  /gettyimages-watermark/i,
-  /logo-only/i,
+  /gettyimages.*watermark/i,
+  /stock[-_]?photo/i,
+  /ai[-_]?generated/i,
+  /midjourney/i,
+  /dalle/i,
+  /stable[-_]?diffusion/i,
+  /synthetic/i,
+  /ad[-_]?banner/i,
+  /default[-_]?image/i,
+  /arnab/i, // Explicit blacklist for unrelated recurring political anchors
 ];
 
-// Credible official domains
-const CREDIBLE_OFFICIAL_DOMAINS = [
+// Official government and international institutional domains
+const OFFICIAL_DOMAINS = [
   'pib.gov.in',
   'rbi.org.in',
   'isro.gov.in',
@@ -73,17 +94,17 @@ const CREDIBLE_OFFICIAL_DOMAINS = [
   'mea.gov.in',
   'drdo.gov.in',
   'eci.gov.in',
+  'niti.gov.in',
   'un.org',
   'worldbank.org',
   'imf.org',
   'who.int',
   'wmo.int',
   'unesco.org',
-  'upload.wikimedia.org',
 ];
 
-// Credible news publishers
-const CREDIBLE_NEWS_DOMAINS = [
+// Authorized news publisher image CDNs
+const AUTHORIZED_NEWS_DOMAINS = [
   'thehindu.com',
   'th-i.thgim.com',
   'indianexpress.com',
@@ -92,194 +113,57 @@ const CREDIBLE_NEWS_DOMAINS = [
   'images.livemint.com',
   'downtoearth.org.in',
   'orfonline.org',
-  'pib.gov.in',
 ];
 
 /**
- * Curated authentic official & agency photographic assets with exact subject-matter correspondence.
- * Each entry strictly maps to specific verified institutions or events and is NEVER assigned generically.
+ * Extracts distinct named entities, institutions, and core nouns from text
  */
-interface VerifiedSubjectAsset {
-  id: string;
-  requiredEntities: string[][]; // Multiple sets of required entities: at least one set must fully match
-  forbiddenEntities: string[]; // If any of these are present in the headline, do not match (prevents cross-topic pollution)
-  imageUrl: string;
-  caption: string;
-  credit: string;
-  sourceUrl: string;
-  imageType: 'event_photo' | 'official_infographic' | 'contextual_photo' | 'map_graphic';
+export function extractEntitiesFromText(text: string): string[] {
+  if (!text) return [];
+
+  // Important institutional & thematic UPSC keywords
+  const candidateKeywords = [
+    'supreme court', 'high court', 'constitution', 'parliament', 'sansad',
+    'lok sabha', 'rajya sabha', 'rbi', 'reserve bank', 'monetary policy',
+    'isro', 'satellite', 'semi-cryogenic', 'chandrayaan', 'gaganyaan',
+    'drdo', 'missile', 'agnipath', 'kavach', 'railway', 'train',
+    'cheetah', 'kuno', 'tiger', 'wetland', 'ramsar', 'keoladeo',
+    'green hydrogen', 'sight', 'electrolyser', 'renewable energy',
+    'election commission', 'cag', 'ed', 'cbi', 'niti aayog',
+    'multidimensional poverty', 'undp', 'unfccc', 'cop', 'brics', 'quad',
+    'asi', 'archaeology', 'porunai', 'adichanallur', 'maratha forts',
+  ];
+
+  const lower = text.toLowerCase();
+  const matched: string[] = [];
+
+  for (const kw of candidateKeywords) {
+    if (lower.includes(kw)) {
+      matched.push(kw);
+    }
+  }
+
+  // Also extract proper nouns (capitalized multi-word tokens)
+  const properNounRegex = /\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+\b/g;
+  let match: RegExpExecArray | null;
+  while ((match = properNounRegex.exec(text)) !== null) {
+    const term = match[0].toLowerCase();
+    if (term.length > 5 && !matched.includes(term)) {
+      matched.push(term);
+    }
+  }
+
+  return matched;
 }
 
-const VERIFIED_SUBJECT_ARCHIVE: VerifiedSubjectAsset[] = [
-  // 1. Parliament of India / Sansad Bhavan / Standing Committees
-  {
-    id: 'parliament_sansad',
-    requiredEntities: [
-      ['parliament', 'standing committee'],
-      ['lok sabha', 'scrutiny'],
-      ['sansad bhavan', 'legislation'],
-      ['parliamentary', 'bills'],
-      ['rajya sabha', 'standing committee'],
-    ],
-    forbiddenEntities: ['supreme court', 'rbi', 'isro', 'cyclone', 'wetland', 'defence'],
-    imageUrl: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80',
-    caption: 'Parliament of India (Sansad Bhavan), New Delhi. Standing Committees conduct in-depth scrutiny of legislative bills.',
-    credit: 'Lok Sabha Secretariat / The Hindu',
-    sourceUrl: 'https://loksabha.nic.in',
-    imageType: 'event_photo',
-  },
-  // 2. Reserve Bank of India (RBI) Headquarters & Monetary Policy Committee
-  {
-    id: 'rbi_monetary_policy',
-    requiredEntities: [
-      ['reserve bank of india', 'basel'],
-      ['rbi', 'liquidity coverage ratio'],
-      ['rbi', 'lcr'],
-      ['rbi', 'monetary policy'],
-      ['rbi', 'repo rate'],
-      ['rbi', 'cbdc'],
-      ['unified lending interface', 'rbi'],
-    ],
-    forbiddenEntities: ['jio', 'railway', 'isro', 'space', 'cyclone', 'defence'],
-    imageUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80',
-    caption: 'Reserve Bank of India Monetary Policy Committee deliberating systemic liquidity frameworks and policy rates.',
-    credit: 'Reserve Bank of India (RBI) / Indian Express',
-    sourceUrl: 'https://rbi.org.in',
-    imageType: 'event_photo',
-  },
-  // 3. Keoladeo / Ramsar Wetlands Ecosystem
-  {
-    id: 'ramsar_wetlands',
-    requiredEntities: [
-      ['ramsar', 'wetland'],
-      ['keoladeo', 'wetland'],
-      ['montreux record', 'wetland'],
-      ['wetland', 'biodiversity'],
-      ['wetland', 'conservation'],
-    ],
-    forbiddenEntities: ['jio', 'railway', 'parliament', 'rbi', 'missile', 'space'],
-    imageUrl: 'https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1200&q=80',
-    caption: 'Keoladeo Ghana National Park wetland ecosystem, Bharatpur — Ramsar Site under the Montreux Record.',
-    credit: 'MoEFCC / Press Information Bureau (PIB)',
-    sourceUrl: 'https://moef.gov.in',
-    imageType: 'event_photo',
-  },
-  // 4. Archaeological Survey of India (ASI) & Ancient Heritage Sites
-  {
-    id: 'asi_archaeology_heritage',
-    requiredEntities: [
-      ['archaeological survey of india', 'carbon dating'],
-      ['asi', 'porunai'],
-      ['adichanallur', 'iron age'],
-      ['sivagalai', 'carbon dating'],
-      ['maratha', 'military forts'],
-      ['unesco', 'world heritage', 'forts'],
-    ],
-    forbiddenEntities: ['arnab', 'jio', 'railway', 'rbi', 'isro'],
-    imageUrl: 'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=80',
-    caption: 'Archaeological excavation site confirming ancient Peninsular Iron Age habitation chronology.',
-    credit: 'Archaeological Survey of India (ASI) / PIB',
-    sourceUrl: 'https://asi.nic.in',
-    imageType: 'event_photo',
-  },
-  // 5. ISRO Semi-Cryogenic & Rocket Propulsion Testing
-  {
-    id: 'isro_propulsion_space',
-    requiredEntities: [
-      ['isro', 'semi-cryogenic'],
-      ['isro', 'sce-200'],
-      ['isro', 'chandrayaan'],
-      ['isro', 'gaganyaan'],
-      ['satish dhawan', 'propulsion'],
-    ],
-    forbiddenEntities: ['railway', 'jio', 'arnab', 'rbi', 'parliament'],
-    imageUrl: 'https://images.unsplash.com/photo-1517976487502-5731c30e101f?auto=format&fit=crop&w=1200&q=80',
-    caption: 'ISRO propulsion test facility and rocket testing complex, Mahendragiri / Sriharikota.',
-    credit: 'ISRO / Press Information Bureau',
-    sourceUrl: 'https://www.isro.gov.in',
-    imageType: 'event_photo',
-  },
-  // 6. Supreme Court of India / Constitution Bench
-  {
-    id: 'supreme_court_judiciary',
-    requiredEntities: [
-      ['supreme court', 'constitution bench'],
-      ['supreme court', 'section 6a'],
-      ['supreme court', 'verdict'],
-      ['supreme court', 'assam accord'],
-      ['chief justice', 'supreme court'],
-    ],
-    forbiddenEntities: ['jio', 'railway', 'isro', 'cyclone'],
-    imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80',
-    caption: 'Supreme Court of India, Tilak Marg, New Delhi — Guardian of Constitutional Rights.',
-    credit: 'Supreme Court of India / The Hindu',
-    sourceUrl: 'https://sci.gov.in',
-    imageType: 'event_photo',
-  },
-  // 7. Green Hydrogen & SIGHT Scheme
-  {
-    id: 'green_hydrogen_sight',
-    requiredEntities: [
-      ['green hydrogen', 'sight'],
-      ['green hydrogen mission', 'tranche'],
-      ['electrolyser', 'sight'],
-      ['mnre', 'green hydrogen'],
-    ],
-    forbiddenEntities: ['jio', 'railway', 'arnab', 'agrivoltaics'],
-    imageUrl: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80',
-    caption: 'Green hydrogen electrolyser manufacturing facility under MNRE National Green Hydrogen Mission.',
-    credit: 'Ministry of New and Renewable Energy (MNRE) / PIB',
-    sourceUrl: 'https://mnre.gov.in',
-    imageType: 'event_photo',
-  },
-  // 8. Indian Railways Kavach 4.0 Train Protection
-  {
-    id: 'railways_kavach',
-    requiredEntities: [
-      ['kavach', 'railway'],
-      ['kavach 4.0', 'automatic train protection'],
-      ['indian railways', 'kavach'],
-      ['railway board', 'kavach'],
-    ],
-    forbiddenEntities: ['drdo', 'isro', 'rbi', 'parliament'],
-    imageUrl: 'https://images.indianexpress.com/2026/10/Railways-safety-feature-1.jpg',
-    caption: 'Indian Railways Kavach 4.0 Automatic Train Protection (ATP) system locomotive cab installation.',
-    credit: 'Indian Railways / The Indian Express',
-    sourceUrl: 'https://indianrailways.gov.in',
-    imageType: 'event_photo',
-  },
-  // 9. Kuno Cheetah Conservation Project
-  {
-    id: 'kuno_cheetah',
-    requiredEntities: [
-      ['kuno', 'cheetah'],
-      ['national tiger conservation authority', 'cheetah'],
-      ['ntca', 'kuno'],
-      ['cheetah reintroduction', 'kuno'],
-    ],
-    forbiddenEntities: ['parliament', 'rbi', 'isro', 'kavach'],
-    imageUrl: 'https://images.indianexpress.com/2026/10/28CheetahKunoDeath.jpg',
-    caption: 'African Cheetah tracking and wildlife habitat monitoring in Kuno National Park, Madhya Pradesh.',
-    credit: 'National Tiger Conservation Authority (NTCA) / Down To Earth',
-    sourceUrl: 'https://ntca.gov.in',
-    imageType: 'event_photo',
-  },
-];
-
 /**
- * Determine credibility of image source URL
+ * Assess domain credibility
  */
-function assessSourceCredibility(url: string): 'official_gov' | 'official_institution' | 'credible_news' | 'unverified' {
+function assessDomain(url: string): 'official' | 'authorized_news' | 'unverified' {
   try {
-    const parsed = new URL(url);
-    const host = parsed.hostname.toLowerCase();
-
-    if (CREDIBLE_OFFICIAL_DOMAINS.some((d) => host.endsWith(d))) {
-      return host.endsWith('.gov.in') || host.endsWith('.nic.in') ? 'official_gov' : 'official_institution';
-    }
-    if (CREDIBLE_NEWS_DOMAINS.some((d) => host.endsWith(d))) {
-      return 'credible_news';
-    }
+    const host = new URL(url).hostname.toLowerCase();
+    if (OFFICIAL_DOMAINS.some((d) => host.endsWith(d))) return 'official';
+    if (AUTHORIZED_NEWS_DOMAINS.some((d) => host.endsWith(d))) return 'authorized_news';
     return 'unverified';
   } catch {
     return 'unverified';
@@ -287,238 +171,319 @@ function assessSourceCredibility(url: string): 'official_gov' | 'official_instit
 }
 
 /**
- * Extract distinct entity tokens from text for semantic comparison
+ * Main Image Verification Function
+ * Enforces strict correspondence: only returns status = 'VERIFIED' if confidence >= 0.85
+ * Otherwise returns 'REJECTED' or 'NOT_AVAILABLE' with verifiedImageUrl = null.
  */
-function extractSubjectKeywords(text: string): string[] {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, ' ')
-    .split(/\s+/)
-    .filter((w) => w.length > 2);
-}
+export function verifyNewsImageRelevance(params: VerifyImageParams): ImageProvenanceRecord {
+  const {
+    headline,
+    summary = '',
+    content = '',
+    imageUrl,
+    caption = '',
+    credit = '',
+    source = 'Authorized Source',
+    articleUrl = '',
+  } = params;
 
-/**
- * Main Image Relevance Verification Layer
- */
-export function verifyNewsImageRelevance(params: VerifyImageParams): ImageVerificationResult {
-  const { headline, summary = '', imageUrl, caption = '', credit = '', source = '', articleUrl = '' } = params;
-  const combinedContext = `${headline} ${summary}`.toLowerCase();
+  const nowIso = new Date().toISOString();
 
-  // Create a unique cache key for this article
-  const cacheKey = `${headline.trim().toLowerCase()}|${imageUrl || 'none'}`;
+  // 1. If no image URL is provided, return NOT_AVAILABLE with null
+  if (!imageUrl || imageUrl.trim().length === 0) {
+    return {
+      originalImageUrl: null,
+      verifiedImageUrl: null,
+      publisher: source,
+      credit: '',
+      caption: '',
+      status: 'NOT_AVAILABLE',
+      confidence: 0,
+      relevanceScore: 0,
+      sourceCredibility: 'none',
+      timestamp: nowIso,
+      method: 'entity_cross_reference',
+      matchedEntities: [],
+      rejectionReason: 'No image provided by source article. Text-first card displayed.',
+    };
+  }
+
+  const cleanUrl = imageUrl.trim();
+
+  // Create an article-specific cache key to prevent cross-article pollution
+  const cacheKey = `${articleUrl || headline.trim().toLowerCase()}|${cleanUrl}`;
   if (VERIFICATION_CACHE.has(cacheKey)) {
     return VERIFICATION_CACHE.get(cacheKey)!;
   }
 
-  // 1. Check if an image URL was provided
-  if (!imageUrl || imageUrl.trim().length === 0) {
-    // Check if we have an exact verified archive match for this headline
-    const archiveMatch = findArchiveMatch(combinedContext);
-    if (archiveMatch) {
-      const res: ImageVerificationResult = {
-        status: 'VERIFIED',
-        relevanceScore: 0.95,
-        verifiedImageUrl: archiveMatch.imageUrl,
-        caption: archiveMatch.caption,
-        credit: archiveMatch.credit,
-        sourceUrl: archiveMatch.sourceUrl,
-        imageType: archiveMatch.imageType,
-        matchedEntities: [archiveMatch.id],
-        sourceCredibility: 'official_gov',
-      };
-      VERIFICATION_CACHE.set(cacheKey, res);
-      return res;
-    }
-
-    const res: ImageVerificationResult = {
-      status: 'NOT_AVAILABLE',
-      relevanceScore: 0,
-      verifiedImageUrl: null,
-      rejectionReason: 'No image provided for article; falling back to clean text layout.',
-      matchedEntities: [],
-      sourceCredibility: 'unverified',
-    };
-    VERIFICATION_CACHE.set(cacheKey, res);
-    return res;
-  }
-
-  const cleanImageUrl = imageUrl.trim();
-
-  // 2. Reject blacklisted patterns (Arnab on archaeology, spam, ad banners, placeholders)
-  for (const pattern of BLOCKED_URL_PATTERNS) {
-    if (pattern.test(cleanImageUrl)) {
-      // Check if an archive verified image exists for this headline
-      const archiveMatch = findArchiveMatch(combinedContext);
-      if (archiveMatch) {
-        const res: ImageVerificationResult = {
-          status: 'VERIFIED',
-          relevanceScore: 0.92,
-          verifiedImageUrl: archiveMatch.imageUrl,
-          caption: archiveMatch.caption,
-          credit: archiveMatch.credit,
-          sourceUrl: archiveMatch.sourceUrl,
-          imageType: archiveMatch.imageType,
-          matchedEntities: [archiveMatch.id],
-          sourceCredibility: 'official_gov',
-        };
-        VERIFICATION_CACHE.set(cacheKey, res);
-        return res;
-      }
-
-      const res: ImageVerificationResult = {
-        status: 'REJECTED',
-        relevanceScore: 0.05,
+  // 2. Reject blacklisted patterns (avatars, ads, stock photos, synthetic tags)
+  for (const pattern of BLOCKED_IMAGE_PATTERNS) {
+    if (pattern.test(cleanUrl) || pattern.test(caption)) {
+      const rec: ImageProvenanceRecord = {
+        originalImageUrl: cleanUrl,
         verifiedImageUrl: null,
-        rejectionReason: `Image URL contains blacklisted or unrelated filename pattern (${pattern}). Rejected to prevent misinformation.`,
+        publisher: source,
+        credit,
+        caption,
+        status: 'REJECTED',
+        confidence: 0.1,
+        relevanceScore: 10,
+        sourceCredibility: 'low',
+        timestamp: nowIso,
+        method: 'entity_cross_reference',
         matchedEntities: [],
-        sourceCredibility: assessSourceCredibility(cleanImageUrl),
+        rejectionReason: `Image URL or caption matched blacklisted/stock/synthetic pattern: ${pattern}.`,
       };
-      VERIFICATION_CACHE.set(cacheKey, res);
-      return res;
+      VERIFICATION_CACHE.set(cacheKey, rec);
+      return rec;
     }
   }
 
-  // 3. Detect known cross-topic image pollution (e.g. Jio IPO on RBI, Railways on ISRO, Agrivoltaics on Green Hydrogen)
-  const isJioOnNonJio = /jio-ipo/i.test(cleanImageUrl) && !combinedContext.includes('jio');
-  const isRailwaysOnNonRailways = /railways-safety/i.test(cleanImageUrl) && !combinedContext.includes('railway') && !combinedContext.includes('train');
-  const isAgrivoltaicsOnNonAgri = /agrivoltaics/i.test(cleanImageUrl) && !combinedContext.includes('agrivoltaics') && !combinedContext.includes('agriculture');
-  const isArnab = /arnab/i.test(cleanImageUrl);
+  // 3. Reject known cross-topic image pollution:
+  // e.g. Jio IPO image when headline does not mention Jio;
+  // Train/Railway image when article is about ISRO/space;
+  // Agrivoltaics image when article is about Green Hydrogen;
+  // Arnab/Anchor image when article is about archaeology/monsoons/verdicts.
+  const articleContext = `${headline} ${summary} ${content}`.toLowerCase();
 
-  if (isJioOnNonJio || isRailwaysOnNonRailways || isAgrivoltaicsOnNonAgri || isArnab) {
-    const archiveMatch = findArchiveMatch(combinedContext);
-    if (archiveMatch) {
-      const res: ImageVerificationResult = {
-        status: 'VERIFIED',
-        relevanceScore: 0.92,
-        verifiedImageUrl: archiveMatch.imageUrl,
-        caption: archiveMatch.caption,
-        credit: archiveMatch.credit,
-        sourceUrl: archiveMatch.sourceUrl,
-        imageType: archiveMatch.imageType,
-        matchedEntities: [archiveMatch.id],
-        sourceCredibility: 'official_gov',
-      };
-      VERIFICATION_CACHE.set(cacheKey, res);
-      return res;
-    }
-
-    const res: ImageVerificationResult = {
-      status: 'REJECTED',
-      relevanceScore: 0.05,
+  const isJioInImage = /jio[-_]?ipo/i.test(cleanUrl);
+  if (isJioInImage && !articleContext.includes('jio')) {
+    const rec: ImageProvenanceRecord = {
+      originalImageUrl: cleanUrl,
       verifiedImageUrl: null,
-      rejectionReason: 'Image represents an unrelated news event or company not mentioned in the article.',
+      publisher: source,
+      credit,
+      caption,
+      status: 'REJECTED',
+      confidence: 0.05,
+      relevanceScore: 5,
+      sourceCredibility: 'low',
+      timestamp: nowIso,
+      method: 'entity_cross_reference',
       matchedEntities: [],
-      sourceCredibility: assessSourceCredibility(cleanImageUrl),
+      rejectionReason: 'Corporate Jio image is unrelated to this non-Jio article.',
     };
-    VERIFICATION_CACHE.set(cacheKey, res);
-    return res;
+    VERIFICATION_CACHE.set(cacheKey, rec);
+    return rec;
   }
 
-  // 4. Semantic Relevance Verification
-  const imageSlug = cleanImageUrl.split('/').pop()?.toLowerCase() || '';
-  const credibility = assessSourceCredibility(cleanImageUrl);
+  const isRailwayInImage = /railway|train|locomotive/i.test(cleanUrl);
+  if (isRailwayInImage && !articleContext.includes('railway') && !articleContext.includes('train')) {
+    const rec: ImageProvenanceRecord = {
+      originalImageUrl: cleanUrl,
+      verifiedImageUrl: null,
+      publisher: source,
+      credit,
+      caption,
+      status: 'REJECTED',
+      confidence: 0.05,
+      relevanceScore: 5,
+      sourceCredibility: 'low',
+      timestamp: nowIso,
+      method: 'entity_cross_reference',
+      matchedEntities: [],
+      rejectionReason: 'Railway/train image attached to an unrelated non-railway story.',
+    };
+    VERIFICATION_CACHE.set(cacheKey, rec);
+    return rec;
+  }
 
-  // If image is from official government / PIB / RBI / ISRO domain and matches the topic, high trust
-  const isOfficialGov = credibility === 'official_gov' || credibility === 'official_institution';
-  const headlineWords = extractSubjectKeywords(headline);
-  const matchedTokens: string[] = [];
+  const isAgriInImage = /agrivoltaic/i.test(cleanUrl);
+  if (isAgriInImage && !articleContext.includes('agrivoltaic') && !articleContext.includes('farming')) {
+    const rec: ImageProvenanceRecord = {
+      originalImageUrl: cleanUrl,
+      verifiedImageUrl: null,
+      publisher: source,
+      credit,
+      caption,
+      status: 'REJECTED',
+      confidence: 0.05,
+      relevanceScore: 5,
+      sourceCredibility: 'low',
+      timestamp: nowIso,
+      method: 'entity_cross_reference',
+      matchedEntities: [],
+      rejectionReason: 'Agrivoltaics photograph attached to unrelated industrial policy story.',
+    };
+    VERIFICATION_CACHE.set(cacheKey, rec);
+    return rec;
+  }
 
-  for (const word of headlineWords) {
-    if (word.length >= 4 && (imageSlug.includes(word) || caption.toLowerCase().includes(word))) {
-      matchedTokens.push(word);
+  // 4. Entity-level correspondence verification
+  const headlineEntities = extractEntitiesFromText(headline);
+  const contextEntities = extractEntitiesFromText(articleContext);
+  const combinedArticleEntities = Array.from(new Set([...headlineEntities, ...contextEntities]));
+
+  // Extract tokens from image URL slug and caption
+  const imageSlug = cleanUrl.split('/').pop()?.toLowerCase() || '';
+  const captionLower = (caption || '').toLowerCase();
+  const imageContext = `${imageSlug} ${captionLower}`;
+
+  const matchedEntities: string[] = [];
+  for (const entity of combinedArticleEntities) {
+    const words = entity.split(/\s+/).filter((w) => w.length >= 4);
+    const matchesAllWords = words.length > 0 && words.every((w) => imageContext.includes(w));
+    if (matchesAllWords || imageContext.includes(entity)) {
+      matchedEntities.push(entity);
     }
   }
 
-  // If there's an archive match that directly represents this topic, verify with high confidence
-  const archiveMatch = findArchiveMatch(combinedContext);
-  if (archiveMatch && archiveMatch.imageUrl === cleanImageUrl) {
-    const res: ImageVerificationResult = {
-      status: 'VERIFIED',
-      relevanceScore: 0.96,
-      verifiedImageUrl: cleanImageUrl,
-      caption: caption || archiveMatch.caption,
-      credit: credit || archiveMatch.credit,
-      sourceUrl: articleUrl || archiveMatch.sourceUrl,
-      imageType: archiveMatch.imageType,
-      matchedEntities: [archiveMatch.id],
-      sourceCredibility: credibility,
-    };
-    VERIFICATION_CACHE.set(cacheKey, res);
-    return res;
+  const domainType = assessDomain(cleanUrl);
+
+  // Confidence scoring:
+  // Base confidence starts at 0.4 for authorized news domains and 0.5 for official domains
+  let confidence = domainType === 'official' ? 0.55 : domainType === 'authorized_news' ? 0.45 : 0.2;
+
+  // Add confidence for each matched entity
+  if (matchedEntities.length >= 2) {
+    confidence += 0.45; // 2+ distinct entities matched -> high confidence (0.90 - 1.0)
+  } else if (matchedEntities.length === 1) {
+    confidence += 0.35; // 1 strong entity matched -> (0.80 - 0.90)
+    // If image came directly from an official government press release and matches the headline topic
+    if (domainType === 'official') {
+      confidence += 0.08;
+    }
   }
 
-  // If image slug or caption matches key entities in the headline:
-  if (matchedTokens.length >= 1 || isOfficialGov) {
-    const res: ImageVerificationResult = {
-      status: 'VERIFIED',
-      relevanceScore: Math.min(0.95, 0.70 + matchedTokens.length * 0.1),
-      verifiedImageUrl: cleanImageUrl,
-      caption: caption || `News visual from ${source || 'authorized agency'}.`,
-      credit: credit || `${source || 'Verified Source'} Photo Desk`,
-      sourceUrl: articleUrl,
-      imageType: 'event_photo',
-      matchedEntities: matchedTokens,
-      sourceCredibility: credibility,
-    };
-    VERIFICATION_CACHE.set(cacheKey, res);
-    return res;
+  // Deduct confidence if caption contradicts headline entities
+  if (captionLower.length > 20 && combinedArticleEntities.length > 0 && matchedEntities.length === 0) {
+    confidence -= 0.3;
   }
 
-  // If no direct token match but archive match is found, substitute with the verified archive image
-  if (archiveMatch) {
-    const res: ImageVerificationResult = {
+  confidence = Math.max(0, Math.min(1.0, Math.round(confidence * 100) / 100));
+
+  // Determine image type
+  const isInfographic = /infographic|chart|graph|map|diagram|data-graphic|pib/i.test(cleanUrl);
+  const imageType: ImageType = isInfographic
+    ? 'official_infographic'
+    : /file photo|representative|archive/i.test(captionLower)
+    ? 'contextual_photo'
+    : 'event_photo';
+
+  // Strict Threshold: Only accept if confidence >= 0.85
+  if (confidence >= 0.85 && matchedEntities.length >= 1) {
+    const rec: ImageProvenanceRecord = {
+      originalImageUrl: cleanUrl,
+      verifiedImageUrl: cleanUrl,
+      publisher: source,
+      credit: credit || `${source} Photo Desk`,
+      caption: caption || `Authentic visual published with news report by ${source}.`,
       status: 'VERIFIED',
-      relevanceScore: 0.90,
-      verifiedImageUrl: archiveMatch.imageUrl,
-      caption: archiveMatch.caption,
-      credit: archiveMatch.credit,
-      sourceUrl: archiveMatch.sourceUrl,
-      imageType: archiveMatch.imageType,
-      matchedEntities: [archiveMatch.id],
-      sourceCredibility: 'official_gov',
+      confidence,
+      relevanceScore: Math.round(confidence * 100),
+      sourceCredibility: 'high',
+      timestamp: nowIso,
+      method: 'entity_cross_reference',
+      matchedEntities,
+      imageType,
+      rejectionReason: null,
     };
-    VERIFICATION_CACHE.set(cacheKey, res);
-    return res;
+    VERIFICATION_CACHE.set(cacheKey, rec);
+    return rec;
   }
 
-  // Fallback: If image cannot be verified with confidence >= 0.7, REJECT IT!
-  // Do NOT display unrelated images or generic stock placeholders.
-  const res: ImageVerificationResult = {
-    status: 'REJECTED',
-    relevanceScore: 0.35,
+  // Failed verification -> REJECT and set verified image to null
+  const reason =
+    matchedEntities.length === 0
+      ? 'No subject-matter entity correspondence between image and article content.'
+      : `Verification confidence (${confidence}) was below mandatory threshold (0.85).`;
+
+  const rec: ImageProvenanceRecord = {
+    originalImageUrl: cleanUrl,
     verifiedImageUrl: null,
-    rejectionReason: 'Image relevance could not be verified against the specific subject of this article.',
-    matchedEntities: [],
-    sourceCredibility: credibility,
+    publisher: source,
+    credit,
+    caption,
+    status: 'REJECTED',
+    confidence,
+    relevanceScore: Math.round(confidence * 100),
+    sourceCredibility: 'low',
+    timestamp: nowIso,
+    method: 'entity_cross_reference',
+    matchedEntities,
+    rejectionReason: reason,
   };
-  VERIFICATION_CACHE.set(cacheKey, res);
-  return res;
+  VERIFICATION_CACHE.set(cacheKey, rec);
+  return rec;
 }
 
 /**
- * Match article context with curated authentic official subject archives
+ * Revalidate existing stored articles:
+ * Inspects an array of articles, re-verifies candidate images, and zeroes out any that fail.
  */
-function findArchiveMatch(combinedContext: string): VerifiedSubjectAsset | null {
-  for (const asset of VERIFIED_SUBJECT_ARCHIVE) {
-    // Check forbidden entities first
-    if (asset.forbiddenEntities.some((forbidden) => combinedContext.includes(forbidden))) {
-      continue;
+export function revalidateExistingArticleImages<T extends { headline: string; summary?: string; image_url?: string | null; image_metadata?: any }>(
+  articles: T[]
+): {
+  revalidatedCount: number;
+  clearedCount: number;
+  verifiedCount: number;
+  updatedArticles: T[];
+} {
+  let clearedCount = 0;
+  let verifiedCount = 0;
+
+  const updatedArticles = articles.map((art) => {
+    const candidateUrl = art.image_metadata?.imageUrl || art.image_url || null;
+    if (!candidateUrl) {
+      return {
+        ...art,
+        image_url: null,
+        image_metadata: {
+          ...art.image_metadata,
+          imageUrl: null,
+          verificationStatus: 'NOT_AVAILABLE',
+        },
+      };
     }
 
-    // Check required entity sets (at least one set must fully match)
-    const matchesSet = asset.requiredEntities.some((set) =>
-      set.every((requiredEntity) => combinedContext.includes(requiredEntity))
-    );
+    const verification = verifyNewsImageRelevance({
+      headline: art.headline,
+      summary: art.summary || '',
+      imageUrl: candidateUrl,
+      caption: art.image_metadata?.caption,
+      credit: art.image_metadata?.credit,
+    });
 
-    if (matchesSet) {
-      return asset;
+    if (verification.status === 'VERIFIED') {
+      verifiedCount++;
+      return {
+        ...art,
+        image_url: candidateUrl,
+        image_metadata: {
+          ...art.image_metadata,
+          imageUrl: candidateUrl,
+          verificationStatus: 'VERIFIED',
+          confidence: verification.confidence,
+          matchedEntities: verification.matchedEntities,
+          method: verification.method,
+        },
+      };
+    } else {
+      clearedCount++;
+      return {
+        ...art,
+        image_url: null,
+        image_metadata: {
+          ...art.image_metadata,
+          imageUrl: null,
+          verificationStatus: 'REJECTED',
+          confidence: verification.confidence,
+          rejectionReason: verification.rejectionReason,
+        },
+      };
     }
-  }
-  return null;
+  });
+
+  return {
+    revalidatedCount: articles.length,
+    clearedCount,
+    verifiedCount,
+    updatedArticles,
+  };
 }
 
 /**
- * Initialize verification cache from persistent storage
+ * Cache persistence helpers
  */
 export async function loadVerificationCache(): Promise<void> {
   try {
@@ -526,25 +491,21 @@ export async function loadVerificationCache(): Promise<void> {
     if (raw) {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed)) {
-        for (const [key, val] of parsed) {
-          VERIFICATION_CACHE.set(key, val);
+        for (const [k, v] of parsed) {
+          VERIFICATION_CACHE.set(k, v);
         }
       }
     }
   } catch {
-    // Fall back to clean memory cache
+    // Ignore cache load failure
   }
 }
 
-/**
- * Persist verification cache to storage
- */
 export async function persistVerificationCache(): Promise<void> {
   try {
     const entries = Array.from(VERIFICATION_CACHE.entries()).slice(0, 500);
     await AsyncStorage.setItem(CACHE_STORAGE_KEY, JSON.stringify(entries));
   } catch {
-    // Ignore storage errors
+    // Ignore cache write failure
   }
 }
-

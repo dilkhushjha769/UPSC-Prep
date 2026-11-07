@@ -11,7 +11,6 @@ import {
   Filter,
   HelpCircle,
   Lightbulb,
-  ListFilter,
   X,
   XCircle,
   RotateCcw,
@@ -498,12 +497,12 @@ export function PracticeModal({
                       color={
                         statusFilter === 'bookmarked'
                           ? theme.colors.darkButtonText
-                          : '#A65A0A'
+                          : '#FF9500'
                       }
                       fill={
                         statusFilter === 'bookmarked'
                           ? theme.colors.darkButtonText
-                          : '#A65A0A'
+                          : '#FF9500'
                       }
                       strokeWidth={2}
                     />
@@ -832,7 +831,7 @@ export function PracticeModal({
               <View style={styles.emptyFilterCard}>
                 <View style={styles.emptyFilterIconBadge}>
                   {statusFilter === 'bookmarked' ? (
-                    <Bookmark size={24} color="#A65A0A" fill="#A65A0A" strokeWidth={2} />
+                    <Bookmark size={24} color="#FF9500" fill="#FF9500" strokeWidth={2} />
                   ) : statusFilter === 'incorrect' ? (
                     <CheckCircle2 size={24} color={theme.colors.textPrimary} strokeWidth={2} />
                   ) : statusFilter === 'solved' ? (
@@ -923,7 +922,7 @@ export function PracticeModal({
                           </View>
                           {bookmarkedIds[q.id] && (
                             <View style={styles.bookmarkedListTag}>
-                              <Bookmark size={11} color="#A65A0A" fill="#A65A0A" strokeWidth={2} />
+                              <Bookmark size={11} color="#FF9500" fill="#FF9500" strokeWidth={2} />
                             </View>
                           )}
                         </View>
@@ -1021,8 +1020,8 @@ export function PracticeModal({
                 >
                   <Bookmark
                     size={13}
-                    color={isBookmarked ? '#A65A0A' : theme.colors.textSecondary}
-                    fill={isBookmarked ? '#A65A0A' : 'none'}
+                    color={isBookmarked ? '#FF9500' : theme.colors.textSecondary}
+                    fill={isBookmarked ? '#FF9500' : 'none'}
                     strokeWidth={2}
                   />
                 </Pressable>
@@ -1282,7 +1281,7 @@ export function PracticeModal({
           <View style={styles.exitModalOverlay}>
             <View style={styles.exitModalCard}>
               <View style={styles.exitModalIconWrap}>
-                <AlertTriangle size={26} color="#A65A0A" strokeWidth={2.2} />
+                <AlertTriangle size={26} color="#FF9500" strokeWidth={2.2} />
               </View>
               <Text style={styles.exitModalTitle}>Exit Practice Session?</Text>
               <Text style={styles.exitModalDesc}>
@@ -1433,8 +1432,8 @@ const getStyles = (theme: PrelimsThemeType) => {
     borderColor: theme.colors.borderSubtle,
   },
   attemptBookmarkBtnActive: {
-    backgroundColor: isDark ? '#2A1D12' : '#FCEBDD',
-    borderColor: '#A65A0A',
+    backgroundColor: isDark ? '#2A1D12' : '#FFF7ED',
+    borderColor: '#FF9500',
   },
   attemptBookmarkBtnText: {
     fontSize: 11.5,
@@ -1442,7 +1441,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     color: theme.colors.textSecondary,
   },
   attemptBookmarkBtnTextActive: {
-    color: isDark ? '#E0963A' : '#A65A0A',
+    color: isDark ? '#E0963A' : '#FF9500',
     fontWeight: '800',
   },
   topProgressBarTrack: {
@@ -1451,11 +1450,11 @@ const getStyles = (theme: PrelimsThemeType) => {
     left: 0,
     right: 0,
     height: 2.5,
-    backgroundColor: isDark ? 'rgba(255, 138, 61, 0.22)' : '#FCEBDD',
+    backgroundColor: isDark ? 'rgba(255, 138, 61, 0.22)' : '#FFF7ED',
   },
   topProgressBarFill: {
     height: '100%',
-    backgroundColor: '#B9570A',
+    backgroundColor: '#FF9500',
   },
   qMetaRow: {
     flexDirection: 'row',
@@ -1469,7 +1468,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     gap: 8,
   },
   metaYearTag: {
-    backgroundColor: isDark ? '#1B2534' : '#FCEBDD',
+    backgroundColor: isDark ? '#1B2534' : '#FFF7ED',
     paddingHorizontal: 7,
     paddingVertical: 2.5,
     borderRadius: 5,
@@ -1477,7 +1476,7 @@ const getStyles = (theme: PrelimsThemeType) => {
   metaYearText: {
     fontSize: 10.5,
     fontWeight: '700',
-    color: isDark ? '#F2C9A3' : '#B9570A',
+    color: isDark ? '#F2C9A3' : '#FF9500',
   },
   metaDifficultyTag: {
     backgroundColor: isDark ? '#141C28' : '#F0EDE6',
@@ -1523,7 +1522,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     color: theme.colors.textSecondary,
   },
   bookmarkedListTag: {
-    backgroundColor: isDark ? '#2A1D12' : '#FCEBDD',
+    backgroundColor: isDark ? '#2A1D12' : '#FFF7ED',
     paddingHorizontal: 5,
     paddingVertical: 3,
     borderRadius: 5,
@@ -1589,7 +1588,7 @@ const getStyles = (theme: PrelimsThemeType) => {
     borderColor: theme.colors.borderSubtle,
   },
   filterPillActive: {
-    backgroundColor: "#B9570A",
+    backgroundColor: "#FF9500",
     borderColor: theme.colors.darkButton,
   },
   filterPillText: {
@@ -1953,7 +1952,7 @@ const getStyles = (theme: PrelimsThemeType) => {
   },
   optionItemSelected: {
     backgroundColor: isDark ? '#141C28' : '#E9EDF9',
-    borderColor: '#B9570A',
+    borderColor: '#FF9500',
   },
   optionItemCorrect: {
     backgroundColor: isDark ? 'rgba(38, 115, 77, 0.08)' : '#E3F1E8',
@@ -2491,7 +2490,7 @@ const getStyles = (theme: PrelimsThemeType) => {
       width: 52,
       height: 52,
       borderRadius: 26,
-      backgroundColor: isDark ? 'rgba(166, 90, 10, 0.15)' : '#FCEBDD',
+      backgroundColor: isDark ? 'rgba(166, 90, 10, 0.15)' : '#FFF7ED',
       alignItems: 'center',
       justifyContent: 'center',
       marginBottom: 14,

@@ -9,11 +9,11 @@ const build = (t: SemanticTokens, isDark: boolean) => ({
   textPrimary: t.foreground,
   textSecondary: t.mutedForeground,
   textMuted: t.subtleForeground,
-  primary: t.accent, // #F58235 (Vibrant warm orange for primary actions)
+  primary: t.accent, // #FF9500 (Vibrant warm orange for primary actions)
   primaryLight: t.accentHover,
   primarySoft: t.accentSoft,
   primarySurface: t.accentSoft,
-  accent: t.accent, // #F58235 (Burnt orange for accents)
+  accent: t.accent, // #FF9500 (Vibrant warm orange for accents)
   accentPink: t.destructive,
   accentAmber: t.warning,
   accentEmerald: t.success,
@@ -31,7 +31,7 @@ export const UPSC_THEME = {
 
 type SubjectTone = { bg: string; text: string; border: string };
 
-const ORANGE: SubjectTone = { bg: '#FCEBDD', text: '#974606', border: '#F2C9A3' };
+const ORANGE: SubjectTone = { bg: '#FFF7ED', text: '#C25E00', border: '#FED7AA' };
 const GREEN: SubjectTone = { bg: '#E3F1E8', text: '#1D5C3D', border: '#BFDECB' };
 const BLUE: SubjectTone = { bg: '#E9EDF9', text: '#34508F', border: '#CBD3EB' };
 const NEUTRAL: SubjectTone = { bg: '#F0EDE6', text: '#3F4A5E', border: '#EAE5DC' };

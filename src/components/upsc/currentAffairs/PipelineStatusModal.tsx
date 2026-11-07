@@ -184,7 +184,7 @@ export function PipelineStatusModal({
           {(latestLog?.failedJobs?.length || 0) > 0 || staleCategories.length > 0 ? (
             <View style={styles.warningCard}>
               <View style={styles.sectionHeaderRow}>
-                <AlertTriangle size={15} color={isDark ? '#E0963A' : '#A65A0A'} strokeWidth={2.2} />
+                <AlertTriangle size={15} color={isDark ? '#E0963A' : '#FF9500'} strokeWidth={2.2} />
                 <Text style={styles.warningTitle}>
                   Failed Jobs ({latestLog?.failedJobs?.length || 0}) & Stale Categories ({staleCategories.length})
                 </Text>
@@ -212,7 +212,7 @@ export function PipelineStatusModal({
           {/* 3. Simplified 6 Main Categories & 3 Subject Groups Status */}
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeaderRow}>
-              <Layers size={15} color={isDark ? '#E8A25E' : '#B9570A'} strokeWidth={2.2} />
+              <Layers size={15} color={isDark ? '#E8A25E' : '#FF9500'} strokeWidth={2.2} />
               <Text style={styles.sectionTitle}>
                 6 Main Categories & 3 Subject Groups • Last Updated Status
               </Text>
@@ -248,7 +248,7 @@ export function PipelineStatusModal({
                       <View
                         style={[
                           styles.catHealthDot,
-                          { backgroundColor: isHealthy ? '#26734D' : '#A65A0A' },
+                          { backgroundColor: isHealthy ? '#26734D' : '#FF9500' },
                         ]}
                       />
                     </View>
@@ -416,7 +416,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       color: theme.textSecondary,
     },
     warningCard: {
-      backgroundColor: isDark ? 'rgba(251, 191, 36, 0.08)' : '#FCEBDD',
+      backgroundColor: isDark ? 'rgba(251, 191, 36, 0.08)' : '#FFF7ED',
       borderWidth: 1,
       borderColor: isDark ? 'rgba(251, 191, 36, 0.25)' : '#F2D2A8',
       borderRadius: 12,
@@ -426,7 +426,7 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
     warningTitle: {
       fontSize: 12,
       fontWeight: '800',
-      color: isDark ? '#E0963A' : '#A65A0A',
+      color: isDark ? '#E0963A' : '#FF9500',
     },
     warningItemText: {
       fontSize: 12,

@@ -192,7 +192,7 @@ export function TestHistoryModal({
                         <Text
                           style={[
                             styles.statusBadgeText,
-                            { color: isSubmitted ? '#26734D' : '#A65A0A' },
+                            { color: isSubmitted ? '#26734D' : '#FF9500' },
                           ]}>
                           {isSubmitted ? 'Completed' : 'In Progress'}
                         </Text>
@@ -278,7 +278,7 @@ export function TestHistoryModal({
                           styles.inProgressRow,
                           { backgroundColor: theme.activeBg },
                         ]}>
-                        <Clock size={14} color="#A65A0A" />
+                        <Clock size={14} color="#FF9500" />
                         <Text
                           style={[
                             styles.inProgressText,

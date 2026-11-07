@@ -16,7 +16,7 @@ import {
   ChevronRight,
   Clock,
   GraduationCap,
-  Sparkles,
+  Play,
   Target,
   Trophy,
 } from 'lucide-react-native';
@@ -265,14 +265,14 @@ export function ProfileActivitySection({
   const textSecondary = isDark ? '#6E7A8E' : '#4A5568'; // The exact grey used in other tabs
   const textMuted = isDark ? '#6E7A8E' : '#8892A6';
   const iconGrey = textSecondary; // Grey icon color matching other tabs
-  const primaryBlue = GLOBAL_PRIMARY_BLUE; // '#B9570A'
+  const primaryBlue = GLOBAL_PRIMARY_BLUE; // '#FF9500'
 
   const accuracyColor =
     mockPerformance.avgAccuracy >= 60
       ? '#26734D'
       : mockPerformance.avgAccuracy >= 40
       ? primaryBlue
-      : '#A65A0A';
+      : '#FF9500';
 
   const handleOpenSubjectQuestions = (group: SubjectPracticeGroup) => {
     if (onOpenSubjectReview) {
@@ -405,8 +405,8 @@ export function ProfileActivitySection({
             styles.historyTabBtn,
             activeHistoryTab === 'mock'
               ? {
-                  backgroundColor: '#F58235',
-                  shadowColor: '#F58235',
+                  backgroundColor: '#FF9500',
+                  shadowColor: '#FF9500',
                   shadowOffset: { width: 0, height: 2 },
                   shadowOpacity: 0.25,
                   shadowRadius: 4,
@@ -438,8 +438,8 @@ export function ProfileActivitySection({
             styles.historyTabBtn,
             activeHistoryTab === 'practice'
               ? {
-                  backgroundColor: '#F58235',
-                  shadowColor: '#F58235',
+                  backgroundColor: '#FF9500',
+                  shadowColor: '#FF9500',
                   shadowOffset: { width: 0, height: 2 },
                   shadowOpacity: 0.25,
                   shadowRadius: 4,
@@ -597,8 +597,8 @@ export function ProfileActivitySection({
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => onNavigateToTab?.('mockTest')}
-                    style={[styles.actionBtn, { backgroundColor: '#F58235' }]}>
-                    <Sparkles size={13} color="#FFFFFF" />
+                    style={[styles.actionBtn, { backgroundColor: '#FF9500' }]}>
+                    <Play size={13} color="#FFFFFF" fill="#FFFFFF" />
                     <Text style={styles.actionBtnText}>Start Mock Test</Text>
                   </TouchableOpacity>
                 )}
@@ -678,7 +678,7 @@ export function ProfileActivitySection({
                               {
                                 backgroundColor: isDark
                                   ? 'rgba(166, 90, 10, 0.15)'
-                                  : '#FCEBDD',
+                                  : '#FFF7ED',
                               },
                             ]}>
                             <Text style={styles.inProgressText}>In Progress</Text>
@@ -834,8 +834,8 @@ export function ProfileActivitySection({
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => onNavigateToTab?.('prelims')}
-                    style={[styles.actionBtn, { backgroundColor: '#F58235' }]}>
-                    <Sparkles size={13} color="#FFFFFF" />
+                    style={[styles.actionBtn, { backgroundColor: '#FF9500' }]}>
+                    <Play size={13} color="#FFFFFF" fill="#FFFFFF" />
                     <Text style={styles.actionBtnText}>Start Practice Drill</Text>
                   </TouchableOpacity>
                 )}
@@ -1187,7 +1187,7 @@ const styles = StyleSheet.create({
   inProgressText: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#A65A0A',
+    color: '#FF9500',
   },
   subjectListWrap: {
     gap: 0,

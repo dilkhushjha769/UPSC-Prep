@@ -1,7 +1,7 @@
 import { useAppTheme } from '@/context/ThemeContext';
 import { verifyNewsImageRelevance } from '@/utils/imageVerification';
 import { Image } from 'expo-image';
-import { Bookmark, Sparkles } from 'lucide-react-native';
+import { Bookmark } from 'lucide-react-native';
 import { useMemo, useState } from 'react';
 import {
   Platform,
@@ -100,8 +100,8 @@ export function EditorialNewsCard({
     }
     if (c.includes('environment')) {
       return {
-        bg: isDark ? 'rgba(146, 64, 14, 0.22)' : '#FCEBDD',
-        text: isDark ? '#D9822B' : '#6B3A12',
+        bg: isDark ? 'rgba(146, 64, 14, 0.22)' : '#FFF7ED',
+        text: isDark ? '#FF9500' : '#9A3412',
         border: isDark ? 'rgba(146, 64, 14, 0.4)' : '#F2D2A8',
       };
     }
@@ -222,7 +222,6 @@ export function EditorialNewsCard({
         <View style={styles.metaRightGroup}>
           {hasVisualLearning && (
             <View style={[styles.visualTagPill, isDark && styles.visualTagPillDark]}>
-              <Sparkles size={11} color="#F58235" strokeWidth={2.5} />
               <Text style={styles.visualTagText}>Visuals</Text>
             </View>
           )}
@@ -297,8 +296,8 @@ export function EditorialNewsCard({
           >
             <Bookmark
               size={17}
-              color={isBookmarked ? '#F58235' : isDark ? '#8892A6' : '#4A5568'}
-              fill={isBookmarked ? '#F58235' : 'none'}
+              color={isBookmarked ? '#FF9500' : isDark ? '#8892A6' : '#4A5568'}
+              fill={isBookmarked ? '#FF9500' : 'none'}
               strokeWidth={2}
             />
           </Pressable>
@@ -395,7 +394,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: '#FCEBDD',
+    backgroundColor: '#FFF7ED',
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 4,
@@ -404,7 +403,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(245, 130, 53, 0.15)',
   },
   visualTagText: {
-    color: '#F58235',
+    color: '#FF9500',
     fontSize: 10.5,
     fontWeight: '800',
     letterSpacing: 0.2,
@@ -512,15 +511,15 @@ const styles = StyleSheet.create({
     borderColor: '#253244',
   },
   bookmarkBtnActive: {
-    borderColor: '#F58235',
-    backgroundColor: '#FCEBDD',
+    borderColor: '#FF9500',
+    backgroundColor: '#FFF7ED',
   },
   bookmarkBtnActiveDark: {
-    borderColor: '#F58235',
+    borderColor: '#FF9500',
     backgroundColor: 'rgba(245, 130, 53, 0.16)',
   },
   readSummaryBtn: {
-    backgroundColor: '#F58235',
+    backgroundColor: '#FF9500',
     paddingHorizontal: 18,
     height: 38,
     borderRadius: 8,
@@ -528,7 +527,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   readSummaryBtnDark: {
-    backgroundColor: '#F58235',
+    backgroundColor: '#FF9500',
   },
   readSummaryBtnPressed: {
     opacity: 0.85,

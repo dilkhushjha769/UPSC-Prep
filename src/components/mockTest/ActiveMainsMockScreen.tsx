@@ -26,7 +26,6 @@ import {
   Globe,
   ImageIcon,
   PenTool,
-  Sparkles,
   Trash2,
   X,
 } from 'lucide-react-native';
@@ -300,7 +299,7 @@ export function ActiveMainsMockScreen({
   const textPrimary = isDark ? '#F8FAFC' : '#0F172A';
   const textSecondary = isDark ? '#94A3B8' : '#64748B';
   const textMuted = isDark ? '#64748B' : '#94A3B8';
-  const accent = '#F58235';
+  const accent = '#FF9500';
 
   if (!currentQuestion) {
     return null;
@@ -512,7 +511,6 @@ export function ActiveMainsMockScreen({
                 </Text>
                 {currentQuestion.is_case_study && (
                   <View style={[styles.caseBadge, { backgroundColor: isDark ? 'rgba(139, 92, 246, 0.16)' : '#F3E8FF' }]}>
-                    <Sparkles size={10} color="#8B5CF6" />
                     <Text style={styles.caseBadgeText}>Case Study</Text>
                   </View>
                 )}

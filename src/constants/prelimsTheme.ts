@@ -18,13 +18,13 @@ export const getPrelimsTheme = (isDark: boolean = false) => {
       borderSubtle: bw.borderSubtle,
       borderCard: bw.cardBorder,
 
-      // Primary action buttons (warm orange #F58235)
+      // Primary action buttons (warm orange #FF9500)
       primary: t.accent,
       primaryLight: t.accentHover,
       primarySoft: t.accentSoft,
       primarySoftBorder: t.borderStrong,
 
-      // Accent (burnt orange #F58235) - used selectively for highlights & active filters
+      // Accent (burnt orange #FF9500) - used selectively for highlights & active filters
       accent: t.accent,
       accentSoft: t.accentSoft,
 

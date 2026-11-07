@@ -31,8 +31,8 @@ import { useStudy } from '@/context/StudyContext';
 import { useAppTheme } from '@/context/ThemeContext';
 import { NotificationSettingsScreen } from './NotificationSettingsScreen';
 
-interface NotificationsScreenProps {
-  isDark: boolean;
+export interface NotificationsScreenProps {
+  isDark?: boolean;
   onBack: () => void;
   onToggleTheme?: () => void;
   onOpenSettings?: () => void;
@@ -310,12 +310,7 @@ export function NotificationsScreen({
   onBack,
   onToggleTheme: propToggleTheme,
   onOpenSettings,
-}: {
-  isDark?: boolean;
-  onBack: () => void;
-  onToggleTheme?: () => void;
-  onOpenSettings?: () => void;
-}) {
+}: NotificationsScreenProps) {
   const { isDark: contextIsDark, toggleTheme: contextToggleTheme } = useAppTheme();
   const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const onToggleTheme = propToggleTheme || contextToggleTheme;
@@ -757,7 +752,7 @@ export function NotificationsScreen({
                   {
                     backgroundColor: isDark
                       ? '#1B2534'
-                      : '#FCEBDD',
+                      : '#FFF7ED',
                   },
                 ]}>
                 <View
@@ -853,7 +848,7 @@ export function NotificationsScreen({
                   {
                     backgroundColor: isDark
                       ? '#1B2534'
-                      : '#FCEBDD',
+                      : '#FFF7ED',
                     borderColor: theme.cardBorder,
                   },
                 ]}>

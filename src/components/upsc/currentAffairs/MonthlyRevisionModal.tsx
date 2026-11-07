@@ -273,8 +273,8 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       borderColor: isDark ? '#253244' : '#EAE5DC',
     },
     monthTabActive: {
-      backgroundColor: '#B9570A',
-      borderColor: '#B9570A',
+      backgroundColor: '#FF9500',
+      borderColor: '#FF9500',
     },
     monthTabText: {
       fontSize: 13.5,
@@ -323,8 +323,8 @@ const getStyles = (theme: typeof BW_THEME.dark, isDark: boolean) =>
       borderColor: isDark ? '#253244' : '#EAE5DC',
     },
     navTabActive: {
-      backgroundColor: '#B9570A',
-      borderColor: '#B9570A',
+      backgroundColor: '#FF9500',
+      borderColor: '#FF9500',
     },
     navTabText: {
       fontSize: 13,

@@ -116,7 +116,7 @@ export function PrelimsHeader({
               ]}
             >
               {isDark ? (
-                <Sun size={17} color="#D9822B" strokeWidth={2.2} />
+                <Sun size={17} color="#FF9500" strokeWidth={2.2} />
               ) : (
                 <Moon size={17} color={PALETTE.highlight.primary} strokeWidth={2.2} />
               )}
@@ -144,9 +144,9 @@ export function PrelimsHeader({
                 styles.paperTabBtn,
                 {
                   backgroundColor:
-                    selectedPaperTab === 'gs1' ? '#F58235' : isDark ? '#141C28' : '#FFFFFF',
+                    selectedPaperTab === 'gs1' ? '#FF9500' : isDark ? '#141C28' : '#FFFFFF',
                   borderColor:
-                    selectedPaperTab === 'gs1' ? '#F58235' : isDark ? '#253244' : '#EAE5DC',
+                    selectedPaperTab === 'gs1' ? '#FF9500' : isDark ? '#253244' : '#EAE5DC',
                 },
                 pressed && styles.pressed,
               ]}
@@ -170,9 +170,9 @@ export function PrelimsHeader({
                 styles.paperTabBtn,
                 {
                   backgroundColor:
-                    selectedPaperTab === 'gs2' ? '#F58235' : isDark ? '#141C28' : '#FFFFFF',
+                    selectedPaperTab === 'gs2' ? '#FF9500' : isDark ? '#141C28' : '#FFFFFF',
                   borderColor:
-                    selectedPaperTab === 'gs2' ? '#F58235' : isDark ? '#253244' : '#EAE5DC',
+                    selectedPaperTab === 'gs2' ? '#FF9500' : isDark ? '#253244' : '#EAE5DC',
                 },
                 pressed && styles.pressed,
               ]}

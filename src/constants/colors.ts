@@ -18,7 +18,7 @@ export const PALETTE = {
     tint60: '#3D4A66',
     tint40: '#7A8499',
     tint20: '#F0EDE6',
-    accent: LIGHT_TOKENS.accent, // #B9570A
+    accent: LIGHT_TOKENS.accent, // #FF9500
   },
 
   // Neutral Scales (Light & Dark)
@@ -47,8 +47,8 @@ export const PALETTE = {
   },
 } as const;
 
-export const GLOBAL_PRIMARY_BLUE = LIGHT_TOKENS.accent; // #F58235 (Brand Orange)
-export const TOGGLE_ACTIVE_COLOR = LIGHT_TOKENS.accent; // #F58235 (Brand Orange)
+export const GLOBAL_PRIMARY_BLUE = LIGHT_TOKENS.accent; // #FF9500 (Vibrant Bright Vibrant Warm Orange)
+export const TOGGLE_ACTIVE_COLOR = LIGHT_TOKENS.accent; // #FF9500 (Vibrant Bright Vibrant Warm Orange)
 
 // ============================================================================
 // 2. SEMANTIC THEME (LIGHT & DARK MODES) - derived from designTokens.ts
@@ -69,12 +69,12 @@ const semantic = (t: SemanticTokens) => ({
   textMuted: t.subtleForeground,
   textInverse: '#FFFFFF',
 
-  primary: t.accent, // #F58235
+  primary: t.accent, // #FF9500
   primaryHover: t.accentHover,
   primarySoft: t.accentSoft,
   primaryText: '#FFFFFF',
 
-  accent: t.accent, // #F58235
+  accent: t.accent, // #FF9500
   accentHover: t.accentHover,
 
   success: t.success,

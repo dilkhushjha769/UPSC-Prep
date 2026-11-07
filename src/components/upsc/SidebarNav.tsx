@@ -28,11 +28,11 @@ import { QuickEditProfileModal } from './modals/QuickEditProfileModal';
 
 export type NavTab = 'home' | 'tasks' | 'prelims' | 'mains' | 'mock-test' | 'current-affairs' | 'profile' | 'notifications';
 
-interface SidebarNavProps {
+export interface SidebarNavProps {
   activeTab: NavTab;
   onSelectTab: (tab: NavTab) => void;
-  isDark: boolean;
-  onToggleTheme: () => void;
+  isDark?: boolean;
+  onToggleTheme?: () => void;
 }
 
 export function SidebarNav({
@@ -40,12 +40,7 @@ export function SidebarNav({
   onSelectTab,
   isDark: propIsDark,
   onToggleTheme: propToggleTheme,
-}: {
-  activeTab: NavTab;
-  onSelectTab: (tab: NavTab) => void;
-  isDark?: boolean;
-  onToggleTheme?: () => void;
-}) {
+}: SidebarNavProps) {
   const { isDark: contextIsDark, toggleTheme: contextToggleTheme } = useAppTheme();
   const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const onToggleTheme = propToggleTheme || contextToggleTheme;
@@ -137,13 +132,13 @@ export function SidebarNav({
               {isActive && <View style={styles.activeIndicatorBar} />}
               <Icon
                 size={18}
-                color={isActive ? '#F58235' : (isDark ? '#9DA8B9' : theme.textSecondary)}
+                color={isActive ? '#FF9500' : (isDark ? '#9DA8B9' : theme.textSecondary)}
               />
               <Text
                 style={[
                   styles.navItemText,
                   {
-                    color: isActive ? (isDark ? '#F58235' : '#D96E14') : (isDark ? '#9DA8B9' : theme.textSecondary),
+                    color: isActive ? (isDark ? '#FF9500' : '#D96E14') : (isDark ? '#9DA8B9' : theme.textSecondary),
                     fontWeight: isActive ? '700' : '500',
                   },
                 ]}>
@@ -154,17 +149,17 @@ export function SidebarNav({
                   style={[
                     styles.streakMiniPill,
                     {
-                      backgroundColor: isDark ? '#2B1E16' : '#FCEBDD',
+                      backgroundColor: isDark ? '#2B1A0A' : '#FFF7ED',
                       flexDirection: 'row',
                       alignItems: 'center',
                       gap: 3,
                     },
                   ]}>
-                  <Flame size={11} color="#A65A0A" fill="#D9822B" />
+                  <Flame size={11} color="#FF9500" fill="#FF9500" />
                   <Text
                     style={[
                       styles.streakMiniPillText,
-                      { color: isDark ? '#EB853C' : '#A65A0A' },
+                      { color: isDark ? '#EB853C' : '#FF9500' },
                     ]}>
                     {streak.currentStreak}d
                   </Text>
@@ -316,7 +311,7 @@ export function MobileBottomNav({
                 styles.mobileIconCapsule,
                 {
                   backgroundColor: isActive
-                    ? '#F58235'
+                    ? '#FF9500'
                     : 'transparent',
                   borderWidth: 0,
                   borderColor: 'transparent',
@@ -339,7 +334,7 @@ export function MobileBottomNav({
                 styles.mobileNavText,
                 {
                   color: isActive
-                    ? '#F58235'
+                    ? '#FF9500'
                     : (isDark ? '#9DA8B9' : theme.textMuted),
                   fontWeight: isActive ? '700' : '500',
                 },
@@ -407,7 +402,7 @@ const styles = StyleSheet.create({
     width: 3.5,
     height: 20,
     borderRadius: 2,
-    backgroundColor: '#F58235',
+    backgroundColor: '#FF9500',
   },
   navItemText: {
     fontSize: 14,

@@ -851,14 +851,14 @@ export function FormatFeedModal({
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#FCEBDD',
+    backgroundColor: '#FFF7ED',
   },
   safeAreaDark: {
     backgroundColor: '#0B1018',
   },
   container: {
     flex: 1,
-    backgroundColor: '#FCEBDD',
+    backgroundColor: '#FFF7ED',
   },
   containerDark: {
     backgroundColor: '#0B1018',
@@ -1082,8 +1082,8 @@ const styles = StyleSheet.create({
     borderColor: '#253244',
   },
   categoryPillSelected: {
-    backgroundColor: '#B9570A',
-    borderColor: '#B9570A',
+    backgroundColor: '#FF9500',
+    borderColor: '#FF9500',
   },
   categoryPillText: {
     fontSize: 13.5,

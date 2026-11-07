@@ -27,7 +27,6 @@ import {
   Clock,
   Columns,
   CheckCircle2,
-    Sparkles,
 } from 'lucide-react-native';
 import {
   VisualLearningAsset,
@@ -64,8 +63,7 @@ export function VisualLearningSection({
       {/* Visual Learning Section Header */}
       <View style={styles.mainHeaderRow}>
         <View style={styles.headerTitleWrap}>
-          <View style={[styles.sectionBadge, { backgroundColor: isDark ? 'rgba(245, 130, 53, 0.15)' : '#FCEBDD' }]}>
-            <Sparkles size={14} color="#F58235" strokeWidth={2.5} />
+          <View style={[styles.sectionBadge, { backgroundColor: isDark ? 'rgba(245, 130, 53, 0.15)' : '#FFF7ED' }]}>
             <Text style={styles.sectionBadgeText}>VISUAL LEARNING MODULE</Text>
           </View>
           <Text style={[styles.mainSectionTitle, { color: theme.textPrimary }]}>
@@ -165,7 +163,7 @@ function InfographicBlock({
     >
       <View style={styles.blockTitleRow}>
         <View style={[styles.blockIconPill, { backgroundColor: isDark ? '#1B2534' : '#F5F3EE' }]}>
-          <BarChart3 size={16} color="#F58235" strokeWidth={2.2} />
+          <BarChart3 size={16} color="#FF9500" strokeWidth={2.2} />
         </View>
         <View style={styles.blockTitleTextWrap}>
           <Text style={[styles.blockTitle, { color: isDark ? '#F1F5F9' : '#1E293B' }]}>
@@ -193,7 +191,7 @@ function InfographicBlock({
             ]}
           >
             <View style={styles.statTopRow}>
-              <Text style={[styles.statValue, { color: stat.accent || '#F58235' }]}>
+              <Text style={[styles.statValue, { color: stat.accent || '#FF9500' }]}>
                 {stat.value}
               </Text>
               {Boolean(stat.change) && (
@@ -220,7 +218,7 @@ function InfographicBlock({
         <View style={[styles.notesContainer, { borderTopColor: isDark ? '#253244' : '#EAE5DC' }]}>
           {data.notes!.map((note, idx) => (
             <View key={`note-${idx}`} style={styles.noteItem}>
-              <View style={[styles.noteBullet, { backgroundColor: '#F58235' }]} />
+              <View style={[styles.noteBullet, { backgroundColor: '#FF9500' }]} />
               <Text style={[styles.noteText, { color: isDark ? '#94A3B8' : '#64748B' }]}>
                 {note}
               </Text>
@@ -285,7 +283,7 @@ function MapVisualBlock({
           },
         ]}
       >
-        <Text style={[styles.geoHighlightTitle, { color: '#F58235' }]}>
+        <Text style={[styles.geoHighlightTitle, { color: '#FF9500' }]}>
           UPSC GEOGRAPHY & STRATEGIC SIGNIFICANCE
         </Text>
         <Text style={[styles.geoHighlightBody, { color: isDark ? '#F1F5F9' : '#1E293B' }]}>
@@ -368,8 +366,8 @@ function FlowchartBlock({
                   style={[
                     styles.stepCircle,
                     {
-                      backgroundColor: isDark ? '#1B2534' : '#FCEBDD',
-                      borderColor: '#F58235',
+                      backgroundColor: isDark ? '#1B2534' : '#FFF7ED',
+                      borderColor: '#FF9500',
                     },
                   ]}
                 >
@@ -448,7 +446,7 @@ function TimelineBlock({
     >
       <View style={styles.blockTitleRow}>
         <View style={[styles.blockIconPill, { backgroundColor: isDark ? '#1B2534' : '#F5F3EE' }]}>
-          <Clock size={16} color="#F58235" strokeWidth={2.2} />
+          <Clock size={16} color="#FF9500" strokeWidth={2.2} />
         </View>
         <View style={styles.blockTitleTextWrap}>
           <Text style={[styles.blockTitle, { color: isDark ? '#F1F5F9' : '#1E293B' }]}>
@@ -468,7 +466,7 @@ function TimelineBlock({
             <View key={`time-${idx}`} style={styles.timelineRow}>
               {/* Left Pillar: Date Badge & Connecting Bar */}
               <View style={styles.timelinePillar}>
-                <View style={[styles.dateBadge, { backgroundColor: '#F58235' }]}>
+                <View style={[styles.dateBadge, { backgroundColor: '#FF9500' }]}>
                   <Text style={styles.dateBadgeText}>{event.yearOrDate}</Text>
                 </View>
                 {!isLast && <View style={[styles.timelineBar, { backgroundColor: isDark ? '#253244' : '#EAE5DC' }]} />}
@@ -493,7 +491,7 @@ function TimelineBlock({
                 {Boolean(event.significance) && (
                   <View style={[styles.significanceBox, { backgroundColor: isDark ? '#141C28' : '#F5F3EE' }]}>
                     <Text style={[styles.significanceText, { color: isDark ? '#E2E8F0' : '#334155' }]}>
-                      <Text style={{ fontWeight: '700', color: '#F58235' }}>UPSC Angle: </Text>
+                      <Text style={{ fontWeight: '700', color: '#FF9500' }}>UPSC Angle: </Text>
                       {event.significance}
                     </Text>
                   </View>
@@ -554,7 +552,7 @@ function ComparisonBlock({
           <Text style={[styles.colHeader, { flex: 1.4, color: isDark ? '#F1F5F9' : '#1E293B' }]}>
             {data.subjectA}
           </Text>
-          <Text style={[styles.colHeader, { flex: 1.4, color: '#F58235' }]}>
+          <Text style={[styles.colHeader, { flex: 1.4, color: '#FF9500' }]}>
             {data.subjectB}
           </Text>
         </View>
@@ -617,7 +615,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   sectionBadgeText: {
-    color: '#F58235',
+    color: '#FF9500',
     fontSize: 10.5,
     fontWeight: '800',
     letterSpacing: 0.6,
@@ -834,7 +832,7 @@ const styles = StyleSheet.create({
   stepCircleText: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#F58235',
+    color: '#FF9500',
   },
   stepConnectorLine: {
     flex: 1,

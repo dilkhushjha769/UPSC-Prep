@@ -9,6 +9,12 @@
 
 import { verifyNewsImageRelevance } from '@/utils/imageVerification';
 import {
+  evaluateDeterministicPreFilter,
+  evaluateNewsStoryWithAI,
+  UPSCImportanceLevel,
+  UPSCRelevanceEvaluation,
+} from './upscRelevanceEngine';
+import {
   CANONICAL_CA_CATEGORIES,
   CanonicalCategoryName,
   CAQuizQuestion,
@@ -320,8 +326,13 @@ export interface ProcessedCAArticleRecord {
   gsPaper: string;
   publishedAt: string;
   sourceUpdatedAt: string;
-  status: 'published' | 'quarantined' | 'needs_review' | 'draft';
+  status: 'published' | 'quarantined' | 'needs_review' | 'draft' | 'rejected';
   relevanceScore: number;
+  importanceLevel?: UPSCImportanceLevel;
+  rejectionReason?: string | null;
+  aiRelevanceData?: UPSCRelevanceEvaluation;
+  imageVerificationConfidence?: number;
+  imageVerificationStatus?: string;
   executiveBrief: string[];
   fullAnalysis: FullAnalysisData;
   prelimsFacts: string[];
@@ -512,6 +523,7 @@ export function resolveImageProvenance(
   const verification = verifyNewsImageRelevance({
     headline: story.headline,
     summary: story.rawDescription,
+    content: story.rawContent,
     imageUrl: extractedImageUrl,
     caption: extractedImageCaption,
     credit: extractedImageCredit,
@@ -520,66 +532,43 @@ export function resolveImageProvenance(
     category: primaryCategory,
   });
 
-  if (verification.status === 'VERIFIED' && verification.verifiedImageUrl) {
-    const isInfographic = /infographic|chart|graph|map|diagram|pib/i.test(verification.verifiedImageUrl);
+  // Strict 4-Tier Selection Priority:
+  // Tier 1/2/3: ONLY if verification status is VERIFIED and confidence >= 0.85
+  if (verification.status === 'VERIFIED' && verification.originalImageUrl) {
+    const isInfographic = /infographic|chart|graph|map|diagram|pib/i.test(verification.originalImageUrl);
     return {
-      imageUrl: verification.verifiedImageUrl,
+      imageUrl: verification.originalImageUrl,
       credit: verification.credit || extractedImageCredit || `${source.name} Photo Desk`,
       sourceUrl: canonicalUrl,
       associatedArticleId: externalId,
-      imageType: isInfographic ? 'official_infographic' : 'event_photo',
+      imageType: verification.imageType || (isInfographic ? 'official_infographic' : 'event_photo'),
       license: source.licenseType,
-      verificationStatus: verification.sourceCredibility === 'official_gov' ? 'verified_official' : 'verified_agency',
+      verificationStatus: source.sourceTier === 'official' ? 'verified_official' : 'verified_agency',
       caption: verification.caption || extractedImageCaption || `Authentic news photograph published by ${source.shortName}.`,
+      confidence: verification.confidence,
+      timestamp: verification.timestamp,
+      method: verification.method,
+      matchedEntities: verification.matchedEntities,
+      imageVerificationStatus: 'VERIFIED',
+      imageRelevanceScore: verification.confidence,
     };
   }
 
-  // Tier 1: Official Government / Institutional Release Photograph or Infographic
-  if (extractedImageUrl && (source.sourceTier === 'official' || source.sourceTier === 'institution')) {
-    const isInfographic = /infographic|chart|graph|map|diagram|pib/i.test(extractedImageUrl);
-    return {
-      imageUrl: extractedImageUrl,
-      credit: extractedImageCredit || `${source.name} (Official Release)`,
-      sourceUrl: canonicalUrl,
-      associatedArticleId: externalId,
-      imageType: isInfographic ? 'official_infographic' : 'event_photo',
-      license: source.licenseType,
-      verificationStatus: 'verified_official',
-      caption: extractedImageCaption || `Official visual accompanying ${source.shortName} release.`,
-    };
-  }
-
-  // Tier 2: Authentic Photograph supplied through Authorized News Agency / Publisher Feed
-  if (extractedImageUrl && source.allowsImageHotlink) {
-    const isContextual = /file\s*photo|representative|archive|illustration/i.test(
-      `${extractedImageCaption || ''} ${extractedImageUrl}`
-    );
-    return {
-      imageUrl: extractedImageUrl,
-      credit: extractedImageCredit || `${source.name} Photo Desk`,
-      sourceUrl: canonicalUrl,
-      associatedArticleId: externalId,
-      imageType: isContextual ? 'contextual_photo' : 'event_photo',
-      license: source.licenseType,
-      verificationStatus: isContextual ? 'verified_contextual' : 'verified_agency',
-      caption:
-        extractedImageCaption ||
-        (isContextual
-          ? `Representative photograph from ${source.shortName} archive.`
-          : `Authentic news photograph published by ${source.shortName}.`),
-    };
-  }
-
-  // Tier 4: Clean Topic-Specific Placeholder (No AI-generated or synthetic photos)
+  // Tier 4: Clean Text-First Placeholder (No image)
+  // Showing NO image is vastly superior to showing the wrong image.
   return {
     imageUrl: undefined,
-    credit: `${source.shortName} • Topic Placeholder (${primaryCategory})`,
+    credit: `${source.shortName} • Text-First (${primaryCategory})`,
     sourceUrl: canonicalUrl,
     associatedArticleId: externalId,
     imageType: 'placeholder',
-    license: 'Clean System Topic Placeholder (No external image provided in source feed)',
+    license: 'Clean System Text-First Layout (No verified authentic image available)',
     verificationStatus: 'placeholder_fallback',
-    caption: `No direct photograph was embedded in the ${source.shortName} syndication feed; displaying clean topic badge.`,
+    caption: verification.rejectionReason || `No verified photograph matched with sufficient confidence for ${source.shortName}; clean text-first layout displayed.`,
+    confidence: verification.confidence,
+    rejectionReason: verification.rejectionReason,
+    imageVerificationStatus: verification.status,
+    imageRelevanceScore: verification.confidence,
   };
 }
 
@@ -587,50 +576,31 @@ export function resolveImageProvenance(
 // 3. UPSC RELEVANCE FILTER & 12-CATEGORY + 6-UI-MODULE CLASSIFIER
 // =============================================================================
 
-const NON_UPSC_EXCLUSION_PATTERNS = [
-  /\b(horoscope|astrology|bollywood|tollywood|box office|celebrity|gossip|ipl auction|fantasy cricket|movie review|ott release|Bigg Boss)\b/i,
-  /\b(stock tips|intraday trading|buy or sell|lottery results|wordle|crossword|sudoku)\b/i,
-];
-
-export function isRelevantToUPSCSyllabus(headline: string, description: string, sourceTier: string): {
+export function isRelevantToUPSCSyllabus(
+  headline: string,
+  description: string,
+  sourceTier: 'official' | 'agency' | 'editorial' | 'institution' | string
+): {
   relevant: boolean;
   score: number;
+  reason?: string | null;
 } {
-  const combined = `${headline} ${description}`;
-  if (NON_UPSC_EXCLUSION_PATTERNS.some((rx) => rx.test(combined))) {
-    return { relevant: false, score: 0.1 };
+  const tier = (sourceTier as 'official' | 'agency' | 'editorial' | 'institution') || 'editorial';
+  const preFilter = evaluateDeterministicPreFilter(headline, description, tier);
+
+  if (preFilter.isRejected) {
+    return {
+      relevant: false,
+      score: preFilter.baseScore / 100,
+      reason: preFilter.rejectionReason,
+    };
   }
 
-  // Official government releases (PIB, RBI, UN) and dedicated UPSC feeds are inherently high-relevance
-  if (sourceTier === 'official' || sourceTier === 'institution') {
-    return { relevant: true, score: 0.94 };
-  }
-
-  const highValueKeywords = [
-    'supreme court', 'constitution', 'parliament', 'bill', 'act', 'cabinet', 'ministry',
-    'rbi', 'monetary policy', 'inflation', 'gdp', 'fiscal', 'trade', 'wto', 'imf', 'world bank',
-    'united nations', 'brics', 'quad', 'indo-pacific', 'lac', 'treaty', 'summit', 'bilateral',
-    'climate', 'cop', 'biodiversity', 'tiger', 'wetland', 'emission', 'hydrogen', 'renewable',
-    'isro', 'satellite', 'semiconductor', 'quantum', 'biotech', 'vaccine', 'ai', 'genome',
-    'census', 'election commission', 'governor', 'federalism', 'tribunal', 'collegium',
-    'scheme', 'yojana', 'mission', 'niti aayog', 'index', 'report', 'survey', 'poverty',
-  ];
-
-  const lower = combined.toLowerCase();
-  let matches = 0;
-  for (const kw of highValueKeywords) {
-    if (lower.includes(kw)) matches++;
-  }
-
-  if (matches >= 2) return { relevant: true, score: Math.min(0.98, 0.82 + matches * 0.03) };
-  if (matches === 1) return { relevant: true, score: 0.78 };
-
-  // Require minimum substantive headline length for general national/international stories
-  if (headline.length >= 35) {
-    return { relevant: true, score: 0.72 };
-  }
-
-  return { relevant: false, score: 0.3 };
+  return {
+    relevant: preFilter.baseScore >= 55,
+    score: preFilter.baseScore / 100,
+    reason: null,
+  };
 }
 
 export function classifyStoryIntoCategories(
@@ -1241,7 +1211,7 @@ export function clusterAndDeduplicateStories(rawStories: RawFeedStory[]): {
         break;
       }
       const sim = computeHeadlineSimilarity(cluster.primaryStory.headline, candidate.headline);
-      if (sim >= 0.55) {
+      if (sim >= 0.45) {
         matchedCluster = cluster;
         break;
       }
@@ -1347,16 +1317,25 @@ export async function processClusterIntoArticleRecord(
     subjectTag: string,
     headline: string
   ) => Promise<VerifiedRelatedPYQ[]>,
-  geminiApiKey?: string
+  geminiApiKey?: string,
+  options?: { allowRejected?: boolean }
 ): Promise<ProcessedCAArticleRecord | null> {
   const { primaryStory, corroboratingStories } = cluster;
-  const relevance = isRelevantToUPSCSyllabus(
-    primaryStory.headline,
-    primaryStory.rawDescription,
-    primaryStory.source.sourceTier
+
+  // 1. Strict UPSC Relevance Evaluation via Gemini AI / Deterministic Rubric
+  const relevanceEvaluation = await evaluateNewsStoryWithAI(
+    {
+      headline: primaryStory.headline,
+      description: primaryStory.rawDescription,
+      content: primaryStory.rawContent,
+      sourceName: primaryStory.source.name,
+      sourceTier: primaryStory.source.sourceTier,
+      canonicalUrl: primaryStory.canonicalUrl,
+    },
+    geminiApiKey
   );
 
-  if (!relevance.relevant) {
+  if (relevanceEvaluation.decision === 'REJECT' && !options?.allowRejected) {
     return null;
   }
 
@@ -1364,7 +1343,7 @@ export async function processClusterIntoArticleRecord(
     primaryStory.headline,
     primaryStory.rawDescription,
     primaryStory.source,
-    relevance.score
+    relevanceEvaluation.relevance_score / 100
   );
 
   const corroboratingMeta = corroboratingStories.map((s) => ({
@@ -1389,7 +1368,7 @@ export async function processClusterIntoArticleRecord(
         existingSubjectGroup: analysis.subjectGroup || classification.subjectGroup,
         existingSubcategory: analysis.subcategory,
         sourceName: primaryStory.source.name,
-        relevanceScore: Math.round(relevance.score * 100),
+        relevanceScore: relevanceEvaluation.relevance_score,
         editorialAuthor: analysis.editorialAuthor || classification.editorialAuthor,
       })
     : classification;
@@ -1475,6 +1454,17 @@ export async function processClusterIntoArticleRecord(
     analysis.executiveBrief.length === 0 ||
     analysis.detailedExplanation.length === 0;
 
+  let status: 'published' | 'quarantined' | 'needs_review' | 'draft' | 'rejected' = 'published';
+  if (isMalformed) {
+    status = 'quarantined';
+  } else if (relevanceEvaluation.decision === 'REJECT') {
+    status = 'rejected';
+  } else if (relevanceEvaluation.decision === 'NEEDS_REVIEW') {
+    status = 'needs_review';
+  } else {
+    status = 'published';
+  }
+
   return {
     externalId: primaryStory.externalId,
     canonicalUrl: primaryStory.canonicalUrl,
@@ -1488,20 +1478,25 @@ export async function processClusterIntoArticleRecord(
     mainCategoryId: finalTaxonomy.mainCategoryId,
     subjectGroup: finalTaxonomy.subjectGroup,
     subcategory: finalTaxonomy.subcategory,
-    isMostImportant: analysis.isMostImportant ?? finalTaxonomy.isMostImportant,
-    isPrelimsRelevant: analysis.isPrelimsRelevant ?? finalTaxonomy.isPrelimsRelevant,
-    isMainsRelevant: analysis.isMainsRelevant ?? finalTaxonomy.isMainsRelevant,
+    isMostImportant: relevanceEvaluation.importance === 'HIGH',
+    isPrelimsRelevant: relevanceEvaluation.prelims_relevant,
+    isMainsRelevant: relevanceEvaluation.mains_relevant,
     editorialAuthor: finalTaxonomy.editorialAuthor,
     aiExplanationDisclaimer: finalTaxonomy.aiExplanationDisclaimer,
     publishedDateIst: getAsiaKolkataDateKey(primaryStory.publishedAt),
     uiModuleId: finalTaxonomy.mainCategoryId,
     uiSubjectTag: classification.uiSubjectTag,
     secondaryTags: classification.secondaryTags,
-    gsPaper: classification.gsPaper,
+    gsPaper: relevanceEvaluation.gs_papers[0] || classification.gsPaper,
     publishedAt: primaryStory.publishedAt,
     sourceUpdatedAt: primaryStory.publishedAt,
-    status: isMalformed ? 'quarantined' : 'published',
-    relevanceScore: relevance.score,
+    status,
+    relevanceScore: relevanceEvaluation.relevance_score / 100,
+    importanceLevel: relevanceEvaluation.importance,
+    rejectionReason: relevanceEvaluation.rejection_reason,
+    aiRelevanceData: relevanceEvaluation,
+    imageVerificationConfidence: imageMetadata.confidence,
+    imageVerificationStatus: imageMetadata.imageVerificationStatus || imageMetadata.verificationStatus,
     executiveBrief: analysis.executiveBrief,
     fullAnalysis,
     prelimsFacts: analysis.prelimsFacts,

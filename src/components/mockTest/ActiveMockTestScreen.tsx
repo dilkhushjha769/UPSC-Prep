@@ -391,7 +391,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark: propIsDark }: Ac
               style={[
                 styles.timerCapsule,
                 {
-                  backgroundColor: isTimerCritical ? 'rgba(180, 35, 24, 0.15)' : isDark ? '#141C28' : '#FCEBDD',
+                  backgroundColor: isTimerCritical ? 'rgba(180, 35, 24, 0.15)' : isDark ? '#141C28' : '#FFF7ED',
                   borderColor: isTimerCritical ? '#B42318' : theme.cardBorder,
                 },
               ]}>
@@ -405,7 +405,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark: propIsDark }: Ac
               </Text>
             </View>
           ) : (
-            <View style={[styles.timerCapsule, { backgroundColor: isDark ? '#141C28' : '#FCEBDD' }]}>
+            <View style={[styles.timerCapsule, { backgroundColor: isDark ? '#141C28' : '#FFF7ED' }]}>
               <Clock size={14} color={theme.textSecondary} />
               <Text style={[styles.timerText, { color: theme.textSecondary }]}>Practice</Text>
             </View>
@@ -452,14 +452,14 @@ export function ActiveMockTestScreen({ testId, onClose, isDark: propIsDark }: Ac
             <Text style={[styles.testProgressLabel, { color: theme.textSecondary }]}>
               Progress: <Text style={{ color: theme.textPrimary, fontWeight: '700' }}>{submitStats.answered}</Text> of {questions.length} answered
             </Text>
-            <Text style={[styles.testProgressValue, { color: '#B9570A', fontWeight: '700' }]}>
+            <Text style={[styles.testProgressValue, { color: '#FF9500', fontWeight: '700' }]}>
               {Math.min(100, Math.round((submitStats.answered / questions.length) * 100))}%
             </Text>
           </View>
           <ProgressBar
             progress={Math.min(100, (submitStats.answered / questions.length) * 100)}
             height={3}
-            fillColor="#B9570A"
+            fillColor="#FF9500"
             trackColor={isDark ? '#1B2534' : '#EAE5DC'}
             borderRadius={2}
           />
@@ -550,8 +550,8 @@ export function ActiveMockTestScreen({ testId, onClose, isDark: propIsDark }: Ac
                   }
                 } else if (isSelected) {
                   rowBg = isDark ? '#141C28' : '#E9EDF9';
-                  rowBorder = '#B9570A';
-                  circleBg = '#B9570A';
+                  rowBorder = '#FF9500';
+                  circleBg = '#FF9500';
                   circleTextColor = '#FFFFFF';
                 }
 
@@ -662,18 +662,18 @@ export function ActiveMockTestScreen({ testId, onClose, isDark: propIsDark }: Ac
               styles.reviewBtn,
               currentResponse?.is_marked_for_review && {
                 backgroundColor: 'rgba(166, 90, 10, 0.15)',
-                borderColor: '#A65A0A',
+                borderColor: '#FF9500',
               },
               { borderColor: theme.cardBorder },
             ]}>
             <Bookmark
               size={15}
-              color={currentResponse?.is_marked_for_review ? '#A65A0A' : theme.textSecondary}
+              color={currentResponse?.is_marked_for_review ? '#FF9500' : theme.textSecondary}
             />
             <Text
               style={[
                 styles.reviewBtnText,
-                { color: currentResponse?.is_marked_for_review ? '#A65A0A' : theme.textSecondary },
+                { color: currentResponse?.is_marked_for_review ? '#FF9500' : theme.textSecondary },
               ]}>
               {currentResponse?.is_marked_for_review ? 'Marked' : 'Mark for Review'}
             </Text>
@@ -755,7 +755,7 @@ export function ActiveMockTestScreen({ testId, onClose, isDark: propIsDark }: Ac
                 <Text style={styles.confirmStatNumber}>{submitStats.answered}</Text>
                 <Text style={styles.confirmStatLabel}>Answered</Text>
               </View>
-              <View style={[styles.confirmStatPill, { backgroundColor: '#6B3A08' }]}>
+              <View style={[styles.confirmStatPill, { backgroundColor: '#9A3412' }]}>
                 <Text style={styles.confirmStatNumber}>{submitStats.marked}</Text>
                 <Text style={styles.confirmStatLabel}>Marked</Text>
               </View>

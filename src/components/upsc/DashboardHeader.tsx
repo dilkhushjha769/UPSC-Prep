@@ -11,7 +11,6 @@ import {
   Bell,
   Calendar,
   Moon,
-  Sparkles,
   Sun,
   Target,
 } from 'lucide-react-native';
@@ -69,12 +68,9 @@ export function DashboardHeader({ isDark: propIsDark, onToggleTheme }: Dashboard
           </TouchableOpacity>
 
           <View style={styles.greetingTextContainer}>
-            <View style={styles.greetingRow}>
-              <Text style={[styles.greetingSubtitle, { color: colors.textSecondary }]}>
-                {timeGreeting},
-              </Text>
-              <Sparkles size={14} color={colors.primary} style={{ marginLeft: 4 }} />
-            </View>
+            <Text style={[styles.greetingSubtitle, { color: colors.textSecondary }]}>
+              {timeGreeting},
+            </Text>
             <Text style={[styles.aspirantName, { color: colors.textPrimary }]}>
               {config.aspirantName}
             </Text>
@@ -108,7 +104,7 @@ export function DashboardHeader({ isDark: propIsDark, onToggleTheme }: Dashboard
               },
             ]}>
             {isDark ? (
-              <Sun size={18} color="#D9822B" />
+              <Sun size={18} color="#FF9500" />
             ) : (
               <Moon size={18} color={colors.textPrimary} />
             )}
@@ -174,7 +170,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    shadowColor: '#B9570A',
+    shadowColor: '#FF9500',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
     shadowRadius: 6,

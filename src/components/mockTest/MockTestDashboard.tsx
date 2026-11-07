@@ -98,7 +98,7 @@ export function MockTestDashboard({
   const [isCounting, setIsCounting] = useState<boolean>(false);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
 
-  // Unified theme colors: #B9570A across BOTH light and dark modes
+  // Unified theme colors: #FF9500 across BOTH light and dark modes
   const colors = useMemo(() => {
     if (isDark) {
       return {
@@ -108,19 +108,19 @@ export function MockTestDashboard({
         textPrimary: '#FFFFFF',
         textSecondary: '#C9CFDB',
         textMuted: '#8892A6',
-        primary: '#B9570A',
+        primary: '#FF9500',
         primaryDeep: '#3D5A99',
-        primaryTint: 'rgba(185, 87, 10, 0.15)',
-        primaryBorder: '#B9570A',
+        primaryTint: 'rgba(245, 130, 53, 0.15)',
+        primaryBorder: '#FF9500',
         buttonText: '#FFFFFF',
         chipBg: '#1E2535',
-        chipSelectedBg: '#B9570A',
+        chipSelectedBg: '#FF9500',
         chipSelectedText: '#FFFFFF',
         metricBoxBg: '#1E2535',
-        amberBadge: '#A65A0A',
-        stepBadgeBg: '#B9570A',
+        amberBadge: '#FF9500',
+        stepBadgeBg: '#FF9500',
         stepBadgeText: '#FFFFFF',
-        eyebrow: '#B9570A',
+        eyebrow: '#FF9500',
       };
     }
     return {
@@ -130,19 +130,19 @@ export function MockTestDashboard({
       textPrimary: '#1C2433',
       textSecondary: '#333D52',
       textMuted: '#7A8499',
-      primary: '#B9570A',
+      primary: '#FF9500',
       primaryDeep: '#3D5A99',
-      primaryTint: '#FCEBDD',
-      primaryBorder: '#B9570A',
+      primaryTint: '#FFF7ED',
+      primaryBorder: '#FF9500',
       buttonText: '#FFFFFF',
       chipBg: '#E9EDF9',
-      chipSelectedBg: '#B9570A',
+      chipSelectedBg: '#FF9500',
       chipSelectedText: '#FFFFFF',
       metricBoxBg: '#E9EDF9',
-      amberBadge: '#A65A0A',
-      stepBadgeBg: '#B9570A',
+      amberBadge: '#FF9500',
+      stepBadgeBg: '#FF9500',
       stepBadgeText: '#FFFFFF',
-      eyebrow: '#B9570A',
+      eyebrow: '#FF9500',
     };
   }, [isDark]);
 

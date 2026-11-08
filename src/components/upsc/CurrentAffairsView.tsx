@@ -1302,33 +1302,42 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
               </Pressable>
 
               {agencyDropdownVisible && (
-                <View style={styles.sourceDropdownMenu}>
-                  {SOURCE_FILTER_CHIPS.map((chip) => {
-                    const isSelected = selectedAgencyId === chip.id;
-                    return (
-                      <Pressable
-                        key={chip.id}
-                        style={[
-                          styles.sourceDropdownMenuItem,
-                          isSelected && styles.sourceDropdownMenuItemActive,
-                        ]}
-                        onPress={() => {
-                          handleSelectAgency(chip.id);
-                          setAgencyDropdownVisible(false);
-                        }}
-                      >
-                        <Text
-                          style={[
-                            styles.sourceDropdownMenuItemText,
-                            isSelected && styles.sourceDropdownMenuItemTextActive,
+                <>
+                  <Pressable
+                    style={styles.dropdownDismissBackdrop}
+                    onPress={() => setAgencyDropdownVisible(false)}
+                    accessibilityRole="button"
+                    accessibilityLabel="Close source filter dropdown"
+                  />
+                  <View style={styles.sourceDropdownMenu}>
+                    {SOURCE_FILTER_CHIPS.map((chip) => {
+                      const isSelected = selectedAgencyId === chip.id;
+                      return (
+                        <Pressable
+                          key={chip.id}
+                          style={({ pressed }) => [
+                            styles.sourceDropdownMenuItem,
+                            isSelected && styles.sourceDropdownMenuItemActive,
+                            pressed && styles.pressed,
                           ]}
+                          onPress={() => {
+                            handleSelectAgency(chip.id);
+                            setAgencyDropdownVisible(false);
+                          }}
                         >
-                          {chip.label}
-                        </Text>
-                      </Pressable>
-                    );
-                  })}
-                </View>
+                          <Text
+                            style={[
+                              styles.sourceDropdownMenuItemText,
+                              isSelected && styles.sourceDropdownMenuItemTextActive,
+                            ]}
+                          >
+                            {chip.label}
+                          </Text>
+                        </Pressable>
+                      );
+                    })}
+                  </View>
+                </>
               )}
             </View>
           </View>
@@ -2197,13 +2206,18 @@ const getStyles = (
     /* 3. Explore Current Affairs Section */
     exploreSection: {
       marginBottom: 42,
+      position: 'relative',
+      zIndex: 100,
     },
     exploreHeaderRow: {
       flexDirection: isDesktop ? 'row' : 'column',
-      alignItems: isDesktop ? 'flex-end' : 'flex-start',
+      alignItems: isDesktop ? 'center' : 'flex-start',
       justifyContent: 'space-between',
       gap: 14,
       marginBottom: 20,
+      position: 'relative',
+      zIndex: 100,
+      elevation: 20,
     },
     exploreTitleBlock: {
       gap: 4,
@@ -2224,7 +2238,8 @@ const getStyles = (
       alignItems: 'center',
       gap: 10,
       position: 'relative',
-      zIndex: 30,
+      zIndex: 100,
+      elevation: 20,
     },
     sourceFilterLabel: {
       fontFamily: FONT_FAMILY.sans,
@@ -2248,26 +2263,35 @@ const getStyles = (
       fontWeight: '600',
       color: textPrimary,
     },
+    dropdownDismissBackdrop: {
+      position: (Platform.OS === 'web' ? 'fixed' : 'absolute') as 'absolute',
+      top: Platform.OS === 'web' ? 0 : -2000,
+      left: Platform.OS === 'web' ? 0 : -2000,
+      right: Platform.OS === 'web' ? 0 : -2000,
+      bottom: Platform.OS === 'web' ? 0 : -2000,
+      zIndex: 990,
+      backgroundColor: 'transparent',
+    },
     sourceDropdownMenu: {
       position: 'absolute',
-      top: 38,
+      top: 42,
       right: 0,
       backgroundColor: cardBg,
       borderWidth: 1,
       borderColor: cardBorder,
-      borderRadius: 12,
+      borderRadius: 14,
       paddingVertical: 6,
-      minWidth: 160,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: 0.12,
-      shadowRadius: 12,
-      elevation: 6,
-      zIndex: 40,
+      minWidth: 180,
+      shadowColor: '#000000',
+      shadowOffset: { width: 0, height: 8 },
+      shadowOpacity: 0.16,
+      shadowRadius: 18,
+      elevation: 30,
+      zIndex: 1000,
     },
     sourceDropdownMenuItem: {
-      paddingHorizontal: 14,
-      paddingVertical: 9,
+      paddingHorizontal: 16,
+      paddingVertical: 10,
     },
     sourceDropdownMenuItemActive: {
       backgroundColor: sandBg,
@@ -2317,6 +2341,9 @@ const getStyles = (
       flexDirection: 'row',
       flexWrap: 'wrap',
       gap: 14,
+      position: 'relative',
+      zIndex: 1,
+      elevation: 1,
     },
     moduleCard: {
       width: isDesktop ? '31.8%' : isTablet ? '48%' : '100%',

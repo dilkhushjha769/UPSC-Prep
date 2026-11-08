@@ -51,14 +51,11 @@ import {
   View,
 } from 'react-native';
 import {
-  Activity,
-  AlertCircle,
   ArrowRight,
   Bookmark,
   BookOpen,
-  Calendar,
   CalendarDays,
-  Check,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   FileText,
@@ -70,7 +67,6 @@ import {
   Pause,
   Play,
   Scale,
-  ShieldCheck,
   X,
 } from 'lucide-react-native';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -162,9 +158,9 @@ function formatDatePickerDisplayLabel(dateKey: string, todayKey: string): string
   const mName = monthNames[dt.getMonth()] || 'Nov';
   const dName = dayNames[dt.getDay()] || 'Sun';
   if (dateKey === todayKey) {
-    return `Today, ${d} ${mName} ${y}`;
+    return `Today, ${d} ${mName}`;
   }
-  return `${dName}, ${d} ${mName} ${y}`;
+  return `${dName}, ${d} ${mName}`;
 }
 
 export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewProps) {
@@ -200,6 +196,8 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
     }
     return 'all';
   });
+
+  const [agencyDropdownVisible, setAgencyDropdownVisible] = useState<boolean>(false);
 
   // Slide state for Hero Carousel
   const [activeEventIndex, setActiveEventIndex] = useState<number>(0);
@@ -301,14 +299,6 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
     [selectedDateKey]
   );
 
-  const handleToggleDayRead = useCallback(() => {
-    const nextRead = !studyProgress.marked_as_read;
-    void handleUpdateProgress({
-      marked_as_read: nextRead,
-      read_headlines: nextRead ? true : studyProgress.read_headlines,
-    });
-  }, [handleUpdateProgress, studyProgress.marked_as_read, studyProgress.read_headlines]);
-
   // Calendar Dropdown state
   const [calendarDropdownVisible, setCalendarDropdownVisible] = useState<boolean>(false);
   const [calendarDropdownPos, setCalendarDropdownPos] = useState<{ top: number; left?: number; right?: number }>({
@@ -348,7 +338,6 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
   const [articleModalVisible, setArticleModalVisible] = useState(false);
 
   const [dailyRecallModalVisible, setDailyRecallModalVisible] = useState(false);
-  const [recallTargetEvent, setRecallTargetEvent] = useState<DailyEventItem | null>(null);
   const [pipelineStatusModalVisible, setPipelineStatusModalVisible] = useState(false);
 
   // Report an Error modal state
@@ -676,12 +665,6 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
     [handleUpdateProgress]
   );
 
-  const handleAddNoteForEvent = useCallback((item: DailyEventItem) => {
-    setInitialNoteTitle(item.headline);
-    setNotesLibraryInitialTab('notes');
-    setNotesLibraryModalVisible(true);
-  }, []);
-
   const handleOpenFormatModal = useCallback((moduleId: string) => {
     const matchedCat =
       FORMAT_CATEGORIES.find((c) => c.id === moduleId) || FORMAT_CATEGORIES[0];
@@ -967,153 +950,92 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
     >
       <View style={styles.centerContainer}>
         {/* ================================================================ */}
-        {/* 1. TOP BAR: Current Affairs Brand + [Progress] [Notes] [Saved]   */}
+        {/* 1. TOP BAR: Current Affairs Brand + [Notes] [Saved]              */}
         {/* ================================================================ */}
         <View style={styles.topHeaderBar}>
-          <View style={styles.brandGroup}>
-            <View style={styles.brandIconBox}>
-              <Globe size={20} color="#D8AE68" strokeWidth={2} />
-            </View>
-            <View>
-              <Text style={styles.brandTitle}>Current Affairs</Text>
-              <Text style={styles.brandSubtitle}>Decode Today. Prepare for Tomorrow.</Text>
-            </View>
-          </View>
+          <Pressable onLongPress={() => setPipelineStatusModalVisible(true)}>
+            <Text style={styles.brandTitle}>Current Affairs</Text>
+          </Pressable>
 
           <View style={styles.topUtilityPillsRow}>
             <Pressable
-              style={({ pressed }) => [styles.utilityPillBtn, pressed && styles.pressed]}
-              onPress={() => setPipelineStatusModalVisible(true)}
-              accessibilityRole="button"
-              accessibilityLabel="Open Progress and Editorial Queue"
-            >
-              <Activity size={14} color={isDark ? '#D8AE68' : '#7C6232'} strokeWidth={2.2} />
-              <Text style={styles.utilityPillText}>
-                Progress ({studyProgress.completed_count}/4)
-              </Text>
-            </Pressable>
-
-            <Pressable
-              style={({ pressed }) => [styles.utilityPillBtn, pressed && styles.pressed]}
+              style={({ pressed }) => [styles.topHeaderLink, pressed && styles.pressed]}
               onPress={() => {
                 setInitialNoteTitle('');
                 setNotesLibraryInitialTab('notes');
                 setNotesLibraryModalVisible(true);
               }}
               accessibilityRole="button"
-              accessibilityLabel="Open UPSC Notes"
+              accessibilityLabel="Open Notes"
             >
-              <FileText size={14} color={isDark ? '#D8AE68' : '#7C6232'} strokeWidth={2} />
-              <Text style={styles.utilityPillText}>Notes</Text>
+              <FileText size={15} color={isDark ? '#F8FAFC' : '#101D33'} strokeWidth={2} />
+              <Text style={styles.topHeaderLinkText}>Notes</Text>
             </Pressable>
 
             <Pressable
-              style={({ pressed }) => [styles.utilityPillBtn, pressed && styles.pressed]}
+              style={({ pressed }) => [styles.topHeaderLink, pressed && styles.pressed]}
               onPress={() => {
                 setNotesLibraryInitialTab('library');
                 setNotesLibraryModalVisible(true);
               }}
               accessibilityRole="button"
-              accessibilityLabel="Open Saved Bookmarks"
+              accessibilityLabel="Open Saved"
             >
-              <Bookmark size={14} color={isDark ? '#D8AE68' : '#7C6232'} strokeWidth={2} />
-              <Text style={styles.utilityPillText}>Saved ({savedItemIds.length})</Text>
+              <Bookmark size={15} color={isDark ? '#F8FAFC' : '#101D33'} strokeWidth={2} />
+              <Text style={styles.topHeaderLinkText}>Saved</Text>
             </Pressable>
           </View>
         </View>
 
         {/* ================================================================ */}
-        {/* 2. THE DAILY BRIEF SECTION (2-COLUMN HERO + HEADLINES + PATH)    */}
+        {/* 2. THE DAILY BRIEF SECTION (2-COLUMN HERO + HEADLINES)           */}
         {/* ================================================================ */}
         <View style={styles.dailyBriefSection}>
-          <Text style={styles.sectionEyebrow}>DAILY BRIEFING FOR UPSC ASPIRANTS</Text>
-
           <View style={styles.briefHeaderRow}>
             <Text style={styles.briefMainHeading}>The Daily Brief</Text>
 
-            <View style={styles.briefControlsRow}>
-              {/* Date Picker Pill with Prev / Calendar / Next */}
-              <View ref={calendarBtnRef} collapsable={false} style={styles.datePickerCompositePill}>
-                <Pressable
-                  style={({ pressed }) => [styles.dateArrowBtn, pressed && styles.pressed]}
-                  onPress={() => handleSelectDate(shiftDateKeyByDays(selectedDateKey, -1))}
-                  accessibilityRole="button"
-                  accessibilityLabel="Previous day"
-                  hitSlop={6}
-                >
-                  <ChevronLeft size={15} color={isDark ? '#CBD5E1' : '#475569'} strokeWidth={2.2} />
-                </Pressable>
-
-                <Pressable
-                  style={({ pressed }) => [styles.dateCenterBtn, pressed && styles.pressed]}
-                  onPress={handleToggleCalendar}
-                  accessibilityRole="button"
-                  accessibilityLabel={`Select date. Currently ${datePickerDisplayLabel}`}
-                >
-                  <Calendar size={14} color="#9A7B3E" strokeWidth={2.2} />
-                  <Text style={styles.dateCenterLabel}>{datePickerDisplayLabel}</Text>
-                </Pressable>
-
-                <Pressable
-                  style={({ pressed }) => [
-                    styles.dateArrowBtn,
-                    !canGoNextDay && styles.dateArrowBtnDisabled,
-                    pressed && canGoNextDay && styles.pressed,
-                  ]}
-                  onPress={() => {
-                    if (canGoNextDay) {
-                      handleSelectDate(shiftDateKeyByDays(selectedDateKey, 1));
-                    }
-                  }}
-                  disabled={!canGoNextDay}
-                  accessibilityRole="button"
-                  accessibilityLabel="Next day"
-                  hitSlop={6}
-                >
-                  <ChevronRight
-                    size={15}
-                    color={canGoNextDay ? (isDark ? '#CBD5E1' : '#475569') : isDark ? '#334155' : '#CBD5E1'}
-                    strokeWidth={2.2}
-                  />
-                </Pressable>
-              </View>
-
-              {/* [✓ Mark as read] Pill */}
+            {/* Date Picker Pill: < Today, 08 Nov > */}
+            <View ref={calendarBtnRef} collapsable={false} style={styles.datePickerCompositePill}>
               <Pressable
-                style={({ pressed }) => [
-                  styles.markAsReadPillBtn,
-                  studyProgress.marked_as_read && styles.markAsReadPillBtnActive,
-                  pressed && styles.pressed,
-                ]}
-                onPress={handleToggleDayRead}
-                accessibilityRole="checkbox"
-                accessibilityState={{ checked: studyProgress.marked_as_read }}
-                accessibilityLabel="Mark day's brief as read"
+                style={({ pressed }) => [styles.dateArrowBtn, pressed && styles.pressed]}
+                onPress={() => handleSelectDate(shiftDateKeyByDays(selectedDateKey, -1))}
+                accessibilityRole="button"
+                accessibilityLabel="Previous day"
+                hitSlop={6}
               >
-                <Check
-                  size={14}
-                  color={studyProgress.marked_as_read ? '#FFFFFF' : isDark ? '#E2E8F0' : '#1E293B'}
-                  strokeWidth={2.5}
-                />
-                <Text
-                  style={[
-                    styles.markAsReadPillText,
-                    studyProgress.marked_as_read && styles.markAsReadPillTextActive,
-                  ]}
-                >
-                  {studyProgress.marked_as_read ? 'Marked as read' : 'Mark as read'}
-                </Text>
+                <ChevronLeft size={15} color={isDark ? '#CBD5E1' : '#475569'} strokeWidth={2.2} />
               </Pressable>
 
-              {/* [Daily Quiz] Dark Navy Pill Button */}
               <Pressable
-                style={({ pressed }) => [styles.dailyQuizNavyBtn, pressed && styles.pressed]}
-                onPress={() => setQuizModalVisible(true)}
+                style={({ pressed }) => [styles.dateCenterBtn, pressed && styles.pressed]}
+                onPress={handleToggleCalendar}
                 accessibilityRole="button"
-                accessibilityLabel="Start today's Daily Quiz"
+                accessibilityLabel={`Select date. Currently ${datePickerDisplayLabel}`}
               >
-                <ListChecks size={15} color="#D8AE68" strokeWidth={2.2} />
-                <Text style={styles.dailyQuizNavyBtnText}>Daily Quiz</Text>
+                <Text style={styles.dateCenterLabel}>{datePickerDisplayLabel}</Text>
+              </Pressable>
+
+              <Pressable
+                style={({ pressed }) => [
+                  styles.dateArrowBtn,
+                  !canGoNextDay && styles.dateArrowBtnDisabled,
+                  pressed && canGoNextDay && styles.pressed,
+                ]}
+                onPress={() => {
+                  if (canGoNextDay) {
+                    handleSelectDate(shiftDateKeyByDays(selectedDateKey, 1));
+                  }
+                }}
+                disabled={!canGoNextDay}
+                accessibilityRole="button"
+                accessibilityLabel="Next day"
+                hitSlop={6}
+              >
+                <ChevronRight
+                  size={15}
+                  color={canGoNextDay ? (isDark ? '#CBD5E1' : '#475569') : isDark ? '#334155' : '#CBD5E1'}
+                  strokeWidth={2.2}
+                />
               </Pressable>
             </View>
           </View>
@@ -1121,7 +1043,7 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
           {/* Two-Column Hero Layout */}
           {currentDailyEvent ? (
             <View style={styles.heroTwoColumnGrid}>
-              {/* LEFT COLUMN: HERO CAROUSEL CARD + PROVENANCE STRIP */}
+              {/* LEFT COLUMN: HERO CAROUSEL CARD */}
               <View style={styles.heroLeftColumn}>
                 <Animated.View
                   style={[
@@ -1165,20 +1087,13 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
                     </>
                   ) : null}
 
-                  {/* Top Overlay Row: GS Paper Pill on Left + Counter & Pause on Right */}
+                  {/* Top Overlay Row: GS Paper Pill on Left + Pause on Right */}
                   <View style={styles.heroTopBar}>
                     <View style={styles.heroGsBadgePill}>
                       <Text style={styles.heroGsBadgeText}>{currentHeroGsBadgeText}</Text>
                     </View>
 
                     <View style={styles.heroTopRightControls}>
-                      <View style={styles.heroSlideCounterPill}>
-                        <Text style={styles.heroSlideCounterText}>
-                          {String(activeEventIndex + 1).padStart(2, '0')} /{' '}
-                          {String(activeDailyEvents.length).padStart(2, '0')}
-                        </Text>
-                      </View>
-
                       <Pressable
                         style={({ pressed }) => [styles.heroPauseCircleBtn, pressed && styles.pressed]}
                         onPress={() => setIsUserPaused((prev) => !prev)}
@@ -1220,14 +1135,7 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
                       </Text>
                     </Pressable>
 
-                    {/* Why in News / Key Fact Preview */}
-                    {currentDailyEvent.whyItMatters ? (
-                      <Text style={styles.heroWhyInNewsSubtext} numberOfLines={2}>
-                        {currentDailyEvent.whyItMatters}
-                      </Text>
-                    ) : null}
-
-                    {/* Bottom Action Row: Gold [Full Analysis ->] Button + Segmented Progress Bars */}
+                    {/* Bottom Action Row: Gold [Read analysis ->] Button + Segmented Progress Bars */}
                     <View style={styles.heroPanelActionRow}>
                       <Pressable
                         style={({ pressed }) => [
@@ -1236,9 +1144,9 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
                         ]}
                         onPress={() => handleOpenDailyEvent(currentDailyEvent)}
                         accessibilityRole="button"
-                        accessibilityLabel={`Open full UPSC analysis for ${currentDailyEvent.headline}`}
+                        accessibilityLabel={`Read analysis for ${currentDailyEvent.headline}`}
                       >
-                        <Text style={styles.heroFullAnalysisGoldBtnText}>Full Analysis</Text>
+                        <Text style={styles.heroFullAnalysisGoldBtnText}>Read analysis</Text>
                         <ArrowRight size={15} color="#101D33" strokeWidth={2.4} />
                       </Pressable>
 
@@ -1267,68 +1175,12 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
                     </View>
                   </View>
                 </Animated.View>
-
-                {/* Image Credit, AI Verification Badge & "Report an error" Footer Strip */}
-                <View style={styles.heroProvenanceFooter}>
-                  <View style={styles.heroProvenanceLeft}>
-                    <ShieldCheck size={13} color="#26734D" strokeWidth={2.2} />
-                    <Text style={styles.heroProvenanceText} numberOfLines={1}>
-                      {currentDailyEvent.imageMetadata?.credit || currentHeroPalette.label} • AI-Summarised & Editor Verified
-                    </Text>
-                  </View>
-
-                  <View style={styles.heroProvenanceRight}>
-                    <Pressable
-                      onPress={() => toggleBookmark(currentDailyEvent.id, currentDailyEvent)}
-                      style={styles.heroQuickActionLink}
-                      accessibilityRole="button"
-                      accessibilityLabel="Bookmark this story"
-                    >
-                      <Bookmark
-                        size={13}
-                        color={isBookmarked(currentDailyEvent.id) ? '#9A7B3E' : '#64748B'}
-                        fill={isBookmarked(currentDailyEvent.id) ? '#9A7B3E' : 'transparent'}
-                        strokeWidth={2}
-                      />
-                      <Text style={styles.heroQuickActionLinkText}>
-                        {isBookmarked(currentDailyEvent.id) ? 'Saved' : 'Save'}
-                      </Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={() => handleAddNoteForEvent(currentDailyEvent)}
-                      style={styles.heroQuickActionLink}
-                      accessibilityRole="button"
-                      accessibilityLabel="Add note for this story"
-                    >
-                      <FileText size={13} color="#64748B" strokeWidth={2} />
-                      <Text style={styles.heroQuickActionLinkText}>Add Note</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={() => {
-                        setReportErrorText('');
-                        setReportErrorSubmitted(false);
-                        setReportErrorModalVisible(true);
-                      }}
-                      style={styles.heroQuickActionLink}
-                      accessibilityRole="button"
-                      accessibilityLabel="Report an error in this story"
-                    >
-                      <AlertCircle size={13} color="#B45309" strokeWidth={2} />
-                      <Text style={[styles.heroQuickActionLinkText, { color: '#B45309' }]}>
-                        Report an error
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
               </View>
 
-              {/* RIGHT COLUMN: TODAY'S MAIN HEADLINES + TODAY'S STUDY PATH */}
+              {/* RIGHT COLUMN: TODAY'S HEADLINES */}
               <View style={styles.heroRightColumn}>
-                {/* Card 1: TODAY'S MAIN HEADLINES */}
                 <View style={styles.headlinesSidebarCard}>
-                  <Text style={styles.sidebarCardEyebrow}>TODAY&apos;S MAIN HEADLINES</Text>
+                  <Text style={styles.sidebarCardHeading}>Today&apos;s headlines</Text>
 
                   <View style={styles.headlinesNumberedList}>
                     {activeDailyEvents.map((ev, idx) => {
@@ -1370,7 +1222,12 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
                           </Text>
 
                           <View style={styles.headlineItemTextCol}>
-                            <Text style={styles.headlineItemGsMeta}>
+                            <Text
+                              style={[
+                                styles.headlineItemGsMeta,
+                                isSelected && styles.headlineItemGsMetaActive,
+                              ]}
+                            >
                               {gsShort} • {catLabel}
                             </Text>
                             <Text
@@ -1386,147 +1243,6 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
                         </Pressable>
                       );
                     })}
-                  </View>
-                </View>
-
-                {/* Card 2: Today's study path */}
-                <View style={styles.studyPathCard}>
-                  <View style={styles.studyPathHeaderRow}>
-                    <Text style={styles.studyPathTitle}>Today&apos;s study path</Text>
-                    <Text style={styles.studyPathCounterText}>
-                      {studyProgress.completed_count} of 4 done
-                    </Text>
-                  </View>
-
-                  <View style={styles.studyPathDivider} />
-
-                  <View style={styles.studyPathChecklist}>
-                    {/* Step 1: Read the main headlines */}
-                    <Pressable
-                      style={styles.studyPathStepRow}
-                      onPress={() =>
-                        void handleUpdateProgress({
-                          read_headlines: !studyProgress.read_headlines,
-                        })
-                      }
-                      accessibilityRole="checkbox"
-                      accessibilityState={{ checked: studyProgress.read_headlines }}
-                    >
-                      <View
-                        style={[
-                          styles.studyPathCheckbox,
-                          studyProgress.read_headlines && styles.studyPathCheckboxChecked,
-                        ]}
-                      >
-                        {studyProgress.read_headlines && (
-                          <Check size={12} color="#FFFFFF" strokeWidth={2.8} />
-                        )}
-                      </View>
-                      <Text
-                        style={[
-                          styles.studyPathStepLabel,
-                          studyProgress.read_headlines && styles.studyPathStepLabelDone,
-                        ]}
-                      >
-                        Read the main headlines
-                      </Text>
-                    </Pressable>
-
-                    {/* Step 2: Open the full analysis */}
-                    <Pressable
-                      style={styles.studyPathStepRow}
-                      onPress={() => {
-                        if (currentDailyEvent) {
-                          handleOpenDailyEvent(currentDailyEvent);
-                        } else {
-                          void handleUpdateProgress({
-                            opened_analysis: !studyProgress.opened_analysis,
-                          });
-                        }
-                      }}
-                      accessibilityRole="checkbox"
-                      accessibilityState={{ checked: studyProgress.opened_analysis }}
-                    >
-                      <View
-                        style={[
-                          styles.studyPathCheckbox,
-                          studyProgress.opened_analysis && styles.studyPathCheckboxChecked,
-                        ]}
-                      >
-                        {studyProgress.opened_analysis && (
-                          <Check size={12} color="#FFFFFF" strokeWidth={2.8} />
-                        )}
-                      </View>
-                      <Text
-                        style={[
-                          styles.studyPathStepLabel,
-                          studyProgress.opened_analysis && styles.studyPathStepLabelDone,
-                        ]}
-                      >
-                        Open the full analysis
-                      </Text>
-                    </Pressable>
-
-                    {/* Step 3: Attempt the Daily Quiz */}
-                    <Pressable
-                      style={styles.studyPathStepRow}
-                      onPress={() => {
-                        setQuizModalVisible(true);
-                        void handleUpdateProgress({ attempted_quiz: true });
-                      }}
-                      accessibilityRole="checkbox"
-                      accessibilityState={{ checked: studyProgress.attempted_quiz }}
-                    >
-                      <View
-                        style={[
-                          styles.studyPathCheckbox,
-                          studyProgress.attempted_quiz && styles.studyPathCheckboxChecked,
-                        ]}
-                      >
-                        {studyProgress.attempted_quiz && (
-                          <Check size={12} color="#FFFFFF" strokeWidth={2.8} />
-                        )}
-                      </View>
-                      <Text
-                        style={[
-                          styles.studyPathStepLabel,
-                          studyProgress.attempted_quiz && styles.studyPathStepLabelDone,
-                        ]}
-                      >
-                        Attempt the Daily Quiz
-                      </Text>
-                    </Pressable>
-
-                    {/* Step 4: Recall today's event */}
-                    <Pressable
-                      style={styles.studyPathStepRow}
-                      onPress={() => {
-                        setRecallTargetEvent(currentDailyEvent || null);
-                        setDailyRecallModalVisible(true);
-                        void handleUpdateProgress({ recalled_event: true });
-                      }}
-                      accessibilityRole="checkbox"
-                      accessibilityState={{ checked: studyProgress.recalled_event }}
-                    >
-                      <View
-                        style={[
-                          styles.studyPathCheckbox,
-                          studyProgress.recalled_event && styles.studyPathCheckboxChecked,
-                        ]}
-                      >
-                        {studyProgress.recalled_event && (
-                          <Check size={12} color="#FFFFFF" strokeWidth={2.8} />
-                        )}
-                      </View>
-                      <Text
-                        style={[
-                          styles.studyPathStepLabel,
-                          studyProgress.recalled_event && styles.studyPathStepLabelDone,
-                        ]}
-                      >
-                        Recall today&apos;s event
-                      </Text>
-                    </Pressable>
                   </View>
                 </View>
               </View>
@@ -1562,58 +1278,62 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
         </View>
 
         {/* ================================================================ */}
-        {/* 3. LIBRARY: Explore Current Affairs + Horizontal Source Chips    */}
+        {/* 3. EXPLORE: Categories + Source Dropdown                          */}
         {/* ================================================================ */}
         <View style={styles.exploreSection}>
-          <Text style={styles.sectionEyebrow}>LIBRARY</Text>
-
           <View style={styles.exploreHeaderRow}>
-            <View style={styles.exploreTitleBlock}>
-              <Text style={styles.sectionSerifHeading}>Explore Current Affairs</Text>
-              <Text style={styles.sectionSubtitleText}>
-                Browse by subject & comprehensive modules
-              </Text>
-            </View>
+            <Text style={styles.sectionSerifHeading}>Explore</Text>
 
-            {/* Horizontal Source Filter Chips: Source [All Agencies] [The Hindu] [Indian Express] [PIB] [Down To Earth] */}
-            <View style={styles.sourceChipsRow}>
+            {/* Source Dropdown: Source  [All Agencies ⌄] */}
+            <View style={styles.sourceSelectorWrapper}>
               <Text style={styles.sourceFilterLabel}>Source</Text>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.sourceChipsScrollContent}
+              <Pressable
+                style={({ pressed }) => [styles.sourceDropdownBtn, pressed && styles.pressed]}
+                onPress={() => setAgencyDropdownVisible((prev) => !prev)}
+                accessibilityRole="button"
+                accessibilityLabel={`Source filter: ${
+                  SOURCE_FILTER_CHIPS.find((c) => c.id === selectedAgencyId)?.label || 'All Agencies'
+                }`}
               >
-                {SOURCE_FILTER_CHIPS.map((chip) => {
-                  const isActive = selectedAgencyId === chip.id;
-                  return (
-                    <Pressable
-                      key={chip.id}
-                      style={({ pressed }) => [
-                        styles.sourceChipPill,
-                        isActive && styles.sourceChipPillActive,
-                        pressed && styles.pressed,
-                      ]}
-                      onPress={() => handleSelectAgency(chip.id)}
-                      accessibilityRole="button"
-                      accessibilityState={{ selected: isActive }}
-                      accessibilityLabel={`Filter by source ${chip.label}`}
-                    >
-                      <Text
+                <Text style={styles.sourceDropdownBtnText}>
+                  {SOURCE_FILTER_CHIPS.find((c) => c.id === selectedAgencyId)?.label || 'All Agencies'}
+                </Text>
+                <ChevronDown size={14} color={isDark ? '#94A3B8' : '#5B6475'} strokeWidth={2.2} />
+              </Pressable>
+
+              {agencyDropdownVisible && (
+                <View style={styles.sourceDropdownMenu}>
+                  {SOURCE_FILTER_CHIPS.map((chip) => {
+                    const isSelected = selectedAgencyId === chip.id;
+                    return (
+                      <Pressable
+                        key={chip.id}
                         style={[
-                          styles.sourceChipText,
-                          isActive && styles.sourceChipTextActive,
+                          styles.sourceDropdownMenuItem,
+                          isSelected && styles.sourceDropdownMenuItemActive,
                         ]}
+                        onPress={() => {
+                          handleSelectAgency(chip.id);
+                          setAgencyDropdownVisible(false);
+                        }}
                       >
-                        {chip.label}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </ScrollView>
+                        <Text
+                          style={[
+                            styles.sourceDropdownMenuItemText,
+                            isSelected && styles.sourceDropdownMenuItemTextActive,
+                          ]}
+                        >
+                          {chip.label}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </View>
+              )}
             </View>
           </View>
 
-          {/* 3x2 Grid of 6 Module Cards */}
+          {/* 3x2 Grid of 6 Module Cards with icon, serif title & right chevron */}
           <View style={styles.modulesGrid}>
             {EXPLORE_MODULE_CARDS.map((mod) => (
               <Pressable
@@ -1624,19 +1344,17 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
                 ]}
                 onPress={() => handleOpenFormatModal(mod.id)}
                 accessibilityRole="button"
-                accessibilityLabel={`Open ${mod.title}: ${mod.subtitle}`}
+                accessibilityLabel={`Open ${mod.title}`}
               >
                 <View style={styles.moduleIconBox}>
                   {renderModuleIcon(mod.iconName)}
                 </View>
 
-                <Text style={styles.moduleCardTitle}>{mod.title}</Text>
-                <Text style={styles.moduleCardSubtitle}>{mod.subtitle}</Text>
+                <Text style={styles.moduleCardTitle} numberOfLines={2}>
+                  {mod.title}
+                </Text>
 
-                <View style={styles.moduleOpenRow}>
-                  <Text style={styles.moduleOpenText}>Open</Text>
-                  <ArrowRight size={14} color="#9A7B3E" strokeWidth={2.2} />
-                </View>
+                <ChevronRight size={16} color={isDark ? '#64748B' : '#94A3B8'} strokeWidth={2} />
               </Pressable>
             ))}
           </View>
@@ -1646,11 +1364,10 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
         {/* 4. RETENTION: Practise & Revise (Daily Quiz + Monthly Revision)  */}
         {/* ================================================================ */}
         <View style={styles.retentionSection}>
-          <Text style={styles.sectionEyebrow}>RETENTION</Text>
           <Text style={styles.sectionSerifHeading}>Practise & Revise</Text>
 
           <View style={styles.retentionGrid}>
-            {/* Left Card: Dark Navy Daily Quiz Card */}
+            {/* Left Card: Dark Navy Daily Quiz */}
             <Pressable
               style={({ pressed }) => [styles.retentionDarkQuizCard, pressed && styles.pressed]}
               onPress={() => {
@@ -1664,27 +1381,17 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
                 <ListChecks size={20} color="#D8AE68" strokeWidth={2} />
               </View>
 
-              <Text style={styles.retentionDarkTitle}>Daily Quiz</Text>
-              <Text style={styles.retentionDarkSubtitle}>
-                Prelims MCQs with explanations.
-              </Text>
-
-              <View style={styles.retentionTagsRow}>
-                <View style={styles.retentionDarkTagPill}>
-                  <Text style={styles.retentionDarkTagText}>Prelims MCQs</Text>
-                </View>
-                <View style={styles.retentionDarkTagPill}>
-                  <Text style={styles.retentionDarkTagText}>Explanations</Text>
-                </View>
+              <View style={styles.retentionCardTextCol}>
+                <Text style={styles.retentionDarkTitle}>Daily Quiz</Text>
+                <Text style={styles.retentionDarkSubtitle}>
+                  Prelims MCQs with explanations
+                </Text>
               </View>
 
-              <View style={styles.retentionGoldCtaBtn}>
-                <Text style={styles.retentionGoldCtaText}>Start today&apos;s quiz</Text>
-                <ArrowRight size={15} color="#101D33" strokeWidth={2.4} />
-              </View>
+              <ArrowRight size={18} color="#D8AE68" strokeWidth={2.4} />
             </Pressable>
 
-            {/* Right Card: Light Monthly Revision Card */}
+            {/* Right Card: Light Monthly Revision */}
             <Pressable
               style={({ pressed }) => [styles.retentionLightRevisionCard, pressed && styles.pressed]}
               onPress={() => setMonthlyModalVisible(true)}
@@ -1695,29 +1402,14 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
                 <CalendarDays size={20} color="#8A6B31" strokeWidth={2} />
               </View>
 
-              <Text style={styles.retentionLightTitle}>Monthly Revision</Text>
-              <Text style={styles.retentionLightSubtitle}>
-                Monthly compilation, topic-wise recap and tests.
-              </Text>
-
-              <View style={styles.retentionTagsRow}>
-                <View style={styles.retentionSandTagPill}>
-                  <Text style={styles.retentionSandTagText}>Compilation</Text>
-                </View>
-                <View style={styles.retentionSandTagPill}>
-                  <Text style={styles.retentionSandTagText}>Topic-wise recap</Text>
-                </View>
-                <View style={styles.retentionSandTagPill}>
-                  <Text style={styles.retentionSandTagText}>Tests</Text>
-                </View>
-              </View>
-
-              <View style={styles.retentionOutlineCtaBtn}>
-                <Text style={styles.retentionOutlineCtaText}>
-                  Open {activeMonthName} revision
+              <View style={styles.retentionCardTextCol}>
+                <Text style={styles.retentionLightTitle}>Monthly Revision</Text>
+                <Text style={styles.retentionLightSubtitle}>
+                  Topic-wise recap and tests
                 </Text>
-                <ArrowRight size={15} color={isDark ? '#F8FAFC' : '#101D33'} strokeWidth={2.2} />
               </View>
+
+              <ArrowRight size={18} color={isDark ? '#F8FAFC' : '#101D33'} strokeWidth={2.2} />
             </Pressable>
           </View>
         </View>
@@ -1804,7 +1496,7 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
         onClose={() => setDailyRecallModalVisible(false)}
         dateKey={selectedDateKey}
         events={activeDailyEvents}
-        singleEvent={recallTargetEvent}
+        singleEvent={currentDailyEvent || null}
         isDark={isDark}
       />
 
@@ -1961,7 +1653,20 @@ const getStyles = (
       flexDirection: 'row',
       alignItems: 'center',
       flexWrap: 'wrap',
-      gap: 8,
+      gap: 12,
+    },
+    topHeaderLink: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
+      paddingHorizontal: 8,
+      paddingVertical: 6,
+    },
+    topHeaderLinkText: {
+      fontFamily: FONT_FAMILY.sans,
+      fontSize: 13,
+      fontWeight: '600',
+      color: textPrimary,
     },
     utilityPillBtn: {
       flexDirection: 'row',
@@ -2300,7 +2005,15 @@ const getStyles = (
       borderWidth: 1,
       borderColor: cardBorder,
       borderRadius: 18,
-      padding: 18,
+      padding: 20,
+      minHeight: isDesktop ? 510 : undefined,
+    },
+    sidebarCardHeading: {
+      fontFamily: FONT_FAMILY.serif,
+      fontSize: 20,
+      fontWeight: '700',
+      color: textPrimary,
+      marginBottom: 16,
     },
     sidebarCardEyebrow: {
       fontFamily: FONT_FAMILY.sans,
@@ -2343,6 +2056,15 @@ const getStyles = (
       fontWeight: '700',
       letterSpacing: 0.7,
       color: textSecondary,
+      textTransform: 'uppercase',
+      marginBottom: 3,
+    },
+    headlineItemGsMetaActive: {
+      fontFamily: FONT_FAMILY.sans,
+      fontSize: 10,
+      fontWeight: '700',
+      letterSpacing: 0.7,
+      color: goldAccent,
       textTransform: 'uppercase',
       marginBottom: 3,
     },
@@ -2497,17 +2219,73 @@ const getStyles = (
       fontSize: 13.5,
       color: textSecondary,
     },
+    sourceSelectorWrapper: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+      position: 'relative',
+      zIndex: 30,
+    },
+    sourceFilterLabel: {
+      fontFamily: FONT_FAMILY.sans,
+      fontSize: 13,
+      color: textSecondary,
+    },
+    sourceDropdownBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+      backgroundColor: cardBg,
+      borderWidth: 1,
+      borderColor: cardBorder,
+      paddingHorizontal: 14,
+      paddingVertical: 7,
+      borderRadius: 10,
+    },
+    sourceDropdownBtnText: {
+      fontFamily: FONT_FAMILY.sans,
+      fontSize: 12.5,
+      fontWeight: '600',
+      color: textPrimary,
+    },
+    sourceDropdownMenu: {
+      position: 'absolute',
+      top: 38,
+      right: 0,
+      backgroundColor: cardBg,
+      borderWidth: 1,
+      borderColor: cardBorder,
+      borderRadius: 12,
+      paddingVertical: 6,
+      minWidth: 160,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.12,
+      shadowRadius: 12,
+      elevation: 6,
+      zIndex: 40,
+    },
+    sourceDropdownMenuItem: {
+      paddingHorizontal: 14,
+      paddingVertical: 9,
+    },
+    sourceDropdownMenuItemActive: {
+      backgroundColor: sandBg,
+    },
+    sourceDropdownMenuItemText: {
+      fontFamily: FONT_FAMILY.sans,
+      fontSize: 13,
+      color: textSecondary,
+    },
+    sourceDropdownMenuItemTextActive: {
+      color: textPrimary,
+      fontWeight: '700',
+    },
     sourceChipsRow: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 8,
       maxWidth: '100%',
-    },
-    sourceFilterLabel: {
-      fontFamily: FONT_FAMILY.sans,
-      fontSize: 12.5,
-      color: textSecondary,
-      marginRight: 2,
     },
     sourceChipsScrollContent: {
       flexDirection: 'row',
@@ -2538,33 +2316,36 @@ const getStyles = (
     modulesGrid: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: 16,
+      gap: 14,
     },
     moduleCard: {
       width: isDesktop ? '31.8%' : isTablet ? '48%' : '100%',
       backgroundColor: cardBg,
       borderWidth: 1,
       borderColor: cardBorder,
-      borderRadius: 18,
-      padding: 22,
+      borderRadius: 14,
+      paddingHorizontal: 16,
+      paddingVertical: 14,
+      flexDirection: 'row',
+      alignItems: 'center',
       justifyContent: 'space-between',
-      minHeight: 196,
+      gap: 12,
+      minHeight: 64,
     },
     moduleIconBox: {
-      width: 40,
-      height: 40,
-      borderRadius: 11,
+      width: 38,
+      height: 38,
+      borderRadius: 10,
       backgroundColor: sandBg,
       alignItems: 'center',
       justifyContent: 'center',
-      marginBottom: 16,
     },
     moduleCardTitle: {
       fontFamily: FONT_FAMILY.serif,
-      fontSize: 18,
-      fontWeight: '700',
+      fontSize: 15.5,
+      fontWeight: '600',
       color: textPrimary,
-      marginBottom: 6,
+      flex: 1,
     },
     moduleCardSubtitle: {
       fontFamily: FONT_FAMILY.sans,
@@ -2592,38 +2373,43 @@ const getStyles = (
     },
     retentionGrid: {
       flexDirection: isDesktop ? 'row' : 'column',
-      gap: 18,
+      gap: 16,
       marginTop: 18,
     },
     retentionDarkQuizCard: {
       flex: 1,
       backgroundColor: '#0E1A2F',
-      borderRadius: 20,
-      padding: 26,
+      borderRadius: 16,
+      paddingHorizontal: 20,
+      paddingVertical: 18,
+      flexDirection: 'row',
+      alignItems: 'center',
       justifyContent: 'space-between',
-      minHeight: 245,
+      gap: 16,
+      minHeight: 84,
     },
     retentionDarkIconBox: {
-      width: 42,
-      height: 42,
-      borderRadius: 12,
-      backgroundColor: 'rgba(255, 255, 255, 0.09)',
+      width: 44,
+      height: 44,
+      borderRadius: 11,
+      backgroundColor: 'rgba(255, 255, 255, 0.08)',
       alignItems: 'center',
       justifyContent: 'center',
-      marginBottom: 18,
+    },
+    retentionCardTextCol: {
+      flex: 1,
+      gap: 3,
     },
     retentionDarkTitle: {
       fontFamily: FONT_FAMILY.serif,
-      fontSize: 22,
+      fontSize: 18,
       fontWeight: '700',
       color: '#FFFFFF',
-      marginBottom: 6,
     },
     retentionDarkSubtitle: {
       fontFamily: FONT_FAMILY.sans,
-      fontSize: 13.5,
+      fontSize: 12.5,
       color: '#94A3B8',
-      marginBottom: 16,
     },
     retentionTagsRow: {
       flexDirection: 'row',
@@ -2664,32 +2450,33 @@ const getStyles = (
       backgroundColor: cardBg,
       borderWidth: 1,
       borderColor: cardBorder,
-      borderRadius: 20,
-      padding: 26,
+      borderRadius: 16,
+      paddingHorizontal: 20,
+      paddingVertical: 18,
+      flexDirection: 'row',
+      alignItems: 'center',
       justifyContent: 'space-between',
-      minHeight: 245,
+      gap: 16,
+      minHeight: 84,
     },
     retentionLightIconBox: {
-      width: 42,
-      height: 42,
-      borderRadius: 12,
+      width: 44,
+      height: 44,
+      borderRadius: 11,
       backgroundColor: sandBg,
       alignItems: 'center',
       justifyContent: 'center',
-      marginBottom: 18,
     },
     retentionLightTitle: {
       fontFamily: FONT_FAMILY.serif,
-      fontSize: 22,
+      fontSize: 18,
       fontWeight: '700',
       color: textPrimary,
-      marginBottom: 6,
     },
     retentionLightSubtitle: {
       fontFamily: FONT_FAMILY.sans,
-      fontSize: 13.5,
+      fontSize: 12.5,
       color: textSecondary,
-      marginBottom: 16,
     },
     retentionSandTagPill: {
       backgroundColor: sandBg,

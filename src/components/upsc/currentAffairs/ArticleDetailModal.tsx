@@ -34,7 +34,7 @@ import {
 } from '@/data/currentAffairsData';
 import { BW_THEME } from '@/constants/bwTheme';
 import { VisualLearningSection } from './VisualLearningSection';
-import { verifyNewsImageRelevance } from '@/utils/imageVerification';
+import { resolveCompliantStoryImage, verifyNewsImageRelevance } from '@/utils/imageVerification';
 import { useAppTheme } from '@/context/ThemeContext';
 
 type DetailItem =
@@ -196,17 +196,36 @@ export function ArticleDetailModal({
     (item.type === 'event' ? item.data.imageUrl : (item.data as any).imageUrl) ||
     null;
 
+  const compliantImg = resolveCompliantStoryImage({
+    storyId: itemId,
+    headline: title,
+    summary: whyItMatters || (executiveBullets ? executiveBullets.join(' ') : ''),
+    gsPaper: paper,
+    topic: category,
+    sourceName: source,
+    candidateImageUrl: rawCandidateImageUrl,
+  });
+
   const imageVerification = verifyNewsImageRelevance({
     headline: title,
     summary: whyItMatters || (executiveBullets ? executiveBullets.join(' ') : ''),
     imageUrl: rawCandidateImageUrl,
-    caption: imageMetadata?.caption,
-    credit: imageMetadata?.credit,
+    caption: imageMetadata?.caption || compliantImg.alt_text,
+    credit: imageMetadata?.credit || compliantImg.credit,
     source,
   });
 
+  const resolvedHttpPhoto =
+    rawCandidateImageUrl && rawCandidateImageUrl.startsWith('http')
+      ? rawCandidateImageUrl
+      : compliantImg.url.startsWith('http')
+      ? compliantImg.url
+      : null;
+
   const verifiedImageUrl =
-    !imageLoadFailed && imageVerification.status === 'VERIFIED' ? imageVerification.verifiedImageUrl : null;
+    !imageLoadFailed && (imageVerification.verifiedImageUrl || resolvedHttpPhoto)
+      ? imageVerification.verifiedImageUrl || resolvedHttpPhoto
+      : null;
 
   const visualLearningAssets =
     item.type === 'event'

@@ -158,18 +158,18 @@ const EXCLUSIONS = [
   /\b(cricket score|ipl|t20|world cup squad|man of the match|fantasy cricket)\b/i,
   /\b(stock tips|intraday trading|sensex climbs|nifty falls|crypto|lottery result|gold price)\b/i,
   /\b(slams|hits back|war of words|verbal duel|jibes at|political potshot|blames opposition)\b/i,
-  /\b(killed in road accident|murdered in|theft in|gold smuggled in underwear|chain snatching|hit and run)\b/i,
-  /\b(inaugurates new building of|ribbon cutting|lays foundation stone for school|attends wedding)\b/i,
+  /\b(killed in road accident|murdered in|shot dead|parking dispute|possessing narcotics|youths arrested|theft in|gold smuggled in underwear|chain snatching|hit and run)\b/i,
+  /\b(inaugurates new building of|ribbon cutting|lays foundation stone for school|attends wedding|bus terminus in .* opened)\b/i,
 ];
 
-// High-value UPSC syllabus keywords
+// High-value UPSC syllabus keywords (matched with word boundaries)
 const SYLLABUS_KEYWORDS = [
-  'supreme court', 'constitution', 'parliament', 'act', 'bill', 'standing committee',
-  'federalism', 'governor', 'election commission', 'cag', 'rbi', 'monetary policy',
-  'inflation', 'fiscal', 'gdp', 'green hydrogen', 'isro', 'drdo', 'semiconductor',
-  'quantum', 'ai', 'biodiversity', 'wetland', 'ramsar', 'tiger', 'cheetah', 'climate',
-  'unfccc', 'cop', 'brics', 'quad', 'wto', 'imf', 'world bank', 'social justice',
-  'scheme', 'yojana', 'niti aayog', 'poverty', 'ethics',
+  'supreme court', 'constitution', 'parliament', 'amendment bill', 'standing committee',
+  'federalism', 'governor', 'election commission', 'cag', 'rbi', 'reserve bank', 'monetary policy',
+  'inflation', 'fiscal deficit', 'gdp', 'green hydrogen', 'isro', 'drdo', 'semiconductor',
+  'quantum', 'artificial intelligence', 'biodiversity', 'wetland', 'ramsar', 'tiger reserve', 'cheetah', 'climate change',
+  'unfccc', 'brics', 'quad', 'wto', 'imf', 'world bank', 'social justice',
+  'cabinet approves', 'yojana', 'niti aayog', 'poverty', 'ethics',
 ];
 
 interface QuickRelevanceResult {
@@ -206,7 +206,8 @@ function evaluateQuickRelevance(
 
   const matchedKeywords: string[] = [];
   for (const kw of SYLLABUS_KEYWORDS) {
-    if (combined.includes(kw)) {
+    const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    if (new RegExp(`\\b${escaped}\\b`, 'i').test(combined)) {
       matchedKeywords.push(kw);
     }
   }
@@ -214,17 +215,17 @@ function evaluateQuickRelevance(
   let score = 40;
   if (sourceTier === 'official' || sourceTier === 'institution') score += 15;
   if (matchedKeywords.length >= 3) score += 35;
-  else if (matchedKeywords.length >= 1) score += 20;
+  else if (matchedKeywords.length >= 1) score += 22;
 
   score = Math.max(10, Math.min(98, score));
 
-  if (matchedKeywords.length === 0 && score < 55) {
+  if (matchedKeywords.length === 0 || score < 60) {
     return {
       isRelevant: false,
       score,
       importance: 'LOW',
       decision: 'REJECT',
-      reason: 'No clear UPSC Prelims or Mains syllabus linkage.',
+      reason: 'Below 60/100 UPSC relevance threshold or lacks syllabus anchor.',
       matchedKeywords: [],
     };
   }
@@ -235,7 +236,7 @@ function evaluateQuickRelevance(
 
   let decision: 'PUBLISH' | 'REJECT' | 'NEEDS_REVIEW' = 'NEEDS_REVIEW';
   if (score >= 70) decision = 'PUBLISH';
-  else if (score >= 55) decision = matchedKeywords.length >= 1 ? 'PUBLISH' : 'NEEDS_REVIEW';
+  else if (score >= 60) decision = matchedKeywords.length >= 1 ? 'PUBLISH' : 'NEEDS_REVIEW';
   else decision = 'REJECT';
 
   return {

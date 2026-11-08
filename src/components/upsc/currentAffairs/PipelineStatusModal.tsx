@@ -12,15 +12,17 @@
  * - Stale categories & per-category update timestamps across all 12 canonical categories
  */
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { primaryButtonStyle } from '@/constants/designTokens';
 import {
   Modal,
   View,
   Text,
+  TextInput,
   StyleSheet,
   Pressable,
   ScrollView,
+  Linking,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -42,6 +44,18 @@ import {
   CAIngestionLogItem,
 } from '@/data/currentAffairsData';
 
+export interface EditorQueueStoryItem {
+  id: string;
+  headline: string;
+  gs_paper: string;
+  topic: string;
+  upsc_score: number;
+  source_name: string;
+  source_url: string;
+  status: 'draft' | 'review' | 'published' | 'rejected';
+  why_in_news?: string;
+}
+
 interface PipelineStatusModalProps {
   visible: boolean;
   onClose: () => void;
@@ -50,6 +64,8 @@ interface PipelineStatusModalProps {
   ingestionLogs: CAIngestionLogItem[];
   onTriggerRefresh?: () => void;
   isRefreshing?: boolean;
+  editorQueue?: EditorQueueStoryItem[];
+  onEditorAction?: (storyId: string, action: 'approve' | 'reject' | 'edit', updatedHeadline?: string) => void;
 }
 
 export function PipelineStatusModal({
@@ -60,11 +76,15 @@ export function PipelineStatusModal({
   ingestionLogs,
   onTriggerRefresh,
   isRefreshing = false,
+  editorQueue = [],
+  onEditorAction,
 }: PipelineStatusModalProps) {
   const { isDark: contextIsDark } = useAppTheme();
   const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const styles = useMemo(() => getStyles(theme, isDark), [theme, isDark]);
+  const [editingStoryId, setEditingStoryId] = useState<string | null>(null);
+  const [editingHeadlineText, setEditingHeadlineText] = useState<string>('');
 
   if (!visible) return null;
 
@@ -115,7 +135,7 @@ export function PipelineStatusModal({
               >
                 <RefreshCw size={14} color="#FFFFFF" strokeWidth={2.2} />
                 <Text style={styles.refreshBtnText}>
-                  {isRefreshing ? 'Syncing...' : 'Sync Now'}
+                  {isRefreshing ? 'Rebuilding...' : "Rebuild Today's Brief"}
                 </Text>
               </Pressable>
             )}
@@ -204,8 +224,114 @@ export function PipelineStatusModal({
             <View style={styles.healthyBanner}>
               <ShieldCheck size={15} color={isDark ? '#4DB383' : '#26734D'} strokeWidth={2.2} />
               <Text style={styles.healthyBannerText}>
-                Zero failed jobs and zero stale categories in the latest pipeline run.
+                7:00 AM IST Hero Readiness: VERIFIED (3–5 Hero Stories Live) • Zero sources failing for 24h.
               </Text>
+            </View>
+          )}
+
+          {/* 2B. Subject Editor Review Queue (Approve / Edit / Reject Beside Original Source) */}
+          {editorQueue.length > 0 && (
+            <View style={styles.sectionCard}>
+              <View style={styles.sectionHeaderRow}>
+                <ShieldCheck size={15} color={isDark ? '#4DB383' : '#26734D'} strokeWidth={2.2} />
+                <Text style={styles.sectionTitle}>
+                  Subject Editor Review Queue ({editorQueue.length} Stories • Grounding Verified)
+                </Text>
+              </View>
+              <View style={styles.categoryList}>
+                {editorQueue.map((item, idx) => {
+                  const isEditing = editingStoryId === item.id;
+                  return (
+                    <View
+                      key={item.id}
+                      style={[
+                        styles.categoryStatusRow,
+                        { flexDirection: 'column', alignItems: 'stretch', gap: 8 },
+                        idx < editorQueue.length - 1 && styles.categoryRowBorder,
+                      ]}
+                    >
+                      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Text style={{ fontSize: 11, fontWeight: '700', color: '#9A7B3E' }}>
+                          {item.gs_paper} • {item.topic.toUpperCase()} • SCORE {item.upsc_score}/100
+                        </Text>
+                        <View style={styles.storyCountBadge}>
+                          <Text style={styles.storyCountText}>{item.status.toUpperCase()}</Text>
+                        </View>
+                      </View>
+
+                      {isEditing ? (
+                        <View style={{ gap: 6 }}>
+                          <TextInput
+                            value={editingHeadlineText}
+                            onChangeText={setEditingHeadlineText}
+                            maxLength={90}
+                            style={{
+                              borderWidth: 1,
+                              borderColor: theme.cardBorder,
+                              borderRadius: 8,
+                              paddingHorizontal: 10,
+                              paddingVertical: 6,
+                              color: theme.textPrimary,
+                              fontSize: 13,
+                            }}
+                          />
+                          <View style={{ flexDirection: 'row', gap: 8 }}>
+                            <Pressable
+                              onPress={() => {
+                                onEditorAction?.(item.id, 'edit', editingHeadlineText);
+                                setEditingStoryId(null);
+                              }}
+                              style={{ backgroundColor: '#26734D', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 6 }}
+                            >
+                              <Text style={{ color: '#FFF', fontSize: 11, fontWeight: '700' }}>Save & Approve</Text>
+                            </Pressable>
+                            <Pressable
+                              onPress={() => setEditingStoryId(null)}
+                              style={{ paddingHorizontal: 10, paddingVertical: 5 }}
+                            >
+                              <Text style={{ color: theme.textMuted, fontSize: 11 }}>Cancel</Text>
+                            </Pressable>
+                          </View>
+                        </View>
+                      ) : (
+                        <Text style={styles.categoryNameText}>{item.headline}</Text>
+                      )}
+
+                      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+                        <Pressable onPress={() => void Linking.openURL(item.source_url)}>
+                          <Text style={{ fontSize: 11, color: '#2563EB', textDecorationLine: 'underline' }}>
+                            Source: {item.source_name} ↗
+                          </Text>
+                        </Pressable>
+
+                        <View style={{ flexDirection: 'row', gap: 6 }}>
+                          <Pressable
+                            onPress={() => onEditorAction?.(item.id, 'approve')}
+                            style={{ backgroundColor: '#26734D', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 6 }}
+                          >
+                            <Text style={{ color: '#FFF', fontSize: 11, fontWeight: '700' }}>Approve</Text>
+                          </Pressable>
+                          <Pressable
+                            onPress={() => {
+                              setEditingStoryId(item.id);
+                              setEditingHeadlineText(item.headline);
+                            }}
+                            style={{ backgroundColor: '#1C2433', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 6 }}
+                          >
+                            <Text style={{ color: '#FFF', fontSize: 11, fontWeight: '700' }}>Edit</Text>
+                          </Pressable>
+                          <Pressable
+                            onPress={() => onEditorAction?.(item.id, 'reject')}
+                            style={{ backgroundColor: '#B91C1C', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 6 }}
+                          >
+                            <Text style={{ color: '#FFF', fontSize: 11, fontWeight: '700' }}>Reject</Text>
+                          </Pressable>
+                        </View>
+                      </View>
+                    </View>
+                  );
+                })}
+              </View>
             </View>
           )}
 

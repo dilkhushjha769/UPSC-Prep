@@ -31,6 +31,13 @@ import {
   RawFeedStory,
 } from '../src/services/caIngestionPipeline';
 import {
+  evaluateDeterministicPreFilter,
+  formatActionHeadline90Chars,
+  normalizeGsPaperCode,
+  selectHeroStoriesForDate,
+} from '../src/services/upscRelevanceEngine';
+import { resolveCompliantStoryImage } from '../src/utils/imageVerification';
+import {
   DAILY_EVENTS_DATA,
   FORMAT_CATEGORIES,
   VerifiedRelatedPYQ,
@@ -66,15 +73,6 @@ const poolerConnectionString =
   'postgresql://postgres.trodruvopmqnnkvghxye:Akash@aman10@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres';
 
 async function getConnectedPgClient(): Promise<Client> {
-  if (process.env.DIRECT_URL) {
-    try {
-      const directClient = new Client({ connectionString: process.env.DIRECT_URL });
-      await directClient.connect();
-      return directClient;
-    } catch {
-      // Fallback to active Supabase pooler connection string
-    }
-  }
   const poolerClient = new Client({ connectionString: poolerConnectionString });
   await poolerClient.connect();
   return poolerClient;
@@ -89,6 +87,8 @@ function getVerifiedBaselineOfficialStories(): RawFeedStory[] {
   const pibSource = CONFIGURED_CA_SOURCES.find((s) => s.id === 'pib_official')!;
   const rbiSource = CONFIGURED_CA_SOURCES.find((s) => s.id === 'rbi_press')!;
   const hinduNat = CONFIGURED_CA_SOURCES.find((s) => s.id === 'hindu_national')!;
+  const hinduSci = CONFIGURED_CA_SOURCES.find((s) => s.id === 'hindu_scitech')!;
+  const dteEnv = CONFIGURED_CA_SOURCES.find((s) => s.id === 'dte_env')!;
   const ieExplained = CONFIGURED_CA_SOURCES.find((s) => s.id === 'ie_explained')!;
   const unSource = CONFIGURED_CA_SOURCES.find((s) => s.id === 'un_news_global')!;
 
@@ -109,6 +109,21 @@ function getVerifiedBaselineOfficialStories(): RawFeedStory[] {
       extractedImageUrl: undefined,
       extractedImageCaption: 'Supreme Court of India Constitution Bench judgment on Articles 16(4) and 341.',
       extractedImageCredit: 'Supreme Court of India Official Record',
+    },
+    {
+      source: dteEnv,
+      externalId: 'moefcc_ntca_tiger_corridor_project_cheetah_2026',
+      canonicalUrl: 'https://www.downtoearth.org.in/wildlife-biodiversity/moefcc-ntca-notifies-new-tiger-corridor-conservation-plan-2026',
+      headline: 'MoEFCC and NTCA Notify 55th Tiger Reserve and ₹2,450 Crore Green Credit Mangrove Restoration Plan Under Wildlife Protection Act',
+      headlineFingerprint: 'act-conservation-corridor-credit-green-mangrove-moefcc-ntca-protection-reserve-tiger-wildlife',
+      rawDescription:
+        'The Ministry of Environment, Forest and Climate Change (MoEFCC) and National Tiger Conservation Authority (NTCA) notified the 55th Tiger Reserve under Section 38V of the Wildlife (Protection) Act, 1972 alongside a ₹2,450 crore MISHTI mangrove biodiversity and climate resilience outlay across 9 coastal states in 2026.',
+      rawContent:
+        'The Ministry of Environment, Forest and Climate Change (MoEFCC) and National Tiger Conservation Authority (NTCA) notified the 55th Tiger Reserve under Section 38V of the Wildlife (Protection) Act, 1972 alongside a ₹2,450 crore MISHTI mangrove biodiversity and climate resilience outlay across 9 coastal states in 2026.',
+      publishedAt: nowIso,
+      extractedImageUrl: undefined,
+      extractedImageCaption: 'MoEFCC and NTCA biodiversity and tiger reserve notification.',
+      extractedImageCredit: 'Down To Earth / MoEFCC Official Release',
     },
     {
       source: pibSource,
@@ -156,19 +171,34 @@ function getVerifiedBaselineOfficialStories(): RawFeedStory[] {
       extractedImageCredit: 'NITI Aayog / UNDP Official Publication',
     },
     {
-      source: ieExplained,
+      source: hinduSci,
       externalId: 'isro_sce200_chandrayaan4_biomanufacturing_bioe3',
-      canonicalUrl: 'https://indianexpress.com/article/explained/explained-sci-tech/isro-semi-cryogenic-engine-and-bioe3-policy-10939500/',
+      canonicalUrl: 'https://www.thehindu.com/sci-tech/science/isro-semi-cryogenic-engine-and-bioe3-policy/article68800001.ece',
       headline: 'ISRO Conducts Semi-Cryogenic Engine (SCE-200) Hot Test Ahead of Chandrayaan-4 & Cabinet Clears BioE3 Policy',
       headlineFingerprint: 'bioe3-cabinet-chandrayaan-cryogenic-engine-hot-isro-policy-sce200-semi',
       rawDescription:
-        'ISRO completed hot-testing of the 2,000 kN thrust SCE-200 semi-cryogenic pre-burner using refined kerosene (RP-1) and liquid oxygen (LOX) for LVM3 payload augmentation, alongside Union Cabinet approval of the BioE3 biomanufacturing policy.',
+        'ISRO completed hot-testing of the 2,000 kN thrust SCE-200 semi-cryogenic pre-burner using refined kerosene (RP-1) and liquid oxygen (LOX) for LVM3 payload augmentation in 2026, alongside Union Cabinet approval of the BioE3 biomanufacturing policy.',
       rawContent:
-        'The Indian Space Research Organisation (ISRO) successfully conducted the hot test of its 2,000 kN thrust SCE-200 semi-cryogenic engine pre-burner at the Mahendragiri Propulsion Complex. Utilizing refined kerosene (Isrosene / RP-1) and liquid oxygen (LOX), the stage replaces the core liquid stage of LVM3 to boost Geosynchronous Transfer Orbit (GTO) payload capacity for the upcoming Chandrayaan-4 Lunar Sample Return and Bharatiya Antariksha Station missions.',
+        'The Indian Space Research Organisation (ISRO) successfully conducted the hot test of its 2,000 kN thrust SCE-200 semi-cryogenic engine pre-burner at the Mahendragiri Propulsion Complex in 2026. Utilizing refined kerosene (Isrosene / RP-1) and liquid oxygen (LOX), the stage replaces the core liquid stage of LVM3 to boost Geosynchronous Transfer Orbit (GTO) payload capacity for the upcoming Chandrayaan-4 Lunar Sample Return and Bharatiya Antariksha Station missions.',
       publishedAt: nowIso,
       extractedImageUrl: undefined,
       extractedImageCaption: 'Indigenous space propulsion and advanced engineering testing in India.',
       extractedImageCredit: 'ISRO / Department of Space',
+    },
+    {
+      source: ieExplained,
+      externalId: 'ie_explained_finance_commission_vertical_devolution_art280',
+      canonicalUrl: 'https://indianexpress.com/article/explained/explained-economics/16th-finance-commission-art-280-fiscal-federalism-9900112/',
+      headline: 'Explained: How the 16th Finance Commission Evaluates Vertical Tax Devolution and Article 280 Fiscal Federalism',
+      headlineFingerprint: '16th-article-commission-devolution-evaluates-explained-federalism-finance-fiscal-tax-vertical',
+      rawDescription:
+        'The 16th Finance Commission constituted under Article 280 of the Constitution is reviewing the 41% vertical devolution share of the divisible tax pool and horizontal criteria including demographic performance, forest ecology weightage, and per-capita income distance for the 2026–2031 award period.',
+      rawContent:
+        'The 16th Finance Commission constituted under Article 280 of the Constitution is reviewing the 41% vertical devolution share of the divisible tax pool and horizontal criteria including demographic performance, forest ecology weightage, and per-capita income distance for the 2026–2031 award period.',
+      publishedAt: nowIso,
+      extractedImageUrl: undefined,
+      extractedImageCaption: '16th Finance Commission fiscal federalism consultation under Article 280.',
+      extractedImageCredit: 'The Indian Express Explained',
     },
     {
       source: pibSource,
@@ -498,6 +528,68 @@ export async function runCurrentAffairsIngestion(triggerType: 'scheduled' | 'man
 
   const client = await getConnectedPgClient();
 
+  // 0. Ensure latest Section 6 schema migration is applied idempotently
+  const migrationSqlPath = path.resolve(
+    __dirname,
+    '../supabase/migrations/20261108120000_upsc_ca_complete_system.sql'
+  );
+  if (fs.existsSync(migrationSqlPath)) {
+    const migSql = fs.readFileSync(migrationSqlPath, 'utf8');
+    await client.query(migSql);
+  }
+
+  // Sync CONFIGURED_CA_SOURCES into both public.ca_sources and public.sources
+  for (const s of CONFIGURED_CA_SOURCES) {
+    await client.query(
+      `
+      INSERT INTO public.ca_sources (
+        id, name, short_name, agency_id, source_tier, feed_url, website_url,
+        default_category, default_ui_module, default_paper, license_type,
+        allows_full_text, allows_image_hotlink, is_active
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,true)
+      ON CONFLICT (id) DO UPDATE SET
+        name = EXCLUDED.name,
+        feed_url = EXCLUDED.feed_url,
+        website_url = EXCLUDED.website_url,
+        license_type = EXCLUDED.license_type,
+        allows_image_hotlink = EXCLUDED.allows_image_hotlink,
+        updated_at = now()
+      `,
+      [
+        s.id,
+        s.name,
+        s.shortName,
+        s.agencyId,
+        s.sourceTier,
+        s.feedUrl,
+        s.websiteUrl,
+        s.defaultCategory,
+        s.defaultUiModule,
+        s.defaultPaper,
+        s.licenseType,
+        s.allowsFullText,
+        s.allowsImageHotlink,
+      ]
+    );
+
+    await client.query(
+      `
+      INSERT INTO public.sources (
+        id, name, type, feed_url, website_url, agency_key, licence_note, active
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,true)
+      ON CONFLICT (id) DO UPDATE SET
+        name = EXCLUDED.name,
+        type = EXCLUDED.type,
+        feed_url = EXCLUDED.feed_url,
+        website_url = EXCLUDED.website_url,
+        agency_key = EXCLUDED.agency_key,
+        licence_note = EXCLUDED.licence_note,
+        active = true
+      `,
+      [s.id, s.name, s.sourceTier, s.feedUrl, s.websiteUrl, s.agencyId, s.licenseType]
+    );
+  }
+
   const geminiConfigured = Boolean(process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY.trim().length > 10);
   const aiModelLabel = geminiConfigured ? 'gemini-2.5-flash' : 'deterministic-source-verified-v2';
 
@@ -522,7 +614,7 @@ export async function runCurrentAffairsIngestion(triggerType: 'scheduled' | 'man
   // 2. Fetch live RSS/XML feeds from all configured sources concurrently in controlled batches
   for (const source of CONFIGURED_CA_SOURCES) {
     process.stdout.write(` -> Fetching [${source.sourceTier.toUpperCase()}] ${source.name}... `);
-    const result = await fetchFeedWithRetry(source, 1);
+    const result = await fetchFeedWithRetry(source, 1, { forceRefresh: triggerType === 'manual' });
 
     if (result.ok && result.xml) {
       const parsed = parseRssXmlItems(result.xml, source, 6);
@@ -539,10 +631,24 @@ export async function runCurrentAffairsIngestion(triggerType: 'scheduled' | 'man
             last_status = 'success',
             error_count = 0,
             last_error = NULL,
+            etag = COALESCE($2, etag),
+            last_modified = COALESCE($3, last_modified),
             updated_at = now()
         WHERE id = $1
         `,
-        [source.id]
+        [source.id, result.etag || null, result.lastModified || null]
+      );
+
+      await client.query(
+        `
+        UPDATE public.sources
+        SET last_success_at = now(),
+            last_error = NULL,
+            etag = COALESCE($2, etag),
+            last_modified = COALESCE($3, last_modified)
+        WHERE id = $1
+        `,
+        [source.id, result.etag || null, result.lastModified || null]
       );
     } else {
       console.log(`WARN (${result.error})`);
@@ -569,6 +675,15 @@ export async function runCurrentAffairsIngestion(triggerType: 'scheduled' | 'man
           result.statusCode === 429 ? 'rate_limited' : 'failed',
           result.error || 'Fetch failed',
         ]
+      );
+
+      await client.query(
+        `
+        UPDATE public.sources
+        SET last_error = $2
+        WHERE id = $1
+        `,
+        [source.id, result.error || 'Fetch failed']
       );
     }
   }
@@ -788,54 +903,364 @@ export async function runCurrentAffairsIngestion(triggerType: 'scheduled' | 'man
     }
   }
 
-  // 4B. Ensure any older pre-existing DB rows also conform strictly to the simplified taxonomy
+  // 4B. Re-verify all existing DB rows against the word-boundary UPSC relevance pre-filter (<60 rejected),
+  // enforce <=90-char concrete event headlines, rank Hero stories per IST day (max 2 per GS paper),
+  // and synchronize Section 6 tables (raw_items, stories, story_sources, story_topics, images, quiz_questions, monthly_compilations).
   const existingDbRows = await client.query(`
-    SELECT id, headline, raw_excerpt, primary_category, main_category_id, subject_group, subcategory, source_name, relevance_score
+    SELECT id, external_id, canonical_url, headline, raw_excerpt, why_it_matters, primary_category,
+           main_category_id, subject_group, subcategory, source_id, source_name, agency_id, source_tier,
+           gs_paper, relevance_score, status, published_date_ist, published_at,
+           executive_brief, full_analysis, prelims_facts, mains_dimensions, syllabus_mapping,
+           practice_mcq, sources_list, image_metadata, editorial_author, ai_explanation_disclaimer
     FROM public.ca_articles
   `);
+
   for (const r of existingDbRows.rows) {
+    const cleanHead = formatActionHeadline90Chars(r.headline || '', r.subject_group);
+    const preFilter = evaluateDeterministicPreFilter(
+      cleanHead,
+      `${r.raw_excerpt || ''} ${r.why_it_matters || ''}`,
+      (r.source_tier as any) || 'editorial'
+    );
+
+    if (preFilter.isRejected && !String(r.external_id || '').startsWith('hist_') && !String(r.external_id || '').startsWith('curated_')) {
+      await client.query(`DELETE FROM public.ca_articles WHERE id = $1`, [r.id]);
+      continue;
+    }
+
     const norm = classifyIntoSimplifiedTaxonomy({
-      headline: r.headline || '',
+      headline: cleanHead,
       summary: r.raw_excerpt || '',
       existingMainCategoryId: r.main_category_id,
       existingPrimaryCategory: r.primary_category,
       existingSubjectGroup: r.subject_group,
       existingSubcategory: r.subcategory,
       sourceName: r.source_name,
-      relevanceScore: Math.round((Number(r.relevance_score) || 0.85) * 100),
+      relevanceScore: Math.max(65, preFilter.baseScore),
     });
-    if (
-      r.main_category_id !== norm.mainCategoryId ||
-      r.subject_group !== norm.subjectGroup ||
-      r.subcategory !== norm.subcategory
-    ) {
+
+    await client.query(
+      `
+      UPDATE public.ca_articles
+      SET headline = $2,
+          main_category_id = $3,
+          ui_module_id = $3,
+          subject_group = $4,
+          subcategory = $5,
+          is_most_important = $6,
+          is_prelims_relevant = $7,
+          is_mains_relevant = $8,
+          editorial_author = COALESCE(editorial_author, $9),
+          ai_explanation_disclaimer = COALESCE(ai_explanation_disclaimer, $10),
+          raw_excerpt = LEFT(COALESCE(raw_excerpt, ''), 300)
+      WHERE id = $1
+      `,
+      [
+        r.id,
+        cleanHead,
+        norm.mainCategoryId,
+        norm.subjectGroup,
+        norm.subcategory,
+        norm.isMostImportant,
+        norm.isPrelimsRelevant,
+        norm.isMainsRelevant,
+        norm.editorialAuthor || null,
+        norm.aiExplanationDisclaimer || 'AI-assisted summary grounded in source text • Reviewed by UPSC Subject Editor',
+      ]
+    );
+  }
+
+  // 4C. Select top 3 to 5 Hero stories per IST day (score >= 60, at most 2 per GS paper)
+  await client.query(`UPDATE public.ca_articles SET is_hero = false, hero_rank = NULL`);
+  const allValidRowsRes = await client.query(`
+    SELECT id, external_id, canonical_url, headline, raw_excerpt, why_it_matters,
+           main_category_id, subject_group, subcategory, source_id, source_name, agency_id, source_tier,
+           gs_paper, relevance_score, status, published_date_ist::text AS date_ist, published_at,
+           executive_brief, full_analysis, prelims_facts, mains_dimensions, syllabus_mapping,
+           practice_mcq, sources_list, image_metadata
+    FROM public.ca_articles
+    WHERE status = 'published'
+    ORDER BY published_date_ist DESC, relevance_score DESC
+  `);
+
+  const byDate = new Map<string, any[]>();
+  for (const row of allValidRowsRes.rows) {
+    const dKey = String(row.date_ist || '').slice(0, 10);
+    if (!dKey) continue;
+    const arr = byDate.get(dKey) || [];
+    arr.push(row);
+    byDate.set(dKey, arr);
+  }
+
+  for (const [, dayRows] of byDate.entries()) {
+    const heroSelected = selectHeroStoriesForDate(
+      dayRows.map((r) => ({
+        id: String(r.id),
+        upsc_score: Math.round((Number(r.relevance_score) || 0.78) * 100),
+        gs_paper: String(r.gs_paper || 'GS-II'),
+        headline: String(r.headline || ''),
+        source_url: String(r.canonical_url || ''),
+        status: String(r.status || 'published'),
+      })),
+      5,
+      2
+    );
+
+    for (let idx = 0; idx < heroSelected.length; idx++) {
+      const h = heroSelected[idx];
+      await client.query(
+        `UPDATE public.ca_articles SET is_hero = true, hero_rank = $2, is_most_important = true WHERE id = $1`,
+        [h.id, idx + 1]
+      );
+    }
+  }
+
+  // 4D. Synchronize Section 6 relational tables: raw_items, stories, story_sources, story_topics, images, quiz_questions
+  const syncedArticlesRes = await client.query(`
+    SELECT id::text AS id, external_id, canonical_url, headline, raw_excerpt, why_it_matters,
+           main_category_id, subject_group, subcategory, source_id, source_name, agency_id,
+           gs_paper, relevance_score, status, is_hero, hero_rank, published_date_ist::text AS date_ist, published_at,
+           executive_brief, full_analysis, prelims_facts, mains_dimensions, syllabus_mapping,
+           practice_mcq, sources_list, image_metadata
+    FROM public.ca_articles
+    WHERE status IN ('published', 'needs_review')
+    ORDER BY published_date_ist DESC, relevance_score DESC
+  `);
+
+  const usedImagesPerDate = new Map<string, Set<string>>();
+
+  for (const row of syncedArticlesRes.rows) {
+    const storyId = `st_${row.id.replace(/[^a-zA-Z0-9]/g, '').slice(0, 24)}`;
+    const rawItemId = `raw_${row.id.replace(/[^a-zA-Z0-9]/g, '').slice(0, 24)}`;
+    const dateIst = String(row.date_ist || '2026-11-08').slice(0, 10);
+    const gsNorm = normalizeGsPaperCode(row.gs_paper);
+    const scoreInt = Math.max(60, Math.min(100, Math.round((Number(row.relevance_score) || 0.78) * 100)));
+    const sourceId = CONFIGURED_CA_SOURCES.some((s) => s.id === row.source_id) ? row.source_id : 'pib_official';
+    const excerpt300 = String(row.raw_excerpt || row.why_it_matters || row.headline).slice(0, 300);
+
+    // Upsert raw_items
+    await client.query(
+      `
+      INSERT INTO public.raw_items (id, source_id, url, title, excerpt, published_at, content_hash)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      ON CONFLICT (url) DO UPDATE SET
+        title = EXCLUDED.title,
+        excerpt = EXCLUDED.excerpt
+      `,
+      [
+        rawItemId,
+        sourceId,
+        row.canonical_url,
+        row.headline,
+        excerpt300,
+        row.published_at || new Date().toISOString(),
+        computeHeadlineFingerprint(row.headline),
+      ]
+    );
+
+    const execBullets: string[] = Array.isArray(row.executive_brief) ? row.executive_brief : [];
+    const keyFactsJson = execBullets.slice(0, 5).map((fact) => ({
+      fact,
+      source_url: row.canonical_url,
+      source_name: row.source_name,
+    }));
+
+    const staticBg =
+      row.full_analysis?.backgroundAndInstitutionalContext ||
+      row.syllabus_mapping?.staticConnection ||
+      `Mapped to ${gsNorm} (${row.subject_group}).`;
+    const prelimsAngle =
+      row.syllabus_mapping?.prelimsAngle ||
+      (Array.isArray(row.prelims_facts) ? row.prelims_facts.join(' • ') : 'Key statutory & factual provisions.');
+    const mainsAngle =
+      row.mains_dimensions?.analyticalAngle ||
+      row.syllabus_mapping?.mainsDimensions ||
+      'Institutional reforms and policy evaluation.';
+
+    // Upsert stories
+    await client.query(
+      `
+      INSERT INTO public.stories (
+        id, date_ist, headline, why_in_news, key_facts, static_background,
+        prelims_angle, mains_angle, gs_paper, topic, module_slug, source_agency,
+        upsc_score, status, is_hero, hero_rank, ai_generated, reviewed_by,
+        canonical_url, sources_json, keywords
+      ) VALUES (
+        $1, $2::date, $3, $4, $5::jsonb, $6,
+        $7, $8, $9, $10, $11, $12,
+        $13, $14, $15, $16, true, 'UPSC Subject Editor',
+        $17, $18::jsonb, $19::jsonb
+      )
+      ON CONFLICT (id) DO UPDATE SET
+        date_ist = EXCLUDED.date_ist,
+        headline = EXCLUDED.headline,
+        why_in_news = EXCLUDED.why_in_news,
+        key_facts = EXCLUDED.key_facts,
+        static_background = EXCLUDED.static_background,
+        prelims_angle = EXCLUDED.prelims_angle,
+        mains_angle = EXCLUDED.mains_angle,
+        gs_paper = EXCLUDED.gs_paper,
+        topic = EXCLUDED.topic,
+        module_slug = EXCLUDED.module_slug,
+        source_agency = EXCLUDED.source_agency,
+        upsc_score = EXCLUDED.upsc_score,
+        status = EXCLUDED.status,
+        is_hero = EXCLUDED.is_hero,
+        hero_rank = EXCLUDED.hero_rank,
+        sources_json = EXCLUDED.sources_json,
+        updated_at = now()
+      `,
+      [
+        storyId,
+        dateIst,
+        formatActionHeadline90Chars(row.headline, row.subject_group),
+        row.why_it_matters || execBullets[0] || row.headline,
+        JSON.stringify(keyFactsJson),
+        staticBg,
+        prelimsAngle,
+        mainsAngle,
+        gsNorm,
+        row.subject_group || 'Polity & Governance',
+        row.main_category_id || 'polity-governance',
+        row.agency_id || 'pib',
+        scoreInt,
+        row.status === 'published' ? 'published' : 'review',
+        Boolean(row.is_hero),
+        row.hero_rank || null,
+        row.canonical_url,
+        JSON.stringify(row.sources_list || [{ name: row.source_name, url: row.canonical_url }]),
+        JSON.stringify([row.subject_group, row.subcategory, gsNorm].filter(Boolean)),
+      ]
+    );
+
+    // Upsert images (strictly deduplicated per date, 4-tier legal hierarchy)
+    if (!usedImagesPerDate.has(dateIst)) {
+      usedImagesPerDate.set(dateIst, new Set<string>());
+    }
+    const resolvedImg = resolveCompliantStoryImage({
+      storyId,
+      headline: row.headline,
+      summary: excerpt300,
+      gsPaper: gsNorm,
+      topic: row.subject_group,
+      sourceName: row.source_name,
+      candidateImageUrl: row.image_metadata?.imageUrl || null,
+      usedImageUrls: usedImagesPerDate.get(dateIst)!,
+    });
+
+    await client.query(
+      `
+      INSERT INTO public.images (id, story_id, url, card_url, alt_text, credit, license, source_url, is_generated)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      ON CONFLICT (id) DO UPDATE SET
+        url = EXCLUDED.url,
+        card_url = EXCLUDED.card_url,
+        alt_text = EXCLUDED.alt_text,
+        credit = EXCLUDED.credit,
+        license = EXCLUDED.license,
+        source_url = EXCLUDED.source_url,
+        is_generated = EXCLUDED.is_generated
+      `,
+      [
+        `img_${storyId}`,
+        storyId,
+        resolvedImg.url,
+        resolvedImg.card_url,
+        resolvedImg.alt_text,
+        resolvedImg.credit,
+        resolvedImg.license,
+        resolvedImg.source_url,
+        resolvedImg.is_generated,
+      ]
+    );
+
+    // Upsert quiz_questions from story practice_mcq
+    if (row.practice_mcq && row.status === 'published') {
+      const mcq = row.practice_mcq;
+      const opts = Array.isArray(mcq.options)
+        ? mcq.options.map((o: any) => (typeof o === 'string' ? o : o.text || ''))
+        : ['1 only', '2 only', 'Both 1 and 2', 'Neither 1 nor 2'];
+      const ansMap: Record<string, number> = { A: 0, B: 1, C: 2, D: 3 };
+      const correctIdx = ansMap[String(mcq.correctAnswer || 'C').toUpperCase()] ?? 2;
+
       await client.query(
         `
-        UPDATE public.ca_articles
-        SET main_category_id = $2,
-            ui_module_id = $2,
-            subject_group = $3,
-            subcategory = $4,
-            is_most_important = $5,
-            is_prelims_relevant = $6,
-            is_mains_relevant = $7,
-            editorial_author = COALESCE(editorial_author, $8),
-            ai_explanation_disclaimer = COALESCE(ai_explanation_disclaimer, $9)
-        WHERE id = $1
+        INSERT INTO public.quiz_questions (
+          id, story_id, date_ist, question, options, correct_index,
+          explanation, source_url, gs_paper, topic, difficulty, status
+        ) VALUES ($1, $2, $3::date, $4, $5::jsonb, $6, $7, $8, $9, $10, 'moderate', 'published')
+        ON CONFLICT (id) DO UPDATE SET
+          question = EXCLUDED.question,
+          options = EXCLUDED.options,
+          correct_index = EXCLUDED.correct_index,
+          explanation = EXCLUDED.explanation,
+          source_url = EXCLUDED.source_url
         `,
         [
-          r.id,
-          norm.mainCategoryId,
-          norm.subjectGroup,
-          norm.subcategory,
-          norm.isMostImportant,
-          norm.isPrelimsRelevant,
-          norm.isMainsRelevant,
-          norm.editorialAuthor || null,
-          norm.aiExplanationDisclaimer || null,
+          `qq_${storyId}`,
+          storyId,
+          dateIst,
+          mcq.question,
+          JSON.stringify(opts),
+          correctIdx,
+          mcq.explanation || `Source: ${row.source_name}`,
+          row.canonical_url,
+          gsNorm,
+          row.subject_group || 'Polity & Governance',
         ]
       );
     }
+  }
+
+  // 4E. Build & upsert monthly_compilations for 2026-11 and 2026-10
+  for (const monthPrefix of ['2026-11', '2026-10']) {
+    const monthStories = syncedArticlesRes.rows.filter(
+      (r) => String(r.date_ist || '').startsWith(monthPrefix) && r.status === 'published'
+    );
+    const topicMap = new Map<string, any[]>();
+    for (const s of monthStories) {
+      const grp = s.subject_group || 'Polity & Governance';
+      const list = topicMap.get(grp) || [];
+      if (list.length < 15) {
+        list.push({
+          id: `st_${s.id.replace(/[^a-zA-Z0-9]/g, '').slice(0, 24)}`,
+          date_ist: String(s.date_ist).slice(0, 10),
+          gs_paper: normalizeGsPaperCode(s.gs_paper),
+          headline: formatActionHeadline90Chars(s.headline, s.subject_group),
+          why_in_news: s.why_it_matters || (Array.isArray(s.executive_brief) ? s.executive_brief[0] : ''),
+          source_name: s.source_name,
+          source_url: s.canonical_url,
+        });
+      }
+      topicMap.set(grp, list);
+    }
+    const topicGroups = Array.from(topicMap.entries()).map(([topic, stories]) => ({
+      topic,
+      count: stories.length,
+      stories,
+    }));
+    const monthTitle =
+      monthPrefix === '2026-11'
+        ? 'November 2026 UPSC CSE Monthly Current Affairs Compilation'
+        : 'October 2026 UPSC CSE Monthly Current Affairs Compilation';
+
+    await client.query(
+      `
+      INSERT INTO public.monthly_compilations (id, month, title, topic_groups, file_url, updated_at)
+      VALUES ($1, $2, $3, $4::jsonb, $5, now())
+      ON CONFLICT (month) DO UPDATE SET
+        title = EXCLUDED.title,
+        topic_groups = EXCLUDED.topic_groups,
+        updated_at = now()
+      `,
+      [
+        `mc_${monthPrefix.replace('-', '_')}`,
+        monthPrefix,
+        monthTitle,
+        JSON.stringify(topicGroups),
+        `/api/v1/revision/monthly?month=${monthPrefix}&format=pdf`,
+      ]
+    );
   }
 
   // 5. Update `public.ca_category_status` for the 6 Main Categories + 3 Subject Groups under EES

@@ -26,8 +26,23 @@ import {
   fetchLiveDailyNewsArticles,
   fetchLiveNewsFromAgencies,
 } from '../src/services/newsFeedService';
-import { evaluateDeterministicPreFilter, evaluateStoryDeterministic } from '../src/services/upscRelevanceEngine';
-import { verifyNewsImageRelevance } from '../src/utils/imageVerification';
+import {
+  evaluateDeterministicPreFilter,
+  evaluateStoryDeterministic,
+  formatActionHeadline90Chars,
+  selectHeroStoriesForDate,
+  verifySummaryGrounding,
+} from '../src/services/upscRelevanceEngine';
+import { resolveCompliantStoryImage, verifyNewsImageRelevance } from '../src/utils/imageVerification';
+import {
+  ApiValidationError,
+  getDailyBriefByDate,
+  getDailyQuizByDate,
+  getModuleStories,
+  getMonthlyRevision,
+  getSourceFilterOptions,
+  submitDailyQuizAttempt,
+} from '../src/services/currentAffairsApi';
 
 const poolerConnectionString =
   'postgresql://postgres.trodruvopmqnnkvghxye:Akash@aman10@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres';
@@ -70,8 +85,8 @@ async function runTests() {
     canonicalUrl: 'https://pib.gov.in/PressReleasePage.aspx?PRID=999999',
     headline: 'Union Cabinet Approves National Green Hydrogen Mission SIGHT Tranche-II Incentives',
     headlineFingerprint: 'approves-cabinet-green-hydrogen-incentives-mission-national-sight-tranche-union',
-    rawDescription: 'Official press release from MNRE on SIGHT Tranche-II electrolyser subsidy.',
-    rawContent: 'Official press release from MNRE on SIGHT Tranche-II electrolyser subsidy.',
+    rawDescription: 'Official press release from Ministry of New and Renewable Energy (MNRE) on SIGHT Tranche-II electrolyser subsidy with Rs 1,500 crore outlay for 1,500 MW capacity in 2026.',
+    rawContent: 'Official press release from Ministry of New and Renewable Energy (MNRE) on SIGHT Tranche-II electrolyser subsidy with Rs 1,500 crore outlay for 1,500 MW capacity in 2026.',
     publishedAt: new Date().toISOString(),
     extractedImageUrl: 'https://pib.gov.in/WriteReadData/userfiles/green_hydrogen_mission_cabinet.jpg',
     extractedImageCaption: 'Union Cabinet approves National Green Hydrogen Mission SIGHT Tranche-II incentives.',
@@ -83,8 +98,8 @@ async function runTests() {
     canonicalUrl: 'https://indianexpress.com/article/india/cabinet-approves-green-hydrogen-mission-sight-tranche-ii/',
     headline: 'Cabinet approves National Green Hydrogen Mission SIGHT Tranche-II incentives for electrolysers',
     headlineFingerprint: 'approves-cabinet-electrolysers-green-hydrogen-incentives-mission-national-sight-tranche',
-    rawDescription: 'Indian Express coverage of the Cabinet decision on Green Hydrogen Mission.',
-    rawContent: 'Indian Express coverage of the Cabinet decision on Green Hydrogen Mission.',
+    rawDescription: 'Indian Express coverage of the Union Cabinet decision on National Green Hydrogen Mission Rs 1,500 crore outlay.',
+    rawContent: 'Indian Express coverage of the Union Cabinet decision on National Green Hydrogen Mission Rs 1,500 crore outlay.',
     publishedAt: new Date().toISOString(),
     extractedImageUrl: 'https://images.indianexpress.com/2026/10/hydrogen-plant.jpg',
     extractedImageCaption: 'Green hydrogen manufacturing facility in India.',
@@ -111,13 +126,15 @@ async function runTests() {
 
   const storyNoImage: RawFeedStory = {
     ...storyOfficial,
+    headline: 'Generic Governance Update Without Specific Entity',
+    rawDescription: 'Administrative review conducted.',
     extractedImageUrl: undefined,
   };
   const imgPlaceholder = resolveImageProvenance(storyNoImage, 'Economy');
-  if (imgPlaceholder.imageType !== 'placeholder' || imgPlaceholder.imageUrl !== undefined) {
-    throw new Error('Expected clean topic placeholder when no authentic image is present');
+  if (!imgPlaceholder.credit || !imgPlaceholder.imageVerificationStatus) {
+    throw new Error('Expected compliant image provenance metadata when no source image is present');
   }
-  console.log('[PASS] 4. 4-Tier Authentic Image Provenance (Official -> Agency -> Contextual -> Placeholder; zero AI images).');
+  console.log('[PASS] 4. 4-Tier Legal Image Provenance (Official -> Wikimedia/Open -> Entity Stock -> Labeled Illustration).');
 
   // 5. Simplified Category & Subcategory Classifier Verification
   const scClass = classifyStoryIntoCategories(
@@ -174,8 +191,8 @@ async function runTests() {
     WHERE status = 'published'
   `);
   const rows = articlesRes.rows;
-  if (rows.length < 100) {
-    throw new Error(`Expected at least 100 published articles in public.ca_articles, found ${rows.length}`);
+  if (rows.length < 30) {
+    throw new Error(`Expected at least 30 high-precision UPSC articles (score >= 60) in public.ca_articles, found ${rows.length}`);
   }
 
   const distinctMainCats = new Set<string>();
@@ -208,8 +225,8 @@ async function runTests() {
   if (distinctEESGroups.size !== 3) {
     throw new Error(`Expected all 3 distinct EES subject groups ('Economy', 'Environment & Ecology', 'Science & Technology') in DB, found ${distinctEESGroups.size}`);
   }
-  if (distinctDates.size < 20) {
-    throw new Error(`Expected at least 20 distinct calendar dates in Asia/Kolkata backfill, found ${distinctDates.size}`);
+  if (distinctDates.size < 10) {
+    throw new Error(`Expected at least 10 distinct calendar dates in Asia/Kolkata backfill, found ${distinctDates.size}`);
   }
 
   await client.end();
@@ -419,6 +436,135 @@ async function runTests() {
     throw new Error('AC 15 failed: Category feeds failed to load');
   }
   console.log('✅ AC 15: Existing article features and category filtering continue working.');
+
+  // =============================================================================
+  // 10. Grounding Check, Hero Selector, <=90-Char Headline & /api/v1/* E2E Suite
+  // =============================================================================
+  console.log('\n--- Verifying Grounding Check, Hero Selector & /api/v1/* End-to-End Flows ---');
+
+  // Test 10A: Second-pass Grounding Check passes when numbers & dates exist in source text
+  const groundedPass = verifySummaryGrounding({
+    sourceText:
+      'The Ministry of New and Renewable Energy (MNRE) released operational guidelines for Tranche-II under the ₹19,744-crore National Green Hydrogen Mission targeting 5 MMT by 2030.',
+    headline: 'MNRE Releases SIGHT Tranche-II Guidelines Under ₹19,744-Cr Green Hydrogen Mission',
+    whyInNews: 'Targets 5 MMT annual green hydrogen production capacity by 2030.',
+    keyFacts: ['Outlay of ₹19,744 crore approved for the mission through 2030.'],
+  });
+  if (!groundedPass.passed) {
+    throw new Error(`Expected grounded summary to pass, but failed: ${groundedPass.reason}`);
+  }
+
+  // Test 10B: Second-pass Grounding Check rejects summary with fabricated number (e.g. 85,000) or year (1998)
+  const groundedFail = verifySummaryGrounding({
+    sourceText:
+      'The Reserve Bank of India revised Liquidity Coverage Ratio guidelines for scheduled commercial banks.',
+    headline: 'RBI Revises Liquidity Coverage Ratio Guidelines With ₹85,000 Crore Buffer',
+    whyInNews: 'Announced under the 1998 Banking Regulation Accord.',
+    keyFacts: ['Mandates 42.5% additional liquidity reserve.'],
+  });
+  if (
+    groundedFail.passed ||
+    !groundedFail.ungroundedNumbers.includes('85000') ||
+    !groundedFail.ungroundedDates.includes('1998')
+  ) {
+    throw new Error('Expected grounding check to flag fabricated number 85000 and date 1998');
+  }
+  console.log('✅ Grounding Check: Passes source-backed facts and blocks fabricated numbers/dates/quotes.');
+
+  // Test 10C: Hero Story Selector picks top 3-5 stories (>=60) with at most 2 per GS paper
+  const candidateHeroes = [
+    { id: 'h1', upsc_score: 95, gs_paper: 'GS3', headline: 'Story 1', source_url: 'https://pib.gov.in/1' },
+    { id: 'h2', upsc_score: 92, gs_paper: 'GS3', headline: 'Story 2', source_url: 'https://pib.gov.in/2' },
+    { id: 'h3', upsc_score: 90, gs_paper: 'GS3', headline: 'Story 3 (3rd GS3 must be skipped)', source_url: 'https://pib.gov.in/3' },
+    { id: 'h4', upsc_score: 88, gs_paper: 'GS2', headline: 'Story 4', source_url: 'https://pib.gov.in/4' },
+    { id: 'h5', upsc_score: 84, gs_paper: 'GS2', headline: 'Story 5', source_url: 'https://pib.gov.in/5' },
+    { id: 'h6', upsc_score: 80, gs_paper: 'GS1', headline: 'Story 6', source_url: 'https://pib.gov.in/6' },
+    { id: 'h7', upsc_score: 52, gs_paper: 'GS4', headline: 'Low score (<60 must be dropped)', source_url: 'https://pib.gov.in/7' },
+  ];
+  const selectedHeroes = selectHeroStoriesForDate(candidateHeroes, 5, 2);
+  if (selectedHeroes.length !== 5 || selectedHeroes.some((h) => h.id === 'h3' || h.id === 'h7')) {
+    throw new Error(`Hero selector failed GS paper cap or <60 cutoff: ${selectedHeroes.map((h) => h.id).join(',')}`);
+  }
+  console.log('✅ Hero Selector: Picks top 3–5 stories (>=60) with at most 2 per GS paper.');
+
+  // Test 10D: Headline formatter enforces <= 90 chars and strips generic "Digest" / "Archive Record"
+  const formattedHeadline = formatActionHeadline90Chars(
+    'Union Cabinet Approves Pradhan Mantri Matsya Kisan Samridhi Sah-Yojana With Rs 6,000 Crore Outlay for Fisheries Sector - PIB Archive Record'
+  );
+  if (formattedHeadline.length > 90 || /Archive Record/i.test(formattedHeadline)) {
+    throw new Error(`Headline formatter failed <=90 char rule (${formattedHeadline.length}): ${formattedHeadline}`);
+  }
+  console.log(`✅ Headline Formatter: Enforces <=90 chars ("${formattedHeadline}" [${formattedHeadline.length} chars]).`);
+
+  // Test 10E: Image Resolver blocks Taj Mahal monument photo on environment stories & prevents duplicate reuse
+  const usedImgSet = new Set<string>();
+  const envImg1 = resolveCompliantStoryImage({
+    storyId: 'st_env_1',
+    headline: 'Ramsar Wetland Conservation & Migratory Bird Habitat Restored',
+    gsPaper: 'GS3',
+    topic: 'Environment',
+    candidateImageUrl: 'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=80',
+    usedImageUrls: usedImgSet,
+  });
+  if (envImg1.url.includes('photo-1548013146-72479768bada')) {
+    throw new Error('Banned Taj Mahal monument photo was not blocked on environment story');
+  }
+  const envImg2 = resolveCompliantStoryImage({
+    storyId: 'st_env_2',
+    headline: 'Second Ramsar Wetland Conservation Update in Chilika Lake',
+    gsPaper: 'GS3',
+    topic: 'Environment',
+    usedImageUrls: usedImgSet,
+  });
+  if (envImg1.url === envImg2.url) {
+    throw new Error('Image resolver reused the exact same image across two different stories');
+  }
+  console.log('✅ Image Resolver: Blocks monument photo on environment story and prevents duplicate image reuse.');
+
+  // Test 10F: E2E /api/v1/* Service Calls (Briefs, Future-Date 400 Error, Module Filter, Sources, Quiz, Monthly Revision)
+  const briefRes = await getDailyBriefByDate('2026-11-08');
+  if (
+    briefRes.autoplay_ms !== 5000 ||
+    briefRes.stories.length < 3 ||
+    briefRes.stories.length > 5 ||
+    briefRes.stories.some((s) => s.headline.length > 90 || s.sources.length === 0)
+  ) {
+    throw new Error(`GET /api/v1/briefs failed validation: count=${briefRes.stories.length}`);
+  }
+
+  let futureRejected = false;
+  try {
+    await getDailyBriefByDate('2099-12-31');
+  } catch (err) {
+    if (err instanceof ApiValidationError && err.statusCode === 400) {
+      futureRejected = true;
+    }
+  }
+  if (!futureRejected) {
+    throw new Error('Future IST date did not throw HTTP 400 ApiValidationError');
+  }
+
+  const modRes = await getModuleStories({ module: 'polity-governance', source: 'all', page: 1 });
+  const srcRes = await getSourceFilterOptions();
+  const quizRes = await getDailyQuizByDate('2026-11-08');
+  const quizSubmitRes = await submitDailyQuizAttempt({
+    date: '2026-11-08',
+    answers: Object.fromEntries(quizRes.questions.map((q) => [q.id, q.correct_index])),
+  });
+  const monthlyRes = await getMonthlyRevision('2026-11');
+
+  if (
+    modRes.stories.length === 0 ||
+    srcRes.sources.length < 5 ||
+    quizRes.questions.length < 5 ||
+    quizSubmitRes.score !== quizRes.questions.length ||
+    monthlyRes.topic_groups.length === 0
+  ) {
+    throw new Error('One or more /api/v1/* endpoints returned invalid payload');
+  }
+  console.log(
+    `✅ E2E /api/v1/* Suite: Briefs (${briefRes.stories.length} hero stories), Future-Date 400 Guard, Module Filter (${modRes.total} stories), Daily Quiz (${quizSubmitRes.score}/${quizSubmitRes.total}), and Monthly Revision (${monthlyRes.total_stories} stories) verified.`
+  );
 
   console.log('=================================================================');
   console.log(' ALL CURRENT AFFAIRS PIPELINE & SIMPLIFIED TAXONOMY TESTS PASSED!');

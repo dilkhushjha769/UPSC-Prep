@@ -1915,8 +1915,8 @@ export const DAILY_EVENTS_DATA: DayEventsSummary[] = [
 ];
 
 /**
- * Robust day summary resolver that returns curated events if available in DAILY_EVENTS_DATA,
- * or generates high-yield UPSC current affairs summary for any past date selected via calendar.
+ * Day summary resolver that returns curated events ONLY if verified real events exist in DAILY_EVENTS_DATA.
+ * Never fabricates placeholder "Archive Record" or generic "Digest" stories when a date has no static records.
  */
 export function getDailyEventsSummary(dateKey: string): DayEventsSummary {
   const todayKey = getTodayDateKey();
@@ -1945,144 +1945,8 @@ export function getDailyEventsSummary(dateKey: string): DayEventsSummary {
     label,
     shortDay,
     dayName,
-    highlight: `Curated UPSC daily events, editorial takeaways, and Prelims Fact Matrix for ${label}.`,
-    events: [
-      {
-        id: `de_${dateKey}_1`,
-        category: 'Polity',
-        paper: 'GS-II',
-        headline: `Constitutional & Governance Developments Archive for ${label}`,
-        source: 'PIB & Leading Dailies • Archive Record',
-        date: `${shortDay} ${monthName} ${yearStr}`,
-        imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80',
-        summary: `- Union and State administrative authorities notified statutory resolutions and executive rules in the **Gazette of India** for ${label}.\n- Key developments centered on **inter-state council coordination**, statutory tribunal benches, and public finance review.\n- Measures strengthen institutional accountability and **cooperative federalism** under **Part V and Part VI** of the Constitution.`,
-        summaryBullets: [
-          `Union and State administrative authorities notified statutory resolutions and executive rules in the **Gazette of India** for ${label}.`,
-          'Key developments centered on **inter-state council coordination**, statutory tribunal benches, and public finance review.',
-          'Measures strengthen institutional accountability and **cooperative federalism** under **Part V and Part VI** of the Constitution.',
-        ],
-        bullets: [
-          `Key executive notifications and statutory rules notified in the Gazette of India for ${label}.`,
-          'Inter-state water dispute tribunal developments and cooperative federalism council meetings.',
-          'Parliamentary committee scrutiny on public accounts, estimates, and delegated legislation.',
-          'Evaluation of affirmative action and institutional governance parameters.',
-        ],
-        prelimsFacts: [
-          `Archived under Union & State legislative proceedings for ${monthName} ${yearStr}.`,
-          'Examines constitutional provisions under Part V and Part VI of the Constitution of India.',
-        ],
-        prelimsFactMatrix: [
-          { label: 'Date Record', value: `${label} ${yearStr}` },
-          { label: 'Syllabus Sphere', value: 'GS Paper 2: Indian Constitution, Governance & Public Policy' },
-          { label: 'Statutory Body', value: 'Cabinet Secretariat & Central Public Information Authorities' },
-          { label: 'Verification', value: 'PIB Archive, Law Commission Documents & Supreme Court Judgments' },
-        ],
-        syllabusRelevance: {
-          paperTopic: 'GS Paper 2: Functions and responsibilities of the Union and the States, issues and challenges pertaining to the federal structure.',
-          staticConnection: 'Constitutional amendment procedures, separation of powers, and democratic decentralization.',
-          prelimsAngle: 'Key constitutional articles, constitutional vs statutory bodies, and statutory tribunal composition.',
-          mainsDimensions: 'Balance of power between judiciary and legislature; administrative reforms in public service delivery.',
-        },
-        sources: [
-          { name: 'Press Information Bureau Archive', url: 'https://pib.gov.in', date: label, type: 'Official' },
-          { name: 'The Hindu Archives', date: label, type: 'Leading Daily' },
-        ],
-        aiVerification: {
-          model: 'Gemini 1.5 Pro Cross-Verification',
-          sourcesCount: 2,
-          verifiedAt: `${label}, 10:00 IST`,
-        },
-      },
-      {
-        id: `de_${dateKey}_2`,
-        category: 'Economy',
-        paper: 'GS-III',
-        headline: `Macroeconomic Indicators & Strategic Industrial Outlook for ${label}`,
-        source: 'Livemint & Business Standard • Archive Record',
-        date: `${shortDay} ${monthName} ${yearStr}`,
-        dateKey,
-        imageUrl: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80',
-        summary: `- Macroeconomic tracking indicates steady fiscal expenditure and liquidity management supervised by the **Reserve Bank of India**.\n- Key indicators highlighted trends across **retail CPI inflation**, capital capex allocations, and external trade balances.\n- Monetary and fiscal authorities emphasized **price stability** alongside capital investment under the **FRBM framework**.`,
-        summaryBullets: [
-          'Macroeconomic tracking indicates steady fiscal expenditure and liquidity management supervised by the **Reserve Bank of India**.',
-          'Key indicators highlighted trends across **retail CPI inflation**, capital capex allocations, and external trade balances.',
-          'Monetary and fiscal authorities emphasized **price stability** alongside capital investment under the **FRBM framework**.',
-        ],
-        bullets: [
-          'Review of retail CPI inflation trends and food price management measures.',
-          'Capital expenditure trajectory across core infrastructure sectors including railways, highways, and energy.',
-          'External sector balance of payments, merchandise trade deficit, and foreign exchange reserves.',
-        ],
-        prelimsFacts: [
-          'Headline inflation in India is measured by the Consumer Price Index (Combined) with base year 2012.',
-          'Core inflation excludes volatile food and fuel components from the CPI basket.',
-        ],
-        prelimsFactMatrix: [
-          { label: 'Macro Indicators', value: 'CPI Combined, WPI, Index of Eight Core Industries' },
-          { label: 'Monetary Authority', value: 'Reserve Bank of India Monetary Policy Committee (MPC)' },
-          { label: 'Fiscal Department', value: 'Department of Economic Affairs, Ministry of Finance' },
-        ],
-        syllabusRelevance: {
-          paperTopic: 'GS Paper 3: Indian Economy and issues relating to planning, mobilization of resources, growth and employment.',
-          staticConnection: 'Monetary Policy Framework Agreement (2015), FRBM Act 2003, and RBI liquidity management tools.',
-          prelimsAngle: 'Components of CPI vs WPI; Liquidity Adjustment Facility (repo, reverse repo, SDF, MSF).',
-          mainsDimensions: 'Managing inflation-growth trade-offs; fiscal deficit consolidation vs capital capex requirements.',
-        },
-        sources: [
-          { name: 'Ministry of Finance Economic Review', date: label, type: 'Official' },
-          { name: 'Reserve Bank of India Bulletin', date: label, type: 'Official' },
-        ],
-        aiVerification: {
-          model: 'Gemini 1.5 Pro Cross-Verification',
-          sourcesCount: 2,
-          verifiedAt: `${label}, 12:00 IST`,
-        },
-      },
-      {
-        id: `de_${dateKey}_3`,
-        category: 'Environment',
-        paper: 'GS-III',
-        headline: `Climate Resilience, Biodiversity & Science Digest for ${label}`,
-        source: 'Down To Earth & The Hindu • Archive Record',
-        date: `${shortDay} ${monthName} ${yearStr}`,
-        dateKey,
-        imageUrl: 'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=80',
-        summary: `- Environmental and scientific agencies reviewed **protected area conservation**, renewable energy grid integration, and **indigenous R&D milestones** for ${label}.\n- Focus remained on **National Action Plan on Climate Change (NAPCC)** missions, wetland restoration, and clean energy transition.\n- Connects directly with **GS Paper 3** biodiversity statutes and sustainable development targets.`,
-        summaryBullets: [
-          `Environmental and scientific agencies reviewed protected area conservation, renewable energy grid integration, and indigenous R&D milestones for ${label}.`,
-          'Focus remained on National Action Plan on Climate Change (NAPCC) missions, wetland restoration, and clean energy transition.',
-          'Connects directly with GS Paper 3 biodiversity statutes and sustainable development targets.',
-        ],
-        bullets: [
-          'Monitoring of eco-sensitive zones (ESZs), Ramsar wetland conservation, and wildlife corridors under the Wildlife (Protection) Act, 1972.',
-          'Integration of solar, wind, and green hydrogen storage under India’s Panchamrit climate commitments.',
-          'Indigenous space and biotechnology instrumentation updates across national research laboratories.',
-        ],
-        prelimsFacts: [
-          'Eco-Sensitive Zones (ESZs) are notified by MoEFCC under the Environment (Protection) Act, 1986 around Protected Areas.',
-          'India’s updated NDC commits to reducing emissions intensity of its GDP by 45% by 2030 from 2005 levels.',
-        ],
-        prelimsFactMatrix: [
-          { label: 'Statutory Anchor', value: 'Environment (Protection) Act, 1986 & Wildlife (Protection) Act, 1972' },
-          { label: 'Climate Target', value: '50% cumulative electric power installed capacity from non-fossil fuel sources by 2030' },
-        ],
-        syllabusRelevance: {
-          paperTopic: 'GS Paper 3: Conservation, environmental pollution and degradation, environmental impact assessment.',
-          staticConnection: 'Wildlife Protection Act 1972, Ramsar Convention, UNFCCC NDCs, and National Biodiversity Act 2002.',
-          prelimsAngle: 'Protected Area categories, ESZ notification authority, and Panchamrit targets.',
-          mainsDimensions: 'Harmonizing infrastructure development with ecological sustainability.',
-        },
-        sources: [
-          { name: 'MoEFCC & PIB Archive', url: 'https://pib.gov.in', date: label, type: 'Official' },
-          { name: 'Down To Earth', url: 'https://www.downtoearth.org.in', date: label, type: 'Leading Daily' },
-        ],
-        aiVerification: {
-          model: 'Gemini 1.5 Pro Cross-Verification',
-          sourcesCount: 2,
-          verifiedAt: `${label}, 14:00 IST`,
-        },
-      },
-    ],
+    highlight: `Verified UPSC CSE Current Affairs brief for ${label} ${yearStr}.`,
+    events: [],
   };
 }
 

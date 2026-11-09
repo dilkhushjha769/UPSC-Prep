@@ -7,7 +7,6 @@ import {
   Pressable,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   useWindowDimensions,
   View,
@@ -17,9 +16,7 @@ import {
   CalendarDays,
   ChevronDown,
   Moon,
-  Search,
   Sun,
-  X,
 } from 'lucide-react-native';
 
 interface PrelimsHeaderProps {
@@ -28,8 +25,6 @@ interface PrelimsHeaderProps {
   onToggleTheme?: () => void;
   yearRangeLabel: string;
   onOpenYearPicker: () => void;
-  searchQuery: string;
-  onSearchChange: (text: string) => void;
   selectedPaperTab?: 'gs1' | 'gs2';
   onSelectPaperTab?: (tab: 'gs1' | 'gs2') => void;
 }
@@ -40,8 +35,6 @@ export function PrelimsHeader({
   onToggleTheme,
   yearRangeLabel,
   onOpenYearPicker,
-  searchQuery,
-  onSearchChange,
   selectedPaperTab = 'gs1',
   onSelectPaperTab,
 }: PrelimsHeaderProps) {
@@ -55,9 +48,6 @@ export function PrelimsHeader({
     controlBorder: isDark ? '#253244' : '#EAE5DC',
     textPrimary: isDark ? '#F0F4F8' : '#1C2433',
     textSecondary: isDark ? '#9DA8B9' : '#7A8499',
-    placeholder: isDark ? '#6E7A8E' : '#8892A6',
-    searchBg: isDark ? '#141C28' : '#FFFFFF',
-    searchBorder: isDark ? '#253244' : '#EAE5DC',
   };
 
   return (
@@ -125,7 +115,7 @@ export function PrelimsHeader({
         </View>
       </View>
 
-      {/* 2. Main Title & Subtitle with Clean Breathing Space */}
+      {/* 2. Main Title & Subtitle */}
       <View style={styles.titleBlock}>
         <Text style={[styles.titleText, isMobile && styles.titleTextMobile, { color: colors.textPrimary }]}>
           Prelims Preparation
@@ -135,94 +125,62 @@ export function PrelimsHeader({
         </Text>
       </View>
 
-      {/* 3. Unified Action Toolbar: Paper Selection Tabs on Left + Search Box on Right */}
-      <View style={[styles.toolbarRow, isMobile && styles.toolbarRowMobile]}>
-        {Boolean(onSelectPaperTab) && (
-          <View style={styles.paperTabsContainer}>
-            <Pressable
-              style={({ pressed }) => [
-                styles.paperTabBtn,
-                {
-                  backgroundColor:
-                    selectedPaperTab === 'gs1' ? '#FF9500' : isDark ? '#141C28' : '#FFFFFF',
-                  borderColor:
-                    selectedPaperTab === 'gs1' ? '#FF9500' : isDark ? '#253244' : '#EAE5DC',
-                },
-                pressed && styles.pressed,
+      {/* 3. Paper Selection Tabs */}
+      {Boolean(onSelectPaperTab) && (
+        <View style={styles.paperTabsContainer}>
+          <Pressable
+            style={({ pressed }) => [
+              styles.paperTabBtn,
+              {
+                backgroundColor:
+                  selectedPaperTab === 'gs1' ? '#FF9500' : isDark ? '#141C28' : '#FFFFFF',
+                borderColor:
+                  selectedPaperTab === 'gs1' ? '#FF9500' : isDark ? '#253244' : '#EAE5DC',
+              },
+              pressed && styles.pressed,
+            ]}
+            onPress={() => onSelectPaperTab?.('gs1')}
+            accessibilityRole="tab"
+            accessibilityState={{ selected: selectedPaperTab === 'gs1' }}
+          >
+            <Text
+              style={[
+                styles.paperTabText,
+                { color: selectedPaperTab === 'gs1' ? '#FFFFFF' : colors.textSecondary },
+                selectedPaperTab === 'gs1' && styles.paperTabTextActive,
               ]}
-              onPress={() => onSelectPaperTab?.('gs1')}
-              accessibilityRole="tab"
-              accessibilityState={{ selected: selectedPaperTab === 'gs1' }}
             >
-              <Text
-                style={[
-                  styles.paperTabText,
-                  { color: selectedPaperTab === 'gs1' ? '#FFFFFF' : colors.textSecondary },
-                  selectedPaperTab === 'gs1' && styles.paperTabTextActive,
-                ]}
-              >
-                Paper 1 - GS-1
-              </Text>
-            </Pressable>
+              Paper 1 - GS-1
+            </Text>
+          </Pressable>
 
-            <Pressable
-              style={({ pressed }) => [
-                styles.paperTabBtn,
-                {
-                  backgroundColor:
-                    selectedPaperTab === 'gs2' ? '#FF9500' : isDark ? '#141C28' : '#FFFFFF',
-                  borderColor:
-                    selectedPaperTab === 'gs2' ? '#FF9500' : isDark ? '#253244' : '#EAE5DC',
-                },
-                pressed && styles.pressed,
+          <Pressable
+            style={({ pressed }) => [
+              styles.paperTabBtn,
+              {
+                backgroundColor:
+                  selectedPaperTab === 'gs2' ? '#FF9500' : isDark ? '#141C28' : '#FFFFFF',
+                borderColor:
+                  selectedPaperTab === 'gs2' ? '#FF9500' : isDark ? '#253244' : '#EAE5DC',
+              },
+              pressed && styles.pressed,
+            ]}
+            onPress={() => onSelectPaperTab?.('gs2')}
+            accessibilityRole="tab"
+            accessibilityState={{ selected: selectedPaperTab === 'gs2' }}
+          >
+            <Text
+              style={[
+                styles.paperTabText,
+                { color: selectedPaperTab === 'gs2' ? '#FFFFFF' : colors.textSecondary },
+                selectedPaperTab === 'gs2' && styles.paperTabTextActive,
               ]}
-              onPress={() => onSelectPaperTab?.('gs2')}
-              accessibilityRole="tab"
-              accessibilityState={{ selected: selectedPaperTab === 'gs2' }}
             >
-              <Text
-                style={[
-                  styles.paperTabText,
-                  { color: selectedPaperTab === 'gs2' ? '#FFFFFF' : colors.textSecondary },
-                  selectedPaperTab === 'gs2' && styles.paperTabTextActive,
-                ]}
-              >
-                Paper 2 - CSAT
-              </Text>
-            </Pressable>
-          </View>
-        )}
-
-        {/* Search Input Box */}
-        <View
-          style={[
-            styles.searchContainer,
-            { backgroundColor: colors.searchBg, borderColor: colors.searchBorder },
-            isMobile && styles.searchContainerMobile,
-          ]}
-        >
-          <Search size={16} color={colors.textSecondary} strokeWidth={2.2} style={styles.searchIcon} />
-          <TextInput
-            style={[styles.searchInput, { color: colors.textPrimary }]}
-            placeholder="Search topics..."
-            placeholderTextColor={colors.placeholder}
-            value={searchQuery}
-            onChangeText={onSearchChange}
-            autoCapitalize="none"
-            autoCorrect={false}
-            clearButtonMode="never"
-          />
-          {Boolean(searchQuery) && (
-            <Pressable
-              onPress={() => onSearchChange('')}
-              style={styles.clearSearchBtn}
-              accessibilityLabel="Clear search"
-            >
-              <X size={14} color={colors.textSecondary} strokeWidth={2.4} />
-            </Pressable>
-          )}
+              Paper 2 - CSAT
+            </Text>
+          </Pressable>
         </View>
-      </View>
+      )}
     </View>
   );
 }

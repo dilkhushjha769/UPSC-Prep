@@ -10,9 +10,7 @@ import {
 import {
   ArrowRight,
   BookOpenCheck,
-  Calendar,
   CheckCheck,
-  CheckCircle2,
   ChevronRight,
   Clock,
   GraduationCap,
@@ -34,11 +32,17 @@ import {
   SubjectPracticeGroup,
   SubjectPracticeReviewScreen,
 } from './SubjectPracticeReviewScreen';
+import { ProfileTopicPerformanceSection } from './ProfileTopicPerformanceSection';
+import {
+  TopicPerformanceStat,
+  UserPracticeAnalyticsService,
+} from '@/services/userPracticeAnalyticsService';
+import { TopicPracticeWorkspaceModal } from '@/components/common/TopicPracticeWorkspaceModal';
 export { SubjectPracticeGroup } from './SubjectPracticeReviewScreen';
 
 interface ProfileActivitySectionProps {
   isDark?: boolean;
-  onNavigateToTab?: (tabKey: any) => void;
+  onNavigateToTab?: (tabKey: any, params?: { testId?: string; openHistory?: boolean }) => void;
   onOpenSubjectReview?: (group: SubjectPracticeGroup) => void;
 }
 
@@ -62,22 +66,30 @@ export function ProfileActivitySection({
   // Section Toggle State: 'mock' tests vs 'practice' quizzes
   const [activeHistoryTab, setActiveHistoryTab] = useState<'mock' | 'practice'>('mock');
 
+  // Topic Performance Analytics State
+  const [topicPerformanceList, setTopicPerformanceList] = useState<TopicPerformanceStat[]>([]);
+  const [weakTopicsList, setWeakTopicsList] = useState<TopicPerformanceStat[]>([]);
+  const [practiceModalTopic, setPracticeModalTopic] = useState<string | null>(null);
+
   // Load real database records for mock tests, questions and daily stats
   useEffect(() => {
     let isMounted = true;
 
     async function loadActivityData() {
       try {
-        const [mocks, qMap, attempts] = await Promise.all([
+        const [mocks, qMap, attempts, topicStats] = await Promise.all([
           MockTestService.getRecentMockTests(10),
           StudyStorageService.getDailyQuestionsMap(),
           QuestionHistoryService.fetchAllRawAttempts(),
+          UserPracticeAnalyticsService.getTopicPerformanceStats(),
         ]);
 
         if (isMounted) {
           setRecentMocks(mocks);
           setDailyQuestionsMap(qMap || {});
           setAllAttempts(attempts || []);
+          setTopicPerformanceList(topicStats.topics || []);
+          setWeakTopicsList(topicStats.weakTopics || []);
         }
       } catch (err) {
         console.warn('Could not load profile activity data:', err);
@@ -160,40 +172,7 @@ export function ProfileActivitySection({
     };
   }, [recentMocks, config.mockAverageScore, metrics?.mcqsCorrect, metrics?.mcqsAttempted, totalMockAttempts]);
 
-  // 3. 7-Day Consistency Strip
-  const past7Days = useMemo(() => {
-    const list: { dayName: string; dateNum: number; dateStr: string; hasActivity: boolean }[] = [];
-    const now = new Date();
-
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date(now);
-      d.setDate(now.getDate() - i);
-      const y = d.getFullYear();
-      const m = String(d.getMonth() + 1).padStart(2, '0');
-      const dayNum = String(d.getDate()).padStart(2, '0');
-      const dateStr = `${y}-${m}-${dayNum}`;
-
-      const dayName = d.toLocaleDateString('en-US', { weekday: 'narrow' });
-      const hasQuestions = (dailyQuestionsMap[dateStr] || 0) > 0;
-      const hasSession = sessions.some((s) => s.date === dateStr);
-      const hasMock = recentMocks.some((m) => m.created_at && m.created_at.startsWith(dateStr));
-
-      list.push({
-        dayName,
-        dateNum: d.getDate(),
-        dateStr,
-        hasActivity: hasQuestions || hasSession || hasMock,
-      });
-    }
-
-    return list;
-  }, [dailyQuestionsMap, sessions, recentMocks]);
-
-  const activeDaysThisWeek = useMemo(() => {
-    return past7Days.filter((d) => d.hasActivity).length;
-  }, [past7Days]);
-
-  // 4. Group Practice Questions By Subject (Subject-first hierarchy)
+  // 3. Group Practice Questions By Subject (Subject-first hierarchy)
   const subjectGroups: SubjectPracticeGroup[] = useMemo(() => {
     const map = new Map<string, QuestionAttemptItem[]>();
 
@@ -571,7 +550,7 @@ export function ProfileActivitySection({
               {Boolean(onNavigateToTab) && (
                 <TouchableOpacity
                   activeOpacity={0.7}
-                  onPress={() => onNavigateToTab?.('mockTest')}
+                  onPress={() => onNavigateToTab?.('mock-test')}
                   style={styles.viewAllBtn}>
                   <Text style={[styles.viewAllBtnText, { color: primaryBlue }]}>
                     Take New Test
@@ -596,7 +575,7 @@ export function ProfileActivitySection({
                 {Boolean(onNavigateToTab) && (
                   <TouchableOpacity
                     activeOpacity={0.8}
-                    onPress={() => onNavigateToTab?.('mockTest')}
+                    onPress={() => onNavigateToTab?.('mock-test')}
                     style={[styles.actionBtn, { backgroundColor: '#FF9500' }]}>
                     <Play size={13} color="#FFFFFF" fill="#FFFFFF" />
                     <Text style={styles.actionBtnText}>Start Mock Test</Text>
@@ -624,7 +603,7 @@ export function ProfileActivitySection({
                     <TouchableOpacity
                       key={test.id}
                       activeOpacity={0.7}
-                      onPress={() => onNavigateToTab?.('mockTest')}
+                      onPress={() => onNavigateToTab?.('mock-test', { testId: test.id })}
                       style={[
                         styles.mockRow,
                         !isLast && {
@@ -904,65 +883,27 @@ export function ProfileActivitySection({
         </>
       )}
 
-      {/* 5. 7-DAY PRACTICE CONSISTENCY STRIP */}
-      <View
-        style={[
-          styles.contentCard,
-          {
-            backgroundColor: cardBg,
-            borderColor: cardBorder,
-          },
-        ]}>
-        <View style={styles.cardHeaderRow}>
-          <View style={styles.cardHeaderLeft}>
-            <Calendar size={16} color={iconGrey} strokeWidth={2} />
-            <Text style={[styles.cardHeaderTitle, { color: textPrimary }]}>
-              7-Day Practice Consistency
-            </Text>
-          </View>
-          <Text style={[styles.cardHeaderMeta, { color: textSecondary }]}>
-            {activeDaysThisWeek} of 7 active days
-          </Text>
-        </View>
+      {/* 5. TOPIC PERFORMANCE & WEAK-AREA REVISION ENGINE */}
+      <ProfileTopicPerformanceSection
+        isDark={isDark}
+        topicPerformanceList={topicPerformanceList}
+        weakTopicsList={weakTopicsList}
+        onSelectTopic={(topic) => setPracticeModalTopic(topic)}
+      />
 
-        <View style={styles.weekStrip}>
-          {past7Days.map((d) => {
-            return (
-              <View key={d.dateStr} style={styles.dayStripCol}>
-                <Text style={[styles.dayStripLetter, { color: textMuted }]}>
-                  {d.dayName}
-                </Text>
-
-                <View
-                  style={[
-                    styles.dayStripIndicator,
-                    d.hasActivity
-                      ? {
-                          backgroundColor: primaryBlue,
-                          borderColor: primaryBlue,
-                        }
-                      : {
-                          backgroundColor: isDark ? '#1B2534' : '#F0EDE6',
-                          borderColor: isDark ? '#253244' : '#EAE5DC',
-                        },
-                  ]}>
-                  {d.hasActivity && (
-                    <CheckCircle2 size={10} color="#FFFFFF" strokeWidth={3} />
-                  )}
-                </View>
-
-                <Text
-                  style={[
-                    styles.dayStripNum,
-                    { color: d.hasActivity ? textPrimary : textMuted },
-                  ]}>
-                  {d.dateNum}
-                </Text>
-              </View>
-            );
-          })}
-        </View>
-      </View>
+      <TopicPracticeWorkspaceModal
+        visible={Boolean(practiceModalTopic)}
+        initialTopicQuery={practiceModalTopic || 'Judicial Review'}
+        initialExamScope="ALL"
+        isDark={isDark}
+        onClose={() => {
+          setPracticeModalTopic(null);
+          void UserPracticeAnalyticsService.getTopicPerformanceStats().then((ts) => {
+            setTopicPerformanceList(ts.topics || []);
+            setWeakTopicsList(ts.weakTopics || []);
+          });
+        }}
+      />
     </View>
   );
 }
@@ -1296,33 +1237,6 @@ const styles = StyleSheet.create({
   qStatusBadgeText: {
     fontSize: 9.5,
     fontWeight: '700',
-  },
-  weekStrip: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 4,
-  },
-  dayStripCol: {
-    alignItems: 'center',
-    gap: 6,
-  },
-  dayStripLetter: {
-    fontSize: 10,
-    fontWeight: '600',
-    textTransform: 'uppercase',
-  },
-  dayStripIndicator: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  dayStripNum: {
-    fontSize: 11,
-    fontWeight: '600',
   },
   loadingWrap: {
     padding: 24,

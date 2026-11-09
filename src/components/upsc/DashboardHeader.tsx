@@ -15,6 +15,7 @@ import {
   Target,
 } from 'lucide-react-native';
 import { useStudy } from '@/context/StudyContext';
+import { getPrelimsDateForYear } from '@/services/studyStorage';
 import { UPSC_THEME } from '@/constants/themeColors';
 
 interface DashboardHeaderProps {
@@ -47,7 +48,12 @@ export function DashboardHeader({ isDark: propIsDark, onToggleTheme }: Dashboard
   });
 
   // Calculate days remaining to target exam date
-  const targetDate = new Date(config.targetExamDate);
+  const targetYear = config.targetExamYear || 2027;
+  const targetDateStr =
+    config.targetExamDate && config.targetExamDate.startsWith(String(targetYear))
+      ? config.targetExamDate
+      : getPrelimsDateForYear(targetYear);
+  const targetDate = new Date(targetDateStr);
   const diffTime = targetDate.getTime() - now.getTime();
   const daysRemaining = Math.max(0, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
 

@@ -17,6 +17,7 @@ interface ExamReadinessCardProps {
   onOpenPrelims?: () => void;
   onOpenMains?: () => void;
   onOpenMockTests?: () => void;
+  onOpenCurrentAffairs?: () => void;
 }
 
 // =============================================================================
@@ -221,6 +222,49 @@ function MockTestIllustration({ isDark }: { isDark: boolean }) {
   );
 }
 
+/** Current Affairs: Newspaper Sheet with Daily Brief Headline & Column Lines */
+function CurrentAffairsIllustration({ isDark }: { isDark: boolean }) {
+  const stroke = isDark ? '#F1F5F9' : '#1E293B';
+  const paperFill = isDark ? '#141C28' : '#FFFFFF';
+  const lineStroke = isDark ? '#94A3B8' : '#64748B';
+  const accent = '#FF9500';
+
+  return (
+    <Svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+      {/* Folded Newspaper Base */}
+      <Rect
+        x="5"
+        y="6"
+        width="26"
+        height="24"
+        rx="3"
+        fill={paperFill}
+        stroke={stroke}
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {/* Top Headline Banner */}
+      <Rect x="9" y="10" width="18" height="3.5" rx="1.5" fill={accent} />
+      {/* Left Column Box */}
+      <Rect
+        x="9"
+        y="16.5"
+        width="7"
+        height="9.5"
+        rx="1.5"
+        fill={isDark ? '#1E293B' : '#F1F5F9'}
+        stroke={stroke}
+        strokeWidth="1.2"
+      />
+      {/* Right Column Text Lines */}
+      <Line x1="19" y1="18" x2="27" y2="18" stroke={lineStroke} strokeWidth="1.6" strokeLinecap="round" />
+      <Line x1="19" y1="21.5" x2="27" y2="21.5" stroke={lineStroke} strokeWidth="1.6" strokeLinecap="round" />
+      <Line x1="19" y1="25" x2="24" y2="25" stroke={lineStroke} strokeWidth="1.6" strokeLinecap="round" />
+    </Svg>
+  );
+}
+
 // =============================================================================
 // MAIN COMPONENT
 // =============================================================================
@@ -230,6 +274,7 @@ export function ExamReadinessCard({
   onOpenPrelims,
   onOpenMains,
   onOpenMockTests,
+  onOpenCurrentAffairs,
 }: ExamReadinessCardProps) {
   const { isDark: contextIsDark } = useAppTheme();
   const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
@@ -273,6 +318,17 @@ export function ExamReadinessCard({
       borderHover: '#FF9500',
       glow: 'rgba(245, 130, 53, 0.15)',
       onPress: () => (onOpenMockTests ? onOpenMockTests() : setIsMCQModalOpen(true)),
+    },
+    {
+      id: 'current-affairs',
+      title: 'Current Affairs',
+      subtitle: 'Daily News & Editorials',
+      illustration: CurrentAffairsIllustration,
+      badgeBg: isDark ? '#1B2534' : '#F5F3EE',
+      badgeBorder: isDark ? '#253244' : '#EAE5DC',
+      borderHover: '#FF9500',
+      glow: 'rgba(245, 130, 53, 0.15)',
+      onPress: () => (onOpenCurrentAffairs ? onOpenCurrentAffairs() : null),
     },
   ];
 
@@ -389,13 +445,14 @@ const styles = StyleSheet.create({
   },
   cardsGrid: {
     flexDirection: 'row',
-    gap: 14,
+    gap: 12,
     alignItems: 'stretch',
   },
   cardsGridMobile: {
-    flexDirection: 'column',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 10,
-    alignItems: 'stretch',
+    justifyContent: 'space-between',
   },
   cardBase: {
     borderRadius: 16,
@@ -407,22 +464,24 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 20,
-    paddingHorizontal: 16,
+    paddingVertical: 18,
+    paddingHorizontal: 10,
     minHeight: 125,
     gap: 10,
   },
   cardMobile: {
-    flexDirection: 'row',
+    width: '48.5%',
     alignItems: 'center',
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    gap: 14,
+    justifyContent: 'center',
+    paddingVertical: 16,
+    paddingHorizontal: 8,
+    minHeight: 118,
+    gap: 8,
   },
   iconBadge: {
-    width: 50,
-    height: 50,
-    borderRadius: 14,
+    width: 46,
+    height: 46,
+    borderRadius: 13,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -434,11 +493,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
   },
   textGroupMobile: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'center',
-    gap: 2,
-    flex: 1,
-    paddingHorizontal: 0,
+    gap: 3,
+    paddingHorizontal: 2,
+    width: '100%',
   },
   cardTitle: {
     fontWeight: '800',
@@ -449,6 +508,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     letterSpacing: 0.1,
     textAlign: 'center',
-    lineHeight: 16,
+    lineHeight: 15,
   },
 });

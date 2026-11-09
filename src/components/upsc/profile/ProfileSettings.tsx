@@ -18,6 +18,7 @@ import {
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
+import { getPrelimsDateForYear } from '@/services/studyStorage';
 import {
   ExamMedium,
   PreparationStage,
@@ -116,7 +117,7 @@ export function ProfileSettings({ isDark: propIsDark, onSaved }: ProfileSettings
       category,
       targetExamYear,
       examPhase: examPhase.trim() || `UPSC CSE ${targetExamYear} • Prelims & Mains`,
-      targetExamDate: targetExamDate.trim() || `${targetExamYear}-05-23`,
+      targetExamDate: targetExamDate.trim() || getPrelimsDateForYear(targetExamYear),
       optionalSubject: optionalSubject.trim() || 'Geography',
       medium,
       preparationStage: stage,
@@ -453,7 +454,7 @@ export function ProfileSettings({ isDark: propIsDark, onSaved }: ProfileSettings
                     onPress={() => {
                       setTargetExamYear(yr);
                       setExamPhase(`UPSC CSE ${yr} • Prelims & Mains`);
-                      setTargetExamDate(`${yr}-05-23`);
+                      setTargetExamDate(getPrelimsDateForYear(yr));
                     }}
                     style={[
                       styles.chipBtn,

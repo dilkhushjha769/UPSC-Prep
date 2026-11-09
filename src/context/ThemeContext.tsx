@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { LIGHT_TOKENS, SemanticTokens, getTokens } from '@/constants/designTokens';
+import { getTokens, LIGHT_TOKENS, SemanticTokens } from '@/constants/designTokens';
 import { BW_THEME, BWTheme } from '@/constants/bwTheme';
 import { SemanticColors } from '@/constants/colors';
 import { getPrelimsTheme, PrelimsThemeType } from '@/constants/prelimsTheme';
@@ -45,7 +45,7 @@ function getInitialTheme(): ThemeMode {
         return stored;
       }
     } catch {
-      // Ignore localStorage errors (e.g. private browsing)
+      // Ignore
     }
   }
   return 'light';
@@ -55,11 +55,20 @@ function syncWebDOM(mode: ThemeMode) {
   if (Platform.OS === 'web' && typeof document !== 'undefined') {
     const root = document.documentElement;
     root.setAttribute('data-theme', mode);
-    root.classList.remove('light', 'dark');
-    root.classList.add(mode);
-    if (document.body) {
-      document.body.style.backgroundColor = mode === 'dark' ? '#0B1018' : '#FAF9F6';
-      document.body.style.color = mode === 'dark' ? '#F1F5F9' : '#1E293B';
+    if (mode === 'dark') {
+      root.classList.add('dark');
+      root.classList.remove('light');
+      if (document.body) {
+        document.body.style.backgroundColor = '#0B1018';
+        document.body.style.color = '#F0F4F8';
+      }
+    } else {
+      root.classList.remove('dark');
+      root.classList.add('light');
+      if (document.body) {
+        document.body.style.backgroundColor = '#FAF9F6';
+        document.body.style.color = '#1E293B';
+      }
     }
   }
 }
@@ -67,54 +76,40 @@ function syncWebDOM(mode: ThemeMode) {
 export function AppThemeProvider({ children }: { children: React.ReactNode }) {
   const [themeMode, setThemeModeState] = useState<ThemeMode>(getInitialTheme);
 
-  // Sync DOM immediately on mount and when themeMode changes
+  // Load persisted theme on mount (for Native & Web)
   useEffect(() => {
-    syncWebDOM(themeMode);
-  }, [themeMode]);
-
-  // Load persisted theme on native and web fallback
-  useEffect(() => {
-    let isMounted = true;
-    (async () => {
-      try {
-        const stored = await AsyncStorage.getItem(THEME_STORAGE_KEY);
-        if (isMounted && (stored === 'dark' || stored === 'light')) {
-          setThemeModeState(stored);
-        }
-      } catch {
-        // Fallback silently
-      }
-    })();
-    return () => {
-      isMounted = false;
-    };
+    AsyncStorage.getItem(THEME_STORAGE_KEY)
+      .then((stored) => {
+        const mode = stored === 'dark' || stored === 'light' ? stored : getInitialTheme();
+        setThemeModeState(mode);
+        syncWebDOM(mode);
+      })
+      .catch(() => {
+        syncWebDOM(getInitialTheme());
+      });
   }, []);
 
   const setThemeMode = useCallback((mode: ThemeMode) => {
     setThemeModeState(mode);
-    syncWebDOM(mode);
-    try {
-      if (Platform.OS === 'web' && typeof window !== 'undefined' && window.localStorage) {
-        window.localStorage.setItem(THEME_STORAGE_KEY, mode);
-      }
-    } catch {
-      // Ignore
-    }
     AsyncStorage.setItem(THEME_STORAGE_KEY, mode).catch(() => {});
+    if (Platform.OS === 'web' && typeof window !== 'undefined' && window.localStorage) {
+      try {
+        window.localStorage.setItem(THEME_STORAGE_KEY, mode);
+      } catch {}
+    }
+    syncWebDOM(mode);
   }, []);
 
   const toggleTheme = useCallback(() => {
     setThemeModeState((prev) => {
-      const next: ThemeMode = prev === 'dark' ? 'light' : 'dark';
-      syncWebDOM(next);
-      try {
-        if (Platform.OS === 'web' && typeof window !== 'undefined' && window.localStorage) {
-          window.localStorage.setItem(THEME_STORAGE_KEY, next);
-        }
-      } catch {
-        // Ignore
-      }
+      const next = prev === 'dark' ? 'light' : 'dark';
       AsyncStorage.setItem(THEME_STORAGE_KEY, next).catch(() => {});
+      if (Platform.OS === 'web' && typeof window !== 'undefined' && window.localStorage) {
+        try {
+          window.localStorage.setItem(THEME_STORAGE_KEY, next);
+        } catch {}
+      }
+      syncWebDOM(next);
       return next;
     });
   }, []);

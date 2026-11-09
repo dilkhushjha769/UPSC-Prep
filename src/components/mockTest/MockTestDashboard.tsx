@@ -13,16 +13,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   ArrowLeft,
   ArrowRight,
-  Sun,
-  Moon,
   Clock,
   BookOpen,
-  LayoutGrid,
   ChevronDown,
+  LayoutGrid,
+  Moon,
   PenLine,
+  Sun,
   FileText,
+  Target,
 } from 'lucide-react-native';
-import { PrimaryToggle } from '@/components/common/PrimaryToggle';
+import { DARK_TOKENS, LIGHT_TOKENS } from '@/constants/designTokens';
 import { MockTestService } from '@/services/mockTestService';
 import {
   AvailableFiltersData,
@@ -43,6 +44,7 @@ interface MockTestDashboardProps {
   onToggleTheme?: () => void;
   onBack?: () => void;
   isDark?: boolean;
+  initialShowHistory?: boolean;
 }
 
 const PREF_STORAGE_KEY = '@upsc_mock_test_v3_pref';
@@ -52,13 +54,14 @@ export function MockTestDashboard({
   onToggleTheme,
   onBack,
   isDark = false,
+  initialShowHistory = false,
 }: MockTestDashboardProps) {
   const { width } = useWindowDimensions();
   const isWide = width >= 940;
   const isMobile = width < 680;
 
   // Modals
-  const [showHistoryModal, setShowHistoryModal] = useState(false);
+  const [showHistoryModal, setShowHistoryModal] = useState(Boolean(initialShowHistory));
   const [completedTestsCount, setCompletedTestsCount] = useState(0);
   const [showSubjectModal, setShowSubjectModal] = useState(false);
 
@@ -91,58 +94,57 @@ export function MockTestDashboard({
   const [testMode, setTestMode] = useState<TestMode>('full'); // 'full' = Timed exam, 'practice' = Practice
   const [negativeMarkingEnabled, setNegativeMarkingEnabled] = useState<boolean>(true);
   const [shuffleQuestions, setShuffleQuestions] = useState<boolean>(true);
-  const [instantExplanations, setInstantExplanations] = useState<boolean>(false);
 
   // Matching questions count
   const [matchingCount, setMatchingCount] = useState<number>(0);
   const [isCounting, setIsCounting] = useState<boolean>(false);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
 
-  // Unified theme colors: #FF9500 across BOTH light and dark modes
+  // Unified theme colors derived from design tokens
   const colors = useMemo(() => {
     if (isDark) {
       return {
-        bg: '#1C2433',
-        cardBg: '#262E40',
-        cardBorder: '#333D52',
-        textPrimary: '#FFFFFF',
-        textSecondary: '#C9CFDB',
-        textMuted: '#8892A6',
-        primary: '#FF9500',
-        primaryDeep: '#3D5A99',
-        primaryTint: 'rgba(245, 130, 53, 0.15)',
-        primaryBorder: '#FF9500',
+        bg: DARK_TOKENS.background,
+        cardBg: DARK_TOKENS.surface,
+        cardBorder: DARK_TOKENS.border,
+        textPrimary: DARK_TOKENS.foreground,
+        textSecondary: DARK_TOKENS.mutedForeground,
+        textMuted: DARK_TOKENS.subtleForeground,
+        primary: DARK_TOKENS.primary,
+        primaryDeep: '#233876',
+        primaryTint: 'rgba(255, 149, 0, 0.12)',
+        primaryBorder: DARK_TOKENS.primary,
         buttonText: '#FFFFFF',
-        chipBg: '#1E2535',
-        chipSelectedBg: '#FF9500',
+        chipBg: DARK_TOKENS.surfaceRaised,
+        chipSelectedBg: DARK_TOKENS.primary,
         chipSelectedText: '#FFFFFF',
-        metricBoxBg: '#1E2535',
-        amberBadge: '#FF9500',
-        stepBadgeBg: '#FF9500',
+        metricBoxBg: DARK_TOKENS.surfaceRaised,
+        amberBadge: DARK_TOKENS.accent,
+        stepBadgeBg: DARK_TOKENS.accent,
         stepBadgeText: '#FFFFFF',
-        eyebrow: '#FF9500',
+        eyebrow: DARK_TOKENS.accent,
       };
     }
     return {
-      bg: '#FAF9F6',
-      cardBg: '#FFFFFF',
-      cardBorder: '#EAE5DC',
-      textPrimary: '#1C2433',
-      textSecondary: '#333D52',
-      textMuted: '#7A8499',
-      primary: '#FF9500',
+      bg: LIGHT_TOKENS.background,
+      cardBg: LIGHT_TOKENS.surface,
+      cardBorder: LIGHT_TOKENS.border,
+      textPrimary: LIGHT_TOKENS.foreground,
+      textSecondary: LIGHT_TOKENS.mutedForeground,
+      textMuted: LIGHT_TOKENS.subtleForeground,
+      primary: LIGHT_TOKENS.primary,
       primaryDeep: '#3D5A99',
-      primaryTint: '#FFF7ED',
-      primaryBorder: '#FF9500',
+      primaryTint: LIGHT_TOKENS.accentSoft,
+      primaryBorder: LIGHT_TOKENS.primary,
       buttonText: '#FFFFFF',
-      chipBg: '#E9EDF9',
-      chipSelectedBg: '#FF9500',
+      chipBg: '#F0EDE6',
+      chipSelectedBg: LIGHT_TOKENS.primary,
       chipSelectedText: '#FFFFFF',
-      metricBoxBg: '#E9EDF9',
-      amberBadge: '#FF9500',
-      stepBadgeBg: '#FF9500',
+      metricBoxBg: '#F0EDE6',
+      amberBadge: LIGHT_TOKENS.accent,
+      stepBadgeBg: LIGHT_TOKENS.accent,
       stepBadgeText: '#FFFFFF',
-      eyebrow: '#FF9500',
+      eyebrow: LIGHT_TOKENS.accent,
     };
   }, [isDark]);
 
@@ -414,90 +416,121 @@ export function MockTestDashboard({
           </View>
 
           <View style={styles.topNavActions}>
-            {onToggleTheme && (
+            {Boolean(onToggleTheme) && (
               <Pressable
                 onPress={onToggleTheme}
                 accessibilityRole="button"
                 accessibilityLabel="Toggle dark mode"
                 style={[
-                  styles.themeTogglePill,
-                  {
-                    backgroundColor: colors.cardBg,
-                    borderColor: colors.cardBorder,
-                  },
+                  styles.historyPill,
+                  { backgroundColor: colors.cardBg, borderColor: colors.cardBorder, paddingHorizontal: 9 },
                 ]}>
                 {isDark ? (
-                  <Sun size={14} color={colors.textPrimary} strokeWidth={2} />
+                  <Sun size={15} color="#FF9500" strokeWidth={2.2} />
                 ) : (
-                  <Moon size={14} color={colors.textPrimary} strokeWidth={2} />
+                  <Moon size={15} color={colors.textSecondary} strokeWidth={2.2} />
                 )}
-                <Text style={[styles.themeToggleText, { color: colors.textPrimary }]}>
-                  {isDark ? 'Light mode' : 'Dark mode'}
-                </Text>
               </Pressable>
             )}
 
-            {completedTestsCount > 0 && (
-              <Pressable
-                onPress={() => setShowHistoryModal(true)}
-                style={[
-                  styles.historyPill,
-                  { backgroundColor: colors.cardBg, borderColor: colors.cardBorder },
-                ]}>
-                <Text style={[styles.historyPillText, { color: colors.textPrimary }]}>
-                  History
-                </Text>
+            <Pressable
+              onPress={() => setShowHistoryModal(true)}
+              style={[
+                styles.historyPill,
+                { backgroundColor: colors.cardBg, borderColor: colors.cardBorder },
+              ]}>
+              <Text style={[styles.historyPillText, { color: colors.textPrimary }]}>
+                History
+              </Text>
+              {completedTestsCount > 0 && (
                 <View style={[styles.historyCountBadge, { backgroundColor: colors.primary }]}>
                   <Text style={styles.historyCountText}>{completedTestsCount}</Text>
                 </View>
-              </Pressable>
-            )}
+              )}
+            </Pressable>
           </View>
         </View>
 
-        {/* Category Switcher: Prelims MCQ vs Mains Mock */}
-        <View style={styles.examCategorySwitchContainer}>
-          <Pressable
-            onPress={() => setExamCategory('prelims')}
+        {/* Category Switcher: Prelims Mock vs Mains Mock */}
+        <View style={styles.examCategorySwitchWrapper}>
+          <View
             style={[
-              styles.examCategoryPill,
+              styles.examCategorySwitchContainer,
               {
-                backgroundColor: examCategory === 'prelims' ? colors.primary : colors.cardBg,
-                borderColor: examCategory === 'prelims' ? colors.primary : colors.cardBorder,
+                backgroundColor: isDark ? DARK_TOKENS.surfaceRaised : '#EDF0F5',
+                borderColor: colors.cardBorder,
               },
             ]}>
-            <Text
-              style={[
-                styles.examCategoryPillText,
-                {
-                  color: examCategory === 'prelims' ? '#FFFFFF' : colors.textPrimary,
-                  fontWeight: examCategory === 'prelims' ? '700' : '500',
-                },
+            <Pressable
+              onPress={() => setExamCategory('prelims')}
+              accessibilityRole="tab"
+              accessibilityState={{ selected: examCategory === 'prelims' }}
+              style={({ pressed }) => [
+                styles.examCategoryPill,
+                examCategory === 'prelims' && [
+                  styles.examCategoryPillActive,
+                  {
+                    backgroundColor: isDark ? DARK_TOKENS.surface : '#FFFFFF',
+                    shadowColor: isDark ? '#000000' : '#0F172A',
+                  },
+                ],
+                pressed && { opacity: 0.8 },
               ]}>
-              🎯 Prelims Mock (MCQs)
-            </Text>
-          </Pressable>
+              <Target
+                size={15}
+                color={examCategory === 'prelims' ? colors.primary : colors.textMuted}
+                strokeWidth={2.4}
+              />
+              <Text
+                style={[
+                  styles.examCategoryPillText,
+                  {
+                    color:
+                      examCategory === 'prelims'
+                        ? colors.textPrimary
+                        : colors.textSecondary,
+                    fontWeight: examCategory === 'prelims' ? '700' : '500',
+                  },
+                ]}>
+                Prelims Mock
+              </Text>
+            </Pressable>
 
-          <Pressable
-            onPress={() => setExamCategory('mains')}
-            style={[
-              styles.examCategoryPill,
-              {
-                backgroundColor: examCategory === 'mains' ? colors.primary : colors.cardBg,
-                borderColor: examCategory === 'mains' ? colors.primary : colors.cardBorder,
-              },
-            ]}>
-            <Text
-              style={[
-                styles.examCategoryPillText,
-                {
-                  color: examCategory === 'mains' ? '#FFFFFF' : colors.textPrimary,
-                  fontWeight: examCategory === 'mains' ? '700' : '500',
-                },
+            <Pressable
+              onPress={() => setExamCategory('mains')}
+              accessibilityRole="tab"
+              accessibilityState={{ selected: examCategory === 'mains' }}
+              style={({ pressed }) => [
+                styles.examCategoryPill,
+                examCategory === 'mains' && [
+                  styles.examCategoryPillActive,
+                  {
+                    backgroundColor: isDark ? DARK_TOKENS.surface : '#FFFFFF',
+                    shadowColor: isDark ? '#000000' : '#0F172A',
+                  },
+                ],
+                pressed && { opacity: 0.8 },
               ]}>
-              📝 Mains Mock (Written / Upload)
-            </Text>
-          </Pressable>
+              <PenLine
+                size={15}
+                color={examCategory === 'mains' ? colors.primary : colors.textMuted}
+                strokeWidth={2.4}
+              />
+              <Text
+                style={[
+                  styles.examCategoryPillText,
+                  {
+                    color:
+                      examCategory === 'mains'
+                        ? colors.textPrimary
+                        : colors.textSecondary,
+                    fontWeight: examCategory === 'mains' ? '700' : '500',
+                  },
+                ]}>
+                Mains Mock
+              </Text>
+            </Pressable>
+          </View>
         </View>
 
         {examCategory === 'mains' ? (
@@ -1082,7 +1115,6 @@ export function MockTestDashboard({
                 <Pressable
                   onPress={() => {
                     setTestMode('full');
-                    setInstantExplanations(false);
                   }}
                   style={[
                     styles.modeOptionBox,
@@ -1120,7 +1152,6 @@ export function MockTestDashboard({
                 <Pressable
                   onPress={() => {
                     setTestMode('practice');
-                    setInstantExplanations(true);
                   }}
                   style={[
                     styles.modeOptionBox,
@@ -1153,68 +1184,6 @@ export function MockTestDashboard({
                     Learn as you go. No timer, and you can see the answer and reasoning after every question.
                   </Text>
                 </Pressable>
-              </View>
-
-              {/* Toggles Group */}
-              <View style={[styles.togglesGroup, { borderTopColor: colors.cardBorder }]}>
-                {/* 1. Negative Marking */}
-                <View style={styles.toggleRow}>
-                  <View style={styles.toggleTextCol}>
-                    <Text style={[styles.toggleTitle, { color: colors.textPrimary }]}>
-                      Negative marking
-                    </Text>
-                    <Text style={[styles.toggleSubtitle, { color: colors.textMuted }]}>
-                      {paperType === 'CSAT'
-                        ? 'Each wrong answer costs 0.83 marks (one third of 2.5).'
-                        : 'Each wrong answer costs 0.66 marks (one third of 2).'}
-                    </Text>
-                  </View>
-                  <PrimaryToggle
-                    value={negativeMarkingEnabled}
-                    onValueChange={setNegativeMarkingEnabled}
-                    isDark={isDark}
-                    activeTrackColor={colors.primary}
-                  />
-                </View>
-
-                {/* 2. Shuffle Questions */}
-                <View style={styles.toggleRow}>
-                  <View style={styles.toggleTextCol}>
-                    <Text style={[styles.toggleTitle, { color: colors.textPrimary }]}>
-                      Shuffle questions
-                    </Text>
-                    <Text style={[styles.toggleSubtitle, { color: colors.textMuted }]}>
-                      Mix the order so you cannot lean on the original sequence.
-                    </Text>
-                  </View>
-                  <PrimaryToggle
-                    value={shuffleQuestions}
-                    onValueChange={setShuffleQuestions}
-                    isDark={isDark}
-                    activeTrackColor={colors.primary}
-                  />
-                </View>
-
-                {/* 3. Instant Explanations */}
-                <View style={styles.toggleRow}>
-                  <View style={styles.toggleTextCol}>
-                    <Text style={[styles.toggleTitle, { color: colors.textPrimary }]}>
-                      Instant explanations
-                    </Text>
-                    <Text style={[styles.toggleSubtitle, { color: colors.textMuted }]}>
-                      {testMode === 'full'
-                        ? 'Off in timed mode. Review every answer after you submit.'
-                        : 'Available immediately upon choosing an answer.'}
-                    </Text>
-                  </View>
-                  <PrimaryToggle
-                    disabled={testMode === 'full'}
-                    value={instantExplanations}
-                    onValueChange={setInstantExplanations}
-                    isDark={isDark}
-                    activeTrackColor={colors.primary}
-                  />
-                </View>
               </View>
             </View>
           </View>
@@ -1328,7 +1297,7 @@ export function MockTestDashboard({
                   {
                     backgroundColor: isStartDisabled
                       ? isDark
-                        ? '#262E40'
+                        ? DARK_TOKENS.disabledBackground
                         : '#DDD6CA'
                       : colors.primary,
                     opacity: pressed ? 0.9 : 1,
@@ -1415,22 +1384,38 @@ const getStyles = (colors: any, isWide: boolean, isMobile: boolean) =>
     },
 
     /* Category Switch */
+    examCategorySwitchWrapper: {
+      alignItems: 'center',
+      marginBottom: isWide ? 22 : 16,
+    },
     examCategorySwitchContainer: {
       flexDirection: 'row',
-      gap: 10,
-      marginBottom: isWide ? 20 : 14,
+      alignItems: 'center',
+      padding: 3,
+      borderRadius: 10,
+      borderWidth: 1,
+      width: '100%',
+      maxWidth: 320,
     },
     examCategoryPill: {
       flex: 1,
-      paddingVertical: 10,
-      paddingHorizontal: 14,
-      borderRadius: 10,
-      borderWidth: 1,
+      flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
+      paddingVertical: 7,
+      paddingHorizontal: 14,
+      borderRadius: 8,
+      gap: 7,
+    },
+    examCategoryPillActive: {
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.08,
+      shadowRadius: 3,
+      elevation: 2,
     },
     examCategoryPillText: {
       fontSize: 13,
+      letterSpacing: -0.1,
     },
 
     /* Top Navbar */
@@ -1753,29 +1738,6 @@ const getStyles = (colors: any, isWide: boolean, isMobile: boolean) =>
     modeDescription: {
       fontSize: 11.5,
       lineHeight: 16,
-    },
-    togglesGroup: {
-      borderTopWidth: 1,
-      paddingTop: 14,
-      gap: 14,
-    },
-    toggleRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      gap: 14,
-    },
-    toggleTextCol: {
-      flex: 1,
-      gap: 2,
-    },
-    toggleTitle: {
-      fontSize: 13,
-      fontWeight: '700',
-    },
-    toggleSubtitle: {
-      fontSize: 11,
-      lineHeight: 15,
     },
 
     /* Right Summary Card */

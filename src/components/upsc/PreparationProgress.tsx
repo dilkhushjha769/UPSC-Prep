@@ -16,6 +16,7 @@ import {
   Layers,
 } from 'lucide-react-native';
 import { useStudy } from '@/context/StudyContext';
+import { getPrelimsDateForYear } from '@/services/studyStorage';
 import { UPSC_THEME } from '@/constants/themeColors';
 
 interface PreparationProgressProps {
@@ -30,7 +31,12 @@ export function PreparationProgress({ isDark: propIsDark }: PreparationProgressP
 
   // Real countdown calculation to user configured target exam date
   const now = new Date();
-  const targetDate = new Date(config.targetExamDate);
+  const targetYear = config.targetExamYear || 2027;
+  const targetDateStr =
+    config.targetExamDate && config.targetExamDate.startsWith(String(targetYear))
+      ? config.targetExamDate
+      : getPrelimsDateForYear(targetYear);
+  const targetDate = new Date(targetDateStr);
   const diffMs = targetDate.getTime() - now.getTime();
   const daysLeft = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
   const monthsLeft = Math.floor(daysLeft / 30.5);
@@ -140,7 +146,7 @@ export function PreparationProgress({ isDark: propIsDark }: PreparationProgressP
             {config.examPhase}
           </Text>
           <Text style={[styles.countdownTargetDate, { color: colors.textSecondary }]}>
-            Target Date: {config.targetExamDate}
+            Target Date: {targetDateStr}
           </Text>
         </View>
 

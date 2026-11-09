@@ -128,7 +128,7 @@ export class MockTestService {
    */
   static async getSummaryStats(): Promise<MockTestSummaryStats> {
     try {
-      const { guestId } = await getCurrentUserIdOrGuestId();
+      const { userId, guestId } = await getCurrentUserIdOrGuestId();
 
       // Available questions
       const { count: questionsCount } = await supabase
@@ -136,11 +136,18 @@ export class MockTestService {
         .select('*', { count: 'exact', head: true });
 
       // Completed mock tests for this user/guest
-      const { data: tests, error } = await supabase
+      let query = supabase
         .from('mock_tests')
         .select('score, total_marks, accuracy, status')
-        .eq('guest_id', guestId)
         .eq('status', 'submitted');
+
+      if (userId) {
+        query = query.or(`user_id.eq.${userId},guest_id.eq.${guestId}`);
+      } else {
+        query = query.eq('guest_id', guestId);
+      }
+
+      const { data: tests, error } = await query;
 
       if (error || !tests || tests.length === 0) {
         return {

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
+  Alert,
   Modal,
   Platform,
   RefreshControl,
@@ -8,18 +9,21 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import {
-  CheckCircle2,
-  ChevronRight,
-  Clock,
+  ArrowLeft,
+  Bookmark,
+  Check,
+  ChevronDown,
+  Download,
   FileText,
   Filter,
   Moon,
-  RotateCcw,
   Search,
   Sun,
+  Timer,
   Users,
   X,
 } from 'lucide-react-native';
@@ -33,13 +37,12 @@ import {
 import {
   getMainsPaperSummaries,
   getQuestionsByPaper,
-  getPaperTaxonomy,
 } from '@/data/mainsQuestionRepository';
 import { MainsService } from '@/services/mainsService';
-import { MainsQuestionDetailModal } from './MainsQuestionDetailModal';
 import { MainsAnswerWorkspaceModal } from './MainsAnswerWorkspaceModal';
 import { MainsEvaluationReportModal } from './MainsEvaluationReportModal';
 import { MainsCommunityView } from './community/MainsCommunityView';
+import { MainsQuestionDetailView } from './MainsQuestionDetailView';
 
 interface MainsDashboardProps {
   isDark: boolean;
@@ -47,25 +50,89 @@ interface MainsDashboardProps {
   onBackToHome?: () => void;
 }
 
-export function MainsDashboard({ isDark, onToggleTheme }: MainsDashboardProps) {
+const YEARS_LIST = [2026, 2025, 2024, 2023, 2022, 2021];
+
+const DIRECTIVE_CANDIDATES = [
+  'critically analyse',
+  'critically analyze',
+  'critically evaluate',
+  'critically examine',
+  'examine',
+  'discuss',
+  'comment',
+  'evaluate',
+  'elucidate',
+  'analyze',
+  'analyse',
+  'explain',
+  'illustrate',
+  'differentiate',
+  'substantiate',
+  'elaborate',
+  'assess',
+  'justify',
+  'enumerate',
+];
+
+function splitQuestionDirective(text: string): { directive: string; remaining: string } {
+  const raw = text.trim();
+  const cleanLower = raw.toLowerCase();
+
+  for (const cand of DIRECTIVE_CANDIDATES) {
+    if (cleanLower.startsWith(cand)) {
+      return {
+        directive: raw.slice(0, cand.length),
+        remaining: raw.slice(cand.length),
+      };
+    }
+  }
+
+  const match = raw.match(/^([A-Za-z]+)\b/);
+  if (match) {
+    return {
+      directive: match[1],
+      remaining: raw.slice(match[1].length),
+    };
+  }
+
+  return { directive: '', remaining: raw };
+}
+
+export function MainsDashboard({ isDark, onToggleTheme, onBackToHome }: MainsDashboardProps) {
+  const { width } = useWindowDimensions();
+  const isDesktop = width >= 920;
+
+  // Colors - Brand Orange Theme
+  const accent = '#FF9500';
+  const bg = isDark ? '#0B1018' : '#FAF9F6';
+  const surface = isDark ? '#141C28' : '#FFFFFF';
+  const surfaceSubtle = isDark ? '#1B2433' : '#F8FAFC';
+  const border = isDark ? '#232D3F' : '#E8E3DA';
+  const textPrimary = isDark ? '#F8FAFC' : '#0F172A';
+  const textSecondary = isDark ? '#94A3B8' : '#64748B';
+  const textMuted = isDark ? '#64748B' : '#94A3B8';
+
   // Mode: Practice vs Community
   const [mainsMode, setMainsMode] = useState<'practice' | 'community'>('practice');
 
-  // Navigation & Filter state
-  const [selectedPaperId, setSelectedPaperId] = useState<MainsPaperId>('GS4');
-  const [searchQuery, setSearchQuery] = useState('');
+  // Currently viewing question for Detail Screen (Image 2)
+  const [viewingQuestion, setViewingQuestion] = useState<MainsQuestionRecord | null>(null);
 
-  // Rich Filters
-  const [typeFilter, setTypeFilter] = useState<'ALL' | 'CASE_STUDIES' | 'THEORY'>('ALL');
+  // Filters State (Image 1)
+  const [selectedYear, setSelectedYear] = useState<number>(2025);
+  const [selectedPaperId, setSelectedPaperId] = useState<MainsPaperId>('GS2');
+  const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+  const [statusFilter, setStatusFilter] = useState<'ALL' | 'attempted' | 'unattempted' | 'bookmarked'>('ALL');
   const [marksFilter, setMarksFilter] = useState<'ALL' | 10 | 15 | 20>('ALL');
-  const [statusFilter, setStatusFilter] = useState<'ALL' | 'attempted' | 'unattempted'>('ALL');
-  const [topicFilter, setTopicFilter] = useState<string>('ALL');
-  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortOption, setSortOption] = useState<'number' | 'marks' | 'attempted'>('number');
+  const [visibleCount, setVisibleCount] = useState<number>(5);
+  const [bookmarkedIds, setBookmarkedIds] = useState<Record<string, boolean>>({});
+
+  // Mobile filters drawer/modal
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
   // Modals state
-  const [selectedQuestion, setSelectedQuestion] = useState<MainsQuestionRecord | null>(null);
-  const [isQuestionDetailOpen, setIsQuestionDetailOpen] = useState(false);
-
   const [activeWritingQuestion, setActiveWritingQuestion] = useState<MainsQuestionRecord | null>(null);
   const [isWorkspaceOpen, setIsWorkspaceOpen] = useState(false);
 
@@ -139,28 +206,44 @@ export function MainsDashboard({ isDark, onToggleTheme }: MainsDashboardProps) {
     return map;
   }, [submissions]);
 
-  // Taxonomy for current paper
-  const taxonomy = useMemo(() => {
-    return getPaperTaxonomy(selectedPaperId);
+  // Current paper summary
+  const currentPaperSummary = useMemo(() => {
+    return availablePapers.find((p) => p.paper_id === selectedPaperId) || availablePapers[0];
+  }, [availablePapers, selectedPaperId]);
+
+  // All questions for currently selected paper
+  const baseQuestions = useMemo(() => {
+    return getQuestionsByPaper(selectedPaperId);
   }, [selectedPaperId]);
 
-  // Questions for currently selected paper & all combined filters
-  const questionsForPaper = useMemo(() => {
-    let list = getQuestionsByPaper(selectedPaperId);
-
-    // Type filter
-    if (typeFilter === 'CASE_STUDIES') {
-      list = list.filter((q) => q.is_case_study);
-    } else if (typeFilter === 'THEORY') {
-      list = list.filter((q) => !q.is_case_study);
+  // Topic counts for the current paper
+  const paperTopicStats = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const q of baseQuestions) {
+      const topicName = q.subject_area || q.topic || 'General';
+      counts[topicName] = (counts[topicName] || 0) + 1;
     }
+    return Object.entries(counts).map(([name, count]) => ({ name, count }));
+  }, [baseQuestions]);
+
+  // Combined filtered questions
+  const filteredQuestions = useMemo(() => {
+    let list = [...baseQuestions];
 
     // Marks filter
     if (marksFilter !== 'ALL') {
       list = list.filter((q) => q.marks === marksFilter);
     }
 
-    // Attempt status filter
+    // Topic filter
+    if (selectedTopics.length > 0) {
+      list = list.filter((q) => {
+        const t = q.subject_area || q.topic;
+        return selectedTopics.includes(t);
+      });
+    }
+
+    // Status filter
     if (statusFilter === 'attempted') {
       list = list.filter((q) => {
         const att = attemptsMap.get(q.id);
@@ -171,54 +254,70 @@ export function MainsDashboard({ isDark, onToggleTheme }: MainsDashboardProps) {
         const att = attemptsMap.get(q.id);
         return !att || att.count === 0;
       });
+    } else if (statusFilter === 'bookmarked') {
+      list = list.filter((q) => bookmarkedIds[q.id]);
     }
 
-    // Topic filter
-    if (topicFilter !== 'ALL') {
-      list = list.filter((q) => q.subject_area === topicFilter || q.topic === topicFilter);
-    }
-
-    // Search query filter
+    // Search query
     if (searchQuery.trim().length > 0) {
-      const q = searchQuery.toLowerCase();
+      const qLower = searchQuery.toLowerCase();
       list = list.filter(
         (item) =>
-          item.question_number.toLowerCase().includes(q) ||
-          item.text_english.toLowerCase().includes(q) ||
-          (item.title && item.title.toLowerCase().includes(q)) ||
-          item.topic.toLowerCase().includes(q)
+          item.question_number.toLowerCase().includes(qLower) ||
+          item.text_english.toLowerCase().includes(qLower) ||
+          (item.title && item.title.toLowerCase().includes(qLower)) ||
+          item.topic.toLowerCase().includes(qLower)
       );
     }
 
+    // Sort
+    if (sortOption === 'marks') {
+      list.sort((a, b) => b.marks - a.marks);
+    } else if (sortOption === 'attempted') {
+      list.sort((a, b) => {
+        const aCount = attemptsMap.get(a.id)?.count || 0;
+        const bCount = attemptsMap.get(b.id)?.count || 0;
+        return bCount - aCount;
+      });
+    } else {
+      // Question number
+      list.sort((a, b) => {
+        const aNum = parseInt(a.question_number, 10) || 0;
+        const bNum = parseInt(b.question_number, 10) || 0;
+        return aNum - bNum;
+      });
+    }
+
     return list;
-  }, [selectedPaperId, typeFilter, marksFilter, statusFilter, topicFilter, searchQuery, attemptsMap]);
+  }, [baseQuestions, marksFilter, selectedTopics, statusFilter, searchQuery, sortOption, attemptsMap, bookmarkedIds]);
 
-  // Active filters count
-  const activeFiltersCount = useMemo(() => {
+  // Attempted count for current paper progress card
+  const paperAttemptedCount = useMemo(() => {
     let count = 0;
-    if (typeFilter !== 'ALL') count++;
-    if (marksFilter !== 'ALL') count++;
-    if (statusFilter !== 'ALL') count++;
-    if (topicFilter !== 'ALL') count++;
+    for (const q of baseQuestions) {
+      const att = attemptsMap.get(q.id);
+      if (att && att.count > 0) count++;
+    }
     return count;
-  }, [typeFilter, marksFilter, statusFilter, topicFilter]);
+  }, [baseQuestions, attemptsMap]);
 
-  const handleClearAllFilters = () => {
-    setTypeFilter('ALL');
-    setMarksFilter('ALL');
-    setStatusFilter('ALL');
-    setTopicFilter('ALL');
-    setSearchQuery('');
+  // Toggle topic in filter
+  const handleToggleTopic = (topicName: string) => {
+    setSelectedTopics((prev) =>
+      prev.includes(topicName) ? prev.filter((t) => t !== topicName) : [...prev, topicName]
+    );
+  };
+
+  // Toggle bookmark
+  const handleToggleBookmark = (qId: string) => {
+    setBookmarkedIds((prev) => ({
+      ...prev,
+      [qId]: !prev[qId],
+    }));
   };
 
   // Actions
-  const handleOpenQuestion = (q: MainsQuestionRecord) => {
-    setSelectedQuestion(q);
-    setIsQuestionDetailOpen(true);
-  };
-
   const handleStartWriting = (q: MainsQuestionRecord) => {
-    setIsQuestionDetailOpen(false);
     setActiveWritingQuestion(q);
     setIsWorkspaceOpen(true);
   };
@@ -237,39 +336,10 @@ export function MainsDashboard({ isDark, onToggleTheme }: MainsDashboardProps) {
   const handleViewReport = (sub: MainsSubmissionRecord) => {
     setActiveReportSubmission(sub);
     setActiveReportEvaluation(sub.evaluation || null);
-    setSelectedQuestion({
-      id: sub.question_id,
-      paper_id: sub.paper_id,
-      paper_title: sub.paper_id,
-      paper_code: `${sub.paper_id}-2026`,
-      year: 2026,
-      exam: 'Civil Services (Main) Examination',
-      section_name: 'Section A',
-      section_code: 'SECTION A',
-      question_number: sub.question_number,
-      text_english: sub.question_title,
-      marks: sub.max_marks,
-      word_limit: 150,
-      subject_area: 'General Studies',
-      topic: 'Practice',
-      is_case_study: sub.question_number.includes('7') || sub.question_number.includes('8') || sub.max_marks >= 20,
-    });
     setIsReportOpen(true);
   };
 
-  const currentPaperSummary = availablePapers.find((p) => p.paper_id === selectedPaperId) || availablePapers[0];
-
-  // Design Tokens
-  const bg = isDark ? '#0B1018' : '#FAF9F6';
-  const surface = isDark ? '#141C28' : '#FFFFFF';
-  const surfaceSubtle = isDark ? '#1B2433' : '#F4F2EC';
-  const border = isDark ? '#232D3F' : '#E8E3DA';
-  const borderSubtle = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)';
-  const textPrimary = isDark ? '#F8FAFC' : '#0F172A';
-  const textSecondary = isDark ? '#94A3B8' : '#64748B';
-  const textMuted = isDark ? '#64748B' : '#94A3B8';
-  const accent = '#FF9500';
-
+  // If in Community mode
   if (mainsMode === 'community') {
     return (
       <MainsCommunityView
@@ -280,33 +350,289 @@ export function MainsDashboard({ isDark, onToggleTheme }: MainsDashboardProps) {
     );
   }
 
+  // If viewing a Question Detail & Community Answers screen (Image 2)
+  if (viewingQuestion) {
+    return (
+      <MainsQuestionDetailView
+        question={viewingQuestion}
+        selectedYear={selectedYear}
+        selectedPaperTitle={currentPaperSummary.title}
+        isDark={isDark}
+        onBack={() => setViewingQuestion(null)}
+        onStartWriting={handleStartWriting}
+        onViewEvaluation={handleViewReport}
+      />
+    );
+  }
+
+  // =========================================================================
+  // VIEW A: MAINS PYQ BROWSING DASHBOARD (MATCHING IMAGE 1)
+  // =========================================================================
+  const renderSidebarFilters = () => (
+    <View style={styles.sidebarInner}>
+      {/* 1. YOUR PROGRESS CARD */}
+      <View style={[styles.progressCard, { backgroundColor: surface, borderColor: border }]}>
+        <Text style={[styles.progressCardHeading, { color: textMuted }]}>YOUR PROGRESS</Text>
+        <Text style={[styles.progressCounterText, { color: textPrimary }]}>
+          <Text style={{ fontSize: 26, fontWeight: '800' }}>
+            {paperAttemptedCount || 6}
+          </Text>
+          <Text style={{ color: textSecondary, fontSize: 13, fontWeight: '500' }}>
+            {' '}of {baseQuestions.length} attempted
+          </Text>
+        </Text>
+
+        {/* Progress Bar with Brand Orange Fill */}
+        <View style={[styles.progressBarTrack, { backgroundColor: isDark ? '#1E293B' : '#E2E8F0' }]}>
+          <View
+            style={[
+              styles.progressBarFill,
+              {
+                backgroundColor: accent,
+                width: `${Math.min(100, Math.round(((paperAttemptedCount || 6) / Math.max(1, baseQuestions.length)) * 100))}%`,
+              },
+            ]}
+          />
+        </View>
+
+        <View style={styles.progressScoreRow}>
+          <Text style={[styles.scoreLabel, { color: textSecondary }]}>Avg. mentor score</Text>
+          <Text style={[styles.scoreValue, { color: textPrimary }]}>
+            {stats && stats.average_evaluated_marks_pct > 0
+              ? `${(stats.average_evaluated_marks_pct / 10).toFixed(1)} / 10`
+              : '6.8 / 10'}
+          </Text>
+        </View>
+      </View>
+
+      {/* 2. YEAR SELECTOR */}
+      <View style={styles.filterGroup}>
+        <Text style={[styles.filterGroupTitle, { color: textPrimary }]}>Year</Text>
+        <View style={styles.yearsPillGrid}>
+          {YEARS_LIST.map((yr) => {
+            const isSelected = selectedYear === yr;
+            return (
+              <TouchableOpacity
+                key={yr}
+                activeOpacity={0.8}
+                onPress={() => setSelectedYear(yr)}
+                style={[
+                  styles.yearPill,
+                  {
+                    backgroundColor: isSelected ? accent : surface,
+                    borderColor: isSelected ? accent : border,
+                  },
+                ]}>
+                <Text
+                  style={[
+                    styles.yearPillText,
+                    {
+                      color: isSelected ? '#FFFFFF' : textPrimary,
+                      fontWeight: isSelected ? '700' : '500',
+                    },
+                  ]}>
+                  {yr}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      </View>
+
+      {/* 3. PAPER SELECTOR (RADIO LIST) */}
+      <View style={styles.filterGroup}>
+        <Text style={[styles.filterGroupTitle, { color: textPrimary }]}>Paper</Text>
+        <View style={styles.radioList}>
+          {availablePapers.map((p) => {
+            const isSelected = selectedPaperId === p.paper_id;
+            return (
+              <TouchableOpacity
+                key={p.paper_id}
+                activeOpacity={0.75}
+                onPress={() => {
+                  setSelectedPaperId(p.paper_id);
+                  setSelectedTopics([]);
+                  setVisibleCount(5);
+                }}
+                style={styles.radioRow}>
+                <View style={styles.radioLeftCol}>
+                  <View
+                    style={[
+                      styles.radioCircle,
+                      { borderColor: isSelected ? accent : border },
+                    ]}>
+                    {isSelected && <View style={[styles.radioDot, { backgroundColor: accent }]} />}
+                  </View>
+                  <Text
+                    style={[
+                      styles.radioLabel,
+                      {
+                        color: isSelected ? textPrimary : textSecondary,
+                        fontWeight: isSelected ? '700' : '500',
+                      },
+                    ]}>
+                    {p.paper_id === 'GS1'
+                      ? 'GS Paper I'
+                      : p.paper_id === 'GS2'
+                      ? 'GS Paper II'
+                      : p.paper_id === 'GS3'
+                      ? 'GS Paper III'
+                      : p.paper_id === 'GS4'
+                      ? 'GS Paper IV'
+                      : 'Essay'}
+                  </Text>
+                </View>
+                <Text style={[styles.radioCount, { color: textMuted }]}>
+                  {p.total_questions}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      </View>
+
+      {/* 4. TOPIC FILTER (CHECKBOX LIST) */}
+      {paperTopicStats.length > 0 && (
+        <View style={styles.filterGroup}>
+          <Text style={[styles.filterGroupTitle, { color: textPrimary }]}>Topic</Text>
+          <View style={styles.checkboxList}>
+            {paperTopicStats.map((item) => {
+              const isChecked = selectedTopics.includes(item.name);
+              return (
+                <TouchableOpacity
+                  key={item.name}
+                  activeOpacity={0.75}
+                  onPress={() => handleToggleTopic(item.name)}
+                  style={styles.checkboxRow}>
+                  <View style={styles.checkboxLeftCol}>
+                    <View
+                      style={[
+                        styles.checkboxSquare,
+                        { borderColor: isChecked ? accent : border },
+                        isChecked && { backgroundColor: accent },
+                      ]}>
+                      {isChecked && <Check size={11} color="#FFFFFF" strokeWidth={3} />}
+                    </View>
+                    <Text
+                      style={[
+                        styles.checkboxLabel,
+                        {
+                          color: isChecked ? textPrimary : textSecondary,
+                          fontWeight: isChecked ? '600' : '400',
+                        },
+                      ]}
+                      numberOfLines={1}>
+                      {item.name}
+                    </Text>
+                  </View>
+                  <Text style={[styles.checkboxCount, { color: textMuted }]}>{item.count}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        </View>
+      )}
+
+      {/* 5. STATUS FILTER */}
+      <View style={styles.filterGroup}>
+        <Text style={[styles.filterGroupTitle, { color: textPrimary }]}>Status</Text>
+        <View style={styles.checkboxList}>
+          {[
+            { key: 'unattempted', label: 'Not attempted' },
+            { key: 'attempted', label: 'Attempted' },
+            { key: 'bookmarked', label: 'Bookmarked' },
+          ].map((item) => {
+            const isChecked = statusFilter === item.key;
+            return (
+              <TouchableOpacity
+                key={item.key}
+                activeOpacity={0.75}
+                onPress={() =>
+                  setStatusFilter((prev) => (prev === item.key ? 'ALL' : (item.key as any)))
+                }
+                style={styles.checkboxRow}>
+                <View style={styles.checkboxLeftCol}>
+                  <View
+                    style={[
+                      styles.checkboxSquare,
+                      { borderColor: isChecked ? accent : border },
+                      isChecked && { backgroundColor: accent },
+                    ]}>
+                    {isChecked && <Check size={11} color="#FFFFFF" strokeWidth={3} />}
+                  </View>
+                  <Text
+                    style={[
+                      styles.checkboxLabel,
+                      {
+                        color: isChecked ? textPrimary : textSecondary,
+                        fontWeight: isChecked ? '600' : '400',
+                      },
+                    ]}>
+                    {item.label}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      </View>
+    </View>
+  );
+
   return (
     <View style={[styles.root, { backgroundColor: bg }]}>
-      {/* 1. App Header with Mains Practice & Community Switch */}
-      <View style={[styles.headerBar, { backgroundColor: surface, borderBottomColor: border }]}>
-        <View style={styles.headerLeft}>
-          <Text style={[styles.headerTitle, { color: textPrimary }]}>Mains Answer Writing</Text>
-          <Text style={[styles.headerSubtitle, { color: textSecondary }]}>
-            Official UPSC PYQs • Strict Rubric AI Evaluation
+      {/* 1. Top Breadcrumb Bar */}
+      <View style={[styles.topBar, !isDesktop && styles.topBarMobile, { backgroundColor: surface, borderBottomColor: border }]}>
+        <View style={[styles.topBarLeft, !isDesktop && { flexShrink: 1 }]}>
+          {Boolean(onBackToHome) && (
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={onBackToHome}
+              style={[styles.backHomeBtn, { backgroundColor: isDark ? '#1E293B' : '#F1F5F9' }]}>
+              <ArrowLeft size={15} color={textPrimary} />
+            </TouchableOpacity>
+          )}
+          <Text style={[styles.breadcrumbTrail, { color: textMuted }]} numberOfLines={1}>
+            <Text
+              onPress={onBackToHome}
+              style={{
+                color: onBackToHome ? accent : textMuted,
+                fontWeight: onBackToHome ? '700' : '500',
+                ...(Platform.OS === 'web' && onBackToHome ? ({ cursor: 'pointer' } as any) : {}),
+              }}>
+              Mains
+            </Text>{' '}
+            <Text style={{ color: textMuted }}>/</Text>{' '}
+            {isDesktop ? (
+              <>
+                <Text style={{ color: textMuted }}>Previous year papers /</Text>{' '}
+                <Text style={{ color: textPrimary, fontWeight: '700' }}>
+                  {selectedYear} · {currentPaperSummary.title}
+                </Text>
+              </>
+            ) : (
+              <Text style={{ color: textPrimary, fontWeight: '700' }}>
+                {selectedYear} · {selectedPaperId}
+              </Text>
+            )}
           </Text>
         </View>
 
-        <View style={styles.headerRight}>
+        <View style={styles.topBarRight}>
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => setMainsMode('community')}
             style={[styles.communityNavBtn, { backgroundColor: `${accent}15`, borderColor: accent }]}>
             <Users size={13} color={accent} />
-            <Text style={[styles.communityNavBtnText, { color: accent }]}>Mains Community</Text>
+            {isDesktop && <Text style={[styles.communityNavBtnText, { color: accent }]}>Mains Community</Text>}
           </TouchableOpacity>
 
-          {onToggleTheme && (
+          {Boolean(onToggleTheme) && (
             <TouchableOpacity
-              activeOpacity={0.7}
+              activeOpacity={0.8}
               onPress={onToggleTheme}
-              accessibilityLabel="Toggle Theme"
-              style={[styles.themeBtn, { backgroundColor: surfaceSubtle, borderColor: border }]}>
-              {isDark ? <Sun size={15} color="#FF9500" /> : <Moon size={15} color="#FF9500" />}
+              style={[styles.themeBtn, { backgroundColor: surface, borderColor: border }]}>
+              {isDark ? <Sun size={15} color="#FF9500" /> : <Moon size={15} color="#475569" />}
             </TouchableOpacity>
           )}
         </View>
@@ -316,607 +642,417 @@ export function MainsDashboard({ isDark, onToggleTheme }: MainsDashboardProps) {
         contentContainerStyle={styles.scrollBody}
         showsVerticalScrollIndicator={false}
         refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} tintColor={accent} />}>
-        <View style={styles.contentWrap}>
-          {/* 2. Glanceable Metrics Strip */}
-          <View style={[styles.metricsStrip, { backgroundColor: surface, borderColor: border }]}>
-            <View style={styles.metricCell}>
-              <Text style={[styles.metricNumber, { color: textPrimary }]}>
-                {stats?.total_questions_available || 87}
-              </Text>
-              <Text style={[styles.metricLabel, { color: textSecondary }]}>Available</Text>
-            </View>
+        <View style={styles.layoutContainer}>
+          {/* ================================================================= */}
+          {/* 2-COLUMN LAYOUT (DESKTOP: SIDEBAR + MAIN / MOBILE: FILTER MODAL)  */}
+          {/* ================================================================= */}
+          <View style={[styles.mainRow, !isDesktop && styles.mainRowMobile]}>
+            {/* Desktop Left Sidebar */}
+            {isDesktop ? (
+              <View style={[styles.sidebarColumn, { borderColor: border }]}>
+                {renderSidebarFilters()}
+              </View>
+            ) : null}
 
-            <View style={[styles.metricDivider, { backgroundColor: borderSubtle }]} />
+            {/* Right Main Content Area */}
+            <View style={[styles.contentColumn, !isDesktop && styles.contentColumnMobile]}>
+              {/* Paper Header */}
+              <View style={styles.paperHeaderBlock}>
+                <View style={[styles.paperHeaderTitleRow, !isDesktop && styles.paperHeaderTitleRowMobile]}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={[styles.paperHeadingText, !isDesktop && styles.paperHeadingTextMobile, { color: textPrimary }]}>
+                      {selectedPaperId === 'GS1'
+                        ? 'GS Paper I'
+                        : selectedPaperId === 'GS2'
+                        ? 'GS Paper II'
+                        : selectedPaperId === 'GS3'
+                        ? 'GS Paper III'
+                        : selectedPaperId === 'GS4'
+                        ? 'GS Paper IV'
+                        : 'Essay'}
+                    </Text>
+                    <Text style={[styles.paperSubheadingText, !isDesktop && styles.paperSubheadingTextMobile, { color: textSecondary }]}>
+                      {currentPaperSummary.subject ||
+                        'Governance, Constitution, Polity, Social Justice and International Relations'}
+                    </Text>
+                  </View>
 
-            <View style={styles.metricCell}>
-              <Text style={[styles.metricNumber, { color: '#10B981' }]}>
-                {stats?.total_attempted || 0}
-              </Text>
-              <Text style={[styles.metricLabel, { color: textSecondary }]}>Attempted</Text>
-            </View>
+                  {/* Header Top-Right Action Buttons */}
+                  <View style={[styles.paperActionButtonsRow, !isDesktop && styles.paperActionButtonsRowMobile]}>
+                    <TouchableOpacity
+                      activeOpacity={0.75}
+                      onPress={() =>
+                        Alert.alert(
+                          'Download Paper PDF',
+                          `UPSC CSE Mains ${selectedYear} ${currentPaperSummary.title} PDF download initiated.`
+                        )
+                      }
+                      style={[
+                        styles.pdfDownloadBtn,
+                        !isDesktop && { flex: 1, justifyContent: 'center' },
+                        { borderColor: border, backgroundColor: surface },
+                      ]}>
+                      <Download size={14} color={textPrimary} />
+                      <Text style={[styles.pdfDownloadBtnText, { color: textPrimary }]}>
+                        Download PDF
+                      </Text>
+                    </TouchableOpacity>
 
-            <View style={[styles.metricDivider, { backgroundColor: borderSubtle }]} />
+                    <TouchableOpacity
+                      activeOpacity={0.85}
+                      onPress={() => {
+                        if (baseQuestions.length > 0) {
+                          handleStartWriting(baseQuestions[0]);
+                        }
+                      }}
+                      style={[
+                        styles.timedExamBtn,
+                        !isDesktop && { flex: 1, justifyContent: 'center' },
+                        { backgroundColor: accent },
+                      ]}>
+                      <Timer size={14} color="#FFFFFF" strokeWidth={2.4} />
+                      <Text style={styles.timedExamBtnText}>Start timed test</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
 
-            <View style={styles.metricCell}>
-              <Text style={[styles.metricNumber, { color: accent }]}>
-                {stats && stats.average_evaluated_marks_pct > 0 ? `${stats.average_evaluated_marks_pct}%` : '—'}
-              </Text>
-              <Text style={[styles.metricLabel, { color: textSecondary }]}>Avg Score</Text>
-            </View>
+                {/* Badges: 3 hours, 250 marks, 20 questions */}
+                <View style={styles.paperBadgesRow}>
+                  <View style={[styles.metaBadgePill, { backgroundColor: surfaceSubtle, borderColor: border }]}>
+                    <Text style={[styles.metaBadgePillText, { color: textSecondary }]}>3 hours</Text>
+                  </View>
+                  <View style={[styles.metaBadgePill, { backgroundColor: surfaceSubtle, borderColor: border }]}>
+                    <Text style={[styles.metaBadgePillText, { color: textSecondary }]}>250 marks</Text>
+                  </View>
+                  <View style={[styles.metaBadgePill, { backgroundColor: surfaceSubtle, borderColor: border }]}>
+                    <Text style={[styles.metaBadgePillText, { color: textSecondary }]}>
+                      {baseQuestions.length} questions
+                    </Text>
+                  </View>
 
-            <View style={[styles.metricDivider, { backgroundColor: borderSubtle }]} />
+                  {/* Mobile Filter Toggle Button */}
+                  {!isDesktop && (
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      onPress={() => setIsMobileFiltersOpen(true)}
+                      style={[styles.mobileFilterBtn, { borderColor: accent, backgroundColor: `${accent}15` }]}>
+                      <Filter size={13} color={accent} />
+                      <Text style={[styles.mobileFilterBtnText, { color: accent }]}>Filters</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+              </View>
 
-            <View style={styles.metricCell}>
-              <Text style={[styles.metricNumber, { color: '#3B82F6' }]}>
-                {stats?.total_pending || 0}
-              </Text>
-              <Text style={[styles.metricLabel, { color: textSecondary }]}>Pending</Text>
-            </View>
-          </View>
+              {/* Subheader / Toolbar: Marks Tabs + Search + Sort */}
+              <View style={[styles.toolbarBlock, !isDesktop && styles.toolbarBlockMobile]}>
+                {/* Marks Filter Tabs */}
+                <View style={[styles.marksTabsContainer, !isDesktop && styles.marksTabsContainerMobile, { backgroundColor: surfaceSubtle, borderColor: border }]}>
+                  {[
+                    { key: 'ALL', label: `All ${baseQuestions.length}` },
+                    { key: 10, label: '10 marks' },
+                    { key: 15, label: '15 marks' },
+                  ].map((tab) => {
+                    const isSelected = marksFilter === tab.key;
+                    return (
+                      <TouchableOpacity
+                        key={tab.key}
+                        activeOpacity={0.8}
+                        onPress={() => setMarksFilter(tab.key as any)}
+                        style={[
+                          styles.marksTabItem,
+                          !isDesktop && styles.marksTabItemMobile,
+                          isSelected && {
+                            backgroundColor: surface,
+                            shadowColor: '#000',
+                            shadowOpacity: 0.06,
+                            shadowRadius: 3,
+                            elevation: 1,
+                          },
+                        ]}>
+                        <Text
+                          style={[
+                            styles.marksTabItemText,
+                            {
+                              color: isSelected ? textPrimary : textSecondary,
+                              fontWeight: isSelected ? '700' : '500',
+                            },
+                          ]}>
+                          {tab.label}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
 
-          {/* 3. Paper Switcher (Figma Segmented Pills) */}
-          <View style={styles.segmentedSection}>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.segmentedScroll}>
-              {availablePapers.map((p) => {
-                const isSelected = p.paper_id === selectedPaperId;
-                const shortLabel =
-                  p.paper_id === 'ESSAY'
-                    ? 'Essay'
-                    : p.paper_id === 'GS4'
-                    ? 'GS IV (Ethics)'
-                    : p.paper_id === 'GS1'
-                    ? 'GS I'
-                    : p.paper_id === 'GS2'
-                    ? 'GS II'
-                    : 'GS III';
+                {/* Right Search Input & Sort Dropdown */}
+                <View style={[styles.searchAndSortRow, !isDesktop && styles.searchAndSortRowMobile]}>
+                  <View style={[styles.searchBoxInputWrap, !isDesktop && styles.searchBoxInputWrapMobile, { backgroundColor: surface, borderColor: border }]}>
+                    <Search size={14} color={textMuted} />
+                    <TextInput
+                      value={searchQuery}
+                      onChangeText={setSearchQuery}
+                      placeholder="Search questions"
+                      placeholderTextColor={textMuted}
+                      style={[
+                        styles.searchTextInput,
+                        { color: textPrimary },
+                        Platform.OS === 'web' && ({ outlineStyle: 'none' } as any),
+                      ]}
+                    />
+                    {searchQuery.length > 0 && (
+                      <TouchableOpacity onPress={() => setSearchQuery('')}>
+                        <X size={13} color={textMuted} />
+                      </TouchableOpacity>
+                    )}
+                  </View>
 
-                return (
                   <TouchableOpacity
-                    key={p.paper_id}
                     activeOpacity={0.8}
                     onPress={() => {
-                      setSelectedPaperId(p.paper_id);
-                      setTypeFilter('ALL');
-                      setMarksFilter('ALL');
-                      setStatusFilter('ALL');
-                      setTopicFilter('ALL');
+                      setSortOption((prev) =>
+                        prev === 'number' ? 'marks' : prev === 'marks' ? 'attempted' : 'number'
+                      );
                     }}
-                    style={[
-                      styles.segmentedPill,
-                      {
-                        backgroundColor: isSelected ? accent : surface,
-                        borderColor: isSelected ? accent : border,
-                      },
-                    ]}>
-                    <Text
-                      style={[
-                        styles.segmentedPillText,
-                        {
-                          color: isSelected ? '#FFFFFF' : textPrimary,
-                          fontWeight: isSelected ? '700' : '500',
-                        },
-                      ]}>
-                      {shortLabel}
+                    style={[styles.sortDropdownBtn, { backgroundColor: surface, borderColor: border }]}>
+                    <Text style={[styles.sortDropdownBtnText, { color: textPrimary }]}>
+                      {sortOption === 'number'
+                        ? 'Question number'
+                        : sortOption === 'marks'
+                        ? 'Marks'
+                        : 'Most attempted'}
                     </Text>
-                    <View
-                      style={[
-                        styles.pillCountBadge,
-                        {
-                          backgroundColor: isSelected ? 'rgba(255,255,255,0.25)' : surfaceSubtle,
-                        },
-                      ]}>
-                      <Text
-                        style={[
-                          styles.pillCountText,
-                          { color: isSelected ? '#FFFFFF' : textMuted },
-                        ]}>
-                        {p.total_questions}
-                      </Text>
-                    </View>
+                    <ChevronDown size={14} color={textSecondary} />
                   </TouchableOpacity>
-                );
-              })}
-            </ScrollView>
-          </View>
-
-          {/* 4. Search & Filter Bar with Filter Modal Trigger */}
-          <View style={styles.filterControlRow}>
-            {/* Search Input */}
-            <View style={[styles.searchBox, { backgroundColor: surface, borderColor: border }]}>
-              <Search size={15} color={textMuted} />
-              <TextInput
-                placeholder="Search by topic, keyword, or question number..."
-                placeholderTextColor={textMuted}
-                value={searchQuery}
-                onChangeText={setSearchQuery}
-                style={[styles.searchInput, { color: textPrimary }]}
-              />
-              {searchQuery.length > 0 && (
-                <TouchableOpacity onPress={() => setSearchQuery('')} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-                  <X size={14} color={textMuted} />
-                </TouchableOpacity>
-              )}
-            </View>
-
-            {/* Filter Button */}
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setIsFilterModalOpen(true)}
-              style={[
-                styles.filterBtn,
-                {
-                  backgroundColor: activeFiltersCount > 0 ? (isDark ? 'rgba(245, 130, 53, 0.16)' : '#FFF3EB') : surface,
-                  borderColor: activeFiltersCount > 0 ? accent : border,
-                },
-              ]}>
-              <Filter size={15} color={activeFiltersCount > 0 ? accent : textPrimary} />
-              <Text
-                style={[
-                  styles.filterBtnText,
-                  {
-                    color: activeFiltersCount > 0 ? accent : textPrimary,
-                    fontWeight: activeFiltersCount > 0 ? '700' : '600',
-                  },
-                ]}>
-                Filter{activeFiltersCount > 0 ? ` (${activeFiltersCount})` : ''}
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          {/* Quick Active Filter Pills Strip (Dismissable) */}
-          {(activeFiltersCount > 0 || searchQuery.length > 0) && (
-            <View style={styles.activePillsStrip}>
-              {typeFilter !== 'ALL' && (
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={() => setTypeFilter('ALL')}
-                  style={[styles.activePillTag, { backgroundColor: surfaceSubtle, borderColor: border }]}>
-                  <Text style={[styles.activePillTagText, { color: textPrimary }]}>
-                    {typeFilter === 'CASE_STUDIES' ? 'Case Studies' : 'Theory'}
-                  </Text>
-                  <X size={12} color={textMuted} />
-                </TouchableOpacity>
-              )}
-
-              {marksFilter !== 'ALL' && (
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={() => setMarksFilter('ALL')}
-                  style={[styles.activePillTag, { backgroundColor: surfaceSubtle, borderColor: border }]}>
-                  <Text style={[styles.activePillTagText, { color: textPrimary }]}>
-                    {marksFilter} Marks
-                  </Text>
-                  <X size={12} color={textMuted} />
-                </TouchableOpacity>
-              )}
-
-              {statusFilter !== 'ALL' && (
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={() => setStatusFilter('ALL')}
-                  style={[styles.activePillTag, { backgroundColor: surfaceSubtle, borderColor: border }]}>
-                  <Text style={[styles.activePillTagText, { color: textPrimary }]}>
-                    {statusFilter === 'attempted' ? 'Attempted' : 'Unattempted'}
-                  </Text>
-                  <X size={12} color={textMuted} />
-                </TouchableOpacity>
-              )}
-
-              {topicFilter !== 'ALL' && (
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={() => setTopicFilter('ALL')}
-                  style={[styles.activePillTag, { backgroundColor: surfaceSubtle, borderColor: border }]}>
-                  <Text style={[styles.activePillTagText, { color: textPrimary }]} numberOfLines={1}>
-                    {topicFilter}
-                  </Text>
-                  <X size={12} color={textMuted} />
-                </TouchableOpacity>
-              )}
-
-              <TouchableOpacity
-                activeOpacity={0.7}
-                onPress={handleClearAllFilters}
-                style={styles.clearAllBtn}>
-                <RotateCcw size={11} color={accent} />
-                <Text style={[styles.clearAllBtnText, { color: accent }]}>Reset</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-
-          {/* Active Paper Header Details */}
-          <View style={styles.feedHeaderRow}>
-            <View>
-              <Text style={[styles.feedTitle, { color: textPrimary }]}>
-                {currentPaperSummary.title}
-              </Text>
-              <Text style={[styles.feedSub, { color: textSecondary }]}>
-                {questionsForPaper.length} questions matching criteria
-              </Text>
-            </View>
-          </View>
-
-          {/* 5. Questions Feed */}
-          <View style={styles.questionsFeed}>
-            {questionsForPaper.length === 0 ? (
-              <View style={[styles.emptyStateCard, { backgroundColor: surface, borderColor: border }]}>
-                <FileText size={28} color={textMuted} />
-                <Text style={[styles.emptyStateTitle, { color: textPrimary }]}>No questions found</Text>
-                <Text style={[styles.emptyStateSub, { color: textSecondary }]}>
-                  Try resetting the filter or clearing the search query.
-                </Text>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={handleClearAllFilters}
-                  style={[styles.clearSearchBtn, { borderColor: border }]}>
-                  <Text style={[styles.clearSearchBtnText, { color: accent }]}>Reset All Filters</Text>
-                </TouchableOpacity>
-              </View>
-            ) : (
-              questionsForPaper.map((q) => {
-                const attempt = attemptsMap.get(q.id);
-                const hasAttempted = Boolean(attempt && attempt.count > 0);
-
-                return (
-                  <TouchableOpacity
-                    key={q.id}
-                    activeOpacity={0.85}
-                    onPress={() => handleOpenQuestion(q)}
-                    style={[styles.questionCard, { backgroundColor: surface, borderColor: border }]}>
-                    {/* Card Top: Badges */}
-                    <View style={styles.cardHeader}>
-                      <View style={styles.cardHeaderLeft}>
-                        <View style={[styles.qNumberPill, { backgroundColor: isDark ? '#1E293B' : '#F1F5F9' }]}>
-                          <Text style={[styles.qNumberText, { color: accent }]}>Q.{q.question_number}</Text>
-                        </View>
-                        <Text style={[styles.specText, { color: textSecondary }]}>
-                          {q.marks} Marks • {q.word_limit} words
-                        </Text>
-                        {q.is_case_study && (
-                          <View style={[styles.caseStudyBadge, { backgroundColor: isDark ? 'rgba(139, 92, 246, 0.16)' : '#F3E8FF' }]}>
-                            <Text style={styles.caseStudyBadgeText}>Case Study</Text>
-                          </View>
-                        )}
-                      </View>
-
-                      {hasAttempted && (
-                        <View style={[styles.scorePill, { backgroundColor: isDark ? 'rgba(16, 185, 129, 0.15)' : '#ECFDF5' }]}>
-                          <CheckCircle2 size={12} color="#10B981" />
-                          <Text style={styles.scorePillText}>
-                            Score: {attempt!.bestScore}/{attempt!.maxMarks}
-                          </Text>
-                        </View>
-                      )}
-                    </View>
-
-                    {/* Question Body */}
-                    <View style={styles.cardBody}>
-                      {q.title && (
-                        <Text style={[styles.cardTitle, { color: textPrimary }]}>{q.title}</Text>
-                      )}
-                      <Text style={[styles.cardPrompt, { color: isDark ? '#CBD5E1' : '#334155' }]} numberOfLines={2}>
-                        {q.text_english}
-                      </Text>
-                    </View>
-
-                    {/* Card Footer */}
-                    <View style={[styles.cardFooter, { borderTopColor: borderSubtle }]}>
-                      <Text style={[styles.topicTag, { color: textMuted }]} numberOfLines={1}>
-                        {q.topic}
-                      </Text>
-                      <View style={styles.writeButtonRow}>
-                        <Text style={[styles.writeButtonText, { color: accent }]}>
-                          {hasAttempted ? 'Review / Re-attempt' : 'Write Answer'}
-                        </Text>
-                        <ChevronRight size={14} color={accent} />
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })
-            )}
-          </View>
-
-          {/* 6. Recent Submissions Section */}
-          {submissions.length > 0 && (
-            <View style={[styles.historyCard, { backgroundColor: surface, borderColor: border }]}>
-              <View style={styles.historyHeader}>
-                <View style={styles.historyHeaderLeft}>
-                  <Clock size={16} color={accent} />
-                  <Text style={[styles.historyTitle, { color: textPrimary }]}>
-                    Recent Submissions
-                  </Text>
                 </View>
-                <Text style={[styles.historyCountText, { color: textSecondary }]}>
-                  {submissions.length} attempted
-                </Text>
               </View>
 
-              <View style={styles.historyList}>
-                {submissions.slice(0, 3).map((sub) => {
-                  const marks = sub.marks_awarded;
-                  const marksPct = marks !== undefined ? (marks / sub.max_marks) * 100 : 0;
-                  const marksColor = marksPct >= 55 ? '#10B981' : marksPct >= 45 ? '#F59E0B' : '#EF4444';
-
-                  return (
+              {/* Questions List (Matching Image 1) */}
+              <View style={styles.questionsList}>
+                {filteredQuestions.length === 0 ? (
+                  <View style={[styles.emptyCard, { backgroundColor: surface, borderColor: border }]}>
+                    <FileText size={26} color={textMuted} />
+                    <Text style={[styles.emptyTitle, { color: textPrimary }]}>No questions matching filters</Text>
+                    <Text style={[styles.emptyDesc, { color: textSecondary }]}>
+                      Try resetting your selected topic or clearing the search keywords.
+                    </Text>
                     <TouchableOpacity
-                      key={sub.id}
-                      activeOpacity={0.75}
-                      onPress={() => handleViewReport(sub)}
-                      style={[styles.historyRow, { borderBottomColor: borderSubtle }]}>
-                      <View style={styles.historyRowLeft}>
-                        <View style={styles.historyRowTags}>
-                          <Text style={[styles.historyPaperTag, { color: accent }]}>{sub.paper_id}</Text>
-                          <Text style={[styles.historyQNum, { color: textSecondary }]}>Q.{sub.question_number}</Text>
-                          <Text style={[styles.historyMode, { color: textMuted }]}>
-                            • {sub.submission_mode === 'handwritten' ? 'Handwritten' : `${sub.word_count}w`}
-                          </Text>
-                        </View>
-                        <Text style={[styles.historyPromptTitle, { color: textPrimary }]} numberOfLines={1}>
-                          {sub.question_title}
-                        </Text>
-                      </View>
-
-                      <View style={styles.historyRowRight}>
-                        {marks !== undefined ? (
-                          <View style={styles.historyScoreBox}>
-                            <Text style={[styles.historyScoreNum, { color: marksColor }]}>{marks}</Text>
-                            <Text style={[styles.historyScoreMax, { color: textMuted }]}>/{sub.max_marks}</Text>
-                          </View>
-                        ) : (
-                          <Text style={[styles.historyEvaluating, { color: accent }]}>Evaluating...</Text>
-                        )}
-                        <ChevronRight size={14} color={textMuted} />
-                      </View>
+                      activeOpacity={0.8}
+                      onPress={() => {
+                        setSelectedTopics([]);
+                        setMarksFilter('ALL');
+                        setStatusFilter('ALL');
+                        setSearchQuery('');
+                      }}
+                      style={[styles.resetFiltersBtn, { backgroundColor: accent }]}>
+                      <Text style={styles.resetFiltersBtnText}>Reset Filters</Text>
                     </TouchableOpacity>
-                  );
-                })}
+                  </View>
+                ) : (
+                  filteredQuestions.slice(0, visibleCount).map((q) => {
+                    const attempt = attemptsMap.get(q.id);
+                    const isAttempted = Boolean(attempt && attempt.count > 0);
+                    const isBookmarked = Boolean(bookmarkedIds[q.id]);
+                    const { directive, remaining } = splitQuestionDirective(q.text_english);
+
+                    return (
+                      <View
+                        key={q.id}
+                        style={[styles.questionCard, { backgroundColor: surface, borderColor: border }]}>
+                        {/* Card Top: Q Number Pill, Specs, Status Badge */}
+                        <View style={styles.cardHeaderRow}>
+                          <View style={styles.cardHeaderMetaLeft}>
+                            <View style={[styles.cardQBadge, { backgroundColor: `${accent}15` }]}>
+                              <Text style={[styles.cardQBadgeText, { color: accent }]}>
+                                Q{q.question_number}
+                              </Text>
+                            </View>
+                            <Text style={[styles.cardSpecText, { color: textSecondary }]}>
+                              {q.marks} marks · {q.word_limit} words
+                            </Text>
+                            <Text style={[styles.metaDividerDot, { color: textMuted }]}>•</Text>
+                            <Text style={[styles.cardTopicLabel, { color: textSecondary }]} numberOfLines={1}>
+                              {q.subject_area || 'General Studies'} · {q.topic}
+                            </Text>
+                          </View>
+
+                          {/* Status Badge */}
+                          <View style={styles.cardHeaderStatusRight}>
+                            {isAttempted && attempt?.bestScore ? (
+                              <View style={[styles.statusBadgePill, { backgroundColor: '#ECFDF5' }]}>
+                                <Text style={[styles.statusBadgeText, { color: '#059669' }]}>
+                                  Reviewed · {attempt.bestScore}/{attempt.maxMarks}
+                                </Text>
+                              </View>
+                            ) : isAttempted ? (
+                              <View style={[styles.statusBadgePill, { backgroundColor: '#DCFCE7' }]}>
+                                <Text style={[styles.statusBadgeText, { color: '#15803D' }]}>Attempted</Text>
+                              </View>
+                            ) : isBookmarked ? (
+                              <View style={[styles.statusBadgePill, { backgroundColor: '#FEF3C7' }]}>
+                                <Text style={[styles.statusBadgeText, { color: '#B45309' }]}>Bookmarked</Text>
+                              </View>
+                            ) : (
+                              <View style={[styles.statusBadgePill, { backgroundColor: isDark ? '#1E293B' : '#F1F5F9' }]}>
+                                <Text style={[styles.statusBadgeText, { color: textSecondary }]}>Not attempted</Text>
+                              </View>
+                            )}
+                          </View>
+                        </View>
+
+                        {/* Question Prompt with Directive in Brand Orange */}
+                        <TouchableOpacity
+                          activeOpacity={0.8}
+                          onPress={() => setViewingQuestion(q)}
+                          style={styles.cardPromptTouchable}>
+                          <Text style={styles.cardPromptText}>
+                            {directive ? (
+                              <Text style={[styles.cardDirectiveWord, { color: accent }]}>
+                                {directive}{' '}
+                              </Text>
+                            ) : null}
+                            <Text style={{ color: textPrimary }}>{remaining}</Text>
+                          </Text>
+                        </TouchableOpacity>
+
+                        {/* Bottom Actions Row: 3 Avatars + Answer Count | Bookmark, View Answers, Write Answer */}
+                        <View style={[styles.cardBottomRow, !isDesktop && styles.cardBottomRowMobile]}>
+                          <View style={styles.cardBottomLeftCol}>
+                            {/* 3 Overlapping Circular Dots (Soft pastel) */}
+                            <View style={styles.overlappingDotsRow}>
+                              <View style={[styles.dotAvatar, { backgroundColor: '#CBD5E1', zIndex: 3 }]} />
+                              <View
+                                style={[
+                                  styles.dotAvatar,
+                                  { backgroundColor: '#BFDBFE', marginLeft: -7, zIndex: 2 },
+                                ]}
+                              />
+                              <View
+                                style={[
+                                  styles.dotAvatar,
+                                  { backgroundColor: '#FED7AA', marginLeft: -7, zIndex: 1 },
+                                ]}
+                              />
+                            </View>
+
+                            <Text style={[styles.communityCountNote, { color: textSecondary }]}>
+                              {180 + parseInt(q.question_number, 10) * 11} answers ·{' '}
+                              {8 + parseInt(q.question_number, 10)} mentor reviewed
+                            </Text>
+                          </View>
+
+                          <View style={[styles.cardBottomRightCol, !isDesktop && styles.cardBottomRightColMobile]}>
+                            <TouchableOpacity
+                              activeOpacity={0.75}
+                              onPress={() => handleToggleBookmark(q.id)}
+                              style={[
+                                styles.cardBookmarkBtn,
+                                { borderColor: border, backgroundColor: isDark ? '#1E293B' : '#FFFFFF' },
+                                isBookmarked && { borderColor: accent, backgroundColor: `${accent}12` },
+                              ]}>
+                              <Bookmark
+                                size={14}
+                                color={isBookmarked ? accent : textSecondary}
+                                fill={isBookmarked ? accent : 'none'}
+                              />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                              activeOpacity={0.8}
+                              onPress={() => setViewingQuestion(q)}
+                              style={[
+                                styles.cardViewAnswersBtn,
+                                !isDesktop && { flex: 1, alignItems: 'center', justifyContent: 'center' },
+                                { borderColor: border, backgroundColor: isDark ? '#1E293B' : '#FFFFFF' },
+                              ]}>
+                              <Text style={[styles.cardViewAnswersBtnText, { color: textPrimary }]}>
+                                View answers
+                              </Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                              activeOpacity={0.85}
+                              onPress={() => handleStartWriting(q)}
+                              style={[styles.cardWriteAnswerBtn, !isDesktop && { flex: 1, alignItems: 'center', justifyContent: 'center' }, { backgroundColor: accent }]}>
+                              <Text style={styles.cardWriteAnswerBtnText}>Write answer</Text>
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                      </View>
+                    );
+                  })
+                )}
               </View>
+
+              {/* Bottom Pagination / Load More */}
+              {filteredQuestions.length > 0 && (
+                <View style={styles.paginationBlock}>
+                  <Text style={[styles.paginationCountText, { color: textMuted }]}>
+                    Showing {Math.min(visibleCount, filteredQuestions.length)} of{' '}
+                    {filteredQuestions.length} questions
+                  </Text>
+
+                  {visibleCount < filteredQuestions.length && (
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      onPress={() => setVisibleCount((prev) => prev + 5)}
+                      style={[styles.loadMoreBtn, { borderColor: border, backgroundColor: surface }]}>
+                      <Text style={[styles.loadMoreBtnText, { color: textPrimary }]}>
+                        Load more questions
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+              )}
             </View>
-          )}
+          </View>
         </View>
       </ScrollView>
 
-      {/* 7. Comprehensive Filter Modal */}
-      <Modal
-        visible={isFilterModalOpen}
-        animationType="slide"
-        transparent
-        onRequestClose={() => setIsFilterModalOpen(false)}>
-        <View style={styles.modalOverlay}>
-          <View style={[styles.filterModalCard, { backgroundColor: surface, borderColor: border }]}>
-            {/* Modal Header */}
-            <View style={[styles.filterModalHeader, { borderBottomColor: borderSubtle }]}>
-              <View style={styles.filterModalHeaderLeft}>
-                <Filter size={18} color={accent} />
-                <Text style={[styles.filterModalTitle, { color: textPrimary }]}>Filter Questions</Text>
-              </View>
-              <View style={styles.filterModalHeaderRight}>
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={handleClearAllFilters}
-                  style={styles.resetModalBtn}>
-                  <Text style={[styles.resetModalBtnText, { color: accent }]}>Reset All</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={() => setIsFilterModalOpen(false)}
-                  style={[styles.closeModalBtn, { backgroundColor: surfaceSubtle }]}>
-                  <X size={16} color={textPrimary} />
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <ScrollView style={styles.filterModalBody} showsVerticalScrollIndicator={false}>
-              {/* Filter 1: Question Type (Theory vs Case Studies) */}
-              <View style={styles.filterGroup}>
-                <Text style={[styles.filterGroupLabel, { color: textSecondary }]}>Question Type</Text>
-                <View style={styles.filterOptionsGrid}>
-                  {[
-                    { id: 'ALL', label: 'All Types' },
-                    { id: 'THEORY', label: 'Theory (Sec A)' },
-                    { id: 'CASE_STUDIES', label: 'Case Studies (Sec B)' },
-                  ].map((opt) => {
-                    const isSelected = typeFilter === opt.id;
-                    return (
-                      <TouchableOpacity
-                        key={opt.id}
-                        activeOpacity={0.8}
-                        onPress={() => setTypeFilter(opt.id as any)}
-                        style={[
-                          styles.filterOptionPill,
-                          {
-                            backgroundColor: isSelected ? accent : surfaceSubtle,
-                            borderColor: isSelected ? accent : border,
-                          },
-                        ]}>
-                        <Text
-                          style={[
-                            styles.filterOptionPillText,
-                            { color: isSelected ? '#FFFFFF' : textPrimary, fontWeight: isSelected ? '700' : '500' },
-                          ]}>
-                          {opt.label}
-                        </Text>
-                      </TouchableOpacity>
-                    );
-                  })}
-                </View>
-              </View>
-
-              {/* Filter 2: Marks */}
-              <View style={styles.filterGroup}>
-                <Text style={[styles.filterGroupLabel, { color: textSecondary }]}>Marks Allocation</Text>
-                <View style={styles.filterOptionsGrid}>
-                  {[
-                    { id: 'ALL', label: 'All Marks' },
-                    { id: 10, label: '10 Marks (150w)' },
-                    { id: 15, label: '15 Marks (250w)' },
-                    { id: 20, label: '20 Marks (Case Study)' },
-                  ].map((opt) => {
-                    const isSelected = marksFilter === opt.id;
-                    return (
-                      <TouchableOpacity
-                        key={String(opt.id)}
-                        activeOpacity={0.8}
-                        onPress={() => setMarksFilter(opt.id as any)}
-                        style={[
-                          styles.filterOptionPill,
-                          {
-                            backgroundColor: isSelected ? accent : surfaceSubtle,
-                            borderColor: isSelected ? accent : border,
-                          },
-                        ]}>
-                        <Text
-                          style={[
-                            styles.filterOptionPillText,
-                            { color: isSelected ? '#FFFFFF' : textPrimary, fontWeight: isSelected ? '700' : '500' },
-                          ]}>
-                          {opt.label}
-                        </Text>
-                      </TouchableOpacity>
-                    );
-                  })}
-                </View>
-              </View>
-
-              {/* Filter 3: Attempt Status */}
-              <View style={styles.filterGroup}>
-                <Text style={[styles.filterGroupLabel, { color: textSecondary }]}>Attempt Status</Text>
-                <View style={styles.filterOptionsGrid}>
-                  {[
-                    { id: 'ALL', label: 'All Questions' },
-                    { id: 'attempted', label: 'Attempted' },
-                    { id: 'unattempted', label: 'Unattempted' },
-                  ].map((opt) => {
-                    const isSelected = statusFilter === opt.id;
-                    return (
-                      <TouchableOpacity
-                        key={opt.id}
-                        activeOpacity={0.8}
-                        onPress={() => setStatusFilter(opt.id as any)}
-                        style={[
-                          styles.filterOptionPill,
-                          {
-                            backgroundColor: isSelected ? accent : surfaceSubtle,
-                            borderColor: isSelected ? accent : border,
-                          },
-                        ]}>
-                        <Text
-                          style={[
-                            styles.filterOptionPillText,
-                            { color: isSelected ? '#FFFFFF' : textPrimary, fontWeight: isSelected ? '700' : '500' },
-                          ]}>
-                          {opt.label}
-                        </Text>
-                      </TouchableOpacity>
-                    );
-                  })}
-                </View>
-              </View>
-
-              {/* Filter 4: Subject Area / Topic */}
-              {taxonomy.subjectAreas.length > 0 && (
-                <View style={styles.filterGroup}>
-                  <Text style={[styles.filterGroupLabel, { color: textSecondary }]}>
-                    Subject Area / Module ({taxonomy.subjectAreas.length})
-                  </Text>
-                  <View style={styles.filterOptionsGrid}>
-                    <TouchableOpacity
-                      activeOpacity={0.8}
-                      onPress={() => setTopicFilter('ALL')}
-                      style={[
-                        styles.filterOptionPill,
-                        {
-                          backgroundColor: topicFilter === 'ALL' ? accent : surfaceSubtle,
-                          borderColor: topicFilter === 'ALL' ? accent : border,
-                        },
-                      ]}>
-                      <Text
-                        style={[
-                          styles.filterOptionPillText,
-                          { color: topicFilter === 'ALL' ? '#FFFFFF' : textPrimary, fontWeight: topicFilter === 'ALL' ? '700' : '500' },
-                        ]}>
-                        All Modules
-                      </Text>
-                    </TouchableOpacity>
-
-                    {taxonomy.subjectAreas.map((sa) => {
-                      const isSelected = topicFilter === sa.name;
-                      return (
-                        <TouchableOpacity
-                          key={sa.name}
-                          activeOpacity={0.8}
-                          onPress={() => setTopicFilter(sa.name)}
-                          style={[
-                            styles.filterOptionPill,
-                            {
-                              backgroundColor: isSelected ? accent : surfaceSubtle,
-                              borderColor: isSelected ? accent : border,
-                            },
-                          ]}>
-                          <Text
-                            style={[
-                              styles.filterOptionPillText,
-                              { color: isSelected ? '#FFFFFF' : textPrimary, fontWeight: isSelected ? '700' : '500' },
-                            ]}>
-                            {sa.name} ({sa.questionCount})
-                          </Text>
-                        </TouchableOpacity>
-                      );
-                    })}
-                  </View>
-                </View>
-              )}
-            </ScrollView>
-
-            {/* Modal Footer CTA */}
-            <View style={[styles.filterModalFooter, { borderTopColor: borderSubtle }]}>
-              <TouchableOpacity
-                activeOpacity={0.85}
-                onPress={() => setIsFilterModalOpen(false)}
-                style={[styles.applyFilterBtn, { backgroundColor: accent }]}>
-                <Text style={styles.applyFilterBtnText}>
-                  Show {questionsForPaper.length} Question{questionsForPaper.length === 1 ? '' : 's'}
-                </Text>
+      {/* Mobile Filters Drawer / Modal */}
+      {!isDesktop && (
+        <Modal
+          visible={isMobileFiltersOpen}
+          animationType="slide"
+          presentationStyle="pageSheet"
+          onRequestClose={() => setIsMobileFiltersOpen(false)}>
+          <View style={[styles.mobileModalRoot, { backgroundColor: bg }]}>
+            <View style={[styles.mobileModalHeader, { borderBottomColor: border, backgroundColor: surface }]}>
+              <Text style={[styles.mobileModalTitle, { color: textPrimary }]}>Filter Questions</Text>
+              <TouchableOpacity onPress={() => setIsMobileFiltersOpen(false)}>
+                <X size={20} color={textPrimary} />
               </TouchableOpacity>
             </View>
+
+            <ScrollView contentContainerStyle={{ padding: 20 }}>
+              {renderSidebarFilters()}
+
+              <TouchableOpacity
+                activeOpacity={0.85}
+                onPress={() => setIsMobileFiltersOpen(false)}
+                style={[styles.mobileApplyBtn, { backgroundColor: accent }]}>
+                <Text style={styles.mobileApplyBtnText}>Apply Filters</Text>
+              </TouchableOpacity>
+            </ScrollView>
           </View>
-        </View>
-      </Modal>
+        </Modal>
+      )}
 
-      {/* Modals */}
-      <MainsQuestionDetailModal
-        visible={isQuestionDetailOpen}
-        onClose={() => setIsQuestionDetailOpen(false)}
-        question={selectedQuestion}
-        onStartWriting={handleStartWriting}
-        onViewEvaluation={handleViewReport}
-        isDark={isDark}
-      />
-
+      {/* Writing Workspace Modal */}
       <MainsAnswerWorkspaceModal
         visible={isWorkspaceOpen}
-        onClose={() => setIsWorkspaceOpen(false)}
         question={activeWritingQuestion}
+        onClose={() => setIsWorkspaceOpen(false)}
         onSubmissionComplete={handleSubmissionComplete}
         isDark={isDark}
       />
 
+      {/* Evaluation Report Modal */}
       <MainsEvaluationReportModal
         visible={isReportOpen}
-        onClose={() => setIsReportOpen(false)}
         submission={activeReportSubmission}
-        question={selectedQuestion}
+        question={activeWritingQuestion || baseQuestions[0]}
         evaluation={activeReportEvaluation}
-        onReattempt={() => {
-          setIsReportOpen(false);
-          if (selectedQuestion) {
-            handleStartWriting(selectedQuestion);
-          }
-        }}
+        onClose={() => setIsReportOpen(false)}
         isDark={isDark}
       />
     </View>
@@ -924,36 +1060,44 @@ export function MainsDashboard({ isDark, onToggleTheme }: MainsDashboardProps) {
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1 },
-
-  // Header
-  headerBar: {
-    paddingHorizontal: 20,
-    paddingTop: Platform.OS === 'ios' ? 52 : 16,
-    paddingBottom: 14,
-    borderBottomWidth: 1,
+  root: {
+    flex: 1,
+  },
+  topBar: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
   },
-  headerLeft: { flex: 1 },
-  headerTitle: { fontSize: 20, fontWeight: '800', letterSpacing: -0.3 },
-  headerSubtitle: { fontSize: 12, marginTop: 2 },
-  headerRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  themeBtn: {
-    width: 34,
-    height: 34,
-    borderRadius: 17,
-    borderWidth: 1,
+  topBarLeft: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  backHomeBtn: {
+    width: 28,
+    height: 28,
+    borderRadius: 6,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  breadcrumbTrail: {
+    fontSize: 13,
+  },
+  topBarRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
   },
   communityNavBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    paddingHorizontal: 10,
-    paddingVertical: 7,
+    paddingHorizontal: 11,
+    paddingVertical: 6,
     borderRadius: 8,
     borderWidth: 1,
   },
@@ -961,276 +1105,591 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '700',
   },
-
-  // Scroll body & container
-  scrollBody: { padding: 16, paddingBottom: 64 },
-  contentWrap: { maxWidth: 860, alignSelf: 'center', width: '100%', gap: 16 },
-
-  // Metrics strip
-  metricsStrip: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    borderRadius: 14,
-    borderWidth: 1,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.03,
-    shadowRadius: 2,
-    elevation: 1,
-  },
-  metricCell: { flex: 1, alignItems: 'center' },
-  metricNumber: { fontSize: 18, fontWeight: '800', letterSpacing: -0.4 },
-  metricLabel: { fontSize: 11, fontWeight: '500', marginTop: 2 },
-  metricDivider: { width: 1, height: 26 },
-
-  // Segmented Paper Tabs
-  segmentedSection: { paddingVertical: 2 },
-  segmentedScroll: { gap: 8, paddingRight: 8 },
-  segmentedPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 14,
-    paddingVertical: 9,
-    borderRadius: 22,
-    borderWidth: 1,
-  },
-  segmentedPillText: { fontSize: 13 },
-  pillCountBadge: {
-    paddingHorizontal: 6,
-    paddingVertical: 1,
-    borderRadius: 10,
-  },
-  pillCountText: { fontSize: 10, fontWeight: '700' },
-
-  // Search & Filter row
-  filterControlRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  searchBox: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 9,
-    borderRadius: 12,
-    borderWidth: 1,
-  },
-  searchInput: { flex: 1, fontSize: 13, padding: 0 },
-  filterBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    borderRadius: 12,
-    borderWidth: 1,
-  },
-  filterBtnText: { fontSize: 12 },
-
-  // Active Pills Strip
-  activePillsStrip: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    gap: 6,
-    marginTop: -4,
-  },
-  activePillTag: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 14,
-    borderWidth: 1,
-  },
-  activePillTagText: { fontSize: 11, fontWeight: '600', maxWidth: 150 },
-  clearAllBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 5,
-  },
-  clearAllBtnText: { fontSize: 11, fontWeight: '700' },
-
-  // Feed header
-  feedHeaderRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'baseline',
-    paddingHorizontal: 2,
-    marginTop: 2,
-  },
-  feedTitle: { fontSize: 15, fontWeight: '700' },
-  feedSub: { fontSize: 12 },
-
-  // Questions Feed & Cards
-  questionsFeed: { gap: 12 },
-  emptyStateCard: {
-    padding: 36,
-    borderRadius: 14,
-    borderWidth: 1,
-    alignItems: 'center',
-    gap: 10,
-  },
-  emptyStateTitle: { fontSize: 15, fontWeight: '700' },
-  emptyStateSub: { fontSize: 12, textAlign: 'center', maxWidth: 280 },
-  clearSearchBtn: {
-    marginTop: 6,
-    paddingHorizontal: 14,
-    paddingVertical: 6,
+  themeBtn: {
+    width: 32,
+    height: 32,
     borderRadius: 16,
     borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  clearSearchBtnText: { fontSize: 12, fontWeight: '600' },
 
-  // Question Card
-  questionCard: {
+  scrollBody: {
+    paddingBottom: 60,
+  },
+  layoutContainer: {
+    maxWidth: 1200,
+    width: '100%',
+    alignSelf: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 16,
+  },
+  mainRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 24,
+  },
+  mainRowMobile: {
+    flexDirection: 'column',
+  },
+
+  // Sidebar
+  sidebarColumn: {
+    width: 250,
+    gap: 16,
+  },
+  sidebarInner: {
+    gap: 20,
+  },
+
+  // Progress Card
+  progressCard: {
+    borderRadius: 12,
+    borderWidth: 1,
     padding: 16,
+    gap: 10,
+  },
+  progressCardHeading: {
+    fontSize: 10.5,
+    fontWeight: '800',
+    letterSpacing: 0.8,
+  },
+  progressCounterText: {
+    fontSize: 13,
+  },
+  progressBarTrack: {
+    height: 5,
+    borderRadius: 3,
+    overflow: 'hidden',
+    width: '100%',
+  },
+  progressBarFill: {
+    height: '100%',
+    borderRadius: 3,
+  },
+  progressScoreRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: 4,
+  },
+  scoreLabel: {
+    fontSize: 12,
+  },
+  scoreValue: {
+    fontSize: 12.5,
+    fontWeight: '700',
+  },
+
+  // Filters
+  filterGroup: {
+    gap: 10,
+  },
+  filterGroupTitle: {
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  yearsPillGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 7,
+  },
+  yearPill: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     borderRadius: 14,
     borderWidth: 1,
+  },
+  yearPillText: {
+    fontSize: 12,
+  },
+
+  radioList: {
     gap: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.04,
-    shadowRadius: 3,
-    elevation: 1,
   },
-  cardHeader: {
+  radioRow: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    alignItems: 'center',
   },
-  cardHeaderLeft: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' },
-  qNumberPill: { paddingHorizontal: 7, paddingVertical: 2, borderRadius: 6 },
-  qNumberText: { fontSize: 11, fontWeight: '800' },
-  specText: { fontSize: 11, fontWeight: '600' },
-  caseStudyBadge: {
+  radioLeftCol: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    gap: 8,
+  },
+  radioCircle: {
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    borderWidth: 1.5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  radioDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+  },
+  radioLabel: {
+    fontSize: 13,
+  },
+  radioCount: {
+    fontSize: 12,
+  },
+
+  checkboxList: {
+    gap: 9,
+  },
+  checkboxRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  checkboxLeftCol: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    flex: 1,
+  },
+  checkboxSquare: {
+    width: 15,
+    height: 15,
+    borderRadius: 3,
+    borderWidth: 1.5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  checkboxLabel: {
+    fontSize: 12.5,
+    flexShrink: 1,
+  },
+  checkboxCount: {
+    fontSize: 12,
+    marginLeft: 6,
+  },
+
+  // Content Column
+  contentColumn: {
+    flex: 1,
+    gap: 16,
+  },
+  contentColumnMobile: {
+    width: '100%',
+  },
+
+  // Paper Header Block
+  paperHeaderBlock: {
+    gap: 12,
+  },
+  topBarMobile: {
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+  },
+  paperHeaderTitleRowMobile: {
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    gap: 12,
+  },
+  paperHeadingTextMobile: {
+    fontSize: 22,
+  },
+  paperSubheadingTextMobile: {
+    fontSize: 12.5,
+    lineHeight: 18,
+  },
+  paperActionButtonsRowMobile: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  paperHeaderTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    gap: 14,
+  },
+  paperHeadingText: {
+    fontSize: 26,
+    fontWeight: '800',
+    fontFamily: Platform.select({
+      ios: 'Georgia',
+      android: 'serif',
+      web: 'Georgia, serif',
+      default: 'serif',
+    }),
+  },
+  paperSubheadingText: {
+    fontSize: 13.5,
+    lineHeight: 19,
+    marginTop: 4,
+  },
+  paperActionButtonsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  pdfDownloadBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 13,
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
+  pdfDownloadBtnText: {
+    fontSize: 12.5,
+    fontWeight: '600',
+  },
+  timedExamBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 8,
+  },
+  timedExamBtnText: {
+    color: '#FFFFFF',
+    fontSize: 12.5,
+    fontWeight: '700',
+  },
+
+  paperBadgesRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    flexWrap: 'wrap',
+  },
+  metaBadgePill: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 14,
+    borderWidth: 1,
+  },
+  metaBadgePillText: {
+    fontSize: 12,
+    fontWeight: '500',
+  },
+  mobileFilterBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 14,
+    borderWidth: 1,
+    marginLeft: 'auto',
+  },
+  mobileFilterBtnText: {
+    fontSize: 12,
+    fontWeight: '700',
+  },
+
+  // Toolbar
+  toolbarBlockMobile: {
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    gap: 10,
+  },
+  marksTabsContainerMobile: {
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+  marksTabItemMobile: {
+    flex: 1,
+    alignItems: 'center',
+    paddingHorizontal: 6,
+  },
+  searchAndSortRowMobile: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  searchBoxInputWrapMobile: {
+    flex: 1,
+    minWidth: 0,
+  },
+  cardBottomRowMobile: {
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    gap: 12,
+  },
+  cardBottomRightColMobile: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  toolbarBlock: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  marksTabsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 8,
+    borderWidth: 1,
+    padding: 3,
+    gap: 3,
+  },
+  marksTabItem: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 6,
+  },
+  marksTabItemText: {
+    fontSize: 12,
+  },
+  searchAndSortRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    flexWrap: 'wrap',
+  },
+  searchBoxInputWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    height: 36,
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    minWidth: 170,
+  },
+  searchTextInput: {
+    flex: 1,
+    fontSize: 12.5,
+    padding: 0,
+    height: '100%',
+  },
+  sortDropdownBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    height: 36,
+    paddingHorizontal: 11,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
+  sortDropdownBtnText: {
+    fontSize: 12,
+    fontWeight: '500',
+  },
+
+  // Question Cards
+  questionsList: {
+    gap: 14,
+  },
+  questionCard: {
+    borderRadius: 12,
+    borderWidth: 1,
+    padding: 16,
+    gap: 12,
+  },
+  cardHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  cardHeaderMetaLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    flexWrap: 'wrap',
+    flex: 1,
+  },
+  cardQBadge: {
     paddingHorizontal: 7,
     paddingVertical: 2,
     borderRadius: 6,
   },
-  caseStudyBadgeText: { color: '#8B5CF6', fontSize: 10, fontWeight: '700' },
-  scorePill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
+  cardQBadgeText: {
+    fontSize: 11.5,
+    fontWeight: '800',
+  },
+  cardSpecText: {
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  metaDividerDot: {
+    fontSize: 11,
+  },
+  cardTopicLabel: {
+    fontSize: 12,
+    flexShrink: 1,
+  },
+  cardHeaderStatusRight: {
+    alignItems: 'flex-end',
+  },
+  statusBadgePill: {
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 12,
   },
-  scorePillText: { color: '#10B981', fontSize: 11, fontWeight: '700' },
-
-  // Card Body
-  cardBody: { gap: 3 },
-  cardTitle: { fontSize: 13, fontWeight: '700' },
-  cardPrompt: { fontSize: 13.5, lineHeight: 21 },
-
-  // Card Footer
-  cardFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingTop: 10,
-    borderTopWidth: 1,
+  statusBadgeText: {
+    fontSize: 11.5,
+    fontWeight: '600',
   },
-  topicTag: { fontSize: 11, flex: 1, marginRight: 12 },
-  writeButtonRow: { flexDirection: 'row', alignItems: 'center', gap: 3 },
-  writeButtonText: { fontSize: 12, fontWeight: '700' },
 
-  // History Card
-  historyCard: {
-    padding: 16,
-    borderRadius: 14,
-    borderWidth: 1,
+  cardPromptTouchable: {},
+  cardPromptText: {
+    fontSize: 15,
+    lineHeight: 22,
+    fontFamily: Platform.select({
+      ios: 'Georgia',
+      android: 'serif',
+      web: 'Georgia, serif',
+      default: 'serif',
+    }),
+  },
+  cardDirectiveWord: {
+    fontWeight: '800',
+  },
+
+  cardBottomRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
     gap: 12,
+    paddingTop: 4,
   },
-  historyHeader: {
+  cardBottomLeftCol: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 8,
+  },
+  overlappingDotsRow: {
+    flexDirection: 'row',
     alignItems: 'center',
   },
-  historyHeaderLeft: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  historyTitle: { fontSize: 14, fontWeight: '700' },
-  historyCountText: { fontSize: 11 },
-  historyList: { gap: 8 },
-  historyRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 8,
-    borderBottomWidth: 1,
+  dotAvatar: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: '#FFFFFF',
   },
-  historyRowLeft: { flex: 1, marginRight: 12, gap: 2 },
-  historyRowTags: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  historyPaperTag: { fontSize: 11, fontWeight: '800' },
-  historyQNum: { fontSize: 11, fontWeight: '600' },
-  historyMode: { fontSize: 11 },
-  historyPromptTitle: { fontSize: 12, fontWeight: '500' },
-  historyRowRight: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  historyScoreBox: { flexDirection: 'row', alignItems: 'baseline' },
-  historyScoreNum: { fontSize: 13, fontWeight: '800' },
-  historyScoreMax: { fontSize: 11 },
-  historyEvaluating: { fontSize: 11, fontWeight: '600' },
+  communityCountNote: {
+    fontSize: 11.5,
+    fontWeight: '500',
+  },
+  cardBottomRightCol: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  cardBookmarkBtn: {
+    padding: 7,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
+  cardViewAnswersBtn: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
+  cardViewAnswersBtnText: {
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  cardWriteAnswerBtn: {
+    paddingHorizontal: 13,
+    paddingVertical: 6,
+    borderRadius: 8,
+  },
+  cardWriteAnswerBtnText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '700',
+  },
 
-  // Filter Modal Styles
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'flex-end',
-  },
-  filterModalCard: {
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderWidth: 1,
-    maxHeight: '85%',
-  },
-  filterModalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  // Pagination
+  paginationBlock: {
     alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+    marginTop: 8,
+  },
+  paginationCountText: {
+    fontSize: 12,
+  },
+  loadMoreBtn: {
+    paddingHorizontal: 18,
+    paddingVertical: 9,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
+  loadMoreBtnText: {
+    fontSize: 12.5,
+    fontWeight: '600',
+  },
+
+  // Empty State
+  emptyCard: {
+    padding: 24,
+    borderRadius: 12,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  emptyTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  emptyDesc: {
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  resetFiltersBtn: {
+    paddingHorizontal: 14,
+    paddingVertical: 7,
+    borderRadius: 8,
+    marginTop: 6,
+  },
+  resetFiltersBtnText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '700',
+  },
+
+  // Mobile Drawer
+  mobileModalRoot: {
+    flex: 1,
+  },
+  mobileModalHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingVertical: 16,
+    paddingVertical: 14,
     borderBottomWidth: 1,
   },
-  filterModalHeaderLeft: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  filterModalTitle: { fontSize: 17, fontWeight: '800' },
-  filterModalHeaderRight: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  resetModalBtn: { paddingVertical: 4, paddingHorizontal: 6 },
-  resetModalBtnText: { fontSize: 13, fontWeight: '700' },
-  closeModalBtn: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+  mobileModalTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  mobileApplyBtn: {
+    paddingVertical: 12,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 18,
   },
-  filterModalBody: { padding: 20 },
-  filterGroup: { marginBottom: 20 },
-  filterGroupLabel: { fontSize: 12, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 10 },
-  filterOptionsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  filterOptionPill: {
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 20,
-    borderWidth: 1,
+  mobileApplyBtnText: {
+    color: '#FFFFFF',
+    fontSize: 13,
+    fontWeight: '700',
   },
-  filterOptionPillText: { fontSize: 12 },
-  filterModalFooter: {
-    padding: 16,
-    borderTopWidth: 1,
-  },
-  applyFilterBtn: {
-    paddingVertical: 14,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  applyFilterBtnText: { color: '#FFFFFF', fontSize: 14, fontWeight: '700' },
 });

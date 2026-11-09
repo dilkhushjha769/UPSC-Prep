@@ -20,6 +20,34 @@ const STORAGE_KEYS = {
   DAILY_QUESTIONS: '@upsc_daily_questions_v1',
 };
 
+/**
+ * Helper to compute the accurate scheduled or estimated UPSC Prelims date
+ * for any given exam year (typically the 4th/last Sunday of May).
+ */
+export function getPrelimsDateForYear(year: number): string {
+  const knownDates: Record<number, string> = {
+    2024: '2024-06-16',
+    2025: '2025-05-25',
+    2026: '2026-05-24',
+    2027: '2027-05-23',
+    2028: '2028-05-28',
+    2029: '2029-05-27',
+    2030: '2030-05-26',
+  };
+
+  if (knownDates[year]) {
+    return knownDates[year];
+  }
+
+  // Calculate fourth Sunday of May:
+  const may1 = new Date(year, 4, 1);
+  const dayOfWeek = may1.getDay(); // 0 = Sunday
+  const firstSunday = (7 - dayOfWeek) % 7 + 1;
+  const fourthSunday = firstSunday + 21;
+  const dayStr = String(fourthSunday).padStart(2, '0');
+  return `${year}-05-${dayStr}`;
+}
+
 export const DEFAULT_CONFIG: UserStudyConfig = {
   aspirantName: 'Dipanker Biswas',
   firstName: 'Dipanker',
@@ -363,14 +391,26 @@ export class StudyStorageService {
   static async getConfig(): Promise<UserStudyConfig> {
     try {
       const raw = await AsyncStorage.getItem(STORAGE_KEYS.CONFIG);
+      let config: UserStudyConfig;
       if (!raw) {
+        config = { ...DEFAULT_CONFIG };
         await AsyncStorage.setItem(
           STORAGE_KEYS.CONFIG,
           JSON.stringify(DEFAULT_CONFIG)
         );
-        return DEFAULT_CONFIG;
+      } else {
+        config = { ...DEFAULT_CONFIG, ...JSON.parse(raw) };
       }
-      return { ...DEFAULT_CONFIG, ...JSON.parse(raw) };
+
+      // Ensure targetExamDate aligns with the targeted exam year
+      const targetYear = config.targetExamYear || 2027;
+      if (!config.targetExamDate || !config.targetExamDate.startsWith(String(targetYear))) {
+        config.targetExamDate = getPrelimsDateForYear(targetYear);
+        config.examPhase = `UPSC CSE ${targetYear} • Prelims & Mains`;
+        await AsyncStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(config));
+      }
+
+      return config;
     } catch {
       return DEFAULT_CONFIG;
     }
@@ -384,6 +424,18 @@ export class StudyStorageService {
   ): Promise<UserStudyConfig> {
     const current = await this.getConfig();
     const updated = { ...current, ...partial };
+
+    // Automatically synchronize targetExamDate and examPhase if targetExamYear changed
+    if (partial.targetExamYear) {
+      const yr = partial.targetExamYear;
+      if (!partial.targetExamDate || !partial.targetExamDate.startsWith(String(yr))) {
+        updated.targetExamDate = getPrelimsDateForYear(yr);
+        if (!partial.examPhase) {
+          updated.examPhase = `UPSC CSE ${yr} • Prelims & Mains`;
+        }
+      }
+    }
+
     await AsyncStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(updated));
     return updated;
   }

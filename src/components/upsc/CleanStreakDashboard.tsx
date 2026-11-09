@@ -36,6 +36,7 @@ export interface CleanStreakDashboardProps {
   onOpenTasks?: () => void;
   onOpenProfile?: () => void;
   onOpenNotifications?: () => void;
+  onOpenCurrentAffairs?: () => void;
   onToggleTheme?: () => void;
 }
 
@@ -47,6 +48,7 @@ export function CleanStreakDashboard({
   onOpenTasks,
   onOpenProfile,
   onOpenNotifications,
+  onOpenCurrentAffairs,
   onToggleTheme: propToggleTheme,
 }: CleanStreakDashboardProps) {
   const { isDark: contextIsDark, toggleTheme: contextToggleTheme } = useAppTheme();
@@ -390,13 +392,14 @@ export function CleanStreakDashboard({
       </View>
 
       {/* ========================================================= */}
-      {/* 6. EXAM READINESS & ALL INDIA RANK CARD                   */}
+      {/* 5. EXAM READINESS & ALL INDIA RANK CARD                   */}
       {/* ========================================================= */}
       <ExamReadinessCard
         isDark={isDark}
         onOpenPrelims={onOpenPrelims}
         onOpenMains={onOpenMains}
         onOpenMockTests={onOpenMockTests}
+        onOpenCurrentAffairs={onOpenCurrentAffairs}
       />
 
       {/* Monthly Streak History Modal */}

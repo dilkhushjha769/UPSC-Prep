@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   ActivityIndicator,
-  Platform,
   StatusBar,
   StyleSheet,
-  TouchableOpacity,
   useWindowDimensions,
   View,
 } from 'react-native';
-import { Moon, Sun } from 'lucide-react-native';
+
 import { Edge, SafeAreaView } from 'react-native-safe-area-context';
 import { useStudy } from '@/context/StudyContext';
 import { BW_THEME } from '@/constants/bwTheme';
@@ -42,9 +40,23 @@ import { useAppTheme } from '@/context/ThemeContext';
 export default function AppScreen() {
   const [activeTab, setActiveTab] = useState<NavTab>('home');
   const [activeMockTestId, setActiveMockTestId] = useState<string | null>(null);
+  const [openMockTestHistoryOnMount, setOpenMockTestHistoryOnMount] = useState(false);
   const { isDark, themeMode, toggleTheme } = useAppTheme();
   const { isLoading } = useStudy();
   const { width } = useWindowDimensions();
+
+  const handleNavigateToTab = useCallback(
+    (tabKey: any, params?: { testId?: string; openHistory?: boolean }) => {
+      const normalizedTab = tabKey === 'mockTest' || tabKey === 'mock-test' ? 'mock-test' : tabKey;
+      if (params?.testId) {
+        setActiveMockTestId(params.testId);
+      } else if (params?.openHistory) {
+        setOpenMockTestHistoryOnMount(true);
+      }
+      setActiveTab(normalizedTab);
+    },
+    []
+  );
 
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const isDesktop = width >= 768;
@@ -78,30 +90,6 @@ export default function AppScreen() {
           onClose={() => setActiveMockTestId(null)}
           isDark={isDark}
         />
-        {!isDesktop && (
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={toggleTheme}
-            accessibilityLabel="Toggle Theme"
-            style={[
-              styles.floatingThemeBtn,
-              Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
-              {
-                backgroundColor: isDark
-                  ? 'rgba(251, 191, 36, 0.14)'
-                  : 'rgba(255, 106, 19, 0.1)',
-                borderColor: isDark
-                  ? 'rgba(251, 191, 36, 0.32)'
-                  : 'rgba(255, 106, 19, 0.25)',
-              },
-            ]}>
-            {isDark ? (
-              <Sun size={19} color="#FF9500" strokeWidth={2.3} />
-            ) : (
-              <Moon size={19} color="#FF9500" strokeWidth={2.3} />
-            )}
-          </TouchableOpacity>
-        )}
       </View>
     );
   }
@@ -115,7 +103,7 @@ export default function AppScreen() {
 
       <View style={styles.layoutRow}>
         {/* Left Sidebar on Desktop */}
-        {isDesktop && (
+        {isDesktop && activeTab !== 'mains' && (
           <SidebarNav
             activeTab={activeTab}
             onSelectTab={setActiveTab}
@@ -135,6 +123,7 @@ export default function AppScreen() {
               onOpenTasks={() => setActiveTab('tasks')}
               onOpenProfile={() => setActiveTab('profile')}
               onOpenNotifications={() => setActiveTab('notifications')}
+              onOpenCurrentAffairs={() => setActiveTab('current-affairs')}
               onToggleTheme={toggleTheme}
             />
           )}
@@ -170,6 +159,7 @@ export default function AppScreen() {
               onToggleTheme={toggleTheme}
               onBack={() => setActiveTab('home')}
               isDark={isDark}
+              initialShowHistory={openMockTestHistoryOnMount}
             />
           )}
 
@@ -180,7 +170,7 @@ export default function AppScreen() {
           {activeTab === 'profile' && (
             <ProfileView
               isDark={isDark}
-              onNavigateToTab={setActiveTab}
+              onNavigateToTab={handleNavigateToTab}
               onToggleTheme={toggleTheme}
               onBack={() => setActiveTab('home')}
             />
@@ -195,39 +185,6 @@ export default function AppScreen() {
           )}
         </View>
       </View>
-
-      {/* Floating Theme Changer across non-home screens on mobile (excluding screens that have their own header theme button) */}
-      {!isDesktop &&
-        activeTab !== 'home' &&
-        activeTab !== 'tasks' &&
-        activeTab !== 'notifications' &&
-        activeTab !== 'profile' &&
-        activeTab !== 'mock-test' &&
-        activeTab !== 'mains' &&
-        activeTab !== 'prelims' && (
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={toggleTheme}
-          accessibilityLabel="Toggle Theme"
-          style={[
-            styles.floatingThemeBtn,
-            Platform.OS === 'web' && ({ cursor: 'pointer' } as object),
-            {
-              backgroundColor: isDark
-                ? 'rgba(251, 191, 36, 0.14)'
-                : 'rgba(255, 106, 19, 0.1)',
-              borderColor: isDark
-                ? 'rgba(251, 191, 36, 0.32)'
-                : 'rgba(255, 106, 19, 0.25)',
-            },
-          ]}>
-          {isDark ? (
-            <Sun size={19} color="#FF9500" strokeWidth={2.3} />
-          ) : (
-            <Moon size={19} color="#FF9500" strokeWidth={2.3} />
-          )}
-        </TouchableOpacity>
-      )}
 
       {/* Mobile Bottom Navigation Bar */}
       {!isDesktop && (
@@ -268,22 +225,5 @@ const styles = StyleSheet.create({
   mainContent: {
     flex: 1,
     overflow: 'hidden',
-  },
-  floatingThemeBtn: {
-    position: 'absolute',
-    top: 14,
-    right: 18,
-    zIndex: 999,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
-    elevation: 4,
   },
 });

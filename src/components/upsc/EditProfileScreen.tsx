@@ -24,6 +24,7 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
+import { getPrelimsDateForYear } from '@/services/studyStorage';
 import { ExamMedium } from '@/types/study';
 import { supabase } from '@/services/supabase';
 import { PhotoCropModal } from './PhotoCropModal';
@@ -36,7 +37,7 @@ export interface EditProfileScreenProps {
   onSaved?: () => void;
 }
 
-const TARGET_YEARS = [2025, 2026, 2027, 2028];
+const TARGET_YEARS = [2025, 2026, 2027, 2028, 2029, 2030];
 const DAILY_HOURS = [4, 6, 8, 10];
 const POPULAR_OPTIONALS = [
   'PSIR',
@@ -194,6 +195,8 @@ export function EditProfileScreen({
         email: trimmedEmail,
         mobile: mobile.trim(),
         targetExamYear: targetYear,
+        targetExamDate: getPrelimsDateForYear(targetYear),
+        examPhase: `UPSC CSE ${targetYear} • Prelims & Mains`,
         optionalSubject: optionalSubject.trim(),
         dailyGoalMinutes: dailyHours * 60,
         medium,

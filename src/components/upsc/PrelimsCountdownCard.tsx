@@ -1,8 +1,9 @@
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
 import { useAppTheme } from '@/context/ThemeContext';
+import { getPrelimsDateForYear } from '@/services/studyStorage';
 import { Calendar } from 'lucide-react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Platform,
   StyleSheet,
@@ -26,7 +27,7 @@ interface TimeRemaining {
   targetFormatted: string;
 }
 
-function calculateRemaining(targetDateStr: string): TimeRemaining {
+function calculateRemaining(targetDateStr: string, currentTimestamp: number = Date.now()): TimeRemaining {
   // Target UPSC CSE Prelims Paper 1 start: 09:30 AM IST
   let targetTime = new Date(`${targetDateStr}T09:30:00`).getTime();
   if (isNaN(targetTime)) {
@@ -34,8 +35,7 @@ function calculateRemaining(targetDateStr: string): TimeRemaining {
     targetTime = new Date('2027-05-23T09:30:00').getTime();
   }
 
-  const now = Date.now();
-  const diffMs = Math.max(0, targetTime - now);
+  const diffMs = Math.max(0, targetTime - currentTimestamp);
 
   const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -99,17 +99,28 @@ export function PrelimsCountdownCard({ isDark: propIsDark, onOpenPrelims }: Prel
   const theme = isDark ? BW_THEME.dark : BW_THEME.light;
   const isDesktop = width >= 640;
 
-  const [timeLeft, setTimeLeft] = useState<TimeRemaining>(() =>
-    calculateRemaining(config.targetExamDate || '2027-05-23')
-  );
+  const targetYear = config.targetExamYear || 2027;
+  const effectiveTargetDate = useMemo(() => {
+    if (config.targetExamDate && config.targetExamDate.startsWith(String(targetYear))) {
+      return config.targetExamDate;
+    }
+    return getPrelimsDateForYear(targetYear);
+  }, [config.targetExamDate, targetYear]);
+
+  const [currentTimestamp, setCurrentTimestamp] = useState<number>(() => Date.now());
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(calculateRemaining(config.targetExamDate || '2027-05-23'));
+      setCurrentTimestamp(Date.now());
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [config.targetExamDate]);
+  }, []);
+
+  const timeLeft = useMemo(
+    () => calculateRemaining(effectiveTargetDate, currentTimestamp),
+    [effectiveTargetDate, currentTimestamp]
+  );
 
   const units = [
     { label: 'DAYS', value: timeLeft.days, isHero: true },

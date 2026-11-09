@@ -36,6 +36,7 @@ import { BW_THEME } from '@/constants/bwTheme';
 import { PALETTE, Typography } from '@/constants/colors';
 import { useStudy } from '@/context/StudyContext';
 import { useAppTheme } from '@/context/ThemeContext';
+import { getPrelimsDateForYear } from '@/services/studyStorage';
 import { ExamMedium, PreparationStage, SocialCategory } from '@/types/study';
 import { EditProfileScreen } from './EditProfileScreen';
 import { SettingsScreen } from './SettingsScreen';
@@ -51,7 +52,7 @@ import {
 
 export interface ProfileViewProps {
   isDark?: boolean;
-  onNavigateToTab?: (tabKey: any) => void;
+  onNavigateToTab?: (tabKey: any, params?: { testId?: string; openHistory?: boolean }) => void;
   onToggleTheme?: () => void;
   onBack?: () => void;
 }
@@ -220,7 +221,12 @@ export function ProfileView({
       if (activeEditField === 'targetExamYear') {
         const num = parseInt(val, 10);
         if (!isNaN(num)) {
-          await updateConfig({ targetExamYear: num });
+          const dateStr = getPrelimsDateForYear(num);
+          await updateConfig({
+            targetExamYear: num,
+            targetExamDate: dateStr,
+            examPhase: `UPSC CSE ${num} • Prelims & Mains`,
+          });
         }
       } else if (activeEditField === 'optionalSubject') {
         await updateConfig({ optionalSubject: val.trim() });

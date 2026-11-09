@@ -43,6 +43,9 @@ export function TestHistoryModal({
     let active = true;
 
     if (visible) {
+      Promise.resolve().then(() => {
+        if (active) setLoading(true);
+      });
       MockTestService.getRecentMockTests(25)
         .then((recent) => {
           if (!active) return;

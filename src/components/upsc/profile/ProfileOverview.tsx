@@ -19,6 +19,7 @@ import {
 } from 'lucide-react-native';
 import { BW_THEME } from '@/constants/bwTheme';
 import { useStudy } from '@/context/StudyContext';
+import { getPrelimsDateForYear } from '@/services/studyStorage';
 
 interface ProfileOverviewProps {
   isDark?: boolean;
@@ -60,7 +61,11 @@ export function ProfileOverview({ isDark: propIsDark, onNavigateToTab }: Profile
     .join('');
 
   // Target year countdown estimation
-  const examDate = new Date(config.targetExamDate || `${targetYear}-05-23`);
+  const targetDateStr =
+    config.targetExamDate && config.targetExamDate.startsWith(String(targetYear))
+      ? config.targetExamDate
+      : getPrelimsDateForYear(targetYear);
+  const examDate = new Date(targetDateStr);
   const now = new Date();
   const diffDays = Math.max(0, Math.ceil((examDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)));
 

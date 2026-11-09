@@ -34,6 +34,9 @@ import {
   YearRangePickerModal,
   YearRangeSelection,
 } from '@/components/prelims/YearRangePickerModal';
+import { TopicPyqSearchBar } from '@/components/common/TopicPyqSearchBar';
+import { TopicPracticeWorkspaceModal } from '@/components/common/TopicPracticeWorkspaceModal';
+import { PYQExamType } from '@/services/pyqMatchingService';
 
 export function PrelimsScreen({
   isDark: propIsDark,
@@ -99,6 +102,17 @@ function PrelimsScreenContent({
   // Generator modal state
   const [generatorModalVisible, setGeneratorModalVisible] = useState(false);
 
+  // Intelligent Topic-Based PYQ Search & Practice Engine modal state
+  const [topicEngineVisible, setTopicEngineVisible] = useState(false);
+  const [topicEngineQuery, setTopicEngineQuery] = useState('Judicial Review');
+  const [topicEngineScope, setTopicEngineScope] = useState<'ALL' | PYQExamType>('PRELIMS');
+
+  const handleOpenTopicEngine = (topicTitle: string, scope: 'ALL' | PYQExamType = 'PRELIMS') => {
+    setTopicEngineQuery(topicTitle);
+    setTopicEngineScope(scope);
+    setTopicEngineVisible(true);
+  };
+
   // User attempt records
   const [rawAttempts, setRawAttempts] = useState<QuestionAttemptItem[]>([]);
 
@@ -116,7 +130,7 @@ function PrelimsScreenContent({
     return () => {
       active = false;
     };
-  }, [practiceModalVisible, quizModalVisible]);
+  }, [practiceModalVisible, quizModalVisible, topicEngineVisible]);
 
   // Map user attempts to canonical subjects
   const solvedStatsBySubjectId = useMemo(() => {
@@ -340,18 +354,26 @@ function PrelimsScreenContent({
             /* VIEW 1: Main Prelims Preparation Page (Reference Image)   */
             /* ========================================================= */
             <>
-              {/* Header with Back button, Title, Subtitle, Year button, Search, and Paper Selection Tabs */}
+              {/* Header with Back button, Title, Subtitle, Year button, and Paper Selection Tabs */}
               <PrelimsHeader
                 isDark={isDark}
                 onBack={onBack}
                 onToggleTheme={onToggleTheme}
                 yearRangeLabel={yearRangeLabel}
                 onOpenYearPicker={() => setYearPickerVisible(true)}
-                searchQuery={searchQuery}
-                onSearchChange={setSearchQuery}
                 selectedPaperTab={selectedPaperTab}
                 onSelectPaperTab={setSelectedPaperTab}
               />
+
+              {/* Single Clean Google-Style Topic-Based PYQ Search Bar */}
+              <View style={styles.searchBarWrapper}>
+                <TopicPyqSearchBar
+                  isDark={isDark}
+                  defaultExamScope="PRELIMS"
+                  onSelectTopic={(topic, scope) => handleOpenTopicEngine(topic, scope || 'PRELIMS')}
+                  onQueryChange={setSearchQuery}
+                />
+              </View>
 
               {/* Compact Overview Card with File Icon, Total Questions, Solved & Circular Gauge */}
               <PrelimsOverviewCard
@@ -518,6 +540,14 @@ function PrelimsScreenContent({
         onClose={() => setGeneratorModalVisible(false)}
         onGenerateQuiz={handleLaunchGeneratedQuiz}
       />
+
+      <TopicPracticeWorkspaceModal
+        visible={topicEngineVisible}
+        initialTopicQuery={topicEngineQuery}
+        initialExamScope={topicEngineScope}
+        isDark={isDark}
+        onClose={() => setTopicEngineVisible(false)}
+      />
     </View>
   );
 }
@@ -537,6 +567,10 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: MaxContentWidth,
     paddingHorizontal: 0,
+  },
+  searchBarWrapper: {
+    paddingHorizontal: 20,
+    marginBottom: 4,
   },
   paperTabsContainer: {
     flexDirection: 'row',

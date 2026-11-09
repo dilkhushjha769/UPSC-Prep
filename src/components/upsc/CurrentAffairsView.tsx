@@ -1133,6 +1133,14 @@ export function CurrentAffairsView({ isDark: propIsDark }: CurrentAffairsViewPro
                       <Text style={styles.heroHeadlineSerifText} numberOfLines={3}>
                         {currentDailyEvent.headline}
                       </Text>
+                      {currentDailyEvent.summaryBullets?.[0] || currentDailyEvent.whyItMatters ? (
+                        <Text style={styles.heroWhyInNewsSubtext} numberOfLines={2}>
+                          {(currentDailyEvent.summaryBullets?.[0] || currentDailyEvent.whyItMatters || '').replace(
+                            /\*\*/g,
+                            ''
+                          )}
+                        </Text>
+                      ) : null}
                     </Pressable>
 
                     {/* Bottom Action Row: Gold [Read analysis ->] Button + Segmented Progress Bars */}

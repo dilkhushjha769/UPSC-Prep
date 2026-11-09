@@ -955,6 +955,55 @@ export async function fetchFeedWithRetry(
   return { ok: false, error: lastError };
 }
 
+/**
+ * Extracts full readable article text, og:image / twitter:image, and meta description
+ * from an article HTML page (Stage 2 of the scalable pipeline).
+ */
+export function extractArticleFullTextAndMeta(
+  html: string,
+  baseUrl: string
+): {
+  bodyText: string;
+  ogImage: string | null;
+  metaDescription: string;
+} {
+  if (!html) {
+    return { bodyText: '', ogImage: null, metaDescription: '' };
+  }
+
+  const ogImgMatch =
+    html.match(/<meta[^>]+(?:property|name)=["'](?:og:image(?::secure_url)?|twitter:image)["'][^>]*content=["']([^"']+)["']/i) ||
+    html.match(/<meta[^>]+content=["']([^"']+)["'][^>]*(?:property|name)=["'](?:og:image|twitter:image)["']/i);
+  let ogImage: string | null = null;
+  if (ogImgMatch?.[1]) {
+    try {
+      ogImage = new URL(ogImgMatch[1].replace(/&amp;/g, '&').trim(), baseUrl).toString();
+    } catch {
+      ogImage = null;
+    }
+  }
+
+  const descMatch =
+    html.match(/<meta[^>]+(?:property|name)=["'](?:og:description|description)["'][^>]*content=["']([^"']+)["']/i) ||
+    html.match(/<meta[^>]+content=["']([^"']+)["'][^>]*(?:property|name)=["'](?:og:description|description)["']/i);
+  const metaDescription = descMatch?.[1] ? cleanXmlEntities(descMatch[1]).slice(0, 600) : '';
+
+  const stripped = html
+    .replace(/<(script|style|noscript|svg|nav|footer|header|aside|form)[^>]*>[\s\S]*?<\/\1>/gi, ' ');
+  const paragraphs: string[] = [];
+  const pRegex = /<p[^>]*>([\s\S]*?)<\/p>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = pRegex.exec(stripped)) !== null && paragraphs.length < 30) {
+    const text = cleanXmlEntities(m[1]);
+    if (text.length >= 45 && !/^(copyright|all rights reserved|subscribe to|follow us|also read)/i.test(text)) {
+      paragraphs.push(text);
+    }
+  }
+
+  const bodyText = paragraphs.join('\n\n').slice(0, 8000) || metaDescription;
+  return { bodyText, ogImage, metaDescription };
+}
+
 // =============================================================================
 // 6. GEMINI AI UPSC ANALYSIS ENGINE (WITH DETERMINISTIC VERIFIED FALLBACK)
 // =============================================================================

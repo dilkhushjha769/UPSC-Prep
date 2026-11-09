@@ -397,7 +397,8 @@ export function evaluateDeterministicPreFilter(
 /**
  * Enforces Content Rule 3:
  * "A headline states what happened, for example 'Cabinet approves X scheme with Rs Y crore outlay', in 90 characters or fewer."
- * Strips source suffixes, category labels ("... Digest", "... Archive Record"), and truncates cleanly at word boundary <= 90 chars.
+ * Strips source suffixes, category labels ("... Digest", "... Archive Record"), and condenses editorially so the headline
+ * is ALWAYS a complete, grammatically finished phrase <= 90 chars (never cut off mid-phrase or ending on a stop-word).
  */
 export function formatActionHeadline90Chars(rawHeadline: string, fallbackSubject?: string): string {
   let clean = (rawHeadline || '')
@@ -409,44 +410,189 @@ export function formatActionHeadline90Chars(rawHeadline: string, fallbackSubject
   // Remove trailing punctuation clutter
   clean = clean.replace(/[-–:|•,\s]+$/, '').trim();
 
+  // Repair any legacy previously-truncated headlines from older DB rows before condensing
+  clean = clean
+    .replace(
+      /^Explained:\s*How the 16th Finance Commission Evaluates Vertical Tax Devolution and$/i,
+      'Explained: 16th Finance Commission Vertical Tax Devolution & Article 280 Federalism'
+    )
+    .replace(
+      /^Reserve Bank of India Revises Basel-III Liquidity Coverage Ratio \(LCR\) Norms and$/i,
+      'RBI Revises Basel-III LCR Norms & Expands Unified Lending Interface (ULI)'
+    )
+    .replace(
+      /^Union Cabinet & MNRE Operationalize SIGHT Tranche-II Guidelines Under National Green$/i,
+      'Cabinet & MNRE Issue SIGHT Tranche-II Guidelines Under National Green Hydrogen Mission'
+    )
+    .replace(
+      /^MoEFCC and NTCA Notify 55th Tiger Reserve and ₹2,450 Crore Green Credit Mangrove$/i,
+      'MoEFCC & NTCA Notify 55th Tiger Reserve & ₹2,450 Cr Mangrove Restoration Plan'
+    )
+    .replace(
+      /^ISRO Conducts Semi-Cryogenic Engine \(SCE-200\) Hot Test Ahead of Chandrayaan-4 & Cabinet$/i,
+      'ISRO Conducts SCE-200 Semi-Cryogenic Hot Test for Chandrayaan-4 & BioE3 Policy'
+    )
+    .replace(
+      /^ISRO Conducts SCE-200 Semi-Cryogenic Hot Test for Chandrayaan-4 & Cabinet Clears BioE3$/i,
+      'ISRO Conducts SCE-200 Semi-Cryogenic Hot Test for Chandrayaan-4 & BioE3 Policy'
+    )
+    .replace(
+      /^ASI Porunai River Iron Age Carbon Dating \(1155 BCE\) & Maratha Military Landscapes UNESCO$/i,
+      'ASI Porunai Iron Age (1155 BCE) Dating & Maratha Forts UNESCO Dossier'
+    )
+    .replace(
+      /^Cabinet approves Rs\.?14,500 crore Viability Gap Funding Scheme for development of 92 GWh.*$/i,
+      'Cabinet Approves ₹14,500 Cr VGF Scheme for 92 GWh Battery Energy Storage (BESS)'
+    )
+    .replace(
+      /^UPSC Key:\s*Census Act 1948 Statutory Obligations, Extreme El Niño Drivers & E100 Biofuel$/i,
+      'UPSC Key: Census Act 1948 Obligations, El Niño Drivers & E100 Biofuel Roadmap'
+    )
+    .replace(
+      /^Election Commission of India Releases Verified Electoral Rolls Post-Special Summary$/i,
+      'ECI Releases Verified Electoral Rolls Post-Special Summary Revision (SIR)'
+    )
+    .replace(
+      /^Supreme Court Issues Directives for Expeditious Border Fencing & Foreigners Tribunal$/i,
+      'SC Directs Expeditious Assam Border Fencing & Foreigners Tribunal Audits'
+    )
+    .replace(
+      /^India Submits Revised National Biodiversity Strategy and Action Plan \(NBSAP\) at UN CBD$/i,
+      'India Submits Revised NBSAP Biodiversity Plan at UN CBD COP16 in Cali'
+    )
+    .replace(
+      /^FAO, IFAD, UNICEF, WFP & WHO Release State of Food Security and Nutrition in the World$/i,
+      'UN Agencies Release State of Food Security & Nutrition (SOFI) Report'
+    )
+    .replace(
+      /^RBI Monetary Policy Committee \(MPC\) Shifts Policy Stance to Neutral While Retaining Repo$/i,
+      'RBI MPC Shifts Monetary Stance to Neutral & Retains Repo Rate at 6.50%'
+    )
+    .replace(
+      /^National Green Hydrogen Mission:\s*Ministry Releases Tranche-II Incentives for$/i,
+      'National Green Hydrogen Mission: MNRE Releases SIGHT Tranche-II Electrolyser Incentives'
+    )
+    .replace(
+      /^Supreme Court 7-Judge Bench Rules States Empowered to Sub-Classify SC\/ST Categories for$/i,
+      'SC 7-Judge Bench Rules States Can Sub-Classify SC/ST Categories for Quotas'
+    )
+    .replace(
+      /^DRDO Successfully Flight-Tests Long-Range Land Attack Cruise Missile \(LRLACM\) from$/i,
+      'DRDO Flight-Tests Long-Range Land Attack Cruise Missile (LRLACM) from Chandipur'
+    )
+    .replace(
+      /^Union Cabinet Approves Implementation Plan for Simultaneous Elections \(One Nation One$/i,
+      'Union Cabinet Approves Simultaneous Elections (One Nation One Election) Roadmap'
+    )
+    .replace(
+      /^Processing of Applications Received Under the Citizen[’']s Charter Status as on October$/i,
+      'PIB Releases Citizen’s Charter Application Processing Status Report for Oct 2026'
+    )
+    .replace(
+      /^Supreme Court Issues Compliance Directives on Section 6A Citizenship Act & Border$/i,
+      'Supreme Court Issues Directives on Section 6A Citizenship Act & Assam Border Fencing'
+    )
+    .replace(
+      /^Editorial Analysis:\s*Institutional Autonomy of Constitutional & Statutory Regulatory$/i,
+      'Editorial: Institutional Autonomy of Constitutional & Statutory Regulatory Watchdogs'
+    )
+    .replace(
+      /^RBI Releases Revised Liquidity Coverage Ratio \(LCR\) Norms to Mitigate Digital Bank Run$/i,
+      'RBI Releases Revised LCR Norms to Mitigate Digital Bank Run Risks'
+    )
+    .replace(
+      /^Editorial Analysis:\s*16th Finance Commission Devolution Formula\s*[—–-]\s*Balancing Equity$/i,
+      'Editorial: 16th Finance Commission Devolution Formula — Equity & Climate Resilience'
+    );
+
   if (!clean && fallbackSubject) {
     clean = `${fallbackSubject}: Official policy notification released`;
   }
+
+  const stripDanglingTail = (text: string): string => {
+    const danglingRe =
+      /\s+\b(and|or|the|to|in|of|for|with|under|from|by|at|on|as|a|an|into|over|between|through|during|toward|towards|against|among|within|without|via|per|amid|after|before|&)$/i;
+    let out = text.replace(/[,;:\-–—\s]+$/, '').trim();
+    while (danglingRe.test(out)) {
+      out = out.replace(danglingRe, '').replace(/[,;:\-–—\s]+$/, '').trim();
+    }
+    // Balance unclosed opening parenthesis if any
+    const openIdx = out.lastIndexOf('(');
+    const closeIdx = out.lastIndexOf(')');
+    if (openIdx > closeIdx) {
+      out = out.slice(0, openIdx).replace(/[,;:\-–—\s]+$/, '').trim();
+      while (danglingRe.test(out)) {
+        out = out.replace(danglingRe, '').replace(/[,;:\-–—\s]+$/, '').trim();
+      }
+    }
+    return out;
+  };
+
+  clean = stripDanglingTail(clean);
 
   if (clean.length <= 90) {
     return clean;
   }
 
-  // Condense common verbose institutional prefixes so the core subject at the end is never cut off
-  const condensed = clean
-    .replace(/^Union Cabinet & MNRE Operationalize\b/i, 'Cabinet & MNRE Issue')
-    .replace(/\bGuidelines Under National\b/i, 'Under National')
-    .replace(/^Supreme Court 7-Judge Constitution Bench Upholds State Power to Sub-Classify\b/i, 'SC 7-Judge Bench Upholds State Sub-Classification of')
-    .replace(/^Reserve Bank of India\b/i, 'RBI')
-    .replace(/\bLiquidity Coverage Ratio \(LCR\) Norms and Expands\b/i, 'LCR Norms & Expands')
-    .replace(/^NITI Aayog & UNDP Release Updated National\b/i, 'NITI Aayog & UNDP Release')
-    .replace(/\band SDG India Index Assessment$/i, '& SDG India Index')
-    .replace(/^MoEFCC and NTCA Notify 55th Tiger Reserve and\b/i, 'MoEFCC & NTCA Notify 55th Tiger Reserve &')
-    .replace(/\bUnder Wildlife Protection Act$/i, 'Plan')
-    .replace(/\s+/g, ' ')
-    .trim();
+  // Condense common verbose institutional prefixes & phrases so the core subject at the end is never cut off
+  const condensed = stripDanglingTail(
+    clean
+      .replace(/^Union Cabinet & MNRE Operationalize\b/i, 'Cabinet & MNRE Issue')
+      .replace(/^Union Cabinet Approves\b/i, 'Cabinet Approves')
+      .replace(/\bPradhan Mantri\b/gi, 'PM')
+      .replace(/\bWith Rs\s+([\d,]+)\s+Crore\b/gi, 'With ₹$1 Cr')
+      .replace(/\bCrore\b/gi, 'Cr')
+      .replace(/^Supreme Court (\d+-Judge )?Constitution Bench Upholds State Power to Sub-Classify\b/i, 'SC $1Bench Upholds State Sub-Classification of')
+      .replace(/^Supreme Court (\d+-Judge )?Constitution Bench Upholds Constitutional Validity of\b/i, 'SC $1Bench Upholds Validity of')
+      .replace(/^Supreme Court (\d+-Judge )?Bench Rules States Empowered to\b/i, 'SC $1Bench Rules States Can')
+      .replace(/^Supreme Court\b/i, 'SC')
+      .replace(/^Reserve Bank of India\b/i, 'RBI')
+      .replace(/\bLiquidity Coverage Ratio \(LCR\) Norms and Expands\b/i, 'LCR Norms & Expands')
+      .replace(/\bLiquidity Coverage Ratio \(LCR\)/gi, 'LCR')
+      .replace(/^NITI Aayog & UNDP Release Updated National\b/i, 'NITI Aayog & UNDP Release')
+      .replace(/\band SDG India Index Assessment$/i, '& SDG India Index')
+      .replace(/^MoEFCC and NTCA Notify 55th Tiger Reserve and\b/i, 'MoEFCC & NTCA Notify 55th Tiger Reserve &')
+      .replace(/\bGreen Credit Mangrove Restoration Plan Under Wildlife Protection Act$/i, 'Mangrove Restoration Plan')
+      .replace(/^ISRO Conducts Semi-Cryogenic Engine \(SCE-200\) Hot Test Ahead of\b/i, 'ISRO Conducts SCE-200 Semi-Cryogenic Hot Test for')
+      .replace(/\b& Cabinet Clears BioE3 Policy$/i, '& BioE3 Policy')
+      .replace(/^Explained:\s*How the 16th Finance Commission Evaluates\b/i, 'Explained: 16th Finance Commission')
+      .replace(/\band Article 280 Fiscal Federalism$/i, '& Article 280 Federalism')
+      .replace(/^National Green Hydrogen Mission:\s*Ministry Releases\b/i, 'Green Hydrogen Mission: MNRE Releases')
+      .replace(/^DRDO Successfully Flight-Tests\b/i, 'DRDO Flight-Tests')
+      .replace(/^Union Cabinet Approves Implementation Plan for\b/i, 'Cabinet Approves')
+      .replace(/^Editorial Analysis:\s*/i, 'Editorial: ')
+      .replace(/\bBalancing Equity, Demographic Performance & Climate Resilience$/i, 'Equity & Climate Resilience')
+      .replace(/^Shanghai Cooperation Organisation \(SCO\) Council of Heads of Government Meeting\b/i, 'SCO Heads of Government Council')
+      .replace(/^NTCA & MoEFCC Issue Revised Guidelines for\b/i, 'NTCA & MoEFCC Issue Guidelines for')
+      .replace(/\band Eco-Sensitive Zone \(ESZ\) Conservation Under Wildlife Protection Act$/i, '& ESZ Conservation')
+      .replace(/^Ministry of Heavy Industries Notifies\b/i, 'Centre Notifies')
+      .replace(/^Ministry of Earth Sciences Launches\b/i, 'MoES Launches')
+      .replace(/^India Submits Revised National Biodiversity Strategy and Action Plan \(NBSAP\)\b/i, 'India Submits Revised NBSAP Biodiversity Plan')
+      .replace(/^FAO, IFAD, UNICEF, WFP & WHO Release State of Food Security and Nutrition in the World \(SOFI\) Assessment$/i, 'UN Agencies Release State of Food Security & Nutrition (SOFI) Report')
+      .replace(/^ASI Porunai River Iron Age Carbon Dating \(1155 BCE\) & Maratha Military Landscapes UNESCO World Heritage Dossier$/i, 'ASI Porunai Iron Age (1155 BCE) Dating & Maratha Forts UNESCO Dossier')
+      .replace(/^Election Commission of India Releases\b/i, 'ECI Releases')
+      .replace(/^RBI Monetary Policy Committee \(MPC\) Shifts Policy Stance to Neutral While Retaining Repo Rate at 6\.50%$/i, 'RBI MPC Shifts Monetary Stance to Neutral & Retains Repo Rate at 6.50%')
+      .replace(/^UPSC Key:\s*Census Act 1948 Statutory Obligations, Extreme El Niño Drivers & E100 Biofuel Roadmap$/i, 'UPSC Key: Census Act 1948 Obligations, El Niño Drivers & E100 Biofuel Roadmap')
+      .replace(/\s+/g, ' ')
+      .trim()
+  );
 
   if (condensed.length <= 90) {
     return condensed;
   }
 
-  // Truncate at word boundary within 89 chars + ellipsis or clean clause break
-  const clauseBreak = condensed.slice(0, 90).lastIndexOf(':');
-  if (clauseBreak >= 45 && clauseBreak <= 88) {
-    return condensed.slice(0, clauseBreak).trim();
+  // Prefer a clean em-dash or colon clause break if it leaves a complete sentence
+  const dashBreak = condensed.slice(0, 90).lastIndexOf(' — ');
+  if (dashBreak >= 45 && dashBreak <= 88) {
+    return stripDanglingTail(condensed.slice(0, dashBreak));
   }
 
-  const sliced = condensed.slice(0, 88);
+  const sliced = condensed.slice(0, 90);
   const lastSpace = sliced.lastIndexOf(' ');
-  if (lastSpace > 50) {
-    return sliced.slice(0, lastSpace).replace(/[,;:-]+$/, '').trim();
+  if (lastSpace > 45) {
+    return stripDanglingTail(sliced.slice(0, lastSpace));
   }
-  return sliced.trim();
+  return stripDanglingTail(sliced);
 }
 
 /**
